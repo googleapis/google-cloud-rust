@@ -39,11 +39,13 @@ diagnose.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:speech}}
+
+{{#include ../samples/Cargo.toml:lro}}
 ```
 
 And:
@@ -55,8 +57,8 @@ And:
 ## Starting a long-running operation
 
 To start a long-running operation first initialize a client as
-[usual](./initialize_a_client.md) and then make the RPC. But first, add some
-use declarations to avoid the long package names:
+[usual](./initialize_a_client.md) and then make the RPC. But first, add some use
+declarations to avoid the long package names:
 
 ```rust,ignore
 {{#include ../samples/src/lro.rs:use}}
@@ -115,7 +117,9 @@ Finally, we need to poll this promise until it completes:
 We will examine the `manual_poll_lro()` function in the
 [Manually polling a long-running operation] section.
 
-You can find the [full function](#automatically-polling-a-long-running-operation-complete-code) below.
+You can find the
+[full function](#automatically-polling-a-long-running-operation-complete-code)
+below.
 
 ## Automatically polling a long-running operation
 
@@ -153,7 +157,9 @@ And then we poll until the operation is completed and print the result:
 {{#include ../samples/src/lro.rs:automatic-print}}
 ```
 
-You can find the [full function](#automatically-polling-a-long-running-operation-complete-code) below.
+You can find the
+[full function](#automatically-polling-a-long-running-operation-complete-code)
+below.
 
 ## Polling a long-running operation
 
@@ -183,15 +189,16 @@ The poller uses a policy to determine what polling errors are transient and may
 resolve themselves. The [Configuring polling policies] chapter covers this topic
 in detail.
 
-You can find the [full function](#polling-a-long-running-operation-complete-code) below.
+You can find the
+[full function](#polling-a-long-running-operation-complete-code) below.
 
 ## Manually polling a long-running operation
 
 In general, we recommend you use the previous two approaches in your
 application. Manually polling a long-running operation can be quite tedious, and
-it is easy to get the types involved wrong. If you do need to manually poll
-a long-running operation this guide will walk you through the required steps.
-You may want to read the [Operation][longrunning::model::operation] message
+it is easy to get the types involved wrong. If you do need to manually poll a
+long-running operation this guide will walk you through the required steps. You
+may want to read the [Operation][longrunning::model::operation] message
 reference documentation, as some of the fields and types are used below.
 
 Recall that we started the long-running operation using the client:
@@ -230,8 +237,8 @@ to check for both. First check for errors:
 ```
 
 The error type is a [Status][rpc::model::status] message type. This does **not**
-implement the standard `Error` interface, you need to manually convert that to
-a valid error. You can use [ServiceError::from] to perform this conversion.
+implement the standard `Error` interface, you need to manually convert that to a
+valid error. You can use [Error::service] to perform this conversion.
 
 Assuming the result is successful, you need to extract the response type. You
 can find this type in the documentation for the LRO method, or by reading the
@@ -277,11 +284,12 @@ And then poll the operation to get its new status:
 {{#rustdoc_include ../samples/src/lro.rs:manual-poll-again}}
 ```
 
-For simplicity, we have chosen to ignore all errors. In your application you
-may choose to treat only a subset of the errors as non-recoverable, and may want
-to limit the number of polling attempts if these fail.
+For simplicity, we have chosen to ignore all errors. In your application you may
+choose to treat only a subset of the errors as non-recoverable, and may want to
+limit the number of polling attempts if these fail.
 
-You can find the [full function](#manually-polling-a-long-running-operation-complete-code) below.
+You can find the
+[full function](#manually-polling-a-long-running-operation-complete-code) below.
 
 ## Starting a long-running operation: complete code
 
@@ -316,12 +324,12 @@ You can find the [full function](#manually-polling-a-long-running-operation-comp
 
 [batch recognize]: https://cloud.google.com/speech-to-text/v2/docs/batch-recognize
 [configuring polling policies]: ./configuring_polling_policies.md
+[error::service]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.Error.html
 [exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
 [longrunning::model::operation]: https://docs.rs/google-cloud-longrunning/latest/google_cloud_longrunning/model/struct.Operation.html
 [manually polling a long-running operation]: #manually-polling-a-long-running-operation
 [recognizer]: https://cloud.google.com/speech-to-text/v2/docs/recognizers
 [rpc::model::status]: https://docs.rs/google-cloud-rpc/latest/google_cloud_rpc/model/struct.Status.html
-[serviceerror::from]: https://docs.rs/google-cloud-gax/latest/google_cloud_gax/error/struct.ServiceError.html#impl-From%3CStatus%3E-for-ServiceError-1
 [short model]: https://cloud.google.com/speech-to-text/v2/docs/transcription-model
 [speech-to-text v2]: https://cloud.google.com/speech-to-text/v2
 [transcribe speech to text by using the command line]: https://cloud.google.com/speech-to-text/v2/docs/transcribe-api

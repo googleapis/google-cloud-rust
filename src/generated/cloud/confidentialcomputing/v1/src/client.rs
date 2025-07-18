@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Confidential Computing API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
 /// let client = ConfidentialComputing::builder().build().await?;
 /// // use `client` to make requests to the Confidential Computing API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `ConfidentialComputing` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConfidentialComputing` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ConfidentialComputing {
-    inner: Arc<dyn super::stub::dynamic::ConfidentialComputing>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConfidentialComputing>,
 }
 
 impl ConfidentialComputing {
@@ -72,7 +69,7 @@ impl ConfidentialComputing {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
     /// let client = ConfidentialComputing::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::confidential_computing::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,71 +86,58 @@ impl ConfidentialComputing {
         T: super::stub::ConfidentialComputing + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ConfidentialComputing>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConfidentialComputing>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConfidentialComputing> {
+    ) -> gax::client_builder::Result<impl super::stub::ConfidentialComputing> {
         super::transport::ConfidentialComputing::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConfidentialComputing> {
+    ) -> gax::client_builder::Result<impl super::stub::ConfidentialComputing> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConfidentialComputing::new)
     }
 
     /// Creates a new Challenge in a given project and location.
-    pub fn create_challenge(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::CreateChallenge {
+    pub fn create_challenge(&self) -> super::builder::confidential_computing::CreateChallenge {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Verifies the provided attestation info, returning a signed OIDC token.
-    pub fn verify_attestation(
-        &self,
-        challenge: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::VerifyAttestation {
+    pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
-            .set_challenge(challenge.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::ListLocations {
+    pub fn list_locations(&self) -> super::builder::confidential_computing::ListLocations {
         super::builder::confidential_computing::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::confidential_computing::GetLocation {
+    pub fn get_location(&self) -> super::builder::confidential_computing::GetLocation {
         super::builder::confidential_computing::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

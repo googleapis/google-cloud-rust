@@ -16,9 +16,8 @@
 
 pub mod api_keys {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ApiKeys][super::super::client::ApiKeys].
+    /// A builder for [ApiKeys][crate::client::ApiKeys].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod api_keys {
     /// let client = builder
     ///     .with_endpoint("https://apikeys.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod api_keys {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ApiKeys;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ApiKeys] request builders.
+    /// Common implementation for [crate::client::ApiKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiKeys>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod api_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,29 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::create_key][super::super::client::ApiKeys::create_key] calls.
+    /// The request builder for [ApiKeys::create_key][crate::client::ApiKeys::create_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::CreateKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -93,7 +112,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_key][super::super::client::ApiKeys::create_key].
+        /// on [create_key][crate::client::ApiKeys::create_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_key(self.0.request, self.0.options)
@@ -102,8 +121,8 @@ pub mod api_keys {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `create_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -128,7 +147,12 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_metadata_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyRequest::parent].
@@ -142,8 +166,22 @@ pub mod api_keys {
         /// Sets the value of [key][crate::model::CreateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
-            self.0.request.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = v.map(|x| x.into());
             self
         }
 
@@ -161,12 +199,32 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::list_keys][super::super::client::ApiKeys::list_keys] calls.
+    /// The request builder for [ApiKeys::list_keys][crate::client::ApiKeys::list_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::ListKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,8 +248,8 @@ pub mod api_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error>
         {
@@ -203,6 +261,15 @@ pub mod api_keys {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
@@ -239,12 +306,28 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::get_key][super::super::client::ApiKeys::get_key] calls.
+    /// The request builder for [ApiKeys::get_key][crate::client::ApiKeys::get_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::GetKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,12 +367,28 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::get_key_string][super::super::client::ApiKeys::get_key_string] calls.
+    /// The request builder for [ApiKeys::get_key_string][crate::client::ApiKeys::get_key_string] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::GetKeyString;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKeyString {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKeyString(RequestBuilder<crate::model::GetKeyStringRequest>);
 
     impl GetKeyString {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,12 +428,29 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::update_key][super::super::client::ApiKeys::update_key] calls.
+    /// The request builder for [ApiKeys::update_key][crate::client::ApiKeys::update_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::UpdateKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -355,7 +471,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_key][super::super::client::ApiKeys::update_key].
+        /// on [update_key][crate::client::ApiKeys::update_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_key(self.0.request, self.0.options)
@@ -364,8 +480,8 @@ pub mod api_keys {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `update_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -390,23 +506,51 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_metadata_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
-            self.0.request.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -418,12 +562,29 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::delete_key][super::super::client::ApiKeys::delete_key] calls.
+    /// The request builder for [ApiKeys::delete_key][crate::client::ApiKeys::delete_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::DeleteKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -444,7 +605,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_key][super::super::client::ApiKeys::delete_key].
+        /// on [delete_key][crate::client::ApiKeys::delete_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_key(self.0.request, self.0.options)
@@ -453,8 +614,8 @@ pub mod api_keys {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -479,7 +640,12 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_metadata_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteKeyRequest::name].
@@ -504,12 +670,29 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::undelete_key][super::super::client::ApiKeys::undelete_key] calls.
+    /// The request builder for [ApiKeys::undelete_key][crate::client::ApiKeys::undelete_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::UndeleteKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteKey(RequestBuilder<crate::model::UndeleteKeyRequest>);
 
     impl UndeleteKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -530,7 +713,7 @@ pub mod api_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_key][super::super::client::ApiKeys::undelete_key].
+        /// on [undelete_key][crate::client::ApiKeys::undelete_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_key(self.0.request, self.0.options)
@@ -539,8 +722,8 @@ pub mod api_keys {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `undelete_key`.
-        pub fn poller(self) -> impl lro::Poller<crate::model::Key, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::Key, wkt::Empty>;
+        pub fn poller(self) -> impl lro::Poller<crate::model::Key, ()> {
+            type Operation = lro::internal::Operation<crate::model::Key, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -565,7 +748,12 @@ pub mod api_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_metadata_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::UndeleteKeyRequest::name].
@@ -584,12 +772,28 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::lookup_key][super::super::client::ApiKeys::lookup_key] calls.
+    /// The request builder for [ApiKeys::lookup_key][crate::client::ApiKeys::lookup_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::LookupKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupKey(RequestBuilder<crate::model::LookupKeyRequest>);
 
     impl LookupKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -629,12 +833,28 @@ pub mod api_keys {
         }
     }
 
-    /// The request builder for [ApiKeys::get_operation][super::super::client::ApiKeys::get_operation] calls.
+    /// The request builder for [ApiKeys::get_operation][crate::client::ApiKeys::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apikeys_v2::builder;
+    /// use builder::api_keys::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

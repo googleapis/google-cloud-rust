@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Composer API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
 /// let client = Environments::builder().build().await?;
 /// // use `client` to make requests to the Cloud Composer API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Environments` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Environments` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Environments {
-    inner: Arc<dyn super::stub::dynamic::Environments>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Environments>,
 }
 
 impl Environments {
@@ -72,7 +69,7 @@ impl Environments {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_orchestration_airflow_service_v1::client::Environments;
     /// let client = Environments::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::environments::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::environments::client::Factory)
@@ -87,33 +84,35 @@ impl Environments {
         T: super::stub::Environments + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Environments>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Environments>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Environments> {
+    ) -> gax::client_builder::Result<impl super::stub::Environments> {
         super::transport::Environments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Environments> {
+    ) -> gax::client_builder::Result<impl super::stub::Environments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Environments::new)
@@ -130,29 +129,18 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_environment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::CreateEnvironment {
+    pub fn create_environment(&self) -> super::builder::environments::CreateEnvironment {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get an existing environment.
-    pub fn get_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetEnvironment {
-        super::builder::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_environment(&self) -> super::builder::environments::GetEnvironment {
+        super::builder::environments::GetEnvironment::new(self.inner.clone())
     }
 
     /// List environments.
-    pub fn list_environments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListEnvironments {
+    pub fn list_environments(&self) -> super::builder::environments::ListEnvironments {
         super::builder::environments::ListEnvironments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update an environment.
@@ -166,12 +154,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::UpdateEnvironment {
+    pub fn update_environment(&self) -> super::builder::environments::UpdateEnvironment {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Delete an environment.
@@ -185,39 +169,23 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::DeleteEnvironment {
+    pub fn delete_environment(&self) -> super::builder::environments::DeleteEnvironment {
         super::builder::environments::DeleteEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Executes Airflow CLI command.
-    pub fn execute_airflow_command(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::ExecuteAirflowCommand {
+    pub fn execute_airflow_command(&self) -> super::builder::environments::ExecuteAirflowCommand {
         super::builder::environments::ExecuteAirflowCommand::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Stops Airflow CLI command execution.
-    pub fn stop_airflow_command(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::StopAirflowCommand {
+    pub fn stop_airflow_command(&self) -> super::builder::environments::StopAirflowCommand {
         super::builder::environments::StopAirflowCommand::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Polls Airflow CLI command execution and fetches logs.
-    pub fn poll_airflow_command(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::PollAirflowCommand {
+    pub fn poll_airflow_command(&self) -> super::builder::environments::PollAirflowCommand {
         super::builder::environments::PollAirflowCommand::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Lists workloads in a Cloud Composer environment. Workload is a unit that
@@ -225,12 +193,8 @@ impl Environments {
     ///
     /// This method is supported for Cloud Composer environments in versions
     /// composer-2.*.*-airflow-*.*.* and newer.
-    pub fn list_workloads(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListWorkloads {
+    pub fn list_workloads(&self) -> super::builder::environments::ListWorkloads {
         super::builder::environments::ListWorkloads::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Check if an upgrade operation on the environment will succeed.
@@ -246,12 +210,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn check_upgrade(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::CheckUpgrade {
+    pub fn check_upgrade(&self) -> super::builder::environments::CheckUpgrade {
         super::builder::environments::CheckUpgrade::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Creates a user workloads Secret.
@@ -260,10 +220,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn create_user_workloads_secret(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::environments::CreateUserWorkloadsSecret {
         super::builder::environments::CreateUserWorkloadsSecret::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an existing user workloads Secret.
@@ -273,10 +231,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn get_user_workloads_secret(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::environments::GetUserWorkloadsSecret {
         super::builder::environments::GetUserWorkloadsSecret::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists user workloads Secrets.
@@ -285,10 +241,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn list_user_workloads_secrets(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::environments::ListUserWorkloadsSecrets {
         super::builder::environments::ListUserWorkloadsSecrets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a user workloads Secret.
@@ -297,10 +251,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn update_user_workloads_secret(
         &self,
-        user_workloads_secret: impl Into<crate::model::UserWorkloadsSecret>,
     ) -> super::builder::environments::UpdateUserWorkloadsSecret {
         super::builder::environments::UpdateUserWorkloadsSecret::new(self.inner.clone())
-            .set_user_workloads_secret(user_workloads_secret.into())
     }
 
     /// Deletes a user workloads Secret.
@@ -309,10 +261,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn delete_user_workloads_secret(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::environments::DeleteUserWorkloadsSecret {
         super::builder::environments::DeleteUserWorkloadsSecret::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a user workloads ConfigMap.
@@ -321,10 +271,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn create_user_workloads_config_map(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::environments::CreateUserWorkloadsConfigMap {
         super::builder::environments::CreateUserWorkloadsConfigMap::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an existing user workloads ConfigMap.
@@ -333,10 +281,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn get_user_workloads_config_map(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::environments::GetUserWorkloadsConfigMap {
         super::builder::environments::GetUserWorkloadsConfigMap::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists user workloads ConfigMaps.
@@ -345,10 +291,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn list_user_workloads_config_maps(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::environments::ListUserWorkloadsConfigMaps {
         super::builder::environments::ListUserWorkloadsConfigMaps::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a user workloads ConfigMap.
@@ -357,10 +301,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn update_user_workloads_config_map(
         &self,
-        user_workloads_config_map: impl Into<crate::model::UserWorkloadsConfigMap>,
     ) -> super::builder::environments::UpdateUserWorkloadsConfigMap {
         super::builder::environments::UpdateUserWorkloadsConfigMap::new(self.inner.clone())
-            .set_user_workloads_config_map(user_workloads_config_map.into())
     }
 
     /// Deletes a user workloads ConfigMap.
@@ -369,10 +311,8 @@ impl Environments {
     /// composer-3-airflow-*.*.*-build.* and newer.
     pub fn delete_user_workloads_config_map(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::environments::DeleteUserWorkloadsConfigMap {
         super::builder::environments::DeleteUserWorkloadsConfigMap::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a snapshots of a Cloud Composer environment.
@@ -389,12 +329,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn save_snapshot(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::SaveSnapshot {
+    pub fn save_snapshot(&self) -> super::builder::environments::SaveSnapshot {
         super::builder::environments::SaveSnapshot::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Loads a snapshot of a Cloud Composer environment.
@@ -411,12 +347,8 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn load_snapshot(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::LoadSnapshot {
+    pub fn load_snapshot(&self) -> super::builder::environments::LoadSnapshot {
         super::builder::environments::LoadSnapshot::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Triggers database failover (only for highly resilient environments).
@@ -430,51 +362,36 @@ impl Environments {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn database_failover(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::environments::DatabaseFailover {
+    pub fn database_failover(&self) -> super::builder::environments::DatabaseFailover {
         super::builder::environments::DatabaseFailover::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Fetches database properties.
     pub fn fetch_database_properties(
         &self,
-        environment: impl Into<std::string::String>,
     ) -> super::builder::environments::FetchDatabaseProperties {
         super::builder::environments::FetchDatabaseProperties::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListOperations {
-        super::builder::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::environments::ListOperations {
+        super::builder::environments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetOperation {
-        super::builder::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::environments::GetOperation {
+        super::builder::environments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::DeleteOperation {
-        super::builder::environments::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::environments::DeleteOperation {
+        super::builder::environments::DeleteOperation::new(self.inner.clone())
     }
 }
 
@@ -486,7 +403,7 @@ impl Environments {
 /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
 /// let client = ImageVersions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Composer API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -517,11 +434,11 @@ impl Environments {
 ///
 /// `ImageVersions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ImageVersions` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ImageVersions {
-    inner: Arc<dyn super::stub::dynamic::ImageVersions>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ImageVersions>,
 }
 
 impl ImageVersions {
@@ -531,7 +448,7 @@ impl ImageVersions {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_orchestration_airflow_service_v1::client::ImageVersions;
     /// let client = ImageVersions::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::image_versions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::image_versions::client::Factory)
@@ -546,76 +463,63 @@ impl ImageVersions {
         T: super::stub::ImageVersions + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ImageVersions>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageVersions>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ImageVersions> {
+    ) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
         super::transport::ImageVersions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ImageVersions> {
+    ) -> gax::client_builder::Result<impl super::stub::ImageVersions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ImageVersions::new)
     }
 
     /// List ImageVersions for provided location.
-    pub fn list_image_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::image_versions::ListImageVersions {
+    pub fn list_image_versions(&self) -> super::builder::image_versions::ListImageVersions {
         super::builder::image_versions::ListImageVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::image_versions::ListOperations {
+    pub fn list_operations(&self) -> super::builder::image_versions::ListOperations {
         super::builder::image_versions::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::image_versions::GetOperation {
-        super::builder::image_versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::image_versions::GetOperation {
+        super::builder::image_versions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::image_versions::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::image_versions::DeleteOperation {
         super::builder::image_versions::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

@@ -121,7 +121,6 @@ macro_rules! impl_message {
                 concat!("type.googleapis.com/google.protobuf.", stringify!($t))
             }
 
-            #[allow(private_interfaces)]
             fn serializer() -> impl crate::message::MessageSerializer<Self> {
                 crate::message::ValueSerializer::<Self>::new()
             }
@@ -129,7 +128,6 @@ macro_rules! impl_message {
     };
 }
 
-impl_message!(DoubleValue);
 impl_message!(Int32Value);
 impl_message!(UInt32Value);
 impl_message!(BoolValue);
@@ -164,13 +162,15 @@ impl crate::message::Message for UInt64Value {
         "type.googleapis.com/google.protobuf.UInt64Value"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         UInt64ValueSerializer
     }
 }
 
 struct UInt64ValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for UInt64ValueSerializer {}
 
 impl crate::message::MessageSerializer<UInt64Value> for UInt64ValueSerializer {
     fn serialize_to_map(
@@ -198,7 +198,6 @@ impl crate::message::Message for Int64Value {
         "type.googleapis.com/google.protobuf.Int64Value"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self>
     where
         Self: Sized + serde::ser::Serialize,
@@ -208,6 +207,9 @@ impl crate::message::Message for Int64Value {
 }
 
 struct Int64ValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for Int64ValueSerializer {}
 
 impl crate::message::MessageSerializer<Int64Value> for Int64ValueSerializer {
     fn serialize_to_map(
@@ -235,7 +237,6 @@ impl crate::message::Message for FloatValue {
         "type.googleapis.com/google.protobuf.FloatValue"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self>
     where
         Self: Sized + serde::ser::Serialize,
@@ -245,6 +246,9 @@ impl crate::message::Message for FloatValue {
 }
 
 struct FloatValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for FloatValueSerializer {}
 
 impl crate::message::MessageSerializer<FloatValue> for FloatValueSerializer {
     fn serialize_to_map(
@@ -267,18 +271,59 @@ impl crate::message::MessageSerializer<FloatValue> for FloatValueSerializer {
     }
 }
 
+impl crate::message::Message for DoubleValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.protobuf.DoubleValue"
+    }
+
+    fn serializer() -> impl crate::message::MessageSerializer<Self>
+    where
+        Self: Sized + serde::ser::Serialize,
+    {
+        DoubleValueSerializer
+    }
+}
+
+struct DoubleValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for DoubleValueSerializer {}
+
+impl crate::message::MessageSerializer<DoubleValue> for DoubleValueSerializer {
+    fn serialize_to_map(
+        &self,
+        message: &DoubleValue,
+    ) -> Result<crate::message::Map, crate::AnyError> {
+        let value = crate::internal::F64::serialize_as(message, serde_json::value::Serializer)
+            .map_err(crate::AnyError::ser)?;
+        encode_value::<DoubleValue>(value)
+    }
+
+    fn deserialize_from_map(
+        &self,
+        map: &crate::message::Map,
+    ) -> Result<DoubleValue, crate::AnyError> {
+        let value = map
+            .get("value")
+            .ok_or_else(crate::message::missing_value_field)?;
+        crate::internal::F64::deserialize_as(value).map_err(crate::AnyError::deser)
+    }
+}
+
 impl crate::message::Message for BytesValue {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.BytesValue"
     }
 
-    #[allow(private_interfaces)]
     fn serializer() -> impl crate::message::MessageSerializer<Self> {
         BytesValueSerializer
     }
 }
 
 struct BytesValueSerializer;
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl crate::message::sealed::MessageSerializer for BytesValueSerializer {}
 
 impl crate::message::MessageSerializer<BytesValue> for BytesValueSerializer {
     fn serialize_to_map(
@@ -309,7 +354,7 @@ fn expected_string_value() -> crate::AnyError {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::Any;
     use crate::message::{Message, MessageSerializer};
@@ -337,14 +382,14 @@ mod test {
             + serde::ser::Serialize,
         V: serde::ser::Serialize,
     {
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
-            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
+            "@type": format!("type.googleapis.com/google.protobuf.{typename}"),
             "value": value,
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<I>()?;
+        let output = any.to_msg::<I>()?;
         assert_eq!(output, input);
         Ok(())
     }
@@ -357,14 +402,39 @@ mod test {
     where
         V: serde::ser::Serialize,
     {
-        let any = Any::try_from(&input)?;
+        let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
             "@type": "type.googleapis.com/google.protobuf.FloatValue",
             "value": value,
         });
         assert_eq!(got, want);
-        let output = any.try_into_message::<FloatValue>()?;
+        let output = any.to_msg::<FloatValue>()?;
+        // Using assert_eq does not work with NaN, as they are not considered equal,
+        // use total_cmp instead.
+        assert!(
+            output.total_cmp(&input) == std::cmp::Ordering::Equal,
+            "expected: {input}, got: {output}"
+        );
+        Ok(())
+    }
+
+    #[test_case(f64::INFINITY as DoubleValue, "Infinity")]
+    #[test_case(f64::NEG_INFINITY as DoubleValue, "-Infinity")]
+    #[test_case(f64::NAN as DoubleValue, "NaN")]
+    #[test_case(9876.5 as DoubleValue, 9876.5)]
+    fn test_wrapper_double<V>(input: DoubleValue, value: V) -> Result
+    where
+        V: serde::ser::Serialize,
+    {
+        let any = Any::from_msg(&input)?;
+        let got = serde_json::to_value(&any)?;
+        let want = serde_json::json!({
+            "@type": "type.googleapis.com/google.protobuf.DoubleValue",
+            "value": value,
+        });
+        assert_eq!(got, want);
+        let output = any.to_msg::<DoubleValue>()?;
         // Using assert_eq does not work with NaN, as they are not considered equal,
         // use total_cmp instead.
         assert!(
@@ -388,8 +458,8 @@ mod test {
         T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
         U: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
-        let any = Any::try_from(&from)?;
-        assert!(any.try_into_message::<U>().is_err());
+        let any = Any::from_msg(&from)?;
+        assert!(any.to_msg::<U>().is_err());
         Ok(())
     }
 
@@ -400,7 +470,7 @@ mod test {
         T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let map = serde_json::json!({
-            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
+            "@type": format!("type.googleapis.com/google.protobuf.{typename}"),
             "value": 0,
         });
 
@@ -408,7 +478,7 @@ mod test {
         let e = serializer.deserialize_from_map(map.as_object().unwrap());
 
         assert!(e.is_err());
-        let fmt = format!("{:?}", e);
+        let fmt = format!("{e:?}");
         assert!(fmt.contains("expected value field to be a string"), "{fmt}");
         Ok(())
     }

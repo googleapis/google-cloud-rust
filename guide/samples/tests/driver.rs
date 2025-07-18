@@ -167,9 +167,14 @@ mod driver {
             "The quick brown fox jumps over the lazy dog".into(),
         )
         .await?;
-        let _ = client.destroy_secret_version(&version.name).send().await?;
         let _ = client
-            .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+            .destroy_secret_version()
+            .set_name(&version.name)
+            .send()
+            .await?;
+        client
+            .delete_secret()
+            .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
             .send()
             .await?;
         Ok(())
@@ -204,9 +209,14 @@ mod driver {
             )
             .build()
             .await?;
-        let _ = client.destroy_secret_version(&version.name).send().await?;
         let _ = client
-            .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+            .destroy_secret_version()
+            .set_name(&version.name)
+            .send()
+            .await?;
+        client
+            .delete_secret()
+            .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
             .send()
             .await?;
         Ok(())
@@ -215,6 +225,18 @@ mod driver {
     #[tokio::test]
     async fn examine_error_details() -> user_guide_samples::Result<()> {
         user_guide_samples::examine_error_details::examine_error_details().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn binding_fail() -> user_guide_samples::Result<()> {
+        user_guide_samples::binding_errors::binding_fail().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn binding_success() -> user_guide_samples::Result<()> {
+        user_guide_samples::binding_errors::binding_success().await?;
         Ok(())
     }
 }

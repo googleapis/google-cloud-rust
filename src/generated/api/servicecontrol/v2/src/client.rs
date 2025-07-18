@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Service Control API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
 /// let client = ServiceController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -65,11 +62,11 @@ use std::sync::Arc;
 ///
 /// `ServiceController` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ServiceController` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ServiceController {
-    inner: Arc<dyn super::stub::dynamic::ServiceController>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ServiceController>,
 }
 
 impl ServiceController {
@@ -79,7 +76,7 @@ impl ServiceController {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
     /// let client = ServiceController::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::service_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -96,33 +93,36 @@ impl ServiceController {
         T: super::stub::ServiceController + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ServiceController>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceController>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ServiceController> {
+    ) -> gax::client_builder::Result<impl super::stub::ServiceController> {
         super::transport::ServiceController::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ServiceController> {
+    ) -> gax::client_builder::Result<impl super::stub::ServiceController> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceController::new)
@@ -150,12 +150,8 @@ impl ServiceController {
     /// on the specified service. For more information, see
     /// [Service Control API Access
     /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
-    pub fn check(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_controller::Check {
+    pub fn check(&self) -> super::builder::service_controller::Check {
         super::builder::service_controller::Check::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 
     /// Private Preview. This feature is only available for approved services.
@@ -176,11 +172,7 @@ impl ServiceController {
     /// on the specified service. For more information, see
     /// [Service Control API Access
     /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
-    pub fn report(
-        &self,
-        service_name: impl Into<std::string::String>,
-    ) -> super::builder::service_controller::Report {
+    pub fn report(&self) -> super::builder::service_controller::Report {
         super::builder::service_controller::Report::new(self.inner.clone())
-            .set_service_name(service_name.into())
     }
 }

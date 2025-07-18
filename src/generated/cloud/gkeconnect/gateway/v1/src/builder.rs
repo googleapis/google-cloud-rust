@@ -16,9 +16,8 @@
 
 pub mod gateway_control {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [GatewayControl][super::super::client::GatewayControl].
+    /// A builder for [GatewayControl][crate::client::GatewayControl].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod gateway_control {
     /// let client = builder
     ///     .with_endpoint("https://connectgateway.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod gateway_control {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GatewayControl;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::GatewayControl] request builders.
+    /// Common implementation for [crate::client::GatewayControl] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::GatewayControl>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod gateway_control {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GatewayControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod gateway_control {
         }
     }
 
-    /// The request builder for [GatewayControl::generate_credentials][super::super::client::GatewayControl::generate_credentials] calls.
+    /// The request builder for [GatewayControl::generate_credentials][crate::client::GatewayControl::generate_credentials] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkeconnect_gateway_v1::builder;
+    /// use builder::gateway_control::GenerateCredentials;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateCredentials {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateCredentials(RequestBuilder<crate::model::GenerateCredentialsRequest>);
 
     impl GenerateCredentials {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GatewayControl>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GatewayControl>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

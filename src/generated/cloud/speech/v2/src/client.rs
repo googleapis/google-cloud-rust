@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Speech-to-Text API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_speech_v2::client::Speech;
 /// let client = Speech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Speech-to-Text API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Speech` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Speech` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Speech {
-    inner: Arc<dyn super::stub::dynamic::Speech>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Speech>,
 }
 
 impl Speech {
@@ -72,7 +69,7 @@ impl Speech {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_speech_v2::client::Speech;
     /// let client = Speech::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::speech::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::speech::client::Factory)
@@ -87,33 +84,35 @@ impl Speech {
         T: super::stub::Speech + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Speech>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Speech>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Speech> {
+    ) -> gax::client_builder::Result<impl super::stub::Speech> {
         super::transport::Speech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Speech> {
+    ) -> gax::client_builder::Result<impl super::stub::Speech> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Speech::new)
@@ -132,19 +131,13 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_recognizer(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::speech::CreateRecognizer {
-        super::builder::speech::CreateRecognizer::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_recognizer(&self) -> super::builder::speech::CreateRecognizer {
+        super::builder::speech::CreateRecognizer::new(self.inner.clone())
     }
 
     /// Lists Recognizers.
-    pub fn list_recognizers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::speech::ListRecognizers {
-        super::builder::speech::ListRecognizers::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_recognizers(&self) -> super::builder::speech::ListRecognizers {
+        super::builder::speech::ListRecognizers::new(self.inner.clone())
     }
 
     /// Returns the requested
@@ -153,11 +146,8 @@ impl Speech {
     /// exist.
     ///
     /// [google.cloud.speech.v2.Recognizer]: crate::model::Recognizer
-    pub fn get_recognizer(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::GetRecognizer {
-        super::builder::speech::GetRecognizer::new(self.inner.clone()).set_name(name.into())
+    pub fn get_recognizer(&self) -> super::builder::speech::GetRecognizer {
+        super::builder::speech::GetRecognizer::new(self.inner.clone())
     }
 
     /// Updates the [Recognizer][google.cloud.speech.v2.Recognizer].
@@ -173,12 +163,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_recognizer(
-        &self,
-        recognizer: impl Into<crate::model::Recognizer>,
-    ) -> super::builder::speech::UpdateRecognizer {
+    pub fn update_recognizer(&self) -> super::builder::speech::UpdateRecognizer {
         super::builder::speech::UpdateRecognizer::new(self.inner.clone())
-            .set_recognizer(recognizer.into())
     }
 
     /// Deletes the [Recognizer][google.cloud.speech.v2.Recognizer].
@@ -194,11 +180,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_recognizer(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::DeleteRecognizer {
-        super::builder::speech::DeleteRecognizer::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_recognizer(&self) -> super::builder::speech::DeleteRecognizer {
+        super::builder::speech::DeleteRecognizer::new(self.inner.clone())
     }
 
     /// Undeletes the [Recognizer][google.cloud.speech.v2.Recognizer].
@@ -214,20 +197,14 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_recognizer(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::UndeleteRecognizer {
-        super::builder::speech::UndeleteRecognizer::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_recognizer(&self) -> super::builder::speech::UndeleteRecognizer {
+        super::builder::speech::UndeleteRecognizer::new(self.inner.clone())
     }
 
     /// Performs synchronous Speech recognition: receive results after all audio
     /// has been sent and processed.
-    pub fn recognize(
-        &self,
-        recognizer: impl Into<std::string::String>,
-    ) -> super::builder::speech::Recognize {
-        super::builder::speech::Recognize::new(self.inner.clone()).set_recognizer(recognizer.into())
+    pub fn recognize(&self) -> super::builder::speech::Recognize {
+        super::builder::speech::Recognize::new(self.inner.clone())
     }
 
     /// Performs batch asynchronous speech recognition: send a request with N
@@ -243,32 +220,22 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_recognize(
-        &self,
-        recognizer: impl Into<std::string::String>,
-    ) -> super::builder::speech::BatchRecognize {
+    pub fn batch_recognize(&self) -> super::builder::speech::BatchRecognize {
         super::builder::speech::BatchRecognize::new(self.inner.clone())
-            .set_recognizer(recognizer.into())
     }
 
     /// Returns the requested [Config][google.cloud.speech.v2.Config].
     ///
     /// [google.cloud.speech.v2.Config]: crate::model::Config
-    pub fn get_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::GetConfig {
-        super::builder::speech::GetConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn get_config(&self) -> super::builder::speech::GetConfig {
+        super::builder::speech::GetConfig::new(self.inner.clone())
     }
 
     /// Updates the [Config][google.cloud.speech.v2.Config].
     ///
     /// [google.cloud.speech.v2.Config]: crate::model::Config
-    pub fn update_config(
-        &self,
-        config: impl Into<crate::model::Config>,
-    ) -> super::builder::speech::UpdateConfig {
-        super::builder::speech::UpdateConfig::new(self.inner.clone()).set_config(config.into())
+    pub fn update_config(&self) -> super::builder::speech::UpdateConfig {
+        super::builder::speech::UpdateConfig::new(self.inner.clone())
     }
 
     /// Creates a [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -284,30 +251,21 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_custom_class(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::speech::CreateCustomClass {
-        super::builder::speech::CreateCustomClass::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_custom_class(&self) -> super::builder::speech::CreateCustomClass {
+        super::builder::speech::CreateCustomClass::new(self.inner.clone())
     }
 
     /// Lists CustomClasses.
-    pub fn list_custom_classes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::speech::ListCustomClasses {
-        super::builder::speech::ListCustomClasses::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_custom_classes(&self) -> super::builder::speech::ListCustomClasses {
+        super::builder::speech::ListCustomClasses::new(self.inner.clone())
     }
 
     /// Returns the requested
     /// [CustomClass][google.cloud.speech.v2.CustomClass].
     ///
     /// [google.cloud.speech.v2.CustomClass]: crate::model::CustomClass
-    pub fn get_custom_class(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::GetCustomClass {
-        super::builder::speech::GetCustomClass::new(self.inner.clone()).set_name(name.into())
+    pub fn get_custom_class(&self) -> super::builder::speech::GetCustomClass {
+        super::builder::speech::GetCustomClass::new(self.inner.clone())
     }
 
     /// Updates the [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -323,12 +281,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_custom_class(
-        &self,
-        custom_class: impl Into<crate::model::CustomClass>,
-    ) -> super::builder::speech::UpdateCustomClass {
+    pub fn update_custom_class(&self) -> super::builder::speech::UpdateCustomClass {
         super::builder::speech::UpdateCustomClass::new(self.inner.clone())
-            .set_custom_class(custom_class.into())
     }
 
     /// Deletes the [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -344,11 +298,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_custom_class(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::DeleteCustomClass {
-        super::builder::speech::DeleteCustomClass::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_custom_class(&self) -> super::builder::speech::DeleteCustomClass {
+        super::builder::speech::DeleteCustomClass::new(self.inner.clone())
     }
 
     /// Undeletes the [CustomClass][google.cloud.speech.v2.CustomClass].
@@ -364,11 +315,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_custom_class(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::UndeleteCustomClass {
-        super::builder::speech::UndeleteCustomClass::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_custom_class(&self) -> super::builder::speech::UndeleteCustomClass {
+        super::builder::speech::UndeleteCustomClass::new(self.inner.clone())
     }
 
     /// Creates a [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -384,30 +332,21 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_phrase_set(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::speech::CreatePhraseSet {
-        super::builder::speech::CreatePhraseSet::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_phrase_set(&self) -> super::builder::speech::CreatePhraseSet {
+        super::builder::speech::CreatePhraseSet::new(self.inner.clone())
     }
 
     /// Lists PhraseSets.
-    pub fn list_phrase_sets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::speech::ListPhraseSets {
-        super::builder::speech::ListPhraseSets::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_phrase_sets(&self) -> super::builder::speech::ListPhraseSets {
+        super::builder::speech::ListPhraseSets::new(self.inner.clone())
     }
 
     /// Returns the requested
     /// [PhraseSet][google.cloud.speech.v2.PhraseSet].
     ///
     /// [google.cloud.speech.v2.PhraseSet]: crate::model::PhraseSet
-    pub fn get_phrase_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::GetPhraseSet {
-        super::builder::speech::GetPhraseSet::new(self.inner.clone()).set_name(name.into())
+    pub fn get_phrase_set(&self) -> super::builder::speech::GetPhraseSet {
+        super::builder::speech::GetPhraseSet::new(self.inner.clone())
     }
 
     /// Updates the [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -423,12 +362,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_phrase_set(
-        &self,
-        phrase_set: impl Into<crate::model::PhraseSet>,
-    ) -> super::builder::speech::UpdatePhraseSet {
+    pub fn update_phrase_set(&self) -> super::builder::speech::UpdatePhraseSet {
         super::builder::speech::UpdatePhraseSet::new(self.inner.clone())
-            .set_phrase_set(phrase_set.into())
     }
 
     /// Deletes the [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -444,11 +379,8 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_phrase_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::DeletePhraseSet {
-        super::builder::speech::DeletePhraseSet::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_phrase_set(&self) -> super::builder::speech::DeletePhraseSet {
+        super::builder::speech::DeletePhraseSet::new(self.inner.clone())
     }
 
     /// Undeletes the [PhraseSet][google.cloud.speech.v2.PhraseSet].
@@ -464,66 +396,45 @@ impl Speech {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_phrase_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::UndeletePhraseSet {
-        super::builder::speech::UndeletePhraseSet::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_phrase_set(&self) -> super::builder::speech::UndeletePhraseSet {
+        super::builder::speech::UndeletePhraseSet::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::ListLocations {
-        super::builder::speech::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::speech::ListLocations {
+        super::builder::speech::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::GetLocation {
-        super::builder::speech::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::speech::GetLocation {
+        super::builder::speech::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::ListOperations {
-        super::builder::speech::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::speech::ListOperations {
+        super::builder::speech::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::GetOperation {
-        super::builder::speech::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::speech::GetOperation {
+        super::builder::speech::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::DeleteOperation {
-        super::builder::speech::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::speech::DeleteOperation {
+        super::builder::speech::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::speech::CancelOperation {
-        super::builder::speech::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::speech::CancelOperation {
+        super::builder::speech::CancelOperation::new(self.inner.clone())
     }
 }

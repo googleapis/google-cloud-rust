@@ -16,9 +16,8 @@
 
 pub mod cloud_scheduler {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudScheduler][super::super::client::CloudScheduler].
+    /// A builder for [CloudScheduler][crate::client::CloudScheduler].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cloud_scheduler {
     /// let client = builder
     ///     .with_endpoint("https://cloudscheduler.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cloud_scheduler {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudScheduler;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudScheduler] request builders.
+    /// Common implementation for [crate::client::CloudScheduler] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod cloud_scheduler {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::list_jobs][super::super::client::CloudScheduler::list_jobs] calls.
+    /// The request builder for [CloudScheduler::list_jobs][crate::client::CloudScheduler::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod cloud_scheduler {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod cloud_scheduler {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
@@ -139,12 +174,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::get_job][super::super::client::CloudScheduler::get_job] calls.
+    /// The request builder for [CloudScheduler::get_job][crate::client::CloudScheduler::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -184,12 +237,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::create_job][super::super::client::CloudScheduler::create_job] calls.
+    /// The request builder for [CloudScheduler::create_job][crate::client::CloudScheduler::create_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::CreateJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -224,8 +295,22 @@ pub mod cloud_scheduler {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -237,12 +322,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::update_job][super::super::client::CloudScheduler::update_job] calls.
+    /// The request builder for [CloudScheduler::update_job][crate::client::CloudScheduler::update_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::UpdateJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -269,17 +372,40 @@ pub mod cloud_scheduler {
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -291,12 +417,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::delete_job][super::super::client::CloudScheduler::delete_job] calls.
+    /// The request builder for [CloudScheduler::delete_job][crate::client::CloudScheduler::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -336,12 +480,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::pause_job][super::super::client::CloudScheduler::pause_job] calls.
+    /// The request builder for [CloudScheduler::pause_job][crate::client::CloudScheduler::pause_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::PauseJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseJob(RequestBuilder<crate::model::PauseJobRequest>);
 
     impl PauseJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -381,12 +543,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::resume_job][super::super::client::CloudScheduler::resume_job] calls.
+    /// The request builder for [CloudScheduler::resume_job][crate::client::CloudScheduler::resume_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::ResumeJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeJob(RequestBuilder<crate::model::ResumeJobRequest>);
 
     impl ResumeJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -426,12 +606,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::run_job][super::super::client::CloudScheduler::run_job] calls.
+    /// The request builder for [CloudScheduler::run_job][crate::client::CloudScheduler::run_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::RunJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunJob(RequestBuilder<crate::model::RunJobRequest>);
 
     impl RunJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -471,12 +669,34 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::list_locations][super::super::client::CloudScheduler::list_locations] calls.
+    /// The request builder for [CloudScheduler::list_locations][crate::client::CloudScheduler::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -503,8 +723,8 @@ pub mod cloud_scheduler {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -516,6 +736,15 @@ pub mod cloud_scheduler {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -550,12 +779,30 @@ pub mod cloud_scheduler {
         }
     }
 
-    /// The request builder for [CloudScheduler::get_location][super::super::client::CloudScheduler::get_location] calls.
+    /// The request builder for [CloudScheduler::get_location][crate::client::CloudScheduler::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_scheduler_v1::builder;
+    /// use builder::cloud_scheduler::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudScheduler>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudScheduler>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

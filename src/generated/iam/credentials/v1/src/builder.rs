@@ -16,9 +16,8 @@
 
 pub mod iam_credentials {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [IAMCredentials][super::super::client::IAMCredentials].
+    /// A builder for [IAMCredentials][crate::client::IAMCredentials].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod iam_credentials {
     /// let client = builder
     ///     .with_endpoint("https://iamcredentials.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod iam_credentials {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = IAMCredentials;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::IAMCredentials] request builders.
+    /// Common implementation for [crate::client::IAMCredentials] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod iam_credentials {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::generate_access_token][super::super::client::IAMCredentials::generate_access_token] calls.
+    /// The request builder for [IAMCredentials::generate_access_token][crate::client::IAMCredentials::generate_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_credentials_v1::builder;
+    /// use builder::iam_credentials::GenerateAccessToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -107,12 +129,6 @@ pub mod iam_credentials {
             self
         }
 
-        /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
-        pub fn set_lifetime<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.lifetime = v.into();
-            self
-        }
-
         /// Sets the value of [delegates][crate::model::GenerateAccessTokenRequest::delegates].
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
@@ -136,6 +152,24 @@ pub mod iam_credentials {
             self.0.request.scope = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+        pub fn set_lifetime<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.lifetime = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [lifetime][crate::model::GenerateAccessTokenRequest::lifetime].
+        pub fn set_or_clear_lifetime<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.lifetime = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -145,12 +179,30 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::generate_id_token][super::super::client::IAMCredentials::generate_id_token] calls.
+    /// The request builder for [IAMCredentials::generate_id_token][crate::client::IAMCredentials::generate_id_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_credentials_v1::builder;
+    /// use builder::iam_credentials::GenerateIdToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateIdToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateIdToken(RequestBuilder<crate::model::GenerateIdTokenRequest>);
 
     impl GenerateIdToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,6 +234,17 @@ pub mod iam_credentials {
             self
         }
 
+        /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
+        pub fn set_delegates<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [audience][crate::model::GenerateIdTokenRequest::audience].
         ///
         /// This is a **required** field for requests.
@@ -195,17 +258,6 @@ pub mod iam_credentials {
             self.0.request.include_email = v.into();
             self
         }
-
-        /// Sets the value of [delegates][crate::model::GenerateIdTokenRequest::delegates].
-        pub fn set_delegates<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -215,12 +267,30 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::sign_blob][super::super::client::IAMCredentials::sign_blob] calls.
+    /// The request builder for [IAMCredentials::sign_blob][crate::client::IAMCredentials::sign_blob] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_credentials_v1::builder;
+    /// use builder::iam_credentials::SignBlob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SignBlob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SignBlob(RequestBuilder<crate::model::SignBlobRequest>);
 
     impl SignBlob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -252,14 +322,6 @@ pub mod iam_credentials {
             self
         }
 
-        /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.payload = v.into();
-            self
-        }
-
         /// Sets the value of [delegates][crate::model::SignBlobRequest::delegates].
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
@@ -268,6 +330,14 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [payload][crate::model::SignBlobRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_payload<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.payload = v.into();
             self
         }
     }
@@ -279,12 +349,30 @@ pub mod iam_credentials {
         }
     }
 
-    /// The request builder for [IAMCredentials::sign_jwt][super::super::client::IAMCredentials::sign_jwt] calls.
+    /// The request builder for [IAMCredentials::sign_jwt][crate::client::IAMCredentials::sign_jwt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_credentials_v1::builder;
+    /// use builder::iam_credentials::SignJwt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SignJwt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SignJwt(RequestBuilder<crate::model::SignJwtRequest>);
 
     impl SignJwt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::IAMCredentials>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::IAMCredentials>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -316,14 +404,6 @@ pub mod iam_credentials {
             self
         }
 
-        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.payload = v.into();
-            self
-        }
-
         /// Sets the value of [delegates][crate::model::SignJwtRequest::delegates].
         pub fn set_delegates<T, V>(mut self, v: T) -> Self
         where
@@ -332,6 +412,14 @@ pub mod iam_credentials {
         {
             use std::iter::Iterator;
             self.0.request.delegates = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [payload][crate::model::SignJwtRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_payload<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.payload = v.into();
             self
         }
     }

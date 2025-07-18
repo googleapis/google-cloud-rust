@@ -16,9 +16,8 @@
 
 pub mod metrics_scopes {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [MetricsScopes][super::super::client::MetricsScopes].
+    /// A builder for [MetricsScopes][crate::client::MetricsScopes].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod metrics_scopes {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod metrics_scopes {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = MetricsScopes;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::MetricsScopes] request builders.
+    /// Common implementation for [crate::client::MetricsScopes] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod metrics_scopes {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::get_metrics_scope][super::super::client::MetricsScopes::get_metrics_scope] calls.
+    /// The request builder for [MetricsScopes::get_metrics_scope][crate::client::MetricsScopes::get_metrics_scope] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::GetMetricsScope;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMetricsScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMetricsScope(RequestBuilder<crate::model::GetMetricsScopeRequest>);
 
     impl GetMetricsScope {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,14 +134,32 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][super::super::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
+    /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][crate::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMetricsScopesByMonitoredProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMetricsScopesByMonitoredProject(
         RequestBuilder<crate::model::ListMetricsScopesByMonitoredProjectRequest>,
     );
 
     impl ListMetricsScopesByMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -167,12 +207,31 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::create_monitored_project][super::super::client::MetricsScopes::create_monitored_project] calls.
+    /// The request builder for [MetricsScopes::create_monitored_project][crate::client::MetricsScopes::create_monitored_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::CreateMonitoredProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMonitoredProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMonitoredProject(RequestBuilder<crate::model::CreateMonitoredProjectRequest>);
 
     impl CreateMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,7 +255,7 @@ pub mod metrics_scopes {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_monitored_project][super::super::client::MetricsScopes::create_monitored_project].
+        /// on [create_monitored_project][crate::client::MetricsScopes::create_monitored_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_monitored_project(self.0.request, self.0.options)
@@ -209,8 +268,10 @@ pub mod metrics_scopes {
             self,
         ) -> impl lro::Poller<crate::model::MonitoredProject, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MonitoredProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MonitoredProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -235,7 +296,7 @@ pub mod metrics_scopes {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMonitoredProjectRequest::parent].
@@ -249,13 +310,22 @@ pub mod metrics_scopes {
         /// Sets the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_monitored_project<
-            T: Into<std::option::Option<crate::model::MonitoredProject>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.monitored_project = v.into();
+        pub fn set_monitored_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
+        {
+            self.0.request.monitored_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [monitored_project][crate::model::CreateMonitoredProjectRequest::monitored_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_monitored_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MonitoredProject>,
+        {
+            self.0.request.monitored_project = v.map(|x| x.into());
             self
         }
     }
@@ -267,12 +337,31 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::delete_monitored_project][super::super::client::MetricsScopes::delete_monitored_project] calls.
+    /// The request builder for [MetricsScopes::delete_monitored_project][crate::client::MetricsScopes::delete_monitored_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::DeleteMonitoredProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMonitoredProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMonitoredProject(RequestBuilder<crate::model::DeleteMonitoredProjectRequest>);
 
     impl DeleteMonitoredProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,7 +385,7 @@ pub mod metrics_scopes {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_monitored_project][super::super::client::MetricsScopes::delete_monitored_project].
+        /// on [delete_monitored_project][crate::client::MetricsScopes::delete_monitored_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_monitored_project(self.0.request, self.0.options)
@@ -305,8 +394,8 @@ pub mod metrics_scopes {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_monitored_project`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -331,7 +420,12 @@ pub mod metrics_scopes {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteMonitoredProjectRequest::name].
@@ -350,12 +444,30 @@ pub mod metrics_scopes {
         }
     }
 
-    /// The request builder for [MetricsScopes::get_operation][super::super::client::MetricsScopes::get_operation] calls.
+    /// The request builder for [MetricsScopes::get_operation][crate::client::MetricsScopes::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_metricsscope_v1::builder;
+    /// use builder::metrics_scopes::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsScopes>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsScopes>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

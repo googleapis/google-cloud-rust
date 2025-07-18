@@ -16,9 +16,8 @@
 
 pub mod connectors {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Connectors][super::super::client::Connectors].
+    /// A builder for [Connectors][crate::client::Connectors].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod connectors {
     /// let client = builder
     ///     .with_endpoint("https://connectors.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod connectors {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Connectors;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Connectors] request builders.
+    /// Common implementation for [crate::client::Connectors] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Connectors>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod connectors {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_connections][super::super::client::Connectors::list_connections] calls.
+    /// The request builder for [Connectors::list_connections][crate::client::Connectors::list_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
@@ -157,12 +192,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_connection][super::super::client::Connectors::get_connection] calls.
+    /// The request builder for [Connectors::get_connection][crate::client::Connectors::get_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,12 +261,31 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::create_connection][super::super::client::Connectors::create_connection] calls.
+    /// The request builder for [Connectors::create_connection][crate::client::Connectors::create_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::CreateConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -237,7 +309,7 @@ pub mod connectors {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection][super::super::client::Connectors::create_connection].
+        /// on [create_connection][crate::client::Connectors::create_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
@@ -250,7 +322,7 @@ pub mod connectors {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -275,7 +347,7 @@ pub mod connectors {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
@@ -297,11 +369,22 @@ pub mod connectors {
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
     }
@@ -313,12 +396,31 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::update_connection][super::super::client::Connectors::update_connection] calls.
+    /// The request builder for [Connectors::update_connection][crate::client::Connectors::update_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::UpdateConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -342,7 +444,7 @@ pub mod connectors {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection][super::super::client::Connectors::update_connection].
+        /// on [update_connection][crate::client::Connectors::update_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
@@ -355,7 +457,7 @@ pub mod connectors {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -380,28 +482,50 @@ pub mod connectors {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -413,12 +537,31 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::delete_connection][super::super::client::Connectors::delete_connection] calls.
+    /// The request builder for [Connectors::delete_connection][crate::client::Connectors::delete_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::DeleteConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -442,7 +585,7 @@ pub mod connectors {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection][super::super::client::Connectors::delete_connection].
+        /// on [delete_connection][crate::client::Connectors::delete_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
@@ -451,8 +594,8 @@ pub mod connectors {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -477,7 +620,12 @@ pub mod connectors {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
@@ -496,12 +644,34 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_providers][super::super::client::Connectors::list_providers] calls.
+    /// The request builder for [Connectors::list_providers][crate::client::Connectors::list_providers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListProviders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProviders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
     impl ListProviders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -525,8 +695,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProvidersResponse, gax::error::Error>
         {
@@ -538,6 +708,15 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProvidersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProvidersRequest::parent].
@@ -568,12 +747,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_provider][super::super::client::Connectors::get_provider] calls.
+    /// The request builder for [Connectors::get_provider][crate::client::Connectors::get_provider] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetProvider;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProvider {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
     impl GetProvider {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -613,12 +810,34 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_connectors][super::super::client::Connectors::list_connectors] calls.
+    /// The request builder for [Connectors::list_connectors][crate::client::Connectors::list_connectors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListConnectors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,8 +861,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectorsResponse, gax::error::Error>
         {
@@ -655,6 +874,15 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectorsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
@@ -685,12 +913,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_connector][super::super::client::Connectors::get_connector] calls.
+    /// The request builder for [Connectors::get_connector][crate::client::Connectors::get_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetConnector;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -730,12 +976,34 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_connector_versions][super::super::client::Connectors::list_connector_versions] calls.
+    /// The request builder for [Connectors::list_connector_versions][crate::client::Connectors::list_connector_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListConnectorVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectorVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectorVersions(RequestBuilder<crate::model::ListConnectorVersionsRequest>);
 
     impl ListConnectorVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -762,8 +1030,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectorVersionsResponse, gax::error::Error>
         {
@@ -775,6 +1043,17 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListConnectorVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorVersionsRequest::parent].
@@ -811,12 +1090,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_connector_version][super::super::client::Connectors::get_connector_version] calls.
+    /// The request builder for [Connectors::get_connector_version][crate::client::Connectors::get_connector_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetConnectorVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectorVersion(RequestBuilder<crate::model::GetConnectorVersionRequest>);
 
     impl GetConnectorVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -865,14 +1162,32 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_connection_schema_metadata][super::super::client::Connectors::get_connection_schema_metadata] calls.
+    /// The request builder for [Connectors::get_connection_schema_metadata][crate::client::Connectors::get_connection_schema_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetConnectionSchemaMetadata;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectionSchemaMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectionSchemaMetadata(
         RequestBuilder<crate::model::GetConnectionSchemaMetadataRequest>,
     );
 
     impl GetConnectionSchemaMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,14 +1230,33 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::refresh_connection_schema_metadata][super::super::client::Connectors::refresh_connection_schema_metadata] calls.
+    /// The request builder for [Connectors::refresh_connection_schema_metadata][crate::client::Connectors::refresh_connection_schema_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::RefreshConnectionSchemaMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RefreshConnectionSchemaMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RefreshConnectionSchemaMetadata(
         RequestBuilder<crate::model::RefreshConnectionSchemaMetadataRequest>,
     );
 
     impl RefreshConnectionSchemaMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -946,7 +1280,7 @@ pub mod connectors {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [refresh_connection_schema_metadata][super::super::client::Connectors::refresh_connection_schema_metadata].
+        /// on [refresh_connection_schema_metadata][crate::client::Connectors::refresh_connection_schema_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .refresh_connection_schema_metadata(self.0.request, self.0.options)
@@ -959,7 +1293,7 @@ pub mod connectors {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionSchemaMetadata, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ConnectionSchemaMetadata,
                 crate::model::OperationMetadata,
             >;
@@ -987,7 +1321,7 @@ pub mod connectors {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RefreshConnectionSchemaMetadataRequest::name].
@@ -1006,14 +1340,36 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_runtime_entity_schemas][super::super::client::Connectors::list_runtime_entity_schemas] calls.
+    /// The request builder for [Connectors::list_runtime_entity_schemas][crate::client::Connectors::list_runtime_entity_schemas] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListRuntimeEntitySchemas;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuntimeEntitySchemas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuntimeEntitySchemas(
         RequestBuilder<crate::model::ListRuntimeEntitySchemasRequest>,
     );
 
     impl ListRuntimeEntitySchemas {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1040,8 +1396,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListRuntimeEntitySchemasResponse,
@@ -1055,6 +1411,17 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRuntimeEntitySchemasResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimeEntitySchemasRequest::parent].
@@ -1093,14 +1460,36 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_runtime_action_schemas][super::super::client::Connectors::list_runtime_action_schemas] calls.
+    /// The request builder for [Connectors::list_runtime_action_schemas][crate::client::Connectors::list_runtime_action_schemas] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListRuntimeActionSchemas;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuntimeActionSchemas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuntimeActionSchemas(
         RequestBuilder<crate::model::ListRuntimeActionSchemasRequest>,
     );
 
     impl ListRuntimeActionSchemas {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1127,8 +1516,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListRuntimeActionSchemasResponse,
@@ -1142,6 +1531,17 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRuntimeActionSchemasResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimeActionSchemasRequest::parent].
@@ -1180,12 +1580,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_runtime_config][super::super::client::Connectors::get_runtime_config] calls.
+    /// The request builder for [Connectors::get_runtime_config][crate::client::Connectors::get_runtime_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetRuntimeConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRuntimeConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRuntimeConfig(RequestBuilder<crate::model::GetRuntimeConfigRequest>);
 
     impl GetRuntimeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1228,12 +1646,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_global_settings][super::super::client::Connectors::get_global_settings] calls.
+    /// The request builder for [Connectors::get_global_settings][crate::client::Connectors::get_global_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetGlobalSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGlobalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGlobalSettings(RequestBuilder<crate::model::GetGlobalSettingsRequest>);
 
     impl GetGlobalSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1276,12 +1712,34 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_locations][super::super::client::Connectors::list_locations] calls.
+    /// The request builder for [Connectors::list_locations][crate::client::Connectors::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1308,8 +1766,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1321,6 +1779,15 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1355,12 +1822,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_location][super::super::client::Connectors::get_location] calls.
+    /// The request builder for [Connectors::get_location][crate::client::Connectors::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1398,12 +1883,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::set_iam_policy][super::super::client::Connectors::set_iam_policy] calls.
+    /// The request builder for [Connectors::set_iam_policy][crate::client::Connectors::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1438,20 +1941,40 @@ pub mod connectors {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1463,12 +1986,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_iam_policy][super::super::client::Connectors::get_iam_policy] calls.
+    /// The request builder for [Connectors::get_iam_policy][crate::client::Connectors::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1501,11 +2042,20 @@ pub mod connectors {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1517,12 +2067,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::test_iam_permissions][super::super::client::Connectors::test_iam_permissions] calls.
+    /// The request builder for [Connectors::test_iam_permissions][crate::client::Connectors::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1578,12 +2146,34 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::list_operations][super::super::client::Connectors::list_operations] calls.
+    /// The request builder for [Connectors::list_operations][crate::client::Connectors::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1610,8 +2200,8 @@ pub mod connectors {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1623,6 +2213,17 @@ pub mod connectors {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1657,12 +2258,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::get_operation][super::super::client::Connectors::get_operation] calls.
+    /// The request builder for [Connectors::get_operation][crate::client::Connectors::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1703,12 +2322,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::delete_operation][super::super::client::Connectors::delete_operation] calls.
+    /// The request builder for [Connectors::delete_operation][crate::client::Connectors::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1749,12 +2386,30 @@ pub mod connectors {
         }
     }
 
-    /// The request builder for [Connectors::cancel_operation][super::super::client::Connectors::cancel_operation] calls.
+    /// The request builder for [Connectors::cancel_operation][crate::client::Connectors::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_connectors_v1::builder;
+    /// use builder::connectors::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Connectors>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Connectors>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

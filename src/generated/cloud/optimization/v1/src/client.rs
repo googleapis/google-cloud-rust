@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Optimization API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_optimization_v1::client::FleetRouting;
 /// let client = FleetRouting::builder().build().await?;
 /// // use `client` to make requests to the Cloud Optimization API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -74,11 +71,11 @@ use std::sync::Arc;
 ///
 /// `FleetRouting` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `FleetRouting` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct FleetRouting {
-    inner: Arc<dyn super::stub::dynamic::FleetRouting>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::FleetRouting>,
 }
 
 impl FleetRouting {
@@ -88,7 +85,7 @@ impl FleetRouting {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_optimization_v1::client::FleetRouting;
     /// let client = FleetRouting::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::fleet_routing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::fleet_routing::client::Factory)
@@ -103,33 +100,35 @@ impl FleetRouting {
         T: super::stub::FleetRouting + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::FleetRouting>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::FleetRouting>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::FleetRouting> {
+    ) -> gax::client_builder::Result<impl super::stub::FleetRouting> {
         super::transport::FleetRouting::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::FleetRouting> {
+    ) -> gax::client_builder::Result<impl super::stub::FleetRouting> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::FleetRouting::new)
@@ -149,12 +148,8 @@ impl FleetRouting {
     /// The goal is to provide an assignment of `ShipmentRoute`s to `Vehicle`s that
     /// minimizes the total cost where cost has many components defined in the
     /// `ShipmentModel`.
-    pub fn optimize_tours(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::fleet_routing::OptimizeTours {
+    pub fn optimize_tours(&self) -> super::builder::fleet_routing::OptimizeTours {
         super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Optimizes vehicle tours for one or more `OptimizeToursRequest`
@@ -177,21 +172,14 @@ impl FleetRouting {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_optimize_tours(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::fleet_routing::BatchOptimizeTours {
+    pub fn batch_optimize_tours(&self) -> super::builder::fleet_routing::BatchOptimizeTours {
         super::builder::fleet_routing::BatchOptimizeTours::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fleet_routing::GetOperation {
-        super::builder::fleet_routing::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation {
+        super::builder::fleet_routing::GetOperation::new(self.inner.clone())
     }
 }

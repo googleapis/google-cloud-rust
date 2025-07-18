@@ -22,13 +22,13 @@ on:
   release:
     types: [published]
 env:
-  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.86" }'
+  GHA_RUST_VERSIONS: '{ "rust:msrv": "1.85", "rust:current": "1.88", "rust:nightly": "nightly" }'
   GHA_GO_VERSIONS: '{ "go:current": "1.23.8" }'
 jobs:
   build:
     strategy:
       matrix:
-        os: ['macos-14', 'ubuntu-24.04', 'windows-2022']
+        os: ['macos-14', 'ubuntu-24.04', 'windows-2025']
         rust-version: ['rust:current']
         include:
           - os: 'ubuntu-24.04'
@@ -92,28 +92,33 @@ jobs:
             cargo "${sub}" --package google-cloud-wkt --no-default-features
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features chrono
             cargo "${sub}" --package google-cloud-wkt --no-default-features --features time
+            cargo "${sub}" --package google-cloud-wkt --no-default-features --features _internal-semver
             cargo "${sub}" --package google-cloud-wkt --all-features
           done
+          cargo clippy --no-deps --package google-cloud-wkt --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-wkt --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
           echo "==== google-cloud-gax ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax --no-default-features
-            cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-sdk-client
+            cargo "${sub}" --package google-cloud-gax --no-default-features --features unstable-stream
+            cargo "${sub}" --package google-cloud-gax --no-default-features --features _internal-semver
             cargo "${sub}" --package google-cloud-gax --all-features
           done
+          cargo clippy --no-deps --package google-cloud-gax --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-gax --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
           echo "==== google-cloud-gax-internal ===="
           for sub in test doc; do
             cargo "${sub}" --package google-cloud-gax-internal --no-default-features
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_common
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_http_client
-            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal_grpc_client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-common
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client
+            cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-grpc-client
             cargo "${sub}" --package google-cloud-gax-internal --all-features
           done
+          cargo clippy --no-deps --package google-cloud-gax-internal --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-gax-internal --all-features --all-targets --profile=test -- --deny warnings
 
           cargo clean
@@ -121,10 +126,15 @@ jobs:
           for sub in test doc; do
             cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features
             cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features unstable-stream
+            cargo "${sub}" --profile=ci --package google-cloud-lro --no-default-features --features _internal-semver
             cargo "${sub}" --profile=ci --package google-cloud-lro --all-features
           done
+          cargo clippy --no-deps --package google-cloud-lro --all-targets -- --deny warnings
           cargo clippy --no-deps --package google-cloud-lro --all-features --all-targets --profile=test -- --deny warnings
 
+          # We use google-cloud-aiplatform-v1 to test the generator w.r.t.
+          # per-client features. As usual, we assume the generator works for
+          # other generated libraries if it works for one.
           cargo clean
           echo "==== google-cloud-aiplatform-v1 ===="
           cargo build -p google-cloud-aiplatform-v1 --no-default-features
@@ -133,6 +143,16 @@ jobs:
             echo "==== google-cloud-aiplatform-v1 + ${feature} ===="
             cargo build --profile=ci -p google-cloud-aiplatform-v1 --no-default-features --features "${feature}"
           done
+
+          cargo clean
+          echo "==== google-cloud-storage ===="
+          for sub in test doc; do
+            cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features
+            cargo "${sub}" --profile=ci --package google-cloud-storage --no-default-features --features unstable-stream
+            cargo "${sub}" --profile=ci --package google-cloud-storage --all-features
+          done
+          cargo clippy --no-deps --package google-cloud-storage --all-targets -- --deny warnings
+          cargo clippy --no-deps --package google-cloud-storage --all-features --all-targets --profile=test -- --deny warnings
 
   coverage:
     runs-on: ubuntu-24.04
@@ -156,23 +176,91 @@ jobs:
         run: cargo version
       - name: Display rustc version
         run: rustup show active-toolchain -v
-      - run: |
-          cargo tarpaulin --out xml --all-features \
-            --package google-cloud-auth \
-            --package google-cloud-gax \
-            --package google-cloud-gax-internal \
-            --package google-cloud-lro \
-            --package google-cloud-wkt
+      - run: cargo tarpaulin --out xml
       - name: Upload to codecov.io
         uses: codecov/codecov-action@v5
         with:
           fail_ci_if_error: false
           token: ${{ secrets.CODECOV_TOKEN }}
-  docs:
+
+  showcase:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         rust-version: ['rust:current']
+        go-version: ['go:current']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ fromJson(env.GHA_GO_VERSIONS)[matrix.go-version] }}
+          cache-dependency-path: |
+            generator/go.sum
+      - run: |
+          cargo test --features run-showcase-tests -p integration-tests
+
+  protojson-conformance:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'protocolbuffers/protobuf'
+          ref: '31.x'
+          path: 'protobuf'
+      - uses: actions/checkout@v4
+        with:
+          path: 'main'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('main/Cargo.lock', 'main/.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: Build conformance testee
+        working-directory: main
+        run: |
+          cargo build -p protojson-conformance
+      - name: Run conformance test
+        working-directory: protobuf
+        env:
+          USE_BAZEL_VERSION: '8.2.1'
+        run: |
+          bazelisk run --enable_bzlmod -- \
+               //conformance:conformance_test_runner \
+               --failure_list ${GITHUB_WORKSPACE}/main/src/protojson-conformance/expected_failures.txt \
+               ${GITHUB_WORKSPACE}/main/target/debug/protojson-conformance
+
+  docs:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current', 'rust:nightly']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/cache@v4
@@ -199,6 +287,7 @@ jobs:
       - run: mdbook build guide
       - run: mdbook test guide
       - name: Upload user guide
+        if: ${{ matrix.rust-version == 'rust:current' }}
         id: deployment
         uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
         with:

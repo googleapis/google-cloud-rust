@@ -16,9 +16,8 @@
 
 pub mod rapid_migration_assessment {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RapidMigrationAssessment][super::super::client::RapidMigrationAssessment].
+    /// A builder for [RapidMigrationAssessment][crate::client::RapidMigrationAssessment].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod rapid_migration_assessment {
     /// let client = builder
     ///     .with_endpoint("https://rapidmigrationassessment.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod rapid_migration_assessment {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RapidMigrationAssessment;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RapidMigrationAssessment] request builders.
+    /// Common implementation for [crate::client::RapidMigrationAssessment] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod rapid_migration_assessment {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::create_collector][super::super::client::RapidMigrationAssessment::create_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::create_collector][crate::client::RapidMigrationAssessment::create_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::CreateCollector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCollector(RequestBuilder<crate::model::CreateCollectorRequest>);
 
     impl CreateCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -97,7 +116,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_collector][super::super::client::RapidMigrationAssessment::create_collector].
+        /// on [create_collector][crate::client::RapidMigrationAssessment::create_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_collector(self.0.request, self.0.options)
@@ -110,7 +129,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -135,7 +154,7 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCollectorRequest::parent].
@@ -157,11 +176,22 @@ pub mod rapid_migration_assessment {
         /// Sets the value of [collector][crate::model::CreateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.collector = v.into();
+        pub fn set_collector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [collector][crate::model::CreateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = v.map(|x| x.into());
             self
         }
 
@@ -179,13 +209,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::create_annotation][super::super::client::RapidMigrationAssessment::create_annotation] calls.
+    /// The request builder for [RapidMigrationAssessment::create_annotation][crate::client::RapidMigrationAssessment::create_annotation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::CreateAnnotation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnnotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnnotation(RequestBuilder<crate::model::CreateAnnotationRequest>);
 
     impl CreateAnnotation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -210,7 +257,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_annotation][super::super::client::RapidMigrationAssessment::create_annotation].
+        /// on [create_annotation][crate::client::RapidMigrationAssessment::create_annotation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_annotation(self.0.request, self.0.options)
@@ -223,7 +270,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Annotation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Annotation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Annotation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -248,7 +295,7 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnnotationRequest::parent].
@@ -262,11 +309,22 @@ pub mod rapid_migration_assessment {
         /// Sets the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_annotation<T: Into<std::option::Option<crate::model::Annotation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.annotation = v.into();
+        pub fn set_annotation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Annotation>,
+        {
+            self.0.request.annotation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [annotation][crate::model::CreateAnnotationRequest::annotation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_annotation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Annotation>,
+        {
+            self.0.request.annotation = v.map(|x| x.into());
             self
         }
 
@@ -284,13 +342,29 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_annotation][super::super::client::RapidMigrationAssessment::get_annotation] calls.
+    /// The request builder for [RapidMigrationAssessment::get_annotation][crate::client::RapidMigrationAssessment::get_annotation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetAnnotation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnnotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnnotation(RequestBuilder<crate::model::GetAnnotationRequest>);
 
     impl GetAnnotation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -331,13 +405,33 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::list_collectors][super::super::client::RapidMigrationAssessment::list_collectors] calls.
+    /// The request builder for [RapidMigrationAssessment::list_collectors][crate::client::RapidMigrationAssessment::list_collectors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ListCollectors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCollectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCollectors(RequestBuilder<crate::model::ListCollectorsRequest>);
 
     impl ListCollectors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -362,8 +456,8 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCollectorsResponse, gax::error::Error>
         {
@@ -375,6 +469,15 @@ pub mod rapid_migration_assessment {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCollectorsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCollectorsRequest::parent].
@@ -417,13 +520,29 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_collector][super::super::client::RapidMigrationAssessment::get_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::get_collector][crate::client::RapidMigrationAssessment::get_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetCollector;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCollector(RequestBuilder<crate::model::GetCollectorRequest>);
 
     impl GetCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -464,13 +583,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::update_collector][super::super::client::RapidMigrationAssessment::update_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::update_collector][crate::client::RapidMigrationAssessment::update_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::UpdateCollector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCollector(RequestBuilder<crate::model::UpdateCollectorRequest>);
 
     impl UpdateCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -492,7 +628,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_collector][super::super::client::RapidMigrationAssessment::update_collector].
+        /// on [update_collector][crate::client::RapidMigrationAssessment::update_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_collector(self.0.request, self.0.options)
@@ -505,7 +641,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -530,28 +666,50 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCollectorRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [collector][crate::model::UpdateCollectorRequest::collector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_collector<T: Into<std::option::Option<crate::model::Collector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.collector = v.into();
+        pub fn set_collector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [collector][crate::model::UpdateCollectorRequest::collector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_collector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Collector>,
+        {
+            self.0.request.collector = v.map(|x| x.into());
             self
         }
 
@@ -569,13 +727,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::delete_collector][super::super::client::RapidMigrationAssessment::delete_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::delete_collector][crate::client::RapidMigrationAssessment::delete_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::DeleteCollector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCollector(RequestBuilder<crate::model::DeleteCollectorRequest>);
 
     impl DeleteCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -597,7 +772,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_collector][super::super::client::RapidMigrationAssessment::delete_collector].
+        /// on [delete_collector][crate::client::RapidMigrationAssessment::delete_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_collector(self.0.request, self.0.options)
@@ -610,7 +785,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -635,7 +810,7 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCollectorRequest::name].
@@ -660,13 +835,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::resume_collector][super::super::client::RapidMigrationAssessment::resume_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::resume_collector][crate::client::RapidMigrationAssessment::resume_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ResumeCollector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeCollector(RequestBuilder<crate::model::ResumeCollectorRequest>);
 
     impl ResumeCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -688,7 +880,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_collector][super::super::client::RapidMigrationAssessment::resume_collector].
+        /// on [resume_collector][crate::client::RapidMigrationAssessment::resume_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_collector(self.0.request, self.0.options)
@@ -701,7 +893,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -726,7 +918,7 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResumeCollectorRequest::name].
@@ -751,13 +943,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::register_collector][super::super::client::RapidMigrationAssessment::register_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::register_collector][crate::client::RapidMigrationAssessment::register_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::RegisterCollector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RegisterCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RegisterCollector(RequestBuilder<crate::model::RegisterCollectorRequest>);
 
     impl RegisterCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -782,7 +991,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [register_collector][super::super::client::RapidMigrationAssessment::register_collector].
+        /// on [register_collector][crate::client::RapidMigrationAssessment::register_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .register_collector(self.0.request, self.0.options)
@@ -795,7 +1004,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -820,7 +1029,7 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RegisterCollectorRequest::name].
@@ -845,13 +1054,30 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::pause_collector][super::super::client::RapidMigrationAssessment::pause_collector] calls.
+    /// The request builder for [RapidMigrationAssessment::pause_collector][crate::client::RapidMigrationAssessment::pause_collector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::PauseCollector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseCollector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseCollector(RequestBuilder<crate::model::PauseCollectorRequest>);
 
     impl PauseCollector {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -873,7 +1099,7 @@ pub mod rapid_migration_assessment {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [pause_collector][super::super::client::RapidMigrationAssessment::pause_collector].
+        /// on [pause_collector][crate::client::RapidMigrationAssessment::pause_collector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .pause_collector(self.0.request, self.0.options)
@@ -886,7 +1112,7 @@ pub mod rapid_migration_assessment {
             self,
         ) -> impl lro::Poller<crate::model::Collector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Collector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Collector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -911,7 +1137,7 @@ pub mod rapid_migration_assessment {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::PauseCollectorRequest::name].
@@ -936,13 +1162,33 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::list_locations][super::super::client::RapidMigrationAssessment::list_locations] calls.
+    /// The request builder for [RapidMigrationAssessment::list_locations][crate::client::RapidMigrationAssessment::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -970,8 +1216,8 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -983,6 +1229,15 @@ pub mod rapid_migration_assessment {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1017,13 +1272,29 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_location][super::super::client::RapidMigrationAssessment::get_location] calls.
+    /// The request builder for [RapidMigrationAssessment::get_location][crate::client::RapidMigrationAssessment::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1062,13 +1333,33 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::list_operations][super::super::client::RapidMigrationAssessment::list_operations] calls.
+    /// The request builder for [RapidMigrationAssessment::list_operations][crate::client::RapidMigrationAssessment::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1096,8 +1387,8 @@ pub mod rapid_migration_assessment {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1109,6 +1400,17 @@ pub mod rapid_migration_assessment {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1143,13 +1445,29 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::get_operation][super::super::client::RapidMigrationAssessment::get_operation] calls.
+    /// The request builder for [RapidMigrationAssessment::get_operation][crate::client::RapidMigrationAssessment::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1191,13 +1509,29 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::delete_operation][super::super::client::RapidMigrationAssessment::delete_operation] calls.
+    /// The request builder for [RapidMigrationAssessment::delete_operation][crate::client::RapidMigrationAssessment::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1239,13 +1573,29 @@ pub mod rapid_migration_assessment {
         }
     }
 
-    /// The request builder for [RapidMigrationAssessment::cancel_operation][super::super::client::RapidMigrationAssessment::cancel_operation] calls.
+    /// The request builder for [RapidMigrationAssessment::cancel_operation][crate::client::RapidMigrationAssessment::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_rapidmigrationassessment_v1::builder;
+    /// use builder::rapid_migration_assessment::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RapidMigrationAssessment>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

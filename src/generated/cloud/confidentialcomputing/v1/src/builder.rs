@@ -16,9 +16,8 @@
 
 pub mod confidential_computing {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ConfidentialComputing][super::super::client::ConfidentialComputing].
+    /// A builder for [ConfidentialComputing][crate::client::ConfidentialComputing].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod confidential_computing {
     /// let client = builder
     ///     .with_endpoint("https://confidentialcomputing.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod confidential_computing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ConfidentialComputing;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ConfidentialComputing] request builders.
+    /// Common implementation for [crate::client::ConfidentialComputing] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod confidential_computing {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::create_challenge][super::super::client::ConfidentialComputing::create_challenge] calls.
+    /// The request builder for [ConfidentialComputing::create_challenge][crate::client::ConfidentialComputing::create_challenge] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_confidentialcomputing_v1::builder;
+    /// use builder::confidential_computing::CreateChallenge;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateChallenge {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateChallenge(RequestBuilder<crate::model::CreateChallengeRequest>);
 
     impl CreateChallenge {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -111,11 +129,22 @@ pub mod confidential_computing {
         /// Sets the value of [challenge][crate::model::CreateChallengeRequest::challenge].
         ///
         /// This is a **required** field for requests.
-        pub fn set_challenge<T: Into<std::option::Option<crate::model::Challenge>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.challenge = v.into();
+        pub fn set_challenge<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Challenge>,
+        {
+            self.0.request.challenge = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [challenge][crate::model::CreateChallengeRequest::challenge].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_challenge<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Challenge>,
+        {
+            self.0.request.challenge = v.map(|x| x.into());
             self
         }
     }
@@ -127,13 +156,29 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::verify_attestation][super::super::client::ConfidentialComputing::verify_attestation] calls.
+    /// The request builder for [ConfidentialComputing::verify_attestation][crate::client::ConfidentialComputing::verify_attestation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_confidentialcomputing_v1::builder;
+    /// use builder::confidential_computing::VerifyAttestation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> VerifyAttestation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyAttestation(RequestBuilder<crate::model::VerifyAttestationRequest>);
 
     impl VerifyAttestation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -170,42 +215,78 @@ pub mod confidential_computing {
         }
 
         /// Sets the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
-        pub fn set_gcp_credentials<T: Into<std::option::Option<crate::model::GcpCredentials>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcp_credentials = v.into();
+        pub fn set_gcp_credentials<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpCredentials>,
+        {
+            self.0.request.gcp_credentials = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gcp_credentials][crate::model::VerifyAttestationRequest::gcp_credentials].
+        pub fn set_or_clear_gcp_credentials<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpCredentials>,
+        {
+            self.0.request.gcp_credentials = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tpm_attestation<T: Into<std::option::Option<crate::model::TpmAttestation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tpm_attestation = v.into();
+        pub fn set_tpm_attestation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TpmAttestation>,
+        {
+            self.0.request.tpm_attestation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tpm_attestation][crate::model::VerifyAttestationRequest::tpm_attestation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tpm_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TpmAttestation>,
+        {
+            self.0.request.tpm_attestation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
-        pub fn set_confidential_space_info<
-            T: Into<std::option::Option<crate::model::ConfidentialSpaceInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.confidential_space_info = v.into();
+        pub fn set_confidential_space_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+        {
+            self.0.request.confidential_space_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [confidential_space_info][crate::model::VerifyAttestationRequest::confidential_space_info].
+        pub fn set_or_clear_confidential_space_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialSpaceInfo>,
+        {
+            self.0.request.confidential_space_info = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
-        pub fn set_token_options<T: Into<std::option::Option<crate::model::TokenOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.token_options = v.into();
+        pub fn set_token_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TokenOptions>,
+        {
+            self.0.request.token_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [token_options][crate::model::VerifyAttestationRequest::token_options].
+        pub fn set_or_clear_token_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TokenOptions>,
+        {
+            self.0.request.token_options = v.map(|x| x.into());
             self
         }
 
@@ -267,13 +348,33 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::list_locations][super::super::client::ConfidentialComputing::list_locations] calls.
+    /// The request builder for [ConfidentialComputing::list_locations][crate::client::ConfidentialComputing::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_confidentialcomputing_v1::builder;
+    /// use builder::confidential_computing::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -301,8 +402,8 @@ pub mod confidential_computing {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -314,6 +415,15 @@ pub mod confidential_computing {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -348,13 +458,29 @@ pub mod confidential_computing {
         }
     }
 
-    /// The request builder for [ConfidentialComputing::get_location][super::super::client::ConfidentialComputing::get_location] calls.
+    /// The request builder for [ConfidentialComputing::get_location][crate::client::ConfidentialComputing::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_confidentialcomputing_v1::builder;
+    /// use builder::confidential_computing::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfidentialComputing>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

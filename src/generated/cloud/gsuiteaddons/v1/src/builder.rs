@@ -16,9 +16,8 @@
 
 pub mod g_suite_add_ons {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [GSuiteAddOns][super::super::client::GSuiteAddOns].
+    /// A builder for [GSuiteAddOns][crate::client::GSuiteAddOns].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod g_suite_add_ons {
     /// let client = builder
     ///     .with_endpoint("https://gsuiteaddons.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod g_suite_add_ons {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = GSuiteAddOns;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::GSuiteAddOns] request builders.
+    /// Common implementation for [crate::client::GSuiteAddOns] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod g_suite_add_ons {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::get_authorization][super::super::client::GSuiteAddOns::get_authorization] calls.
+    /// The request builder for [GSuiteAddOns::get_authorization][crate::client::GSuiteAddOns::get_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::GetAuthorization;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAuthorization(RequestBuilder<crate::model::GetAuthorizationRequest>);
 
     impl GetAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,12 +137,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::create_deployment][super::super::client::GSuiteAddOns::create_deployment] calls.
+    /// The request builder for [GSuiteAddOns::create_deployment][crate::client::GSuiteAddOns::create_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::CreateDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -166,11 +206,22 @@ pub mod g_suite_add_ons {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -182,12 +233,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::replace_deployment][super::super::client::GSuiteAddOns::replace_deployment] calls.
+    /// The request builder for [GSuiteAddOns::replace_deployment][crate::client::GSuiteAddOns::replace_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::ReplaceDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceDeployment(RequestBuilder<crate::model::ReplaceDeploymentRequest>);
 
     impl ReplaceDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -217,11 +286,22 @@ pub mod g_suite_add_ons {
         /// Sets the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::ReplaceDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -233,12 +313,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::get_deployment][super::super::client::GSuiteAddOns::get_deployment] calls.
+    /// The request builder for [GSuiteAddOns::get_deployment][crate::client::GSuiteAddOns::get_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::GetDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,12 +376,34 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::list_deployments][super::super::client::GSuiteAddOns::list_deployments] calls.
+    /// The request builder for [GSuiteAddOns::list_deployments][crate::client::GSuiteAddOns::list_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::ListDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -307,8 +427,8 @@ pub mod g_suite_add_ons {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
@@ -320,6 +440,15 @@ pub mod g_suite_add_ons {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
@@ -350,12 +479,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::delete_deployment][super::super::client::GSuiteAddOns::delete_deployment] calls.
+    /// The request builder for [GSuiteAddOns::delete_deployment][crate::client::GSuiteAddOns::delete_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::DeleteDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,12 +551,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::install_deployment][super::super::client::GSuiteAddOns::install_deployment] calls.
+    /// The request builder for [GSuiteAddOns::install_deployment][crate::client::GSuiteAddOns::install_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::InstallDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InstallDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InstallDeployment(RequestBuilder<crate::model::InstallDeploymentRequest>);
 
     impl InstallDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -452,12 +617,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::uninstall_deployment][super::super::client::GSuiteAddOns::uninstall_deployment] calls.
+    /// The request builder for [GSuiteAddOns::uninstall_deployment][crate::client::GSuiteAddOns::uninstall_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::UninstallDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UninstallDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UninstallDeployment(RequestBuilder<crate::model::UninstallDeploymentRequest>);
 
     impl UninstallDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -500,12 +683,30 @@ pub mod g_suite_add_ons {
         }
     }
 
-    /// The request builder for [GSuiteAddOns::get_install_status][super::super::client::GSuiteAddOns::get_install_status] calls.
+    /// The request builder for [GSuiteAddOns::get_install_status][crate::client::GSuiteAddOns::get_install_status] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gsuiteaddons_v1::builder;
+    /// use builder::g_suite_add_ons::GetInstallStatus;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstallStatus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstallStatus(RequestBuilder<crate::model::GetInstallStatusRequest>);
 
     impl GetInstallStatus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::GSuiteAddOns>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::GSuiteAddOns>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

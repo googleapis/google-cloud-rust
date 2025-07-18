@@ -16,9 +16,8 @@
 
 pub mod backup_dr {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [BackupDR][super::super::client::BackupDR].
+    /// A builder for [BackupDR][crate::client::BackupDR].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod backup_dr {
     /// let client = builder
     ///     .with_endpoint("https://backupdr.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod backup_dr {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BackupDR;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::BackupDR] request builders.
+    /// Common implementation for [crate::client::BackupDR] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BackupDR>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod backup_dr {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_management_servers][super::super::client::BackupDR::list_management_servers] calls.
+    /// The request builder for [BackupDR::list_management_servers][crate::client::BackupDR::list_management_servers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListManagementServers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListManagementServers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListManagementServers(RequestBuilder<crate::model::ListManagementServersRequest>);
 
     impl ListManagementServers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +121,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListManagementServersResponse, gax::error::Error>
         {
@@ -112,6 +134,17 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListManagementServersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListManagementServersRequest::parent].
@@ -135,20 +168,38 @@ pub mod backup_dr {
         }
 
         /// Sets the value of [filter][crate::model::ListManagementServersRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListManagementServersRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [order_by][crate::model::ListManagementServersRequest::order_by].
-        pub fn set_order_by<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.order_by = v.into();
+        pub fn set_order_by<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [order_by][crate::model::ListManagementServersRequest::order_by].
+        pub fn set_or_clear_order_by<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.order_by = v.map(|x| x.into());
             self
         }
     }
@@ -160,12 +211,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_management_server][super::super::client::BackupDR::get_management_server] calls.
+    /// The request builder for [BackupDR::get_management_server][crate::client::BackupDR::get_management_server] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetManagementServer;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetManagementServer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetManagementServer(RequestBuilder<crate::model::GetManagementServerRequest>);
 
     impl GetManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,12 +275,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_management_server][super::super::client::BackupDR::create_management_server] calls.
+    /// The request builder for [BackupDR::create_management_server][crate::client::BackupDR::create_management_server] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::CreateManagementServer;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateManagementServer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateManagementServer(RequestBuilder<crate::model::CreateManagementServerRequest>);
 
     impl CreateManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -237,7 +321,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_management_server][super::super::client::BackupDR::create_management_server].
+        /// on [create_management_server][crate::client::BackupDR::create_management_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_management_server(self.0.request, self.0.options)
@@ -250,8 +334,10 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::ManagementServer, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ManagementServer, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ManagementServer,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -276,7 +362,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateManagementServerRequest::parent].
@@ -298,13 +384,22 @@ pub mod backup_dr {
         /// Sets the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management_server<
-            T: Into<std::option::Option<crate::model::ManagementServer>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management_server = v.into();
+        pub fn set_management_server<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementServer>,
+        {
+            self.0.request.management_server = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [management_server][crate::model::CreateManagementServerRequest::management_server].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_management_server<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementServer>,
+        {
+            self.0.request.management_server = v.map(|x| x.into());
             self
         }
 
@@ -322,12 +417,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_management_server][super::super::client::BackupDR::delete_management_server] calls.
+    /// The request builder for [BackupDR::delete_management_server][crate::client::BackupDR::delete_management_server] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::DeleteManagementServer;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteManagementServer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteManagementServer(RequestBuilder<crate::model::DeleteManagementServerRequest>);
 
     impl DeleteManagementServer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -351,7 +463,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_management_server][super::super::client::BackupDR::delete_management_server].
+        /// on [delete_management_server][crate::client::BackupDR::delete_management_server].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_management_server(self.0.request, self.0.options)
@@ -360,8 +472,8 @@ pub mod backup_dr {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_management_server`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -386,7 +498,12 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteManagementServerRequest::name].
@@ -411,12 +528,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_backup_vault][super::super::client::BackupDR::create_backup_vault] calls.
+    /// The request builder for [BackupDR::create_backup_vault][crate::client::BackupDR::create_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::CreateBackupVault;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -440,7 +574,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_vault][super::super::client::BackupDR::create_backup_vault].
+        /// on [create_backup_vault][crate::client::BackupDR::create_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
@@ -452,8 +586,10 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -478,7 +614,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
@@ -500,11 +636,22 @@ pub mod backup_dr {
         /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
 
@@ -528,12 +675,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backup_vaults][super::super::client::BackupDR::list_backup_vaults] calls.
+    /// The request builder for [BackupDR::list_backup_vaults][crate::client::BackupDR::list_backup_vaults] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListBackupVaults;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupVaults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -560,8 +727,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
         {
@@ -573,6 +740,15 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupVaultsRequest::parent].
@@ -621,14 +797,34 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::fetch_usable_backup_vaults][super::super::client::BackupDR::fetch_usable_backup_vaults] calls.
+    /// The request builder for [BackupDR::fetch_usable_backup_vaults][crate::client::BackupDR::fetch_usable_backup_vaults] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::FetchUsableBackupVaults;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchUsableBackupVaults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchUsableBackupVaults(
         RequestBuilder<crate::model::FetchUsableBackupVaultsRequest>,
     );
 
     impl FetchUsableBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,8 +851,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::FetchUsableBackupVaultsResponse,
@@ -670,6 +866,17 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::FetchUsableBackupVaultsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::FetchUsableBackupVaultsRequest::parent].
@@ -712,12 +919,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup_vault][super::super::client::BackupDR::get_backup_vault] calls.
+    /// The request builder for [BackupDR::get_backup_vault][crate::client::BackupDR::get_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetBackupVault;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -763,12 +986,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::update_backup_vault][super::super::client::BackupDR::update_backup_vault] calls.
+    /// The request builder for [BackupDR::update_backup_vault][crate::client::BackupDR::update_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::UpdateBackupVault;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -792,7 +1032,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_vault][super::super::client::BackupDR::update_backup_vault].
+        /// on [update_backup_vault][crate::client::BackupDR::update_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
@@ -804,8 +1044,10 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -830,28 +1072,50 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
 
@@ -881,12 +1145,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup_vault][super::super::client::BackupDR::delete_backup_vault] calls.
+    /// The request builder for [BackupDR::delete_backup_vault][crate::client::BackupDR::delete_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::DeleteBackupVault;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -910,7 +1191,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_vault][super::super::client::BackupDR::delete_backup_vault].
+        /// on [delete_backup_vault][crate::client::BackupDR::delete_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
@@ -919,8 +1200,8 @@ pub mod backup_dr {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -945,7 +1226,12 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
@@ -1000,12 +1286,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_data_sources][super::super::client::BackupDR::list_data_sources] calls.
+    /// The request builder for [BackupDR::list_data_sources][crate::client::BackupDR::list_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListDataSources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1029,8 +1335,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataSourcesResponse, gax::error::Error>
         {
@@ -1042,6 +1348,15 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSourcesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataSourcesRequest::parent].
@@ -1084,12 +1399,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_data_source][super::super::client::BackupDR::get_data_source] calls.
+    /// The request builder for [BackupDR::get_data_source][crate::client::BackupDR::get_data_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetDataSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1129,12 +1460,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::update_data_source][super::super::client::BackupDR::update_data_source] calls.
+    /// The request builder for [BackupDR::update_data_source][crate::client::BackupDR::update_data_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::UpdateDataSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataSource(RequestBuilder<crate::model::UpdateDataSourceRequest>);
 
     impl UpdateDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1158,7 +1506,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_data_source][super::super::client::BackupDR::update_data_source].
+        /// on [update_data_source][crate::client::BackupDR::update_data_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_data_source(self.0.request, self.0.options)
@@ -1171,7 +1519,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::DataSource, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::DataSource, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::DataSource, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1196,28 +1544,50 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataSourceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_source<T: Into<std::option::Option<crate::model::DataSource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_source = v.into();
+        pub fn set_data_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSource>,
+        {
+            self.0.request.data_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_source][crate::model::UpdateDataSourceRequest::data_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSource>,
+        {
+            self.0.request.data_source = v.map(|x| x.into());
             self
         }
 
@@ -1241,12 +1611,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backups][super::super::client::BackupDR::list_backups] calls.
+    /// The request builder for [BackupDR::list_backups][crate::client::BackupDR::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1270,8 +1660,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -1283,6 +1673,15 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -1331,12 +1730,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup][super::super::client::BackupDR::get_backup] calls.
+    /// The request builder for [BackupDR::get_backup][crate::client::BackupDR::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1382,12 +1797,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::update_backup][super::super::client::BackupDR::update_backup] calls.
+    /// The request builder for [BackupDR::update_backup][crate::client::BackupDR::update_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::UpdateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1408,7 +1840,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::BackupDR::update_backup].
+        /// on [update_backup][crate::client::BackupDR::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -1420,7 +1852,8 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1445,28 +1878,50 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -1484,12 +1939,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup][super::super::client::BackupDR::delete_backup] calls.
+    /// The request builder for [BackupDR::delete_backup][crate::client::BackupDR::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1510,7 +1982,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::BackupDR::delete_backup].
+        /// on [delete_backup][crate::client::BackupDR::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1522,7 +1994,8 @@ pub mod backup_dr {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1547,7 +2020,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1572,12 +2045,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::restore_backup][super::super::client::BackupDR::restore_backup] calls.
+    /// The request builder for [BackupDR::restore_backup][crate::client::BackupDR::restore_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::RestoreBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreBackup(RequestBuilder<crate::model::RestoreBackupRequest>);
 
     impl RestoreBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1598,7 +2088,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_backup][super::super::client::BackupDR::restore_backup].
+        /// on [restore_backup][crate::client::BackupDR::restore_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_backup(self.0.request, self.0.options)
@@ -1611,7 +2101,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::RestoreBackupResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RestoreBackupResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1639,7 +2129,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreBackupRequest::name].
@@ -1722,12 +2212,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_backup_plan][super::super::client::BackupDR::create_backup_plan] calls.
+    /// The request builder for [BackupDR::create_backup_plan][crate::client::BackupDR::create_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::CreateBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlan(RequestBuilder<crate::model::CreateBackupPlanRequest>);
 
     impl CreateBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1751,7 +2258,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_plan][super::super::client::BackupDR::create_backup_plan].
+        /// on [create_backup_plan][crate::client::BackupDR::create_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_plan(self.0.request, self.0.options)
@@ -1764,7 +2271,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlan, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::BackupPlan, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1789,7 +2296,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanRequest::parent].
@@ -1811,11 +2318,22 @@ pub mod backup_dr {
         /// Sets the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_plan<T: Into<std::option::Option<crate::model::BackupPlan>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_plan = v.into();
+        pub fn set_backup_plan<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlan>,
+        {
+            self.0.request.backup_plan = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_plan][crate::model::CreateBackupPlanRequest::backup_plan].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_plan<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlan>,
+        {
+            self.0.request.backup_plan = v.map(|x| x.into());
             self
         }
 
@@ -1833,12 +2351,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup_plan][super::super::client::BackupDR::get_backup_plan] calls.
+    /// The request builder for [BackupDR::get_backup_plan][crate::client::BackupDR::get_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetBackupPlan;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupPlan(RequestBuilder<crate::model::GetBackupPlanRequest>);
 
     impl GetBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1878,12 +2412,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backup_plans][super::super::client::BackupDR::list_backup_plans] calls.
+    /// The request builder for [BackupDR::list_backup_plans][crate::client::BackupDR::list_backup_plans] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListBackupPlans;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupPlans {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPlans(RequestBuilder<crate::model::ListBackupPlansRequest>);
 
     impl ListBackupPlans {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1907,8 +2461,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupPlansResponse, gax::error::Error>
         {
@@ -1920,6 +2474,15 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupPlansResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupPlansRequest::parent].
@@ -1962,12 +2525,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup_plan][super::super::client::BackupDR::delete_backup_plan] calls.
+    /// The request builder for [BackupDR::delete_backup_plan][crate::client::BackupDR::delete_backup_plan] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::DeleteBackupPlan;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupPlan {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlan(RequestBuilder<crate::model::DeleteBackupPlanRequest>);
 
     impl DeleteBackupPlan {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1991,7 +2571,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_plan][super::super::client::BackupDR::delete_backup_plan].
+        /// on [delete_backup_plan][crate::client::BackupDR::delete_backup_plan].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_plan(self.0.request, self.0.options)
@@ -2000,8 +2580,8 @@ pub mod backup_dr {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2026,7 +2606,12 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPlanRequest::name].
@@ -2051,14 +2636,31 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::create_backup_plan_association][super::super::client::BackupDR::create_backup_plan_association] calls.
+    /// The request builder for [BackupDR::create_backup_plan_association][crate::client::BackupDR::create_backup_plan_association] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::CreateBackupPlanAssociation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupPlanAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupPlanAssociation(
         RequestBuilder<crate::model::CreateBackupPlanAssociationRequest>,
     );
 
     impl CreateBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2082,7 +2684,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_plan_association][super::super::client::BackupDR::create_backup_plan_association].
+        /// on [create_backup_plan_association][crate::client::BackupDR::create_backup_plan_association].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_plan_association(self.0.request, self.0.options)
@@ -2095,7 +2697,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlanAssociation, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BackupPlanAssociation,
                 crate::model::OperationMetadata,
             >;
@@ -2123,7 +2725,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPlanAssociationRequest::parent].
@@ -2148,13 +2750,22 @@ pub mod backup_dr {
         /// Sets the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_plan_association<
-            T: Into<std::option::Option<crate::model::BackupPlanAssociation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_plan_association = v.into();
+        pub fn set_backup_plan_association<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlanAssociation>,
+        {
+            self.0.request.backup_plan_association = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_plan_association][crate::model::CreateBackupPlanAssociationRequest::backup_plan_association].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_plan_association<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPlanAssociation>,
+        {
+            self.0.request.backup_plan_association = v.map(|x| x.into());
             self
         }
 
@@ -2172,14 +2783,30 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_backup_plan_association][super::super::client::BackupDR::get_backup_plan_association] calls.
+    /// The request builder for [BackupDR::get_backup_plan_association][crate::client::BackupDR::get_backup_plan_association] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetBackupPlanAssociation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupPlanAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupPlanAssociation(
         RequestBuilder<crate::model::GetBackupPlanAssociationRequest>,
     );
 
     impl GetBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2222,14 +2849,34 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_backup_plan_associations][super::super::client::BackupDR::list_backup_plan_associations] calls.
+    /// The request builder for [BackupDR::list_backup_plan_associations][crate::client::BackupDR::list_backup_plan_associations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListBackupPlanAssociations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupPlanAssociations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPlanAssociations(
         RequestBuilder<crate::model::ListBackupPlanAssociationsRequest>,
     );
 
     impl ListBackupPlanAssociations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2256,8 +2903,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListBackupPlanAssociationsResponse,
@@ -2271,6 +2918,17 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBackupPlanAssociationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupPlanAssociationsRequest::parent].
@@ -2307,14 +2965,31 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_backup_plan_association][super::super::client::BackupDR::delete_backup_plan_association] calls.
+    /// The request builder for [BackupDR::delete_backup_plan_association][crate::client::BackupDR::delete_backup_plan_association] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::DeleteBackupPlanAssociation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupPlanAssociation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPlanAssociation(
         RequestBuilder<crate::model::DeleteBackupPlanAssociationRequest>,
     );
 
     impl DeleteBackupPlanAssociation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2338,7 +3013,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_plan_association][super::super::client::BackupDR::delete_backup_plan_association].
+        /// on [delete_backup_plan_association][crate::client::BackupDR::delete_backup_plan_association].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_plan_association(self.0.request, self.0.options)
@@ -2347,8 +3022,8 @@ pub mod backup_dr {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_plan_association`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2373,7 +3048,12 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPlanAssociationRequest::name].
@@ -2398,12 +3078,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::trigger_backup][super::super::client::BackupDR::trigger_backup] calls.
+    /// The request builder for [BackupDR::trigger_backup][crate::client::BackupDR::trigger_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::TriggerBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TriggerBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TriggerBackup(RequestBuilder<crate::model::TriggerBackupRequest>);
 
     impl TriggerBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2424,7 +3121,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [trigger_backup][super::super::client::BackupDR::trigger_backup].
+        /// on [trigger_backup][crate::client::BackupDR::trigger_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .trigger_backup(self.0.request, self.0.options)
@@ -2437,7 +3134,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::BackupPlanAssociation, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BackupPlanAssociation,
                 crate::model::OperationMetadata,
             >;
@@ -2465,7 +3162,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TriggerBackupRequest::name].
@@ -2498,12 +3195,29 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::initialize_service][super::super::client::BackupDR::initialize_service] calls.
+    /// The request builder for [BackupDR::initialize_service][crate::client::BackupDR::initialize_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::InitializeService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InitializeService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InitializeService(RequestBuilder<crate::model::InitializeServiceRequest>);
 
     impl InitializeService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2527,7 +3241,7 @@ pub mod backup_dr {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [initialize_service][super::super::client::BackupDR::initialize_service].
+        /// on [initialize_service][crate::client::BackupDR::initialize_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .initialize_service(self.0.request, self.0.options)
@@ -2540,7 +3254,7 @@ pub mod backup_dr {
             self,
         ) -> impl lro::Poller<crate::model::InitializeServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InitializeServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2568,7 +3282,7 @@ pub mod backup_dr {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::InitializeServiceRequest::name].
@@ -2601,12 +3315,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_locations][super::super::client::BackupDR::list_locations] calls.
+    /// The request builder for [BackupDR::list_locations][crate::client::BackupDR::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2633,8 +3367,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2646,6 +3380,15 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2680,12 +3423,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_location][super::super::client::BackupDR::get_location] calls.
+    /// The request builder for [BackupDR::get_location][crate::client::BackupDR::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2723,12 +3482,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::set_iam_policy][super::super::client::BackupDR::set_iam_policy] calls.
+    /// The request builder for [BackupDR::set_iam_policy][crate::client::BackupDR::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2763,20 +3538,40 @@ pub mod backup_dr {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2788,12 +3583,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_iam_policy][super::super::client::BackupDR::get_iam_policy] calls.
+    /// The request builder for [BackupDR::get_iam_policy][crate::client::BackupDR::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2826,11 +3637,20 @@ pub mod backup_dr {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2842,12 +3662,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::test_iam_permissions][super::super::client::BackupDR::test_iam_permissions] calls.
+    /// The request builder for [BackupDR::test_iam_permissions][crate::client::BackupDR::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2903,12 +3739,32 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::list_operations][super::super::client::BackupDR::list_operations] calls.
+    /// The request builder for [BackupDR::list_operations][crate::client::BackupDR::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2935,8 +3791,8 @@ pub mod backup_dr {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2948,6 +3804,17 @@ pub mod backup_dr {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2982,12 +3849,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::get_operation][super::super::client::BackupDR::get_operation] calls.
+    /// The request builder for [BackupDR::get_operation][crate::client::BackupDR::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3028,12 +3911,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::delete_operation][super::super::client::BackupDR::delete_operation] calls.
+    /// The request builder for [BackupDR::delete_operation][crate::client::BackupDR::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3074,12 +3973,28 @@ pub mod backup_dr {
         }
     }
 
-    /// The request builder for [BackupDR::cancel_operation][super::super::client::BackupDR::cancel_operation] calls.
+    /// The request builder for [BackupDR::cancel_operation][crate::client::BackupDR::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_backupdr_v1::builder;
+    /// use builder::backup_dr::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::BackupDR>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

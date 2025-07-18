@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use anyhow::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
-use gax::paginator::{ItemPaginator, Paginator};
+use gax::paginator::ItemPaginator as _;
 use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use lro::Poller;
 use std::time::Duration;
-use wf::Poller;
 
 // Verify enum query parameters are serialized correctly.
 pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()> {
@@ -44,7 +44,8 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
 
     // Create an execution with a label. The label is not returned for the `BASIC` view.
     let start = client
-        .create_execution(&parent)
+        .create_execution()
+        .set_parent(&parent)
         .set_execution(wfe::model::Execution::new().set_labels([("test-label", "test-value")]))
         .send()
         .await?;
@@ -52,11 +53,10 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
 
     // The execution list using the `BASIC` view.
     let mut executions = client
-        .list_executions(&parent)
+        .list_executions()
+        .set_parent(&parent)
         .set_view(wfe::model::ExecutionView::Basic)
-        .paginator()
-        .await
-        .items();
+        .by_item();
 
     while let Some(execution) = executions.next().await {
         let execution = execution?;
@@ -66,11 +66,10 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
 
     // The execution list using the `FULL` view.
     let mut executions = client
-        .list_executions(&parent)
+        .list_executions()
+        .set_parent(&parent)
         .set_view(wfe::model::ExecutionView::Full)
-        .paginator()
-        .await
-        .items();
+        .by_item();
 
     while let Some(execution) = executions.next().await {
         let execution = execution?;
@@ -83,7 +82,12 @@ pub async fn list(builder: wfe::builder::executions::ClientBuilder) -> Result<()
 
 async fn delete_test_workflow(name: String) -> Result<()> {
     let client = workflow_client().await?;
-    let _ = client.delete_workflow(name).poller().until_done().await?;
+    client
+        .delete_workflow()
+        .set_name(name)
+        .poller()
+        .until_done()
+        .await?;
     Ok(())
 }
 
@@ -104,7 +108,8 @@ main:
 
     tracing::info!("Start create_workflow() LRO and poll it to completion");
     let response = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::new()
@@ -122,14 +127,15 @@ main:
 }
 
 async fn workflow_client() -> Result<wf::client::Workflows> {
-    wf::client::Workflows::builder()
+    let client = wf::client::Workflows::builder()
         .with_retry_policy(
             AlwaysRetry
                 .with_time_limit(Duration::from_secs(15))
                 .with_attempt_limit(5),
         )
         .build()
-        .await
+        .await?;
+    Ok(client)
 }
 
 fn test_backoff() -> ExponentialBackoff {

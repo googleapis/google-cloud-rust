@@ -24,9 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-use std::sync::Arc;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::NetworkSecurity].
@@ -51,9 +48,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListAuthorizationPoliciesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListAuthorizationPoliciesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::get_authorization_policy].
@@ -64,9 +59,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::AuthorizationPolicy>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::AuthorizationPolicy>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::create_authorization_policy].
@@ -77,9 +70,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::update_authorization_policy].
@@ -90,9 +81,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::delete_authorization_policy].
@@ -103,9 +92,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::list_server_tls_policies].
@@ -118,9 +105,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListServerTlsPoliciesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListServerTlsPoliciesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::get_server_tls_policy].
@@ -131,9 +116,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ServerTlsPolicy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServerTlsPolicy>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::create_server_tls_policy].
@@ -144,9 +127,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::update_server_tls_policy].
@@ -157,9 +138,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::delete_server_tls_policy].
@@ -170,9 +149,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::list_client_tls_policies].
@@ -185,9 +162,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListClientTlsPoliciesResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListClientTlsPoliciesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::get_client_tls_policy].
@@ -198,9 +173,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ClientTlsPolicy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ClientTlsPolicy>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::create_client_tls_policy].
@@ -211,9 +184,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::update_client_tls_policy].
@@ -224,9 +195,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::delete_client_tls_policy].
@@ -237,9 +206,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::list_locations].
@@ -250,9 +217,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::get_location].
@@ -263,9 +228,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::set_iam_policy].
@@ -276,9 +239,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::get_iam_policy].
@@ -289,9 +250,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::Policy>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<iam_v1::model::Policy>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::test_iam_permissions].
@@ -302,9 +261,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::list_operations].
@@ -315,9 +272,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::get_operation].
@@ -328,9 +283,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::delete_operation].
@@ -339,9 +292,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::DeleteOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::NetworkSecurity::cancel_operation].
@@ -350,9 +301,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
         _req: longrunning::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.
@@ -362,8 +311,8 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     fn get_polling_error_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        Arc::new(gax::polling_error_policy::Aip194Strict)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -373,7 +322,7 @@ pub trait NetworkSecurity: std::fmt::Debug + Send + Sync {
     fn get_polling_backoff_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

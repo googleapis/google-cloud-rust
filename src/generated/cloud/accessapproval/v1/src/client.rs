@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Access Approval API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_accessapproval_v1::client::AccessApproval;
 /// let client = AccessApproval::builder().build().await?;
 /// // use `client` to make requests to the Access Approval API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -92,11 +89,11 @@ use std::sync::Arc;
 ///
 /// `AccessApproval` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AccessApproval` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AccessApproval {
-    inner: Arc<dyn super::stub::dynamic::AccessApproval>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AccessApproval>,
 }
 
 impl AccessApproval {
@@ -106,7 +103,7 @@ impl AccessApproval {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_accessapproval_v1::client::AccessApproval;
     /// let client = AccessApproval::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::access_approval::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::access_approval::client::Factory)
@@ -121,33 +118,35 @@ impl AccessApproval {
         T: super::stub::AccessApproval + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AccessApproval>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AccessApproval>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AccessApproval> {
+    ) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
         super::transport::AccessApproval::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AccessApproval> {
+    ) -> gax::client_builder::Result<impl super::stub::AccessApproval> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AccessApproval::new)
@@ -156,21 +155,13 @@ impl AccessApproval {
     /// Lists approval requests associated with a project, folder, or organization.
     /// Approval requests can be filtered by state (pending, active, dismissed).
     /// The order is reverse chronological.
-    pub fn list_approval_requests(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::access_approval::ListApprovalRequests {
+    pub fn list_approval_requests(&self) -> super::builder::access_approval::ListApprovalRequests {
         super::builder::access_approval::ListApprovalRequests::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an approval request. Returns NOT_FOUND if the request does not exist.
-    pub fn get_approval_request(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::access_approval::GetApprovalRequest {
+    pub fn get_approval_request(&self) -> super::builder::access_approval::GetApprovalRequest {
         super::builder::access_approval::GetApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Approves a request and returns the updated ApprovalRequest.
@@ -179,10 +170,8 @@ impl AccessApproval {
     /// FAILED_PRECONDITION if the request exists but is not in a pending state.
     pub fn approve_approval_request(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::ApproveApprovalRequest {
         super::builder::access_approval::ApproveApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Dismisses a request. Returns the updated ApprovalRequest.
@@ -197,10 +186,8 @@ impl AccessApproval {
     /// state.
     pub fn dismiss_approval_request(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::DismissApprovalRequest {
         super::builder::access_approval::DismissApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Invalidates an existing ApprovalRequest. Returns the updated
@@ -213,29 +200,23 @@ impl AccessApproval {
     /// state.
     pub fn invalidate_approval_request(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::InvalidateApprovalRequest {
         super::builder::access_approval::InvalidateApprovalRequest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the settings associated with a project, folder, or organization.
     pub fn get_access_approval_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::GetAccessApprovalSettings {
         super::builder::access_approval::GetAccessApprovalSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the settings associated with a project, folder, or organization.
     /// Settings to update are determined by the value of field_mask.
     pub fn update_access_approval_settings(
         &self,
-        settings: impl Into<crate::model::AccessApprovalSettings>,
     ) -> super::builder::access_approval::UpdateAccessApprovalSettings {
         super::builder::access_approval::UpdateAccessApprovalSettings::new(self.inner.clone())
-            .set_settings(settings.into())
     }
 
     /// Deletes the settings associated with a project, folder, or organization.
@@ -246,19 +227,15 @@ impl AccessApproval {
     /// the settings are inherited.
     pub fn delete_access_approval_settings(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::DeleteAccessApprovalSettings {
         super::builder::access_approval::DeleteAccessApprovalSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves the service account that is used by Access Approval to access KMS
     /// keys for signing approved approval requests.
     pub fn get_access_approval_service_account(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_approval::GetAccessApprovalServiceAccount {
         super::builder::access_approval::GetAccessApprovalServiceAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

@@ -111,7 +111,7 @@ impl RequestOptions {
 
     /// Sets the retry policy configuration.
     pub fn set_retry_policy<V: Into<RetryPolicyArg>>(&mut self, v: V) {
-        self.retry_policy = Some(v.into().0);
+        self.retry_policy = Some(v.into().into());
     }
 
     /// Get the current backoff policy override, if any.
@@ -121,7 +121,7 @@ impl RequestOptions {
 
     /// Sets the backoff policy configuration.
     pub fn set_backoff_policy<V: Into<BackoffPolicyArg>>(&mut self, v: V) {
-        self.backoff_policy = Some(v.into().0);
+        self.backoff_policy = Some(v.into().into());
     }
 
     /// Get the current retry throttler override, if any.
@@ -131,7 +131,7 @@ impl RequestOptions {
 
     /// Sets the retry throttling configuration.
     pub fn set_retry_throttler<V: Into<RetryThrottlerArg>>(&mut self, v: V) {
-        self.retry_throttler = Some(v.into().0);
+        self.retry_throttler = Some(v.into().into());
     }
 
     /// Get the current polling policy override, if any.
@@ -190,11 +190,12 @@ pub trait RequestOptionsBuilder: internal::RequestBuilder {
     fn with_polling_backoff_policy<V: Into<PollingBackoffPolicyArg>>(self, v: V) -> Self;
 }
 
-/// This module contains implementation details. It is not part of the public
-/// API. Types inside may be changed or removed without warnings. Applications
-/// should not use any types contained within.
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal {
+    //! This module contains implementation details. It is not part of the
+    //! public API. Types and functions in this module may be changed or removed
+    //! without warnings. Applications should not use any types contained
+    //! within.
     use super::RequestOptions;
 
     /// Simplify implementation of the [super::RequestOptionsBuilder] trait in
@@ -259,7 +260,7 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::internal::*;
     use super::*;
     use crate::exponential_backoff::ExponentialBackoffBuilder;

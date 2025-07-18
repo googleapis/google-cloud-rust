@@ -16,9 +16,8 @@
 
 pub mod managed_identities_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ManagedIdentitiesService][super::super::client::ManagedIdentitiesService].
+    /// A builder for [ManagedIdentitiesService][crate::client::ManagedIdentitiesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod managed_identities_service {
     /// let client = builder
     ///     .with_endpoint("https://managedidentities.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod managed_identities_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ManagedIdentitiesService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ManagedIdentitiesService] request builders.
+    /// Common implementation for [crate::client::ManagedIdentitiesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod managed_identities_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,7 +71,24 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][crate::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::CreateMicrosoftAdDomain;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMicrosoftAdDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMicrosoftAdDomain(
         RequestBuilder<crate::model::CreateMicrosoftAdDomainRequest>,
@@ -77,7 +96,7 @@ pub mod managed_identities_service {
 
     impl CreateMicrosoftAdDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -102,7 +121,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_microsoft_ad_domain][super::super::client::ManagedIdentitiesService::create_microsoft_ad_domain].
+        /// on [create_microsoft_ad_domain][crate::client::ManagedIdentitiesService::create_microsoft_ad_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_microsoft_ad_domain(self.0.request, self.0.options)
@@ -112,7 +131,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `create_microsoft_ad_domain`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -137,7 +157,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMicrosoftAdDomainRequest::parent].
@@ -159,11 +179,22 @@ pub mod managed_identities_service {
         /// Sets the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
-        pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain = v.into();
+        pub fn set_domain<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [domain][crate::model::CreateMicrosoftAdDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = v.map(|x| x.into());
             self
         }
     }
@@ -175,13 +206,29 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::reset_admin_password][super::super::client::ManagedIdentitiesService::reset_admin_password] calls.
+    /// The request builder for [ManagedIdentitiesService::reset_admin_password][crate::client::ManagedIdentitiesService::reset_admin_password] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ResetAdminPassword;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetAdminPassword {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetAdminPassword(RequestBuilder<crate::model::ResetAdminPasswordRequest>);
 
     impl ResetAdminPassword {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -225,13 +272,33 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::list_domains][super::super::client::ManagedIdentitiesService::list_domains] calls.
+    /// The request builder for [ManagedIdentitiesService::list_domains][crate::client::ManagedIdentitiesService::list_domains] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ListDomains;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDomains {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDomains(RequestBuilder<crate::model::ListDomainsRequest>);
 
     impl ListDomains {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -256,8 +323,8 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDomainsResponse, gax::error::Error>
         {
@@ -269,6 +336,15 @@ pub mod managed_identities_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDomainsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDomainsRequest::parent].
@@ -311,13 +387,29 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::get_domain][super::super::client::ManagedIdentitiesService::get_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::get_domain][crate::client::ManagedIdentitiesService::get_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::GetDomain;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDomain(RequestBuilder<crate::model::GetDomainRequest>);
 
     impl GetDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -358,13 +450,30 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::update_domain][super::super::client::ManagedIdentitiesService::update_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::update_domain][crate::client::ManagedIdentitiesService::update_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::UpdateDomain;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDomain(RequestBuilder<crate::model::UpdateDomainRequest>);
 
     impl UpdateDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -386,7 +495,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_domain][super::super::client::ManagedIdentitiesService::update_domain].
+        /// on [update_domain][crate::client::ManagedIdentitiesService::update_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_domain(self.0.request, self.0.options)
@@ -396,7 +505,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `update_domain`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -421,28 +531,50 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDomainRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [domain][crate::model::UpdateDomainRequest::domain].
         ///
         /// This is a **required** field for requests.
-        pub fn set_domain<T: Into<std::option::Option<crate::model::Domain>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.domain = v.into();
+        pub fn set_domain<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [domain][crate::model::UpdateDomainRequest::domain].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_domain<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Domain>,
+        {
+            self.0.request.domain = v.map(|x| x.into());
             self
         }
     }
@@ -454,13 +586,30 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::delete_domain][super::super::client::ManagedIdentitiesService::delete_domain] calls.
+    /// The request builder for [ManagedIdentitiesService::delete_domain][crate::client::ManagedIdentitiesService::delete_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::DeleteDomain;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDomain(RequestBuilder<crate::model::DeleteDomainRequest>);
 
     impl DeleteDomain {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -482,7 +631,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_domain][super::super::client::ManagedIdentitiesService::delete_domain].
+        /// on [delete_domain][crate::client::ManagedIdentitiesService::delete_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_domain(self.0.request, self.0.options)
@@ -491,8 +640,8 @@ pub mod managed_identities_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_domain`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OpMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OpMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OpMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -517,7 +666,12 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDomainRequest::name].
@@ -536,13 +690,30 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::attach_trust][super::super::client::ManagedIdentitiesService::attach_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::attach_trust][crate::client::ManagedIdentitiesService::attach_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::AttachTrust;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AttachTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AttachTrust(RequestBuilder<crate::model::AttachTrustRequest>);
 
     impl AttachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -564,7 +735,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [attach_trust][super::super::client::ManagedIdentitiesService::attach_trust].
+        /// on [attach_trust][crate::client::ManagedIdentitiesService::attach_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .attach_trust(self.0.request, self.0.options)
@@ -574,7 +745,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `attach_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -599,7 +771,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::AttachTrustRequest::name].
@@ -613,11 +785,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::AttachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust][crate::model::AttachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -629,13 +812,30 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::reconfigure_trust][crate::client::ManagedIdentitiesService::reconfigure_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ReconfigureTrust;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReconfigureTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReconfigureTrust(RequestBuilder<crate::model::ReconfigureTrustRequest>);
 
     impl ReconfigureTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -660,7 +860,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reconfigure_trust][super::super::client::ManagedIdentitiesService::reconfigure_trust].
+        /// on [reconfigure_trust][crate::client::ManagedIdentitiesService::reconfigure_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reconfigure_trust(self.0.request, self.0.options)
@@ -670,7 +870,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `reconfigure_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -695,7 +896,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ReconfigureTrustRequest::name].
@@ -735,13 +936,30 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::detach_trust][super::super::client::ManagedIdentitiesService::detach_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::detach_trust][crate::client::ManagedIdentitiesService::detach_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::DetachTrust;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetachTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetachTrust(RequestBuilder<crate::model::DetachTrustRequest>);
 
     impl DetachTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -763,7 +981,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [detach_trust][super::super::client::ManagedIdentitiesService::detach_trust].
+        /// on [detach_trust][crate::client::ManagedIdentitiesService::detach_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_trust(self.0.request, self.0.options)
@@ -773,7 +991,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `detach_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -798,7 +1017,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DetachTrustRequest::name].
@@ -812,11 +1031,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::DetachTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust][crate::model::DetachTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -828,13 +1058,30 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::validate_trust][super::super::client::ManagedIdentitiesService::validate_trust] calls.
+    /// The request builder for [ManagedIdentitiesService::validate_trust][crate::client::ManagedIdentitiesService::validate_trust] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ValidateTrust;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateTrust {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateTrust(RequestBuilder<crate::model::ValidateTrustRequest>);
 
     impl ValidateTrust {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -856,7 +1103,7 @@ pub mod managed_identities_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_trust][super::super::client::ManagedIdentitiesService::validate_trust].
+        /// on [validate_trust][crate::client::ManagedIdentitiesService::validate_trust].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_trust(self.0.request, self.0.options)
@@ -866,7 +1113,8 @@ pub mod managed_identities_service {
 
         /// Creates a [Poller][lro::Poller] to work with `validate_trust`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Domain, crate::model::OpMetadata> {
-            type Operation = lro::Operation<crate::model::Domain, crate::model::OpMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Domain, crate::model::OpMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -891,7 +1139,7 @@ pub mod managed_identities_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ValidateTrustRequest::name].
@@ -905,11 +1153,22 @@ pub mod managed_identities_service {
         /// Sets the value of [trust][crate::model::ValidateTrustRequest::trust].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust<T: Into<std::option::Option<crate::model::Trust>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust = v.into();
+        pub fn set_trust<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust][crate::model::ValidateTrustRequest::trust].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trust>,
+        {
+            self.0.request.trust = v.map(|x| x.into());
             self
         }
     }
@@ -921,13 +1180,33 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::list_operations][super::super::client::ManagedIdentitiesService::list_operations] calls.
+    /// The request builder for [ManagedIdentitiesService::list_operations][crate::client::ManagedIdentitiesService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -955,8 +1234,8 @@ pub mod managed_identities_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -968,6 +1247,17 @@ pub mod managed_identities_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1002,13 +1292,29 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::get_operation][super::super::client::ManagedIdentitiesService::get_operation] calls.
+    /// The request builder for [ManagedIdentitiesService::get_operation][crate::client::ManagedIdentitiesService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1050,13 +1356,29 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::delete_operation][super::super::client::ManagedIdentitiesService::delete_operation] calls.
+    /// The request builder for [ManagedIdentitiesService::delete_operation][crate::client::ManagedIdentitiesService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1098,13 +1420,29 @@ pub mod managed_identities_service {
         }
     }
 
-    /// The request builder for [ManagedIdentitiesService::cancel_operation][super::super::client::ManagedIdentitiesService::cancel_operation] calls.
+    /// The request builder for [ManagedIdentitiesService::cancel_operation][crate::client::ManagedIdentitiesService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_managedidentities_v1::builder;
+    /// use builder::managed_identities_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedIdentitiesService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

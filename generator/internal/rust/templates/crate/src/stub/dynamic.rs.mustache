@@ -17,19 +17,11 @@ limitations under the License.
 {{#Codec.BoilerPlate}}
 //{{{.}}}
 {{/Codec.BoilerPlate}}
-{{#Codec.HasLROs}}
-
-{{#Codec.PerServiceFeatures}}
-{{! When using per-service features this may be used or not depending on what services use LROs }}
-#[allow(unused_imports)]
-{{/Codec.PerServiceFeatures}}
-use std::sync::Arc;
-{{/Codec.HasLROs}}
 {{#Codec.Services}}
 
 /// A dyn-compatible, crate-private version of [super::{{Codec.Name}}].
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[async_trait::async_trait]
 pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
@@ -45,18 +37,18 @@ pub trait {{Codec.Name}}: std::fmt::Debug + Send + Sync {
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
 
     fn get_polling_backoff_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
     {{/Codec.HasLROs}}
 }
 
 /// All implementations of [super::{{Codec.Name}}] also implement [{{Codec.Name}}].
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[async_trait::async_trait]
 impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
@@ -75,14 +67,14 @@ impl<T: super::{{Codec.Name}}> {{Codec.Name}} for T {
     fn get_polling_error_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
         T::get_polling_error_policy(self, options)
     }
 
     fn get_polling_backoff_policy(
         &self,
         options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
     }
     {{/Codec.HasLROs}}

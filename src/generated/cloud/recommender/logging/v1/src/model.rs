@@ -26,28 +26,22 @@ extern crate std;
 extern crate wkt;
 
 /// Log content of an action on a recommendation. This includes Mark* actions.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ActionLog {
     /// Required. User that executed this action. Eg, foo@gmail.com
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, SUCCEEDED.
     pub state: recommender::model::recommendation_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Name of the recommendation which was acted on. Eg, :
     /// 'projects/123/locations/global/recommenders/roleReco/recommendations/r1'
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub recommendation_name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -73,15 +67,6 @@ impl ActionLog {
         self
     }
 
-    /// Sets the value of [recommendation_name][crate::model::ActionLog::recommendation_name].
-    pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.recommendation_name = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::ActionLog::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -93,6 +78,15 @@ impl ActionLog {
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [recommendation_name][crate::model::ActionLog::recommendation_name].
+    pub fn set_recommendation_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.recommendation_name = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ActionLog {
@@ -101,29 +95,179 @@ impl wkt::message::Message for ActionLog {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ActionLog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __actor,
+            __state,
+            __state_metadata,
+            __recommendation_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ActionLog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "actor" => Ok(__FieldTag::__actor),
+                            "state" => Ok(__FieldTag::__state),
+                            "stateMetadata" => Ok(__FieldTag::__state_metadata),
+                            "state_metadata" => Ok(__FieldTag::__state_metadata),
+                            "recommendationName" => Ok(__FieldTag::__recommendation_name),
+                            "recommendation_name" => Ok(__FieldTag::__recommendation_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ActionLog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ActionLog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__actor => {
+                            if !fields.insert(__FieldTag::__actor) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for actor",
+                                ));
+                            }
+                            result.actor = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map
+                                .next_value::<std::option::Option<
+                                    recommender::model::recommendation_state_info::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state_metadata => {
+                            if !fields.insert(__FieldTag::__state_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state_metadata",
+                                ));
+                            }
+                            result.state_metadata = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__recommendation_name => {
+                            if !fields.insert(__FieldTag::__recommendation_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for recommendation_name",
+                                ));
+                            }
+                            result.recommendation_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ActionLog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.actor.is_empty() {
+            state.serialize_entry("actor", &self.actor)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.state_metadata.is_empty() {
+            state.serialize_entry("stateMetadata", &self.state_metadata)?;
+        }
+        if !self.recommendation_name.is_empty() {
+            state.serialize_entry("recommendationName", &self.recommendation_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Log content of an action on an insight. This includes Mark* actions.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InsightActionLog {
     /// Required. User that executed this action. Eg, foo@gmail.com
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub actor: std::string::String,
 
     /// Required. State change that was made by the actor. Eg, ACCEPTED.
     pub state: recommender::model::insight_state_info::State,
 
     /// Optional. Metadata that was included with the action that was taken.
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     pub state_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Name of the insight which was acted on. Eg, :
     /// 'projects/123/locations/global/insightTypes/roleInsight/insights/i1'
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub insight: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -147,12 +291,6 @@ impl InsightActionLog {
         self
     }
 
-    /// Sets the value of [insight][crate::model::InsightActionLog::insight].
-    pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.insight = v.into();
-        self
-    }
-
     /// Sets the value of [state_metadata][crate::model::InsightActionLog::state_metadata].
     pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
     where
@@ -164,10 +302,171 @@ impl InsightActionLog {
         self.state_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [insight][crate::model::InsightActionLog::insight].
+    pub fn set_insight<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.insight = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for InsightActionLog {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.recommender.logging.v1.InsightActionLog"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InsightActionLog {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __actor,
+            __state,
+            __state_metadata,
+            __insight,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InsightActionLog")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "actor" => Ok(__FieldTag::__actor),
+                            "state" => Ok(__FieldTag::__state),
+                            "stateMetadata" => Ok(__FieldTag::__state_metadata),
+                            "state_metadata" => Ok(__FieldTag::__state_metadata),
+                            "insight" => Ok(__FieldTag::__insight),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InsightActionLog;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InsightActionLog")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__actor => {
+                            if !fields.insert(__FieldTag::__actor) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for actor",
+                                ));
+                            }
+                            result.actor = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state =
+                                map.next_value::<std::option::Option<
+                                    recommender::model::insight_state_info::State,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__state_metadata => {
+                            if !fields.insert(__FieldTag::__state_metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state_metadata",
+                                ));
+                            }
+                            result.state_metadata = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__insight => {
+                            if !fields.insert(__FieldTag::__insight) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for insight",
+                                ));
+                            }
+                            result.insight = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InsightActionLog {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.actor.is_empty() {
+            state.serialize_entry("actor", &self.actor)?;
+        }
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.state_metadata.is_empty() {
+            state.serialize_entry("stateMetadata", &self.state_metadata)?;
+        }
+        if !self.insight.is_empty() {
+            state.serialize_entry("insight", &self.insight)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }

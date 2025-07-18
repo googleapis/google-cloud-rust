@@ -515,7 +515,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 		annotate.annotateOperationInfo(method.OperationInfo)
 	}
 
-	queryParams := language.QueryParams(method, state)
+	queryParams := language.QueryParams(method, method.PathInfo.Bindings[0])
 	queryLines := []string{}
 	for _, field := range queryParams {
 		queryLines = buildQueryLines(queryLines, "request.", "", field, state)
@@ -524,7 +524,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 	annotation := &methodAnnotation{
 		Parent:            method,
 		Name:              strcase.ToLowerCamel(method.Name),
-		RequestMethod:     strings.ToLower(method.PathInfo.Verb),
+		RequestMethod:     strings.ToLower(method.PathInfo.Bindings[0].Verb),
 		RequestType:       annotate.resolveTypeName(state.MessageByID[method.InputTypeID], true),
 		ResponseType:      annotate.resolveTypeName(state.MessageByID[method.OutputTypeID], true),
 		DocLines:          formatDocComments(method.Documentation, state),
@@ -620,7 +620,9 @@ func (annotate *annotateModel) createFromJsonLine(field *api.Field, state *api.A
 		default:
 			return fmt.Sprintf("decodeMap(%s)%s", data, bang)
 		}
-	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
+	case field.Typez == api.INT64_TYPE ||
+		field.Typez == api.UINT64_TYPE || field.Typez == api.SINT64_TYPE ||
+		field.Typez == api.FIXED64_TYPE || field.Typez == api.SFIXED64_TYPE:
 		return fmt.Sprintf("decodeInt64(%s)%s", data, bang)
 	case field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
 		return fmt.Sprintf("decodeDouble(%s)%s", data, bang)
@@ -682,7 +684,9 @@ func createToJsonLine(field *api.Field, state *api.APIState, required bool) stri
 		return fmt.Sprintf("%s%s.toJson()", name, bang)
 	case field.Typez == api.BYTES_TYPE:
 		return fmt.Sprintf("encodeBytes(%s)", name)
-	case field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE:
+	case field.Typez == api.INT64_TYPE ||
+		field.Typez == api.UINT64_TYPE || field.Typez == api.SINT64_TYPE ||
+		field.Typez == api.FIXED64_TYPE || field.Typez == api.SFIXED64_TYPE:
 		return fmt.Sprintf("encodeInt64(%s)", name)
 	case field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
 		return fmt.Sprintf("encodeDouble(%s)", name)
@@ -722,10 +726,16 @@ func buildQueryLines(
 		case field.Typez == api.ENUM_TYPE:
 			return append(result, fmt.Sprintf("%s: %s!.map((e) => e.value)", preable, ref))
 		case field.Typez == api.BOOL_TYPE ||
-			field.Typez == api.INT32_TYPE || field.Typez == api.UINT32_TYPE ||
-			field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE ||
+			field.Typez == api.INT32_TYPE ||
+			field.Typez == api.UINT32_TYPE || field.Typez == api.SINT32_TYPE ||
+			field.Typez == api.FIXED32_TYPE || field.Typez == api.SFIXED32_TYPE ||
+			field.Typez == api.INT64_TYPE ||
+			field.Typez == api.UINT64_TYPE || field.Typez == api.SINT64_TYPE ||
+			field.Typez == api.FIXED64_TYPE || field.Typez == api.SFIXED64_TYPE ||
 			field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
 			return append(result, fmt.Sprintf("%s: %s!.map((e) => '$e')", preable, ref))
+		case field.Typez == api.BYTES_TYPE:
+			return append(result, fmt.Sprintf("%s: %s!.map((e) => encodeBytes(e)!)", preable, ref))
 		default:
 			slog.Error("unhandled list query param", "type", field.Typez)
 			return append(result, fmt.Sprintf("/* unhandled list query param type: %d */", field.Typez))
@@ -748,8 +758,12 @@ func buildQueryLines(
 	case field.Typez == api.ENUM_TYPE:
 		return append(result, fmt.Sprintf("%s: %s!.value", preable, ref))
 	case field.Typez == api.BOOL_TYPE ||
-		field.Typez == api.INT32_TYPE || field.Typez == api.UINT32_TYPE ||
-		field.Typez == api.INT64_TYPE || field.Typez == api.UINT64_TYPE ||
+		field.Typez == api.INT32_TYPE ||
+		field.Typez == api.UINT32_TYPE || field.Typez == api.SINT32_TYPE ||
+		field.Typez == api.FIXED32_TYPE || field.Typez == api.SFIXED32_TYPE ||
+		field.Typez == api.INT64_TYPE ||
+		field.Typez == api.UINT64_TYPE || field.Typez == api.SINT64_TYPE ||
+		field.Typez == api.FIXED64_TYPE || field.Typez == api.SFIXED64_TYPE ||
 		field.Typez == api.FLOAT_TYPE || field.Typez == api.DOUBLE_TYPE:
 		return append(result, fmt.Sprintf("%s: '${%s}'", preable, ref))
 	case field.Typez == api.BYTES_TYPE:
@@ -783,17 +797,13 @@ func (annotate *annotateModel) fieldType(f *api.Field) string {
 	switch f.Typez {
 	case api.BOOL_TYPE:
 		out = "bool"
-	case api.INT32_TYPE:
+	case api.INT32_TYPE, api.UINT32_TYPE, api.SINT32_TYPE,
+		api.FIXED32_TYPE, api.SFIXED32_TYPE:
 		out = "int"
-	case api.INT64_TYPE:
+	case api.INT64_TYPE, api.UINT64_TYPE, api.SINT64_TYPE,
+		api.FIXED64_TYPE, api.SFIXED64_TYPE:
 		out = "int"
-	case api.UINT32_TYPE:
-		out = "int"
-	case api.UINT64_TYPE:
-		out = "int"
-	case api.FLOAT_TYPE:
-		out = "double"
-	case api.DOUBLE_TYPE:
+	case api.FLOAT_TYPE, api.DOUBLE_TYPE:
 		out = "double"
 	case api.STRING_TYPE:
 		out = "String"

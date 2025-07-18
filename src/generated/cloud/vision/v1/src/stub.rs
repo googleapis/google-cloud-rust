@@ -24,9 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-use std::sync::Arc;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ImageAnnotator].
@@ -49,9 +46,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BatchAnnotateImagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::BatchAnnotateImagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ImageAnnotator::batch_annotate_files].
@@ -62,9 +57,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::BatchAnnotateFilesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::BatchAnnotateFilesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ImageAnnotator::async_batch_annotate_images].
@@ -75,9 +68,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ImageAnnotator::async_batch_annotate_files].
@@ -88,9 +79,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ImageAnnotator::get_operation].
@@ -101,9 +90,7 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.
@@ -113,8 +100,8 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     fn get_polling_error_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        Arc::new(gax::polling_error_policy::Aip194Strict)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -124,8 +111,8 @@ pub trait ImageAnnotator: std::fmt::Debug + Send + Sync {
     fn get_polling_backoff_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }
 
@@ -149,9 +136,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ProductSet>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProductSet>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::list_product_sets].
@@ -162,9 +147,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListProductSetsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListProductSetsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::get_product_set].
@@ -175,9 +158,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ProductSet>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProductSet>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::update_product_set].
@@ -188,9 +169,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ProductSet>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ProductSet>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::delete_product_set].
@@ -199,9 +178,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteProductSetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::create_product].
@@ -212,9 +189,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Product>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Product>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::list_products].
@@ -225,9 +200,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListProductsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListProductsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::get_product].
@@ -238,9 +211,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Product>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Product>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::update_product].
@@ -251,9 +222,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Product>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Product>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::delete_product].
@@ -262,9 +231,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteProductRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::create_reference_image].
@@ -275,9 +242,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReferenceImage>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReferenceImage>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::delete_reference_image].
@@ -286,9 +251,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteReferenceImageRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::list_reference_images].
@@ -299,9 +262,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListReferenceImagesResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListReferenceImagesResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::get_reference_image].
@@ -312,9 +273,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ReferenceImage>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ReferenceImage>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::add_product_to_product_set].
@@ -323,9 +282,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         _req: crate::model::AddProductToProductSetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::remove_product_from_product_set].
@@ -334,9 +291,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
         _req: crate::model::RemoveProductFromProductSetRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::list_products_in_product_set].
@@ -349,9 +304,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListProductsInProductSetResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListProductsInProductSetResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::import_product_sets].
@@ -362,9 +315,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::purge_products].
@@ -375,9 +326,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ProductSearch::get_operation].
@@ -388,9 +337,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<longrunning::model::Operation>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Returns the polling error policy.
@@ -400,8 +347,8 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     fn get_polling_error_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
-        Arc::new(gax::polling_error_policy::Aip194Strict)
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
     }
 
     /// Returns the polling backoff policy.
@@ -411,7 +358,7 @@ pub trait ProductSearch: std::fmt::Debug + Send + Sync {
     fn get_polling_backoff_policy(
         &self,
         _options: &gax::options::RequestOptions,
-    ) -> Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
-        Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
     }
 }

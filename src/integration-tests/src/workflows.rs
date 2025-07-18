@@ -14,10 +14,10 @@
 
 use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::paginator::{ItemPaginator, Paginator};
-use gax::{error::Error, options::RequestOptionsBuilder};
+use gax::options::RequestOptionsBuilder;
+use gax::paginator::ItemPaginator as _;
+use lro::Poller;
 use std::time::Duration;
-use wf::Poller;
 
 pub async fn until_done(builder: wf::builder::workflows::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -52,7 +52,8 @@ main:
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let response = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::new()
@@ -60,21 +61,22 @@ main:
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
         )
-        .with_polling_backoff_policy(test_backoff()?)
+        .with_polling_backoff_policy(test_backoff())
         .poller()
         .until_done()
         .await?;
     println!("    create LRO finished, response={response:?}");
 
     println!("\n\nStart delete_workflow() LRO and poll it to completion");
-    let delete = client
-        .delete_workflow(format!(
+    client
+        .delete_workflow()
+        .set_name(format!(
             "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
         ))
         .poller()
         .until_done()
         .await?;
-    println!("    delete LRO finished, response={delete:?}");
+    println!("    delete LRO finished");
 
     Ok(())
 }
@@ -112,7 +114,8 @@ main:
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let mut create = client
-        .create_workflow(format!("projects/{project_id}/locations/{location_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
             wf::model::Workflow::new()
@@ -124,16 +127,16 @@ main:
     let mut backoff = Duration::from_millis(100);
     while let Some(status) = create.poll().await {
         match status {
-            wf::PollingResult::PollingError(e) => {
+            lro::PollingResult::PollingError(e) => {
                 println!("    error polling create LRO, continuing {e}");
             }
-            wf::PollingResult::InProgress(m) => {
+            lro::PollingResult::InProgress(m) => {
                 println!("    create LRO still in progress, metadata={m:?}");
             }
-            wf::PollingResult::Completed(r) => match r {
+            lro::PollingResult::Completed(r) => match r {
                 Err(e) => {
                     println!("    create LRO finished with error={e}\n\n");
-                    return Err(e);
+                    return Err(anyhow::Error::from(e));
                 }
                 Ok(m) => {
                     println!("    create LRO finished with success={m:?}\n\n");
@@ -146,22 +149,26 @@ main:
 
     println!("\n\nStart delete_workflow() LRO and poll it to completion");
     let mut delete = client
-        .delete_workflow(format!(
+        .delete_workflow()
+        .set_name(format!(
             "projects/{project_id}/locations/{location_id}/workflows/{workflow_id}"
         ))
         .poller();
     let mut backoff = Duration::from_millis(100);
     while let Some(status) = delete.poll().await {
         match status {
-            wf::PollingResult::PollingError(e) => {
+            lro::PollingResult::PollingError(e) => {
                 println!("    error polling delete LRO, continuing {e:?}");
             }
-            wf::PollingResult::InProgress(m) => {
+            lro::PollingResult::InProgress(m) => {
                 println!("    delete LRO still in progress, metadata={m:?}");
             }
-            wf::PollingResult::Completed(r) => {
-                println!("    delete LRO finished, result={r:?}");
-                let _ = r?;
+            lro::PollingResult::Completed(Ok(_)) => {
+                println!("    delete LRO finished successfully");
+            }
+            lro::PollingResult::Completed(Err(e)) => {
+                println!("    delete LRO finished with an error {e}");
+                return Err(anyhow::Error::from(e));
             }
         }
         tokio::time::sleep(backoff).await;
@@ -171,11 +178,12 @@ main:
     Ok(())
 }
 
-fn test_backoff() -> Result<ExponentialBackoff> {
+fn test_backoff() -> ExponentialBackoff {
     ExponentialBackoffBuilder::new()
         .with_initial_delay(Duration::from_millis(100))
         .with_maximum_delay(Duration::from_secs(1))
         .build()
+        .expect("test policy values should succeed")
 }
 
 async fn cleanup_stale_workflows(
@@ -184,17 +192,14 @@ async fn cleanup_stale_workflows(
     location_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut paginator = client
-        .list_workflows(format!("projects/{project_id}/locations/{location_id}"))
-        .paginator()
-        .await
-        .items();
+        .list_workflows()
+        .set_parent(format!("projects/{project_id}/locations/{location_id}"))
+        .by_item();
     let mut stale_workflows = Vec::new();
     while let Some(workflow) = paginator.next().await {
         let item = workflow?;
@@ -206,7 +211,13 @@ async fn cleanup_stale_workflows(
     }
     let pending = stale_workflows
         .iter()
-        .map(|name| client.delete_workflow(name).poller().until_done())
+        .map(|name| {
+            client
+                .delete_workflow()
+                .set_name(name)
+                .poller()
+                .until_done()
+        })
         .collect::<Vec<_>>();
 
     futures::future::join_all(pending)
@@ -228,7 +239,8 @@ pub async fn manual(
 
     println!("\n\nStart create_workflow() LRO and poll it to completion");
     let create = client
-        .create_workflow(format!("projects/{project_id}/locations/{region_id}"))
+        .create_workflow()
+        .set_parent(format!("projects/{project_id}/locations/{region_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(workflow)
         .send()
@@ -237,19 +249,16 @@ pub async fn manual(
         use longrunning::model::operation::Result as LR;
         let result = create
             .result
-            .ok_or("service error: done with missing result ")
-            .map_err(Error::other)?;
+            .ok_or_else(|| anyhow::Error::msg("service error: done with missing result "))?;
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+                let status = gax::error::rpc::Status::from(*status);
+                return Err(anyhow::Error::from(gax::error::Error::service(status)));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
-                let response = any
-                    .try_into_message::<wf::model::Workflow>()
-                    .map_err(Error::other);
+                let response = any.to_msg::<wf::model::Workflow>();
                 println!("LRO completed response={response:?}");
                 return Ok(());
             }
@@ -258,11 +267,11 @@ pub async fn manual(
     }
     let name = create.name;
     loop {
-        let operation = client.get_operation(name.clone()).send().await?;
+        let operation = client.get_operation().set_name(name.clone()).send().await?;
         if !operation.done {
             println!("operation is pending {operation:?}");
             if let Some(any) = operation.metadata {
-                match any.try_into_message::<wf::model::OperationMetadata>() {
+                match any.to_msg::<wf::model::OperationMetadata>() {
                     Err(_) => {
                         println!("    cannot extract expected metadata from {any:?}");
                     }
@@ -277,19 +286,16 @@ pub async fn manual(
         use longrunning::model::operation::Result as LR;
         let result = create
             .result
-            .ok_or("service error: done with missing result ")
-            .map_err(Error::other)?;
+            .ok_or_else(|| anyhow::Error::msg("service error: done with missing result "))?;
         match result {
             LR::Error(status) => {
                 println!("LRO completed with error {status:?}");
-                let err = gax::error::ServiceError::from(*status);
-                return Err(Error::rpc(err));
+                let status = gax::error::rpc::Status::from(&*status);
+                return Err(anyhow::Error::from(gax::error::Error::service(status)));
             }
             LR::Response(any) => {
                 println!("LRO completed successfully {any:?}");
-                let response = any
-                    .try_into_message::<wf::model::Workflow>()
-                    .map_err(Error::other);
+                let response = any.to_msg::<wf::model::Workflow>();
                 println!("LRO completed response={response:?}");
                 return Ok(());
             }

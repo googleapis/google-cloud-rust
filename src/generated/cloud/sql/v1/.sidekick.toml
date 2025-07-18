@@ -14,7 +14,7 @@
 
 [general]
 specification-source = 'google/cloud/sql/v1'
-service-config = 'google/cloud/sql/v1/sqladmin_v1.yaml'
+service-config       = 'google/cloud/sql/v1/sqladmin_v1.yaml'
 
 [codec]
-copyright-year = '2025'
+copyright-year       = '2025'

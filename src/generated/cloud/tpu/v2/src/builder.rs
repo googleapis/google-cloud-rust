@@ -16,9 +16,8 @@
 
 pub mod tpu {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Tpu][super::super::client::Tpu].
+    /// A builder for [Tpu][crate::client::Tpu].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod tpu {
     /// let client = builder
     ///     .with_endpoint("https://tpu.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod tpu {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Tpu;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Tpu] request builders.
+    /// Common implementation for [crate::client::Tpu] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Tpu>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod tpu {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,32 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_nodes][super::super::client::Tpu::list_nodes] calls.
+    /// The request builder for [Tpu::list_nodes][crate::client::Tpu::list_nodes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListNodes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNodes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNodes(RequestBuilder<crate::model::ListNodesRequest>);
 
     impl ListNodes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +118,8 @@ pub mod tpu {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNodesResponse, gax::error::Error>
         {
@@ -109,6 +131,15 @@ pub mod tpu {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNodesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNodesRequest::parent].
@@ -139,12 +170,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_node][super::super::client::Tpu::get_node] calls.
+    /// The request builder for [Tpu::get_node][crate::client::Tpu::get_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetNode;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNode(RequestBuilder<crate::model::GetNodeRequest>);
 
     impl GetNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -184,12 +231,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::create_node][super::super::client::Tpu::create_node] calls.
+    /// The request builder for [Tpu::create_node][crate::client::Tpu::create_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::CreateNode;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNode(RequestBuilder<crate::model::CreateNodeRequest>);
 
     impl CreateNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -210,7 +274,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node][super::super::client::Tpu::create_node].
+        /// on [create_node][crate::client::Tpu::create_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node(self.0.request, self.0.options)
@@ -222,7 +286,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -247,7 +312,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeRequest::parent].
@@ -267,8 +332,22 @@ pub mod tpu {
         /// Sets the value of [node][crate::model::CreateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node<T: Into<std::option::Option<crate::model::Node>>>(mut self, v: T) -> Self {
-            self.0.request.node = v.into();
+        pub fn set_node<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node][crate::model::CreateNodeRequest::node].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = v.map(|x| x.into());
             self
         }
     }
@@ -280,12 +359,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::delete_node][super::super::client::Tpu::delete_node] calls.
+    /// The request builder for [Tpu::delete_node][crate::client::Tpu::delete_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::DeleteNode;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNode(RequestBuilder<crate::model::DeleteNodeRequest>);
 
     impl DeleteNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -306,7 +402,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_node][super::super::client::Tpu::delete_node].
+        /// on [delete_node][crate::client::Tpu::delete_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_node(self.0.request, self.0.options)
@@ -315,8 +411,8 @@ pub mod tpu {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -341,7 +437,12 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNodeRequest::name].
@@ -360,12 +461,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::stop_node][super::super::client::Tpu::stop_node] calls.
+    /// The request builder for [Tpu::stop_node][crate::client::Tpu::stop_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::StopNode;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopNode(RequestBuilder<crate::model::StopNodeRequest>);
 
     impl StopNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -386,7 +504,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_node][super::super::client::Tpu::stop_node].
+        /// on [stop_node][crate::client::Tpu::stop_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_node(self.0.request, self.0.options)
@@ -398,7 +516,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -423,7 +542,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopNodeRequest::name].
@@ -442,12 +561,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::start_node][super::super::client::Tpu::start_node] calls.
+    /// The request builder for [Tpu::start_node][crate::client::Tpu::start_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::StartNode;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartNode(RequestBuilder<crate::model::StartNodeRequest>);
 
     impl StartNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -468,7 +604,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_node][super::super::client::Tpu::start_node].
+        /// on [start_node][crate::client::Tpu::start_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_node(self.0.request, self.0.options)
@@ -480,7 +616,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -505,7 +642,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartNodeRequest::name].
@@ -524,12 +661,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::update_node][super::super::client::Tpu::update_node] calls.
+    /// The request builder for [Tpu::update_node][crate::client::Tpu::update_node] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::UpdateNode;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNode(RequestBuilder<crate::model::UpdateNodeRequest>);
 
     impl UpdateNode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -550,7 +704,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_node][super::super::client::Tpu::update_node].
+        /// on [update_node][crate::client::Tpu::update_node].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_node(self.0.request, self.0.options)
@@ -562,7 +716,8 @@ pub mod tpu {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Node, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Node, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Node, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -587,25 +742,50 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNodeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [node][crate::model::UpdateNodeRequest::node].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node<T: Into<std::option::Option<crate::model::Node>>>(mut self, v: T) -> Self {
-            self.0.request.node = v.into();
+        pub fn set_node<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node][crate::model::UpdateNodeRequest::node].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Node>,
+        {
+            self.0.request.node = v.map(|x| x.into());
             self
         }
     }
@@ -617,12 +797,32 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_queued_resources][super::super::client::Tpu::list_queued_resources] calls.
+    /// The request builder for [Tpu::list_queued_resources][crate::client::Tpu::list_queued_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListQueuedResources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQueuedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQueuedResources(RequestBuilder<crate::model::ListQueuedResourcesRequest>);
 
     impl ListQueuedResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -649,8 +849,8 @@ pub mod tpu {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListQueuedResourcesResponse, gax::error::Error>
         {
@@ -662,6 +862,17 @@ pub mod tpu {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListQueuedResourcesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListQueuedResourcesRequest::parent].
@@ -692,12 +903,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_queued_resource][super::super::client::Tpu::get_queued_resource] calls.
+    /// The request builder for [Tpu::get_queued_resource][crate::client::Tpu::get_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetQueuedResource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQueuedResource(RequestBuilder<crate::model::GetQueuedResourceRequest>);
 
     impl GetQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -740,12 +967,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::create_queued_resource][super::super::client::Tpu::create_queued_resource] calls.
+    /// The request builder for [Tpu::create_queued_resource][crate::client::Tpu::create_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::CreateQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQueuedResource(RequestBuilder<crate::model::CreateQueuedResourceRequest>);
 
     impl CreateQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -769,7 +1013,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_queued_resource][super::super::client::Tpu::create_queued_resource].
+        /// on [create_queued_resource][crate::client::Tpu::create_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_queued_resource(self.0.request, self.0.options)
@@ -782,8 +1026,10 @@ pub mod tpu {
             self,
         ) -> impl lro::Poller<crate::model::QueuedResource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::QueuedResource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::QueuedResource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -808,7 +1054,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateQueuedResourceRequest::parent].
@@ -828,11 +1074,22 @@ pub mod tpu {
         /// Sets the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_queued_resource<T: Into<std::option::Option<crate::model::QueuedResource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queued_resource = v.into();
+        pub fn set_queued_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueuedResource>,
+        {
+            self.0.request.queued_resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [queued_resource][crate::model::CreateQueuedResourceRequest::queued_resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_queued_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueuedResource>,
+        {
+            self.0.request.queued_resource = v.map(|x| x.into());
             self
         }
 
@@ -850,12 +1107,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::delete_queued_resource][super::super::client::Tpu::delete_queued_resource] calls.
+    /// The request builder for [Tpu::delete_queued_resource][crate::client::Tpu::delete_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::DeleteQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQueuedResource(RequestBuilder<crate::model::DeleteQueuedResourceRequest>);
 
     impl DeleteQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -879,7 +1153,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_queued_resource][super::super::client::Tpu::delete_queued_resource].
+        /// on [delete_queued_resource][crate::client::Tpu::delete_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_queued_resource(self.0.request, self.0.options)
@@ -888,8 +1162,8 @@ pub mod tpu {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_queued_resource`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -914,7 +1188,12 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteQueuedResourceRequest::name].
@@ -945,12 +1224,29 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::reset_queued_resource][super::super::client::Tpu::reset_queued_resource] calls.
+    /// The request builder for [Tpu::reset_queued_resource][crate::client::Tpu::reset_queued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ResetQueuedResource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetQueuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetQueuedResource(RequestBuilder<crate::model::ResetQueuedResourceRequest>);
 
     impl ResetQueuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -974,7 +1270,7 @@ pub mod tpu {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_queued_resource][super::super::client::Tpu::reset_queued_resource].
+        /// on [reset_queued_resource][crate::client::Tpu::reset_queued_resource].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_queued_resource(self.0.request, self.0.options)
@@ -987,8 +1283,10 @@ pub mod tpu {
             self,
         ) -> impl lro::Poller<crate::model::QueuedResource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::QueuedResource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::QueuedResource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1013,7 +1311,7 @@ pub mod tpu {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetQueuedResourceRequest::name].
@@ -1032,14 +1330,30 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::generate_service_identity][super::super::client::Tpu::generate_service_identity] calls.
+    /// The request builder for [Tpu::generate_service_identity][crate::client::Tpu::generate_service_identity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GenerateServiceIdentity;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateServiceIdentity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateServiceIdentity(
         RequestBuilder<crate::model::GenerateServiceIdentityRequest>,
     );
 
     impl GenerateServiceIdentity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1082,12 +1396,32 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_accelerator_types][super::super::client::Tpu::list_accelerator_types] calls.
+    /// The request builder for [Tpu::list_accelerator_types][crate::client::Tpu::list_accelerator_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListAcceleratorTypes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAcceleratorTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAcceleratorTypes(RequestBuilder<crate::model::ListAcceleratorTypesRequest>);
 
     impl ListAcceleratorTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1114,8 +1448,8 @@ pub mod tpu {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAcceleratorTypesResponse, gax::error::Error>
         {
@@ -1127,6 +1461,17 @@ pub mod tpu {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAcceleratorTypesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAcceleratorTypesRequest::parent].
@@ -1169,12 +1514,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_accelerator_type][super::super::client::Tpu::get_accelerator_type] calls.
+    /// The request builder for [Tpu::get_accelerator_type][crate::client::Tpu::get_accelerator_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetAcceleratorType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAcceleratorType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAcceleratorType(RequestBuilder<crate::model::GetAcceleratorTypeRequest>);
 
     impl GetAcceleratorType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1217,12 +1578,32 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_runtime_versions][super::super::client::Tpu::list_runtime_versions] calls.
+    /// The request builder for [Tpu::list_runtime_versions][crate::client::Tpu::list_runtime_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListRuntimeVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuntimeVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuntimeVersions(RequestBuilder<crate::model::ListRuntimeVersionsRequest>);
 
     impl ListRuntimeVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1249,8 +1630,8 @@ pub mod tpu {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRuntimeVersionsResponse, gax::error::Error>
         {
@@ -1262,6 +1643,17 @@ pub mod tpu {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRuntimeVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimeVersionsRequest::parent].
@@ -1304,12 +1696,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_runtime_version][super::super::client::Tpu::get_runtime_version] calls.
+    /// The request builder for [Tpu::get_runtime_version][crate::client::Tpu::get_runtime_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetRuntimeVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRuntimeVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRuntimeVersion(RequestBuilder<crate::model::GetRuntimeVersionRequest>);
 
     impl GetRuntimeVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1352,12 +1760,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_guest_attributes][super::super::client::Tpu::get_guest_attributes] calls.
+    /// The request builder for [Tpu::get_guest_attributes][crate::client::Tpu::get_guest_attributes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetGuestAttributes;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGuestAttributes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGuestAttributes(RequestBuilder<crate::model::GetGuestAttributesRequest>);
 
     impl GetGuestAttributes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1417,12 +1841,32 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_locations][super::super::client::Tpu::list_locations] calls.
+    /// The request builder for [Tpu::list_locations][crate::client::Tpu::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1449,8 +1893,8 @@ pub mod tpu {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1462,6 +1906,15 @@ pub mod tpu {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1496,12 +1949,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_location][super::super::client::Tpu::get_location] calls.
+    /// The request builder for [Tpu::get_location][crate::client::Tpu::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1539,12 +2008,32 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::list_operations][super::super::client::Tpu::list_operations] calls.
+    /// The request builder for [Tpu::list_operations][crate::client::Tpu::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1571,8 +2060,8 @@ pub mod tpu {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1584,6 +2073,17 @@ pub mod tpu {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1618,12 +2118,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::get_operation][super::super::client::Tpu::get_operation] calls.
+    /// The request builder for [Tpu::get_operation][crate::client::Tpu::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1664,12 +2180,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::delete_operation][super::super::client::Tpu::delete_operation] calls.
+    /// The request builder for [Tpu::delete_operation][crate::client::Tpu::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1710,12 +2242,28 @@ pub mod tpu {
         }
     }
 
-    /// The request builder for [Tpu::cancel_operation][super::super::client::Tpu::cancel_operation] calls.
+    /// The request builder for [Tpu::cancel_operation][crate::client::Tpu::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tpu_v2::builder;
+    /// use builder::tpu::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Tpu>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

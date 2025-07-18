@@ -19,4 +19,20 @@ specification-source = 'google/cloud/orgpolicy/v1'
 title-override = 'Organization Policy Types'
 
 [codec]
-copyright-year = '2025'
+copyright-year       = '2025'
+
+[[documentation-overrides]]
+id      = '.google.cloud.orgpolicy.v1.Policy.ListPolicy'
+match   = """
+Ancestry subtrees must be in one of the following formats:"""
+replace = """
+
+Ancestry subtrees must be in one of the following formats:"""
+
+[[documentation-overrides]]
+id      = '.google.cloud.orgpolicy.v1.Policy.ListPolicy'
+match   = """
+The `supports_under` field of the associated `Constraint`  defines whether"""
+replace = """
+
+The `supports_under` field of the associated `Constraint`  defines whether"""

@@ -16,7 +16,6 @@
 
 // ANCHOR: all
 use gax::Result;
-use gax::error::Error;
 use gax::response::Response;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
@@ -38,9 +37,10 @@ mod my_application {
         client: &speech::client::Speech,
         project_id: &str,
     ) -> Result<Option<wkt::Duration>> {
-        use speech::Poller;
+        use google_cloud_lro::Poller;
         client
-            .batch_recognize(format!(
+            .batch_recognize()
+            .set_recognizer(format!(
                 "projects/{project_id}/locations/global/recognizers/_"
             ))
             .poller()
@@ -52,7 +52,7 @@ mod my_application {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::my_application::*;
     use super::*;
 
@@ -72,13 +72,13 @@ mod test {
     }
 
     fn expected_response() -> BatchRecognizeResponse {
-        BatchRecognizeResponse::new().set_total_billed_duration(expected_duration())
+        BatchRecognizeResponse::new().set_or_clear_total_billed_duration(expected_duration())
     }
     // ANCHOR_END: expected-response
 
     // ANCHOR: finished-op
     fn make_finished_operation(response: &BatchRecognizeResponse) -> Result<Response<Operation>> {
-        let any = wkt::Any::try_from(response).map_err(Error::serde)?;
+        let any = wkt::Any::from_msg(response).expect("test message should succeed");
         let operation = Operation::new()
             // ANCHOR: set-done-true
             .set_done(true)

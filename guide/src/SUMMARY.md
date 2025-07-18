@@ -24,6 +24,7 @@ limitations under the License.
 - [Configuring retry policies](configuring_retry_policies.md)
 - [Error handling](error_handling.md)
 - [Examine error details](examine_error_details.md)
+- [Handling binding errors](binding_errors.md)
 - [Working with List operations](pagination.md)
 - [Working with long-running operations](working_with_long_running_operations.md)
 - [Configuring polling policies](configuring_polling_policies.md)

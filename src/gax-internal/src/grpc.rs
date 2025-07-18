@@ -14,12 +14,15 @@
 
 //! Implements the common features of all gRPC-based client.
 
-use auth::credentials::Credentials;
+mod from_status;
+pub mod status;
+
+use auth::credentials::{CacheableResource, Credentials};
+use from_status::to_gax_error;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
+use gax::client_builder::Error as BuilderError;
 use gax::error::Error;
-mod from_status;
-use from_status::to_gax_error;
 use gax::exponential_backoff::ExponentialBackoff;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::SharedRetryThrottler;
@@ -27,10 +30,8 @@ use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
 
-#[doc(hidden)]
 pub type InnerClient = tonic::client::Grpc<tonic::transport::Channel>;
 
-#[doc(hidden)]
 #[derive(Clone, Debug)]
 pub struct Client {
     inner: InnerClient,
@@ -42,7 +43,10 @@ pub struct Client {
 
 impl Client {
     /// Create a new client.
-    pub async fn new(config: crate::options::ClientConfig, default_endpoint: &str) -> Result<Self> {
+    pub async fn new(
+        config: crate::options::ClientConfig,
+        default_endpoint: &str,
+    ) -> gax::client_builder::Result<Self> {
         let credentials = Self::make_credentials(&config).await?;
         let inner = Self::make_inner(config.endpoint, default_endpoint).await?;
         Ok(Self {
@@ -142,14 +146,21 @@ impl Client {
         Response: prost::Message + std::default::Default + 'static,
     {
         let mut headers = headers;
-        let auth_headers = self
+        let cached_auth_headers = self
             .credentials
-            .headers()
+            .headers(http::Extensions::new())
             .await
             .map_err(Error::authentication)?;
-        for (key, value) in auth_headers.into_iter() {
-            headers.append(key, value);
-        }
+
+        let auth_headers = match cached_auth_headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => {
+                unreachable!("headers are not cached");
+            }
+        };
+
+        let auth_headers = auth_headers?;
+        headers.extend(auth_headers);
         let metadata = tonic::metadata::MetadataMap::from_headers(headers);
         let mut request = tonic::Request::from_parts(metadata, extensions, request);
         if let Some(timeout) = gax::retry_loop_internal::effective_timeout(options, remaining_time)
@@ -158,33 +169,36 @@ impl Client {
         }
         let codec = tonic::codec::ProstCodec::<Request, Response>::default();
         let mut inner = self.inner.clone();
-        inner.ready().await.map_err(Error::rpc)?;
+        inner.ready().await.map_err(Error::io)?;
         inner
             .unary(request, path, codec)
             .await
             .map_err(to_gax_error)
     }
 
-    async fn make_inner(endpoint: Option<String>, default_endpoint: &str) -> Result<InnerClient> {
+    async fn make_inner(
+        endpoint: Option<String>,
+        default_endpoint: &str,
+    ) -> gax::client_builder::Result<InnerClient> {
         use tonic::transport::{ClientTlsConfig, Endpoint};
         let endpoint =
             Endpoint::from_shared(endpoint.unwrap_or_else(|| default_endpoint.to_string()))
-                .map_err(Error::other)?
+                .map_err(BuilderError::transport)?
                 .tls_config(ClientTlsConfig::new().with_enabled_roots())
-                .map_err(Error::other)?;
-        let conn = endpoint.connect().await.map_err(Error::io)?;
+                .map_err(BuilderError::transport)?;
+        let conn = endpoint.connect().await.map_err(BuilderError::transport)?;
         Ok(tonic::client::Grpc::new(conn))
     }
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> Result<auth::credentials::Credentials> {
+    ) -> gax::client_builder::Result<auth::credentials::Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
         auth::credentials::Builder::default()
             .build()
-            .map_err(Error::authentication)
+            .map_err(BuilderError::cred)
     }
 
     async fn make_headers(
@@ -205,7 +219,7 @@ impl Client {
             //
             headers.append(
                 http::header::HeaderName::from_static("x-goog-request-params"),
-                http::header::HeaderValue::from_str(request_params).map_err(Error::other)?,
+                http::header::HeaderValue::from_str(request_params).map_err(Error::ser)?,
             );
         }
         Ok(headers)
@@ -245,13 +259,13 @@ impl Client {
 
 /// Convert a `tonic::Response` wrapping a prost message into a
 /// `gax::response::Response` wrapping our equivalent message
-pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> gax::response::Response<G>
+pub fn to_gax_response<T, G>(response: tonic::Response<T>) -> Result<gax::response::Response<G>>
 where
     T: crate::prost::FromProto<G>,
 {
     let (metadata, body, _extensions) = response.into_parts();
-    gax::response::Response::from_parts(
+    Ok(gax::response::Response::from_parts(
         gax::response::Parts::new().set_headers(metadata.into_headers()),
-        body.cnv(),
-    )
+        body.cnv().map_err(Error::deser)?,
+    ))
 }

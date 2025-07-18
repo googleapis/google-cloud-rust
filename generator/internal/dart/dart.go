@@ -157,26 +157,24 @@ func enumValueName(e *api.EnumValue) string {
 
 func httpPathFmt(pathInfo *api.PathInfo) string {
 	var builder strings.Builder
-
-	for _, segment := range pathInfo.PathTemplate {
+	t := pathInfo.Bindings[0].PathTemplate
+	for _, segment := range t.Segments {
 		switch {
 		case segment.Literal != nil:
 			builder.WriteString("/")
 			builder.WriteString(*segment.Literal)
-		case segment.FieldPath != nil:
-			fieldPath := *segment.FieldPath
-			paths := strings.Split(fieldPath, ".")
-			for i, p := range paths {
-				paths[i] = strcase.ToLowerCamel(p)
+		case segment.Variable != nil:
+			builder.WriteString("/${request")
+			for _, f := range segment.Variable.FieldPath {
+				builder.WriteString(".")
+				builder.WriteString(strcase.ToLowerCamel(f))
 			}
-			fieldPath = strings.Join(paths, ".")
-			builder.WriteString("/${request.")
-			builder.WriteString(fieldPath)
 			builder.WriteString("}")
-		case segment.Verb != nil:
-			builder.WriteString(":")
-			builder.WriteString(*segment.Verb)
 		}
+	}
+	if t.Verb != nil {
+		builder.WriteString(":")
+		builder.WriteString(*t.Verb)
 	}
 
 	return builder.String()
@@ -237,7 +235,13 @@ func shouldGenerateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations; we cannot generate working RPCs
 	// for them.
 	// TODO(#499) Switch to explicitly excluding such functions.
-	return !m.ClientSideStreaming && !m.ServerSideStreaming && m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+	if m.ClientSideStreaming || m.ServerSideStreaming || m.PathInfo == nil {
+		return false
+	}
+	if len(m.PathInfo.Bindings) == 0 {
+		return false
+	}
+	return m.PathInfo.Bindings[0].PathTemplate != nil
 }
 
 func formatDirectory(dir string) error {

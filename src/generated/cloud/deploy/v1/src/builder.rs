@@ -16,9 +16,8 @@
 
 pub mod cloud_deploy {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudDeploy][super::super::client::CloudDeploy].
+    /// A builder for [CloudDeploy][crate::client::CloudDeploy].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cloud_deploy {
     /// let client = builder
     ///     .with_endpoint("https://clouddeploy.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cloud_deploy {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudDeploy;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudDeploy] request builders.
+    /// Common implementation for [crate::client::CloudDeploy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod cloud_deploy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_delivery_pipelines][super::super::client::CloudDeploy::list_delivery_pipelines] calls.
+    /// The request builder for [CloudDeploy::list_delivery_pipelines][crate::client::CloudDeploy::list_delivery_pipelines] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListDeliveryPipelines;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeliveryPipelines {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeliveryPipelines(RequestBuilder<crate::model::ListDeliveryPipelinesRequest>);
 
     impl ListDeliveryPipelines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDeliveryPipelinesResponse, gax::error::Error>
         {
@@ -112,6 +138,17 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDeliveryPipelinesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDeliveryPipelinesRequest::parent].
@@ -154,12 +191,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_delivery_pipeline][super::super::client::CloudDeploy::get_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::get_delivery_pipeline][crate::client::CloudDeploy::get_delivery_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetDeliveryPipeline;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeliveryPipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeliveryPipeline(RequestBuilder<crate::model::GetDeliveryPipelineRequest>);
 
     impl GetDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,12 +257,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_delivery_pipeline][super::super::client::CloudDeploy::create_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::create_delivery_pipeline][crate::client::CloudDeploy::create_delivery_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateDeliveryPipeline;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeliveryPipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeliveryPipeline(RequestBuilder<crate::model::CreateDeliveryPipelineRequest>);
 
     impl CreateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -231,7 +305,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_delivery_pipeline][super::super::client::CloudDeploy::create_delivery_pipeline].
+        /// on [create_delivery_pipeline][crate::client::CloudDeploy::create_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_delivery_pipeline(self.0.request, self.0.options)
@@ -244,8 +318,10 @@ pub mod cloud_deploy {
             self,
         ) -> impl lro::Poller<crate::model::DeliveryPipeline, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DeliveryPipeline, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DeliveryPipeline,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -270,7 +346,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeliveryPipelineRequest::parent].
@@ -292,13 +368,22 @@ pub mod cloud_deploy {
         /// Sets the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_delivery_pipeline<
-            T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.delivery_pipeline = v.into();
+        pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delivery_pipeline][crate::model::CreateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = v.map(|x| x.into());
             self
         }
 
@@ -322,12 +407,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_delivery_pipeline][super::super::client::CloudDeploy::update_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::update_delivery_pipeline][crate::client::CloudDeploy::update_delivery_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::UpdateDeliveryPipeline;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDeliveryPipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeliveryPipeline(RequestBuilder<crate::model::UpdateDeliveryPipelineRequest>);
 
     impl UpdateDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -351,7 +455,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_delivery_pipeline][super::super::client::CloudDeploy::update_delivery_pipeline].
+        /// on [update_delivery_pipeline][crate::client::CloudDeploy::update_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_delivery_pipeline(self.0.request, self.0.options)
@@ -364,8 +468,10 @@ pub mod cloud_deploy {
             self,
         ) -> impl lro::Poller<crate::model::DeliveryPipeline, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DeliveryPipeline, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DeliveryPipeline,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -390,30 +496,50 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeliveryPipelineRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_delivery_pipeline<
-            T: Into<std::option::Option<crate::model::DeliveryPipeline>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.delivery_pipeline = v.into();
+        pub fn set_delivery_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [delivery_pipeline][crate::model::UpdateDeliveryPipelineRequest::delivery_pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_delivery_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeliveryPipeline>,
+        {
+            self.0.request.delivery_pipeline = v.map(|x| x.into());
             self
         }
 
@@ -443,12 +569,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_delivery_pipeline][super::super::client::CloudDeploy::delete_delivery_pipeline] calls.
+    /// The request builder for [CloudDeploy::delete_delivery_pipeline][crate::client::CloudDeploy::delete_delivery_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::DeleteDeliveryPipeline;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeliveryPipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeliveryPipeline(RequestBuilder<crate::model::DeleteDeliveryPipelineRequest>);
 
     impl DeleteDeliveryPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -472,7 +617,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_delivery_pipeline][super::super::client::CloudDeploy::delete_delivery_pipeline].
+        /// on [delete_delivery_pipeline][crate::client::CloudDeploy::delete_delivery_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_delivery_pipeline(self.0.request, self.0.options)
@@ -481,8 +626,8 @@ pub mod cloud_deploy {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_delivery_pipeline`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -507,7 +652,12 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDeliveryPipelineRequest::name].
@@ -556,12 +706,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_targets][super::super::client::CloudDeploy::list_targets] calls.
+    /// The request builder for [CloudDeploy::list_targets][crate::client::CloudDeploy::list_targets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListTargets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTargets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTargets(RequestBuilder<crate::model::ListTargetsRequest>);
 
     impl ListTargets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -585,8 +757,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTargetsResponse, gax::error::Error>
         {
@@ -598,6 +770,15 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTargetsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTargetsRequest::parent].
@@ -640,12 +821,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::rollback_target][super::super::client::CloudDeploy::rollback_target] calls.
+    /// The request builder for [CloudDeploy::rollback_target][crate::client::CloudDeploy::rollback_target] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::RollbackTarget;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RollbackTarget {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackTarget(RequestBuilder<crate::model::RollbackTargetRequest>);
 
     impl RollbackTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -706,13 +905,20 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [rollback_config][crate::model::RollbackTargetRequest::rollback_config].
-        pub fn set_rollback_config<
-            T: Into<std::option::Option<crate::model::RollbackTargetConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollback_config = v.into();
+        pub fn set_rollback_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RollbackTargetConfig>,
+        {
+            self.0.request.rollback_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rollback_config][crate::model::RollbackTargetRequest::rollback_config].
+        pub fn set_or_clear_rollback_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RollbackTargetConfig>,
+        {
+            self.0.request.rollback_config = v.map(|x| x.into());
             self
         }
 
@@ -741,12 +947,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_target][super::super::client::CloudDeploy::get_target] calls.
+    /// The request builder for [CloudDeploy::get_target][crate::client::CloudDeploy::get_target] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetTarget;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTarget {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTarget(RequestBuilder<crate::model::GetTargetRequest>);
 
     impl GetTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -786,12 +1010,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_target][super::super::client::CloudDeploy::create_target] calls.
+    /// The request builder for [CloudDeploy::create_target][crate::client::CloudDeploy::create_target] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateTarget;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTarget {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTarget(RequestBuilder<crate::model::CreateTargetRequest>);
 
     impl CreateTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -812,7 +1055,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target][super::super::client::CloudDeploy::create_target].
+        /// on [create_target][crate::client::CloudDeploy::create_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target(self.0.request, self.0.options)
@@ -824,7 +1067,8 @@ pub mod cloud_deploy {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Target, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Target, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Target, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -849,7 +1093,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetRequest::parent].
@@ -871,11 +1115,22 @@ pub mod cloud_deploy {
         /// Sets the value of [target][crate::model::CreateTargetRequest::target].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target = v.into();
+        pub fn set_target<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target][crate::model::CreateTargetRequest::target].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = v.map(|x| x.into());
             self
         }
 
@@ -899,12 +1154,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_target][super::super::client::CloudDeploy::update_target] calls.
+    /// The request builder for [CloudDeploy::update_target][crate::client::CloudDeploy::update_target] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::UpdateTarget;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTarget {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTarget(RequestBuilder<crate::model::UpdateTargetRequest>);
 
     impl UpdateTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -925,7 +1199,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target][super::super::client::CloudDeploy::update_target].
+        /// on [update_target][crate::client::CloudDeploy::update_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target(self.0.request, self.0.options)
@@ -937,7 +1211,8 @@ pub mod cloud_deploy {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Target, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Target, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Target, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -962,28 +1237,50 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTargetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [target][crate::model::UpdateTargetRequest::target].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target<T: Into<std::option::Option<crate::model::Target>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target = v.into();
+        pub fn set_target<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target][crate::model::UpdateTargetRequest::target].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Target>,
+        {
+            self.0.request.target = v.map(|x| x.into());
             self
         }
 
@@ -1013,12 +1310,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_target][super::super::client::CloudDeploy::delete_target] calls.
+    /// The request builder for [CloudDeploy::delete_target][crate::client::CloudDeploy::delete_target] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::DeleteTarget;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTarget {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTarget(RequestBuilder<crate::model::DeleteTargetRequest>);
 
     impl DeleteTarget {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1039,7 +1355,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target][super::super::client::CloudDeploy::delete_target].
+        /// on [delete_target][crate::client::CloudDeploy::delete_target].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target(self.0.request, self.0.options)
@@ -1048,8 +1364,8 @@ pub mod cloud_deploy {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1074,7 +1390,12 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetRequest::name].
@@ -1117,12 +1438,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_custom_target_types][super::super::client::CloudDeploy::list_custom_target_types] calls.
+    /// The request builder for [CloudDeploy::list_custom_target_types][crate::client::CloudDeploy::list_custom_target_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListCustomTargetTypes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomTargetTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomTargetTypes(RequestBuilder<crate::model::ListCustomTargetTypesRequest>);
 
     impl ListCustomTargetTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1149,8 +1492,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCustomTargetTypesResponse, gax::error::Error>
         {
@@ -1162,6 +1505,17 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCustomTargetTypesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCustomTargetTypesRequest::parent].
@@ -1204,12 +1558,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_custom_target_type][super::super::client::CloudDeploy::get_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::get_custom_target_type][crate::client::CloudDeploy::get_custom_target_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetCustomTargetType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomTargetType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomTargetType(RequestBuilder<crate::model::GetCustomTargetTypeRequest>);
 
     impl GetCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1252,12 +1624,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_custom_target_type][super::super::client::CloudDeploy::create_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::create_custom_target_type][crate::client::CloudDeploy::create_custom_target_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateCustomTargetType;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomTargetType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCustomTargetType(RequestBuilder<crate::model::CreateCustomTargetTypeRequest>);
 
     impl CreateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,7 +1672,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_custom_target_type][super::super::client::CloudDeploy::create_custom_target_type].
+        /// on [create_custom_target_type][crate::client::CloudDeploy::create_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_custom_target_type(self.0.request, self.0.options)
@@ -1294,8 +1685,10 @@ pub mod cloud_deploy {
             self,
         ) -> impl lro::Poller<crate::model::CustomTargetType, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CustomTargetType, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomTargetType,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1320,7 +1713,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCustomTargetTypeRequest::parent].
@@ -1342,13 +1735,22 @@ pub mod cloud_deploy {
         /// Sets the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_target_type<
-            T: Into<std::option::Option<crate::model::CustomTargetType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_target_type = v.into();
+        pub fn set_custom_target_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_target_type][crate::model::CreateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = v.map(|x| x.into());
             self
         }
 
@@ -1372,12 +1774,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_custom_target_type][super::super::client::CloudDeploy::update_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::update_custom_target_type][crate::client::CloudDeploy::update_custom_target_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::UpdateCustomTargetType;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomTargetType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomTargetType(RequestBuilder<crate::model::UpdateCustomTargetTypeRequest>);
 
     impl UpdateCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1401,7 +1822,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_custom_target_type][super::super::client::CloudDeploy::update_custom_target_type].
+        /// on [update_custom_target_type][crate::client::CloudDeploy::update_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_custom_target_type(self.0.request, self.0.options)
@@ -1414,8 +1835,10 @@ pub mod cloud_deploy {
             self,
         ) -> impl lro::Poller<crate::model::CustomTargetType, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CustomTargetType, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomTargetType,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1440,30 +1863,50 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCustomTargetTypeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_target_type<
-            T: Into<std::option::Option<crate::model::CustomTargetType>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_target_type = v.into();
+        pub fn set_custom_target_type<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_target_type][crate::model::UpdateCustomTargetTypeRequest::custom_target_type].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_target_type<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomTargetType>,
+        {
+            self.0.request.custom_target_type = v.map(|x| x.into());
             self
         }
 
@@ -1493,12 +1936,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_custom_target_type][super::super::client::CloudDeploy::delete_custom_target_type] calls.
+    /// The request builder for [CloudDeploy::delete_custom_target_type][crate::client::CloudDeploy::delete_custom_target_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::DeleteCustomTargetType;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomTargetType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomTargetType(RequestBuilder<crate::model::DeleteCustomTargetTypeRequest>);
 
     impl DeleteCustomTargetType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1522,7 +1984,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_custom_target_type][super::super::client::CloudDeploy::delete_custom_target_type].
+        /// on [delete_custom_target_type][crate::client::CloudDeploy::delete_custom_target_type].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_custom_target_type(self.0.request, self.0.options)
@@ -1531,8 +1993,8 @@ pub mod cloud_deploy {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_custom_target_type`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1557,7 +2019,12 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomTargetTypeRequest::name].
@@ -1600,12 +2067,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_releases][super::super::client::CloudDeploy::list_releases] calls.
+    /// The request builder for [CloudDeploy::list_releases][crate::client::CloudDeploy::list_releases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListReleases;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReleases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReleases(RequestBuilder<crate::model::ListReleasesRequest>);
 
     impl ListReleases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1629,8 +2118,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReleasesResponse, gax::error::Error>
         {
@@ -1642,6 +2131,15 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReleasesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReleasesRequest::parent].
@@ -1684,12 +2182,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_release][super::super::client::CloudDeploy::get_release] calls.
+    /// The request builder for [CloudDeploy::get_release][crate::client::CloudDeploy::get_release] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetRelease;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRelease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRelease(RequestBuilder<crate::model::GetReleaseRequest>);
 
     impl GetRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1729,12 +2245,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_release][super::super::client::CloudDeploy::create_release] calls.
+    /// The request builder for [CloudDeploy::create_release][crate::client::CloudDeploy::create_release] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateRelease;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRelease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRelease(RequestBuilder<crate::model::CreateReleaseRequest>);
 
     impl CreateRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1755,7 +2290,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_release][super::super::client::CloudDeploy::create_release].
+        /// on [create_release][crate::client::CloudDeploy::create_release].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_release(self.0.request, self.0.options)
@@ -1767,7 +2302,8 @@ pub mod cloud_deploy {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Release, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Release, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Release, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1792,7 +2328,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReleaseRequest::parent].
@@ -1814,11 +2350,22 @@ pub mod cloud_deploy {
         /// Sets the value of [release][crate::model::CreateReleaseRequest::release].
         ///
         /// This is a **required** field for requests.
-        pub fn set_release<T: Into<std::option::Option<crate::model::Release>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.release = v.into();
+        pub fn set_release<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Release>,
+        {
+            self.0.request.release = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [release][crate::model::CreateReleaseRequest::release].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_release<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Release>,
+        {
+            self.0.request.release = v.map(|x| x.into());
             self
         }
 
@@ -1853,12 +2400,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::abandon_release][super::super::client::CloudDeploy::abandon_release] calls.
+    /// The request builder for [CloudDeploy::abandon_release][crate::client::CloudDeploy::abandon_release] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::AbandonRelease;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AbandonRelease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AbandonRelease(RequestBuilder<crate::model::AbandonReleaseRequest>);
 
     impl AbandonRelease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1898,12 +2463,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_deploy_policy][super::super::client::CloudDeploy::create_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::create_deploy_policy][crate::client::CloudDeploy::create_deploy_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateDeployPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeployPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeployPolicy(RequestBuilder<crate::model::CreateDeployPolicyRequest>);
 
     impl CreateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1927,7 +2511,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_deploy_policy][super::super::client::CloudDeploy::create_deploy_policy].
+        /// on [create_deploy_policy][crate::client::CloudDeploy::create_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_deploy_policy(self.0.request, self.0.options)
@@ -1939,8 +2523,10 @@ pub mod cloud_deploy {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::DeployPolicy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::DeployPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DeployPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1965,7 +2551,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDeployPolicyRequest::parent].
@@ -1987,11 +2573,22 @@ pub mod cloud_deploy {
         /// Sets the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deploy_policy = v.into();
+        pub fn set_deploy_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deploy_policy][crate::model::CreateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = v.map(|x| x.into());
             self
         }
 
@@ -2015,12 +2612,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_deploy_policy][super::super::client::CloudDeploy::update_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::update_deploy_policy][crate::client::CloudDeploy::update_deploy_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::UpdateDeployPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDeployPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeployPolicy(RequestBuilder<crate::model::UpdateDeployPolicyRequest>);
 
     impl UpdateDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2044,7 +2660,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_deploy_policy][super::super::client::CloudDeploy::update_deploy_policy].
+        /// on [update_deploy_policy][crate::client::CloudDeploy::update_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_deploy_policy(self.0.request, self.0.options)
@@ -2056,8 +2672,10 @@ pub mod cloud_deploy {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::DeployPolicy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::DeployPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DeployPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2082,28 +2700,50 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeployPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deploy_policy<T: Into<std::option::Option<crate::model::DeployPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deploy_policy = v.into();
+        pub fn set_deploy_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deploy_policy][crate::model::UpdateDeployPolicyRequest::deploy_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deploy_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeployPolicy>,
+        {
+            self.0.request.deploy_policy = v.map(|x| x.into());
             self
         }
 
@@ -2133,12 +2773,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_deploy_policy][super::super::client::CloudDeploy::delete_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::delete_deploy_policy][crate::client::CloudDeploy::delete_deploy_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::DeleteDeployPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeployPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeployPolicy(RequestBuilder<crate::model::DeleteDeployPolicyRequest>);
 
     impl DeleteDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2162,7 +2821,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_deploy_policy][super::super::client::CloudDeploy::delete_deploy_policy].
+        /// on [delete_deploy_policy][crate::client::CloudDeploy::delete_deploy_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_deploy_policy(self.0.request, self.0.options)
@@ -2171,8 +2830,8 @@ pub mod cloud_deploy {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_deploy_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2197,7 +2856,12 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDeployPolicyRequest::name].
@@ -2240,12 +2904,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_deploy_policies][super::super::client::CloudDeploy::list_deploy_policies] calls.
+    /// The request builder for [CloudDeploy::list_deploy_policies][crate::client::CloudDeploy::list_deploy_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListDeployPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployPolicies(RequestBuilder<crate::model::ListDeployPoliciesRequest>);
 
     impl ListDeployPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2272,8 +2958,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDeployPoliciesResponse, gax::error::Error>
         {
@@ -2285,6 +2971,17 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDeployPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDeployPoliciesRequest::parent].
@@ -2327,12 +3024,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_deploy_policy][super::super::client::CloudDeploy::get_deploy_policy] calls.
+    /// The request builder for [CloudDeploy::get_deploy_policy][crate::client::CloudDeploy::get_deploy_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetDeployPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployPolicy(RequestBuilder<crate::model::GetDeployPolicyRequest>);
 
     impl GetDeployPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2372,12 +3087,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::approve_rollout][super::super::client::CloudDeploy::approve_rollout] calls.
+    /// The request builder for [CloudDeploy::approve_rollout][crate::client::CloudDeploy::approve_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ApproveRollout;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveRollout(RequestBuilder<crate::model::ApproveRolloutRequest>);
 
     impl ApproveRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2436,12 +3169,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::advance_rollout][super::super::client::CloudDeploy::advance_rollout] calls.
+    /// The request builder for [CloudDeploy::advance_rollout][crate::client::CloudDeploy::advance_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::AdvanceRollout;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AdvanceRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AdvanceRollout(RequestBuilder<crate::model::AdvanceRolloutRequest>);
 
     impl AdvanceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2500,12 +3251,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::cancel_rollout][super::super::client::CloudDeploy::cancel_rollout] calls.
+    /// The request builder for [CloudDeploy::cancel_rollout][crate::client::CloudDeploy::cancel_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CancelRollout;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelRollout(RequestBuilder<crate::model::CancelRolloutRequest>);
 
     impl CancelRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2556,12 +3325,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_rollouts][super::super::client::CloudDeploy::list_rollouts] calls.
+    /// The request builder for [CloudDeploy::list_rollouts][crate::client::CloudDeploy::list_rollouts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListRollouts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRollouts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRollouts(RequestBuilder<crate::model::ListRolloutsRequest>);
 
     impl ListRollouts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2585,8 +3376,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRolloutsResponse, gax::error::Error>
         {
@@ -2598,6 +3389,15 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRolloutsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRolloutsRequest::parent].
@@ -2640,12 +3440,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_rollout][super::super::client::CloudDeploy::get_rollout] calls.
+    /// The request builder for [CloudDeploy::get_rollout][crate::client::CloudDeploy::get_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetRollout;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRollout(RequestBuilder<crate::model::GetRolloutRequest>);
 
     impl GetRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2685,12 +3503,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_rollout][super::super::client::CloudDeploy::create_rollout] calls.
+    /// The request builder for [CloudDeploy::create_rollout][crate::client::CloudDeploy::create_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateRollout;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRollout(RequestBuilder<crate::model::CreateRolloutRequest>);
 
     impl CreateRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2711,7 +3548,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_rollout][super::super::client::CloudDeploy::create_rollout].
+        /// on [create_rollout][crate::client::CloudDeploy::create_rollout].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_rollout(self.0.request, self.0.options)
@@ -2723,7 +3560,8 @@ pub mod cloud_deploy {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Rollout, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Rollout, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Rollout, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2748,7 +3586,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRolloutRequest::parent].
@@ -2770,11 +3608,22 @@ pub mod cloud_deploy {
         /// Sets the value of [rollout][crate::model::CreateRolloutRequest::rollout].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollout = v.into();
+        pub fn set_rollout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rollout][crate::model::CreateRolloutRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = v.map(|x| x.into());
             self
         }
 
@@ -2790,12 +3639,6 @@ pub mod cloud_deploy {
             self
         }
 
-        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
-        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.starting_phase_id = v.into();
-            self
-        }
-
         /// Sets the value of [override_deploy_policy][crate::model::CreateRolloutRequest::override_deploy_policy].
         pub fn set_override_deploy_policy<T, V>(mut self, v: T) -> Self
         where
@@ -2804,6 +3647,12 @@ pub mod cloud_deploy {
         {
             use std::iter::Iterator;
             self.0.request.override_deploy_policy = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [starting_phase_id][crate::model::CreateRolloutRequest::starting_phase_id].
+        pub fn set_starting_phase_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.starting_phase_id = v.into();
             self
         }
     }
@@ -2815,12 +3664,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::ignore_job][super::super::client::CloudDeploy::ignore_job] calls.
+    /// The request builder for [CloudDeploy::ignore_job][crate::client::CloudDeploy::ignore_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::IgnoreJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> IgnoreJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct IgnoreJob(RequestBuilder<crate::model::IgnoreJobRequest>);
 
     impl IgnoreJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2887,12 +3754,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::retry_job][super::super::client::CloudDeploy::retry_job] calls.
+    /// The request builder for [CloudDeploy::retry_job][crate::client::CloudDeploy::retry_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::RetryJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetryJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetryJob(RequestBuilder<crate::model::RetryJobRequest>);
 
     impl RetryJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2959,12 +3844,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_job_runs][super::super::client::CloudDeploy::list_job_runs] calls.
+    /// The request builder for [CloudDeploy::list_job_runs][crate::client::CloudDeploy::list_job_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListJobRuns;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobRuns(RequestBuilder<crate::model::ListJobRunsRequest>);
 
     impl ListJobRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2988,8 +3895,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobRunsResponse, gax::error::Error>
         {
@@ -3001,6 +3908,15 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobRunsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobRunsRequest::parent].
@@ -3043,12 +3959,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_job_run][super::super::client::CloudDeploy::get_job_run] calls.
+    /// The request builder for [CloudDeploy::get_job_run][crate::client::CloudDeploy::get_job_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetJobRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJobRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJobRun(RequestBuilder<crate::model::GetJobRunRequest>);
 
     impl GetJobRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3088,12 +4022,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::terminate_job_run][super::super::client::CloudDeploy::terminate_job_run] calls.
+    /// The request builder for [CloudDeploy::terminate_job_run][crate::client::CloudDeploy::terminate_job_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::TerminateJobRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TerminateJobRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TerminateJobRun(RequestBuilder<crate::model::TerminateJobRunRequest>);
 
     impl TerminateJobRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3144,12 +4096,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_config][super::super::client::CloudDeploy::get_config] calls.
+    /// The request builder for [CloudDeploy::get_config][crate::client::CloudDeploy::get_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3189,12 +4159,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::create_automation][super::super::client::CloudDeploy::create_automation] calls.
+    /// The request builder for [CloudDeploy::create_automation][crate::client::CloudDeploy::create_automation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CreateAutomation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAutomation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAutomation(RequestBuilder<crate::model::CreateAutomationRequest>);
 
     impl CreateAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3218,7 +4207,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_automation][super::super::client::CloudDeploy::create_automation].
+        /// on [create_automation][crate::client::CloudDeploy::create_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_automation(self.0.request, self.0.options)
@@ -3231,7 +4220,7 @@ pub mod cloud_deploy {
             self,
         ) -> impl lro::Poller<crate::model::Automation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Automation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Automation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3256,7 +4245,7 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAutomationRequest::parent].
@@ -3278,11 +4267,22 @@ pub mod cloud_deploy {
         /// Sets the value of [automation][crate::model::CreateAutomationRequest::automation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.automation = v.into();
+        pub fn set_automation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [automation][crate::model::CreateAutomationRequest::automation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = v.map(|x| x.into());
             self
         }
 
@@ -3306,12 +4306,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::update_automation][super::super::client::CloudDeploy::update_automation] calls.
+    /// The request builder for [CloudDeploy::update_automation][crate::client::CloudDeploy::update_automation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::UpdateAutomation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAutomation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutomation(RequestBuilder<crate::model::UpdateAutomationRequest>);
 
     impl UpdateAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3335,7 +4354,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_automation][super::super::client::CloudDeploy::update_automation].
+        /// on [update_automation][crate::client::CloudDeploy::update_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_automation(self.0.request, self.0.options)
@@ -3348,7 +4367,7 @@ pub mod cloud_deploy {
             self,
         ) -> impl lro::Poller<crate::model::Automation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Automation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Automation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3373,28 +4392,50 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAutomationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [automation][crate::model::UpdateAutomationRequest::automation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_automation<T: Into<std::option::Option<crate::model::Automation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.automation = v.into();
+        pub fn set_automation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [automation][crate::model::UpdateAutomationRequest::automation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_automation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Automation>,
+        {
+            self.0.request.automation = v.map(|x| x.into());
             self
         }
 
@@ -3424,12 +4465,31 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_automation][super::super::client::CloudDeploy::delete_automation] calls.
+    /// The request builder for [CloudDeploy::delete_automation][crate::client::CloudDeploy::delete_automation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::DeleteAutomation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAutomation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAutomation(RequestBuilder<crate::model::DeleteAutomationRequest>);
 
     impl DeleteAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3453,7 +4513,7 @@ pub mod cloud_deploy {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_automation][super::super::client::CloudDeploy::delete_automation].
+        /// on [delete_automation][crate::client::CloudDeploy::delete_automation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_automation(self.0.request, self.0.options)
@@ -3462,8 +4522,8 @@ pub mod cloud_deploy {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_automation`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3488,7 +4548,12 @@ pub mod cloud_deploy {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAutomationRequest::name].
@@ -3531,12 +4596,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_automation][super::super::client::CloudDeploy::get_automation] calls.
+    /// The request builder for [CloudDeploy::get_automation][crate::client::CloudDeploy::get_automation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetAutomation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAutomation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutomation(RequestBuilder<crate::model::GetAutomationRequest>);
 
     impl GetAutomation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3576,12 +4659,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_automations][super::super::client::CloudDeploy::list_automations] calls.
+    /// The request builder for [CloudDeploy::list_automations][crate::client::CloudDeploy::list_automations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListAutomations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAutomations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutomations(RequestBuilder<crate::model::ListAutomationsRequest>);
 
     impl ListAutomations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3605,8 +4710,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAutomationsResponse, gax::error::Error>
         {
@@ -3618,6 +4723,15 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAutomationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAutomationsRequest::parent].
@@ -3660,12 +4774,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_automation_run][super::super::client::CloudDeploy::get_automation_run] calls.
+    /// The request builder for [CloudDeploy::get_automation_run][crate::client::CloudDeploy::get_automation_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetAutomationRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAutomationRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutomationRun(RequestBuilder<crate::model::GetAutomationRunRequest>);
 
     impl GetAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3708,12 +4840,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_automation_runs][super::super::client::CloudDeploy::list_automation_runs] calls.
+    /// The request builder for [CloudDeploy::list_automation_runs][crate::client::CloudDeploy::list_automation_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListAutomationRuns;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAutomationRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutomationRuns(RequestBuilder<crate::model::ListAutomationRunsRequest>);
 
     impl ListAutomationRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3740,8 +4894,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAutomationRunsResponse, gax::error::Error>
         {
@@ -3753,6 +4907,17 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAutomationRunsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAutomationRunsRequest::parent].
@@ -3795,12 +4960,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::cancel_automation_run][super::super::client::CloudDeploy::cancel_automation_run] calls.
+    /// The request builder for [CloudDeploy::cancel_automation_run][crate::client::CloudDeploy::cancel_automation_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CancelAutomationRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelAutomationRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelAutomationRun(RequestBuilder<crate::model::CancelAutomationRunRequest>);
 
     impl CancelAutomationRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3843,12 +5026,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_locations][super::super::client::CloudDeploy::list_locations] calls.
+    /// The request builder for [CloudDeploy::list_locations][crate::client::CloudDeploy::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3875,8 +5080,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3888,6 +5093,15 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -3922,12 +5136,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_location][super::super::client::CloudDeploy::get_location] calls.
+    /// The request builder for [CloudDeploy::get_location][crate::client::CloudDeploy::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3965,12 +5197,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::set_iam_policy][super::super::client::CloudDeploy::set_iam_policy] calls.
+    /// The request builder for [CloudDeploy::set_iam_policy][crate::client::CloudDeploy::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4005,20 +5255,40 @@ pub mod cloud_deploy {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4030,12 +5300,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_iam_policy][super::super::client::CloudDeploy::get_iam_policy] calls.
+    /// The request builder for [CloudDeploy::get_iam_policy][crate::client::CloudDeploy::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4068,11 +5356,20 @@ pub mod cloud_deploy {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4084,12 +5381,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::test_iam_permissions][super::super::client::CloudDeploy::test_iam_permissions] calls.
+    /// The request builder for [CloudDeploy::test_iam_permissions][crate::client::CloudDeploy::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4145,12 +5460,34 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::list_operations][super::super::client::CloudDeploy::list_operations] calls.
+    /// The request builder for [CloudDeploy::list_operations][crate::client::CloudDeploy::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4177,8 +5514,8 @@ pub mod cloud_deploy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4190,6 +5527,17 @@ pub mod cloud_deploy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4224,12 +5572,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::get_operation][super::super::client::CloudDeploy::get_operation] calls.
+    /// The request builder for [CloudDeploy::get_operation][crate::client::CloudDeploy::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4270,12 +5636,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::delete_operation][super::super::client::CloudDeploy::delete_operation] calls.
+    /// The request builder for [CloudDeploy::delete_operation][crate::client::CloudDeploy::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4316,12 +5700,30 @@ pub mod cloud_deploy {
         }
     }
 
-    /// The request builder for [CloudDeploy::cancel_operation][super::super::client::CloudDeploy::cancel_operation] calls.
+    /// The request builder for [CloudDeploy::cancel_operation][crate::client::CloudDeploy::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_deploy_v1::builder;
+    /// use builder::cloud_deploy::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudDeploy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudDeploy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

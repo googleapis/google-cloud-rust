@@ -16,8 +16,8 @@ limitations under the License.
 
 # Setting up your development environment
 
-Prepare your environment for [Rust] app development and deployment on
-Google Cloud by installing the following tools.
+Prepare your environment for [Rust] app development and deployment on Google
+Cloud by installing the following tools.
 
 ## Install Rust
 
@@ -41,21 +41,22 @@ and IDEs, which provide the following features:
 ## Install the Google Cloud CLI
 
 The [Google Cloud CLI] is a set of tools for Google Cloud. It contains the
-[`gcloud`](https://cloud.google.com/sdk/gcloud/)
-and [`bq`](https://cloud.google.com/bigquery/docs/bq-command-line-tool)
-command-line tools used to access Compute Engine, Cloud Storage,
-BigQuery, and other services from the command line. You can run these
-tools interactively or in your automated scripts.
+[`gcloud`](https://cloud.google.com/sdk/gcloud/) and
+[`bq`](https://cloud.google.com/bigquery/docs/bq-command-line-tool) command-line
+tools used to access Compute Engine, Cloud Storage, BigQuery, and other services
+from the command line. You can run these tools interactively or in your
+automated scripts.
 
-To install the gcloud CLI, see [Installing the gcloud CLI](https://cloud.google.com/sdk/install).
+To install the gcloud CLI, see
+[Installing the gcloud CLI](https://cloud.google.com/sdk/install).
 
-## Install the Cloud Client Libraries for Rust in a New Project
+## Install the Cloud Client Libraries for Rust in a new project
 
 The Cloud Client Libraries for Rust is the idiomatic way for Rust developers to
 integrate with Google Cloud services, such as Secret Manager and Workflows.
 
-For example, to use the package for an individual API, such as the
-Secret Manager API, do the following:
+For example, to use the package for an individual API, such as the Secret
+Manager API, do the following:
 
 1. Create a new Rust project:
 
@@ -69,13 +70,27 @@ Secret Manager API, do the following:
    cd my-project
    ```
 
-1. Add the [Secret Manager] client library to the new project
+1. Add the [Secret Manager] client library to the new project:
 
    ```shell
    cargo add google-cloud-secretmanager-v1
    ```
 
-1. Add the [tokio] crate to the new project
+   If you haven't already enabled the Secret Manager API, enable it in
+   [APIs and services](https://console.cloud.google.com/apis) or by running the
+   following command:
+
+   ```shell
+   gcloud services enable secretmanager.googleapis.com
+   ```
+
+1. Add the [google-cloud-gax] crate to the new project:
+
+   ```shell
+   cargo add google-cloud-gax
+   ```
+
+1. Add the [tokio] crate to the new project:
 
    ```shell
    cargo add tokio --features macros
@@ -104,8 +119,8 @@ Note: The source of the Cloud Client Libraries for Rust is
 
 ### Running the program
 
-1. To use the Cloud Client Libraries in a local development environment, set
-   up Application Default Credentials.
+1. To use the Cloud Client Libraries in a local development environment, set up
+   Application Default Credentials.
 
    ```shell
    gcloud auth application-default login
@@ -114,11 +129,17 @@ Note: The source of the Cloud Client Libraries for Rust is
    For more information, see
    [Authenticate for using client libraries][authn-client-libraries].
 
-1. Run your program, replacing `[PROJECT ID]` with the id of your project:
+1. Run your program, supplying your Google Cloud Platform project's ID:
 
    ```shell
-   cargo run [PROJECT ID]
+   PROJECT_ID=$(gcloud config get project)
+   cargo run ${PROJECT_ID}
    ```
+
+   The program will print the secrets associated with your project ID. If you
+   don't see any secrets, you might not have any in Secret Manager. You can
+   [create a secret] and rerun the program, and you should see the secret
+   printed in the output.
 
 ## What's next
 
@@ -127,8 +148,10 @@ Note: The source of the Cloud Client Libraries for Rust is
 
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [authn-client-libraries]: https://cloud.google.com/docs/authentication/client-libraries
+[create a secret]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [documentation for google cloud products]: https://cloud.google.com/products
 [google cloud cli]: https://cloud.google.com/sdk/
+[google-cloud-gax]: https://crates.io/crates/google-cloud-gax
 [rust]: https://www.rust-lang.org/
 [rust-getting-started]: https://www.rust-lang.org/learn/get-started
 [secret manager]: https://cloud.google.com/secret-manager/docs/overview

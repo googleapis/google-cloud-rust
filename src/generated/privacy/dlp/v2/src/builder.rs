@@ -16,9 +16,8 @@
 
 pub mod dlp_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DlpService][super::super::client::DlpService].
+    /// A builder for [DlpService][crate::client::DlpService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod dlp_service {
     /// let client = builder
     ///     .with_endpoint("https://dlp.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod dlp_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DlpService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DlpService] request builders.
+    /// Common implementation for [crate::client::DlpService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DlpService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod dlp_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::inspect_content][super::super::client::DlpService::inspect_content] calls.
+    /// The request builder for [DlpService::inspect_content][crate::client::DlpService::inspect_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::InspectContent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InspectContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InspectContent(RequestBuilder<crate::model::InspectContentRequest>);
 
     impl InspectContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,20 +125,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::InspectContentRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [item][crate::model::InspectContentRequest::item].
-        pub fn set_item<T: Into<std::option::Option<crate::model::ContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.item = v.into();
+        pub fn set_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [item][crate::model::InspectContentRequest::item].
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = v.map(|x| x.into());
             self
         }
 
@@ -140,12 +180,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::redact_image][super::super::client::DlpService::redact_image] calls.
+    /// The request builder for [DlpService::redact_image][crate::client::DlpService::redact_image] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::RedactImage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RedactImage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RedactImage(RequestBuilder<crate::model::RedactImageRequest>);
 
     impl RedactImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -182,26 +240,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [include_findings][crate::model::RedactImageRequest::include_findings].
-        pub fn set_include_findings<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.include_findings = v.into();
-            self
-        }
-
-        /// Sets the value of [byte_item][crate::model::RedactImageRequest::byte_item].
-        pub fn set_byte_item<T: Into<std::option::Option<crate::model::ByteContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.byte_item = v.into();
+        /// Sets or clears the value of [inspect_config][crate::model::RedactImageRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
@@ -215,6 +267,30 @@ pub mod dlp_service {
             self.0.request.image_redaction_configs = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [include_findings][crate::model::RedactImageRequest::include_findings].
+        pub fn set_include_findings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.include_findings = v.into();
+            self
+        }
+
+        /// Sets the value of [byte_item][crate::model::RedactImageRequest::byte_item].
+        pub fn set_byte_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ByteContentItem>,
+        {
+            self.0.request.byte_item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [byte_item][crate::model::RedactImageRequest::byte_item].
+        pub fn set_or_clear_byte_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ByteContentItem>,
+        {
+            self.0.request.byte_item = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -224,12 +300,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::deidentify_content][super::super::client::DlpService::deidentify_content] calls.
+    /// The request builder for [DlpService::deidentify_content][crate::client::DlpService::deidentify_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeidentifyContent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeidentifyContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeidentifyContent(RequestBuilder<crate::model::DeidentifyContentRequest>);
 
     impl DeidentifyContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -263,31 +357,56 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
-        pub fn set_deidentify_config<
-            T: Into<std::option::Option<crate::model::DeidentifyConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deidentify_config = v.into();
+        pub fn set_deidentify_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.deidentify_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deidentify_config][crate::model::DeidentifyContentRequest::deidentify_config].
+        pub fn set_or_clear_deidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.deidentify_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::DeidentifyContentRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [item][crate::model::DeidentifyContentRequest::item].
-        pub fn set_item<T: Into<std::option::Option<crate::model::ContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.item = v.into();
+        pub fn set_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [item][crate::model::DeidentifyContentRequest::item].
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = v.map(|x| x.into());
             self
         }
 
@@ -317,12 +436,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::reidentify_content][super::super::client::DlpService::reidentify_content] calls.
+    /// The request builder for [DlpService::reidentify_content][crate::client::DlpService::reidentify_content] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ReidentifyContent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReidentifyContent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReidentifyContent(RequestBuilder<crate::model::ReidentifyContentRequest>);
 
     impl ReidentifyContent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -358,31 +495,56 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
-        pub fn set_reidentify_config<
-            T: Into<std::option::Option<crate::model::DeidentifyConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reidentify_config = v.into();
+        pub fn set_reidentify_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.reidentify_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reidentify_config][crate::model::ReidentifyContentRequest::reidentify_config].
+        pub fn set_or_clear_reidentify_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyConfig>,
+        {
+            self.0.request.reidentify_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
-        pub fn set_inspect_config<T: Into<std::option::Option<crate::model::InspectConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_config = v.into();
+        pub fn set_inspect_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_config][crate::model::ReidentifyContentRequest::inspect_config].
+        pub fn set_or_clear_inspect_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectConfig>,
+        {
+            self.0.request.inspect_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [item][crate::model::ReidentifyContentRequest::item].
-        pub fn set_item<T: Into<std::option::Option<crate::model::ContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.item = v.into();
+        pub fn set_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [item][crate::model::ReidentifyContentRequest::item].
+        pub fn set_or_clear_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContentItem>,
+        {
+            self.0.request.item = v.map(|x| x.into());
             self
         }
 
@@ -412,12 +574,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_info_types][super::super::client::DlpService::list_info_types] calls.
+    /// The request builder for [DlpService::list_info_types][crate::client::DlpService::list_info_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListInfoTypes;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInfoTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInfoTypes(RequestBuilder<crate::model::ListInfoTypesRequest>);
 
     impl ListInfoTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -473,12 +653,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_inspect_template][super::super::client::DlpService::create_inspect_template] calls.
+    /// The request builder for [DlpService::create_inspect_template][crate::client::DlpService::create_inspect_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateInspectTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInspectTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInspectTemplate(RequestBuilder<crate::model::CreateInspectTemplateRequest>);
 
     impl CreateInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -516,11 +714,22 @@ pub mod dlp_service {
         /// Sets the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_inspect_template<T: Into<std::option::Option<crate::model::InspectTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_template = v.into();
+        pub fn set_inspect_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_template][crate::model::CreateInspectTemplateRequest::inspect_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = v.map(|x| x.into());
             self
         }
 
@@ -544,12 +753,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_inspect_template][super::super::client::DlpService::update_inspect_template] calls.
+    /// The request builder for [DlpService::update_inspect_template][crate::client::DlpService::update_inspect_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::UpdateInspectTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInspectTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInspectTemplate(RequestBuilder<crate::model::UpdateInspectTemplateRequest>);
 
     impl UpdateInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -585,20 +812,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
-        pub fn set_inspect_template<T: Into<std::option::Option<crate::model::InspectTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.inspect_template = v.into();
+        pub fn set_inspect_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [inspect_template][crate::model::UpdateInspectTemplateRequest::inspect_template].
+        pub fn set_or_clear_inspect_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InspectTemplate>,
+        {
+            self.0.request.inspect_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInspectTemplateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -610,12 +855,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_inspect_template][super::super::client::DlpService::get_inspect_template] calls.
+    /// The request builder for [DlpService::get_inspect_template][crate::client::DlpService::get_inspect_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetInspectTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInspectTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInspectTemplate(RequestBuilder<crate::model::GetInspectTemplateRequest>);
 
     impl GetInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -658,12 +921,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_inspect_templates][super::super::client::DlpService::list_inspect_templates] calls.
+    /// The request builder for [DlpService::list_inspect_templates][crate::client::DlpService::list_inspect_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListInspectTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInspectTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInspectTemplates(RequestBuilder<crate::model::ListInspectTemplatesRequest>);
 
     impl ListInspectTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,8 +975,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInspectTemplatesResponse, gax::error::Error>
         {
@@ -703,6 +988,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListInspectTemplatesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInspectTemplatesRequest::parent].
@@ -745,12 +1041,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_inspect_template][super::super::client::DlpService::delete_inspect_template] calls.
+    /// The request builder for [DlpService::delete_inspect_template][crate::client::DlpService::delete_inspect_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteInspectTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInspectTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInspectTemplate(RequestBuilder<crate::model::DeleteInspectTemplateRequest>);
 
     impl DeleteInspectTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,14 +1107,32 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_deidentify_template][super::super::client::DlpService::create_deidentify_template] calls.
+    /// The request builder for [DlpService::create_deidentify_template][crate::client::DlpService::create_deidentify_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateDeidentifyTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeidentifyTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeidentifyTemplate(
         RequestBuilder<crate::model::CreateDeidentifyTemplateRequest>,
     );
 
     impl CreateDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -838,13 +1170,22 @@ pub mod dlp_service {
         /// Sets the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deidentify_template<
-            T: Into<std::option::Option<crate::model::DeidentifyTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deidentify_template = v.into();
+        pub fn set_deidentify_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deidentify_template][crate::model::CreateDeidentifyTemplateRequest::deidentify_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = v.map(|x| x.into());
             self
         }
 
@@ -868,14 +1209,32 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_deidentify_template][super::super::client::DlpService::update_deidentify_template] calls.
+    /// The request builder for [DlpService::update_deidentify_template][crate::client::DlpService::update_deidentify_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::UpdateDeidentifyTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDeidentifyTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeidentifyTemplate(
         RequestBuilder<crate::model::UpdateDeidentifyTemplateRequest>,
     );
 
     impl UpdateDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -911,22 +1270,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
-        pub fn set_deidentify_template<
-            T: Into<std::option::Option<crate::model::DeidentifyTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deidentify_template = v.into();
+        pub fn set_deidentify_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deidentify_template][crate::model::UpdateDeidentifyTemplateRequest::deidentify_template].
+        pub fn set_or_clear_deidentify_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DeidentifyTemplate>,
+        {
+            self.0.request.deidentify_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeidentifyTemplateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -938,12 +1313,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_deidentify_template][super::super::client::DlpService::get_deidentify_template] calls.
+    /// The request builder for [DlpService::get_deidentify_template][crate::client::DlpService::get_deidentify_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetDeidentifyTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeidentifyTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeidentifyTemplate(RequestBuilder<crate::model::GetDeidentifyTemplateRequest>);
 
     impl GetDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -986,14 +1379,36 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_deidentify_templates][super::super::client::DlpService::list_deidentify_templates] calls.
+    /// The request builder for [DlpService::list_deidentify_templates][crate::client::DlpService::list_deidentify_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListDeidentifyTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeidentifyTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeidentifyTemplates(
         RequestBuilder<crate::model::ListDeidentifyTemplatesRequest>,
     );
 
     impl ListDeidentifyTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1020,8 +1435,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListDeidentifyTemplatesResponse,
@@ -1035,6 +1450,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDeidentifyTemplatesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDeidentifyTemplatesRequest::parent].
@@ -1077,14 +1503,32 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_deidentify_template][super::super::client::DlpService::delete_deidentify_template] calls.
+    /// The request builder for [DlpService::delete_deidentify_template][crate::client::DlpService::delete_deidentify_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteDeidentifyTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeidentifyTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeidentifyTemplate(
         RequestBuilder<crate::model::DeleteDeidentifyTemplateRequest>,
     );
 
     impl DeleteDeidentifyTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1127,12 +1571,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_job_trigger][super::super::client::DlpService::create_job_trigger] calls.
+    /// The request builder for [DlpService::create_job_trigger][crate::client::DlpService::create_job_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateJobTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJobTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJobTrigger(RequestBuilder<crate::model::CreateJobTriggerRequest>);
 
     impl CreateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1170,11 +1632,22 @@ pub mod dlp_service {
         /// Sets the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job_trigger<T: Into<std::option::Option<crate::model::JobTrigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_trigger = v.into();
+        pub fn set_job_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_trigger][crate::model::CreateJobTriggerRequest::job_trigger].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = v.map(|x| x.into());
             self
         }
 
@@ -1198,12 +1671,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_job_trigger][super::super::client::DlpService::update_job_trigger] calls.
+    /// The request builder for [DlpService::update_job_trigger][crate::client::DlpService::update_job_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::UpdateJobTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateJobTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateJobTrigger(RequestBuilder<crate::model::UpdateJobTriggerRequest>);
 
     impl UpdateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1239,20 +1730,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
-        pub fn set_job_trigger<T: Into<std::option::Option<crate::model::JobTrigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_trigger = v.into();
+        pub fn set_job_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_trigger][crate::model::UpdateJobTriggerRequest::job_trigger].
+        pub fn set_or_clear_job_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTrigger>,
+        {
+            self.0.request.job_trigger = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobTriggerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1264,14 +1773,32 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::hybrid_inspect_job_trigger][super::super::client::DlpService::hybrid_inspect_job_trigger] calls.
+    /// The request builder for [DlpService::hybrid_inspect_job_trigger][crate::client::DlpService::hybrid_inspect_job_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::HybridInspectJobTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> HybridInspectJobTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct HybridInspectJobTrigger(
         RequestBuilder<crate::model::HybridInspectJobTriggerRequest>,
     );
 
     impl HybridInspectJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1307,11 +1834,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
-        pub fn set_hybrid_item<T: Into<std::option::Option<crate::model::HybridContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hybrid_item = v.into();
+        pub fn set_hybrid_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectJobTriggerRequest::hybrid_item].
+        pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = v.map(|x| x.into());
             self
         }
     }
@@ -1323,12 +1859,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_job_trigger][super::super::client::DlpService::get_job_trigger] calls.
+    /// The request builder for [DlpService::get_job_trigger][crate::client::DlpService::get_job_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetJobTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJobTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJobTrigger(RequestBuilder<crate::model::GetJobTriggerRequest>);
 
     impl GetJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1368,12 +1922,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_job_triggers][super::super::client::DlpService::list_job_triggers] calls.
+    /// The request builder for [DlpService::list_job_triggers][crate::client::DlpService::list_job_triggers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListJobTriggers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobTriggers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobTriggers(RequestBuilder<crate::model::ListJobTriggersRequest>);
 
     impl ListJobTriggers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1397,8 +1973,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobTriggersResponse, gax::error::Error>
         {
@@ -1410,6 +1986,15 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobTriggersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobTriggersRequest::parent].
@@ -1464,12 +2049,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_job_trigger][super::super::client::DlpService::delete_job_trigger] calls.
+    /// The request builder for [DlpService::delete_job_trigger][crate::client::DlpService::delete_job_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteJobTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJobTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJobTrigger(RequestBuilder<crate::model::DeleteJobTriggerRequest>);
 
     impl DeleteJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1512,12 +2115,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::activate_job_trigger][super::super::client::DlpService::activate_job_trigger] calls.
+    /// The request builder for [DlpService::activate_job_trigger][crate::client::DlpService::activate_job_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ActivateJobTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ActivateJobTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ActivateJobTrigger(RequestBuilder<crate::model::ActivateJobTriggerRequest>);
 
     impl ActivateJobTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1560,12 +2181,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_discovery_config][super::super::client::DlpService::create_discovery_config] calls.
+    /// The request builder for [DlpService::create_discovery_config][crate::client::DlpService::create_discovery_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateDiscoveryConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDiscoveryConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDiscoveryConfig(RequestBuilder<crate::model::CreateDiscoveryConfigRequest>);
 
     impl CreateDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1603,11 +2242,22 @@ pub mod dlp_service {
         /// Sets the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_discovery_config<T: Into<std::option::Option<crate::model::DiscoveryConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.discovery_config = v.into();
+        pub fn set_discovery_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [discovery_config][crate::model::CreateDiscoveryConfigRequest::discovery_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = v.map(|x| x.into());
             self
         }
 
@@ -1625,12 +2275,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_discovery_config][super::super::client::DlpService::update_discovery_config] calls.
+    /// The request builder for [DlpService::update_discovery_config][crate::client::DlpService::update_discovery_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::UpdateDiscoveryConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDiscoveryConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDiscoveryConfig(RequestBuilder<crate::model::UpdateDiscoveryConfigRequest>);
 
     impl UpdateDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1668,20 +2336,40 @@ pub mod dlp_service {
         /// Sets the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_discovery_config<T: Into<std::option::Option<crate::model::DiscoveryConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.discovery_config = v.into();
+        pub fn set_discovery_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [discovery_config][crate::model::UpdateDiscoveryConfigRequest::discovery_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_discovery_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiscoveryConfig>,
+        {
+            self.0.request.discovery_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDiscoveryConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1693,12 +2381,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_discovery_config][super::super::client::DlpService::get_discovery_config] calls.
+    /// The request builder for [DlpService::get_discovery_config][crate::client::DlpService::get_discovery_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetDiscoveryConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiscoveryConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiscoveryConfig(RequestBuilder<crate::model::GetDiscoveryConfigRequest>);
 
     impl GetDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1741,12 +2447,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_discovery_configs][super::super::client::DlpService::list_discovery_configs] calls.
+    /// The request builder for [DlpService::list_discovery_configs][crate::client::DlpService::list_discovery_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListDiscoveryConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDiscoveryConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDiscoveryConfigs(RequestBuilder<crate::model::ListDiscoveryConfigsRequest>);
 
     impl ListDiscoveryConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1773,8 +2501,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDiscoveryConfigsResponse, gax::error::Error>
         {
@@ -1786,6 +2514,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDiscoveryConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveryConfigsRequest::parent].
@@ -1822,12 +2561,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_discovery_config][super::super::client::DlpService::delete_discovery_config] calls.
+    /// The request builder for [DlpService::delete_discovery_config][crate::client::DlpService::delete_discovery_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteDiscoveryConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDiscoveryConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDiscoveryConfig(RequestBuilder<crate::model::DeleteDiscoveryConfigRequest>);
 
     impl DeleteDiscoveryConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1870,12 +2627,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_dlp_job][super::super::client::DlpService::create_dlp_job] calls.
+    /// The request builder for [DlpService::create_dlp_job][crate::client::DlpService::create_dlp_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateDlpJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDlpJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDlpJob(RequestBuilder<crate::model::CreateDlpJobRequest>);
 
     impl CreateDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1969,12 +2744,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_dlp_jobs][super::super::client::DlpService::list_dlp_jobs] calls.
+    /// The request builder for [DlpService::list_dlp_jobs][crate::client::DlpService::list_dlp_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListDlpJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDlpJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDlpJobs(RequestBuilder<crate::model::ListDlpJobsRequest>);
 
     impl ListDlpJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1998,8 +2795,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDlpJobsResponse, gax::error::Error>
         {
@@ -2011,6 +2808,15 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDlpJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDlpJobsRequest::parent].
@@ -2065,12 +2871,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_dlp_job][super::super::client::DlpService::get_dlp_job] calls.
+    /// The request builder for [DlpService::get_dlp_job][crate::client::DlpService::get_dlp_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetDlpJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDlpJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDlpJob(RequestBuilder<crate::model::GetDlpJobRequest>);
 
     impl GetDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2110,12 +2934,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_dlp_job][super::super::client::DlpService::delete_dlp_job] calls.
+    /// The request builder for [DlpService::delete_dlp_job][crate::client::DlpService::delete_dlp_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteDlpJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDlpJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDlpJob(RequestBuilder<crate::model::DeleteDlpJobRequest>);
 
     impl DeleteDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2155,12 +2997,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::cancel_dlp_job][super::super::client::DlpService::cancel_dlp_job] calls.
+    /// The request builder for [DlpService::cancel_dlp_job][crate::client::DlpService::cancel_dlp_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CancelDlpJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelDlpJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelDlpJob(RequestBuilder<crate::model::CancelDlpJobRequest>);
 
     impl CancelDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2200,12 +3060,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_stored_info_type][super::super::client::DlpService::create_stored_info_type] calls.
+    /// The request builder for [DlpService::create_stored_info_type][crate::client::DlpService::create_stored_info_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateStoredInfoType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateStoredInfoType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateStoredInfoType(RequestBuilder<crate::model::CreateStoredInfoTypeRequest>);
 
     impl CreateStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2243,11 +3121,22 @@ pub mod dlp_service {
         /// Sets the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_config<T: Into<std::option::Option<crate::model::StoredInfoTypeConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::CreateStoredInfoTypeRequest::config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
@@ -2271,12 +3160,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_stored_info_type][super::super::client::DlpService::update_stored_info_type] calls.
+    /// The request builder for [DlpService::update_stored_info_type][crate::client::DlpService::update_stored_info_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::UpdateStoredInfoType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateStoredInfoType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateStoredInfoType(RequestBuilder<crate::model::UpdateStoredInfoTypeRequest>);
 
     impl UpdateStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2312,20 +3219,38 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
-        pub fn set_config<T: Into<std::option::Option<crate::model::StoredInfoTypeConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::UpdateStoredInfoTypeRequest::config].
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoredInfoTypeConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStoredInfoTypeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2337,12 +3262,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_stored_info_type][super::super::client::DlpService::get_stored_info_type] calls.
+    /// The request builder for [DlpService::get_stored_info_type][crate::client::DlpService::get_stored_info_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetStoredInfoType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStoredInfoType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStoredInfoType(RequestBuilder<crate::model::GetStoredInfoTypeRequest>);
 
     impl GetStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2385,12 +3328,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_stored_info_types][super::super::client::DlpService::list_stored_info_types] calls.
+    /// The request builder for [DlpService::list_stored_info_types][crate::client::DlpService::list_stored_info_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListStoredInfoTypes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListStoredInfoTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListStoredInfoTypes(RequestBuilder<crate::model::ListStoredInfoTypesRequest>);
 
     impl ListStoredInfoTypes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2417,8 +3382,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListStoredInfoTypesResponse, gax::error::Error>
         {
@@ -2430,6 +3395,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListStoredInfoTypesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListStoredInfoTypesRequest::parent].
@@ -2472,12 +3448,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_stored_info_type][super::super::client::DlpService::delete_stored_info_type] calls.
+    /// The request builder for [DlpService::delete_stored_info_type][crate::client::DlpService::delete_stored_info_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteStoredInfoType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteStoredInfoType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteStoredInfoType(RequestBuilder<crate::model::DeleteStoredInfoTypeRequest>);
 
     impl DeleteStoredInfoType {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2520,14 +3514,36 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_project_data_profiles][super::super::client::DlpService::list_project_data_profiles] calls.
+    /// The request builder for [DlpService::list_project_data_profiles][crate::client::DlpService::list_project_data_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListProjectDataProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProjectDataProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProjectDataProfiles(
         RequestBuilder<crate::model::ListProjectDataProfilesRequest>,
     );
 
     impl ListProjectDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2554,8 +3570,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListProjectDataProfilesResponse,
@@ -2569,6 +3585,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProjectDataProfilesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProjectDataProfilesRequest::parent].
@@ -2611,12 +3638,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_table_data_profiles][super::super::client::DlpService::list_table_data_profiles] calls.
+    /// The request builder for [DlpService::list_table_data_profiles][crate::client::DlpService::list_table_data_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListTableDataProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTableDataProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTableDataProfiles(RequestBuilder<crate::model::ListTableDataProfilesRequest>);
 
     impl ListTableDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2643,8 +3692,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTableDataProfilesResponse, gax::error::Error>
         {
@@ -2656,6 +3705,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListTableDataProfilesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTableDataProfilesRequest::parent].
@@ -2698,12 +3758,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_column_data_profiles][super::super::client::DlpService::list_column_data_profiles] calls.
+    /// The request builder for [DlpService::list_column_data_profiles][crate::client::DlpService::list_column_data_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListColumnDataProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListColumnDataProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListColumnDataProfiles(RequestBuilder<crate::model::ListColumnDataProfilesRequest>);
 
     impl ListColumnDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2730,8 +3812,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListColumnDataProfilesResponse,
@@ -2745,6 +3827,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListColumnDataProfilesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListColumnDataProfilesRequest::parent].
@@ -2787,12 +3880,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_project_data_profile][super::super::client::DlpService::get_project_data_profile] calls.
+    /// The request builder for [DlpService::get_project_data_profile][crate::client::DlpService::get_project_data_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetProjectDataProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProjectDataProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProjectDataProfile(RequestBuilder<crate::model::GetProjectDataProfileRequest>);
 
     impl GetProjectDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2835,14 +3946,36 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_file_store_data_profiles][super::super::client::DlpService::list_file_store_data_profiles] calls.
+    /// The request builder for [DlpService::list_file_store_data_profiles][crate::client::DlpService::list_file_store_data_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListFileStoreDataProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFileStoreDataProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFileStoreDataProfiles(
         RequestBuilder<crate::model::ListFileStoreDataProfilesRequest>,
     );
 
     impl ListFileStoreDataProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2869,8 +4002,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListFileStoreDataProfilesResponse,
@@ -2884,6 +4017,17 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListFileStoreDataProfilesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFileStoreDataProfilesRequest::parent].
@@ -2926,14 +4070,32 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_file_store_data_profile][super::super::client::DlpService::get_file_store_data_profile] calls.
+    /// The request builder for [DlpService::get_file_store_data_profile][crate::client::DlpService::get_file_store_data_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetFileStoreDataProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFileStoreDataProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFileStoreDataProfile(
         RequestBuilder<crate::model::GetFileStoreDataProfileRequest>,
     );
 
     impl GetFileStoreDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2976,14 +4138,32 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_file_store_data_profile][super::super::client::DlpService::delete_file_store_data_profile] calls.
+    /// The request builder for [DlpService::delete_file_store_data_profile][crate::client::DlpService::delete_file_store_data_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteFileStoreDataProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFileStoreDataProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFileStoreDataProfile(
         RequestBuilder<crate::model::DeleteFileStoreDataProfileRequest>,
     );
 
     impl DeleteFileStoreDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3026,12 +4206,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_table_data_profile][super::super::client::DlpService::get_table_data_profile] calls.
+    /// The request builder for [DlpService::get_table_data_profile][crate::client::DlpService::get_table_data_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetTableDataProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTableDataProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTableDataProfile(RequestBuilder<crate::model::GetTableDataProfileRequest>);
 
     impl GetTableDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3074,12 +4272,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_column_data_profile][super::super::client::DlpService::get_column_data_profile] calls.
+    /// The request builder for [DlpService::get_column_data_profile][crate::client::DlpService::get_column_data_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetColumnDataProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetColumnDataProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetColumnDataProfile(RequestBuilder<crate::model::GetColumnDataProfileRequest>);
 
     impl GetColumnDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3122,12 +4338,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_table_data_profile][super::super::client::DlpService::delete_table_data_profile] calls.
+    /// The request builder for [DlpService::delete_table_data_profile][crate::client::DlpService::delete_table_data_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteTableDataProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTableDataProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTableDataProfile(RequestBuilder<crate::model::DeleteTableDataProfileRequest>);
 
     impl DeleteTableDataProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3170,12 +4404,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::hybrid_inspect_dlp_job][super::super::client::DlpService::hybrid_inspect_dlp_job] calls.
+    /// The request builder for [DlpService::hybrid_inspect_dlp_job][crate::client::DlpService::hybrid_inspect_dlp_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::HybridInspectDlpJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> HybridInspectDlpJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct HybridInspectDlpJob(RequestBuilder<crate::model::HybridInspectDlpJobRequest>);
 
     impl HybridInspectDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3211,11 +4463,20 @@ pub mod dlp_service {
         }
 
         /// Sets the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
-        pub fn set_hybrid_item<T: Into<std::option::Option<crate::model::HybridContentItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hybrid_item = v.into();
+        pub fn set_hybrid_item<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hybrid_item][crate::model::HybridInspectDlpJobRequest::hybrid_item].
+        pub fn set_or_clear_hybrid_item<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HybridContentItem>,
+        {
+            self.0.request.hybrid_item = v.map(|x| x.into());
             self
         }
     }
@@ -3227,12 +4488,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::finish_dlp_job][super::super::client::DlpService::finish_dlp_job] calls.
+    /// The request builder for [DlpService::finish_dlp_job][crate::client::DlpService::finish_dlp_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::FinishDlpJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FinishDlpJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FinishDlpJob(RequestBuilder<crate::model::FinishDlpJobRequest>);
 
     impl FinishDlpJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3272,12 +4551,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::create_connection][super::super::client::DlpService::create_connection] calls.
+    /// The request builder for [DlpService::create_connection][crate::client::DlpService::create_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::CreateConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3315,11 +4612,22 @@ pub mod dlp_service {
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
     }
@@ -3331,12 +4639,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::get_connection][super::super::client::DlpService::get_connection] calls.
+    /// The request builder for [DlpService::get_connection][crate::client::DlpService::get_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::GetConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3376,12 +4702,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::list_connections][super::super::client::DlpService::list_connections] calls.
+    /// The request builder for [DlpService::list_connections][crate::client::DlpService::list_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::ListConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3405,8 +4753,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
@@ -3418,6 +4766,15 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
@@ -3454,12 +4811,34 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::search_connections][super::super::client::DlpService::search_connections] calls.
+    /// The request builder for [DlpService::search_connections][crate::client::DlpService::search_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::SearchConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchConnections(RequestBuilder<crate::model::SearchConnectionsRequest>);
 
     impl SearchConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3486,8 +4865,8 @@ pub mod dlp_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchConnectionsResponse, gax::error::Error>
         {
@@ -3499,6 +4878,15 @@ pub mod dlp_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchConnectionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchConnectionsRequest::parent].
@@ -3535,12 +4923,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::delete_connection][super::super::client::DlpService::delete_connection] calls.
+    /// The request builder for [DlpService::delete_connection][crate::client::DlpService::delete_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::DeleteConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3583,12 +4989,30 @@ pub mod dlp_service {
         }
     }
 
-    /// The request builder for [DlpService::update_connection][super::super::client::DlpService::update_connection] calls.
+    /// The request builder for [DlpService::update_connection][crate::client::DlpService::update_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privacy_dlp_v2::builder;
+    /// use builder::dlp_service::UpdateConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DlpService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DlpService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3626,20 +5050,40 @@ pub mod dlp_service {
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

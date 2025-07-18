@@ -16,9 +16,8 @@
 
 pub mod timeseries_insights_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TimeseriesInsightsController][super::super::client::TimeseriesInsightsController].
+    /// A builder for [TimeseriesInsightsController][crate::client::TimeseriesInsightsController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod timeseries_insights_controller {
     /// let client = builder
     ///     .with_endpoint("https://timeseriesinsights.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod timeseries_insights_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TimeseriesInsightsController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TimeseriesInsightsController] request builders.
+    /// Common implementation for [crate::client::TimeseriesInsightsController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod timeseries_insights_controller {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::list_data_sets][super::super::client::TimeseriesInsightsController::list_data_sets] calls.
+    /// The request builder for [TimeseriesInsightsController::list_data_sets][crate::client::TimeseriesInsightsController::list_data_sets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::ListDataSets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataSets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataSets(RequestBuilder<crate::model::ListDataSetsRequest>);
 
     impl ListDataSets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -100,8 +122,8 @@ pub mod timeseries_insights_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataSetsResponse, gax::error::Error>
         {
@@ -113,6 +135,15 @@ pub mod timeseries_insights_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSetsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataSetsRequest::parent].
@@ -143,13 +174,29 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::create_data_set][super::super::client::TimeseriesInsightsController::create_data_set] calls.
+    /// The request builder for [TimeseriesInsightsController::create_data_set][crate::client::TimeseriesInsightsController::create_data_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::CreateDataSet;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataSet(RequestBuilder<crate::model::CreateDataSetRequest>);
 
     impl CreateDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -185,11 +232,22 @@ pub mod timeseries_insights_controller {
         /// Sets the value of [dataset][crate::model::CreateDataSetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::DataSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSet>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::CreateDataSetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataSet>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
     }
@@ -201,13 +259,29 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::delete_data_set][super::super::client::TimeseriesInsightsController::delete_data_set] calls.
+    /// The request builder for [TimeseriesInsightsController::delete_data_set][crate::client::TimeseriesInsightsController::delete_data_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::DeleteDataSet;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataSet(RequestBuilder<crate::model::DeleteDataSetRequest>);
 
     impl DeleteDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -248,13 +322,29 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::append_events][super::super::client::TimeseriesInsightsController::append_events] calls.
+    /// The request builder for [TimeseriesInsightsController::append_events][crate::client::TimeseriesInsightsController::append_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::AppendEvents;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AppendEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AppendEvents(RequestBuilder<crate::model::AppendEventsRequest>);
 
     impl AppendEvents {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -279,14 +369,6 @@ pub mod timeseries_insights_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.dataset = v.into();
-            self
-        }
-
         /// Sets the value of [events][crate::model::AppendEventsRequest::events].
         pub fn set_events<T, V>(mut self, v: T) -> Self
         where
@@ -295,6 +377,14 @@ pub mod timeseries_insights_controller {
         {
             use std::iter::Iterator;
             self.0.request.events = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [dataset][crate::model::AppendEventsRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dataset<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dataset = v.into();
             self
         }
     }
@@ -306,13 +396,29 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::query_data_set][super::super::client::TimeseriesInsightsController::query_data_set] calls.
+    /// The request builder for [TimeseriesInsightsController::query_data_set][crate::client::TimeseriesInsightsController::query_data_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::QueryDataSet;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryDataSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryDataSet(RequestBuilder<crate::model::QueryDataSetRequest>);
 
     impl QueryDataSet {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -348,46 +454,94 @@ pub mod timeseries_insights_controller {
         /// Sets the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_detection_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.detection_time = v.into();
+        pub fn set_detection_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [detection_time][crate::model::QueryDataSetRequest::detection_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
-        pub fn set_num_returned_slices<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.num_returned_slices = v.into();
+        pub fn set_num_returned_slices<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.num_returned_slices = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [num_returned_slices][crate::model::QueryDataSetRequest::num_returned_slices].
+        pub fn set_or_clear_num_returned_slices<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.num_returned_slices = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
-        pub fn set_slicing_params<T: Into<std::option::Option<crate::model::SlicingParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slicing_params = v.into();
+        pub fn set_slicing_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SlicingParams>,
+        {
+            self.0.request.slicing_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [slicing_params][crate::model::QueryDataSetRequest::slicing_params].
+        pub fn set_or_clear_slicing_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SlicingParams>,
+        {
+            self.0.request.slicing_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
-        pub fn set_timeseries_params<
-            T: Into<std::option::Option<crate::model::TimeseriesParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeseries_params = v.into();
+        pub fn set_timeseries_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeseries_params][crate::model::QueryDataSetRequest::timeseries_params].
+        pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
-        pub fn set_forecast_params<T: Into<std::option::Option<crate::model::ForecastParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.forecast_params = v.into();
+        pub fn set_forecast_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [forecast_params][crate::model::QueryDataSetRequest::forecast_params].
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = v.map(|x| x.into());
             self
         }
 
@@ -405,13 +559,29 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::evaluate_slice][super::super::client::TimeseriesInsightsController::evaluate_slice] calls.
+    /// The request builder for [TimeseriesInsightsController::evaluate_slice][crate::client::TimeseriesInsightsController::evaluate_slice] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::EvaluateSlice;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvaluateSlice {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvaluateSlice(RequestBuilder<crate::model::EvaluateSliceRequest>);
 
     impl EvaluateSlice {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -444,37 +614,6 @@ pub mod timeseries_insights_controller {
             self
         }
 
-        /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_detection_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.detection_time = v.into();
-            self
-        }
-
-        /// Sets the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
-        pub fn set_timeseries_params<
-            T: Into<std::option::Option<crate::model::TimeseriesParams>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeseries_params = v.into();
-            self
-        }
-
-        /// Sets the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
-        pub fn set_forecast_params<T: Into<std::option::Option<crate::model::ForecastParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.forecast_params = v.into();
-            self
-        }
-
         /// Sets the value of [pinned_dimensions][crate::model::EvaluateSliceRequest::pinned_dimensions].
         ///
         /// This is a **required** field for requests.
@@ -487,6 +626,64 @@ pub mod timeseries_insights_controller {
             self.0.request.pinned_dimensions = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_detection_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [detection_time][crate::model::EvaluateSliceRequest::detection_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_detection_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.detection_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
+        pub fn set_timeseries_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeseries_params][crate::model::EvaluateSliceRequest::timeseries_params].
+        pub fn set_or_clear_timeseries_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TimeseriesParams>,
+        {
+            self.0.request.timeseries_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
+        pub fn set_forecast_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [forecast_params][crate::model::EvaluateSliceRequest::forecast_params].
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -496,13 +693,29 @@ pub mod timeseries_insights_controller {
         }
     }
 
-    /// The request builder for [TimeseriesInsightsController::evaluate_timeseries][super::super::client::TimeseriesInsightsController::evaluate_timeseries] calls.
+    /// The request builder for [TimeseriesInsightsController::evaluate_timeseries][crate::client::TimeseriesInsightsController::evaluate_timeseries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_timeseriesinsights_v1::builder;
+    /// use builder::timeseries_insights_controller::EvaluateTimeseries;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvaluateTimeseries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvaluateTimeseries(RequestBuilder<crate::model::EvaluateTimeseriesRequest>);
 
     impl EvaluateTimeseries {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TimeseriesInsightsController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -539,29 +752,56 @@ pub mod timeseries_insights_controller {
         }
 
         /// Sets the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
-        pub fn set_timeseries<T: Into<std::option::Option<crate::model::Timeseries>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeseries = v.into();
+        pub fn set_timeseries<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Timeseries>,
+        {
+            self.0.request.timeseries = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeseries][crate::model::EvaluateTimeseriesRequest::timeseries].
+        pub fn set_or_clear_timeseries<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Timeseries>,
+        {
+            self.0.request.timeseries = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
-        pub fn set_granularity<T: Into<std::option::Option<wkt::Duration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.granularity = v.into();
+        pub fn set_granularity<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.granularity = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [granularity][crate::model::EvaluateTimeseriesRequest::granularity].
+        pub fn set_or_clear_granularity<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.granularity = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
-        pub fn set_forecast_params<T: Into<std::option::Option<crate::model::ForecastParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.forecast_params = v.into();
+        pub fn set_forecast_params<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [forecast_params][crate::model::EvaluateTimeseriesRequest::forecast_params].
+        pub fn set_or_clear_forecast_params<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ForecastParams>,
+        {
+            self.0.request.forecast_params = v.map(|x| x.into());
             self
         }
     }

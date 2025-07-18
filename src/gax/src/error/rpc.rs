@@ -18,7 +18,7 @@ use serde::{Deserialize, Serialize};
 /// The [Status] type defines a logical error model that is suitable for
 /// different programming environments, including REST APIs and RPC APIs. Each
 /// [Status] message contains three pieces of data: error code, error message,
-///  and error details.
+/// and error details.
 ///
 /// You can find out more about this error model and how to work with it in the
 /// [API Design Guide](https://cloud.google.com/apis/design/errors).
@@ -27,30 +27,21 @@ use serde::{Deserialize, Serialize};
 #[non_exhaustive]
 pub struct Status {
     /// The status code.
-    ///
-    /// When using a HTTP transport this is the HTTP status code. When using
-    /// gRPC, this is one of the values enumerated in [Code].
-    pub code: i32,
+    pub code: Code,
 
     /// A developer-facing error message, which should be in English. Any
     /// user-facing error message should be localized and sent in the
-    /// [Status] `details` field, or localized by the client.
+    /// [Status] `details` field.
     pub message: String,
 
-    /// The underlying `google.rpc.Status.code`, as a string.
-    ///
-    /// When serialized over JSON, status messages include both the HTTP status
-    /// code (in the `code` field), and the status [Code] as a string.
-    pub status: Option<String>,
-
-    /// A list of messages that carry the error details.  There is a common set
+    /// A list of messages that carry the error details. There is a common set
     /// of message types for APIs to use.
     pub details: Vec<StatusDetails>,
 }
 
 impl Status {
     /// Sets the value for [code][Status::code].
-    pub fn set_code<T: Into<i32>>(mut self, v: T) -> Self {
+    pub fn set_code<T: Into<Code>>(mut self, v: T) -> Self {
         self.code = v.into();
         self
     }
@@ -58,12 +49,6 @@ impl Status {
     /// Sets the value for [message][Status::message].
     pub fn set_message<T: Into<String>>(mut self, v: T) -> Self {
         self.message = v.into();
-        self
-    }
-
-    /// Sets the value for [status][Status::status].
-    pub fn set_status<T: Into<String>>(mut self, v: T) -> Self {
-        self.status = Some(v.into());
         self
     }
 
@@ -165,15 +150,15 @@ pub enum Code {
     ///
     /// Service implementors can use the following guidelines to decide
     /// between `FAILED_PRECONDITION`, `ABORTED`, and `UNAVAILABLE`:
-    ///  (a) Use `UNAVAILABLE` if the client can retry just the failing call.
-    ///  (b) Use `ABORTED` if the client should retry at a higher level. For
-    ///      example, when a client-specified test-and-set fails, indicating the
-    ///      client should restart a read-modify-write sequence.
-    ///  (c) Use `FAILED_PRECONDITION` if the client should not retry until
-    ///      the system state has been explicitly fixed. For example, if an "rmdir"
-    ///      fails because the directory is non-empty, `FAILED_PRECONDITION`
-    ///      should be returned since the client should not retry unless
-    ///      the files are deleted from the directory.
+    /// 1. Use `UNAVAILABLE` if the client can retry just the failing call.
+    /// 1. Use `ABORTED` if the client should retry at a higher level. For
+    ///    example, when a client-specified test-and-set fails, indicating the
+    ///    client should restart a read-modify-write sequence.
+    /// 1. Use `FAILED_PRECONDITION` if the client should not retry until
+    ///    the system state has been explicitly fixed. For example, if an "rmdir"
+    ///    fails because the directory is non-empty, `FAILED_PRECONDITION`
+    ///    should be returned since the client should not retry unless
+    ///    the files are deleted from the directory.
     ///
     /// HTTP Mapping: 400 Bad Request
     FailedPrecondition = 9,
@@ -185,6 +170,7 @@ pub enum Code {
     /// `ABORTED`, and `UNAVAILABLE`.
     ///
     /// HTTP Mapping: 409 Conflict
+    ///
     /// HTTP Mapping: 400 Bad Request
     Aborted = 10,
 
@@ -243,6 +229,30 @@ pub enum Code {
     Unauthenticated = 16,
 }
 
+impl Code {
+    pub fn name(&self) -> &str {
+        match self {
+            Code::Ok => "OK",
+            Code::Cancelled => "CANCELLED",
+            Code::Unknown => "UNKNOWN",
+            Code::InvalidArgument => "INVALID_ARGUMENT",
+            Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
+            Code::NotFound => "NOT_FOUND",
+            Code::AlreadyExists => "ALREADY_EXISTS",
+            Code::PermissionDenied => "PERMISSION_DENIED",
+            Code::ResourceExhausted => "RESOURCE_EXHAUSTED",
+            Code::FailedPrecondition => "FAILED_PRECONDITION",
+            Code::Aborted => "ABORTED",
+            Code::OutOfRange => "OUT_OF_RANGE",
+            Code::Unimplemented => "UNIMPLEMENTED",
+            Code::Internal => "INTERNAL",
+            Code::Unavailable => "UNAVAILABLE",
+            Code::DataLoss => "DATA_LOSS",
+            Code::Unauthenticated => "UNAUTHENTICATED",
+        }
+    }
+}
+
 impl Default for Code {
     fn default() -> Self {
         Self::Unknown
@@ -276,26 +286,13 @@ impl std::convert::From<i32> for Code {
 
 impl std::convert::From<Code> for String {
     fn from(value: Code) -> String {
-        match value {
-            Code::Ok => "OK",
-            Code::Cancelled => "CANCELLED",
-            Code::Unknown => "UNKNOWN",
-            Code::InvalidArgument => "INVALID_ARGUMENT",
-            Code::DeadlineExceeded => "DEADLINE_EXCEEDED",
-            Code::NotFound => "NOT_FOUND",
-            Code::AlreadyExists => "ALREADY_EXISTS",
-            Code::PermissionDenied => "PERMISSION_DENIED",
-            Code::ResourceExhausted => "RESOURCE_EXHAUSTED",
-            Code::FailedPrecondition => "FAILED_PRECONDITION",
-            Code::Aborted => "ABORTED",
-            Code::OutOfRange => "OUT_OF_RANGE",
-            Code::Unimplemented => "UNIMPLEMENTED",
-            Code::Internal => "INTERNAL",
-            Code::Unavailable => "UNAVAILABLE",
-            Code::DataLoss => "DATA_LOSS",
-            Code::Unauthenticated => "UNAUTHENTICATED",
-        }
-        .to_string()
+        value.name().to_string()
+    }
+}
+
+impl std::fmt::Display for Code {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.name())
     }
 }
 
@@ -344,28 +341,56 @@ impl<'de> Deserialize<'de> for Code {
 }
 
 /// A helper class to deserialized wrapped Status messages.
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize)]
 struct ErrorWrapper {
-    error: Status,
+    error: WrapperStatus,
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Deserialize)]
+#[serde(default)]
+#[non_exhaustive]
+struct WrapperStatus {
+    pub code: i32,
+    pub message: String,
+    pub status: Option<String>,
+    pub details: Vec<StatusDetails>,
 }
 
 impl TryFrom<&bytes::Bytes> for Status {
     type Error = Error;
 
     fn try_from(value: &bytes::Bytes) -> Result<Self, Self::Error> {
-        serde_json::from_slice::<ErrorWrapper>(value)
+        let wrapper = serde_json::from_slice::<ErrorWrapper>(value)
             .map(|w| w.error)
-            .map_err(Error::serde)
+            .map_err(Error::deser)?;
+        let code = match wrapper.status.as_deref().map(Code::try_from) {
+            Some(Ok(code)) => code,
+            Some(Err(_)) | None => Code::Unknown,
+        };
+        Ok(Status {
+            code,
+            message: wrapper.message,
+            details: wrapper.details,
+        })
     }
 }
 
 impl From<rpc::model::Status> for Status {
     fn from(value: rpc::model::Status) -> Self {
         Self {
-            code: value.code,
+            code: value.code.into(),
             message: value.message,
-            status: Some(String::from(Code::from(value.code))),
             details: value.details.into_iter().map(StatusDetails::from).collect(),
+        }
+    }
+}
+
+impl From<&rpc::model::Status> for Status {
+    fn from(value: &rpc::model::Status) -> Self {
+        Self {
+            code: value.code.into(),
+            message: value.message.clone(),
+            details: value.details.iter().map(StatusDetails::from).collect(),
         }
     }
 }
@@ -399,6 +424,7 @@ pub enum StatusDetails {
     ResourceInfo(rpc::model::ResourceInfo),
     #[serde(rename = "type.googleapis.com/google.rpc.RetryInfo")]
     RetryInfo(rpc::model::RetryInfo),
+    #[serde(untagged)]
     Other(wkt::Any),
 }
 
@@ -407,7 +433,7 @@ impl From<wkt::Any> for StatusDetails {
         macro_rules! try_convert {
             ($($variant:ident),*) => {
                 $(
-                    if let Ok(v) = value.try_into_message::<rpc::model::$variant>() {
+                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
                         return StatusDetails::$variant(v);
                     }
                 )*
@@ -431,9 +457,39 @@ impl From<wkt::Any> for StatusDetails {
     }
 }
 
+impl From<&wkt::Any> for StatusDetails {
+    fn from(value: &wkt::Any) -> Self {
+        macro_rules! try_convert {
+            ($($variant:ident),*) => {
+                $(
+                    if let Ok(v) = value.to_msg::<rpc::model::$variant>() {
+                        return StatusDetails::$variant(v);
+                    }
+                )*
+            };
+        }
+
+        try_convert!(
+            BadRequest,
+            DebugInfo,
+            ErrorInfo,
+            Help,
+            LocalizedMessage,
+            PreconditionFailure,
+            QuotaFailure,
+            RequestInfo,
+            ResourceInfo,
+            RetryInfo
+        );
+
+        StatusDetails::Other(value.clone())
+    }
+}
+
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
+    use anyhow::Result;
     use rpc::model::BadRequest;
     use rpc::model::DebugInfo;
     use rpc::model::ErrorInfo;
@@ -446,37 +502,32 @@ mod test {
     use rpc::model::RetryInfo;
     use serde_json::json;
     use test_case::test_case;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
     fn status_basic_setters() {
         let got = Status::default()
-            .set_code(Code::Unimplemented as i32)
-            .set_message("test-message")
-            .set_status(Code::Unimplemented);
+            .set_code(Code::Unimplemented)
+            .set_message("test-message");
         let want = Status {
-            code: Code::Unimplemented as i32,
+            code: Code::Unimplemented,
             message: "test-message".into(),
-            status: Some(String::from(Code::Unimplemented)),
             ..Default::default()
         };
         assert_eq!(got, want);
 
         let got = Status::default()
-            .set_code(12)
-            .set_message("test-message")
-            .set_status("UNIMPLEMENTED");
+            .set_code(Code::Unimplemented as i32)
+            .set_message("test-message");
         let want = Status {
-            code: 12,
+            code: Code::Unimplemented,
             message: "test-message".into(),
-            status: Some(String::from("UNIMPLEMENTED")),
             ..Default::default()
         };
         assert_eq!(got, want);
     }
 
     #[test]
-    fn status_detail_setter() -> Result {
+    fn status_detail_setter() -> Result<()> {
         let d0 = StatusDetails::ErrorInfo(rpc::model::ErrorInfo::new().set_reason("test-reason"));
         let d1 = StatusDetails::Help(
             rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
@@ -489,11 +540,11 @@ mod test {
         let got = Status::default().set_details([d0, d1]);
         assert_eq!(got, want);
 
-        let a0 = wkt::Any::try_from(&rpc::model::ErrorInfo::new().set_reason("test-reason"))?;
-        let a1 = wkt::Any::try_from(
+        let a0 = wkt::Any::from_msg(&rpc::model::ErrorInfo::new().set_reason("test-reason"))?;
+        let a1 = wkt::Any::from_msg(
             &rpc::model::Help::new().set_links([rpc::model::help::Link::new().set_url("test-url")]),
         )?;
-        let got = Status::default().set_details([a0, a1]);
+        let got = Status::default().set_details(&[a0, a1]);
         assert_eq!(got, want);
 
         Ok(())
@@ -503,9 +554,8 @@ mod test {
     fn serialization_all_variants() {
         let status =
             Status {
-                code: 12,
+                code: Code::Unimplemented,
                 message: "test".to_string(),
-                status: Some("UNIMPLEMENTED".to_string()),
 
                 details: vec![
                     StatusDetails::BadRequest(BadRequest::default().set_field_violations(
@@ -569,9 +619,8 @@ mod test {
         //     fields appear.
         let got = serde_json::to_value(&status).unwrap();
         let want = json!({
-            "code": 12,
+            "code": Code::Unimplemented,
             "message": "test",
-            "status": "UNIMPLEMENTED",
             "details": [
                 {"@type": "type.googleapis.com/google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
                 {"@type": "type.googleapis.com/google.rpc.DebugInfo", "stackEntries": ["stack"], "detail": "detail"},
@@ -591,7 +640,7 @@ mod test {
     #[test]
     fn deserialization_all_variants() {
         let json = json!({
-            "code": 20,
+            "code": Code::Unknown as i32,
             "message": "test",
             "details": [
                 {"@type": "type.googleapis.com/google.rpc.BadRequest", "fieldViolations": [{"field": "field", "description": "desc"}]},
@@ -608,9 +657,8 @@ mod test {
         });
         let got: Status = serde_json::from_value(json).unwrap();
         let want = Status {
-            code: 20,
+            code: Code::Unknown,
             message: "test".to_string(),
-            status: None,
             details: vec![
                 StatusDetails::BadRequest(BadRequest::default().set_field_violations(
                     vec![rpc::model::bad_request::FieldViolation::default()
@@ -670,14 +718,57 @@ mod test {
     }
 
     #[test]
+    fn serialization_other() -> Result<()> {
+        const TIME: &str = "2025-05-27T10:00:00Z";
+        let timestamp = wkt::Timestamp::try_from(TIME)?;
+        let any = wkt::Any::from_msg(&timestamp)?;
+        let input = Status {
+            code: Code::Unknown,
+            message: "test".to_string(),
+            details: vec![StatusDetails::Other(any)],
+        };
+        let got = serde_json::to_value(&input)?;
+        let want = json!({
+            "code": Code::Unknown as i32,
+            "message": "test",
+            "details": [
+                {"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": TIME},
+            ]
+        });
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
+    fn deserialization_other() -> Result<()> {
+        const TIME: &str = "2025-05-27T10:00:00Z";
+        let json = json!({
+            "code": Code::Unknown as i32,
+            "message": "test",
+            "details": [
+                {"@type": "type.googleapis.com/google.protobuf.Timestamp", "value": TIME},
+            ]
+        });
+        let timestamp = wkt::Timestamp::try_from(TIME)?;
+        let any = wkt::Any::from_msg(&timestamp)?;
+        let got: Status = serde_json::from_value(json)?;
+        let want = Status {
+            code: Code::Unknown,
+            message: "test".to_string(),
+            details: vec![StatusDetails::Other(any)],
+        };
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test]
     fn status_from_rpc_no_details() {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again");
-        let got = Status::from(input);
-        assert_eq!(got.code, Code::Unavailable as i32);
+        let got = Status::from(&input);
+        assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
-        assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
     }
 
     #[test_case(
@@ -715,12 +806,13 @@ mod test {
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
-            .set_details(vec![wkt::Any::try_from(&detail).unwrap()]);
+            .set_details(vec![wkt::Any::from_msg(&detail).unwrap()]);
 
+        let from_ref = Status::from(&input);
         let status = Status::from(input);
-        assert_eq!(status.code, Code::Unavailable as i32);
+        assert_eq!(from_ref, status);
+        assert_eq!(status.code, Code::Unavailable);
         assert_eq!(status.message, "try-again");
-        assert_eq!(status.status.as_deref(), Some("UNAVAILABLE"));
 
         let got = status.details.first();
         assert_eq!(got, Some(&want));
@@ -728,15 +820,16 @@ mod test {
 
     #[test]
     fn status_from_rpc_unknown_details() {
-        let any = wkt::Any::try_from(&wkt::Duration::clamp(123, 0)).unwrap();
+        let any = wkt::Any::from_msg(&wkt::Duration::clamp(123, 0)).unwrap();
         let input = rpc::model::Status::default()
             .set_code(Code::Unavailable as i32)
             .set_message("try-again")
             .set_details(vec![any.clone()]);
+        let from_ref = Status::from(&input);
         let got = Status::from(input);
-        assert_eq!(got.code, Code::Unavailable as i32);
+        assert_eq!(from_ref, got);
+        assert_eq!(got.code, Code::Unavailable);
         assert_eq!(got.message, "try-again");
-        assert_eq!(got.status.as_deref(), Some("UNAVAILABLE"));
 
         let got = got.details.first();
         let want = StatusDetails::Other(any);
@@ -746,12 +839,12 @@ mod test {
     // This is a sample string received from production. It is useful to
     // validate the serialization helpers.
     const SAMPLE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"INVALID_ARGUMENT\"\n  }\n}\n";
+    const INVALID_CODE_PAYLOAD: &[u8] = b"{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]\",\n    \"status\": \"NOT-A-VALID-CODE\"\n  }\n}\n";
 
     // The corresponding status message.
     fn sample_status() -> Status {
         Status {
-            code: 400,
-            status: Some("INVALID_ARGUMENT".to_string()),
+            code: Code::InvalidArgument,
             message: "The provided Secret ID [] does not match the expected format [[a-zA-Z_0-9]+]"
                 .into(),
             details: [].into(),
@@ -762,7 +855,7 @@ mod test {
     fn deserialize_status() {
         let got = serde_json::from_slice::<ErrorWrapper>(SAMPLE_PAYLOAD).unwrap();
         let want = ErrorWrapper {
-            error: Status {
+            error: WrapperStatus {
                 code: 400,
                 status: Some("INVALID_ARGUMENT".to_string()),
                 message:
@@ -775,20 +868,21 @@ mod test {
     }
 
     #[test]
-    fn try_from_bytes() -> Result {
+    fn try_from_bytes() -> Result<()> {
         let got = Status::try_from(&bytes::Bytes::from_static(SAMPLE_PAYLOAD))?;
         let want = sample_status();
         assert_eq!(got, want);
 
         let got = Status::try_from(&bytes::Bytes::from_static(b"\"error\": 1234"));
-        assert!(got.is_err());
-        let err = got.err().unwrap();
-        assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+        let err = got.unwrap_err();
+        assert!(err.is_deserialization(), "{err:?}");
 
         let got = Status::try_from(&bytes::Bytes::from_static(b"\"missing-error\": 1234"));
-        assert!(got.is_err());
-        let err = got.err().unwrap();
-        assert_eq!(err.kind(), crate::error::ErrorKind::Serde);
+        let err = got.unwrap_err();
+        assert!(err.is_deserialization(), "{err:?}");
+
+        let got = Status::try_from(&bytes::Bytes::from_static(INVALID_CODE_PAYLOAD))?;
+        assert_eq!(got.code, Code::Unknown);
         Ok(())
     }
 
@@ -816,10 +910,12 @@ mod test {
     #[test_case("UNAVAILABLE")]
     #[test_case("DATA_LOSS")]
     #[test_case("UNAUTHENTICATED")]
-    fn code_roundtrip(input: &str) -> Result {
-        let code = Code::try_from(input)?;
+    fn code_roundtrip(input: &str) -> Result<()> {
+        let code = Code::try_from(input).unwrap();
         let output = String::from(code);
         assert_eq!(output.as_str(), input.to_string());
+        assert_eq!(&format!("{code}"), input);
+        assert_eq!(code.name(), input);
         Ok(())
     }
 
@@ -840,7 +936,7 @@ mod test {
     #[test_case("UNAVAILABLE")]
     #[test_case("DATA_LOSS")]
     #[test_case("UNAUTHENTICATED")]
-    fn code_serialize_roundtrip(input: &str) -> Result {
+    fn code_serialize_roundtrip(input: &str) -> Result<()> {
         let want = Code::try_from(input).unwrap();
         let serialized = serde_json::to_value(want)?;
         let got = serde_json::from_value::<Code>(serialized)?;
@@ -865,7 +961,7 @@ mod test {
     }
 
     #[test]
-    fn code_deserialize_unknown() -> Result {
+    fn code_deserialize_unknown() -> Result<()> {
         let input = json!(-17);
         let code = serde_json::from_value::<Code>(input)?;
         assert_eq!(code, Code::Unknown);

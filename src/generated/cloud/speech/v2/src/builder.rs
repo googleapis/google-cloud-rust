@@ -16,9 +16,8 @@
 
 pub mod speech {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Speech][super::super::client::Speech].
+    /// A builder for [Speech][crate::client::Speech].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod speech {
     /// let client = builder
     ///     .with_endpoint("https://speech.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod speech {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Speech;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Speech] request builders.
+    /// Common implementation for [crate::client::Speech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Speech>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod speech {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::create_recognizer][super::super::client::Speech::create_recognizer] calls.
+    /// The request builder for [Speech::create_recognizer][crate::client::Speech::create_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CreateRecognizer;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRecognizer(RequestBuilder<crate::model::CreateRecognizerRequest>);
 
     impl CreateRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,7 +115,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_recognizer][super::super::client::Speech::create_recognizer].
+        /// on [create_recognizer][crate::client::Speech::create_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_recognizer(self.0.request, self.0.options)
@@ -109,7 +128,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,17 +153,28 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
         ///
         /// This is a **required** field for requests.
-        pub fn set_recognizer<T: Into<std::option::Option<crate::model::Recognizer>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recognizer = v.into();
+        pub fn set_recognizer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recognizer][crate::model::CreateRecognizerRequest::recognizer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = v.map(|x| x.into());
             self
         }
 
@@ -176,12 +206,32 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_recognizers][super::super::client::Speech::list_recognizers] calls.
+    /// The request builder for [Speech::list_recognizers][crate::client::Speech::list_recognizers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListRecognizers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRecognizers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRecognizers(RequestBuilder<crate::model::ListRecognizersRequest>);
 
     impl ListRecognizers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -205,8 +255,8 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRecognizersResponse, gax::error::Error>
         {
@@ -218,6 +268,15 @@ pub mod speech {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRecognizersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRecognizersRequest::parent].
@@ -254,12 +313,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_recognizer][super::super::client::Speech::get_recognizer] calls.
+    /// The request builder for [Speech::get_recognizer][crate::client::Speech::get_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetRecognizer;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRecognizer(RequestBuilder<crate::model::GetRecognizerRequest>);
 
     impl GetRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -299,12 +374,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_recognizer][super::super::client::Speech::update_recognizer] calls.
+    /// The request builder for [Speech::update_recognizer][crate::client::Speech::update_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdateRecognizer;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRecognizer(RequestBuilder<crate::model::UpdateRecognizerRequest>);
 
     impl UpdateRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -328,7 +420,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_recognizer][super::super::client::Speech::update_recognizer].
+        /// on [update_recognizer][crate::client::Speech::update_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_recognizer(self.0.request, self.0.options)
@@ -341,7 +433,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,26 +458,46 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
         ///
         /// This is a **required** field for requests.
-        pub fn set_recognizer<T: Into<std::option::Option<crate::model::Recognizer>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recognizer = v.into();
+        pub fn set_recognizer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recognizer][crate::model::UpdateRecognizerRequest::recognizer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_recognizer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Recognizer>,
+        {
+            self.0.request.recognizer = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRecognizerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -403,12 +515,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_recognizer][super::super::client::Speech::delete_recognizer] calls.
+    /// The request builder for [Speech::delete_recognizer][crate::client::Speech::delete_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeleteRecognizer;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRecognizer(RequestBuilder<crate::model::DeleteRecognizerRequest>);
 
     impl DeleteRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -432,7 +561,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_recognizer][super::super::client::Speech::delete_recognizer].
+        /// on [delete_recognizer][crate::client::Speech::delete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_recognizer(self.0.request, self.0.options)
@@ -445,7 +574,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -470,7 +599,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteRecognizerRequest::name].
@@ -507,12 +636,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::undelete_recognizer][super::super::client::Speech::undelete_recognizer] calls.
+    /// The request builder for [Speech::undelete_recognizer][crate::client::Speech::undelete_recognizer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UndeleteRecognizer;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteRecognizer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteRecognizer(RequestBuilder<crate::model::UndeleteRecognizerRequest>);
 
     impl UndeleteRecognizer {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -536,7 +682,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_recognizer][super::super::client::Speech::undelete_recognizer].
+        /// on [undelete_recognizer][crate::client::Speech::undelete_recognizer].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_recognizer(self.0.request, self.0.options)
@@ -549,7 +695,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::Recognizer, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Recognizer, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -574,7 +720,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteRecognizerRequest::name].
@@ -605,12 +751,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::recognize][super::super::client::Speech::recognize] calls.
+    /// The request builder for [Speech::recognize][crate::client::Speech::recognize] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::Recognize;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Recognize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Recognize(RequestBuilder<crate::model::RecognizeRequest>);
 
     impl Recognize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -643,20 +805,38 @@ pub mod speech {
         }
 
         /// Sets the value of [config][crate::model::RecognizeRequest::config].
-        pub fn set_config<T: Into<std::option::Option<crate::model::RecognitionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::RecognizeRequest::config].
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [config_mask][crate::model::RecognizeRequest::config_mask].
-        pub fn set_config_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config_mask = v.into();
+        pub fn set_config_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config_mask][crate::model::RecognizeRequest::config_mask].
+        pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = v.map(|x| x.into());
             self
         }
 
@@ -700,12 +880,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::batch_recognize][super::super::client::Speech::batch_recognize] calls.
+    /// The request builder for [Speech::batch_recognize][crate::client::Speech::batch_recognize] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::BatchRecognize;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchRecognize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchRecognize(RequestBuilder<crate::model::BatchRecognizeRequest>);
 
     impl BatchRecognize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -726,7 +923,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_recognize][super::super::client::Speech::batch_recognize].
+        /// on [batch_recognize][crate::client::Speech::batch_recognize].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_recognize(self.0.request, self.0.options)
@@ -739,7 +936,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::BatchRecognizeResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchRecognizeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -767,7 +964,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [recognizer][crate::model::BatchRecognizeRequest::recognizer].
@@ -779,42 +976,38 @@ pub mod speech {
         }
 
         /// Sets the value of [config][crate::model::BatchRecognizeRequest::config].
-        pub fn set_config<T: Into<std::option::Option<crate::model::RecognitionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::BatchRecognizeRequest::config].
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionConfig>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
-        pub fn set_config_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config_mask = v.into();
+        pub fn set_config_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
-        pub fn set_recognition_output_config<
-            T: Into<std::option::Option<crate::model::RecognitionOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recognition_output_config = v.into();
-            self
-        }
-
-        /// Sets the value of [processing_strategy][crate::model::BatchRecognizeRequest::processing_strategy].
-        pub fn set_processing_strategy<
-            T: Into<crate::model::batch_recognize_request::ProcessingStrategy>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.processing_strategy = v.into();
+        /// Sets or clears the value of [config_mask][crate::model::BatchRecognizeRequest::config_mask].
+        pub fn set_or_clear_config_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.config_mask = v.map(|x| x.into());
             self
         }
 
@@ -828,6 +1021,38 @@ pub mod speech {
             self.0.request.files = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
+        pub fn set_recognition_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+        {
+            self.0.request.recognition_output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recognition_output_config][crate::model::BatchRecognizeRequest::recognition_output_config].
+        pub fn set_or_clear_recognition_output_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::RecognitionOutputConfig>,
+        {
+            self.0.request.recognition_output_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [processing_strategy][crate::model::BatchRecognizeRequest::processing_strategy].
+        pub fn set_processing_strategy<
+            T: Into<crate::model::batch_recognize_request::ProcessingStrategy>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.processing_strategy = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -837,12 +1062,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_config][super::super::client::Speech::get_config] calls.
+    /// The request builder for [Speech::get_config][crate::client::Speech::get_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConfig(RequestBuilder<crate::model::GetConfigRequest>);
 
     impl GetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -882,12 +1123,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_config][super::super::client::Speech::update_config] calls.
+    /// The request builder for [Speech::update_config][crate::client::Speech::update_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdateConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConfig(RequestBuilder<crate::model::UpdateConfigRequest>);
 
     impl UpdateConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -914,20 +1171,40 @@ pub mod speech {
         /// Sets the value of [config][crate::model::UpdateConfigRequest::config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_config<T: Into<std::option::Option<crate::model::Config>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config = v.into();
+        pub fn set_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Config>,
+        {
+            self.0.request.config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config][crate::model::UpdateConfigRequest::config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Config>,
+        {
+            self.0.request.config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -939,12 +1216,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::create_custom_class][super::super::client::Speech::create_custom_class] calls.
+    /// The request builder for [Speech::create_custom_class][crate::client::Speech::create_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CreateCustomClass;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCustomClass(RequestBuilder<crate::model::CreateCustomClassRequest>);
 
     impl CreateCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -968,7 +1262,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_custom_class][super::super::client::Speech::create_custom_class].
+        /// on [create_custom_class][crate::client::Speech::create_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_custom_class(self.0.request, self.0.options)
@@ -980,8 +1274,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1006,17 +1302,28 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_class<T: Into<std::option::Option<crate::model::CustomClass>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_class = v.into();
+        pub fn set_custom_class<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_class][crate::model::CreateCustomClassRequest::custom_class].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = v.map(|x| x.into());
             self
         }
 
@@ -1048,12 +1355,32 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_custom_classes][super::super::client::Speech::list_custom_classes] calls.
+    /// The request builder for [Speech::list_custom_classes][crate::client::Speech::list_custom_classes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListCustomClasses;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomClasses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomClasses(RequestBuilder<crate::model::ListCustomClassesRequest>);
 
     impl ListCustomClasses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1080,8 +1407,8 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCustomClassesResponse, gax::error::Error>
         {
@@ -1093,6 +1420,15 @@ pub mod speech {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomClassesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCustomClassesRequest::parent].
@@ -1129,12 +1465,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_custom_class][super::super::client::Speech::get_custom_class] calls.
+    /// The request builder for [Speech::get_custom_class][crate::client::Speech::get_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetCustomClass;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomClass(RequestBuilder<crate::model::GetCustomClassRequest>);
 
     impl GetCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1174,12 +1526,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_custom_class][super::super::client::Speech::update_custom_class] calls.
+    /// The request builder for [Speech::update_custom_class][crate::client::Speech::update_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdateCustomClass;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomClass(RequestBuilder<crate::model::UpdateCustomClassRequest>);
 
     impl UpdateCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1203,7 +1572,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_custom_class][super::super::client::Speech::update_custom_class].
+        /// on [update_custom_class][crate::client::Speech::update_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_custom_class(self.0.request, self.0.options)
@@ -1215,8 +1584,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1241,26 +1612,46 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_class<T: Into<std::option::Option<crate::model::CustomClass>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_class = v.into();
+        pub fn set_custom_class<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_class][crate::model::UpdateCustomClassRequest::custom_class].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_class<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomClass>,
+        {
+            self.0.request.custom_class = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCustomClassRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1278,12 +1669,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_custom_class][super::super::client::Speech::delete_custom_class] calls.
+    /// The request builder for [Speech::delete_custom_class][crate::client::Speech::delete_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeleteCustomClass;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomClass(RequestBuilder<crate::model::DeleteCustomClassRequest>);
 
     impl DeleteCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1307,7 +1715,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_custom_class][super::super::client::Speech::delete_custom_class].
+        /// on [delete_custom_class][crate::client::Speech::delete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_custom_class(self.0.request, self.0.options)
@@ -1319,8 +1727,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1345,7 +1755,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCustomClassRequest::name].
@@ -1382,12 +1792,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::undelete_custom_class][super::super::client::Speech::undelete_custom_class] calls.
+    /// The request builder for [Speech::undelete_custom_class][crate::client::Speech::undelete_custom_class] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UndeleteCustomClass;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteCustomClass {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteCustomClass(RequestBuilder<crate::model::UndeleteCustomClassRequest>);
 
     impl UndeleteCustomClass {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1411,7 +1838,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_custom_class][super::super::client::Speech::undelete_custom_class].
+        /// on [undelete_custom_class][crate::client::Speech::undelete_custom_class].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_custom_class(self.0.request, self.0.options)
@@ -1423,8 +1850,10 @@ pub mod speech {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CustomClass, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::CustomClass, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CustomClass,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1449,7 +1878,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteCustomClassRequest::name].
@@ -1480,12 +1909,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::create_phrase_set][super::super::client::Speech::create_phrase_set] calls.
+    /// The request builder for [Speech::create_phrase_set][crate::client::Speech::create_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CreatePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePhraseSet(RequestBuilder<crate::model::CreatePhraseSetRequest>);
 
     impl CreatePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1506,7 +1952,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_phrase_set][super::super::client::Speech::create_phrase_set].
+        /// on [create_phrase_set][crate::client::Speech::create_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_phrase_set(self.0.request, self.0.options)
@@ -1519,7 +1965,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1544,17 +1990,28 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_set<T: Into<std::option::Option<crate::model::PhraseSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_set = v.into();
+        pub fn set_phrase_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_set][crate::model::CreatePhraseSetRequest::phrase_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = v.map(|x| x.into());
             self
         }
 
@@ -1586,12 +2043,32 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_phrase_sets][super::super::client::Speech::list_phrase_sets] calls.
+    /// The request builder for [Speech::list_phrase_sets][crate::client::Speech::list_phrase_sets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListPhraseSets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPhraseSets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPhraseSets(RequestBuilder<crate::model::ListPhraseSetsRequest>);
 
     impl ListPhraseSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1615,8 +2092,8 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPhraseSetsResponse, gax::error::Error>
         {
@@ -1628,6 +2105,15 @@ pub mod speech {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPhraseSetsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPhraseSetsRequest::parent].
@@ -1664,12 +2150,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_phrase_set][super::super::client::Speech::get_phrase_set] calls.
+    /// The request builder for [Speech::get_phrase_set][crate::client::Speech::get_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetPhraseSet;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPhraseSet(RequestBuilder<crate::model::GetPhraseSetRequest>);
 
     impl GetPhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1709,12 +2211,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::update_phrase_set][super::super::client::Speech::update_phrase_set] calls.
+    /// The request builder for [Speech::update_phrase_set][crate::client::Speech::update_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UpdatePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePhraseSet(RequestBuilder<crate::model::UpdatePhraseSetRequest>);
 
     impl UpdatePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1735,7 +2254,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_phrase_set][super::super::client::Speech::update_phrase_set].
+        /// on [update_phrase_set][crate::client::Speech::update_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_phrase_set(self.0.request, self.0.options)
@@ -1748,7 +2267,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1773,26 +2292,46 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_set<T: Into<std::option::Option<crate::model::PhraseSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_set = v.into();
+        pub fn set_phrase_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_set][crate::model::UpdatePhraseSetRequest::phrase_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseSet>,
+        {
+            self.0.request.phrase_set = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseSetRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1810,12 +2349,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_phrase_set][super::super::client::Speech::delete_phrase_set] calls.
+    /// The request builder for [Speech::delete_phrase_set][crate::client::Speech::delete_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeletePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePhraseSet(RequestBuilder<crate::model::DeletePhraseSetRequest>);
 
     impl DeletePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1836,7 +2392,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_phrase_set][super::super::client::Speech::delete_phrase_set].
+        /// on [delete_phrase_set][crate::client::Speech::delete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_phrase_set(self.0.request, self.0.options)
@@ -1849,7 +2405,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1874,7 +2430,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePhraseSetRequest::name].
@@ -1911,12 +2467,29 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::undelete_phrase_set][super::super::client::Speech::undelete_phrase_set] calls.
+    /// The request builder for [Speech::undelete_phrase_set][crate::client::Speech::undelete_phrase_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::UndeletePhraseSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeletePhraseSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeletePhraseSet(RequestBuilder<crate::model::UndeletePhraseSetRequest>);
 
     impl UndeletePhraseSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1940,7 +2513,7 @@ pub mod speech {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_phrase_set][super::super::client::Speech::undelete_phrase_set].
+        /// on [undelete_phrase_set][crate::client::Speech::undelete_phrase_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_phrase_set(self.0.request, self.0.options)
@@ -1953,7 +2526,7 @@ pub mod speech {
             self,
         ) -> impl lro::Poller<crate::model::PhraseSet, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::PhraseSet, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1978,7 +2551,7 @@ pub mod speech {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeletePhraseSetRequest::name].
@@ -2009,12 +2582,32 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_locations][super::super::client::Speech::list_locations] calls.
+    /// The request builder for [Speech::list_locations][crate::client::Speech::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2041,8 +2634,8 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2054,6 +2647,15 @@ pub mod speech {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2088,12 +2690,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_location][super::super::client::Speech::get_location] calls.
+    /// The request builder for [Speech::get_location][crate::client::Speech::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2131,12 +2749,32 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::list_operations][super::super::client::Speech::list_operations] calls.
+    /// The request builder for [Speech::list_operations][crate::client::Speech::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2163,8 +2801,8 @@ pub mod speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2176,6 +2814,17 @@ pub mod speech {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2210,12 +2859,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::get_operation][super::super::client::Speech::get_operation] calls.
+    /// The request builder for [Speech::get_operation][crate::client::Speech::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2256,12 +2921,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::delete_operation][super::super::client::Speech::delete_operation] calls.
+    /// The request builder for [Speech::delete_operation][crate::client::Speech::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2302,12 +2983,28 @@ pub mod speech {
         }
     }
 
-    /// The request builder for [Speech::cancel_operation][super::super::client::Speech::cancel_operation] calls.
+    /// The request builder for [Speech::cancel_operation][crate::client::Speech::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_speech_v2::builder;
+    /// use builder::speech::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Speech>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

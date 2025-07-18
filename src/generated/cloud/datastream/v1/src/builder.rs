@@ -16,9 +16,8 @@
 
 pub mod datastream {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Datastream][super::super::client::Datastream].
+    /// A builder for [Datastream][crate::client::Datastream].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod datastream {
     /// let client = builder
     ///     .with_endpoint("https://datastream.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod datastream {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Datastream;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Datastream] request builders.
+    /// Common implementation for [crate::client::Datastream] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Datastream>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod datastream {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_connection_profiles][super::super::client::Datastream::list_connection_profiles] calls.
+    /// The request builder for [Datastream::list_connection_profiles][crate::client::Datastream::list_connection_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListConnectionProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectionProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectionProfiles(RequestBuilder<crate::model::ListConnectionProfilesRequest>);
 
     impl ListConnectionProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListConnectionProfilesResponse,
@@ -114,6 +140,17 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListConnectionProfilesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionProfilesRequest::parent].
@@ -156,12 +193,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_connection_profile][super::super::client::Datastream::get_connection_profile] calls.
+    /// The request builder for [Datastream::get_connection_profile][crate::client::Datastream::get_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetConnectionProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectionProfile(RequestBuilder<crate::model::GetConnectionProfileRequest>);
 
     impl GetConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -204,14 +259,33 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_connection_profile][super::super::client::Datastream::create_connection_profile] calls.
+    /// The request builder for [Datastream::create_connection_profile][crate::client::Datastream::create_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::CreateConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnectionProfile(
         RequestBuilder<crate::model::CreateConnectionProfileRequest>,
     );
 
     impl CreateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,7 +309,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection_profile][super::super::client::Datastream::create_connection_profile].
+        /// on [create_connection_profile][crate::client::Datastream::create_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection_profile(self.0.request, self.0.options)
@@ -248,8 +322,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -274,7 +350,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionProfileRequest::parent].
@@ -296,13 +372,22 @@ pub mod datastream {
         /// Sets the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection_profile<
-            T: Into<std::option::Option<crate::model::ConnectionProfile>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection_profile = v.into();
+        pub fn set_connection_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection_profile][crate::model::CreateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = v.map(|x| x.into());
             self
         }
 
@@ -332,14 +417,33 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::update_connection_profile][super::super::client::Datastream::update_connection_profile] calls.
+    /// The request builder for [Datastream::update_connection_profile][crate::client::Datastream::update_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::UpdateConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnectionProfile(
         RequestBuilder<crate::model::UpdateConnectionProfileRequest>,
     );
 
     impl UpdateConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -363,7 +467,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection_profile][super::super::client::Datastream::update_connection_profile].
+        /// on [update_connection_profile][crate::client::Datastream::update_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection_profile(self.0.request, self.0.options)
@@ -376,8 +480,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::ConnectionProfile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectionProfile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectionProfile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -402,28 +508,46 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionProfileRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection_profile<
-            T: Into<std::option::Option<crate::model::ConnectionProfile>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection_profile = v.into();
+        pub fn set_connection_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection_profile][crate::model::UpdateConnectionProfileRequest::connection_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectionProfile>,
+        {
+            self.0.request.connection_profile = v.map(|x| x.into());
             self
         }
 
@@ -453,14 +577,33 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_connection_profile][super::super::client::Datastream::delete_connection_profile] calls.
+    /// The request builder for [Datastream::delete_connection_profile][crate::client::Datastream::delete_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::DeleteConnectionProfile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnectionProfile(
         RequestBuilder<crate::model::DeleteConnectionProfileRequest>,
     );
 
     impl DeleteConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -484,7 +627,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection_profile][super::super::client::Datastream::delete_connection_profile].
+        /// on [delete_connection_profile][crate::client::Datastream::delete_connection_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection_profile(self.0.request, self.0.options)
@@ -493,8 +636,8 @@ pub mod datastream {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection_profile`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -519,7 +662,12 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionProfileRequest::name].
@@ -544,14 +692,32 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::discover_connection_profile][super::super::client::Datastream::discover_connection_profile] calls.
+    /// The request builder for [Datastream::discover_connection_profile][crate::client::Datastream::discover_connection_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::DiscoverConnectionProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiscoverConnectionProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiscoverConnectionProfile(
         RequestBuilder<crate::model::DiscoverConnectionProfileRequest>,
     );
 
     impl DiscoverConnectionProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -742,12 +908,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_streams][super::super::client::Datastream::list_streams] calls.
+    /// The request builder for [Datastream::list_streams][crate::client::Datastream::list_streams] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListStreams;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListStreams {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListStreams(RequestBuilder<crate::model::ListStreamsRequest>);
 
     impl ListStreams {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -771,8 +959,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListStreamsResponse, gax::error::Error>
         {
@@ -784,6 +972,15 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListStreamsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListStreamsRequest::parent].
@@ -826,12 +1023,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_stream][super::super::client::Datastream::get_stream] calls.
+    /// The request builder for [Datastream::get_stream][crate::client::Datastream::get_stream] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetStream;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStream {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStream(RequestBuilder<crate::model::GetStreamRequest>);
 
     impl GetStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -871,12 +1086,31 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_stream][super::super::client::Datastream::create_stream] calls.
+    /// The request builder for [Datastream::create_stream][crate::client::Datastream::create_stream] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::CreateStream;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateStream {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateStream(RequestBuilder<crate::model::CreateStreamRequest>);
 
     impl CreateStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -897,7 +1131,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_stream][super::super::client::Datastream::create_stream].
+        /// on [create_stream][crate::client::Datastream::create_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_stream(self.0.request, self.0.options)
@@ -909,7 +1143,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -934,7 +1169,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateStreamRequest::parent].
@@ -956,11 +1191,22 @@ pub mod datastream {
         /// Sets the value of [stream][crate::model::CreateStreamRequest::stream].
         ///
         /// This is a **required** field for requests.
-        pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.stream = v.into();
+        pub fn set_stream<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stream][crate::model::CreateStreamRequest::stream].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = v.map(|x| x.into());
             self
         }
 
@@ -990,12 +1236,31 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::update_stream][super::super::client::Datastream::update_stream] calls.
+    /// The request builder for [Datastream::update_stream][crate::client::Datastream::update_stream] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::UpdateStream;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateStream {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateStream(RequestBuilder<crate::model::UpdateStreamRequest>);
 
     impl UpdateStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1016,7 +1281,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_stream][super::super::client::Datastream::update_stream].
+        /// on [update_stream][crate::client::Datastream::update_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_stream(self.0.request, self.0.options)
@@ -1028,7 +1293,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1053,26 +1319,46 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStreamRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [stream][crate::model::UpdateStreamRequest::stream].
         ///
         /// This is a **required** field for requests.
-        pub fn set_stream<T: Into<std::option::Option<crate::model::Stream>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.stream = v.into();
+        pub fn set_stream<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stream][crate::model::UpdateStreamRequest::stream].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_stream<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Stream>,
+        {
+            self.0.request.stream = v.map(|x| x.into());
             self
         }
 
@@ -1102,12 +1388,31 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_stream][super::super::client::Datastream::delete_stream] calls.
+    /// The request builder for [Datastream::delete_stream][crate::client::Datastream::delete_stream] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::DeleteStream;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteStream {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteStream(RequestBuilder<crate::model::DeleteStreamRequest>);
 
     impl DeleteStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1128,7 +1433,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_stream][super::super::client::Datastream::delete_stream].
+        /// on [delete_stream][crate::client::Datastream::delete_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_stream(self.0.request, self.0.options)
@@ -1137,8 +1442,8 @@ pub mod datastream {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_stream`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1163,7 +1468,12 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteStreamRequest::name].
@@ -1188,12 +1498,31 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::run_stream][super::super::client::Datastream::run_stream] calls.
+    /// The request builder for [Datastream::run_stream][crate::client::Datastream::run_stream] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::RunStream;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunStream {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunStream(RequestBuilder<crate::model::RunStreamRequest>);
 
     impl RunStream {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1214,7 +1543,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_stream][super::super::client::Datastream::run_stream].
+        /// on [run_stream][crate::client::Datastream::run_stream].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_stream(self.0.request, self.0.options)
@@ -1226,7 +1555,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Stream, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Stream, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Stream, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1251,7 +1581,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RunStreamRequest::name].
@@ -1263,11 +1593,20 @@ pub mod datastream {
         }
 
         /// Sets the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
-        pub fn set_cdc_strategy<T: Into<std::option::Option<crate::model::CdcStrategy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdc_strategy = v.into();
+        pub fn set_cdc_strategy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdcStrategy>,
+        {
+            self.0.request.cdc_strategy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cdc_strategy][crate::model::RunStreamRequest::cdc_strategy].
+        pub fn set_or_clear_cdc_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdcStrategy>,
+        {
+            self.0.request.cdc_strategy = v.map(|x| x.into());
             self
         }
 
@@ -1285,12 +1624,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_stream_object][super::super::client::Datastream::get_stream_object] calls.
+    /// The request builder for [Datastream::get_stream_object][crate::client::Datastream::get_stream_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetStreamObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStreamObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStreamObject(RequestBuilder<crate::model::GetStreamObjectRequest>);
 
     impl GetStreamObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1330,12 +1687,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::lookup_stream_object][super::super::client::Datastream::lookup_stream_object] calls.
+    /// The request builder for [Datastream::lookup_stream_object][crate::client::Datastream::lookup_stream_object] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::LookupStreamObject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupStreamObject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupStreamObject(RequestBuilder<crate::model::LookupStreamObjectRequest>);
 
     impl LookupStreamObject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1373,13 +1748,22 @@ pub mod datastream {
         /// Sets the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source_object_identifier<
-            T: Into<std::option::Option<crate::model::SourceObjectIdentifier>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source_object_identifier = v.into();
+        pub fn set_source_object_identifier<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SourceObjectIdentifier>,
+        {
+            self.0.request.source_object_identifier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source_object_identifier][crate::model::LookupStreamObjectRequest::source_object_identifier].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source_object_identifier<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SourceObjectIdentifier>,
+        {
+            self.0.request.source_object_identifier = v.map(|x| x.into());
             self
         }
     }
@@ -1391,12 +1775,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_stream_objects][super::super::client::Datastream::list_stream_objects] calls.
+    /// The request builder for [Datastream::list_stream_objects][crate::client::Datastream::list_stream_objects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListStreamObjects;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListStreamObjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListStreamObjects(RequestBuilder<crate::model::ListStreamObjectsRequest>);
 
     impl ListStreamObjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1423,8 +1829,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListStreamObjectsResponse, gax::error::Error>
         {
@@ -1436,6 +1842,15 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListStreamObjectsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListStreamObjectsRequest::parent].
@@ -1466,12 +1881,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::start_backfill_job][super::super::client::Datastream::start_backfill_job] calls.
+    /// The request builder for [Datastream::start_backfill_job][crate::client::Datastream::start_backfill_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::StartBackfillJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartBackfillJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartBackfillJob(RequestBuilder<crate::model::StartBackfillJobRequest>);
 
     impl StartBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1514,12 +1947,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::stop_backfill_job][super::super::client::Datastream::stop_backfill_job] calls.
+    /// The request builder for [Datastream::stop_backfill_job][crate::client::Datastream::stop_backfill_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::StopBackfillJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopBackfillJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopBackfillJob(RequestBuilder<crate::model::StopBackfillJobRequest>);
 
     impl StopBackfillJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1559,12 +2010,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::fetch_static_ips][super::super::client::Datastream::fetch_static_ips] calls.
+    /// The request builder for [Datastream::fetch_static_ips][crate::client::Datastream::fetch_static_ips] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::FetchStaticIps;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchStaticIps {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchStaticIps(RequestBuilder<crate::model::FetchStaticIpsRequest>);
 
     impl FetchStaticIps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1616,14 +2085,33 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_private_connection][super::super::client::Datastream::create_private_connection] calls.
+    /// The request builder for [Datastream::create_private_connection][crate::client::Datastream::create_private_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::CreatePrivateConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePrivateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePrivateConnection(
         RequestBuilder<crate::model::CreatePrivateConnectionRequest>,
     );
 
     impl CreatePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1647,7 +2135,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_private_connection][super::super::client::Datastream::create_private_connection].
+        /// on [create_private_connection][crate::client::Datastream::create_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_private_connection(self.0.request, self.0.options)
@@ -1660,8 +2148,10 @@ pub mod datastream {
             self,
         ) -> impl lro::Poller<crate::model::PrivateConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PrivateConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PrivateConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1686,7 +2176,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrivateConnectionRequest::parent].
@@ -1708,13 +2198,22 @@ pub mod datastream {
         /// Sets the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_private_connection<
-            T: Into<std::option::Option<crate::model::PrivateConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.private_connection = v.into();
+        pub fn set_private_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [private_connection][crate::model::CreatePrivateConnectionRequest::private_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_private_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PrivateConnection>,
+        {
+            self.0.request.private_connection = v.map(|x| x.into());
             self
         }
 
@@ -1738,12 +2237,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_private_connection][super::super::client::Datastream::get_private_connection] calls.
+    /// The request builder for [Datastream::get_private_connection][crate::client::Datastream::get_private_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetPrivateConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPrivateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPrivateConnection(RequestBuilder<crate::model::GetPrivateConnectionRequest>);
 
     impl GetPrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1786,12 +2303,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_private_connections][super::super::client::Datastream::list_private_connections] calls.
+    /// The request builder for [Datastream::list_private_connections][crate::client::Datastream::list_private_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListPrivateConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPrivateConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPrivateConnections(RequestBuilder<crate::model::ListPrivateConnectionsRequest>);
 
     impl ListPrivateConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1818,8 +2357,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListPrivateConnectionsResponse,
@@ -1833,6 +2372,17 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPrivateConnectionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPrivateConnectionsRequest::parent].
@@ -1875,14 +2425,33 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_private_connection][super::super::client::Datastream::delete_private_connection] calls.
+    /// The request builder for [Datastream::delete_private_connection][crate::client::Datastream::delete_private_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::DeletePrivateConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePrivateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePrivateConnection(
         RequestBuilder<crate::model::DeletePrivateConnectionRequest>,
     );
 
     impl DeletePrivateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1906,7 +2475,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_private_connection][super::super::client::Datastream::delete_private_connection].
+        /// on [delete_private_connection][crate::client::Datastream::delete_private_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_private_connection(self.0.request, self.0.options)
@@ -1915,8 +2484,8 @@ pub mod datastream {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_private_connection`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1941,7 +2510,12 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePrivateConnectionRequest::name].
@@ -1972,12 +2546,31 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::create_route][super::super::client::Datastream::create_route] calls.
+    /// The request builder for [Datastream::create_route][crate::client::Datastream::create_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::CreateRoute;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRoute(RequestBuilder<crate::model::CreateRouteRequest>);
 
     impl CreateRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1998,7 +2591,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_route][super::super::client::Datastream::create_route].
+        /// on [create_route][crate::client::Datastream::create_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_route(self.0.request, self.0.options)
@@ -2010,7 +2603,8 @@ pub mod datastream {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Route, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Route, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Route, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2035,7 +2629,7 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRouteRequest::parent].
@@ -2057,11 +2651,22 @@ pub mod datastream {
         /// Sets the value of [route][crate::model::CreateRouteRequest::route].
         ///
         /// This is a **required** field for requests.
-        pub fn set_route<T: Into<std::option::Option<crate::model::Route>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.route = v.into();
+        pub fn set_route<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Route>,
+        {
+            self.0.request.route = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [route][crate::model::CreateRouteRequest::route].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_route<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Route>,
+        {
+            self.0.request.route = v.map(|x| x.into());
             self
         }
 
@@ -2079,12 +2684,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_route][super::super::client::Datastream::get_route] calls.
+    /// The request builder for [Datastream::get_route][crate::client::Datastream::get_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetRoute;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRoute(RequestBuilder<crate::model::GetRouteRequest>);
 
     impl GetRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2124,12 +2747,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_routes][super::super::client::Datastream::list_routes] calls.
+    /// The request builder for [Datastream::list_routes][crate::client::Datastream::list_routes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListRoutes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRoutes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRoutes(RequestBuilder<crate::model::ListRoutesRequest>);
 
     impl ListRoutes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2153,8 +2798,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRoutesResponse, gax::error::Error>
         {
@@ -2166,6 +2811,15 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRoutesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRoutesRequest::parent].
@@ -2208,12 +2862,31 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_route][super::super::client::Datastream::delete_route] calls.
+    /// The request builder for [Datastream::delete_route][crate::client::Datastream::delete_route] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::DeleteRoute;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRoute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRoute(RequestBuilder<crate::model::DeleteRouteRequest>);
 
     impl DeleteRoute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2234,7 +2907,7 @@ pub mod datastream {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_route][super::super::client::Datastream::delete_route].
+        /// on [delete_route][crate::client::Datastream::delete_route].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_route(self.0.request, self.0.options)
@@ -2243,8 +2916,8 @@ pub mod datastream {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_route`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2269,7 +2942,12 @@ pub mod datastream {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRouteRequest::name].
@@ -2294,12 +2972,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_locations][super::super::client::Datastream::list_locations] calls.
+    /// The request builder for [Datastream::list_locations][crate::client::Datastream::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2326,8 +3026,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2339,6 +3039,15 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2373,12 +3082,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_location][super::super::client::Datastream::get_location] calls.
+    /// The request builder for [Datastream::get_location][crate::client::Datastream::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2416,12 +3143,34 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::list_operations][super::super::client::Datastream::list_operations] calls.
+    /// The request builder for [Datastream::list_operations][crate::client::Datastream::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2448,8 +3197,8 @@ pub mod datastream {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2461,6 +3210,17 @@ pub mod datastream {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2495,12 +3255,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::get_operation][super::super::client::Datastream::get_operation] calls.
+    /// The request builder for [Datastream::get_operation][crate::client::Datastream::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2541,12 +3319,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::delete_operation][super::super::client::Datastream::delete_operation] calls.
+    /// The request builder for [Datastream::delete_operation][crate::client::Datastream::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2587,12 +3383,30 @@ pub mod datastream {
         }
     }
 
-    /// The request builder for [Datastream::cancel_operation][super::super::client::Datastream::cancel_operation] calls.
+    /// The request builder for [Datastream::cancel_operation][crate::client::Datastream::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datastream_v1::builder;
+    /// use builder::datastream::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Datastream>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Datastream>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

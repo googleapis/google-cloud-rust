@@ -30,7 +30,7 @@ mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.grpc_header_value()
         };
     }
 }
@@ -50,7 +50,7 @@ impl std::fmt::Debug for Firestore {
 }
 
 impl Firestore {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
@@ -74,26 +74,26 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/GetDocument");
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::Document;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::Document,
-                    crate::model::Document,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Document>)
     }
 
     async fn list_documents(
@@ -114,28 +114,31 @@ impl super::stub::Firestore for Firestore {
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocuments");
         let x_goog_request_params = [
-            format!("parent={}", req.parent),
-            format!("collection_id={}", req.collection_id),
+            Some(&req)
+                .map(|m| &m.parent)
+                .map(|s| s.as_str())
+                .map(|v| format!("parent={v}")),
+            Some(&req)
+                .map(|m| &m.collection_id)
+                .map(|s| s.as_str())
+                .map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::ListDocumentsResponse;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::ListDocumentsResponse,
-                    crate::model::ListDocumentsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListDocumentsResponse>)
     }
 
     async fn update_document(
@@ -155,32 +158,27 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/UpdateDocument");
-        let x_goog_request_params = [format!(
-            "document.name={}",
-            req.document
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("document"))?
-                .name
-        )]
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.document.as_ref())
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("document.name={v}"))]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::Document;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::Document,
-                    crate::model::Document,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Document>)
     }
 
     async fn delete_document(
@@ -200,21 +198,26 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/DeleteDocument");
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = ();
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(gaxi::grpc::to_gax_response::<(), ()>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
     async fn begin_transaction(
@@ -234,26 +237,26 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BeginTransaction");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::BeginTransactionResponse;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::BeginTransactionResponse,
-                    crate::model::BeginTransactionResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::BeginTransactionResponse>)
     }
 
     async fn commit(
@@ -272,26 +275,26 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Commit");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::CommitResponse;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::CommitResponse,
-                    crate::model::CommitResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::CommitResponse>)
     }
 
     async fn rollback(
@@ -310,21 +313,26 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = ();
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(gaxi::grpc::to_gax_response::<(), ()>)
+            .and_then(gaxi::grpc::to_gax_response::<TR, ()>)
     }
 
     async fn partition_query(
@@ -344,26 +352,26 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/PartitionQuery");
-        let x_goog_request_params = [format!("parent={}", req.parent)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::PartitionQueryResponse;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::PartitionQueryResponse,
-                    crate::model::PartitionQueryResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::PartitionQueryResponse>)
     }
 
     async fn list_collection_ids(
@@ -384,26 +392,26 @@ impl super::stub::Firestore for Firestore {
         let path = http::uri::PathAndQuery::from_static(
             "/google.firestore.v1.Firestore/ListCollectionIds",
         );
-        let x_goog_request_params = [format!("parent={}", req.parent)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::ListCollectionIdsResponse;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::ListCollectionIdsResponse,
-                    crate::model::ListCollectionIdsResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::ListCollectionIdsResponse>)
     }
 
     async fn batch_write(
@@ -423,26 +431,26 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BatchWrite");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::BatchWriteResponse;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::BatchWriteResponse,
-                    crate::model::BatchWriteResponse,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::BatchWriteResponse>)
     }
 
     async fn create_document(
@@ -463,27 +471,30 @@ impl super::stub::Firestore for Firestore {
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/CreateDocument");
         let x_goog_request_params = [
-            format!("parent={}", req.parent),
-            format!("collection_id={}", req.collection_id),
+            Some(&req)
+                .map(|m| &m.parent)
+                .map(|s| s.as_str())
+                .map(|v| format!("parent={v}")),
+            Some(&req)
+                .map(|m| &m.collection_id)
+                .map(|s| s.as_str())
+                .map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
+        type TR = crate::google::firestore::v1::Document;
         self.inner
             .execute(
                 extensions,
                 path,
-                req.to_proto().map_err(Error::other)?,
+                req.to_proto().map_err(Error::deser)?,
                 options,
                 &info::X_GOOG_API_CLIENT_HEADER,
                 &x_goog_request_params,
             )
             .await
-            .map(
-                gaxi::grpc::to_gax_response::<
-                    crate::google::firestore::v1::Document,
-                    crate::model::Document,
-                >,
-            )
+            .and_then(gaxi::grpc::to_gax_response::<TR, crate::model::Document>)
     }
 }

@@ -16,9 +16,8 @@
 
 pub mod autokey {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Autokey][super::super::client::Autokey].
+    /// A builder for [Autokey][crate::client::Autokey].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod autokey {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod autokey {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Autokey;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Autokey] request builders.
+    /// Common implementation for [crate::client::Autokey] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Autokey>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod autokey {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,29 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::create_key_handle][super::super::client::Autokey::create_key_handle] calls.
+    /// The request builder for [Autokey::create_key_handle][crate::client::Autokey::create_key_handle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::CreateKeyHandle;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKeyHandle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKeyHandle(RequestBuilder<crate::model::CreateKeyHandleRequest>);
 
     impl CreateKeyHandle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -93,7 +112,7 @@ pub mod autokey {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_key_handle][super::super::client::Autokey::create_key_handle].
+        /// on [create_key_handle][crate::client::Autokey::create_key_handle].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_key_handle(self.0.request, self.0.options)
@@ -106,8 +125,10 @@ pub mod autokey {
             self,
         ) -> impl lro::Poller<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::KeyHandle, crate::model::CreateKeyHandleMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::KeyHandle,
+                crate::model::CreateKeyHandleMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -132,7 +153,7 @@ pub mod autokey {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKeyHandleRequest::parent].
@@ -152,11 +173,22 @@ pub mod autokey {
         /// Sets the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key_handle<T: Into<std::option::Option<crate::model::KeyHandle>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.key_handle = v.into();
+        pub fn set_key_handle<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyHandle>,
+        {
+            self.0.request.key_handle = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key_handle][crate::model::CreateKeyHandleRequest::key_handle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key_handle<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyHandle>,
+        {
+            self.0.request.key_handle = v.map(|x| x.into());
             self
         }
     }
@@ -168,12 +200,28 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_key_handle][super::super::client::Autokey::get_key_handle] calls.
+    /// The request builder for [Autokey::get_key_handle][crate::client::Autokey::get_key_handle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::GetKeyHandle;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKeyHandle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKeyHandle(RequestBuilder<crate::model::GetKeyHandleRequest>);
 
     impl GetKeyHandle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -213,12 +261,32 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::list_key_handles][super::super::client::Autokey::list_key_handles] calls.
+    /// The request builder for [Autokey::list_key_handles][crate::client::Autokey::list_key_handles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::ListKeyHandles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKeyHandles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKeyHandles(RequestBuilder<crate::model::ListKeyHandlesRequest>);
 
     impl ListKeyHandles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -242,8 +310,8 @@ pub mod autokey {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListKeyHandlesResponse, gax::error::Error>
         {
@@ -255,6 +323,15 @@ pub mod autokey {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeyHandlesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListKeyHandlesRequest::parent].
@@ -291,12 +368,32 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::list_locations][super::super::client::Autokey::list_locations] calls.
+    /// The request builder for [Autokey::list_locations][crate::client::Autokey::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,8 +420,8 @@ pub mod autokey {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -336,6 +433,15 @@ pub mod autokey {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -370,12 +476,28 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_location][super::super::client::Autokey::get_location] calls.
+    /// The request builder for [Autokey::get_location][crate::client::Autokey::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -413,12 +535,28 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::set_iam_policy][super::super::client::Autokey::set_iam_policy] calls.
+    /// The request builder for [Autokey::set_iam_policy][crate::client::Autokey::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -453,20 +591,40 @@ pub mod autokey {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -478,12 +636,28 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_iam_policy][super::super::client::Autokey::get_iam_policy] calls.
+    /// The request builder for [Autokey::get_iam_policy][crate::client::Autokey::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -516,11 +690,20 @@ pub mod autokey {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -532,12 +715,28 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::test_iam_permissions][super::super::client::Autokey::test_iam_permissions] calls.
+    /// The request builder for [Autokey::test_iam_permissions][crate::client::Autokey::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -593,12 +792,28 @@ pub mod autokey {
         }
     }
 
-    /// The request builder for [Autokey::get_operation][super::super::client::Autokey::get_operation] calls.
+    /// The request builder for [Autokey::get_operation][crate::client::Autokey::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Autokey>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,9 +857,8 @@ pub mod autokey {
 
 pub mod autokey_admin {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AutokeyAdmin][super::super::client::AutokeyAdmin].
+    /// A builder for [AutokeyAdmin][crate::client::AutokeyAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -655,7 +869,7 @@ pub mod autokey_admin {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -666,16 +880,19 @@ pub mod autokey_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AutokeyAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AutokeyAdmin] request builders.
+    /// Common implementation for [crate::client::AutokeyAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -684,7 +901,9 @@ pub mod autokey_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -693,12 +912,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::update_autokey_config][super::super::client::AutokeyAdmin::update_autokey_config] calls.
+    /// The request builder for [AutokeyAdmin::update_autokey_config][crate::client::AutokeyAdmin::update_autokey_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::UpdateAutokeyConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAutokeyConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutokeyConfig(RequestBuilder<crate::model::UpdateAutokeyConfigRequest>);
 
     impl UpdateAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -728,22 +965,44 @@ pub mod autokey_admin {
         /// Sets the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_autokey_config<T: Into<std::option::Option<crate::model::AutokeyConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.autokey_config = v.into();
+        pub fn set_autokey_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutokeyConfig>,
+        {
+            self.0.request.autokey_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [autokey_config][crate::model::UpdateAutokeyConfigRequest::autokey_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_autokey_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutokeyConfig>,
+        {
+            self.0.request.autokey_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAutokeyConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -755,12 +1014,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_autokey_config][super::super::client::AutokeyAdmin::get_autokey_config] calls.
+    /// The request builder for [AutokeyAdmin::get_autokey_config][crate::client::AutokeyAdmin::get_autokey_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::GetAutokeyConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAutokeyConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutokeyConfig(RequestBuilder<crate::model::GetAutokeyConfigRequest>);
 
     impl GetAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -803,14 +1080,32 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::show_effective_autokey_config][super::super::client::AutokeyAdmin::show_effective_autokey_config] calls.
+    /// The request builder for [AutokeyAdmin::show_effective_autokey_config][crate::client::AutokeyAdmin::show_effective_autokey_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::ShowEffectiveAutokeyConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ShowEffectiveAutokeyConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ShowEffectiveAutokeyConfig(
         RequestBuilder<crate::model::ShowEffectiveAutokeyConfigRequest>,
     );
 
     impl ShowEffectiveAutokeyConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -853,12 +1148,34 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::list_locations][super::super::client::AutokeyAdmin::list_locations] calls.
+    /// The request builder for [AutokeyAdmin::list_locations][crate::client::AutokeyAdmin::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -885,8 +1202,8 @@ pub mod autokey_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -898,6 +1215,15 @@ pub mod autokey_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -932,12 +1258,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_location][super::super::client::AutokeyAdmin::get_location] calls.
+    /// The request builder for [AutokeyAdmin::get_location][crate::client::AutokeyAdmin::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -975,12 +1319,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::set_iam_policy][super::super::client::AutokeyAdmin::set_iam_policy] calls.
+    /// The request builder for [AutokeyAdmin::set_iam_policy][crate::client::AutokeyAdmin::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1015,20 +1377,40 @@ pub mod autokey_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1040,12 +1422,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_iam_policy][super::super::client::AutokeyAdmin::get_iam_policy] calls.
+    /// The request builder for [AutokeyAdmin::get_iam_policy][crate::client::AutokeyAdmin::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1078,11 +1478,20 @@ pub mod autokey_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1094,12 +1503,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::test_iam_permissions][super::super::client::AutokeyAdmin::test_iam_permissions] calls.
+    /// The request builder for [AutokeyAdmin::test_iam_permissions][crate::client::AutokeyAdmin::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1155,12 +1582,30 @@ pub mod autokey_admin {
         }
     }
 
-    /// The request builder for [AutokeyAdmin::get_operation][super::super::client::AutokeyAdmin::get_operation] calls.
+    /// The request builder for [AutokeyAdmin::get_operation][crate::client::AutokeyAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::autokey_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AutokeyAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutokeyAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1204,9 +1649,8 @@ pub mod autokey_admin {
 
 pub mod ekm_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [EkmService][super::super::client::EkmService].
+    /// A builder for [EkmService][crate::client::EkmService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1217,7 +1661,7 @@ pub mod ekm_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1228,16 +1672,19 @@ pub mod ekm_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EkmService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::EkmService] request builders.
+    /// Common implementation for [crate::client::EkmService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EkmService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1246,7 +1693,9 @@ pub mod ekm_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1255,12 +1704,34 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::list_ekm_connections][super::super::client::EkmService::list_ekm_connections] calls.
+    /// The request builder for [EkmService::list_ekm_connections][crate::client::EkmService::list_ekm_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::ListEkmConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEkmConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEkmConnections(RequestBuilder<crate::model::ListEkmConnectionsRequest>);
 
     impl ListEkmConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1287,8 +1758,8 @@ pub mod ekm_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEkmConnectionsResponse, gax::error::Error>
         {
@@ -1300,6 +1771,17 @@ pub mod ekm_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListEkmConnectionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEkmConnectionsRequest::parent].
@@ -1342,12 +1824,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_ekm_connection][super::super::client::EkmService::get_ekm_connection] calls.
+    /// The request builder for [EkmService::get_ekm_connection][crate::client::EkmService::get_ekm_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::GetEkmConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEkmConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEkmConnection(RequestBuilder<crate::model::GetEkmConnectionRequest>);
 
     impl GetEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1390,12 +1890,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::create_ekm_connection][super::super::client::EkmService::create_ekm_connection] calls.
+    /// The request builder for [EkmService::create_ekm_connection][crate::client::EkmService::create_ekm_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::CreateEkmConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEkmConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEkmConnection(RequestBuilder<crate::model::CreateEkmConnectionRequest>);
 
     impl CreateEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1441,11 +1959,22 @@ pub mod ekm_service {
         /// Sets the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ekm_connection = v.into();
+        pub fn set_ekm_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ekm_connection][crate::model::CreateEkmConnectionRequest::ekm_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = v.map(|x| x.into());
             self
         }
     }
@@ -1457,12 +1986,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::update_ekm_connection][super::super::client::EkmService::update_ekm_connection] calls.
+    /// The request builder for [EkmService::update_ekm_connection][crate::client::EkmService::update_ekm_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::UpdateEkmConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEkmConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEkmConnection(RequestBuilder<crate::model::UpdateEkmConnectionRequest>);
 
     impl UpdateEkmConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1492,22 +2039,44 @@ pub mod ekm_service {
         /// Sets the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ekm_connection<T: Into<std::option::Option<crate::model::EkmConnection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ekm_connection = v.into();
+        pub fn set_ekm_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ekm_connection][crate::model::UpdateEkmConnectionRequest::ekm_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ekm_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConnection>,
+        {
+            self.0.request.ekm_connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEkmConnectionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1519,12 +2088,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_ekm_config][super::super::client::EkmService::get_ekm_config] calls.
+    /// The request builder for [EkmService::get_ekm_config][crate::client::EkmService::get_ekm_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::GetEkmConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEkmConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEkmConfig(RequestBuilder<crate::model::GetEkmConfigRequest>);
 
     impl GetEkmConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1564,12 +2151,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::update_ekm_config][super::super::client::EkmService::update_ekm_config] calls.
+    /// The request builder for [EkmService::update_ekm_config][crate::client::EkmService::update_ekm_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::UpdateEkmConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEkmConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEkmConfig(RequestBuilder<crate::model::UpdateEkmConfigRequest>);
 
     impl UpdateEkmConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1596,22 +2201,44 @@ pub mod ekm_service {
         /// Sets the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ekm_config<T: Into<std::option::Option<crate::model::EkmConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ekm_config = v.into();
+        pub fn set_ekm_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConfig>,
+        {
+            self.0.request.ekm_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ekm_config][crate::model::UpdateEkmConfigRequest::ekm_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ekm_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EkmConfig>,
+        {
+            self.0.request.ekm_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEkmConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1623,12 +2250,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::verify_connectivity][super::super::client::EkmService::verify_connectivity] calls.
+    /// The request builder for [EkmService::verify_connectivity][crate::client::EkmService::verify_connectivity] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::VerifyConnectivity;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> VerifyConnectivity {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyConnectivity(RequestBuilder<crate::model::VerifyConnectivityRequest>);
 
     impl VerifyConnectivity {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1671,12 +2316,34 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::list_locations][super::super::client::EkmService::list_locations] calls.
+    /// The request builder for [EkmService::list_locations][crate::client::EkmService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1703,8 +2370,8 @@ pub mod ekm_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1716,6 +2383,15 @@ pub mod ekm_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1750,12 +2426,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_location][super::super::client::EkmService::get_location] calls.
+    /// The request builder for [EkmService::get_location][crate::client::EkmService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1793,12 +2487,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::set_iam_policy][super::super::client::EkmService::set_iam_policy] calls.
+    /// The request builder for [EkmService::set_iam_policy][crate::client::EkmService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1833,20 +2545,40 @@ pub mod ekm_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1858,12 +2590,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_iam_policy][super::super::client::EkmService::get_iam_policy] calls.
+    /// The request builder for [EkmService::get_iam_policy][crate::client::EkmService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1896,11 +2646,20 @@ pub mod ekm_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1912,12 +2671,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::test_iam_permissions][super::super::client::EkmService::test_iam_permissions] calls.
+    /// The request builder for [EkmService::test_iam_permissions][crate::client::EkmService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1973,12 +2750,30 @@ pub mod ekm_service {
         }
     }
 
-    /// The request builder for [EkmService::get_operation][super::super::client::EkmService::get_operation] calls.
+    /// The request builder for [EkmService::get_operation][crate::client::EkmService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::ekm_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EkmService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EkmService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2022,9 +2817,8 @@ pub mod ekm_service {
 
 pub mod key_management_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [KeyManagementService][super::super::client::KeyManagementService].
+    /// A builder for [KeyManagementService][crate::client::KeyManagementService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2035,7 +2829,7 @@ pub mod key_management_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2046,16 +2840,19 @@ pub mod key_management_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = KeyManagementService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::KeyManagementService] request builders.
+    /// Common implementation for [crate::client::KeyManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2065,7 +2862,7 @@ pub mod key_management_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self {
                 stub,
@@ -2075,13 +2872,33 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_key_rings][super::super::client::KeyManagementService::list_key_rings] calls.
+    /// The request builder for [KeyManagementService::list_key_rings][crate::client::KeyManagementService::list_key_rings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::ListKeyRings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKeyRings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKeyRings(RequestBuilder<crate::model::ListKeyRingsRequest>);
 
     impl ListKeyRings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2106,8 +2923,8 @@ pub mod key_management_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListKeyRingsResponse, gax::error::Error>
         {
@@ -2119,6 +2936,15 @@ pub mod key_management_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeyRingsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListKeyRingsRequest::parent].
@@ -2161,13 +2987,33 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_crypto_keys][super::super::client::KeyManagementService::list_crypto_keys] calls.
+    /// The request builder for [KeyManagementService::list_crypto_keys][crate::client::KeyManagementService::list_crypto_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::ListCryptoKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCryptoKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2192,8 +3038,8 @@ pub mod key_management_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
         {
@@ -2205,6 +3051,15 @@ pub mod key_management_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
@@ -2256,13 +3111,33 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_crypto_key_versions][super::super::client::KeyManagementService::list_crypto_key_versions] calls.
+    /// The request builder for [KeyManagementService::list_crypto_key_versions][crate::client::KeyManagementService::list_crypto_key_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::ListCryptoKeyVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCryptoKeyVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeyVersions(RequestBuilder<crate::model::ListCryptoKeyVersionsRequest>);
 
     impl ListCryptoKeyVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2290,8 +3165,8 @@ pub mod key_management_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeyVersionsResponse, gax::error::Error>
         {
@@ -2303,6 +3178,17 @@ pub mod key_management_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCryptoKeyVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeyVersionsRequest::parent].
@@ -2354,13 +3240,33 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_import_jobs][super::super::client::KeyManagementService::list_import_jobs] calls.
+    /// The request builder for [KeyManagementService::list_import_jobs][crate::client::KeyManagementService::list_import_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::ListImportJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListImportJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2385,8 +3291,8 @@ pub mod key_management_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListImportJobsResponse, gax::error::Error>
         {
@@ -2398,6 +3304,15 @@ pub mod key_management_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImportJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
@@ -2440,13 +3355,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_key_ring][super::super::client::KeyManagementService::get_key_ring] calls.
+    /// The request builder for [KeyManagementService::get_key_ring][crate::client::KeyManagementService::get_key_ring] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetKeyRing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKeyRing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKeyRing(RequestBuilder<crate::model::GetKeyRingRequest>);
 
     impl GetKeyRing {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2487,13 +3418,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_crypto_key][super::super::client::KeyManagementService::get_crypto_key] calls.
+    /// The request builder for [KeyManagementService::get_crypto_key][crate::client::KeyManagementService::get_crypto_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetCryptoKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCryptoKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCryptoKey(RequestBuilder<crate::model::GetCryptoKeyRequest>);
 
     impl GetCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2534,13 +3481,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_crypto_key_version][super::super::client::KeyManagementService::get_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::get_crypto_key_version][crate::client::KeyManagementService::get_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetCryptoKeyVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCryptoKeyVersion(RequestBuilder<crate::model::GetCryptoKeyVersionRequest>);
 
     impl GetCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2584,13 +3547,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_public_key][super::super::client::KeyManagementService::get_public_key] calls.
+    /// The request builder for [KeyManagementService::get_public_key][crate::client::KeyManagementService::get_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetPublicKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPublicKey(RequestBuilder<crate::model::GetPublicKeyRequest>);
 
     impl GetPublicKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2640,13 +3619,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_import_job][super::super::client::KeyManagementService::get_import_job] calls.
+    /// The request builder for [KeyManagementService::get_import_job][crate::client::KeyManagementService::get_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetImportJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2687,13 +3682,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_key_ring][super::super::client::KeyManagementService::create_key_ring] calls.
+    /// The request builder for [KeyManagementService::create_key_ring][crate::client::KeyManagementService::create_key_ring] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::CreateKeyRing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKeyRing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKeyRing(RequestBuilder<crate::model::CreateKeyRingRequest>);
 
     impl CreateKeyRing {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2737,11 +3748,22 @@ pub mod key_management_service {
         /// Sets the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key_ring<T: Into<std::option::Option<crate::model::KeyRing>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.key_ring = v.into();
+        pub fn set_key_ring<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyRing>,
+        {
+            self.0.request.key_ring = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key_ring][crate::model::CreateKeyRingRequest::key_ring].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key_ring<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KeyRing>,
+        {
+            self.0.request.key_ring = v.map(|x| x.into());
             self
         }
     }
@@ -2753,13 +3775,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_crypto_key][super::super::client::KeyManagementService::create_crypto_key] calls.
+    /// The request builder for [KeyManagementService::create_crypto_key][crate::client::KeyManagementService::create_crypto_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::CreateCryptoKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCryptoKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCryptoKey(RequestBuilder<crate::model::CreateCryptoKeyRequest>);
 
     impl CreateCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2803,11 +3841,22 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key = v.into();
+        pub fn set_crypto_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [crypto_key][crate::model::CreateCryptoKeyRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = v.map(|x| x.into());
             self
         }
 
@@ -2825,13 +3874,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_crypto_key_version][super::super::client::KeyManagementService::create_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::create_crypto_key_version][crate::client::KeyManagementService::create_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::CreateCryptoKeyVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCryptoKeyVersion(RequestBuilder<crate::model::CreateCryptoKeyVersionRequest>);
 
     impl CreateCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2870,13 +3935,22 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key_version<
-            T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key_version = v.into();
+        pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [crypto_key_version][crate::model::CreateCryptoKeyVersionRequest::crypto_key_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = v.map(|x| x.into());
             self
         }
     }
@@ -2888,13 +3962,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::import_crypto_key_version][super::super::client::KeyManagementService::import_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::import_crypto_key_version][crate::client::KeyManagementService::import_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::ImportCryptoKeyVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportCryptoKeyVersion(RequestBuilder<crate::model::ImportCryptoKeyVersionRequest>);
 
     impl ImportCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2998,13 +4088,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::create_import_job][super::super::client::KeyManagementService::create_import_job] calls.
+    /// The request builder for [KeyManagementService::create_import_job][crate::client::KeyManagementService::create_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::CreateImportJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3048,11 +4154,22 @@ pub mod key_management_service {
         /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_job = v.into();
+        pub fn set_import_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = v.map(|x| x.into());
             self
         }
     }
@@ -3064,13 +4181,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::update_crypto_key][super::super::client::KeyManagementService::update_crypto_key] calls.
+    /// The request builder for [KeyManagementService::update_crypto_key][crate::client::KeyManagementService::update_crypto_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::UpdateCryptoKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCryptoKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKey(RequestBuilder<crate::model::UpdateCryptoKeyRequest>);
 
     impl UpdateCryptoKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3098,22 +4231,44 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key<T: Into<std::option::Option<crate::model::CryptoKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key = v.into();
+        pub fn set_crypto_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [crypto_key][crate::model::UpdateCryptoKeyRequest::crypto_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_crypto_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKey>,
+        {
+            self.0.request.crypto_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCryptoKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3125,13 +4280,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::update_crypto_key_version][super::super::client::KeyManagementService::update_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::update_crypto_key_version][crate::client::KeyManagementService::update_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::UpdateCryptoKeyVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKeyVersion(RequestBuilder<crate::model::UpdateCryptoKeyVersionRequest>);
 
     impl UpdateCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3162,24 +4333,44 @@ pub mod key_management_service {
         /// Sets the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_crypto_key_version<
-            T: Into<std::option::Option<crate::model::CryptoKeyVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.crypto_key_version = v.into();
+        pub fn set_crypto_key_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [crypto_key_version][crate::model::UpdateCryptoKeyVersionRequest::crypto_key_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_crypto_key_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CryptoKeyVersion>,
+        {
+            self.0.request.crypto_key_version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCryptoKeyVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3191,7 +4382,23 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::update_crypto_key_primary_version][super::super::client::KeyManagementService::update_crypto_key_primary_version] calls.
+    /// The request builder for [KeyManagementService::update_crypto_key_primary_version][crate::client::KeyManagementService::update_crypto_key_primary_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::UpdateCryptoKeyPrimaryVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCryptoKeyPrimaryVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCryptoKeyPrimaryVersion(
         RequestBuilder<crate::model::UpdateCryptoKeyPrimaryVersionRequest>,
@@ -3199,7 +4406,7 @@ pub mod key_management_service {
 
     impl UpdateCryptoKeyPrimaryVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3251,7 +4458,23 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::destroy_crypto_key_version][super::super::client::KeyManagementService::destroy_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::destroy_crypto_key_version][crate::client::KeyManagementService::destroy_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::DestroyCryptoKeyVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DestroyCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DestroyCryptoKeyVersion(
         RequestBuilder<crate::model::DestroyCryptoKeyVersionRequest>,
@@ -3259,7 +4482,7 @@ pub mod key_management_service {
 
     impl DestroyCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3303,7 +4526,23 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::restore_crypto_key_version][super::super::client::KeyManagementService::restore_crypto_key_version] calls.
+    /// The request builder for [KeyManagementService::restore_crypto_key_version][crate::client::KeyManagementService::restore_crypto_key_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::RestoreCryptoKeyVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreCryptoKeyVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreCryptoKeyVersion(
         RequestBuilder<crate::model::RestoreCryptoKeyVersionRequest>,
@@ -3311,7 +4550,7 @@ pub mod key_management_service {
 
     impl RestoreCryptoKeyVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3355,13 +4594,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::encrypt][super::super::client::KeyManagementService::encrypt] calls.
+    /// The request builder for [KeyManagementService::encrypt][crate::client::KeyManagementService::encrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::Encrypt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Encrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Encrypt(RequestBuilder<crate::model::EncryptRequest>);
 
     impl Encrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3409,22 +4664,42 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
-        pub fn set_plaintext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.plaintext_crc32c = v.into();
+        pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [plaintext_crc32c][crate::model::EncryptRequest::plaintext_crc32c].
+        pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::EncryptRequest::additional_authenticated_data_crc32c].
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3436,13 +4711,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::decrypt][super::super::client::KeyManagementService::decrypt] calls.
+    /// The request builder for [KeyManagementService::decrypt][crate::client::KeyManagementService::decrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::Decrypt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Decrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Decrypt(RequestBuilder<crate::model::DecryptRequest>);
 
     impl Decrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3490,22 +4781,42 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
-        pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ciphertext_crc32c = v.into();
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ciphertext_crc32c][crate::model::DecryptRequest::ciphertext_crc32c].
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::DecryptRequest::additional_authenticated_data_crc32c].
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3517,13 +4828,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::raw_encrypt][super::super::client::KeyManagementService::raw_encrypt] calls.
+    /// The request builder for [KeyManagementService::raw_encrypt][crate::client::KeyManagementService::raw_encrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::RawEncrypt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RawEncrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RawEncrypt(RequestBuilder<crate::model::RawEncryptRequest>);
 
     impl RawEncrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3571,22 +4898,42 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
-        pub fn set_plaintext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.plaintext_crc32c = v.into();
+        pub fn set_plaintext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [plaintext_crc32c][crate::model::RawEncryptRequest::plaintext_crc32c].
+        pub fn set_or_clear_plaintext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.plaintext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::RawEncryptRequest::additional_authenticated_data_crc32c].
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
 
@@ -3597,11 +4944,23 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
-        pub fn set_initialization_vector_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
+        pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawEncryptRequest::initialization_vector_crc32c].
+        pub fn set_or_clear_initialization_vector_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.initialization_vector_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3613,13 +4972,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::raw_decrypt][super::super::client::KeyManagementService::raw_decrypt] calls.
+    /// The request builder for [KeyManagementService::raw_decrypt][crate::client::KeyManagementService::raw_decrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::RawDecrypt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RawDecrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RawDecrypt(RequestBuilder<crate::model::RawDecryptRequest>);
 
     impl RawDecrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3681,31 +5056,63 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
-        pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ciphertext_crc32c = v.into();
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ciphertext_crc32c][crate::model::RawDecryptRequest::ciphertext_crc32c].
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
-        pub fn set_additional_authenticated_data_crc32c<
-            T: Into<std::option::Option<wkt::Int64Value>>,
-        >(
+        pub fn set_additional_authenticated_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [additional_authenticated_data_crc32c][crate::model::RawDecryptRequest::additional_authenticated_data_crc32c].
+        pub fn set_or_clear_additional_authenticated_data_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.additional_authenticated_data_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.additional_authenticated_data_crc32c = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
-        pub fn set_initialization_vector_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
+        pub fn set_initialization_vector_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [initialization_vector_crc32c][crate::model::RawDecryptRequest::initialization_vector_crc32c].
+        pub fn set_or_clear_initialization_vector_crc32c<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.initialization_vector_crc32c = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.initialization_vector_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3717,13 +5124,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::asymmetric_sign][super::super::client::KeyManagementService::asymmetric_sign] calls.
+    /// The request builder for [KeyManagementService::asymmetric_sign][crate::client::KeyManagementService::asymmetric_sign] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::AsymmetricSign;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AsymmetricSign {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AsymmetricSign(RequestBuilder<crate::model::AsymmetricSignRequest>);
 
     impl AsymmetricSign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3757,20 +5180,38 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [digest][crate::model::AsymmetricSignRequest::digest].
-        pub fn set_digest<T: Into<std::option::Option<crate::model::Digest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.digest = v.into();
+        pub fn set_digest<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Digest>,
+        {
+            self.0.request.digest = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [digest][crate::model::AsymmetricSignRequest::digest].
+        pub fn set_or_clear_digest<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Digest>,
+        {
+            self.0.request.digest = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
-        pub fn set_digest_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.digest_crc32c = v.into();
+        pub fn set_digest_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.digest_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [digest_crc32c][crate::model::AsymmetricSignRequest::digest_crc32c].
+        pub fn set_or_clear_digest_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.digest_crc32c = v.map(|x| x.into());
             self
         }
 
@@ -3781,11 +5222,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
-        pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_crc32c = v.into();
+        pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_crc32c][crate::model::AsymmetricSignRequest::data_crc32c].
+        pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3797,13 +5247,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::asymmetric_decrypt][super::super::client::KeyManagementService::asymmetric_decrypt] calls.
+    /// The request builder for [KeyManagementService::asymmetric_decrypt][crate::client::KeyManagementService::asymmetric_decrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::AsymmetricDecrypt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AsymmetricDecrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AsymmetricDecrypt(RequestBuilder<crate::model::AsymmetricDecryptRequest>);
 
     impl AsymmetricDecrypt {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3848,11 +5314,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
-        pub fn set_ciphertext_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ciphertext_crc32c = v.into();
+        pub fn set_ciphertext_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ciphertext_crc32c][crate::model::AsymmetricDecryptRequest::ciphertext_crc32c].
+        pub fn set_or_clear_ciphertext_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.ciphertext_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3864,13 +5339,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::mac_sign][super::super::client::KeyManagementService::mac_sign] calls.
+    /// The request builder for [KeyManagementService::mac_sign][crate::client::KeyManagementService::mac_sign] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::MacSign;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MacSign {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MacSign(RequestBuilder<crate::model::MacSignRequest>);
 
     impl MacSign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3912,11 +5403,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
-        pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_crc32c = v.into();
+        pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_crc32c][crate::model::MacSignRequest::data_crc32c].
+        pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -3928,13 +5428,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::mac_verify][super::super::client::KeyManagementService::mac_verify] calls.
+    /// The request builder for [KeyManagementService::mac_verify][crate::client::KeyManagementService::mac_verify] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::MacVerify;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MacVerify {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MacVerify(RequestBuilder<crate::model::MacVerifyRequest>);
 
     impl MacVerify {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3976,11 +5492,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
-        pub fn set_data_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_crc32c = v.into();
+        pub fn set_data_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_crc32c][crate::model::MacVerifyRequest::data_crc32c].
+        pub fn set_or_clear_data_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.data_crc32c = v.map(|x| x.into());
             self
         }
 
@@ -3993,11 +5518,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
-        pub fn set_mac_crc32c<T: Into<std::option::Option<wkt::Int64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mac_crc32c = v.into();
+        pub fn set_mac_crc32c<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.mac_crc32c = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mac_crc32c][crate::model::MacVerifyRequest::mac_crc32c].
+        pub fn set_or_clear_mac_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int64Value>,
+        {
+            self.0.request.mac_crc32c = v.map(|x| x.into());
             self
         }
     }
@@ -4009,13 +5543,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::generate_random_bytes][super::super::client::KeyManagementService::generate_random_bytes] calls.
+    /// The request builder for [KeyManagementService::generate_random_bytes][crate::client::KeyManagementService::generate_random_bytes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GenerateRandomBytes;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateRandomBytes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateRandomBytes(RequestBuilder<crate::model::GenerateRandomBytesRequest>);
 
     impl GenerateRandomBytes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4072,13 +5622,33 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::list_locations][super::super::client::KeyManagementService::list_locations] calls.
+    /// The request builder for [KeyManagementService::list_locations][crate::client::KeyManagementService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4106,8 +5676,8 @@ pub mod key_management_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -4119,6 +5689,15 @@ pub mod key_management_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -4153,13 +5732,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_location][super::super::client::KeyManagementService::get_location] calls.
+    /// The request builder for [KeyManagementService::get_location][crate::client::KeyManagementService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4198,13 +5793,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::set_iam_policy][super::super::client::KeyManagementService::set_iam_policy] calls.
+    /// The request builder for [KeyManagementService::set_iam_policy][crate::client::KeyManagementService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4240,20 +5851,40 @@ pub mod key_management_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4265,13 +5896,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_iam_policy][super::super::client::KeyManagementService::get_iam_policy] calls.
+    /// The request builder for [KeyManagementService::get_iam_policy][crate::client::KeyManagementService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4305,11 +5952,20 @@ pub mod key_management_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4321,13 +5977,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::test_iam_permissions][super::super::client::KeyManagementService::test_iam_permissions] calls.
+    /// The request builder for [KeyManagementService::test_iam_permissions][crate::client::KeyManagementService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4384,13 +6056,29 @@ pub mod key_management_service {
         }
     }
 
-    /// The request builder for [KeyManagementService::get_operation][super::super::client::KeyManagementService::get_operation] calls.
+    /// The request builder for [KeyManagementService::get_operation][crate::client::KeyManagementService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_v1::builder;
+    /// use builder::key_management_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::KeyManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Contact Center AI Insights API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
 /// let client = ContactCenterInsights::builder().build().await?;
 /// // use `client` to make requests to the Contact Center AI Insights API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `ContactCenterInsights` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ContactCenterInsights` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ContactCenterInsights {
-    inner: Arc<dyn super::stub::dynamic::ContactCenterInsights>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ContactCenterInsights>,
 }
 
 impl ContactCenterInsights {
@@ -72,7 +69,7 @@ impl ContactCenterInsights {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// let client = ContactCenterInsights::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::contact_center_insights::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,33 +86,36 @@ impl ContactCenterInsights {
         T: super::stub::ContactCenterInsights + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ContactCenterInsights>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ContactCenterInsights>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ContactCenterInsights> {
+    ) -> gax::client_builder::Result<impl super::stub::ContactCenterInsights> {
         super::transport::ContactCenterInsights::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ContactCenterInsights> {
+    ) -> gax::client_builder::Result<impl super::stub::ContactCenterInsights> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ContactCenterInsights::new)
@@ -126,10 +126,8 @@ impl ContactCenterInsights {
     /// Use `conversations.upload` instead.
     pub fn create_conversation(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CreateConversation {
         super::builder::contact_center_insights::CreateConversation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a long-running conversation upload operation. This method differs
@@ -147,46 +145,32 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn upload_conversation(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::UploadConversation {
         super::builder::contact_center_insights::UploadConversation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a conversation.
     pub fn update_conversation(
         &self,
-        conversation: impl Into<crate::model::Conversation>,
     ) -> super::builder::contact_center_insights::UpdateConversation {
         super::builder::contact_center_insights::UpdateConversation::new(self.inner.clone())
-            .set_conversation(conversation.into())
     }
 
     /// Gets a conversation.
-    pub fn get_conversation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetConversation {
+    pub fn get_conversation(&self) -> super::builder::contact_center_insights::GetConversation {
         super::builder::contact_center_insights::GetConversation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists conversations.
-    pub fn list_conversations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListConversations {
+    pub fn list_conversations(&self) -> super::builder::contact_center_insights::ListConversations {
         super::builder::contact_center_insights::ListConversations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a conversation.
     pub fn delete_conversation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeleteConversation {
         super::builder::contact_center_insights::DeleteConversation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an analysis. The long running operation is done when the analysis
@@ -201,39 +185,23 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_analysis(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::CreateAnalysis {
+    pub fn create_analysis(&self) -> super::builder::contact_center_insights::CreateAnalysis {
         super::builder::contact_center_insights::CreateAnalysis::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an analysis.
-    pub fn get_analysis(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetAnalysis {
+    pub fn get_analysis(&self) -> super::builder::contact_center_insights::GetAnalysis {
         super::builder::contact_center_insights::GetAnalysis::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists analyses.
-    pub fn list_analyses(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListAnalyses {
+    pub fn list_analyses(&self) -> super::builder::contact_center_insights::ListAnalyses {
         super::builder::contact_center_insights::ListAnalyses::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an analysis.
-    pub fn delete_analysis(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::DeleteAnalysis {
+    pub fn delete_analysis(&self) -> super::builder::contact_center_insights::DeleteAnalysis {
         super::builder::contact_center_insights::DeleteAnalysis::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Analyzes multiple conversations in a single request.
@@ -249,10 +217,8 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn bulk_analyze_conversations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::BulkAnalyzeConversations {
         super::builder::contact_center_insights::BulkAnalyzeConversations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes multiple conversations in a single request.
@@ -268,10 +234,8 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn bulk_delete_conversations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::BulkDeleteConversations {
         super::builder::contact_center_insights::BulkDeleteConversations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Imports conversations and processes them according to the user's
@@ -288,10 +252,8 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn ingest_conversations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::IngestConversations {
         super::builder::contact_center_insights::IngestConversations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Export insights data to a destination defined in the request body.
@@ -307,10 +269,8 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn export_insights_data(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::ExportInsightsData {
         super::builder::contact_center_insights::ExportInsightsData::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates an issue model.
@@ -324,39 +284,23 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_issue_model(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::CreateIssueModel {
+    pub fn create_issue_model(&self) -> super::builder::contact_center_insights::CreateIssueModel {
         super::builder::contact_center_insights::CreateIssueModel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an issue model.
-    pub fn update_issue_model(
-        &self,
-        issue_model: impl Into<crate::model::IssueModel>,
-    ) -> super::builder::contact_center_insights::UpdateIssueModel {
+    pub fn update_issue_model(&self) -> super::builder::contact_center_insights::UpdateIssueModel {
         super::builder::contact_center_insights::UpdateIssueModel::new(self.inner.clone())
-            .set_issue_model(issue_model.into())
     }
 
     /// Gets an issue model.
-    pub fn get_issue_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetIssueModel {
+    pub fn get_issue_model(&self) -> super::builder::contact_center_insights::GetIssueModel {
         super::builder::contact_center_insights::GetIssueModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists issue models.
-    pub fn list_issue_models(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListIssueModels {
+    pub fn list_issue_models(&self) -> super::builder::contact_center_insights::ListIssueModels {
         super::builder::contact_center_insights::ListIssueModels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an issue model.
@@ -370,12 +314,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_issue_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::DeleteIssueModel {
+    pub fn delete_issue_model(&self) -> super::builder::contact_center_insights::DeleteIssueModel {
         super::builder::contact_center_insights::DeleteIssueModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deploys an issue model. Returns an error if a model is already deployed.
@@ -390,12 +330,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn deploy_issue_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::DeployIssueModel {
+    pub fn deploy_issue_model(&self) -> super::builder::contact_center_insights::DeployIssueModel {
         super::builder::contact_center_insights::DeployIssueModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Undeploys an issue model.
@@ -412,10 +348,8 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn undeploy_issue_model(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::UndeployIssueModel {
         super::builder::contact_center_insights::UndeployIssueModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Exports an issue model to the provided destination.
@@ -429,12 +363,8 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_issue_model(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ExportIssueModel {
+    pub fn export_issue_model(&self) -> super::builder::contact_center_insights::ExportIssueModel {
         super::builder::contact_center_insights::ExportIssueModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Imports an issue model from a Cloud Storage bucket.
@@ -448,183 +378,123 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_issue_model(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ImportIssueModel {
+    pub fn import_issue_model(&self) -> super::builder::contact_center_insights::ImportIssueModel {
         super::builder::contact_center_insights::ImportIssueModel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an issue.
-    pub fn get_issue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetIssue {
+    pub fn get_issue(&self) -> super::builder::contact_center_insights::GetIssue {
         super::builder::contact_center_insights::GetIssue::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists issues.
-    pub fn list_issues(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListIssues {
+    pub fn list_issues(&self) -> super::builder::contact_center_insights::ListIssues {
         super::builder::contact_center_insights::ListIssues::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an issue.
-    pub fn update_issue(
-        &self,
-        issue: impl Into<crate::model::Issue>,
-    ) -> super::builder::contact_center_insights::UpdateIssue {
+    pub fn update_issue(&self) -> super::builder::contact_center_insights::UpdateIssue {
         super::builder::contact_center_insights::UpdateIssue::new(self.inner.clone())
-            .set_issue(issue.into())
     }
 
     /// Deletes an issue.
-    pub fn delete_issue(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::DeleteIssue {
+    pub fn delete_issue(&self) -> super::builder::contact_center_insights::DeleteIssue {
         super::builder::contact_center_insights::DeleteIssue::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets an issue model's statistics.
     pub fn calculate_issue_model_stats(
         &self,
-        issue_model: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CalculateIssueModelStats {
         super::builder::contact_center_insights::CalculateIssueModelStats::new(self.inner.clone())
-            .set_issue_model(issue_model.into())
     }
 
     /// Creates a phrase matcher.
     pub fn create_phrase_matcher(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CreatePhraseMatcher {
         super::builder::contact_center_insights::CreatePhraseMatcher::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a phrase matcher.
-    pub fn get_phrase_matcher(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetPhraseMatcher {
+    pub fn get_phrase_matcher(&self) -> super::builder::contact_center_insights::GetPhraseMatcher {
         super::builder::contact_center_insights::GetPhraseMatcher::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists phrase matchers.
     pub fn list_phrase_matchers(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::ListPhraseMatchers {
         super::builder::contact_center_insights::ListPhraseMatchers::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a phrase matcher.
     pub fn delete_phrase_matcher(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeletePhraseMatcher {
         super::builder::contact_center_insights::DeletePhraseMatcher::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a phrase matcher.
     pub fn update_phrase_matcher(
         &self,
-        phrase_matcher: impl Into<crate::model::PhraseMatcher>,
     ) -> super::builder::contact_center_insights::UpdatePhraseMatcher {
         super::builder::contact_center_insights::UpdatePhraseMatcher::new(self.inner.clone())
-            .set_phrase_matcher(phrase_matcher.into())
     }
 
     /// Gets conversation statistics.
-    pub fn calculate_stats(
-        &self,
-        location: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::CalculateStats {
+    pub fn calculate_stats(&self) -> super::builder::contact_center_insights::CalculateStats {
         super::builder::contact_center_insights::CalculateStats::new(self.inner.clone())
-            .set_location(location.into())
     }
 
     /// Gets project-level settings.
-    pub fn get_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetSettings {
+    pub fn get_settings(&self) -> super::builder::contact_center_insights::GetSettings {
         super::builder::contact_center_insights::GetSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates project-level settings.
-    pub fn update_settings(
-        &self,
-        settings: impl Into<crate::model::Settings>,
-    ) -> super::builder::contact_center_insights::UpdateSettings {
+    pub fn update_settings(&self) -> super::builder::contact_center_insights::UpdateSettings {
         super::builder::contact_center_insights::UpdateSettings::new(self.inner.clone())
-            .set_settings(settings.into())
     }
 
     /// Creates a analysis rule.
     pub fn create_analysis_rule(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CreateAnalysisRule {
         super::builder::contact_center_insights::CreateAnalysisRule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get a analysis rule.
-    pub fn get_analysis_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetAnalysisRule {
+    pub fn get_analysis_rule(&self) -> super::builder::contact_center_insights::GetAnalysisRule {
         super::builder::contact_center_insights::GetAnalysisRule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists analysis rules.
     pub fn list_analysis_rules(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::ListAnalysisRules {
         super::builder::contact_center_insights::ListAnalysisRules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a analysis rule.
     pub fn update_analysis_rule(
         &self,
-        analysis_rule: impl Into<crate::model::AnalysisRule>,
     ) -> super::builder::contact_center_insights::UpdateAnalysisRule {
         super::builder::contact_center_insights::UpdateAnalysisRule::new(self.inner.clone())
-            .set_analysis_rule(analysis_rule.into())
     }
 
     /// Deletes a analysis rule.
     pub fn delete_analysis_rule(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeleteAnalysisRule {
         super::builder::contact_center_insights::DeleteAnalysisRule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets location-level encryption key specification.
     pub fn get_encryption_spec(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::GetEncryptionSpec {
         super::builder::contact_center_insights::GetEncryptionSpec::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Initializes a location-level encryption key specification. An error will
@@ -644,55 +514,33 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn initialize_encryption_spec(
         &self,
-        encryption_spec: impl Into<crate::model::EncryptionSpec>,
     ) -> super::builder::contact_center_insights::InitializeEncryptionSpec {
         super::builder::contact_center_insights::InitializeEncryptionSpec::new(self.inner.clone())
-            .set_encryption_spec(encryption_spec.into())
     }
 
     /// Creates a view.
-    pub fn create_view(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::CreateView {
+    pub fn create_view(&self) -> super::builder::contact_center_insights::CreateView {
         super::builder::contact_center_insights::CreateView::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a view.
-    pub fn get_view(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetView {
+    pub fn get_view(&self) -> super::builder::contact_center_insights::GetView {
         super::builder::contact_center_insights::GetView::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists views.
-    pub fn list_views(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListViews {
+    pub fn list_views(&self) -> super::builder::contact_center_insights::ListViews {
         super::builder::contact_center_insights::ListViews::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a view.
-    pub fn update_view(
-        &self,
-        view: impl Into<crate::model::View>,
-    ) -> super::builder::contact_center_insights::UpdateView {
+    pub fn update_view(&self) -> super::builder::contact_center_insights::UpdateView {
         super::builder::contact_center_insights::UpdateView::new(self.inner.clone())
-            .set_view(view.into())
     }
 
     /// Deletes a view.
-    pub fn delete_view(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::DeleteView {
+    pub fn delete_view(&self) -> super::builder::contact_center_insights::DeleteView {
         super::builder::contact_center_insights::DeleteView::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Query metrics.
@@ -706,120 +554,78 @@ impl ContactCenterInsights {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn query_metrics(
-        &self,
-        location: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::QueryMetrics {
+    pub fn query_metrics(&self) -> super::builder::contact_center_insights::QueryMetrics {
         super::builder::contact_center_insights::QueryMetrics::new(self.inner.clone())
-            .set_location(location.into())
     }
 
     /// Create a QaQuestion.
-    pub fn create_qa_question(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::CreateQaQuestion {
+    pub fn create_qa_question(&self) -> super::builder::contact_center_insights::CreateQaQuestion {
         super::builder::contact_center_insights::CreateQaQuestion::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a QaQuestion.
-    pub fn get_qa_question(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetQaQuestion {
+    pub fn get_qa_question(&self) -> super::builder::contact_center_insights::GetQaQuestion {
         super::builder::contact_center_insights::GetQaQuestion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a QaQuestion.
-    pub fn update_qa_question(
-        &self,
-        qa_question: impl Into<crate::model::QaQuestion>,
-    ) -> super::builder::contact_center_insights::UpdateQaQuestion {
+    pub fn update_qa_question(&self) -> super::builder::contact_center_insights::UpdateQaQuestion {
         super::builder::contact_center_insights::UpdateQaQuestion::new(self.inner.clone())
-            .set_qa_question(qa_question.into())
     }
 
     /// Deletes a QaQuestion.
-    pub fn delete_qa_question(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::DeleteQaQuestion {
+    pub fn delete_qa_question(&self) -> super::builder::contact_center_insights::DeleteQaQuestion {
         super::builder::contact_center_insights::DeleteQaQuestion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists QaQuestions.
-    pub fn list_qa_questions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListQaQuestions {
+    pub fn list_qa_questions(&self) -> super::builder::contact_center_insights::ListQaQuestions {
         super::builder::contact_center_insights::ListQaQuestions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create a QaScorecard.
     pub fn create_qa_scorecard(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CreateQaScorecard {
         super::builder::contact_center_insights::CreateQaScorecard::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a QaScorecard.
-    pub fn get_qa_scorecard(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetQaScorecard {
+    pub fn get_qa_scorecard(&self) -> super::builder::contact_center_insights::GetQaScorecard {
         super::builder::contact_center_insights::GetQaScorecard::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a QaScorecard.
     pub fn update_qa_scorecard(
         &self,
-        qa_scorecard: impl Into<crate::model::QaScorecard>,
     ) -> super::builder::contact_center_insights::UpdateQaScorecard {
         super::builder::contact_center_insights::UpdateQaScorecard::new(self.inner.clone())
-            .set_qa_scorecard(qa_scorecard.into())
     }
 
     /// Deletes a QaScorecard.
     pub fn delete_qa_scorecard(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeleteQaScorecard {
         super::builder::contact_center_insights::DeleteQaScorecard::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists QaScorecards.
-    pub fn list_qa_scorecards(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListQaScorecards {
+    pub fn list_qa_scorecards(&self) -> super::builder::contact_center_insights::ListQaScorecards {
         super::builder::contact_center_insights::ListQaScorecards::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a QaScorecardRevision.
     pub fn create_qa_scorecard_revision(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CreateQaScorecardRevision {
         super::builder::contact_center_insights::CreateQaScorecardRevision::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a QaScorecardRevision.
     pub fn get_qa_scorecard_revision(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::GetQaScorecardRevision {
         super::builder::contact_center_insights::GetQaScorecardRevision::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Fine tune one or more QaModels.
@@ -835,102 +641,78 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn tune_qa_scorecard_revision(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::TuneQaScorecardRevision {
         super::builder::contact_center_insights::TuneQaScorecardRevision::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deploy a QaScorecardRevision.
     pub fn deploy_qa_scorecard_revision(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeployQaScorecardRevision {
         super::builder::contact_center_insights::DeployQaScorecardRevision::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Undeploy a QaScorecardRevision.
     pub fn undeploy_qa_scorecard_revision(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::UndeployQaScorecardRevision {
         super::builder::contact_center_insights::UndeployQaScorecardRevision::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Deletes a QaScorecardRevision.
     pub fn delete_qa_scorecard_revision(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeleteQaScorecardRevision {
         super::builder::contact_center_insights::DeleteQaScorecardRevision::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all revisions under the parent QaScorecard.
     pub fn list_qa_scorecard_revisions(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::ListQaScorecardRevisions {
         super::builder::contact_center_insights::ListQaScorecardRevisions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create feedback label.
     pub fn create_feedback_label(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::CreateFeedbackLabel {
         super::builder::contact_center_insights::CreateFeedbackLabel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// List feedback labels.
     pub fn list_feedback_labels(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::ListFeedbackLabels {
         super::builder::contact_center_insights::ListFeedbackLabels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get feedback label.
-    pub fn get_feedback_label(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetFeedbackLabel {
+    pub fn get_feedback_label(&self) -> super::builder::contact_center_insights::GetFeedbackLabel {
         super::builder::contact_center_insights::GetFeedbackLabel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update feedback label.
     pub fn update_feedback_label(
         &self,
-        feedback_label: impl Into<crate::model::FeedbackLabel>,
     ) -> super::builder::contact_center_insights::UpdateFeedbackLabel {
         super::builder::contact_center_insights::UpdateFeedbackLabel::new(self.inner.clone())
-            .set_feedback_label(feedback_label.into())
     }
 
     /// Delete feedback label.
     pub fn delete_feedback_label(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::DeleteFeedbackLabel {
         super::builder::contact_center_insights::DeleteFeedbackLabel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List all feedback labels by project number.
     pub fn list_all_feedback_labels(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::ListAllFeedbackLabels {
         super::builder::contact_center_insights::ListAllFeedbackLabels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Upload feedback labels in bulk.
@@ -946,10 +728,8 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn bulk_upload_feedback_labels(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::BulkUploadFeedbackLabels {
         super::builder::contact_center_insights::BulkUploadFeedbackLabels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Download feedback labels in bulk.
@@ -965,42 +745,28 @@ impl ContactCenterInsights {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn bulk_download_feedback_labels(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::contact_center_insights::BulkDownloadFeedbackLabels {
         super::builder::contact_center_insights::BulkDownloadFeedbackLabels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::ListOperations {
+    pub fn list_operations(&self) -> super::builder::contact_center_insights::ListOperations {
         super::builder::contact_center_insights::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::GetOperation {
+    pub fn get_operation(&self) -> super::builder::contact_center_insights::GetOperation {
         super::builder::contact_center_insights::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contact_center_insights::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::contact_center_insights::CancelOperation {
         super::builder::contact_center_insights::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

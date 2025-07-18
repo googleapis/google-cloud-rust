@@ -16,27 +16,21 @@
 
 #[cfg(test)]
 mod serialization {
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+    use anyhow::Result;
+    use serde_json::json;
 
+    // The generator introduces synthetic fields for some OpenAPI-based
+    // services. Those are skipped during serialization, we need a test to
+    // verify this is the case.
     #[test]
-    fn protobuf() -> Result<()> {
-        let secret =
-            sm::model::Secret::default().set_name("projects/p-test-only/secrets/s-test-only");
-        let got = serde_json::to_value(&secret)?;
-        let want = serde_json::json!({
-            "name": "projects/p-test-only/secrets/s-test-only"
-        });
-        assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[test]
-    fn respects_protobuf_presence() -> Result<()> {
-        let message = sm::model::SecretPayload::default().set_data_crc32c(0);
-        let got = serde_json::to_value(&message)?;
-        let want = serde_json::json!({
-            "dataCrc32c": "0"
-        });
+    fn skip_synthetic_fields() -> Result<()> {
+        use smo::model::{CreateSecretRequest, Secret};
+        let input = CreateSecretRequest::new()
+            .set_project("a-synthetic-field")
+            .set_secret_id("another-synthetic-field")
+            .set_request_body(Secret::new().set_labels([("test-name", "test-value")]));
+        let got = serde_json::to_value(input)?;
+        let want = json!({"requestBody": {"labels": {"test-name": "test-value"}}});
         assert_eq!(got, want);
         Ok(())
     }

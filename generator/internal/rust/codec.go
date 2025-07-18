@@ -78,6 +78,15 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 		switch {
 		case key == "package-name-override":
 			codec.packageNameOverride = definition
+		case key == "name-overrides":
+			codec.nameOverrides = make(map[string]string)
+			for _, override := range strings.Split(definition, ",") {
+				tokens := strings.Split(override, "=")
+				if len(tokens) != 2 {
+					return nil, fmt.Errorf("cannot parse `name-overrides`. Expected input in the form of: 'n1=r1,n2=r2': %q", definition)
+				}
+				codec.nameOverrides[tokens[0]] = tokens[1]
+			}
 		case key == "module-path":
 			codec.modulePath = definition
 		case key == "copyright-year":
@@ -102,7 +111,11 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				codec.packageMapping[source] = pkgOption.pkg
 			}
 		case key == "disabled-rustdoc-warnings":
-			codec.disabledRustdocWarnings = strings.Split(definition, ",")
+			if definition == "" {
+				codec.disabledRustdocWarnings = []string{}
+			} else {
+				codec.disabledRustdocWarnings = strings.Split(definition, ",")
+			}
 		case key == "template-override":
 			codec.templateOverride = definition
 		case key == "include-grpc-only-methods":
@@ -117,12 +130,14 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `per-service-features` value %q to boolean: %w", definition, err)
 			}
 			codec.perServiceFeatures = value
-		case key == "skip-builder-docs":
+		case key == "has-veneer":
 			value, err := strconv.ParseBool(definition)
 			if err != nil {
-				return nil, fmt.Errorf("cannot convert `skip-builder-docs` value %q to boolean: %w", definition, err)
+				return nil, fmt.Errorf("cannot convert `has-veneer` value %q to boolean: %w", definition, err)
 			}
-			codec.skipBuilderDocs = value
+			codec.hasVeneer = value
+		case key == "internal-types":
+			codec.internalTypes = strings.Split(definition, ",")
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -138,8 +153,7 @@ type packageOption struct {
 func parsePackageOption(key, definition string) (*packageOption, error) {
 	var specificationPackages []string
 	pkg := &packagez{
-		name:            strings.TrimPrefix(key, "package:"),
-		defaultFeatures: true,
+		name: strings.TrimPrefix(key, "package:"),
 	}
 	for _, element := range strings.Split(definition, ",") {
 		s := strings.SplitN(element, "=", 2)
@@ -149,20 +163,10 @@ func parsePackageOption(key, definition string) (*packageOption, error) {
 		switch s[0] {
 		case "package":
 			pkg.packageName = s[1]
-		case "path":
-			pkg.path = s[1]
-		case "version":
-			pkg.version = s[1]
 		case "source":
 			specificationPackages = append(specificationPackages, s[1])
 		case "feature":
-			pkg.features = append(pkg.features, strings.Split(s[1], ",")...)
-		case "default-features":
-			value, err := strconv.ParseBool(s[1])
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `default-features` value %q (part of %q) to boolean: %w", definition, s[1], err)
-			}
-			pkg.defaultFeatures = value
+			pkg.features = append(pkg.features, s[1])
 		case "ignore":
 			value, err := strconv.ParseBool(s[1])
 			if err != nil {
@@ -190,6 +194,12 @@ func parsePackageOption(key, definition string) (*packageOption, error) {
 type codec struct {
 	// Package name override. If not empty, overrides the default package name.
 	packageNameOverride string
+	// Name overrides. Maps IDs to new *unqualified* names, e.g.:
+	//   .google.test.Service: Rename
+	//   .google.test.Message.conflict_name_oneof: ConflictNameOneOf
+	//
+	// TODO(#1173) - this only supports services and oneofs at the moment.
+	nameOverrides map[string]string
 	// The year when the files were first generated.
 	generationYear string
 	// The full path of the generated module within the crate. This defaults to
@@ -220,15 +230,24 @@ type codec struct {
 	disabledRustdocWarnings []string
 	// The default system parameters included in all requests.
 	systemParameters []systemParameter
-	// Overrides the template sudirectory.
+	// Overrides the template subdirectory.
 	templateOverride string
 	// If true, this includes gRPC-only methods, such as methods without HTTP
 	// annotations.
 	includeGrpcOnlyMethods bool
 	// If true, the generator will produce per-client features.
 	perServiceFeatures bool
-	// If true, skip the documentation for Client and Request builders.
-	skipBuilderDocs bool
+	// If true, there is a handwritten client surface.
+	hasVeneer bool
+	// A list of types which should only be `pub(crate)`.
+	//
+	// In rare cases, it is easiest to manage type visibility via the codec
+	// instead of a handwritten `lib.rs`. One such example is `storage`,
+	// where we want to export all types (50+, and growing) except for a
+	// few, which are only implementation details.
+	//
+	// Only supports messages.
+	internalTypes []string
 }
 
 type systemParameter struct {
@@ -245,10 +264,6 @@ type packagez struct {
 	ignore bool
 	// What the Rust package calls itself.
 	packageName string
-	// The path to file the package locally, unused if empty.
-	path string
-	// The version of the package, unused if empty.
-	version string
 	// Optional features enabled for the package.
 	features []string
 	// If true, this package was referenced by a generated message, service, or
@@ -258,8 +273,6 @@ type packagez struct {
 	// present. For example, the LRO support helpers are used if LROs are found,
 	// and the service support functions are used if any service is found.
 	usedIf []string
-	// If true, the default features are enabled.
-	defaultFeatures bool
 }
 
 var wellKnownMessages = []*api.Message{
@@ -319,14 +332,18 @@ func loadWellKnownTypes(s *api.APIState) {
 func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
 	hasServices := len(model.State.ServiceByID) > 0
 	hasLROs := false
+	hasAutoPopulation := false
 	for _, s := range model.Services {
-		if hasLROs {
-			break
-		}
+		// In practice, barely any services have auto-population. We are
+		// almost always performing the full loop. `break`ing early does
+		// not save us any computations.
+
 		for _, m := range s.Methods {
 			if m.OperationInfo != nil {
 				hasLROs = true
-				break
+			}
+			if len(m.AutoPopulated) != 0 {
+				hasAutoPopulation = true
 			}
 		}
 	}
@@ -340,6 +357,10 @@ func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
 				break
 			}
 			if namedFeature == "lro" && hasLROs {
+				pkg.used = true
+				break
+			}
+			if namedFeature == "autopopulated" && hasAutoPopulation {
 				pkg.used = true
 				break
 			}
@@ -388,176 +409,18 @@ func scalarFieldType(f *api.Field) string {
 	return out
 }
 
-func fieldFormatter(typez api.Typez) string {
-	switch typez {
-	case api.INT64_TYPE,
-		api.UINT64_TYPE,
-		api.FIXED64_TYPE,
-		api.SFIXED64_TYPE,
-		api.SINT64_TYPE:
-		return "serde_with::DisplayFromStr"
-	case api.BYTES_TYPE:
-		return "serde_with::base64::Base64"
-	default:
-		return "_"
-	}
-}
-
-func fieldSkipAttributes(f *api.Field) []string {
-	switch f.Typez {
-	case api.STRING_TYPE:
-		return []string{`#[serde(skip_serializing_if = "std::string::String::is_empty")]`}
-	case api.BYTES_TYPE:
-		return []string{`#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]`}
-	case api.DOUBLE_TYPE,
-		api.FLOAT_TYPE,
-		api.INT64_TYPE,
-		api.UINT64_TYPE,
-		api.INT32_TYPE,
-		api.FIXED64_TYPE,
-		api.FIXED32_TYPE,
-		api.BOOL_TYPE,
-		api.UINT32_TYPE,
-		api.SFIXED32_TYPE,
-		api.SFIXED64_TYPE,
-		api.SINT32_TYPE,
-		api.SINT64_TYPE:
-		return []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`}
-	default:
-		return []string{}
-	}
-}
-
-func fieldBaseAttributes(f *api.Field) []string {
-	if toCamel(toSnake(f.Name)) != f.JSONName {
-		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
-	}
-	return []string{}
-}
-
-func wrapperFieldAttributes(f *api.Field, attributes []string) []string {
-	// Message fields could be `Vec<..>`, and are always optional:
-	if f.Optional {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-	}
-	if f.Repeated {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-	}
-	var formatter string
-	switch f.TypezID {
-	case ".google.protobuf.BytesValue":
-		formatter = fieldFormatter(api.BYTES_TYPE)
-	case ".google.protobuf.UInt64Value":
-		formatter = fieldFormatter(api.UINT64_TYPE)
-	case ".google.protobuf.Int64Value":
-		formatter = fieldFormatter(api.INT64_TYPE)
-	default:
-		return attributes
-	}
-	// A few message types require ad-hoc treatment. Most are just managed with
-	// the default handler.
-	if f.Optional {
-		return append(
-			attributes,
-			fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
-	}
-	if f.Repeated {
-		return append(
-			attributes,
-			fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
-	}
-	return append(
-		attributes,
-		fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
-}
-
-func fieldAttributes(f *api.Field, state *api.APIState) []string {
-	if f.Synthetic {
-		return []string{`#[serde(skip)]`}
-	}
-	attributes := fieldBaseAttributes(f)
-	switch f.Typez {
-	case api.DOUBLE_TYPE,
-		api.FLOAT_TYPE,
-		api.INT32_TYPE,
-		api.FIXED32_TYPE,
-		api.BOOL_TYPE,
-		api.STRING_TYPE,
-		api.UINT32_TYPE,
-		api.SFIXED32_TYPE,
-		api.SINT32_TYPE,
-		api.ENUM_TYPE,
-		api.GROUP_TYPE:
-		if f.Optional {
-			return append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-		}
-		if f.Repeated {
-			return append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-		}
-		return append(attributes, fieldSkipAttributes(f)...)
-
-	case api.INT64_TYPE,
-		api.UINT64_TYPE,
-		api.FIXED64_TYPE,
-		api.SFIXED64_TYPE,
-		api.SINT64_TYPE,
-		api.BYTES_TYPE:
-		formatter := fieldFormatter(f.Typez)
-		if f.Optional {
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
-		}
-		if f.Repeated {
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::vec::Vec<%s>")]`, formatter))
-		}
-		attributes = append(attributes, fieldSkipAttributes(f)...)
-		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, formatter))
-
-	case api.MESSAGE_TYPE:
-		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
-			// map<> field types require special treatment.
-			attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
-			var key, value *api.Field
-			for _, f := range message.Fields {
-				switch f.Name {
-				case "key":
-					key = f
-				case "value":
-					value = f
-				default:
-				}
-			}
-			if key == nil || value == nil {
-				slog.Error("missing key or value in map field")
-				return attributes
-			}
-			keyFormat := fieldFormatter(key.Typez)
-			valFormat := fieldFormatter(value.Typez)
-			if keyFormat == "_" && valFormat == "_" {
-				return attributes
-			}
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "std::collections::HashMap<%s, %s>")]`, keyFormat, valFormat))
-		}
-		return wrapperFieldAttributes(f, attributes)
-
-	default:
-		slog.Error("unexpected field type", "field", *f)
-		return attributes
-	}
-}
-
 func oneOfFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	baseType := baseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
+	return oneOfFieldTypeFormatter(f, language.FieldIsMap(f, state), baseType)
+}
+
+func oneOfFieldTypeFormatter(f *api.Field, fieldIsMap bool, baseType string) string {
 	switch {
 	case f.Repeated:
 		return fmt.Sprintf("std::vec::Vec<%s>", baseType)
 	case f.Typez == api.MESSAGE_TYPE:
-		if language.FieldIsMap(f, state) {
+		if fieldIsMap {
 			return baseType
-		}
-		if f.Optional {
-			return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 		}
 		return fmt.Sprintf("std::boxed::Box<%s>", baseType)
 	case f.Optional:
@@ -654,25 +517,15 @@ func addQueryParameter(f *api.Field) string {
 		}
 		return fmt.Sprintf(`let builder = builder.query(&[("%s", &req.%s)]);`, f.JSONName, fieldName)
 	case api.MESSAGE_TYPE:
-		if f.TypezID == ".google.protobuf.FieldMask" {
-			// `FieldMask` (and other well-known types) are special. Their JSON
-			// encoding is a string. That works well for `Timestamp`, `Empty`,
-			// `Duration`, and so forth, but is not what Google Cloud expects
-			// for query parameters.
-			if f.Optional || f.Repeated {
-				return fmt.Sprintf(`let builder = req.%s.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
-			}
-			return fmt.Sprintf(`let builder = req.%s.paths.iter().fold(builder, |builder, v| builder.query(&[("%s", v)]));`, fieldName, f.JSONName)
-		}
 		// Query parameters in nested messages are first converted to a
 		// `serde_json::Value`` and then recursively merged into the request
 		// query. The conversion to `serde_json::Value` is expensive, but very
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
 		if f.Optional || f.Repeated {
-			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
+			return fmt.Sprintf(`let builder = req.%s.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "%s") });`, fieldName, f.JSONName)
 		}
-		return fmt.Sprintf(`let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::serde)?.add(builder, "%s") };`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.%s).map_err(Error::ser)?.add(builder, "%s") };`, fieldName, f.JSONName)
 	default:
 		if f.Optional || f.Repeated {
 			return fmt.Sprintf(`let builder = req.%s.iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
@@ -692,7 +545,7 @@ func addQueryParameterOneOf(f *api.Field) string {
 		// query. The conversion to `serde_json::Value` is expensive, but very
 		// few requests use nested objects as query parameters. Furthermore,
 		// the conversion is skipped if the object field is `None`.`
-		return fmt.Sprintf(`let builder = req.%s().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
+		return fmt.Sprintf(`let builder = req.%s().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "%s") });`, fieldName, f.JSONName)
 	default:
 		return fmt.Sprintf(`let builder = req.%s().iter().fold(builder, |builder, p| builder.query(&[("%s", p)]));`, fieldName, f.JSONName)
 	}
@@ -708,15 +561,6 @@ func (c *codec) methodInOutTypeName(id string, state *api.APIState, sourceSpecif
 		return ""
 	}
 	return fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-}
-
-func messageAttributes() []string {
-	return []string{
-		`#[serde_with::serde_as]`,
-		`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-		`#[serde(default, rename_all = "camelCase")]`,
-		`#[non_exhaustive]`,
-	}
 }
 
 func messageScopeName(m *api.Message, childPackageName, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
@@ -794,7 +638,7 @@ func enumValueName(e *api.EnumValue) string {
 //	    Red,
 //	    Green,
 //	    BlackAndBlue,
-//	    _123,
+//	    MyEnum123,
 //	    UnknownVariant(/* implementation detail */),
 //	}
 //
@@ -804,25 +648,22 @@ func enumValueVariantName(e *api.EnumValue) string {
 	// The most common case is trying to strip the prefix for `FOO_BAR_UNSPECIFIED`.
 	// The naming conventions being what they are, we need to test with a couple
 	// of different combinations. In particular, names with numbers, such as
-	// `InstancePrivateIpv6GoogleAccess` make life difficult for everyone.
-	parent := toScreamingSnake(e.Parent.Name)
-	if strings.HasPrefix(e.Name, parent+"_") {
-		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
+	// `InstancePrivateIpv6GoogleAccess` may be represented as
+	// `INSTANCE_PRIVATE_IPV6_GOOGLE_ACCESS` in enum values, while the automatic
+	// transformation would map it as `INSTANCE_PRIVATE_IPV_6_GOOGLE_ACCESS`.
+	// Note the extra `_` in `IPV_6` in the second case.
+	prefix := toScreamingSnake(e.Parent.Name) + "_"
+	trimmed := strings.TrimPrefix(e.Name, prefix)
+	if strings.HasPrefix(e.Name, prefix) && strings.IndexFunc(trimmed, unicode.IsLetter) == 0 {
+		return toPascal(trimmed)
 	}
 	trimNumbers := regexp.MustCompile(`_([0-9])`)
-	parent = trimNumbers.ReplaceAllString(parent, `$1`)
-	if strings.HasPrefix(e.Name, parent+"_") {
-		return enumValueVariantEscape(strings.TrimPrefix(e.Name, parent+"_"))
+	prefix = trimNumbers.ReplaceAllString(prefix, `$1`)
+	trimmed = strings.TrimPrefix(e.Name, prefix)
+	if strings.HasPrefix(e.Name, prefix) && strings.IndexFunc(trimmed, unicode.IsLetter) == 0 {
+		return toPascal(trimmed)
 	}
 	return toPascal(e.Name)
-}
-
-func enumValueVariantEscape(trimmed string) string {
-	trimmed = toPascal(trimmed)
-	if strings.IndexFunc(trimmed, unicode.IsLetter) != 0 {
-		return "_" + trimmed
-	}
-	return toPascal(trimmed)
 }
 
 func fullyQualifiedEnumValueName(v *api.EnumValue, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
@@ -837,87 +678,19 @@ func bodyAccessor(m *api.Method) string {
 	return "." + toSnake(m.PathInfo.BodyFieldPath)
 }
 
-func httpPathFmt(m *api.PathInfo) string {
+func httpPathFmt(t *api.PathTemplate) string {
 	fmt := ""
-	for _, segment := range m.PathTemplate {
+	for _, segment := range t.Segments {
 		if segment.Literal != nil {
 			fmt = fmt + "/" + *segment.Literal
-		} else if segment.FieldPath != nil {
+		} else if segment.Variable != nil {
 			fmt = fmt + "/{}"
-		} else if segment.Verb != nil {
-			fmt = fmt + ":" + *segment.Verb
 		}
+	}
+	if t.Verb != nil {
+		fmt = fmt + ":" + *t.Verb
 	}
 	return fmt
-}
-
-func derefFieldExpr(name string, optional bool, nextMessage *api.Message) (string, *api.Message) {
-	const (
-		optionalFmt = `.%s.as_ref().ok_or_else(|| gaxi::path_parameter::missing("%s"))?`
-	)
-	if optional {
-		return fmt.Sprintf(optionalFmt, name, name), nextMessage
-	}
-	return fmt.Sprintf(`.%s`, name), nextMessage
-}
-
-func derefFieldSingle(name string, message *api.Message, state *api.APIState) (string, *api.Message) {
-	for _, field := range message.Fields {
-		if name != field.Name {
-			continue
-		}
-		if field.Typez == api.MESSAGE_TYPE {
-			if nextMessage, ok := state.MessageByID[field.TypezID]; ok {
-				return derefFieldExpr(name, field.Optional, nextMessage)
-			}
-			slog.Error("cannot find next message for field", "currentMessage", message, "fieldName", name)
-			return derefFieldExpr(name, field.Optional, nil)
-		}
-		if field.Typez == api.ENUM_TYPE {
-			expr, nextMessage := derefFieldExpr(name, field.Optional, nil)
-			return expr, nextMessage
-		}
-		return derefFieldExpr(name, field.Optional, nil)
-	}
-	return "", nil
-}
-
-func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState) string {
-	var expression strings.Builder
-	components := strings.Split(fieldPath, ".")
-	msg := message
-	for _, name := range components {
-		if msg == nil {
-			slog.Error("cannot build full expression", "fieldPath", fieldPath, "message", msg)
-		}
-		expr, nextMessage := derefFieldSingle(name, msg, state)
-		expression.WriteString(expr)
-		msg = nextMessage
-	}
-	return expression.String()
-}
-
-type pathArg struct {
-	Name     string
-	Accessor string
-}
-
-func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pathArg {
-	message, ok := state.MessageByID[method.InputTypeID]
-	if !ok {
-		slog.Error("cannot find input message for", "method", method)
-		return []pathArg{}
-	}
-	var params []pathArg
-	for _, arg := range h.PathTemplate {
-		if arg.FieldPath != nil {
-			params = append(params, pathArg{
-				Name:     *arg.FieldPath,
-				Accessor: derefFieldPath(*arg.FieldPath, message, state),
-			})
-		}
-	}
-	return params
 }
 
 // Convert a name to `snake_case`. The Rust naming conventions use this style
@@ -1245,6 +1018,9 @@ func isLinkDestination(line string, matchStart, matchEnd int) bool {
 func processList(list *ast.List, indentLevel int, documentationBytes []byte, elementID string) []string {
 	var results []string
 	listMarker := string(list.Marker)
+	if list.IsOrdered() {
+		listMarker = "1."
+	}
 	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindListItem {
 			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, elementID)
@@ -1255,13 +1031,27 @@ func processList(list *ast.List, indentLevel int, documentationBytes []byte, ele
 }
 
 func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, elementID string) []string {
+	var markerIndent int
+	switch len(listMarker) {
+	case 1:
+		markerIndent = 2
+	case 2:
+		markerIndent = 3
+	default:
+		markerIndent = 2
+	}
 	var results []string
+	paragraphStart := listMarker
 	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindListItem {
+			paragraphStart = listMarker
+		}
 		if child.Kind() == ast.KindList {
-			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, elementID)
+			nestedListItems := processList(child.(*ast.List), indentLevel+markerIndent, documentationBytes, elementID)
 			results = append(results, nestedListItems...)
 			break
-		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
+		}
+		if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
 			if child.Lines().Len() == 0 {
 				// This indicates a bug in the documentation that should be
 				// fixed upstream. We continue despite the error because missing
@@ -1271,11 +1061,8 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			}
 			for i := 0; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
-				if i == 0 {
-					results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, line, documentationBytes)))
-				} else {
-					results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
-				}
+				results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), paragraphStart, processCommentLine(child, line, documentationBytes)))
+				paragraphStart = fmt.Sprintf("%*s", len(listMarker), "")
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")
@@ -1286,7 +1073,7 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 }
 
 func indent(level int) string {
-	return fmt.Sprintf("%*s", level*2, "")
+	return fmt.Sprintf("%*s", level, "")
 }
 
 func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {
@@ -1604,6 +1391,20 @@ func PackageName(api *api.API, packageNameOverride string) string {
 	return "google-cloud-" + name
 }
 
+func (c *codec) ServiceName(service *api.Service) string {
+	if override, ok := c.nameOverrides[service.ID]; ok {
+		return override
+	}
+	return service.Name
+}
+
+func (c *codec) OneOfEnumName(oneof *api.OneOf) string {
+	if override, ok := c.nameOverrides[oneof.ID]; ok {
+		return override
+	}
+	return toPascal(oneof.Name)
+}
+
 func (c *codec) generateMethod(m *api.Method) bool {
 	// Ignore methods without HTTP annotations, we cannot generate working
 	// RPCs for them.
@@ -1615,7 +1416,10 @@ func (c *codec) generateMethod(m *api.Method) bool {
 	if c.includeGrpcOnlyMethods {
 		return true
 	}
-	return m.PathInfo != nil && len(m.PathInfo.PathTemplate) != 0
+	if m.PathInfo == nil || len(m.PathInfo.Bindings) == 0 {
+		return false
+	}
+	return m.PathInfo.Bindings[0].PathTemplate != nil
 }
 
 // The list of Rust keywords and reserved words can be found at:

@@ -22,9 +22,23 @@ data "google_service_account" "test-sa-creds-principal" {
   account_id = "test-sa-creds"
 }
 
+# Key rotation for the service account key.
+resource "time_rotating" "key_rotation" {
+  rotation_days = 60
+}
+
 # Generate a key for the test service account credentials.
 resource "google_service_account_key" "test-sa-creds-principal-key" {
   service_account_id = data.google_service_account.test-sa-creds-principal.name
+
+  # Service account keys expire after 90 days, due to our org policy. So have
+  # terraform rotate this key after 60 days.
+  #
+  # Note that someone/something must run terraform periodically.
+  # TODO(#926) - Ideally we set up a job for this.
+  keepers = {
+    rotation_time = time_rotating.key_rotation.rotation_rfc3339
+  }
 }
 
 # This secret stores the ADC json for the principal testing service account credentials.

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Access Context Manager API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
 /// let client = AccessContextManager::builder().build().await?;
 /// // use `client` to make requests to the Access Context Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -68,11 +65,11 @@ use std::sync::Arc;
 ///
 /// `AccessContextManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AccessContextManager` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AccessContextManager {
-    inner: Arc<dyn super::stub::dynamic::AccessContextManager>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AccessContextManager>,
 }
 
 impl AccessContextManager {
@@ -82,7 +79,7 @@ impl AccessContextManager {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// let client = AccessContextManager::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::access_context_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -99,33 +96,36 @@ impl AccessContextManager {
         T: super::stub::AccessContextManager + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AccessContextManager>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AccessContextManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AccessContextManager> {
+    ) -> gax::client_builder::Result<impl super::stub::AccessContextManager> {
         super::transport::AccessContextManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AccessContextManager> {
+    ) -> gax::client_builder::Result<impl super::stub::AccessContextManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AccessContextManager::new)
@@ -142,12 +142,8 @@ impl AccessContextManager {
 
     /// Returns an [access policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy] based on the name.
-    pub fn get_access_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::GetAccessPolicy {
+    pub fn get_access_policy(&self) -> super::builder::access_context_manager::GetAccessPolicy {
         super::builder::access_context_manager::GetAccessPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an access policy. This method fails if the organization already has
@@ -189,10 +185,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_access_policy(
         &self,
-        policy: impl Into<crate::model::AccessPolicy>,
     ) -> super::builder::access_context_manager::UpdateAccessPolicy {
         super::builder::access_context_manager::UpdateAccessPolicy::new(self.inner.clone())
-            .set_policy(policy.into())
     }
 
     /// Deletes an [access policy]
@@ -212,32 +206,22 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_access_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::DeleteAccessPolicy {
         super::builder::access_context_manager::DeleteAccessPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all [access levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] for an access
     /// policy.
-    pub fn list_access_levels(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::ListAccessLevels {
+    pub fn list_access_levels(&self) -> super::builder::access_context_manager::ListAccessLevels {
         super::builder::access_context_manager::ListAccessLevels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an [access level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] based on the resource
     /// name.
-    pub fn get_access_level(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::GetAccessLevel {
+    pub fn get_access_level(&self) -> super::builder::access_context_manager::GetAccessLevel {
         super::builder::access_context_manager::GetAccessLevel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an [access level]
@@ -257,12 +241,8 @@ impl AccessContextManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_access_level(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::CreateAccessLevel {
+    pub fn create_access_level(&self) -> super::builder::access_context_manager::CreateAccessLevel {
         super::builder::access_context_manager::CreateAccessLevel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an [access level]
@@ -283,12 +263,8 @@ impl AccessContextManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_access_level(
-        &self,
-        access_level: impl Into<crate::model::AccessLevel>,
-    ) -> super::builder::access_context_manager::UpdateAccessLevel {
+    pub fn update_access_level(&self) -> super::builder::access_context_manager::UpdateAccessLevel {
         super::builder::access_context_manager::UpdateAccessLevel::new(self.inner.clone())
-            .set_access_level(access_level.into())
     }
 
     /// Deletes an [access level]
@@ -307,12 +283,8 @@ impl AccessContextManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_access_level(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::DeleteAccessLevel {
+    pub fn delete_access_level(&self) -> super::builder::access_context_manager::DeleteAccessLevel {
         super::builder::access_context_manager::DeleteAccessLevel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Replaces all existing [access levels]
@@ -344,10 +316,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn replace_access_levels(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::ReplaceAccessLevels {
         super::builder::access_context_manager::ReplaceAccessLevels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all [service perimeters]
@@ -355,10 +325,8 @@ impl AccessContextManager {
     /// access policy.
     pub fn list_service_perimeters(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::ListServicePerimeters {
         super::builder::access_context_manager::ListServicePerimeters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a [service perimeter]
@@ -366,10 +334,8 @@ impl AccessContextManager {
     /// resource name.
     pub fn get_service_perimeter(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::GetServicePerimeter {
         super::builder::access_context_manager::GetServicePerimeter::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a [service perimeter]
@@ -392,10 +358,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_service_perimeter(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::CreateServicePerimeter {
         super::builder::access_context_manager::CreateServicePerimeter::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a [service perimeter]
@@ -418,10 +382,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_service_perimeter(
         &self,
-        service_perimeter: impl Into<crate::model::ServicePerimeter>,
     ) -> super::builder::access_context_manager::UpdateServicePerimeter {
         super::builder::access_context_manager::UpdateServicePerimeter::new(self.inner.clone())
-            .set_service_perimeter(service_perimeter.into())
     }
 
     /// Deletes a [service perimeter]
@@ -442,10 +404,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_service_perimeter(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::DeleteServicePerimeter {
         super::builder::access_context_manager::DeleteServicePerimeter::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Replace all existing [service perimeters]
@@ -473,10 +433,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn replace_service_perimeters(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::ReplaceServicePerimeters {
         super::builder::access_context_manager::ReplaceServicePerimeters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Commits the dry-run specification for all the [service perimeters]
@@ -508,10 +466,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn commit_service_perimeters(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::CommitServicePerimeters {
         super::builder::access_context_manager::CommitServicePerimeters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all [GcpUserAccessBindings]
@@ -519,10 +475,8 @@ impl AccessContextManager {
     /// Google Cloud organization.
     pub fn list_gcp_user_access_bindings(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::ListGcpUserAccessBindings {
         super::builder::access_context_manager::ListGcpUserAccessBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the [GcpUserAccessBinding]
@@ -530,10 +484,8 @@ impl AccessContextManager {
     /// the given name.
     pub fn get_gcp_user_access_binding(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::GetGcpUserAccessBinding {
         super::builder::access_context_manager::GetGcpUserAccessBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a [GcpUserAccessBinding]
@@ -558,10 +510,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_gcp_user_access_binding(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::CreateGcpUserAccessBinding {
         super::builder::access_context_manager::CreateGcpUserAccessBinding::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a [GcpUserAccessBinding]
@@ -581,10 +531,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_gcp_user_access_binding(
         &self,
-        gcp_user_access_binding: impl Into<crate::model::GcpUserAccessBinding>,
     ) -> super::builder::access_context_manager::UpdateGcpUserAccessBinding {
         super::builder::access_context_manager::UpdateGcpUserAccessBinding::new(self.inner.clone())
-            .set_gcp_user_access_binding(gcp_user_access_binding.into())
     }
 
     /// Deletes a [GcpUserAccessBinding]
@@ -604,10 +552,8 @@ impl AccessContextManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_gcp_user_access_binding(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::DeleteGcpUserAccessBinding {
         super::builder::access_context_manager::DeleteGcpUserAccessBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the IAM policy for the specified Access Context Manager
@@ -618,24 +564,16 @@ impl AccessContextManager {
     /// policy][google.identity.accesscontextmanager.v1.AccessPolicy].
     ///
     /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::access_context_manager::SetIamPolicy {
         super::builder::access_context_manager::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the IAM policy for the specified Access Context Manager
     /// [access policy][google.identity.accesscontextmanager.v1.AccessPolicy].
     ///
     /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::access_context_manager::GetIamPolicy {
         super::builder::access_context_manager::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the IAM permissions that the caller has on the specified Access
@@ -649,20 +587,14 @@ impl AccessContextManager {
     /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::access_context_manager::TestIamPermissions {
         super::builder::access_context_manager::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::access_context_manager::GetOperation {
+    pub fn get_operation(&self) -> super::builder::access_context_manager::GetOperation {
         super::builder::access_context_manager::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

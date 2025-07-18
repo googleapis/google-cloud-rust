@@ -23,16 +23,17 @@ mod default_idempotency {
 
     type Result = anyhow::Result<()>;
     use gax::error::Error;
-    use gax::loop_state::LoopState;
     use gax::options::RequestOptionsBuilder;
     use gax::retry_policy::RetryPolicy;
+    use gax::retry_result::RetryResult;
+    use gax::throttle_result::ThrottleResult;
 
     mockall::mock! {
         #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryResult;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
     }
@@ -52,7 +53,7 @@ mod default_idempotency {
             .withf(move |_, _, idempotent, _| *idempotent == expected_idempotency)
             .once()
             .in_sequence(&mut seq)
-            .returning(move |_, _, _, e| LoopState::Permanent(e));
+            .returning(move |_, _, _, e| RetryResult::Permanent(e));
 
         retry_policy
     }
@@ -70,13 +71,14 @@ mod default_idempotency {
         use sm::client::SecretManagerService;
 
         #[tokio::test]
-        async fn test_default_idempotent() -> Result {
+        async fn default_idempotent() -> Result {
             let client = SecretManagerService::builder().build().await?;
 
             // We are calling `GetSecret`, which is a `GET`. This request should
             // be idempotent.
             let _ = client
-                .get_secret("invalid")
+                .get_secret()
+                .set_name("projects/fake-project/secrets/fake-secret")
                 .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
@@ -85,13 +87,14 @@ mod default_idempotency {
         }
 
         #[tokio::test]
-        async fn test_default_non_idempotent() -> Result {
+        async fn default_non_idempotent() -> Result {
             let client = SecretManagerService::builder().build().await?;
 
             // We are calling `AddSecretVersion`, which is a `POST`. This
             // request should not be idempotent.
             let _ = client
-                .add_secret_version("invalid")
+                .add_secret_version()
+                .set_parent("projects/fake-project/secrets/fake-secret")
                 .with_retry_policy(expect_non_idempotent())
                 .send()
                 .await;
@@ -103,15 +106,17 @@ mod default_idempotency {
     mod grpc {
         use super::*;
         use firestore::client::Firestore;
+        use storage::client::StorageControl;
 
         #[tokio::test]
-        async fn test_default_idempotent() -> Result {
+        async fn default_idempotent() -> Result {
             let client = Firestore::builder().build().await?;
 
             // We are calling `GetDocument`, which is a `GET`. This request
             // should be idempotent.
             let _ = client
-                .get_document("invalid")
+                .get_document()
+                .set_name("invalid")
                 .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
@@ -120,14 +125,30 @@ mod default_idempotency {
         }
 
         #[tokio::test]
-        async fn test_default_non_idempotent() -> Result {
+        async fn default_non_idempotent() -> Result {
             let client = Firestore::builder().build().await?;
 
             // We are calling `BeginTransaction`, which is a `POST`. This
             // request should not be idempotent.
             let _ = client
-                .begin_transaction("invalid")
+                .begin_transaction()
+                .set_database("invalid")
                 .with_retry_policy(expect_non_idempotent())
+                .send()
+                .await;
+
+            Ok(())
+        }
+
+        #[tokio::test]
+        async fn request_id_default_idempotent() -> Result {
+            let client = StorageControl::builder().build().await?;
+
+            // This RPC has an auto-populated request ID field. It should be
+            // idempotent.
+            let _ = client
+                .create_folder()
+                .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
 

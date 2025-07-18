@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_http_client"))]
-mod test {
+#[cfg(all(test, feature = "_internal-http-client"))]
+mod tests {
     type TestResult = Result<(), Box<dyn std::error::Error>>;
 
     /// A test policy, the only interesting bit is the name, which is included
@@ -28,8 +28,8 @@ mod test {
             _loop_start: std::time::Instant,
             _attempt_count: u32,
             error: gax::error::Error,
-        ) -> gax::loop_state::LoopState {
-            gax::loop_state::LoopState::Continue(error)
+        ) -> gax::retry_result::RetryResult {
+            gax::retry_result::RetryResult::Continue(error)
         }
     }
 

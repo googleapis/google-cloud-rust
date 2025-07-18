@@ -16,9 +16,8 @@
 
 pub mod video_stitcher_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [VideoStitcherService][super::super::client::VideoStitcherService].
+    /// A builder for [VideoStitcherService][crate::client::VideoStitcherService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod video_stitcher_service {
     /// let client = builder
     ///     .with_endpoint("https://videostitcher.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod video_stitcher_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VideoStitcherService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::VideoStitcherService] request builders.
+    /// Common implementation for [crate::client::VideoStitcherService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod video_stitcher_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_cdn_key][super::super::client::VideoStitcherService::create_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::create_cdn_key][crate::client::VideoStitcherService::create_cdn_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CreateCdnKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCdnKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCdnKey(RequestBuilder<crate::model::CreateCdnKeyRequest>);
 
     impl CreateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -97,7 +116,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cdn_key][super::super::client::VideoStitcherService::create_cdn_key].
+        /// on [create_cdn_key][crate::client::VideoStitcherService::create_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cdn_key(self.0.request, self.0.options)
@@ -109,7 +128,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +154,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCdnKeyRequest::parent].
@@ -148,11 +168,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdn_key = v.into();
+        pub fn set_cdn_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cdn_key][crate::model::CreateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = v.map(|x| x.into());
             self
         }
 
@@ -172,13 +203,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_cdn_keys][super::super::client::VideoStitcherService::list_cdn_keys] calls.
+    /// The request builder for [VideoStitcherService::list_cdn_keys][crate::client::VideoStitcherService::list_cdn_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListCdnKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCdnKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCdnKeys(RequestBuilder<crate::model::ListCdnKeysRequest>);
 
     impl ListCdnKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -203,8 +254,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCdnKeysResponse, gax::error::Error>
         {
@@ -216,6 +267,15 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCdnKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCdnKeysRequest::parent].
@@ -258,13 +318,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_cdn_key][super::super::client::VideoStitcherService::get_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::get_cdn_key][crate::client::VideoStitcherService::get_cdn_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetCdnKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCdnKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCdnKey(RequestBuilder<crate::model::GetCdnKeyRequest>);
 
     impl GetCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -305,13 +381,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_cdn_key][super::super::client::VideoStitcherService::delete_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::delete_cdn_key][crate::client::VideoStitcherService::delete_cdn_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::DeleteCdnKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCdnKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCdnKey(RequestBuilder<crate::model::DeleteCdnKeyRequest>);
 
     impl DeleteCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -333,7 +426,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cdn_key][super::super::client::VideoStitcherService::delete_cdn_key].
+        /// on [delete_cdn_key][crate::client::VideoStitcherService::delete_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cdn_key(self.0.request, self.0.options)
@@ -342,8 +435,8 @@ pub mod video_stitcher_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cdn_key`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,7 +461,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCdnKeyRequest::name].
@@ -387,13 +485,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_cdn_key][super::super::client::VideoStitcherService::update_cdn_key] calls.
+    /// The request builder for [VideoStitcherService::update_cdn_key][crate::client::VideoStitcherService::update_cdn_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::UpdateCdnKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCdnKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCdnKey(RequestBuilder<crate::model::UpdateCdnKeyRequest>);
 
     impl UpdateCdnKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -415,7 +530,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cdn_key][super::super::client::VideoStitcherService::update_cdn_key].
+        /// on [update_cdn_key][crate::client::VideoStitcherService::update_cdn_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cdn_key(self.0.request, self.0.options)
@@ -427,7 +542,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CdnKey, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CdnKey, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,28 +568,50 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cdn_key<T: Into<std::option::Option<crate::model::CdnKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cdn_key = v.into();
+        pub fn set_cdn_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cdn_key][crate::model::UpdateCdnKeyRequest::cdn_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cdn_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CdnKey>,
+        {
+            self.0.request.cdn_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCdnKeyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -485,13 +623,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_vod_session][super::super::client::VideoStitcherService::create_vod_session] calls.
+    /// The request builder for [VideoStitcherService::create_vod_session][crate::client::VideoStitcherService::create_vod_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CreateVodSession;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVodSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVodSession(RequestBuilder<crate::model::CreateVodSessionRequest>);
 
     impl CreateVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -530,11 +684,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_session<T: Into<std::option::Option<crate::model::VodSession>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_session = v.into();
+        pub fn set_vod_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodSession>,
+        {
+            self.0.request.vod_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vod_session][crate::model::CreateVodSessionRequest::vod_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vod_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodSession>,
+        {
+            self.0.request.vod_session = v.map(|x| x.into());
             self
         }
     }
@@ -546,13 +711,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_session][super::super::client::VideoStitcherService::get_vod_session] calls.
+    /// The request builder for [VideoStitcherService::get_vod_session][crate::client::VideoStitcherService::get_vod_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetVodSession;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVodSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVodSession(RequestBuilder<crate::model::GetVodSessionRequest>);
 
     impl GetVodSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -593,13 +774,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_vod_stitch_details][super::super::client::VideoStitcherService::list_vod_stitch_details] calls.
+    /// The request builder for [VideoStitcherService::list_vod_stitch_details][crate::client::VideoStitcherService::list_vod_stitch_details] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListVodStitchDetails;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVodStitchDetails {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVodStitchDetails(RequestBuilder<crate::model::ListVodStitchDetailsRequest>);
 
     impl ListVodStitchDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -627,8 +828,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVodStitchDetailsResponse, gax::error::Error>
         {
@@ -640,6 +841,17 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVodStitchDetailsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVodStitchDetailsRequest::parent].
@@ -670,13 +882,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_stitch_detail][super::super::client::VideoStitcherService::get_vod_stitch_detail] calls.
+    /// The request builder for [VideoStitcherService::get_vod_stitch_detail][crate::client::VideoStitcherService::get_vod_stitch_detail] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetVodStitchDetail;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVodStitchDetail {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVodStitchDetail(RequestBuilder<crate::model::GetVodStitchDetailRequest>);
 
     impl GetVodStitchDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -720,13 +948,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_vod_ad_tag_details][super::super::client::VideoStitcherService::list_vod_ad_tag_details] calls.
+    /// The request builder for [VideoStitcherService::list_vod_ad_tag_details][crate::client::VideoStitcherService::list_vod_ad_tag_details] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListVodAdTagDetails;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVodAdTagDetails {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVodAdTagDetails(RequestBuilder<crate::model::ListVodAdTagDetailsRequest>);
 
     impl ListVodAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -754,8 +1002,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVodAdTagDetailsResponse, gax::error::Error>
         {
@@ -767,6 +1015,17 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVodAdTagDetailsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVodAdTagDetailsRequest::parent].
@@ -797,13 +1056,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_ad_tag_detail][super::super::client::VideoStitcherService::get_vod_ad_tag_detail] calls.
+    /// The request builder for [VideoStitcherService::get_vod_ad_tag_detail][crate::client::VideoStitcherService::get_vod_ad_tag_detail] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetVodAdTagDetail;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVodAdTagDetail {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVodAdTagDetail(RequestBuilder<crate::model::GetVodAdTagDetailRequest>);
 
     impl GetVodAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -847,13 +1122,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_live_ad_tag_details][super::super::client::VideoStitcherService::list_live_ad_tag_details] calls.
+    /// The request builder for [VideoStitcherService::list_live_ad_tag_details][crate::client::VideoStitcherService::list_live_ad_tag_details] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListLiveAdTagDetails;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLiveAdTagDetails {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLiveAdTagDetails(RequestBuilder<crate::model::ListLiveAdTagDetailsRequest>);
 
     impl ListLiveAdTagDetails {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -881,8 +1176,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLiveAdTagDetailsResponse, gax::error::Error>
         {
@@ -894,6 +1189,17 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListLiveAdTagDetailsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLiveAdTagDetailsRequest::parent].
@@ -924,13 +1230,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_live_ad_tag_detail][super::super::client::VideoStitcherService::get_live_ad_tag_detail] calls.
+    /// The request builder for [VideoStitcherService::get_live_ad_tag_detail][crate::client::VideoStitcherService::get_live_ad_tag_detail] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetLiveAdTagDetail;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLiveAdTagDetail {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLiveAdTagDetail(RequestBuilder<crate::model::GetLiveAdTagDetailRequest>);
 
     impl GetLiveAdTagDetail {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -974,13 +1296,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_slate][super::super::client::VideoStitcherService::create_slate] calls.
+    /// The request builder for [VideoStitcherService::create_slate][crate::client::VideoStitcherService::create_slate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CreateSlate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSlate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSlate(RequestBuilder<crate::model::CreateSlateRequest>);
 
     impl CreateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1002,7 +1341,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_slate][super::super::client::VideoStitcherService::create_slate].
+        /// on [create_slate][crate::client::VideoStitcherService::create_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_slate(self.0.request, self.0.options)
@@ -1014,7 +1353,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1039,7 +1379,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSlateRequest::parent].
@@ -1061,11 +1401,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [slate][crate::model::CreateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slate = v.into();
+        pub fn set_slate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [slate][crate::model::CreateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = v.map(|x| x.into());
             self
         }
 
@@ -1083,13 +1434,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_slates][super::super::client::VideoStitcherService::list_slates] calls.
+    /// The request builder for [VideoStitcherService::list_slates][crate::client::VideoStitcherService::list_slates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListSlates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSlates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSlates(RequestBuilder<crate::model::ListSlatesRequest>);
 
     impl ListSlates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1114,8 +1485,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSlatesResponse, gax::error::Error>
         {
@@ -1127,6 +1498,15 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSlatesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSlatesRequest::parent].
@@ -1169,13 +1549,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_slate][super::super::client::VideoStitcherService::get_slate] calls.
+    /// The request builder for [VideoStitcherService::get_slate][crate::client::VideoStitcherService::get_slate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetSlate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSlate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSlate(RequestBuilder<crate::model::GetSlateRequest>);
 
     impl GetSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1216,13 +1612,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_slate][super::super::client::VideoStitcherService::update_slate] calls.
+    /// The request builder for [VideoStitcherService::update_slate][crate::client::VideoStitcherService::update_slate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::UpdateSlate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSlate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSlate(RequestBuilder<crate::model::UpdateSlateRequest>);
 
     impl UpdateSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1244,7 +1657,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_slate][super::super::client::VideoStitcherService::update_slate].
+        /// on [update_slate][crate::client::VideoStitcherService::update_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_slate(self.0.request, self.0.options)
@@ -1256,7 +1669,8 @@ pub mod video_stitcher_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Slate, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Slate, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Slate, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1281,28 +1695,50 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [slate][crate::model::UpdateSlateRequest::slate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_slate<T: Into<std::option::Option<crate::model::Slate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.slate = v.into();
+        pub fn set_slate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [slate][crate::model::UpdateSlateRequest::slate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_slate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Slate>,
+        {
+            self.0.request.slate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSlateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1314,13 +1750,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_slate][super::super::client::VideoStitcherService::delete_slate] calls.
+    /// The request builder for [VideoStitcherService::delete_slate][crate::client::VideoStitcherService::delete_slate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::DeleteSlate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSlate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSlate(RequestBuilder<crate::model::DeleteSlateRequest>);
 
     impl DeleteSlate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1342,7 +1795,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_slate][super::super::client::VideoStitcherService::delete_slate].
+        /// on [delete_slate][crate::client::VideoStitcherService::delete_slate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_slate(self.0.request, self.0.options)
@@ -1351,8 +1804,8 @@ pub mod video_stitcher_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_slate`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1377,7 +1830,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSlateRequest::name].
@@ -1396,13 +1854,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_live_session][super::super::client::VideoStitcherService::create_live_session] calls.
+    /// The request builder for [VideoStitcherService::create_live_session][crate::client::VideoStitcherService::create_live_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CreateLiveSession;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLiveSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLiveSession(RequestBuilder<crate::model::CreateLiveSessionRequest>);
 
     impl CreateLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1441,11 +1915,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_session<T: Into<std::option::Option<crate::model::LiveSession>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_session = v.into();
+        pub fn set_live_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveSession>,
+        {
+            self.0.request.live_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [live_session][crate::model::CreateLiveSessionRequest::live_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_live_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveSession>,
+        {
+            self.0.request.live_session = v.map(|x| x.into());
             self
         }
     }
@@ -1457,13 +1942,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_live_session][super::super::client::VideoStitcherService::get_live_session] calls.
+    /// The request builder for [VideoStitcherService::get_live_session][crate::client::VideoStitcherService::get_live_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetLiveSession;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLiveSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLiveSession(RequestBuilder<crate::model::GetLiveSessionRequest>);
 
     impl GetLiveSession {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1504,13 +2005,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_live_config][super::super::client::VideoStitcherService::create_live_config] calls.
+    /// The request builder for [VideoStitcherService::create_live_config][crate::client::VideoStitcherService::create_live_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CreateLiveConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLiveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLiveConfig(RequestBuilder<crate::model::CreateLiveConfigRequest>);
 
     impl CreateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1535,7 +2053,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_live_config][super::super::client::VideoStitcherService::create_live_config].
+        /// on [create_live_config][crate::client::VideoStitcherService::create_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_live_config(self.0.request, self.0.options)
@@ -1548,7 +2066,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1573,7 +2091,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLiveConfigRequest::parent].
@@ -1595,11 +2113,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_config = v.into();
+        pub fn set_live_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [live_config][crate::model::CreateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = v.map(|x| x.into());
             self
         }
 
@@ -1617,13 +2146,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_live_configs][super::super::client::VideoStitcherService::list_live_configs] calls.
+    /// The request builder for [VideoStitcherService::list_live_configs][crate::client::VideoStitcherService::list_live_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListLiveConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLiveConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLiveConfigs(RequestBuilder<crate::model::ListLiveConfigsRequest>);
 
     impl ListLiveConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1648,8 +2197,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLiveConfigsResponse, gax::error::Error>
         {
@@ -1661,6 +2210,15 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLiveConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLiveConfigsRequest::parent].
@@ -1703,13 +2261,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_live_config][super::super::client::VideoStitcherService::get_live_config] calls.
+    /// The request builder for [VideoStitcherService::get_live_config][crate::client::VideoStitcherService::get_live_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetLiveConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLiveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLiveConfig(RequestBuilder<crate::model::GetLiveConfigRequest>);
 
     impl GetLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1750,13 +2324,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_live_config][super::super::client::VideoStitcherService::delete_live_config] calls.
+    /// The request builder for [VideoStitcherService::delete_live_config][crate::client::VideoStitcherService::delete_live_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::DeleteLiveConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLiveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLiveConfig(RequestBuilder<crate::model::DeleteLiveConfigRequest>);
 
     impl DeleteLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1781,7 +2372,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_live_config][super::super::client::VideoStitcherService::delete_live_config].
+        /// on [delete_live_config][crate::client::VideoStitcherService::delete_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_live_config(self.0.request, self.0.options)
@@ -1790,8 +2381,8 @@ pub mod video_stitcher_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_live_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1816,7 +2407,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteLiveConfigRequest::name].
@@ -1835,13 +2431,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_live_config][super::super::client::VideoStitcherService::update_live_config] calls.
+    /// The request builder for [VideoStitcherService::update_live_config][crate::client::VideoStitcherService::update_live_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::UpdateLiveConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateLiveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateLiveConfig(RequestBuilder<crate::model::UpdateLiveConfigRequest>);
 
     impl UpdateLiveConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1866,7 +2479,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_live_config][super::super::client::VideoStitcherService::update_live_config].
+        /// on [update_live_config][crate::client::VideoStitcherService::update_live_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_live_config(self.0.request, self.0.options)
@@ -1879,7 +2492,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::LiveConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::LiveConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1904,28 +2517,50 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_live_config<T: Into<std::option::Option<crate::model::LiveConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.live_config = v.into();
+        pub fn set_live_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [live_config][crate::model::UpdateLiveConfigRequest::live_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_live_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LiveConfig>,
+        {
+            self.0.request.live_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLiveConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1937,13 +2572,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::create_vod_config][super::super::client::VideoStitcherService::create_vod_config] calls.
+    /// The request builder for [VideoStitcherService::create_vod_config][crate::client::VideoStitcherService::create_vod_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CreateVodConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVodConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVodConfig(RequestBuilder<crate::model::CreateVodConfigRequest>);
 
     impl CreateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1965,7 +2617,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vod_config][super::super::client::VideoStitcherService::create_vod_config].
+        /// on [create_vod_config][crate::client::VideoStitcherService::create_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vod_config(self.0.request, self.0.options)
@@ -1978,7 +2630,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2003,7 +2655,7 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVodConfigRequest::parent].
@@ -2025,11 +2677,22 @@ pub mod video_stitcher_service {
         /// Sets the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_config = v.into();
+        pub fn set_vod_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vod_config][crate::model::CreateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = v.map(|x| x.into());
             self
         }
 
@@ -2047,13 +2710,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_vod_configs][super::super::client::VideoStitcherService::list_vod_configs] calls.
+    /// The request builder for [VideoStitcherService::list_vod_configs][crate::client::VideoStitcherService::list_vod_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListVodConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVodConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVodConfigs(RequestBuilder<crate::model::ListVodConfigsRequest>);
 
     impl ListVodConfigs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2078,8 +2761,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVodConfigsResponse, gax::error::Error>
         {
@@ -2091,6 +2774,15 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVodConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVodConfigsRequest::parent].
@@ -2133,13 +2825,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_vod_config][super::super::client::VideoStitcherService::get_vod_config] calls.
+    /// The request builder for [VideoStitcherService::get_vod_config][crate::client::VideoStitcherService::get_vod_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetVodConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVodConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVodConfig(RequestBuilder<crate::model::GetVodConfigRequest>);
 
     impl GetVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2180,13 +2888,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_vod_config][super::super::client::VideoStitcherService::delete_vod_config] calls.
+    /// The request builder for [VideoStitcherService::delete_vod_config][crate::client::VideoStitcherService::delete_vod_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::DeleteVodConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVodConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVodConfig(RequestBuilder<crate::model::DeleteVodConfigRequest>);
 
     impl DeleteVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2208,7 +2933,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vod_config][super::super::client::VideoStitcherService::delete_vod_config].
+        /// on [delete_vod_config][crate::client::VideoStitcherService::delete_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vod_config(self.0.request, self.0.options)
@@ -2217,8 +2942,8 @@ pub mod video_stitcher_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vod_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2243,7 +2968,12 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVodConfigRequest::name].
@@ -2262,13 +2992,30 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::update_vod_config][super::super::client::VideoStitcherService::update_vod_config] calls.
+    /// The request builder for [VideoStitcherService::update_vod_config][crate::client::VideoStitcherService::update_vod_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::UpdateVodConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVodConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVodConfig(RequestBuilder<crate::model::UpdateVodConfigRequest>);
 
     impl UpdateVodConfig {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2290,7 +3037,7 @@ pub mod video_stitcher_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vod_config][super::super::client::VideoStitcherService::update_vod_config].
+        /// on [update_vod_config][crate::client::VideoStitcherService::update_vod_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vod_config(self.0.request, self.0.options)
@@ -2303,7 +3050,7 @@ pub mod video_stitcher_service {
             self,
         ) -> impl lro::Poller<crate::model::VodConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::VodConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2328,28 +3075,50 @@ pub mod video_stitcher_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vod_config<T: Into<std::option::Option<crate::model::VodConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vod_config = v.into();
+        pub fn set_vod_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vod_config][crate::model::UpdateVodConfigRequest::vod_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vod_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VodConfig>,
+        {
+            self.0.request.vod_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVodConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2361,13 +3130,33 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::list_operations][super::super::client::VideoStitcherService::list_operations] calls.
+    /// The request builder for [VideoStitcherService::list_operations][crate::client::VideoStitcherService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2395,8 +3184,8 @@ pub mod video_stitcher_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2408,6 +3197,17 @@ pub mod video_stitcher_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2442,13 +3242,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::get_operation][super::super::client::VideoStitcherService::get_operation] calls.
+    /// The request builder for [VideoStitcherService::get_operation][crate::client::VideoStitcherService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2490,13 +3306,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::delete_operation][super::super::client::VideoStitcherService::delete_operation] calls.
+    /// The request builder for [VideoStitcherService::delete_operation][crate::client::VideoStitcherService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2538,13 +3370,29 @@ pub mod video_stitcher_service {
         }
     }
 
-    /// The request builder for [VideoStitcherService::cancel_operation][super::super::client::VideoStitcherService::cancel_operation] calls.
+    /// The request builder for [VideoStitcherService::cancel_operation][crate::client::VideoStitcherService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_stitcher_v1::builder;
+    /// use builder::video_stitcher_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoStitcherService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

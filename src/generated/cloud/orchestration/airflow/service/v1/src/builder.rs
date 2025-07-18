@@ -16,9 +16,8 @@
 
 pub mod environments {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Environments][super::super::client::Environments].
+    /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod environments {
     /// let client = builder
     ///     .with_endpoint("https://composer.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod environments {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Environments;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Environments] request builders.
+    /// Common implementation for [crate::client::Environments] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Environments>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod environments {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_environment][super::super::client::Environments::create_environment] calls.
+    /// The request builder for [Environments::create_environment][crate::client::Environments::create_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::CreateEnvironment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEnvironment(RequestBuilder<crate::model::CreateEnvironmentRequest>);
 
     impl CreateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,7 +119,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_environment][super::super::client::Environments::create_environment].
+        /// on [create_environment][crate::client::Environments::create_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_environment(self.0.request, self.0.options)
@@ -108,8 +131,10 @@ pub mod environments {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Environment, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Environment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +159,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEnvironmentRequest::parent].
@@ -144,11 +169,20 @@ pub mod environments {
         }
 
         /// Sets the value of [environment][crate::model::CreateEnvironmentRequest::environment].
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::CreateEnvironmentRequest::environment].
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
     }
@@ -160,12 +194,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_environment][super::super::client::Environments::get_environment] calls.
+    /// The request builder for [Environments::get_environment][crate::client::Environments::get_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::GetEnvironment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEnvironment(RequestBuilder<crate::model::GetEnvironmentRequest>);
 
     impl GetEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,12 +255,34 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_environments][super::super::client::Environments::list_environments] calls.
+    /// The request builder for [Environments::list_environments][crate::client::Environments::list_environments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::ListEnvironments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEnvironments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEnvironments(RequestBuilder<crate::model::ListEnvironmentsRequest>);
 
     impl ListEnvironments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -235,8 +309,8 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEnvironmentsResponse, gax::error::Error>
         {
@@ -248,6 +322,15 @@ pub mod environments {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEnvironmentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEnvironmentsRequest::parent].
@@ -276,12 +359,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_environment][super::super::client::Environments::update_environment] calls.
+    /// The request builder for [Environments::update_environment][crate::client::Environments::update_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::UpdateEnvironment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEnvironment(RequestBuilder<crate::model::UpdateEnvironmentRequest>);
 
     impl UpdateEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -305,7 +407,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_environment][super::super::client::Environments::update_environment].
+        /// on [update_environment][crate::client::Environments::update_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_environment(self.0.request, self.0.options)
@@ -317,8 +419,10 @@ pub mod environments {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Environment, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Environment, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Environment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -343,7 +447,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpdateEnvironmentRequest::name].
@@ -353,20 +457,38 @@ pub mod environments {
         }
 
         /// Sets the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
-        pub fn set_environment<T: Into<std::option::Option<crate::model::Environment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.environment = v.into();
+        pub fn set_environment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [environment][crate::model::UpdateEnvironmentRequest::environment].
+        pub fn set_or_clear_environment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Environment>,
+        {
+            self.0.request.environment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnvironmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -378,12 +500,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_environment][super::super::client::Environments::delete_environment] calls.
+    /// The request builder for [Environments::delete_environment][crate::client::Environments::delete_environment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::DeleteEnvironment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEnvironment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEnvironment(RequestBuilder<crate::model::DeleteEnvironmentRequest>);
 
     impl DeleteEnvironment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -407,7 +548,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_environment][super::super::client::Environments::delete_environment].
+        /// on [delete_environment][crate::client::Environments::delete_environment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_environment(self.0.request, self.0.options)
@@ -416,8 +557,8 @@ pub mod environments {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_environment`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -442,7 +583,12 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEnvironmentRequest::name].
@@ -459,12 +605,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::execute_airflow_command][super::super::client::Environments::execute_airflow_command] calls.
+    /// The request builder for [Environments::execute_airflow_command][crate::client::Environments::execute_airflow_command] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::ExecuteAirflowCommand;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExecuteAirflowCommand {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExecuteAirflowCommand(RequestBuilder<crate::model::ExecuteAirflowCommandRequest>);
 
     impl ExecuteAirflowCommand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -528,12 +692,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::stop_airflow_command][super::super::client::Environments::stop_airflow_command] calls.
+    /// The request builder for [Environments::stop_airflow_command][crate::client::Environments::stop_airflow_command] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::StopAirflowCommand;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopAirflowCommand {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopAirflowCommand(RequestBuilder<crate::model::StopAirflowCommandRequest>);
 
     impl StopAirflowCommand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -598,12 +780,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::poll_airflow_command][super::super::client::Environments::poll_airflow_command] calls.
+    /// The request builder for [Environments::poll_airflow_command][crate::client::Environments::poll_airflow_command] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::PollAirflowCommand;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PollAirflowCommand {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PollAirflowCommand(RequestBuilder<crate::model::PollAirflowCommandRequest>);
 
     impl PollAirflowCommand {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -668,12 +868,34 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_workloads][super::super::client::Environments::list_workloads] calls.
+    /// The request builder for [Environments::list_workloads][crate::client::Environments::list_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::ListWorkloads;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -697,8 +919,8 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
@@ -710,6 +932,15 @@ pub mod environments {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
@@ -746,12 +977,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::check_upgrade][super::super::client::Environments::check_upgrade] calls.
+    /// The request builder for [Environments::check_upgrade][crate::client::Environments::check_upgrade] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::CheckUpgrade;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckUpgrade {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckUpgrade(RequestBuilder<crate::model::CheckUpgradeRequest>);
 
     impl CheckUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -772,7 +1022,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [check_upgrade][super::super::client::Environments::check_upgrade].
+        /// on [check_upgrade][crate::client::Environments::check_upgrade].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .check_upgrade(self.0.request, self.0.options)
@@ -785,8 +1035,10 @@ pub mod environments {
             self,
         ) -> impl lro::Poller<crate::model::CheckUpgradeResponse, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CheckUpgradeResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CheckUpgradeResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -811,7 +1063,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::CheckUpgradeRequest::environment].
@@ -836,14 +1088,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_user_workloads_secret][super::super::client::Environments::create_user_workloads_secret] calls.
+    /// The request builder for [Environments::create_user_workloads_secret][crate::client::Environments::create_user_workloads_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::CreateUserWorkloadsSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateUserWorkloadsSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUserWorkloadsSecret(
         RequestBuilder<crate::model::CreateUserWorkloadsSecretRequest>,
     );
 
     impl CreateUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -881,13 +1151,22 @@ pub mod environments {
         /// Sets the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_workloads_secret<
-            T: Into<std::option::Option<crate::model::UserWorkloadsSecret>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_secret = v.into();
+        pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_secret][crate::model::CreateUserWorkloadsSecretRequest::user_workloads_secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
         }
     }
@@ -899,12 +1178,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_user_workloads_secret][super::super::client::Environments::get_user_workloads_secret] calls.
+    /// The request builder for [Environments::get_user_workloads_secret][crate::client::Environments::get_user_workloads_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::GetUserWorkloadsSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetUserWorkloadsSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetUserWorkloadsSecret(RequestBuilder<crate::model::GetUserWorkloadsSecretRequest>);
 
     impl GetUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -947,14 +1244,36 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_user_workloads_secrets][super::super::client::Environments::list_user_workloads_secrets] calls.
+    /// The request builder for [Environments::list_user_workloads_secrets][crate::client::Environments::list_user_workloads_secrets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::ListUserWorkloadsSecrets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUserWorkloadsSecrets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUserWorkloadsSecrets(
         RequestBuilder<crate::model::ListUserWorkloadsSecretsRequest>,
     );
 
     impl ListUserWorkloadsSecrets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -981,8 +1300,8 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListUserWorkloadsSecretsResponse,
@@ -996,6 +1315,17 @@ pub mod environments {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUserWorkloadsSecretsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListUserWorkloadsSecretsRequest::parent].
@@ -1026,14 +1356,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_user_workloads_secret][super::super::client::Environments::update_user_workloads_secret] calls.
+    /// The request builder for [Environments::update_user_workloads_secret][crate::client::Environments::update_user_workloads_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::UpdateUserWorkloadsSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateUserWorkloadsSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateUserWorkloadsSecret(
         RequestBuilder<crate::model::UpdateUserWorkloadsSecretRequest>,
     );
 
     impl UpdateUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1061,13 +1409,20 @@ pub mod environments {
         }
 
         /// Sets the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
-        pub fn set_user_workloads_secret<
-            T: Into<std::option::Option<crate::model::UserWorkloadsSecret>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_secret = v.into();
+        pub fn set_user_workloads_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_secret][crate::model::UpdateUserWorkloadsSecretRequest::user_workloads_secret].
+        pub fn set_or_clear_user_workloads_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsSecret>,
+        {
+            self.0.request.user_workloads_secret = v.map(|x| x.into());
             self
         }
     }
@@ -1079,14 +1434,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_user_workloads_secret][super::super::client::Environments::delete_user_workloads_secret] calls.
+    /// The request builder for [Environments::delete_user_workloads_secret][crate::client::Environments::delete_user_workloads_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::DeleteUserWorkloadsSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteUserWorkloadsSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteUserWorkloadsSecret(
         RequestBuilder<crate::model::DeleteUserWorkloadsSecretRequest>,
     );
 
     impl DeleteUserWorkloadsSecret {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1129,14 +1502,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::create_user_workloads_config_map][super::super::client::Environments::create_user_workloads_config_map] calls.
+    /// The request builder for [Environments::create_user_workloads_config_map][crate::client::Environments::create_user_workloads_config_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::CreateUserWorkloadsConfigMap;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateUserWorkloadsConfigMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUserWorkloadsConfigMap(
         RequestBuilder<crate::model::CreateUserWorkloadsConfigMapRequest>,
     );
 
     impl CreateUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1174,13 +1565,25 @@ pub mod environments {
         /// Sets the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_workloads_config_map<
-            T: Into<std::option::Option<crate::model::UserWorkloadsConfigMap>>,
-        >(
+        pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_config_map][crate::model::CreateUserWorkloadsConfigMapRequest::user_workloads_config_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_workloads_config_map<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_config_map = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
         }
     }
@@ -1192,14 +1595,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_user_workloads_config_map][super::super::client::Environments::get_user_workloads_config_map] calls.
+    /// The request builder for [Environments::get_user_workloads_config_map][crate::client::Environments::get_user_workloads_config_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::GetUserWorkloadsConfigMap;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetUserWorkloadsConfigMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetUserWorkloadsConfigMap(
         RequestBuilder<crate::model::GetUserWorkloadsConfigMapRequest>,
     );
 
     impl GetUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1242,14 +1663,36 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_user_workloads_config_maps][super::super::client::Environments::list_user_workloads_config_maps] calls.
+    /// The request builder for [Environments::list_user_workloads_config_maps][crate::client::Environments::list_user_workloads_config_maps] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::ListUserWorkloadsConfigMaps;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUserWorkloadsConfigMaps {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUserWorkloadsConfigMaps(
         RequestBuilder<crate::model::ListUserWorkloadsConfigMapsRequest>,
     );
 
     impl ListUserWorkloadsConfigMaps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1276,8 +1719,8 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListUserWorkloadsConfigMapsResponse,
@@ -1291,6 +1734,17 @@ pub mod environments {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUserWorkloadsConfigMapsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListUserWorkloadsConfigMapsRequest::parent].
@@ -1321,14 +1775,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::update_user_workloads_config_map][super::super::client::Environments::update_user_workloads_config_map] calls.
+    /// The request builder for [Environments::update_user_workloads_config_map][crate::client::Environments::update_user_workloads_config_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::UpdateUserWorkloadsConfigMap;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateUserWorkloadsConfigMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateUserWorkloadsConfigMap(
         RequestBuilder<crate::model::UpdateUserWorkloadsConfigMapRequest>,
     );
 
     impl UpdateUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1356,13 +1828,23 @@ pub mod environments {
         }
 
         /// Sets the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
-        pub fn set_user_workloads_config_map<
-            T: Into<std::option::Option<crate::model::UserWorkloadsConfigMap>>,
-        >(
+        pub fn set_user_workloads_config_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_workloads_config_map][crate::model::UpdateUserWorkloadsConfigMapRequest::user_workloads_config_map].
+        pub fn set_or_clear_user_workloads_config_map<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_workloads_config_map = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::UserWorkloadsConfigMap>,
+        {
+            self.0.request.user_workloads_config_map = v.map(|x| x.into());
             self
         }
     }
@@ -1374,14 +1856,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_user_workloads_config_map][super::super::client::Environments::delete_user_workloads_config_map] calls.
+    /// The request builder for [Environments::delete_user_workloads_config_map][crate::client::Environments::delete_user_workloads_config_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::DeleteUserWorkloadsConfigMap;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteUserWorkloadsConfigMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteUserWorkloadsConfigMap(
         RequestBuilder<crate::model::DeleteUserWorkloadsConfigMapRequest>,
     );
 
     impl DeleteUserWorkloadsConfigMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,12 +1924,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::save_snapshot][super::super::client::Environments::save_snapshot] calls.
+    /// The request builder for [Environments::save_snapshot][crate::client::Environments::save_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::SaveSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SaveSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SaveSnapshot(RequestBuilder<crate::model::SaveSnapshotRequest>);
 
     impl SaveSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1450,7 +1969,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [save_snapshot][super::super::client::Environments::save_snapshot].
+        /// on [save_snapshot][crate::client::Environments::save_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .save_snapshot(self.0.request, self.0.options)
@@ -1463,8 +1982,10 @@ pub mod environments {
             self,
         ) -> impl lro::Poller<crate::model::SaveSnapshotResponse, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::SaveSnapshotResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::SaveSnapshotResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1489,7 +2010,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::SaveSnapshotRequest::environment].
@@ -1512,12 +2033,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::load_snapshot][super::super::client::Environments::load_snapshot] calls.
+    /// The request builder for [Environments::load_snapshot][crate::client::Environments::load_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::LoadSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LoadSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LoadSnapshot(RequestBuilder<crate::model::LoadSnapshotRequest>);
 
     impl LoadSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1538,7 +2078,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [load_snapshot][super::super::client::Environments::load_snapshot].
+        /// on [load_snapshot][crate::client::Environments::load_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .load_snapshot(self.0.request, self.0.options)
@@ -1551,8 +2091,10 @@ pub mod environments {
             self,
         ) -> impl lro::Poller<crate::model::LoadSnapshotResponse, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LoadSnapshotResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LoadSnapshotResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1577,7 +2119,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::LoadSnapshotRequest::environment].
@@ -1624,12 +2166,31 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::database_failover][super::super::client::Environments::database_failover] calls.
+    /// The request builder for [Environments::database_failover][crate::client::Environments::database_failover] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::DatabaseFailover;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DatabaseFailover {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DatabaseFailover(RequestBuilder<crate::model::DatabaseFailoverRequest>);
 
     impl DatabaseFailover {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1653,7 +2214,7 @@ pub mod environments {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [database_failover][super::super::client::Environments::database_failover].
+        /// on [database_failover][crate::client::Environments::database_failover].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .database_failover(self.0.request, self.0.options)
@@ -1666,7 +2227,7 @@ pub mod environments {
             self,
         ) -> impl lro::Poller<crate::model::DatabaseFailoverResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DatabaseFailoverResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1694,7 +2255,7 @@ pub mod environments {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [environment][crate::model::DatabaseFailoverRequest::environment].
@@ -1711,14 +2272,32 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::fetch_database_properties][super::super::client::Environments::fetch_database_properties] calls.
+    /// The request builder for [Environments::fetch_database_properties][crate::client::Environments::fetch_database_properties] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::FetchDatabaseProperties;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchDatabaseProperties {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchDatabaseProperties(
         RequestBuilder<crate::model::FetchDatabasePropertiesRequest>,
     );
 
     impl FetchDatabaseProperties {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1761,12 +2340,34 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::list_operations][super::super::client::Environments::list_operations] calls.
+    /// The request builder for [Environments::list_operations][crate::client::Environments::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1793,8 +2394,8 @@ pub mod environments {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1806,6 +2407,17 @@ pub mod environments {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1840,12 +2452,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::get_operation][super::super::client::Environments::get_operation] calls.
+    /// The request builder for [Environments::get_operation][crate::client::Environments::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1886,12 +2516,30 @@ pub mod environments {
         }
     }
 
-    /// The request builder for [Environments::delete_operation][super::super::client::Environments::delete_operation] calls.
+    /// The request builder for [Environments::delete_operation][crate::client::Environments::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::environments::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Environments>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Environments>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1935,9 +2583,8 @@ pub mod environments {
 
 pub mod image_versions {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ImageVersions][super::super::client::ImageVersions].
+    /// A builder for [ImageVersions][crate::client::ImageVersions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1948,7 +2595,7 @@ pub mod image_versions {
     /// let client = builder
     ///     .with_endpoint("https://composer.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1959,16 +2606,19 @@ pub mod image_versions {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ImageVersions;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ImageVersions] request builders.
+    /// Common implementation for [crate::client::ImageVersions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1977,7 +2627,9 @@ pub mod image_versions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1986,12 +2638,34 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::list_image_versions][super::super::client::ImageVersions::list_image_versions] calls.
+    /// The request builder for [ImageVersions::list_image_versions][crate::client::ImageVersions::list_image_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::image_versions::ListImageVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListImageVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListImageVersions(RequestBuilder<crate::model::ListImageVersionsRequest>);
 
     impl ListImageVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2018,8 +2692,8 @@ pub mod image_versions {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListImageVersionsResponse, gax::error::Error>
         {
@@ -2031,6 +2705,15 @@ pub mod image_versions {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImageVersionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListImageVersionsRequest::parent].
@@ -2065,12 +2748,34 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::list_operations][super::super::client::ImageVersions::list_operations] calls.
+    /// The request builder for [ImageVersions::list_operations][crate::client::ImageVersions::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::image_versions::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2097,8 +2802,8 @@ pub mod image_versions {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2110,6 +2815,17 @@ pub mod image_versions {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2144,12 +2860,30 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::get_operation][super::super::client::ImageVersions::get_operation] calls.
+    /// The request builder for [ImageVersions::get_operation][crate::client::ImageVersions::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::image_versions::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2190,12 +2924,30 @@ pub mod image_versions {
         }
     }
 
-    /// The request builder for [ImageVersions::delete_operation][super::super::client::ImageVersions::delete_operation] calls.
+    /// The request builder for [ImageVersions::delete_operation][crate::client::ImageVersions::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orchestration_airflow_service_v1::builder;
+    /// use builder::image_versions::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ImageVersions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ImageVersions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -23,7 +23,7 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-backoff-use
     use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     // ANCHOR_END: client-backoff-use
-    use speech::Poller;
+    use google_cloud_lro::Poller;
     use std::time::Duration;
 
     // ANCHOR: client-backoff-client
@@ -40,7 +40,8 @@ pub async fn client_backoff(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-backoff-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: client-backoff-builder
@@ -82,7 +83,7 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-backoff-builder-trait
     use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-backoff-builder-trait
-    use speech::Poller;
+    use google_cloud_lro::Poller;
 
     // ANCHOR: rpc-backoff-client
     let client = speech::client::Speech::builder().build().await?;
@@ -90,7 +91,8 @@ pub async fn rpc_backoff(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: rpc-backoff-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: rpc-backoff-builder
@@ -136,24 +138,35 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
+    use google_cloud_gax::retry_policy;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: client-errors-use
-    use speech::Poller;
+    use google_cloud_lro::Poller;
 
     // ANCHOR: client-errors-client
-    let client = speech::client::Speech::builder()
-        .with_polling_error_policy(
-            Aip194Strict
+    let builder = speech::client::Speech::builder().with_polling_error_policy(
+        Aip194Strict
+            .with_attempt_limit(100)
+            .with_time_limit(Duration::from_secs(300)),
+    );
+    // ANCHOR_END: client-errors-client
+
+    // ANCHOR: client-errors-client-retry
+    let client = builder
+        .with_retry_policy(
+            retry_policy::Aip194Strict
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
         )
         .build()
         .await?;
-    // ANCHOR_END: client-errors-client
+    // ANCHOR_END: client-errors-client-retry
 
     // ANCHOR: client-errors-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: client-errors-builder
@@ -191,20 +204,30 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
+    use google_cloud_gax::retry_policy;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: rpc-errors-use
     // ANCHOR: rpc-errors-builder-trait
     use google_cloud_gax::options::RequestOptionsBuilder;
     // ANCHOR_END: rpc-errors-builder-trait
-    use speech::Poller;
+    use google_cloud_lro::Poller;
 
     // ANCHOR: rpc-errors-client
-    let client = speech::client::Speech::builder().build().await?;
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            retry_policy::Aip194Strict
+                .with_attempt_limit(100)
+                .with_time_limit(Duration::from_secs(300)),
+        )
+        .build()
+        .await?;
     // ANCHOR_END: rpc-errors-client
 
     // ANCHOR: rpc-errors-builder
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: rpc-errors-builder

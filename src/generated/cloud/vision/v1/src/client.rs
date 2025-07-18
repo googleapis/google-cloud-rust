@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Vision API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
 /// let client = ImageAnnotator::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `ImageAnnotator` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ImageAnnotator` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ImageAnnotator {
-    inner: Arc<dyn super::stub::dynamic::ImageAnnotator>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ImageAnnotator>,
 }
 
 impl ImageAnnotator {
@@ -74,7 +71,7 @@ impl ImageAnnotator {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_vision_v1::client::ImageAnnotator;
     /// let client = ImageAnnotator::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::image_annotator::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::image_annotator::client::Factory)
@@ -89,33 +86,35 @@ impl ImageAnnotator {
         T: super::stub::ImageAnnotator + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ImageAnnotator>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ImageAnnotator>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ImageAnnotator> {
+    ) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
         super::transport::ImageAnnotator::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ImageAnnotator> {
+    ) -> gax::client_builder::Result<impl super::stub::ImageAnnotator> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ImageAnnotator::new)
@@ -187,11 +186,8 @@ impl ImageAnnotator {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::image_annotator::GetOperation {
-        super::builder::image_annotator::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::image_annotator::GetOperation {
+        super::builder::image_annotator::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -203,7 +199,7 @@ impl ImageAnnotator {
 /// # use google_cloud_vision_v1::client::ProductSearch;
 /// let client = ProductSearch::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -254,11 +250,11 @@ impl ImageAnnotator {
 ///
 /// `ProductSearch` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ProductSearch` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ProductSearch {
-    inner: Arc<dyn super::stub::dynamic::ProductSearch>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ProductSearch>,
 }
 
 impl ProductSearch {
@@ -268,7 +264,7 @@ impl ProductSearch {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// let client = ProductSearch::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::product_search::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::product_search::client::Factory)
@@ -283,33 +279,35 @@ impl ProductSearch {
         T: super::stub::ProductSearch + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ProductSearch>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProductSearch>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProductSearch> {
+    ) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
         super::transport::ProductSearch::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProductSearch> {
+    ) -> gax::client_builder::Result<impl super::stub::ProductSearch> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProductSearch::new)
@@ -321,12 +319,8 @@ impl ProductSearch {
     ///
     /// * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
     ///   4096 characters.
-    pub fn create_product_set(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::CreateProductSet {
+    pub fn create_product_set(&self) -> super::builder::product_search::CreateProductSet {
         super::builder::product_search::CreateProductSet::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists ProductSets in an unspecified order.
@@ -335,12 +329,8 @@ impl ProductSearch {
     ///
     /// * Returns INVALID_ARGUMENT if page_size is greater than 100, or less
     ///   than 1.
-    pub fn list_product_sets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::ListProductSets {
+    pub fn list_product_sets(&self) -> super::builder::product_search::ListProductSets {
         super::builder::product_search::ListProductSets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information associated with a ProductSet.
@@ -348,11 +338,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the ProductSet does not exist.
-    pub fn get_product_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::GetProductSet {
-        super::builder::product_search::GetProductSet::new(self.inner.clone()).set_name(name.into())
+    pub fn get_product_set(&self) -> super::builder::product_search::GetProductSet {
+        super::builder::product_search::GetProductSet::new(self.inner.clone())
     }
 
     /// Makes changes to a ProductSet resource.
@@ -363,24 +350,16 @@ impl ProductSearch {
     /// * Returns NOT_FOUND if the ProductSet does not exist.
     /// * Returns INVALID_ARGUMENT if display_name is present in update_mask but
     ///   missing from the request or longer than 4096 characters.
-    pub fn update_product_set(
-        &self,
-        product_set: impl Into<crate::model::ProductSet>,
-    ) -> super::builder::product_search::UpdateProductSet {
+    pub fn update_product_set(&self) -> super::builder::product_search::UpdateProductSet {
         super::builder::product_search::UpdateProductSet::new(self.inner.clone())
-            .set_product_set(product_set.into())
     }
 
     /// Permanently deletes a ProductSet. Products and ReferenceImages in the
     /// ProductSet are not deleted.
     ///
     /// The actual image files are not deleted from Google Cloud Storage.
-    pub fn delete_product_set(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::DeleteProductSet {
+    pub fn delete_product_set(&self) -> super::builder::product_search::DeleteProductSet {
         super::builder::product_search::DeleteProductSet::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates and returns a new product resource.
@@ -391,12 +370,8 @@ impl ProductSearch {
     ///   characters.
     /// * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
     /// * Returns INVALID_ARGUMENT if product_category is missing or invalid.
-    pub fn create_product(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::CreateProduct {
+    pub fn create_product(&self) -> super::builder::product_search::CreateProduct {
         super::builder::product_search::CreateProduct::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists products in an unspecified order.
@@ -404,12 +379,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
-    pub fn list_products(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::ListProducts {
+    pub fn list_products(&self) -> super::builder::product_search::ListProducts {
         super::builder::product_search::ListProducts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information associated with a Product.
@@ -417,11 +388,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the Product does not exist.
-    pub fn get_product(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::GetProduct {
-        super::builder::product_search::GetProduct::new(self.inner.clone()).set_name(name.into())
+    pub fn get_product(&self) -> super::builder::product_search::GetProduct {
+        super::builder::product_search::GetProduct::new(self.inner.clone())
     }
 
     /// Makes changes to a Product resource.
@@ -439,12 +407,8 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if description is present in update_mask but is
     ///   longer than 4096 characters.
     /// * Returns INVALID_ARGUMENT if product_category is present in update_mask.
-    pub fn update_product(
-        &self,
-        product: impl Into<crate::model::Product>,
-    ) -> super::builder::product_search::UpdateProduct {
+    pub fn update_product(&self) -> super::builder::product_search::UpdateProduct {
         super::builder::product_search::UpdateProduct::new(self.inner.clone())
-            .set_product(product.into())
     }
 
     /// Permanently deletes a product and its reference images.
@@ -452,11 +416,8 @@ impl ProductSearch {
     /// Metadata of the product and all its images will be deleted right away, but
     /// search queries against ProductSets containing the product may still work
     /// until all related caches are refreshed.
-    pub fn delete_product(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::DeleteProduct {
-        super::builder::product_search::DeleteProduct::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_product(&self) -> super::builder::product_search::DeleteProduct {
+        super::builder::product_search::DeleteProduct::new(self.inner.clone())
     }
 
     /// Creates and returns a new ReferenceImage resource.
@@ -478,12 +439,8 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
     ///   compatible with the parent product's product_category is detected.
     /// * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
-    pub fn create_reference_image(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::CreateReferenceImage {
+    pub fn create_reference_image(&self) -> super::builder::product_search::CreateReferenceImage {
         super::builder::product_search::CreateReferenceImage::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Permanently deletes a reference image.
@@ -493,12 +450,8 @@ impl ProductSearch {
     /// caches are refreshed.
     ///
     /// The actual image files are not deleted from Google Cloud Storage.
-    pub fn delete_reference_image(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::DeleteReferenceImage {
+    pub fn delete_reference_image(&self) -> super::builder::product_search::DeleteReferenceImage {
         super::builder::product_search::DeleteReferenceImage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists reference images.
@@ -508,12 +461,8 @@ impl ProductSearch {
     /// * Returns NOT_FOUND if the parent product does not exist.
     /// * Returns INVALID_ARGUMENT if the page_size is greater than 100, or less
     ///   than 1.
-    pub fn list_reference_images(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::ListReferenceImages {
+    pub fn list_reference_images(&self) -> super::builder::product_search::ListReferenceImages {
         super::builder::product_search::ListReferenceImages::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets information associated with a ReferenceImage.
@@ -521,12 +470,8 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the specified image does not exist.
-    pub fn get_reference_image(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::GetReferenceImage {
+    pub fn get_reference_image(&self) -> super::builder::product_search::GetReferenceImage {
         super::builder::product_search::GetReferenceImage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds a Product to the specified ProductSet. If the Product is already
@@ -539,19 +484,15 @@ impl ProductSearch {
     /// * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
     pub fn add_product_to_product_set(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::product_search::AddProductToProductSet {
         super::builder::product_search::AddProductToProductSet::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Removes a Product from the specified ProductSet.
     pub fn remove_product_from_product_set(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::product_search::RemoveProductFromProductSet {
         super::builder::product_search::RemoveProductFromProductSet::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists the Products in a ProductSet, in an unspecified order. If the
@@ -563,10 +504,8 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if page_size is greater than 100 or less than 1.
     pub fn list_products_in_product_set(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::product_search::ListProductsInProductSet {
         super::builder::product_search::ListProductsInProductSet::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Asynchronous API that imports a list of reference images to specified
@@ -593,12 +532,8 @@ impl ProductSearch {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_product_sets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::ImportProductSets {
+    pub fn import_product_sets(&self) -> super::builder::product_search::ImportProductSets {
         super::builder::product_search::ImportProductSets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Asynchronous API to delete all Products in a ProductSet or all Products
@@ -637,21 +572,14 @@ impl ProductSearch {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn purge_products(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::product_search::PurgeProducts {
+    pub fn purge_products(&self) -> super::builder::product_search::PurgeProducts {
         super::builder::product_search::PurgeProducts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::product_search::GetOperation {
-        super::builder::product_search::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::product_search::GetOperation {
+        super::builder::product_search::GetOperation::new(self.inner.clone())
     }
 }

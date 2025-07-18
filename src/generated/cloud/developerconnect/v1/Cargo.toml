@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-developerconnect-v1"
-version                = "0.3.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Developer Connect API"
 edition.workspace      = true
 authors.workspace      = true
@@ -29,13 +29,14 @@ rust-version.workspace = true
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true
-gax                  = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi                 = { workspace = true, features = ["_internal_http_client"] }
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace = true
 location.workspace   = true
 longrunning.workspace = true
 lro.workspace        = true
 reqwest.workspace    = true
+rpc.workspace        = true
 serde.workspace      = true
 serde_json.workspace = true
 serde_with.workspace = true

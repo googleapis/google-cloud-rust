@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Scheduler API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_scheduler_v1::client::CloudScheduler;
 /// let client = CloudScheduler::builder().build().await?;
 /// // use `client` to make requests to the Cloud Scheduler API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `CloudScheduler` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudScheduler` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudScheduler {
-    inner: Arc<dyn super::stub::dynamic::CloudScheduler>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudScheduler>,
 }
 
 impl CloudScheduler {
@@ -73,7 +70,7 @@ impl CloudScheduler {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// let client = CloudScheduler::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_scheduler::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_scheduler::client::Factory)
@@ -88,61 +85,53 @@ impl CloudScheduler {
         T: super::stub::CloudScheduler + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudScheduler>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudScheduler>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudScheduler> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudScheduler> {
         super::transport::CloudScheduler::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudScheduler> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudScheduler> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudScheduler::new)
     }
 
     /// Lists jobs.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::ListJobs {
-        super::builder::cloud_scheduler::ListJobs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_jobs(&self) -> super::builder::cloud_scheduler::ListJobs {
+        super::builder::cloud_scheduler::ListJobs::new(self.inner.clone())
     }
 
     /// Gets a job.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::GetJob {
-        super::builder::cloud_scheduler::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::cloud_scheduler::GetJob {
+        super::builder::cloud_scheduler::GetJob::new(self.inner.clone())
     }
 
     /// Creates a job.
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::CreateJob {
+    pub fn create_job(&self) -> super::builder::cloud_scheduler::CreateJob {
         super::builder::cloud_scheduler::CreateJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a job.
@@ -158,19 +147,13 @@ impl CloudScheduler {
     ///
     /// [google.cloud.scheduler.v1.Job]: crate::model::Job
     /// [google.cloud.scheduler.v1.Job.State.UPDATE_FAILED]: crate::model::job::State::UpdateFailed
-    pub fn update_job(
-        &self,
-        job: impl Into<crate::model::Job>,
-    ) -> super::builder::cloud_scheduler::UpdateJob {
-        super::builder::cloud_scheduler::UpdateJob::new(self.inner.clone()).set_job(job.into())
+    pub fn update_job(&self) -> super::builder::cloud_scheduler::UpdateJob {
+        super::builder::cloud_scheduler::UpdateJob::new(self.inner.clone())
     }
 
     /// Deletes a job.
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::DeleteJob {
-        super::builder::cloud_scheduler::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_job(&self) -> super::builder::cloud_scheduler::DeleteJob {
+        super::builder::cloud_scheduler::DeleteJob::new(self.inner.clone())
     }
 
     /// Pauses a job.
@@ -188,11 +171,8 @@ impl CloudScheduler {
     /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
     /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
-    pub fn pause_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::PauseJob {
-        super::builder::cloud_scheduler::PauseJob::new(self.inner.clone()).set_name(name.into())
+    pub fn pause_job(&self) -> super::builder::cloud_scheduler::PauseJob {
+        super::builder::cloud_scheduler::PauseJob::new(self.inner.clone())
     }
 
     /// Resume a job.
@@ -208,38 +188,25 @@ impl CloudScheduler {
     /// [google.cloud.scheduler.v1.Job.State.ENABLED]: crate::model::job::State::Enabled
     /// [google.cloud.scheduler.v1.Job.State.PAUSED]: crate::model::job::State::Paused
     /// [google.cloud.scheduler.v1.Job.state]: crate::model::Job::state
-    pub fn resume_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::ResumeJob {
-        super::builder::cloud_scheduler::ResumeJob::new(self.inner.clone()).set_name(name.into())
+    pub fn resume_job(&self) -> super::builder::cloud_scheduler::ResumeJob {
+        super::builder::cloud_scheduler::ResumeJob::new(self.inner.clone())
     }
 
     /// Forces a job to run now.
     ///
     /// When this method is called, Cloud Scheduler will dispatch the job, even
     /// if the job is already running.
-    pub fn run_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::RunJob {
-        super::builder::cloud_scheduler::RunJob::new(self.inner.clone()).set_name(name.into())
+    pub fn run_job(&self) -> super::builder::cloud_scheduler::RunJob {
+        super::builder::cloud_scheduler::RunJob::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::ListLocations {
+    pub fn list_locations(&self) -> super::builder::cloud_scheduler::ListLocations {
         super::builder::cloud_scheduler::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_scheduler::GetLocation {
-        super::builder::cloud_scheduler::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::cloud_scheduler::GetLocation {
+        super::builder::cloud_scheduler::GetLocation::new(self.inner.clone())
     }
 }

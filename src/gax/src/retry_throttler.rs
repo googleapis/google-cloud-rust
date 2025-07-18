@@ -41,35 +41,48 @@
 //! [Handling Overload]: https://sre.google/sre-book/handling-overload/
 //! [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
 //!
-//! # Examples
+//! # Example
+//!
+//! Stochastically reject calls based on observed failure rates:
 //! ```
-//! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
 //! let throttler = AdaptiveThrottler::new(2.0)?;
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
+//! Reject calls if the success rate is too low:
 //! ```
-//! # use google_cloud_gax::*;
 //! # use google_cloud_gax::retry_throttler::*;
 //! let tokens = 1000;
 //! let min_tokens = 250;
 //! let error_cost = 10;
 //! let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::Result;
-use crate::{error::Error, loop_state::LoopState};
+use crate::retry_result::RetryResult;
 use std::sync::{Arc, Mutex};
+
+/// The error type for throttler policy creation.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum Error {
+    #[error("the scaling factor ({0}) must be greater or equal than 0.0")]
+    ScalingOutOfRange(f64),
+    #[error(
+        "the minimum tokens ({min}) must be less than or equal to the initial token ({initial}) count"
+    )]
+    TooFewMinTokens { min: u64, initial: u64 },
+}
 
 /// Implementations of this trait prevent a client from sending too many retries.
 ///
-/// Retry throttlers are shared by all the requests in a client, and may be even
-/// shared by multiple clients. The library providers a default implementation
-/// (and instance) on each client, but the application may override them.
+/// Retry throttlers are shared by all the requests in a client, and may even be
+/// shared by multiple clients. The library provides a default implementation
+/// (and instance) on each client. The application may choose a different
+/// implementation or instance if the default is not suitable.
 ///
 /// Implementations of this trait must also implement [Debug][std::fmt::Debug]
 /// because the application may need to log the client state. The trait is
@@ -83,12 +96,15 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
     /// `false`. Note that the retry loop may stop if too many attempts are
     /// throttled: they are treated as transient errors and may exhaust the
     /// retry policy.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn throttle_retry_attempt(&self) -> bool;
 
     /// Called by the retry loop after a retry failure.
-    fn on_retry_failure(&mut self, flow: &LoopState);
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    fn on_retry_failure(&mut self, flow: &RetryResult);
 
     /// Called by the retry loop when a RPC succeeds.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_success(&mut self);
 }
 
@@ -98,8 +114,8 @@ pub trait RetryThrottler: Send + Sync + std::fmt::Debug {
 pub type SharedRetryThrottler = Arc<Mutex<dyn RetryThrottler>>;
 
 /// A helper type to use [RetryThrottler] in client and request options.
-#[derive(Clone)]
-pub struct RetryThrottlerArg(pub(crate) SharedRetryThrottler);
+#[derive(Clone, Debug)]
+pub struct RetryThrottlerArg(SharedRetryThrottler);
 
 impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
     fn from(value: T) -> Self {
@@ -110,6 +126,12 @@ impl<T: RetryThrottler + 'static> From<T> for RetryThrottlerArg {
 impl From<SharedRetryThrottler> for RetryThrottlerArg {
     fn from(value: SharedRetryThrottler) -> Self {
         Self(value)
+    }
+}
+
+impl From<RetryThrottlerArg> for SharedRetryThrottler {
+    fn from(value: RetryThrottlerArg) -> SharedRetryThrottler {
+        value.0
     }
 }
 
@@ -144,10 +166,9 @@ impl From<SharedRetryThrottler> for RetryThrottlerArg {
 ///
 /// # Example
 /// ```
-/// # use google_cloud_gax::*;
 /// # use google_cloud_gax::retry_throttler::*;
 /// let throttler = AdaptiveThrottler::new(2.0)?;
-/// # Ok::<(), error::Error>(())
+/// # Ok::<(), Error>(())
 /// ```
 ///
 /// [Site Reliability Engineering]: https://sre.google/sre-book/table-of-contents/
@@ -169,14 +190,13 @@ impl AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = AdaptiveThrottler::new(2.0)?;
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
-    pub fn new(factor: f64) -> Result<Self> {
+    pub fn new(factor: f64) -> Result<Self, Error> {
         if factor < 0.0 {
-            return Err(Error::other(format!("factor ({factor}must be >= 0.0")));
+            return Err(Error::ScalingOutOfRange(factor));
         }
         let factor = if factor < 0.0 { 0.0 } else { factor };
         Ok(Self::clamp(factor))
@@ -191,7 +211,6 @@ impl AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = AdaptiveThrottler::clamp(2.0);
     /// ```
@@ -222,7 +241,6 @@ impl std::default::Default for AdaptiveThrottler {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = AdaptiveThrottler::default();
     /// ```
@@ -236,11 +254,11 @@ impl RetryThrottler for AdaptiveThrottler {
         self.throttle(&mut rand::rng())
     }
 
-    fn on_retry_failure(&mut self, flow: &LoopState) {
+    fn on_retry_failure(&mut self, flow: &RetryResult) {
         self.request_count += 1.0;
         match flow {
-            LoopState::Continue(_) | LoopState::Exhausted(_) => {}
-            LoopState::Permanent(_) => {
+            RetryResult::Continue(_) | RetryResult::Exhausted(_) => {}
+            RetryResult::Permanent(_) => {
                 self.accept_count += 1.0;
             }
         };
@@ -270,13 +288,12 @@ impl RetryThrottler for AdaptiveThrottler {
 ///
 /// # Examples
 /// ```
-/// # use google_cloud_gax::*;
 /// # use google_cloud_gax::retry_throttler::*;
 /// let tokens = 1000;
 /// let min_tokens = 250;
 /// let error_cost = 10;
 /// let throttler = CircuitBreaker::new(tokens, min_tokens, error_cost)?;
-/// # Ok::<(), error::Error>(())
+/// # Ok::<(), Error>(())
 /// ```
 ///
 /// [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
@@ -303,16 +320,16 @@ impl CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = CircuitBreaker::new(1000, 250, 10)?;
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
-    pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self> {
+    pub fn new(tokens: u64, min_tokens: u64, error_cost: u64) -> Result<Self, Error> {
         if min_tokens > tokens {
-            return Err(Error::other(format!(
-                "min_tokens ({min_tokens}) must be less than or equal to the initial token count ({tokens})"
-            )));
+            return Err(Error::TooFewMinTokens {
+                min: min_tokens,
+                initial: tokens,
+            });
         }
         Ok(Self {
             max_tokens: tokens,
@@ -322,7 +339,7 @@ impl CircuitBreaker {
         })
     }
 
-    /// Creates a new instance, adjusting `min_tokens` if needed.`
+    /// Creates a new instance, adjusting `min_tokens` if needed.
     ///
     /// # Parameters
     /// * `tokens` - the initial number of tokens. This is decreased by
@@ -335,7 +352,6 @@ impl CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = CircuitBreaker::clamp(1000, 250, 10);
     /// ```
@@ -354,7 +370,6 @@ impl std::default::Default for CircuitBreaker {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
     /// # use google_cloud_gax::retry_throttler::*;
     /// let throttler = CircuitBreaker::default();
     /// ```
@@ -368,12 +383,12 @@ impl RetryThrottler for CircuitBreaker {
         self.cur_tokens <= self.min_tokens
     }
 
-    fn on_retry_failure(&mut self, flow: &LoopState) {
+    fn on_retry_failure(&mut self, flow: &RetryResult) {
         match flow {
-            LoopState::Continue(_) | LoopState::Exhausted(_) => {
+            RetryResult::Continue(_) | RetryResult::Exhausted(_) => {
                 self.cur_tokens = self.cur_tokens.saturating_sub(self.error_cost);
             }
-            LoopState::Permanent(_) => {
+            RetryResult::Permanent(_) => {
                 self.on_success();
             }
         };
@@ -404,14 +419,21 @@ mod tests {
     #[test]
     fn adaptive_construction() {
         let throttler = AdaptiveThrottler::new(-2.0);
-        assert!(throttler.is_err());
+        assert!(
+            matches!(throttler, Err(Error::ScalingOutOfRange { .. })),
+            "{throttler:?}"
+        );
 
         let throttler = AdaptiveThrottler::new(0.0);
-        assert!(throttler.is_ok());
+        assert!(throttler.is_ok(), "{throttler:?}");
     }
 
-    fn test_error() -> Error {
-        Error::other("test only".to_string())
+    fn test_error() -> crate::error::Error {
+        use crate::error::{
+            Error,
+            rpc::{Code, Status},
+        };
+        Error::service(Status::default().set_code(Code::Aborted))
     }
 
     #[test]
@@ -423,11 +445,11 @@ mod tests {
 
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
-        throttler.on_retry_failure(&LoopState::Continue(test_error()));
+        throttler.on_retry_failure(&RetryResult::Continue(test_error()));
         assert_eq!(throttler.request_count, 1.0);
         assert_eq!(throttler.accept_count, 0.0);
 
-        throttler.on_retry_failure(&LoopState::Continue(test_error()));
+        throttler.on_retry_failure(&RetryResult::Continue(test_error()));
         assert_eq!(throttler.request_count, 2.0);
         assert_eq!(throttler.accept_count, 0.0);
 
@@ -435,12 +457,12 @@ mod tests {
         assert_eq!(throttler.request_count, 3.0);
         assert_eq!(throttler.accept_count, 1.0);
 
-        throttler.on_retry_failure(&LoopState::Permanent(test_error()));
+        throttler.on_retry_failure(&RetryResult::Permanent(test_error()));
         assert_eq!(throttler.request_count, 4.0);
         assert_eq!(throttler.accept_count, 2.0);
 
         let mut throttler = AdaptiveThrottler::default();
-        throttler.on_retry_failure(&LoopState::Continue(test_error()));
+        throttler.on_retry_failure(&RetryResult::Continue(test_error()));
 
         // StepRng::new(x, 0) always produces the same value. We pick the values
         // to trigger the desired behavior.
@@ -467,7 +489,10 @@ mod tests {
     #[test]
     fn circuit_breaker_validation() {
         let throttler = CircuitBreaker::new(100, 200, 1);
-        assert!(throttler.is_err());
+        assert!(
+            matches!(throttler, Err(Error::TooFewMinTokens { .. })),
+            "{throttler:?}"
+        );
     }
 
     #[test]
@@ -476,12 +501,12 @@ mod tests {
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         for _ in 0..4 {
-            throttler.on_retry_failure(&LoopState::Continue(test_error()));
+            throttler.on_retry_failure(&RetryResult::Continue(test_error()));
             assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
         }
         // This crosses the threshold:
-        throttler.on_retry_failure(&LoopState::Continue(test_error()));
-        throttler.on_retry_failure(&LoopState::Continue(test_error()));
+        throttler.on_retry_failure(&RetryResult::Continue(test_error()));
+        throttler.on_retry_failure(&RetryResult::Continue(test_error()));
         assert!(throttler.throttle_retry_attempt(), "{throttler:?}");
 
         // With the default settings, we will need about 10x successful calls
@@ -494,12 +519,12 @@ mod tests {
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
 
         // Permanent errors also open back the throttle.
-        throttler.on_retry_failure(&LoopState::Continue(test_error()));
+        throttler.on_retry_failure(&RetryResult::Continue(test_error()));
         for _ in 0..9 {
-            throttler.on_retry_failure(&LoopState::Permanent(test_error()));
+            throttler.on_retry_failure(&RetryResult::Permanent(test_error()));
             assert!(throttler.throttle_retry_attempt(), "{throttler:?}");
         }
-        throttler.on_retry_failure(&LoopState::Permanent(test_error()));
+        throttler.on_retry_failure(&RetryResult::Permanent(test_error()));
         assert!(!throttler.throttle_retry_attempt(), "{throttler:?}");
     }
 }

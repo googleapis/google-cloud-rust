@@ -16,9 +16,8 @@
 
 pub mod certificate_authority_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CertificateAuthorityService][super::super::client::CertificateAuthorityService].
+    /// A builder for [CertificateAuthorityService][crate::client::CertificateAuthorityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod certificate_authority_service {
     /// let client = builder
     ///     .with_endpoint("https://privateca.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod certificate_authority_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CertificateAuthorityService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CertificateAuthorityService] request builders.
+    /// Common implementation for [crate::client::CertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod certificate_authority_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_certificate][super::super::client::CertificateAuthorityService::create_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::create_certificate][crate::client::CertificateAuthorityService::create_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCertificate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -120,11 +138,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
@@ -157,13 +186,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate][super::super::client::CertificateAuthorityService::get_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate][crate::client::CertificateAuthorityService::get_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -204,13 +249,33 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificates][super::super::client::CertificateAuthorityService::list_certificates] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificates][crate::client::CertificateAuthorityService::list_certificates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -238,8 +303,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error>
         {
@@ -251,6 +316,15 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificatesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
@@ -293,13 +367,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::revoke_certificate][super::super::client::CertificateAuthorityService::revoke_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::revoke_certificate][crate::client::CertificateAuthorityService::revoke_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::RevokeCertificate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevokeCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeCertificate(RequestBuilder<crate::model::RevokeCertificateRequest>);
 
     impl RevokeCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -357,13 +447,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate][super::super::client::CertificateAuthorityService::update_certificate] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate][crate::client::CertificateAuthorityService::update_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -394,22 +500,44 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -427,7 +555,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::activate_certificate_authority][crate::client::CertificateAuthorityService::activate_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ActivateCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ActivateCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ActivateCertificateAuthority(
         RequestBuilder<crate::model::ActivateCertificateAuthorityRequest>,
@@ -435,7 +580,7 @@ pub mod certificate_authority_service {
 
     impl ActivateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -460,7 +605,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [activate_certificate_authority][super::super::client::CertificateAuthorityService::activate_certificate_authority].
+        /// on [activate_certificate_authority][crate::client::CertificateAuthorityService::activate_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .activate_certificate_authority(self.0.request, self.0.options)
@@ -473,8 +618,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -499,7 +646,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ActivateCertificateAuthorityRequest::name].
@@ -521,13 +668,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_subordinate_config<
-            T: Into<std::option::Option<crate::model::SubordinateConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.subordinate_config = v.into();
+        pub fn set_subordinate_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SubordinateConfig>,
+        {
+            self.0.request.subordinate_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [subordinate_config][crate::model::ActivateCertificateAuthorityRequest::subordinate_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_subordinate_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SubordinateConfig>,
+        {
+            self.0.request.subordinate_config = v.map(|x| x.into());
             self
         }
 
@@ -545,7 +701,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::create_certificate_authority][crate::client::CertificateAuthorityService::create_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateAuthority(
         RequestBuilder<crate::model::CreateCertificateAuthorityRequest>,
@@ -553,7 +726,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -578,7 +751,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_authority][super::super::client::CertificateAuthorityService::create_certificate_authority].
+        /// on [create_certificate_authority][crate::client::CertificateAuthorityService::create_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_authority(self.0.request, self.0.options)
@@ -591,8 +764,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -617,7 +792,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateAuthorityRequest::parent].
@@ -639,13 +814,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_authority<
-            T: Into<std::option::Option<crate::model::CertificateAuthority>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_authority = v.into();
+        pub fn set_certificate_authority<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_authority][crate::model::CreateCertificateAuthorityRequest::certificate_authority].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = v.map(|x| x.into());
             self
         }
 
@@ -663,7 +847,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::disable_certificate_authority][crate::client::CertificateAuthorityService::disable_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DisableCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableCertificateAuthority(
         RequestBuilder<crate::model::DisableCertificateAuthorityRequest>,
@@ -671,7 +872,7 @@ pub mod certificate_authority_service {
 
     impl DisableCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -696,7 +897,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_certificate_authority][super::super::client::CertificateAuthorityService::disable_certificate_authority].
+        /// on [disable_certificate_authority][crate::client::CertificateAuthorityService::disable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_certificate_authority(self.0.request, self.0.options)
@@ -709,8 +910,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -735,7 +938,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableCertificateAuthorityRequest::name].
@@ -766,7 +969,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::enable_certificate_authority][crate::client::CertificateAuthorityService::enable_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::EnableCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableCertificateAuthority(
         RequestBuilder<crate::model::EnableCertificateAuthorityRequest>,
@@ -774,7 +994,7 @@ pub mod certificate_authority_service {
 
     impl EnableCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -799,7 +1019,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_certificate_authority][super::super::client::CertificateAuthorityService::enable_certificate_authority].
+        /// on [enable_certificate_authority][crate::client::CertificateAuthorityService::enable_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_certificate_authority(self.0.request, self.0.options)
@@ -812,8 +1032,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -838,7 +1060,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableCertificateAuthorityRequest::name].
@@ -863,7 +1085,23 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::fetch_certificate_authority_csr][super::super::client::CertificateAuthorityService::fetch_certificate_authority_csr] calls.
+    /// The request builder for [CertificateAuthorityService::fetch_certificate_authority_csr][crate::client::CertificateAuthorityService::fetch_certificate_authority_csr] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::FetchCertificateAuthorityCsr;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchCertificateAuthorityCsr {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchCertificateAuthorityCsr(
         RequestBuilder<crate::model::FetchCertificateAuthorityCsrRequest>,
@@ -871,7 +1109,7 @@ pub mod certificate_authority_service {
 
     impl FetchCertificateAuthorityCsr {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -915,7 +1153,23 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate_authority][super::super::client::CertificateAuthorityService::get_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate_authority][crate::client::CertificateAuthorityService::get_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateAuthority(
         RequestBuilder<crate::model::GetCertificateAuthorityRequest>,
@@ -923,7 +1177,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -967,7 +1221,27 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificate_authorities][super::super::client::CertificateAuthorityService::list_certificate_authorities] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificate_authorities][crate::client::CertificateAuthorityService::list_certificate_authorities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificateAuthorities;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateAuthorities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateAuthorities(
         RequestBuilder<crate::model::ListCertificateAuthoritiesRequest>,
@@ -975,7 +1249,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateAuthorities {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1003,8 +1277,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateAuthoritiesResponse,
@@ -1018,6 +1292,17 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCertificateAuthoritiesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateAuthoritiesRequest::parent].
@@ -1060,7 +1345,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::undelete_certificate_authority][crate::client::CertificateAuthorityService::undelete_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UndeleteCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteCertificateAuthority(
         RequestBuilder<crate::model::UndeleteCertificateAuthorityRequest>,
@@ -1068,7 +1370,7 @@ pub mod certificate_authority_service {
 
     impl UndeleteCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1093,7 +1395,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_certificate_authority][super::super::client::CertificateAuthorityService::undelete_certificate_authority].
+        /// on [undelete_certificate_authority][crate::client::CertificateAuthorityService::undelete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_certificate_authority(self.0.request, self.0.options)
@@ -1106,8 +1408,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1132,7 +1436,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteCertificateAuthorityRequest::name].
@@ -1157,7 +1461,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::delete_certificate_authority][crate::client::CertificateAuthorityService::delete_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateAuthority(
         RequestBuilder<crate::model::DeleteCertificateAuthorityRequest>,
@@ -1165,7 +1486,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1190,7 +1511,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_authority][super::super::client::CertificateAuthorityService::delete_certificate_authority].
+        /// on [delete_certificate_authority][crate::client::CertificateAuthorityService::delete_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_authority(self.0.request, self.0.options)
@@ -1203,8 +1524,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1229,7 +1552,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateAuthorityRequest::name].
@@ -1272,7 +1595,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate_authority][crate::client::CertificateAuthorityService::update_certificate_authority] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificateAuthority;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateAuthority {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateAuthority(
         RequestBuilder<crate::model::UpdateCertificateAuthorityRequest>,
@@ -1280,7 +1620,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateAuthority {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1305,7 +1645,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_authority][super::super::client::CertificateAuthorityService::update_certificate_authority].
+        /// on [update_certificate_authority][crate::client::CertificateAuthorityService::update_certificate_authority].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_authority(self.0.request, self.0.options)
@@ -1318,8 +1658,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateAuthority, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateAuthority, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateAuthority,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1344,30 +1686,50 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_authority<
-            T: Into<std::option::Option<crate::model::CertificateAuthority>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_authority = v.into();
+        pub fn set_certificate_authority<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_authority][crate::model::UpdateCertificateAuthorityRequest::certificate_authority].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_authority<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateAuthority>,
+        {
+            self.0.request.certificate_authority = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateAuthorityRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1385,13 +1747,30 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::create_ca_pool][crate::client::CertificateAuthorityService::create_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCaPool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCaPool(RequestBuilder<crate::model::CreateCaPoolRequest>);
 
     impl CreateCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1413,7 +1792,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_ca_pool][super::super::client::CertificateAuthorityService::create_ca_pool].
+        /// on [create_ca_pool][crate::client::CertificateAuthorityService::create_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_ca_pool(self.0.request, self.0.options)
@@ -1425,7 +1804,8 @@ pub mod certificate_authority_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1450,7 +1830,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCaPoolRequest::parent].
@@ -1472,11 +1852,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ca_pool<T: Into<std::option::Option<crate::model::CaPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ca_pool = v.into();
+        pub fn set_ca_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ca_pool][crate::model::CreateCaPoolRequest::ca_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = v.map(|x| x.into());
             self
         }
 
@@ -1494,13 +1885,30 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::update_ca_pool][crate::client::CertificateAuthorityService::update_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCaPool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCaPool(RequestBuilder<crate::model::UpdateCaPoolRequest>);
 
     impl UpdateCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1522,7 +1930,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_ca_pool][super::super::client::CertificateAuthorityService::update_ca_pool].
+        /// on [update_ca_pool][crate::client::CertificateAuthorityService::update_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_ca_pool(self.0.request, self.0.options)
@@ -1534,7 +1942,8 @@ pub mod certificate_authority_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::CaPool, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::CaPool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1559,28 +1968,50 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ca_pool<T: Into<std::option::Option<crate::model::CaPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ca_pool = v.into();
+        pub fn set_ca_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ca_pool][crate::model::UpdateCaPoolRequest::ca_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ca_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CaPool>,
+        {
+            self.0.request.ca_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCaPoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1598,13 +2029,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_ca_pool][super::super::client::CertificateAuthorityService::get_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::get_ca_pool][crate::client::CertificateAuthorityService::get_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCaPool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCaPool(RequestBuilder<crate::model::GetCaPoolRequest>);
 
     impl GetCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1645,13 +2092,33 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_ca_pools][super::super::client::CertificateAuthorityService::list_ca_pools] calls.
+    /// The request builder for [CertificateAuthorityService::list_ca_pools][crate::client::CertificateAuthorityService::list_ca_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCaPools;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCaPools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCaPools(RequestBuilder<crate::model::ListCaPoolsRequest>);
 
     impl ListCaPools {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1676,8 +2143,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCaPoolsResponse, gax::error::Error>
         {
@@ -1689,6 +2156,15 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCaPoolsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCaPoolsRequest::parent].
@@ -1731,13 +2207,30 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool] calls.
+    /// The request builder for [CertificateAuthorityService::delete_ca_pool][crate::client::CertificateAuthorityService::delete_ca_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteCaPool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCaPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCaPool(RequestBuilder<crate::model::DeleteCaPoolRequest>);
 
     impl DeleteCaPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1759,7 +2252,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_ca_pool][super::super::client::CertificateAuthorityService::delete_ca_pool].
+        /// on [delete_ca_pool][crate::client::CertificateAuthorityService::delete_ca_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_ca_pool(self.0.request, self.0.options)
@@ -1768,8 +2261,8 @@ pub mod certificate_authority_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_ca_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1794,7 +2287,12 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCaPoolRequest::name].
@@ -1825,13 +2323,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::fetch_ca_certs][super::super::client::CertificateAuthorityService::fetch_ca_certs] calls.
+    /// The request builder for [CertificateAuthorityService::fetch_ca_certs][crate::client::CertificateAuthorityService::fetch_ca_certs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::FetchCaCerts;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchCaCerts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchCaCerts(RequestBuilder<crate::model::FetchCaCertsRequest>);
 
     impl FetchCaCerts {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1878,7 +2392,23 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate_revocation_list][super::super::client::CertificateAuthorityService::get_certificate_revocation_list] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate_revocation_list][crate::client::CertificateAuthorityService::get_certificate_revocation_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificateRevocationList;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateRevocationList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateRevocationList(
         RequestBuilder<crate::model::GetCertificateRevocationListRequest>,
@@ -1886,7 +2416,7 @@ pub mod certificate_authority_service {
 
     impl GetCertificateRevocationList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1930,7 +2460,27 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificate_revocation_lists][super::super::client::CertificateAuthorityService::list_certificate_revocation_lists] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificate_revocation_lists][crate::client::CertificateAuthorityService::list_certificate_revocation_lists] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificateRevocationLists;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateRevocationLists {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateRevocationLists(
         RequestBuilder<crate::model::ListCertificateRevocationListsRequest>,
@@ -1938,7 +2488,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateRevocationLists {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1966,8 +2516,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateRevocationListsResponse,
@@ -1981,6 +2531,17 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCertificateRevocationListsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateRevocationListsRequest::parent].
@@ -2023,7 +2584,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate_revocation_list][crate::client::CertificateAuthorityService::update_certificate_revocation_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificateRevocationList;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateRevocationList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateRevocationList(
         RequestBuilder<crate::model::UpdateCertificateRevocationListRequest>,
@@ -2031,7 +2609,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateRevocationList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2056,7 +2634,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_revocation_list][super::super::client::CertificateAuthorityService::update_certificate_revocation_list].
+        /// on [update_certificate_revocation_list][crate::client::CertificateAuthorityService::update_certificate_revocation_list].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_revocation_list(self.0.request, self.0.options)
@@ -2069,7 +2647,7 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateRevocationList, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CertificateRevocationList,
                 crate::model::OperationMetadata,
             >;
@@ -2097,30 +2675,53 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_revocation_list<
-            T: Into<std::option::Option<crate::model::CertificateRevocationList>>,
-        >(
+        pub fn set_certificate_revocation_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateRevocationList>,
+        {
+            self.0.request.certificate_revocation_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_revocation_list][crate::model::UpdateCertificateRevocationListRequest::certificate_revocation_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_revocation_list<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_revocation_list = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateRevocationList>,
+        {
+            self.0.request.certificate_revocation_list = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRevocationListRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2138,7 +2739,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::create_certificate_template][crate::client::CertificateAuthorityService::create_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CreateCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateTemplate(
         RequestBuilder<crate::model::CreateCertificateTemplateRequest>,
@@ -2146,7 +2764,7 @@ pub mod certificate_authority_service {
 
     impl CreateCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2171,7 +2789,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_template][super::super::client::CertificateAuthorityService::create_certificate_template].
+        /// on [create_certificate_template][crate::client::CertificateAuthorityService::create_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_template(self.0.request, self.0.options)
@@ -2184,8 +2802,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateTemplate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateTemplate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2210,7 +2830,7 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateTemplateRequest::parent].
@@ -2232,13 +2852,22 @@ pub mod certificate_authority_service {
         /// Sets the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_template<
-            T: Into<std::option::Option<crate::model::CertificateTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_template = v.into();
+        pub fn set_certificate_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_template][crate::model::CreateCertificateTemplateRequest::certificate_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = v.map(|x| x.into());
             self
         }
 
@@ -2256,7 +2885,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::delete_certificate_template][crate::client::CertificateAuthorityService::delete_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateTemplate(
         RequestBuilder<crate::model::DeleteCertificateTemplateRequest>,
@@ -2264,7 +2910,7 @@ pub mod certificate_authority_service {
 
     impl DeleteCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2289,7 +2935,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_template][super::super::client::CertificateAuthorityService::delete_certificate_template].
+        /// on [delete_certificate_template][crate::client::CertificateAuthorityService::delete_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_template(self.0.request, self.0.options)
@@ -2298,8 +2944,8 @@ pub mod certificate_authority_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_template`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2324,7 +2970,12 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateTemplateRequest::name].
@@ -2349,13 +3000,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_certificate_template][super::super::client::CertificateAuthorityService::get_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::get_certificate_template][crate::client::CertificateAuthorityService::get_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateTemplate(RequestBuilder<crate::model::GetCertificateTemplateRequest>);
 
     impl GetCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2399,7 +3066,27 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_certificate_templates][super::super::client::CertificateAuthorityService::list_certificate_templates] calls.
+    /// The request builder for [CertificateAuthorityService::list_certificate_templates][crate::client::CertificateAuthorityService::list_certificate_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListCertificateTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateTemplates(
         RequestBuilder<crate::model::ListCertificateTemplatesRequest>,
@@ -2407,7 +3094,7 @@ pub mod certificate_authority_service {
 
     impl ListCertificateTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2435,8 +3122,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateTemplatesResponse,
@@ -2450,6 +3137,17 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCertificateTemplatesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateTemplatesRequest::parent].
@@ -2492,7 +3190,24 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template] calls.
+    /// The request builder for [CertificateAuthorityService::update_certificate_template][crate::client::CertificateAuthorityService::update_certificate_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::UpdateCertificateTemplate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateTemplate(
         RequestBuilder<crate::model::UpdateCertificateTemplateRequest>,
@@ -2500,7 +3215,7 @@ pub mod certificate_authority_service {
 
     impl UpdateCertificateTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2525,7 +3240,7 @@ pub mod certificate_authority_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_template][super::super::client::CertificateAuthorityService::update_certificate_template].
+        /// on [update_certificate_template][crate::client::CertificateAuthorityService::update_certificate_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_template(self.0.request, self.0.options)
@@ -2538,8 +3253,10 @@ pub mod certificate_authority_service {
             self,
         ) -> impl lro::Poller<crate::model::CertificateTemplate, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateTemplate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateTemplate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2564,30 +3281,50 @@ pub mod certificate_authority_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_template<
-            T: Into<std::option::Option<crate::model::CertificateTemplate>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_template = v.into();
+        pub fn set_certificate_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_template][crate::model::UpdateCertificateTemplateRequest::certificate_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateTemplate>,
+        {
+            self.0.request.certificate_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2605,13 +3342,33 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_locations][super::super::client::CertificateAuthorityService::list_locations] calls.
+    /// The request builder for [CertificateAuthorityService::list_locations][crate::client::CertificateAuthorityService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2639,8 +3396,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2652,6 +3409,15 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2686,13 +3452,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_location][super::super::client::CertificateAuthorityService::get_location] calls.
+    /// The request builder for [CertificateAuthorityService::get_location][crate::client::CertificateAuthorityService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2731,13 +3513,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::set_iam_policy][super::super::client::CertificateAuthorityService::set_iam_policy] calls.
+    /// The request builder for [CertificateAuthorityService::set_iam_policy][crate::client::CertificateAuthorityService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2773,20 +3571,40 @@ pub mod certificate_authority_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2798,13 +3616,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_iam_policy][super::super::client::CertificateAuthorityService::get_iam_policy] calls.
+    /// The request builder for [CertificateAuthorityService::get_iam_policy][crate::client::CertificateAuthorityService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2838,11 +3672,20 @@ pub mod certificate_authority_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2854,13 +3697,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::test_iam_permissions][super::super::client::CertificateAuthorityService::test_iam_permissions] calls.
+    /// The request builder for [CertificateAuthorityService::test_iam_permissions][crate::client::CertificateAuthorityService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2917,13 +3776,33 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::list_operations][super::super::client::CertificateAuthorityService::list_operations] calls.
+    /// The request builder for [CertificateAuthorityService::list_operations][crate::client::CertificateAuthorityService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2951,8 +3830,8 @@ pub mod certificate_authority_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2964,6 +3843,17 @@ pub mod certificate_authority_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2998,13 +3888,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::get_operation][super::super::client::CertificateAuthorityService::get_operation] calls.
+    /// The request builder for [CertificateAuthorityService::get_operation][crate::client::CertificateAuthorityService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3046,13 +3952,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::delete_operation][super::super::client::CertificateAuthorityService::delete_operation] calls.
+    /// The request builder for [CertificateAuthorityService::delete_operation][crate::client::CertificateAuthorityService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3094,13 +4016,29 @@ pub mod certificate_authority_service {
         }
     }
 
-    /// The request builder for [CertificateAuthorityService::cancel_operation][super::super::client::CertificateAuthorityService::cancel_operation] calls.
+    /// The request builder for [CertificateAuthorityService::cancel_operation][crate::client::CertificateAuthorityService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_privateca_v1::builder;
+    /// use builder::certificate_authority_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateAuthorityService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

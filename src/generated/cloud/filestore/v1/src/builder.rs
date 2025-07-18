@@ -16,9 +16,8 @@
 
 pub mod cloud_filestore_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudFilestoreManager][super::super::client::CloudFilestoreManager].
+    /// A builder for [CloudFilestoreManager][crate::client::CloudFilestoreManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cloud_filestore_manager {
     /// let client = builder
     ///     .with_endpoint("https://file.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cloud_filestore_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudFilestoreManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudFilestoreManager] request builders.
+    /// Common implementation for [crate::client::CloudFilestoreManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod cloud_filestore_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_instances][super::super::client::CloudFilestoreManager::list_instances] calls.
+    /// The request builder for [CloudFilestoreManager::list_instances][crate::client::CloudFilestoreManager::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -100,8 +122,8 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -113,6 +135,15 @@ pub mod cloud_filestore_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -155,13 +186,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_instance][super::super::client::CloudFilestoreManager::get_instance] calls.
+    /// The request builder for [CloudFilestoreManager::get_instance][crate::client::CloudFilestoreManager::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -202,13 +249,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::create_instance][super::super::client::CloudFilestoreManager::create_instance] calls.
+    /// The request builder for [CloudFilestoreManager::create_instance][crate::client::CloudFilestoreManager::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -230,7 +294,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::CloudFilestoreManager::create_instance].
+        /// on [create_instance][crate::client::CloudFilestoreManager::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -243,8 +307,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -269,7 +335,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -291,11 +357,22 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
     }
@@ -307,13 +384,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::update_instance][super::super::client::CloudFilestoreManager::update_instance] calls.
+    /// The request builder for [CloudFilestoreManager::update_instance][crate::client::CloudFilestoreManager::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -335,7 +429,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::CloudFilestoreManager::update_instance].
+        /// on [update_instance][crate::client::CloudFilestoreManager::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -348,8 +442,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -374,24 +470,42 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
     }
@@ -403,13 +517,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::restore_instance][super::super::client::CloudFilestoreManager::restore_instance] calls.
+    /// The request builder for [CloudFilestoreManager::restore_instance][crate::client::CloudFilestoreManager::restore_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::RestoreInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreInstance(RequestBuilder<crate::model::RestoreInstanceRequest>);
 
     impl RestoreInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -431,7 +562,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_instance][super::super::client::CloudFilestoreManager::restore_instance].
+        /// on [restore_instance][crate::client::CloudFilestoreManager::restore_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_instance(self.0.request, self.0.options)
@@ -444,8 +575,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -470,7 +603,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RestoreInstanceRequest::name].
@@ -522,13 +655,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::revert_instance][super::super::client::CloudFilestoreManager::revert_instance] calls.
+    /// The request builder for [CloudFilestoreManager::revert_instance][crate::client::CloudFilestoreManager::revert_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::RevertInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevertInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevertInstance(RequestBuilder<crate::model::RevertInstanceRequest>);
 
     impl RevertInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -550,7 +700,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revert_instance][super::super::client::CloudFilestoreManager::revert_instance].
+        /// on [revert_instance][crate::client::CloudFilestoreManager::revert_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revert_instance(self.0.request, self.0.options)
@@ -563,8 +713,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -589,7 +741,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevertInstanceRequest::name].
@@ -616,13 +768,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_instance][super::super::client::CloudFilestoreManager::delete_instance] calls.
+    /// The request builder for [CloudFilestoreManager::delete_instance][crate::client::CloudFilestoreManager::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -644,7 +813,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::CloudFilestoreManager::delete_instance].
+        /// on [delete_instance][crate::client::CloudFilestoreManager::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -653,10 +822,9 @@ pub mod cloud_filestore_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -681,7 +849,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -706,13 +879,33 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_snapshots][super::super::client::CloudFilestoreManager::list_snapshots] calls.
+    /// The request builder for [CloudFilestoreManager::list_snapshots][crate::client::CloudFilestoreManager::list_snapshots] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListSnapshots;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSnapshots {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -737,8 +930,8 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
         {
@@ -750,6 +943,15 @@ pub mod cloud_filestore_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
@@ -798,13 +1000,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_snapshot][super::super::client::CloudFilestoreManager::get_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::get_snapshot][crate::client::CloudFilestoreManager::get_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -845,13 +1063,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::create_snapshot][super::super::client::CloudFilestoreManager::create_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::create_snapshot][crate::client::CloudFilestoreManager::create_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CreateSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -873,7 +1108,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_snapshot][super::super::client::CloudFilestoreManager::create_snapshot].
+        /// on [create_snapshot][crate::client::CloudFilestoreManager::create_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
@@ -886,8 +1121,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -912,7 +1149,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
@@ -934,11 +1171,22 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -950,13 +1198,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_snapshot][super::super::client::CloudFilestoreManager::delete_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::delete_snapshot][crate::client::CloudFilestoreManager::delete_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -978,7 +1243,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_snapshot][super::super::client::CloudFilestoreManager::delete_snapshot].
+        /// on [delete_snapshot][crate::client::CloudFilestoreManager::delete_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
@@ -987,10 +1252,9 @@ pub mod cloud_filestore_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1015,7 +1279,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -1034,13 +1303,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::update_snapshot][super::super::client::CloudFilestoreManager::update_snapshot] calls.
+    /// The request builder for [CloudFilestoreManager::update_snapshot][crate::client::CloudFilestoreManager::update_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::UpdateSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1062,7 +1348,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_snapshot][super::super::client::CloudFilestoreManager::update_snapshot].
+        /// on [update_snapshot][crate::client::CloudFilestoreManager::update_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
@@ -1075,8 +1361,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1101,28 +1389,50 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -1134,13 +1444,33 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_backups][super::super::client::CloudFilestoreManager::list_backups] calls.
+    /// The request builder for [CloudFilestoreManager::list_backups][crate::client::CloudFilestoreManager::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1165,8 +1495,8 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -1178,6 +1508,15 @@ pub mod cloud_filestore_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -1220,13 +1559,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_backup][super::super::client::CloudFilestoreManager::get_backup] calls.
+    /// The request builder for [CloudFilestoreManager::get_backup][crate::client::CloudFilestoreManager::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1267,13 +1622,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::create_backup][super::super::client::CloudFilestoreManager::create_backup] calls.
+    /// The request builder for [CloudFilestoreManager::create_backup][crate::client::CloudFilestoreManager::create_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CreateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1295,7 +1667,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::CloudFilestoreManager::create_backup].
+        /// on [create_backup][crate::client::CloudFilestoreManager::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1308,8 +1680,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Backup,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1334,7 +1708,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1348,11 +1722,22 @@ pub mod cloud_filestore_manager {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -1372,13 +1757,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_backup][super::super::client::CloudFilestoreManager::delete_backup] calls.
+    /// The request builder for [CloudFilestoreManager::delete_backup][crate::client::CloudFilestoreManager::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1400,7 +1802,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::CloudFilestoreManager::delete_backup].
+        /// on [delete_backup][crate::client::CloudFilestoreManager::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1409,10 +1811,9 @@ pub mod cloud_filestore_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, cloud_common::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), cloud_common::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, cloud_common::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1437,7 +1838,12 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1456,13 +1862,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::update_backup][super::super::client::CloudFilestoreManager::update_backup] calls.
+    /// The request builder for [CloudFilestoreManager::update_backup][crate::client::CloudFilestoreManager::update_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::UpdateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1484,7 +1907,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::CloudFilestoreManager::update_backup].
+        /// on [update_backup][crate::client::CloudFilestoreManager::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -1497,8 +1920,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Backup, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Backup, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Backup,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1523,28 +1948,50 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1556,13 +2003,30 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::promote_replica][super::super::client::CloudFilestoreManager::promote_replica] calls.
+    /// The request builder for [CloudFilestoreManager::promote_replica][crate::client::CloudFilestoreManager::promote_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::PromoteReplica;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PromoteReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PromoteReplica(RequestBuilder<crate::model::PromoteReplicaRequest>);
 
     impl PromoteReplica {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1584,7 +2048,7 @@ pub mod cloud_filestore_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [promote_replica][super::super::client::CloudFilestoreManager::promote_replica].
+        /// on [promote_replica][crate::client::CloudFilestoreManager::promote_replica].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .promote_replica(self.0.request, self.0.options)
@@ -1597,8 +2061,10 @@ pub mod cloud_filestore_manager {
             self,
         ) -> impl lro::Poller<crate::model::Instance, cloud_common::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, cloud_common::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                cloud_common::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1623,7 +2089,7 @@ pub mod cloud_filestore_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::PromoteReplicaRequest::name].
@@ -1648,13 +2114,33 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_locations][super::super::client::CloudFilestoreManager::list_locations] calls.
+    /// The request builder for [CloudFilestoreManager::list_locations][crate::client::CloudFilestoreManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1682,8 +2168,8 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1695,6 +2181,15 @@ pub mod cloud_filestore_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1729,13 +2224,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_location][super::super::client::CloudFilestoreManager::get_location] calls.
+    /// The request builder for [CloudFilestoreManager::get_location][crate::client::CloudFilestoreManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1774,13 +2285,33 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::list_operations][super::super::client::CloudFilestoreManager::list_operations] calls.
+    /// The request builder for [CloudFilestoreManager::list_operations][crate::client::CloudFilestoreManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1808,8 +2339,8 @@ pub mod cloud_filestore_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1821,6 +2352,17 @@ pub mod cloud_filestore_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1855,13 +2397,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::get_operation][super::super::client::CloudFilestoreManager::get_operation] calls.
+    /// The request builder for [CloudFilestoreManager::get_operation][crate::client::CloudFilestoreManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1903,13 +2461,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::delete_operation][super::super::client::CloudFilestoreManager::delete_operation] calls.
+    /// The request builder for [CloudFilestoreManager::delete_operation][crate::client::CloudFilestoreManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1951,13 +2525,29 @@ pub mod cloud_filestore_manager {
         }
     }
 
-    /// The request builder for [CloudFilestoreManager::cancel_operation][super::super::client::CloudFilestoreManager::cancel_operation] calls.
+    /// The request builder for [CloudFilestoreManager::cancel_operation][crate::client::CloudFilestoreManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_filestore_v1::builder;
+    /// use builder::cloud_filestore_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudFilestoreManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

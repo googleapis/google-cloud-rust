@@ -206,7 +206,7 @@ func annotateMessage(m *api.Message, state *api.APIState, importMap map[string]*
 
 func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:   m.PathInfo.Verb,
+		Method:   m.PathInfo.Bindings[0].Verb,
 		PathFmt:  httpPathFmt(m.PathInfo),
 		PathArgs: httpPathArgs(m.PathInfo),
 		HasBody:  m.PathInfo.BodyFieldPath != "",
@@ -218,7 +218,7 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 		Name:              strcase.ToCamel(m.Name),
 		NameToPascal:      toPascal(m.Name),
 		PathParams:        language.PathParams(m, state),
-		QueryParams:       language.QueryParams(m, state),
+		QueryParams:       language.QueryParams(m, m.PathInfo.Bindings[0]),
 		ServiceStructName: s.Name,
 	}
 	if m.OperationInfo != nil {

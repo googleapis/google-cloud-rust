@@ -16,9 +16,8 @@
 
 pub mod eventarc {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Eventarc][super::super::client::Eventarc].
+    /// A builder for [Eventarc][crate::client::Eventarc].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod eventarc {
     /// let client = builder
     ///     .with_endpoint("https://eventarc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod eventarc {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Eventarc;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Eventarc] request builders.
+    /// Common implementation for [crate::client::Eventarc] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Eventarc>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod eventarc {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_trigger][super::super::client::Eventarc::get_trigger] calls.
+    /// The request builder for [Eventarc::get_trigger][crate::client::Eventarc::get_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetTrigger;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTrigger(RequestBuilder<crate::model::GetTriggerRequest>);
 
     impl GetTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,12 +130,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_triggers][super::super::client::Eventarc::list_triggers] calls.
+    /// The request builder for [Eventarc::list_triggers][crate::client::Eventarc::list_triggers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListTriggers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTriggers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTriggers(RequestBuilder<crate::model::ListTriggersRequest>);
 
     impl ListTriggers {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,8 +179,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTriggersResponse, gax::error::Error>
         {
@@ -154,6 +192,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTriggersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTriggersRequest::parent].
@@ -196,12 +243,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_trigger][super::super::client::Eventarc::create_trigger] calls.
+    /// The request builder for [Eventarc::create_trigger][crate::client::Eventarc::create_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreateTrigger;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTrigger(RequestBuilder<crate::model::CreateTriggerRequest>);
 
     impl CreateTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +286,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_trigger][super::super::client::Eventarc::create_trigger].
+        /// on [create_trigger][crate::client::Eventarc::create_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_trigger(self.0.request, self.0.options)
@@ -234,7 +298,8 @@ pub mod eventarc {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Trigger, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Trigger, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Trigger, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -259,7 +324,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTriggerRequest::parent].
@@ -273,11 +338,22 @@ pub mod eventarc {
         /// Sets the value of [trigger][crate::model::CreateTriggerRequest::trigger].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trigger<T: Into<std::option::Option<crate::model::Trigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trigger = v.into();
+        pub fn set_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trigger][crate::model::CreateTriggerRequest::trigger].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = v.map(|x| x.into());
             self
         }
 
@@ -303,12 +379,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_trigger][super::super::client::Eventarc::update_trigger] calls.
+    /// The request builder for [Eventarc::update_trigger][crate::client::Eventarc::update_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdateTrigger;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTrigger(RequestBuilder<crate::model::UpdateTriggerRequest>);
 
     impl UpdateTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +422,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_trigger][super::super::client::Eventarc::update_trigger].
+        /// on [update_trigger][crate::client::Eventarc::update_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_trigger(self.0.request, self.0.options)
@@ -341,7 +434,8 @@ pub mod eventarc {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Trigger, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Trigger, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Trigger, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,24 +460,42 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
-        pub fn set_trigger<T: Into<std::option::Option<crate::model::Trigger>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trigger = v.into();
+        pub fn set_trigger<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trigger][crate::model::UpdateTriggerRequest::trigger].
+        pub fn set_or_clear_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Trigger>,
+        {
+            self.0.request.trigger = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTriggerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -407,12 +519,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_trigger][super::super::client::Eventarc::delete_trigger] calls.
+    /// The request builder for [Eventarc::delete_trigger][crate::client::Eventarc::delete_trigger] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteTrigger;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTrigger {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTrigger(RequestBuilder<crate::model::DeleteTriggerRequest>);
 
     impl DeleteTrigger {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +562,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_trigger][super::super::client::Eventarc::delete_trigger].
+        /// on [delete_trigger][crate::client::Eventarc::delete_trigger].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_trigger(self.0.request, self.0.options)
@@ -445,7 +574,8 @@ pub mod eventarc {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Trigger, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Trigger, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Trigger, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -470,7 +600,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTriggerRequest::name].
@@ -507,12 +637,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_channel][super::super::client::Eventarc::get_channel] calls.
+    /// The request builder for [Eventarc::get_channel][crate::client::Eventarc::get_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetChannel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,12 +698,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_channels][super::super::client::Eventarc::list_channels] calls.
+    /// The request builder for [Eventarc::list_channels][crate::client::Eventarc::list_channels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListChannels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListChannels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -581,8 +747,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListChannelsResponse, gax::error::Error>
         {
@@ -594,6 +760,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListChannelsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
@@ -630,12 +805,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_channel][super::super::client::Eventarc::create_channel] calls.
+    /// The request builder for [Eventarc::create_channel][crate::client::Eventarc::create_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreateChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -656,7 +848,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel][super::super::client::Eventarc::create_channel].
+        /// on [create_channel][crate::client::Eventarc::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
@@ -668,7 +860,8 @@ pub mod eventarc {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -693,7 +886,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
@@ -707,11 +900,22 @@ pub mod eventarc {
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
@@ -737,12 +941,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_channel][super::super::client::Eventarc::update_channel] calls.
+    /// The request builder for [Eventarc::update_channel][crate::client::Eventarc::update_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdateChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -763,7 +984,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_channel][super::super::client::Eventarc::update_channel].
+        /// on [update_channel][crate::client::Eventarc::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
@@ -775,7 +996,8 @@ pub mod eventarc {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -800,24 +1022,42 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -835,12 +1075,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_channel][super::super::client::Eventarc::delete_channel] calls.
+    /// The request builder for [Eventarc::delete_channel][crate::client::Eventarc::delete_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -861,7 +1118,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel][super::super::client::Eventarc::delete_channel].
+        /// on [delete_channel][crate::client::Eventarc::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
@@ -873,7 +1130,8 @@ pub mod eventarc {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -898,7 +1156,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
@@ -923,12 +1181,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_provider][super::super::client::Eventarc::get_provider] calls.
+    /// The request builder for [Eventarc::get_provider][crate::client::Eventarc::get_provider] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetProvider;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProvider {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProvider(RequestBuilder<crate::model::GetProviderRequest>);
 
     impl GetProvider {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -968,12 +1242,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_providers][super::super::client::Eventarc::list_providers] calls.
+    /// The request builder for [Eventarc::list_providers][crate::client::Eventarc::list_providers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListProviders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProviders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProviders(RequestBuilder<crate::model::ListProvidersRequest>);
 
     impl ListProviders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -997,8 +1291,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProvidersResponse, gax::error::Error>
         {
@@ -1010,6 +1304,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProvidersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProvidersRequest::parent].
@@ -1052,12 +1355,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_channel_connection][super::super::client::Eventarc::get_channel_connection] calls.
+    /// The request builder for [Eventarc::get_channel_connection][crate::client::Eventarc::get_channel_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetChannelConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetChannelConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetChannelConnection(RequestBuilder<crate::model::GetChannelConnectionRequest>);
 
     impl GetChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1100,12 +1419,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_channel_connections][super::super::client::Eventarc::list_channel_connections] calls.
+    /// The request builder for [Eventarc::list_channel_connections][crate::client::Eventarc::list_channel_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListChannelConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListChannelConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListChannelConnections(RequestBuilder<crate::model::ListChannelConnectionsRequest>);
 
     impl ListChannelConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1132,8 +1471,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListChannelConnectionsResponse,
@@ -1147,6 +1486,17 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListChannelConnectionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListChannelConnectionsRequest::parent].
@@ -1177,14 +1527,31 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_channel_connection][super::super::client::Eventarc::create_channel_connection] calls.
+    /// The request builder for [Eventarc::create_channel_connection][crate::client::Eventarc::create_channel_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreateChannelConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateChannelConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateChannelConnection(
         RequestBuilder<crate::model::CreateChannelConnectionRequest>,
     );
 
     impl CreateChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1208,7 +1575,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel_connection][super::super::client::Eventarc::create_channel_connection].
+        /// on [create_channel_connection][crate::client::Eventarc::create_channel_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel_connection(self.0.request, self.0.options)
@@ -1221,8 +1588,10 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::ChannelConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ChannelConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ChannelConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1247,7 +1616,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelConnectionRequest::parent].
@@ -1261,13 +1630,22 @@ pub mod eventarc {
         /// Sets the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel_connection<
-            T: Into<std::option::Option<crate::model::ChannelConnection>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel_connection = v.into();
+        pub fn set_channel_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ChannelConnection>,
+        {
+            self.0.request.channel_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel_connection][crate::model::CreateChannelConnectionRequest::channel_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ChannelConnection>,
+        {
+            self.0.request.channel_connection = v.map(|x| x.into());
             self
         }
 
@@ -1287,14 +1665,31 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_channel_connection][super::super::client::Eventarc::delete_channel_connection] calls.
+    /// The request builder for [Eventarc::delete_channel_connection][crate::client::Eventarc::delete_channel_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteChannelConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteChannelConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteChannelConnection(
         RequestBuilder<crate::model::DeleteChannelConnectionRequest>,
     );
 
     impl DeleteChannelConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1318,7 +1713,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel_connection][super::super::client::Eventarc::delete_channel_connection].
+        /// on [delete_channel_connection][crate::client::Eventarc::delete_channel_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel_connection(self.0.request, self.0.options)
@@ -1331,8 +1726,10 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::ChannelConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ChannelConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ChannelConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1357,7 +1754,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelConnectionRequest::name].
@@ -1376,12 +1773,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_google_channel_config][super::super::client::Eventarc::get_google_channel_config] calls.
+    /// The request builder for [Eventarc::get_google_channel_config][crate::client::Eventarc::get_google_channel_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetGoogleChannelConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGoogleChannelConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoogleChannelConfig(RequestBuilder<crate::model::GetGoogleChannelConfigRequest>);
 
     impl GetGoogleChannelConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,14 +1837,30 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_google_channel_config][super::super::client::Eventarc::update_google_channel_config] calls.
+    /// The request builder for [Eventarc::update_google_channel_config][crate::client::Eventarc::update_google_channel_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdateGoogleChannelConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGoogleChannelConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGoogleChannelConfig(
         RequestBuilder<crate::model::UpdateGoogleChannelConfigRequest>,
     );
 
     impl UpdateGoogleChannelConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1461,22 +1890,40 @@ pub mod eventarc {
         /// Sets the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_google_channel_config<
-            T: Into<std::option::Option<crate::model::GoogleChannelConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.google_channel_config = v.into();
+        pub fn set_google_channel_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleChannelConfig>,
+        {
+            self.0.request.google_channel_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_channel_config][crate::model::UpdateGoogleChannelConfigRequest::google_channel_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_google_channel_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleChannelConfig>,
+        {
+            self.0.request.google_channel_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleChannelConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1488,12 +1935,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_message_bus][super::super::client::Eventarc::get_message_bus] calls.
+    /// The request builder for [Eventarc::get_message_bus][crate::client::Eventarc::get_message_bus] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetMessageBus;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMessageBus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMessageBus(RequestBuilder<crate::model::GetMessageBusRequest>);
 
     impl GetMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1533,12 +1996,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_message_buses][super::super::client::Eventarc::list_message_buses] calls.
+    /// The request builder for [Eventarc::list_message_buses][crate::client::Eventarc::list_message_buses] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListMessageBuses;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMessageBuses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMessageBuses(RequestBuilder<crate::model::ListMessageBusesRequest>);
 
     impl ListMessageBuses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1565,8 +2048,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMessageBusesResponse, gax::error::Error>
         {
@@ -1578,6 +2061,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMessageBusesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMessageBusesRequest::parent].
@@ -1620,14 +2112,30 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_message_bus_enrollments][super::super::client::Eventarc::list_message_bus_enrollments] calls.
+    /// The request builder for [Eventarc::list_message_bus_enrollments][crate::client::Eventarc::list_message_bus_enrollments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListMessageBusEnrollments;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMessageBusEnrollments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMessageBusEnrollments(
         RequestBuilder<crate::model::ListMessageBusEnrollmentsRequest>,
     );
 
     impl ListMessageBusEnrollments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1682,12 +2190,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_message_bus][super::super::client::Eventarc::create_message_bus] calls.
+    /// The request builder for [Eventarc::create_message_bus][crate::client::Eventarc::create_message_bus] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreateMessageBus;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMessageBus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMessageBus(RequestBuilder<crate::model::CreateMessageBusRequest>);
 
     impl CreateMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1711,7 +2236,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_message_bus][super::super::client::Eventarc::create_message_bus].
+        /// on [create_message_bus][crate::client::Eventarc::create_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_message_bus(self.0.request, self.0.options)
@@ -1724,7 +2249,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::MessageBus, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::MessageBus, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::MessageBus, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1749,7 +2274,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMessageBusRequest::parent].
@@ -1763,11 +2288,22 @@ pub mod eventarc {
         /// Sets the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
         ///
         /// This is a **required** field for requests.
-        pub fn set_message_bus<T: Into<std::option::Option<crate::model::MessageBus>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.message_bus = v.into();
+        pub fn set_message_bus<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message_bus][crate::model::CreateMessageBusRequest::message_bus].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = v.map(|x| x.into());
             self
         }
 
@@ -1793,12 +2329,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_message_bus][super::super::client::Eventarc::update_message_bus] calls.
+    /// The request builder for [Eventarc::update_message_bus][crate::client::Eventarc::update_message_bus] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdateMessageBus;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMessageBus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMessageBus(RequestBuilder<crate::model::UpdateMessageBusRequest>);
 
     impl UpdateMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1822,7 +2375,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_message_bus][super::super::client::Eventarc::update_message_bus].
+        /// on [update_message_bus][crate::client::Eventarc::update_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_message_bus(self.0.request, self.0.options)
@@ -1835,7 +2388,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::MessageBus, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::MessageBus, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::MessageBus, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1860,26 +2413,46 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
         ///
         /// This is a **required** field for requests.
-        pub fn set_message_bus<T: Into<std::option::Option<crate::model::MessageBus>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.message_bus = v.into();
+        pub fn set_message_bus<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [message_bus][crate::model::UpdateMessageBusRequest::message_bus].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_message_bus<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MessageBus>,
+        {
+            self.0.request.message_bus = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMessageBusRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1903,12 +2476,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_message_bus][super::super::client::Eventarc::delete_message_bus] calls.
+    /// The request builder for [Eventarc::delete_message_bus][crate::client::Eventarc::delete_message_bus] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteMessageBus;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMessageBus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMessageBus(RequestBuilder<crate::model::DeleteMessageBusRequest>);
 
     impl DeleteMessageBus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1932,7 +2522,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_message_bus][super::super::client::Eventarc::delete_message_bus].
+        /// on [delete_message_bus][crate::client::Eventarc::delete_message_bus].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_message_bus(self.0.request, self.0.options)
@@ -1945,7 +2535,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::MessageBus, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::MessageBus, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::MessageBus, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1970,7 +2560,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteMessageBusRequest::name].
@@ -2007,12 +2597,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_enrollment][super::super::client::Eventarc::get_enrollment] calls.
+    /// The request builder for [Eventarc::get_enrollment][crate::client::Eventarc::get_enrollment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetEnrollment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEnrollment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEnrollment(RequestBuilder<crate::model::GetEnrollmentRequest>);
 
     impl GetEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2052,12 +2658,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_enrollments][super::super::client::Eventarc::list_enrollments] calls.
+    /// The request builder for [Eventarc::list_enrollments][crate::client::Eventarc::list_enrollments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListEnrollments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEnrollments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEnrollments(RequestBuilder<crate::model::ListEnrollmentsRequest>);
 
     impl ListEnrollments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2081,8 +2707,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEnrollmentsResponse, gax::error::Error>
         {
@@ -2094,6 +2720,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEnrollmentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEnrollmentsRequest::parent].
@@ -2136,12 +2771,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_enrollment][super::super::client::Eventarc::create_enrollment] calls.
+    /// The request builder for [Eventarc::create_enrollment][crate::client::Eventarc::create_enrollment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreateEnrollment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEnrollment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEnrollment(RequestBuilder<crate::model::CreateEnrollmentRequest>);
 
     impl CreateEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2165,7 +2817,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_enrollment][super::super::client::Eventarc::create_enrollment].
+        /// on [create_enrollment][crate::client::Eventarc::create_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_enrollment(self.0.request, self.0.options)
@@ -2178,7 +2830,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::Enrollment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Enrollment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Enrollment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2203,7 +2855,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEnrollmentRequest::parent].
@@ -2217,11 +2869,22 @@ pub mod eventarc {
         /// Sets the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_enrollment<T: Into<std::option::Option<crate::model::Enrollment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.enrollment = v.into();
+        pub fn set_enrollment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enrollment][crate::model::CreateEnrollmentRequest::enrollment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = v.map(|x| x.into());
             self
         }
 
@@ -2247,12 +2910,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_enrollment][super::super::client::Eventarc::update_enrollment] calls.
+    /// The request builder for [Eventarc::update_enrollment][crate::client::Eventarc::update_enrollment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdateEnrollment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEnrollment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEnrollment(RequestBuilder<crate::model::UpdateEnrollmentRequest>);
 
     impl UpdateEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2276,7 +2956,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_enrollment][super::super::client::Eventarc::update_enrollment].
+        /// on [update_enrollment][crate::client::Eventarc::update_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_enrollment(self.0.request, self.0.options)
@@ -2289,7 +2969,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::Enrollment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Enrollment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Enrollment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2314,26 +2994,46 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_enrollment<T: Into<std::option::Option<crate::model::Enrollment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.enrollment = v.into();
+        pub fn set_enrollment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enrollment][crate::model::UpdateEnrollmentRequest::enrollment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_enrollment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Enrollment>,
+        {
+            self.0.request.enrollment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEnrollmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2357,12 +3057,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_enrollment][super::super::client::Eventarc::delete_enrollment] calls.
+    /// The request builder for [Eventarc::delete_enrollment][crate::client::Eventarc::delete_enrollment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteEnrollment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEnrollment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEnrollment(RequestBuilder<crate::model::DeleteEnrollmentRequest>);
 
     impl DeleteEnrollment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2386,7 +3103,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_enrollment][super::super::client::Eventarc::delete_enrollment].
+        /// on [delete_enrollment][crate::client::Eventarc::delete_enrollment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_enrollment(self.0.request, self.0.options)
@@ -2399,7 +3116,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::Enrollment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Enrollment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Enrollment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2424,7 +3141,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEnrollmentRequest::name].
@@ -2461,12 +3178,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_pipeline][super::super::client::Eventarc::get_pipeline] calls.
+    /// The request builder for [Eventarc::get_pipeline][crate::client::Eventarc::get_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetPipeline;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPipeline(RequestBuilder<crate::model::GetPipelineRequest>);
 
     impl GetPipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2506,12 +3239,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_pipelines][super::super::client::Eventarc::list_pipelines] calls.
+    /// The request builder for [Eventarc::list_pipelines][crate::client::Eventarc::list_pipelines] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListPipelines;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPipelines {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPipelines(RequestBuilder<crate::model::ListPipelinesRequest>);
 
     impl ListPipelines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2535,8 +3288,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPipelinesResponse, gax::error::Error>
         {
@@ -2548,6 +3301,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPipelinesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPipelinesRequest::parent].
@@ -2590,12 +3352,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_pipeline][super::super::client::Eventarc::create_pipeline] calls.
+    /// The request builder for [Eventarc::create_pipeline][crate::client::Eventarc::create_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreatePipeline;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePipeline(RequestBuilder<crate::model::CreatePipelineRequest>);
 
     impl CreatePipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2616,7 +3395,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_pipeline][super::super::client::Eventarc::create_pipeline].
+        /// on [create_pipeline][crate::client::Eventarc::create_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_pipeline(self.0.request, self.0.options)
@@ -2629,7 +3408,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::Pipeline, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Pipeline, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Pipeline, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2654,7 +3433,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePipelineRequest::parent].
@@ -2668,11 +3447,22 @@ pub mod eventarc {
         /// Sets the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pipeline<T: Into<std::option::Option<crate::model::Pipeline>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.pipeline = v.into();
+        pub fn set_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pipeline][crate::model::CreatePipelineRequest::pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = v.map(|x| x.into());
             self
         }
 
@@ -2698,12 +3488,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_pipeline][super::super::client::Eventarc::update_pipeline] calls.
+    /// The request builder for [Eventarc::update_pipeline][crate::client::Eventarc::update_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdatePipeline;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePipeline(RequestBuilder<crate::model::UpdatePipelineRequest>);
 
     impl UpdatePipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2724,7 +3531,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_pipeline][super::super::client::Eventarc::update_pipeline].
+        /// on [update_pipeline][crate::client::Eventarc::update_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pipeline(self.0.request, self.0.options)
@@ -2737,7 +3544,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::Pipeline, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Pipeline, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Pipeline, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2762,26 +3569,46 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pipeline<T: Into<std::option::Option<crate::model::Pipeline>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.pipeline = v.into();
+        pub fn set_pipeline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pipeline][crate::model::UpdatePipelineRequest::pipeline].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pipeline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Pipeline>,
+        {
+            self.0.request.pipeline = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePipelineRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2805,12 +3632,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_pipeline][super::super::client::Eventarc::delete_pipeline] calls.
+    /// The request builder for [Eventarc::delete_pipeline][crate::client::Eventarc::delete_pipeline] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeletePipeline;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePipeline {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePipeline(RequestBuilder<crate::model::DeletePipelineRequest>);
 
     impl DeletePipeline {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2831,7 +3675,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_pipeline][super::super::client::Eventarc::delete_pipeline].
+        /// on [delete_pipeline][crate::client::Eventarc::delete_pipeline].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_pipeline(self.0.request, self.0.options)
@@ -2844,7 +3688,7 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::Pipeline, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Pipeline, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Pipeline, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2869,7 +3713,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePipelineRequest::name].
@@ -2906,12 +3750,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_google_api_source][super::super::client::Eventarc::get_google_api_source] calls.
+    /// The request builder for [Eventarc::get_google_api_source][crate::client::Eventarc::get_google_api_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetGoogleApiSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGoogleApiSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoogleApiSource(RequestBuilder<crate::model::GetGoogleApiSourceRequest>);
 
     impl GetGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2954,12 +3814,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_google_api_sources][super::super::client::Eventarc::list_google_api_sources] calls.
+    /// The request builder for [Eventarc::list_google_api_sources][crate::client::Eventarc::list_google_api_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListGoogleApiSources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGoogleApiSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGoogleApiSources(RequestBuilder<crate::model::ListGoogleApiSourcesRequest>);
 
     impl ListGoogleApiSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2986,8 +3866,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListGoogleApiSourcesResponse, gax::error::Error>
         {
@@ -2999,6 +3879,17 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListGoogleApiSourcesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListGoogleApiSourcesRequest::parent].
@@ -3041,12 +3932,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::create_google_api_source][super::super::client::Eventarc::create_google_api_source] calls.
+    /// The request builder for [Eventarc::create_google_api_source][crate::client::Eventarc::create_google_api_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CreateGoogleApiSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGoogleApiSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGoogleApiSource(RequestBuilder<crate::model::CreateGoogleApiSourceRequest>);
 
     impl CreateGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3070,7 +3978,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_google_api_source][super::super::client::Eventarc::create_google_api_source].
+        /// on [create_google_api_source][crate::client::Eventarc::create_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_google_api_source(self.0.request, self.0.options)
@@ -3083,8 +3991,10 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::GoogleApiSource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::GoogleApiSource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::GoogleApiSource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3109,7 +4019,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGoogleApiSourceRequest::parent].
@@ -3123,13 +4033,22 @@ pub mod eventarc {
         /// Sets the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_google_api_source<
-            T: Into<std::option::Option<crate::model::GoogleApiSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.google_api_source = v.into();
+        pub fn set_google_api_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_api_source][crate::model::CreateGoogleApiSourceRequest::google_api_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = v.map(|x| x.into());
             self
         }
 
@@ -3155,12 +4074,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::update_google_api_source][super::super::client::Eventarc::update_google_api_source] calls.
+    /// The request builder for [Eventarc::update_google_api_source][crate::client::Eventarc::update_google_api_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::UpdateGoogleApiSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGoogleApiSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGoogleApiSource(RequestBuilder<crate::model::UpdateGoogleApiSourceRequest>);
 
     impl UpdateGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3184,7 +4120,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_google_api_source][super::super::client::Eventarc::update_google_api_source].
+        /// on [update_google_api_source][crate::client::Eventarc::update_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_google_api_source(self.0.request, self.0.options)
@@ -3197,8 +4133,10 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::GoogleApiSource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::GoogleApiSource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::GoogleApiSource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3223,28 +4161,46 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_google_api_source<
-            T: Into<std::option::Option<crate::model::GoogleApiSource>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.google_api_source = v.into();
+        pub fn set_google_api_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_api_source][crate::model::UpdateGoogleApiSourceRequest::google_api_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_google_api_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GoogleApiSource>,
+        {
+            self.0.request.google_api_source = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGoogleApiSourceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3268,12 +4224,29 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_google_api_source][super::super::client::Eventarc::delete_google_api_source] calls.
+    /// The request builder for [Eventarc::delete_google_api_source][crate::client::Eventarc::delete_google_api_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteGoogleApiSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGoogleApiSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGoogleApiSource(RequestBuilder<crate::model::DeleteGoogleApiSourceRequest>);
 
     impl DeleteGoogleApiSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3297,7 +4270,7 @@ pub mod eventarc {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_google_api_source][super::super::client::Eventarc::delete_google_api_source].
+        /// on [delete_google_api_source][crate::client::Eventarc::delete_google_api_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_google_api_source(self.0.request, self.0.options)
@@ -3310,8 +4283,10 @@ pub mod eventarc {
             self,
         ) -> impl lro::Poller<crate::model::GoogleApiSource, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::GoogleApiSource, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::GoogleApiSource,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3336,7 +4311,7 @@ pub mod eventarc {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteGoogleApiSourceRequest::name].
@@ -3373,12 +4348,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_locations][super::super::client::Eventarc::list_locations] calls.
+    /// The request builder for [Eventarc::list_locations][crate::client::Eventarc::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3405,8 +4400,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3418,6 +4413,15 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -3452,12 +4456,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_location][super::super::client::Eventarc::get_location] calls.
+    /// The request builder for [Eventarc::get_location][crate::client::Eventarc::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3495,12 +4515,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::set_iam_policy][super::super::client::Eventarc::set_iam_policy] calls.
+    /// The request builder for [Eventarc::set_iam_policy][crate::client::Eventarc::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3535,20 +4571,40 @@ pub mod eventarc {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3560,12 +4616,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_iam_policy][super::super::client::Eventarc::get_iam_policy] calls.
+    /// The request builder for [Eventarc::get_iam_policy][crate::client::Eventarc::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3598,11 +4670,20 @@ pub mod eventarc {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3614,12 +4695,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::test_iam_permissions][super::super::client::Eventarc::test_iam_permissions] calls.
+    /// The request builder for [Eventarc::test_iam_permissions][crate::client::Eventarc::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3675,12 +4772,32 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::list_operations][super::super::client::Eventarc::list_operations] calls.
+    /// The request builder for [Eventarc::list_operations][crate::client::Eventarc::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3707,8 +4824,8 @@ pub mod eventarc {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3720,6 +4837,17 @@ pub mod eventarc {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3754,12 +4882,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::get_operation][super::super::client::Eventarc::get_operation] calls.
+    /// The request builder for [Eventarc::get_operation][crate::client::Eventarc::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3800,12 +4944,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::delete_operation][super::super::client::Eventarc::delete_operation] calls.
+    /// The request builder for [Eventarc::delete_operation][crate::client::Eventarc::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3846,12 +5006,28 @@ pub mod eventarc {
         }
     }
 
-    /// The request builder for [Eventarc::cancel_operation][super::super::client::Eventarc::cancel_operation] calls.
+    /// The request builder for [Eventarc::cancel_operation][crate::client::Eventarc::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_eventarc_v1::builder;
+    /// use builder::eventarc::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Eventarc>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,8 @@
 
 pub mod autoscaling_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AutoscalingPolicyService][super::super::client::AutoscalingPolicyService].
+    /// A builder for [AutoscalingPolicyService][crate::client::AutoscalingPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod autoscaling_policy_service {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod autoscaling_policy_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AutoscalingPolicyService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AutoscalingPolicyService] request builders.
+    /// Common implementation for [crate::client::AutoscalingPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod autoscaling_policy_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,7 +71,23 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][super::super::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][crate::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::CreateAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAutoscalingPolicy(
         RequestBuilder<crate::model::CreateAutoscalingPolicyRequest>,
@@ -77,7 +95,7 @@ pub mod autoscaling_policy_service {
 
     impl CreateAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,11 +134,22 @@ pub mod autoscaling_policy_service {
         /// Sets the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::AutoscalingPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutoscalingPolicy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::CreateAutoscalingPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutoscalingPolicy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -132,7 +161,23 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][super::super::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][crate::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::UpdateAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAutoscalingPolicy(
         RequestBuilder<crate::model::UpdateAutoscalingPolicyRequest>,
@@ -140,7 +185,7 @@ pub mod autoscaling_policy_service {
 
     impl UpdateAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -171,11 +216,22 @@ pub mod autoscaling_policy_service {
         /// Sets the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::AutoscalingPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutoscalingPolicy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdateAutoscalingPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutoscalingPolicy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -187,13 +243,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][super::super::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][crate::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::GetAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAutoscalingPolicy(RequestBuilder<crate::model::GetAutoscalingPolicyRequest>);
 
     impl GetAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -237,7 +309,27 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][super::super::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
+    /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][crate::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::ListAutoscalingPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAutoscalingPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAutoscalingPolicies(
         RequestBuilder<crate::model::ListAutoscalingPoliciesRequest>,
@@ -245,7 +337,7 @@ pub mod autoscaling_policy_service {
 
     impl ListAutoscalingPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -273,8 +365,8 @@ pub mod autoscaling_policy_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListAutoscalingPoliciesResponse,
@@ -288,6 +380,17 @@ pub mod autoscaling_policy_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAutoscalingPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAutoscalingPoliciesRequest::parent].
@@ -318,7 +421,23 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][super::super::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][crate::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::DeleteAutoscalingPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAutoscalingPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAutoscalingPolicy(
         RequestBuilder<crate::model::DeleteAutoscalingPolicyRequest>,
@@ -326,7 +445,7 @@ pub mod autoscaling_policy_service {
 
     impl DeleteAutoscalingPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -370,13 +489,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::set_iam_policy][super::super::client::AutoscalingPolicyService::set_iam_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::set_iam_policy][crate::client::AutoscalingPolicyService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -412,20 +547,40 @@ pub mod autoscaling_policy_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -437,13 +592,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::get_iam_policy][super::super::client::AutoscalingPolicyService::get_iam_policy] calls.
+    /// The request builder for [AutoscalingPolicyService::get_iam_policy][crate::client::AutoscalingPolicyService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -477,11 +648,20 @@ pub mod autoscaling_policy_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -493,13 +673,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::test_iam_permissions][super::super::client::AutoscalingPolicyService::test_iam_permissions] calls.
+    /// The request builder for [AutoscalingPolicyService::test_iam_permissions][crate::client::AutoscalingPolicyService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -556,13 +752,33 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::list_operations][super::super::client::AutoscalingPolicyService::list_operations] calls.
+    /// The request builder for [AutoscalingPolicyService::list_operations][crate::client::AutoscalingPolicyService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -590,8 +806,8 @@ pub mod autoscaling_policy_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -603,6 +819,17 @@ pub mod autoscaling_policy_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -637,13 +864,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::get_operation][super::super::client::AutoscalingPolicyService::get_operation] calls.
+    /// The request builder for [AutoscalingPolicyService::get_operation][crate::client::AutoscalingPolicyService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -685,13 +928,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::delete_operation][super::super::client::AutoscalingPolicyService::delete_operation] calls.
+    /// The request builder for [AutoscalingPolicyService::delete_operation][crate::client::AutoscalingPolicyService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -733,13 +992,29 @@ pub mod autoscaling_policy_service {
         }
     }
 
-    /// The request builder for [AutoscalingPolicyService::cancel_operation][super::super::client::AutoscalingPolicyService::cancel_operation] calls.
+    /// The request builder for [AutoscalingPolicyService::cancel_operation][crate::client::AutoscalingPolicyService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::autoscaling_policy_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AutoscalingPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -784,9 +1059,8 @@ pub mod autoscaling_policy_service {
 
 pub mod batch_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [BatchController][super::super::client::BatchController].
+    /// A builder for [BatchController][crate::client::BatchController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -797,7 +1071,7 @@ pub mod batch_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -808,16 +1082,19 @@ pub mod batch_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BatchController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::BatchController] request builders.
+    /// Common implementation for [crate::client::BatchController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BatchController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -826,7 +1103,9 @@ pub mod batch_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -835,12 +1114,31 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::create_batch][super::super::client::BatchController::create_batch] calls.
+    /// The request builder for [BatchController::create_batch][crate::client::BatchController::create_batch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::CreateBatch;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBatch(RequestBuilder<crate::model::CreateBatchRequest>);
 
     impl CreateBatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -861,7 +1159,7 @@ pub mod batch_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_batch][super::super::client::BatchController::create_batch].
+        /// on [create_batch][crate::client::BatchController::create_batch].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_batch(self.0.request, self.0.options)
@@ -874,7 +1172,7 @@ pub mod batch_controller {
             self,
         ) -> impl lro::Poller<crate::model::Batch, crate::model::BatchOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Batch, crate::model::BatchOperationMetadata>;
+                lro::internal::Operation<crate::model::Batch, crate::model::BatchOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -899,7 +1197,7 @@ pub mod batch_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBatchRequest::parent].
@@ -913,11 +1211,22 @@ pub mod batch_controller {
         /// Sets the value of [batch][crate::model::CreateBatchRequest::batch].
         ///
         /// This is a **required** field for requests.
-        pub fn set_batch<T: Into<std::option::Option<crate::model::Batch>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.batch = v.into();
+        pub fn set_batch<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Batch>,
+        {
+            self.0.request.batch = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [batch][crate::model::CreateBatchRequest::batch].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_batch<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Batch>,
+        {
+            self.0.request.batch = v.map(|x| x.into());
             self
         }
 
@@ -941,12 +1250,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::get_batch][super::super::client::BatchController::get_batch] calls.
+    /// The request builder for [BatchController::get_batch][crate::client::BatchController::get_batch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::GetBatch;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBatch(RequestBuilder<crate::model::GetBatchRequest>);
 
     impl GetBatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -986,12 +1313,34 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::list_batches][super::super::client::BatchController::list_batches] calls.
+    /// The request builder for [BatchController::list_batches][crate::client::BatchController::list_batches] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::ListBatches;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBatches {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBatches(RequestBuilder<crate::model::ListBatchesRequest>);
 
     impl ListBatches {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1015,8 +1364,8 @@ pub mod batch_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBatchesResponse, gax::error::Error>
         {
@@ -1028,6 +1377,15 @@ pub mod batch_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBatchesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBatchesRequest::parent].
@@ -1070,12 +1428,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::delete_batch][super::super::client::BatchController::delete_batch] calls.
+    /// The request builder for [BatchController::delete_batch][crate::client::BatchController::delete_batch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::DeleteBatch;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBatch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBatch(RequestBuilder<crate::model::DeleteBatchRequest>);
 
     impl DeleteBatch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1115,12 +1491,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::set_iam_policy][super::super::client::BatchController::set_iam_policy] calls.
+    /// The request builder for [BatchController::set_iam_policy][crate::client::BatchController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1155,20 +1549,40 @@ pub mod batch_controller {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1180,12 +1594,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::get_iam_policy][super::super::client::BatchController::get_iam_policy] calls.
+    /// The request builder for [BatchController::get_iam_policy][crate::client::BatchController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1218,11 +1650,20 @@ pub mod batch_controller {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1234,12 +1675,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::test_iam_permissions][super::super::client::BatchController::test_iam_permissions] calls.
+    /// The request builder for [BatchController::test_iam_permissions][crate::client::BatchController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1295,12 +1754,34 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::list_operations][super::super::client::BatchController::list_operations] calls.
+    /// The request builder for [BatchController::list_operations][crate::client::BatchController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1327,8 +1808,8 @@ pub mod batch_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1340,6 +1821,17 @@ pub mod batch_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1374,12 +1866,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::get_operation][super::super::client::BatchController::get_operation] calls.
+    /// The request builder for [BatchController::get_operation][crate::client::BatchController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1420,12 +1930,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::delete_operation][super::super::client::BatchController::delete_operation] calls.
+    /// The request builder for [BatchController::delete_operation][crate::client::BatchController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1466,12 +1994,30 @@ pub mod batch_controller {
         }
     }
 
-    /// The request builder for [BatchController::cancel_operation][super::super::client::BatchController::cancel_operation] calls.
+    /// The request builder for [BatchController::cancel_operation][crate::client::BatchController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::batch_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BatchController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BatchController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1515,9 +2061,8 @@ pub mod batch_controller {
 
 pub mod cluster_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ClusterController][super::super::client::ClusterController].
+    /// A builder for [ClusterController][crate::client::ClusterController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1528,7 +2073,7 @@ pub mod cluster_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1539,16 +2084,19 @@ pub mod cluster_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ClusterController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ClusterController] request builders.
+    /// Common implementation for [crate::client::ClusterController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClusterController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1557,7 +2105,9 @@ pub mod cluster_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1566,12 +2116,31 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::create_cluster][super::super::client::ClusterController::create_cluster] calls.
+    /// The request builder for [ClusterController::create_cluster][crate::client::ClusterController::create_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::CreateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1592,7 +2161,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::ClusterController::create_cluster].
+        /// on [create_cluster][crate::client::ClusterController::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -1605,8 +2174,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1631,7 +2202,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::CreateClusterRequest::project_id].
@@ -1653,11 +2224,22 @@ pub mod cluster_controller {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -1684,12 +2266,31 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::update_cluster][super::super::client::ClusterController::update_cluster] calls.
+    /// The request builder for [ClusterController::update_cluster][crate::client::ClusterController::update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::UpdateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1710,7 +2311,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::ClusterController::update_cluster].
+        /// on [update_cluster][crate::client::ClusterController::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -1723,8 +2324,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1749,7 +2352,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::UpdateClusterRequest::project_id].
@@ -1779,31 +2382,65 @@ pub mod cluster_controller {
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
-        pub fn set_graceful_decommission_timeout<T: Into<std::option::Option<wkt::Duration>>>(
+        pub fn set_graceful_decommission_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.graceful_decommission_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [graceful_decommission_timeout][crate::model::UpdateClusterRequest::graceful_decommission_timeout].
+        pub fn set_or_clear_graceful_decommission_timeout<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.graceful_decommission_timeout = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.graceful_decommission_timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1821,12 +2458,31 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::stop_cluster][super::super::client::ClusterController::stop_cluster] calls.
+    /// The request builder for [ClusterController::stop_cluster][crate::client::ClusterController::stop_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::StopCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopCluster(RequestBuilder<crate::model::StopClusterRequest>);
 
     impl StopCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1847,7 +2503,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_cluster][super::super::client::ClusterController::stop_cluster].
+        /// on [stop_cluster][crate::client::ClusterController::stop_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_cluster(self.0.request, self.0.options)
@@ -1860,8 +2516,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1886,7 +2544,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::StopClusterRequest::project_id].
@@ -1933,12 +2591,31 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::start_cluster][super::super::client::ClusterController::start_cluster] calls.
+    /// The request builder for [ClusterController::start_cluster][crate::client::ClusterController::start_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::StartCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartCluster(RequestBuilder<crate::model::StartClusterRequest>);
 
     impl StartCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1959,7 +2636,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_cluster][super::super::client::ClusterController::start_cluster].
+        /// on [start_cluster][crate::client::ClusterController::start_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_cluster(self.0.request, self.0.options)
@@ -1972,8 +2649,10 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::ClusterOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::ClusterOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::ClusterOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1998,7 +2677,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::StartClusterRequest::project_id].
@@ -2045,12 +2724,31 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::delete_cluster][super::super::client::ClusterController::delete_cluster] calls.
+    /// The request builder for [ClusterController::delete_cluster][crate::client::ClusterController::delete_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::DeleteCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2071,7 +2769,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::ClusterController::delete_cluster].
+        /// on [delete_cluster][crate::client::ClusterController::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -2080,10 +2778,9 @@ pub mod cluster_controller {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::ClusterOperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ClusterOperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ClusterOperationMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ClusterOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2108,7 +2805,12 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [project_id][crate::model::DeleteClusterRequest::project_id].
@@ -2155,12 +2857,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::get_cluster][super::super::client::ClusterController::get_cluster] calls.
+    /// The request builder for [ClusterController::get_cluster][crate::client::ClusterController::get_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::GetCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2216,12 +2936,34 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::list_clusters][super::super::client::ClusterController::list_clusters] calls.
+    /// The request builder for [ClusterController::list_clusters][crate::client::ClusterController::list_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::ListClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2245,8 +2987,8 @@ pub mod cluster_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
         {
@@ -2258,6 +3000,15 @@ pub mod cluster_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListClustersRequest::project_id].
@@ -2302,12 +3053,31 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::diagnose_cluster][super::super::client::ClusterController::diagnose_cluster] calls.
+    /// The request builder for [ClusterController::diagnose_cluster][crate::client::ClusterController::diagnose_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::DiagnoseCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiagnoseCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiagnoseCluster(RequestBuilder<crate::model::DiagnoseClusterRequest>);
 
     impl DiagnoseCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2328,7 +3098,7 @@ pub mod cluster_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [diagnose_cluster][super::super::client::ClusterController::diagnose_cluster].
+        /// on [diagnose_cluster][crate::client::ClusterController::diagnose_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .diagnose_cluster(self.0.request, self.0.options)
@@ -2341,7 +3111,7 @@ pub mod cluster_controller {
             self,
         ) -> impl lro::Poller<crate::model::DiagnoseClusterResults, crate::model::ClusterOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DiagnoseClusterResults,
                 crate::model::ClusterOperationMetadata,
             >;
@@ -2369,7 +3139,7 @@ pub mod cluster_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::DiagnoseClusterRequest::project_id].
@@ -2414,11 +3184,20 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
-        pub fn set_diagnosis_interval<T: Into<std::option::Option<gtype::model::Interval>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.diagnosis_interval = v.into();
+        pub fn set_diagnosis_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Interval>,
+        {
+            self.0.request.diagnosis_interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [diagnosis_interval][crate::model::DiagnoseClusterRequest::diagnosis_interval].
+        pub fn set_or_clear_diagnosis_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Interval>,
+        {
+            self.0.request.diagnosis_interval = v.map(|x| x.into());
             self
         }
 
@@ -2452,12 +3231,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::set_iam_policy][super::super::client::ClusterController::set_iam_policy] calls.
+    /// The request builder for [ClusterController::set_iam_policy][crate::client::ClusterController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2492,20 +3289,40 @@ pub mod cluster_controller {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2517,12 +3334,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::get_iam_policy][super::super::client::ClusterController::get_iam_policy] calls.
+    /// The request builder for [ClusterController::get_iam_policy][crate::client::ClusterController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2555,11 +3390,20 @@ pub mod cluster_controller {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2571,12 +3415,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::test_iam_permissions][super::super::client::ClusterController::test_iam_permissions] calls.
+    /// The request builder for [ClusterController::test_iam_permissions][crate::client::ClusterController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2632,12 +3494,34 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::list_operations][super::super::client::ClusterController::list_operations] calls.
+    /// The request builder for [ClusterController::list_operations][crate::client::ClusterController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2664,8 +3548,8 @@ pub mod cluster_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2677,6 +3561,17 @@ pub mod cluster_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2711,12 +3606,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::get_operation][super::super::client::ClusterController::get_operation] calls.
+    /// The request builder for [ClusterController::get_operation][crate::client::ClusterController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2757,12 +3670,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::delete_operation][super::super::client::ClusterController::delete_operation] calls.
+    /// The request builder for [ClusterController::delete_operation][crate::client::ClusterController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2803,12 +3734,30 @@ pub mod cluster_controller {
         }
     }
 
-    /// The request builder for [ClusterController::cancel_operation][super::super::client::ClusterController::cancel_operation] calls.
+    /// The request builder for [ClusterController::cancel_operation][crate::client::ClusterController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::cluster_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2852,9 +3801,8 @@ pub mod cluster_controller {
 
 pub mod job_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [JobController][super::super::client::JobController].
+    /// A builder for [JobController][crate::client::JobController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2865,7 +3813,7 @@ pub mod job_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2876,16 +3824,19 @@ pub mod job_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = JobController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::JobController] request builders.
+    /// Common implementation for [crate::client::JobController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::JobController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2894,7 +3845,9 @@ pub mod job_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2903,12 +3856,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::submit_job][super::super::client::JobController::submit_job] calls.
+    /// The request builder for [JobController::submit_job][crate::client::JobController::submit_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::SubmitJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitJob(RequestBuilder<crate::model::SubmitJobRequest>);
 
     impl SubmitJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2951,8 +3922,22 @@ pub mod job_controller {
         /// Sets the value of [job][crate::model::SubmitJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::SubmitJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
@@ -2970,12 +3955,31 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::submit_job_as_operation][super::super::client::JobController::submit_job_as_operation] calls.
+    /// The request builder for [JobController::submit_job_as_operation][crate::client::JobController::submit_job_as_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::SubmitJobAsOperation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitJobAsOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitJobAsOperation(RequestBuilder<crate::model::SubmitJobRequest>);
 
     impl SubmitJobAsOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2996,7 +4000,7 @@ pub mod job_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [submit_job_as_operation][super::super::client::JobController::submit_job_as_operation].
+        /// on [submit_job_as_operation][crate::client::JobController::submit_job_as_operation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .submit_job_as_operation(self.0.request, self.0.options)
@@ -3006,7 +4010,7 @@ pub mod job_controller {
 
         /// Creates a [Poller][lro::Poller] to work with `submit_job_as_operation`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Job, crate::model::JobMetadata> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::JobMetadata>;
+            type Operation = lro::internal::Operation<crate::model::Job, crate::model::JobMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3031,7 +4035,7 @@ pub mod job_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project_id][crate::model::SubmitJobRequest::project_id].
@@ -3053,8 +4057,22 @@ pub mod job_controller {
         /// Sets the value of [job][crate::model::SubmitJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::SubmitJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
@@ -3072,12 +4090,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::get_job][super::super::client::JobController::get_job] calls.
+    /// The request builder for [JobController::get_job][crate::client::JobController::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3133,12 +4169,34 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::list_jobs][super::super::client::JobController::list_jobs] calls.
+    /// The request builder for [JobController::list_jobs][crate::client::JobController::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3162,8 +4220,8 @@ pub mod job_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error>
         {
@@ -3175,6 +4233,15 @@ pub mod job_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListJobsRequest::project_id].
@@ -3234,12 +4301,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::update_job][super::super::client::JobController::update_job] calls.
+    /// The request builder for [JobController::update_job][crate::client::JobController::update_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::UpdateJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3290,19 +4375,44 @@ pub mod job_controller {
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3314,12 +4424,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::cancel_job][super::super::client::JobController::cancel_job] calls.
+    /// The request builder for [JobController::cancel_job][crate::client::JobController::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::CancelJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3375,12 +4503,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::delete_job][super::super::client::JobController::delete_job] calls.
+    /// The request builder for [JobController::delete_job][crate::client::JobController::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3436,12 +4582,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::set_iam_policy][super::super::client::JobController::set_iam_policy] calls.
+    /// The request builder for [JobController::set_iam_policy][crate::client::JobController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3476,20 +4640,40 @@ pub mod job_controller {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3501,12 +4685,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::get_iam_policy][super::super::client::JobController::get_iam_policy] calls.
+    /// The request builder for [JobController::get_iam_policy][crate::client::JobController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3539,11 +4741,20 @@ pub mod job_controller {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3555,12 +4766,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::test_iam_permissions][super::super::client::JobController::test_iam_permissions] calls.
+    /// The request builder for [JobController::test_iam_permissions][crate::client::JobController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3616,12 +4845,34 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::list_operations][super::super::client::JobController::list_operations] calls.
+    /// The request builder for [JobController::list_operations][crate::client::JobController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3648,8 +4899,8 @@ pub mod job_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3661,6 +4912,17 @@ pub mod job_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3695,12 +4957,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::get_operation][super::super::client::JobController::get_operation] calls.
+    /// The request builder for [JobController::get_operation][crate::client::JobController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3741,12 +5021,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::delete_operation][super::super::client::JobController::delete_operation] calls.
+    /// The request builder for [JobController::delete_operation][crate::client::JobController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3787,12 +5085,30 @@ pub mod job_controller {
         }
     }
 
-    /// The request builder for [JobController::cancel_operation][super::super::client::JobController::cancel_operation] calls.
+    /// The request builder for [JobController::cancel_operation][crate::client::JobController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::job_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3836,9 +5152,8 @@ pub mod job_controller {
 
 pub mod node_group_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [NodeGroupController][super::super::client::NodeGroupController].
+    /// A builder for [NodeGroupController][crate::client::NodeGroupController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3849,7 +5164,7 @@ pub mod node_group_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3860,16 +5175,19 @@ pub mod node_group_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = NodeGroupController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::NodeGroupController] request builders.
+    /// Common implementation for [crate::client::NodeGroupController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3878,7 +5196,9 @@ pub mod node_group_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3887,12 +5207,31 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::create_node_group][super::super::client::NodeGroupController::create_node_group] calls.
+    /// The request builder for [NodeGroupController::create_node_group][crate::client::NodeGroupController::create_node_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::CreateNodeGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNodeGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNodeGroup(RequestBuilder<crate::model::CreateNodeGroupRequest>);
 
     impl CreateNodeGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3913,7 +5252,7 @@ pub mod node_group_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node_group][super::super::client::NodeGroupController::create_node_group].
+        /// on [create_node_group][crate::client::NodeGroupController::create_node_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node_group(self.0.request, self.0.options)
@@ -3926,8 +5265,10 @@ pub mod node_group_controller {
             self,
         ) -> impl lro::Poller<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NodeGroup,
+                crate::model::NodeGroupOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3952,7 +5293,7 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodeGroupRequest::parent].
@@ -3966,11 +5307,22 @@ pub mod node_group_controller {
         /// Sets the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node_group<T: Into<std::option::Option<crate::model::NodeGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_group = v.into();
+        pub fn set_node_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeGroup>,
+        {
+            self.0.request.node_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_group][crate::model::CreateNodeGroupRequest::node_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeGroup>,
+        {
+            self.0.request.node_group = v.map(|x| x.into());
             self
         }
 
@@ -3994,12 +5346,31 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::resize_node_group][super::super::client::NodeGroupController::resize_node_group] calls.
+    /// The request builder for [NodeGroupController::resize_node_group][crate::client::NodeGroupController::resize_node_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::ResizeNodeGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResizeNodeGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResizeNodeGroup(RequestBuilder<crate::model::ResizeNodeGroupRequest>);
 
     impl ResizeNodeGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4020,7 +5391,7 @@ pub mod node_group_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resize_node_group][super::super::client::NodeGroupController::resize_node_group].
+        /// on [resize_node_group][crate::client::NodeGroupController::resize_node_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resize_node_group(self.0.request, self.0.options)
@@ -4033,8 +5404,10 @@ pub mod node_group_controller {
             self,
         ) -> impl lro::Poller<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::NodeGroup, crate::model::NodeGroupOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::NodeGroup,
+                crate::model::NodeGroupOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4059,7 +5432,7 @@ pub mod node_group_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResizeNodeGroupRequest::name].
@@ -4085,11 +5458,23 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
-        pub fn set_graceful_decommission_timeout<T: Into<std::option::Option<wkt::Duration>>>(
+        pub fn set_graceful_decommission_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.graceful_decommission_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [graceful_decommission_timeout][crate::model::ResizeNodeGroupRequest::graceful_decommission_timeout].
+        pub fn set_or_clear_graceful_decommission_timeout<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.graceful_decommission_timeout = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.graceful_decommission_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -4101,12 +5486,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::get_node_group][super::super::client::NodeGroupController::get_node_group] calls.
+    /// The request builder for [NodeGroupController::get_node_group][crate::client::NodeGroupController::get_node_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::GetNodeGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNodeGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNodeGroup(RequestBuilder<crate::model::GetNodeGroupRequest>);
 
     impl GetNodeGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4146,12 +5549,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::set_iam_policy][super::super::client::NodeGroupController::set_iam_policy] calls.
+    /// The request builder for [NodeGroupController::set_iam_policy][crate::client::NodeGroupController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4186,20 +5607,40 @@ pub mod node_group_controller {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4211,12 +5652,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::get_iam_policy][super::super::client::NodeGroupController::get_iam_policy] calls.
+    /// The request builder for [NodeGroupController::get_iam_policy][crate::client::NodeGroupController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4249,11 +5708,20 @@ pub mod node_group_controller {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4265,12 +5733,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::test_iam_permissions][super::super::client::NodeGroupController::test_iam_permissions] calls.
+    /// The request builder for [NodeGroupController::test_iam_permissions][crate::client::NodeGroupController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4326,12 +5812,34 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::list_operations][super::super::client::NodeGroupController::list_operations] calls.
+    /// The request builder for [NodeGroupController::list_operations][crate::client::NodeGroupController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4358,8 +5866,8 @@ pub mod node_group_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4371,6 +5879,17 @@ pub mod node_group_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4405,12 +5924,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::get_operation][super::super::client::NodeGroupController::get_operation] calls.
+    /// The request builder for [NodeGroupController::get_operation][crate::client::NodeGroupController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4451,12 +5988,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::delete_operation][super::super::client::NodeGroupController::delete_operation] calls.
+    /// The request builder for [NodeGroupController::delete_operation][crate::client::NodeGroupController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4497,12 +6052,30 @@ pub mod node_group_controller {
         }
     }
 
-    /// The request builder for [NodeGroupController::cancel_operation][super::super::client::NodeGroupController::cancel_operation] calls.
+    /// The request builder for [NodeGroupController::cancel_operation][crate::client::NodeGroupController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::node_group_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NodeGroupController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NodeGroupController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4546,9 +6119,8 @@ pub mod node_group_controller {
 
 pub mod session_template_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SessionTemplateController][super::super::client::SessionTemplateController].
+    /// A builder for [SessionTemplateController][crate::client::SessionTemplateController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4559,7 +6131,7 @@ pub mod session_template_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4570,16 +6142,19 @@ pub mod session_template_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SessionTemplateController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SessionTemplateController] request builders.
+    /// Common implementation for [crate::client::SessionTemplateController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4589,7 +6164,7 @@ pub mod session_template_controller {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self {
                 stub,
@@ -4599,13 +6174,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::create_session_template][super::super::client::SessionTemplateController::create_session_template] calls.
+    /// The request builder for [SessionTemplateController::create_session_template][crate::client::SessionTemplateController::create_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::CreateSessionTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSessionTemplate(RequestBuilder<crate::model::CreateSessionTemplateRequest>);
 
     impl CreateSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4644,11 +6235,22 @@ pub mod session_template_controller {
         /// Sets the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session_template<T: Into<std::option::Option<crate::model::SessionTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session_template = v.into();
+        pub fn set_session_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionTemplate>,
+        {
+            self.0.request.session_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session_template][crate::model::CreateSessionTemplateRequest::session_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionTemplate>,
+        {
+            self.0.request.session_template = v.map(|x| x.into());
             self
         }
     }
@@ -4660,13 +6262,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::update_session_template][super::super::client::SessionTemplateController::update_session_template] calls.
+    /// The request builder for [SessionTemplateController::update_session_template][crate::client::SessionTemplateController::update_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::UpdateSessionTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSessionTemplate(RequestBuilder<crate::model::UpdateSessionTemplateRequest>);
 
     impl UpdateSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4697,11 +6315,22 @@ pub mod session_template_controller {
         /// Sets the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session_template<T: Into<std::option::Option<crate::model::SessionTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session_template = v.into();
+        pub fn set_session_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionTemplate>,
+        {
+            self.0.request.session_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session_template][crate::model::UpdateSessionTemplateRequest::session_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SessionTemplate>,
+        {
+            self.0.request.session_template = v.map(|x| x.into());
             self
         }
     }
@@ -4713,13 +6342,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::get_session_template][super::super::client::SessionTemplateController::get_session_template] calls.
+    /// The request builder for [SessionTemplateController::get_session_template][crate::client::SessionTemplateController::get_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::GetSessionTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSessionTemplate(RequestBuilder<crate::model::GetSessionTemplateRequest>);
 
     impl GetSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4763,13 +6408,33 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::list_session_templates][super::super::client::SessionTemplateController::list_session_templates] calls.
+    /// The request builder for [SessionTemplateController::list_session_templates][crate::client::SessionTemplateController::list_session_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::ListSessionTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSessionTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSessionTemplates(RequestBuilder<crate::model::ListSessionTemplatesRequest>);
 
     impl ListSessionTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4797,8 +6462,8 @@ pub mod session_template_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSessionTemplatesResponse, gax::error::Error>
         {
@@ -4810,6 +6475,17 @@ pub mod session_template_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSessionTemplatesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSessionTemplatesRequest::parent].
@@ -4846,13 +6522,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::delete_session_template][super::super::client::SessionTemplateController::delete_session_template] calls.
+    /// The request builder for [SessionTemplateController::delete_session_template][crate::client::SessionTemplateController::delete_session_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::DeleteSessionTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSessionTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSessionTemplate(RequestBuilder<crate::model::DeleteSessionTemplateRequest>);
 
     impl DeleteSessionTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4896,13 +6588,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::set_iam_policy][super::super::client::SessionTemplateController::set_iam_policy] calls.
+    /// The request builder for [SessionTemplateController::set_iam_policy][crate::client::SessionTemplateController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4938,20 +6646,40 @@ pub mod session_template_controller {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4963,13 +6691,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::get_iam_policy][super::super::client::SessionTemplateController::get_iam_policy] calls.
+    /// The request builder for [SessionTemplateController::get_iam_policy][crate::client::SessionTemplateController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5003,11 +6747,20 @@ pub mod session_template_controller {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -5019,13 +6772,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::test_iam_permissions][super::super::client::SessionTemplateController::test_iam_permissions] calls.
+    /// The request builder for [SessionTemplateController::test_iam_permissions][crate::client::SessionTemplateController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5082,13 +6851,33 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::list_operations][super::super::client::SessionTemplateController::list_operations] calls.
+    /// The request builder for [SessionTemplateController::list_operations][crate::client::SessionTemplateController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5116,8 +6905,8 @@ pub mod session_template_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -5129,6 +6918,17 @@ pub mod session_template_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -5163,13 +6963,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::get_operation][super::super::client::SessionTemplateController::get_operation] calls.
+    /// The request builder for [SessionTemplateController::get_operation][crate::client::SessionTemplateController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5211,13 +7027,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::delete_operation][super::super::client::SessionTemplateController::delete_operation] calls.
+    /// The request builder for [SessionTemplateController::delete_operation][crate::client::SessionTemplateController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5259,13 +7091,29 @@ pub mod session_template_controller {
         }
     }
 
-    /// The request builder for [SessionTemplateController::cancel_operation][super::super::client::SessionTemplateController::cancel_operation] calls.
+    /// The request builder for [SessionTemplateController::cancel_operation][crate::client::SessionTemplateController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_template_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionTemplateController>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5310,9 +7158,8 @@ pub mod session_template_controller {
 
 pub mod session_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SessionController][super::super::client::SessionController].
+    /// A builder for [SessionController][crate::client::SessionController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5323,7 +7170,7 @@ pub mod session_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5334,16 +7181,19 @@ pub mod session_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SessionController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SessionController] request builders.
+    /// Common implementation for [crate::client::SessionController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SessionController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5352,7 +7202,9 @@ pub mod session_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -5361,12 +7213,31 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::create_session][super::super::client::SessionController::create_session] calls.
+    /// The request builder for [SessionController::create_session][crate::client::SessionController::create_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::CreateSession;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSession(RequestBuilder<crate::model::CreateSessionRequest>);
 
     impl CreateSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5387,7 +7258,7 @@ pub mod session_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_session][super::super::client::SessionController::create_session].
+        /// on [create_session][crate::client::SessionController::create_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_session(self.0.request, self.0.options)
@@ -5400,8 +7271,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5426,7 +7299,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSessionRequest::parent].
@@ -5440,11 +7313,22 @@ pub mod session_controller {
         /// Sets the value of [session][crate::model::CreateSessionRequest::session].
         ///
         /// This is a **required** field for requests.
-        pub fn set_session<T: Into<std::option::Option<crate::model::Session>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.session = v.into();
+        pub fn set_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [session][crate::model::CreateSessionRequest::session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Session>,
+        {
+            self.0.request.session = v.map(|x| x.into());
             self
         }
 
@@ -5470,12 +7354,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::get_session][super::super::client::SessionController::get_session] calls.
+    /// The request builder for [SessionController::get_session][crate::client::SessionController::get_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::GetSession;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSession(RequestBuilder<crate::model::GetSessionRequest>);
 
     impl GetSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5515,12 +7417,34 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::list_sessions][super::super::client::SessionController::list_sessions] calls.
+    /// The request builder for [SessionController::list_sessions][crate::client::SessionController::list_sessions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::ListSessions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSessions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSessions(RequestBuilder<crate::model::ListSessionsRequest>);
 
     impl ListSessions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5544,8 +7468,8 @@ pub mod session_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSessionsResponse, gax::error::Error>
         {
@@ -5557,6 +7481,15 @@ pub mod session_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSessionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSessionsRequest::parent].
@@ -5593,12 +7526,31 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::terminate_session][super::super::client::SessionController::terminate_session] calls.
+    /// The request builder for [SessionController::terminate_session][crate::client::SessionController::terminate_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::TerminateSession;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TerminateSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TerminateSession(RequestBuilder<crate::model::TerminateSessionRequest>);
 
     impl TerminateSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5622,7 +7574,7 @@ pub mod session_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [terminate_session][super::super::client::SessionController::terminate_session].
+        /// on [terminate_session][crate::client::SessionController::terminate_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .terminate_session(self.0.request, self.0.options)
@@ -5635,8 +7587,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5661,7 +7615,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::TerminateSessionRequest::name].
@@ -5686,12 +7640,31 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::delete_session][super::super::client::SessionController::delete_session] calls.
+    /// The request builder for [SessionController::delete_session][crate::client::SessionController::delete_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::DeleteSession;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSession(RequestBuilder<crate::model::DeleteSessionRequest>);
 
     impl DeleteSession {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5712,7 +7685,7 @@ pub mod session_controller {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_session][super::super::client::SessionController::delete_session].
+        /// on [delete_session][crate::client::SessionController::delete_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_session(self.0.request, self.0.options)
@@ -5725,8 +7698,10 @@ pub mod session_controller {
             self,
         ) -> impl lro::Poller<crate::model::Session, crate::model::SessionOperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Session, crate::model::SessionOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Session,
+                crate::model::SessionOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5751,7 +7726,7 @@ pub mod session_controller {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteSessionRequest::name].
@@ -5776,12 +7751,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::set_iam_policy][super::super::client::SessionController::set_iam_policy] calls.
+    /// The request builder for [SessionController::set_iam_policy][crate::client::SessionController::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5816,20 +7809,40 @@ pub mod session_controller {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5841,12 +7854,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::get_iam_policy][super::super::client::SessionController::get_iam_policy] calls.
+    /// The request builder for [SessionController::get_iam_policy][crate::client::SessionController::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5879,11 +7910,20 @@ pub mod session_controller {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -5895,12 +7935,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::test_iam_permissions][super::super::client::SessionController::test_iam_permissions] calls.
+    /// The request builder for [SessionController::test_iam_permissions][crate::client::SessionController::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5956,12 +8014,34 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::list_operations][super::super::client::SessionController::list_operations] calls.
+    /// The request builder for [SessionController::list_operations][crate::client::SessionController::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5988,8 +8068,8 @@ pub mod session_controller {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -6001,6 +8081,17 @@ pub mod session_controller {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -6035,12 +8126,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::get_operation][super::super::client::SessionController::get_operation] calls.
+    /// The request builder for [SessionController::get_operation][crate::client::SessionController::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6081,12 +8190,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::delete_operation][super::super::client::SessionController::delete_operation] calls.
+    /// The request builder for [SessionController::delete_operation][crate::client::SessionController::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6127,12 +8254,30 @@ pub mod session_controller {
         }
     }
 
-    /// The request builder for [SessionController::cancel_operation][super::super::client::SessionController::cancel_operation] calls.
+    /// The request builder for [SessionController::cancel_operation][crate::client::SessionController::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::session_controller::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SessionController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SessionController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -6176,9 +8321,8 @@ pub mod session_controller {
 
 pub mod workflow_template_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [WorkflowTemplateService][super::super::client::WorkflowTemplateService].
+    /// A builder for [WorkflowTemplateService][crate::client::WorkflowTemplateService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -6189,7 +8333,7 @@ pub mod workflow_template_service {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6200,16 +8344,19 @@ pub mod workflow_template_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = WorkflowTemplateService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::WorkflowTemplateService] request builders.
+    /// Common implementation for [crate::client::WorkflowTemplateService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -6219,7 +8366,7 @@ pub mod workflow_template_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self {
                 stub,
@@ -6229,13 +8376,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::create_workflow_template][super::super::client::WorkflowTemplateService::create_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::create_workflow_template][crate::client::WorkflowTemplateService::create_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::CreateWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkflowTemplate(RequestBuilder<crate::model::CreateWorkflowTemplateRequest>);
 
     impl CreateWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6274,11 +8437,22 @@ pub mod workflow_template_service {
         /// Sets the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::WorkflowTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkflowTemplate>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::CreateWorkflowTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkflowTemplate>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
     }
@@ -6290,13 +8464,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::get_workflow_template][super::super::client::WorkflowTemplateService::get_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::get_workflow_template][crate::client::WorkflowTemplateService::get_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::GetWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkflowTemplate(RequestBuilder<crate::model::GetWorkflowTemplateRequest>);
 
     impl GetWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6346,7 +8536,24 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][super::super::client::WorkflowTemplateService::instantiate_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][crate::client::WorkflowTemplateService::instantiate_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::InstantiateWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InstantiateWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InstantiateWorkflowTemplate(
         RequestBuilder<crate::model::InstantiateWorkflowTemplateRequest>,
@@ -6354,7 +8561,7 @@ pub mod workflow_template_service {
 
     impl InstantiateWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6379,7 +8586,7 @@ pub mod workflow_template_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [instantiate_workflow_template][super::super::client::WorkflowTemplateService::instantiate_workflow_template].
+        /// on [instantiate_workflow_template][crate::client::WorkflowTemplateService::instantiate_workflow_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .instantiate_workflow_template(self.0.request, self.0.options)
@@ -6388,8 +8595,8 @@ pub mod workflow_template_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_workflow_template`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::WorkflowMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::WorkflowMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6414,7 +8621,12 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::InstantiateWorkflowTemplateRequest::name].
@@ -6456,7 +8668,24 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][super::super::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][crate::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InstantiateInlineWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InstantiateInlineWorkflowTemplate(
         RequestBuilder<crate::model::InstantiateInlineWorkflowTemplateRequest>,
@@ -6464,7 +8693,7 @@ pub mod workflow_template_service {
 
     impl InstantiateInlineWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6489,7 +8718,7 @@ pub mod workflow_template_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [instantiate_inline_workflow_template][super::super::client::WorkflowTemplateService::instantiate_inline_workflow_template].
+        /// on [instantiate_inline_workflow_template][crate::client::WorkflowTemplateService::instantiate_inline_workflow_template].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .instantiate_inline_workflow_template(self.0.request, self.0.options)
@@ -6498,8 +8727,8 @@ pub mod workflow_template_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `instantiate_inline_workflow_template`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::WorkflowMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::WorkflowMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::WorkflowMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -6524,7 +8753,12 @@ pub mod workflow_template_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::InstantiateInlineWorkflowTemplateRequest::parent].
@@ -6538,11 +8772,22 @@ pub mod workflow_template_service {
         /// Sets the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::WorkflowTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkflowTemplate>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::InstantiateInlineWorkflowTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkflowTemplate>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -6560,13 +8805,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::update_workflow_template][super::super::client::WorkflowTemplateService::update_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::update_workflow_template][crate::client::WorkflowTemplateService::update_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::UpdateWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkflowTemplate(RequestBuilder<crate::model::UpdateWorkflowTemplateRequest>);
 
     impl UpdateWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6597,11 +8858,22 @@ pub mod workflow_template_service {
         /// Sets the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::WorkflowTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkflowTemplate>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::UpdateWorkflowTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkflowTemplate>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
     }
@@ -6613,13 +8885,33 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::list_workflow_templates][super::super::client::WorkflowTemplateService::list_workflow_templates] calls.
+    /// The request builder for [WorkflowTemplateService::list_workflow_templates][crate::client::WorkflowTemplateService::list_workflow_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::ListWorkflowTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkflowTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflowTemplates(RequestBuilder<crate::model::ListWorkflowTemplatesRequest>);
 
     impl ListWorkflowTemplates {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6647,8 +8939,8 @@ pub mod workflow_template_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkflowTemplatesResponse, gax::error::Error>
         {
@@ -6660,6 +8952,17 @@ pub mod workflow_template_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWorkflowTemplatesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkflowTemplatesRequest::parent].
@@ -6690,13 +8993,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::delete_workflow_template][super::super::client::WorkflowTemplateService::delete_workflow_template] calls.
+    /// The request builder for [WorkflowTemplateService::delete_workflow_template][crate::client::WorkflowTemplateService::delete_workflow_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::DeleteWorkflowTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkflowTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflowTemplate(RequestBuilder<crate::model::DeleteWorkflowTemplateRequest>);
 
     impl DeleteWorkflowTemplate {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6746,13 +9065,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::set_iam_policy][super::super::client::WorkflowTemplateService::set_iam_policy] calls.
+    /// The request builder for [WorkflowTemplateService::set_iam_policy][crate::client::WorkflowTemplateService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6788,20 +9123,40 @@ pub mod workflow_template_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -6813,13 +9168,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::get_iam_policy][super::super::client::WorkflowTemplateService::get_iam_policy] calls.
+    /// The request builder for [WorkflowTemplateService::get_iam_policy][crate::client::WorkflowTemplateService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6853,11 +9224,20 @@ pub mod workflow_template_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -6869,13 +9249,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::test_iam_permissions][super::super::client::WorkflowTemplateService::test_iam_permissions] calls.
+    /// The request builder for [WorkflowTemplateService::test_iam_permissions][crate::client::WorkflowTemplateService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6932,13 +9328,33 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::list_operations][super::super::client::WorkflowTemplateService::list_operations] calls.
+    /// The request builder for [WorkflowTemplateService::list_operations][crate::client::WorkflowTemplateService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6966,8 +9382,8 @@ pub mod workflow_template_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -6979,6 +9395,17 @@ pub mod workflow_template_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -7013,13 +9440,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::get_operation][super::super::client::WorkflowTemplateService::get_operation] calls.
+    /// The request builder for [WorkflowTemplateService::get_operation][crate::client::WorkflowTemplateService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -7061,13 +9504,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::delete_operation][super::super::client::WorkflowTemplateService::delete_operation] calls.
+    /// The request builder for [WorkflowTemplateService::delete_operation][crate::client::WorkflowTemplateService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -7109,13 +9568,29 @@ pub mod workflow_template_service {
         }
     }
 
-    /// The request builder for [WorkflowTemplateService::cancel_operation][super::super::client::WorkflowTemplateService::cancel_operation] calls.
+    /// The request builder for [WorkflowTemplateService::cancel_operation][crate::client::WorkflowTemplateService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_dataproc_v1::builder;
+    /// use builder::workflow_template_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WorkflowTemplateService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

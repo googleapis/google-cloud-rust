@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::Result;
-use gax::error::Error;
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run_query(builder: bigquery::client::ClientBuilder) -> Result<()> {
@@ -61,7 +60,8 @@ pub async fn dataset_admin(
     println!("CREATING DATASET WITH ID: {dataset_id}");
 
     let create = client
-        .insert_dataset(&project_id)
+        .insert_dataset()
+        .set_project_id(&project_id)
         .set_dataset(
             bigquery_admin::model::Dataset::new()
                 .set_dataset_reference(
@@ -75,13 +75,19 @@ pub async fn dataset_admin(
 
     assert!(create.dataset_reference.is_some());
 
-    let list = client.list_datasets(&project_id).send().await?;
+    let list = client
+        .list_datasets()
+        .set_project_id(&project_id)
+        .send()
+        .await?;
     println!("LIST DATASET = {} entries", list.datasets.len());
 
     assert!(list.datasets.iter().any(|v| v.id.contains(&dataset_id)));
 
     client
-        .delete_dataset(&project_id, &dataset_id)
+        .delete_dataset()
+        .set_project_id(&project_id)
+        .set_dataset_id(&dataset_id)
         .set_delete_contents(true)
         .send()
         .await?;
@@ -95,14 +101,13 @@ async fn cleanup_stale_datasets(
     project_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = stale_deadline.as_millis() as i64;
 
     let list = client
-        .list_datasets(project_id)
+        .list_datasets()
+        .set_project_id(project_id)
         .set_filter("labels.integration-test:true")
         .send()
         .await?;
@@ -111,7 +116,13 @@ async fn cleanup_stale_datasets(
         .into_iter()
         .filter_map(|v| {
             if let Some(dataset_id) = extract_dataset_id(project_id, v.id) {
-                return Some(client.get_dataset(project_id, dataset_id).send());
+                return Some(
+                    client
+                        .get_dataset()
+                        .set_project_id(project_id)
+                        .set_dataset_id(dataset_id)
+                        .send(),
+                );
             }
             None
         })
@@ -139,7 +150,9 @@ async fn cleanup_stale_datasets(
             if let Some(dataset_id) = extract_dataset_id(project_id, ds.id) {
                 return Some(
                     client
-                        .delete_dataset(project_id, dataset_id)
+                        .delete_dataset()
+                        .set_project_id(project_id)
+                        .set_dataset_id(dataset_id)
                         .set_delete_contents(true)
                         .send(),
                 );

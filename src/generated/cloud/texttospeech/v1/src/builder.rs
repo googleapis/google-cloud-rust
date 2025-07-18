@@ -16,9 +16,8 @@
 
 pub mod text_to_speech {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TextToSpeech][super::super::client::TextToSpeech].
+    /// A builder for [TextToSpeech][crate::client::TextToSpeech].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod text_to_speech {
     /// let client = builder
     ///     .with_endpoint("https://texttospeech.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod text_to_speech {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TextToSpeech;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TextToSpeech] request builders.
+    /// Common implementation for [crate::client::TextToSpeech] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod text_to_speech {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::list_voices][super::super::client::TextToSpeech::list_voices] calls.
+    /// The request builder for [TextToSpeech::list_voices][crate::client::TextToSpeech::list_voices] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::ListVoices;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVoices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVoices(RequestBuilder<crate::model::ListVoicesRequest>);
 
     impl ListVoices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -110,12 +132,30 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::synthesize_speech][super::super::client::TextToSpeech::synthesize_speech] calls.
+    /// The request builder for [TextToSpeech::synthesize_speech][crate::client::TextToSpeech::synthesize_speech] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::SynthesizeSpeech;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SynthesizeSpeech {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SynthesizeSpeech(RequestBuilder<crate::model::SynthesizeSpeechRequest>);
 
     impl SynthesizeSpeech {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -145,44 +185,84 @@ pub mod text_to_speech {
         /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::SynthesizeSpeechRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
         ///
         /// This is a **required** field for requests.
-        pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.voice = v.into();
+        pub fn set_voice<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.audio_config = v.into();
+        pub fn set_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
-        pub fn set_advanced_voice_options<
-            T: Into<std::option::Option<crate::model::AdvancedVoiceOptions>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.advanced_voice_options = v.into();
+        pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+        {
+            self.0.request.advanced_voice_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+        pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+        {
+            self.0.request.advanced_voice_options = v.map(|x| x.into());
             self
         }
     }
@@ -194,12 +274,34 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::list_operations][super::super::client::TextToSpeech::list_operations] calls.
+    /// The request builder for [TextToSpeech::list_operations][crate::client::TextToSpeech::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -226,8 +328,8 @@ pub mod text_to_speech {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -239,6 +341,17 @@ pub mod text_to_speech {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -273,12 +386,30 @@ pub mod text_to_speech {
         }
     }
 
-    /// The request builder for [TextToSpeech::get_operation][super::super::client::TextToSpeech::get_operation] calls.
+    /// The request builder for [TextToSpeech::get_operation][crate::client::TextToSpeech::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TextToSpeech>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeech>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -322,9 +453,8 @@ pub mod text_to_speech {
 
 pub mod text_to_speech_long_audio_synthesize {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TextToSpeechLongAudioSynthesize][super::super::client::TextToSpeechLongAudioSynthesize].
+    /// A builder for [TextToSpeechLongAudioSynthesize][crate::client::TextToSpeechLongAudioSynthesize].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -335,7 +465,7 @@ pub mod text_to_speech_long_audio_synthesize {
     /// let client = builder
     ///     .with_endpoint("https://texttospeech.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -346,16 +476,19 @@ pub mod text_to_speech_long_audio_synthesize {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TextToSpeechLongAudioSynthesize;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TextToSpeechLongAudioSynthesize] request builders.
+    /// Common implementation for [crate::client::TextToSpeechLongAudioSynthesize] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -365,7 +498,7 @@ pub mod text_to_speech_long_audio_synthesize {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self {
                 stub,
@@ -375,13 +508,30 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for [TextToSpeechLongAudioSynthesize::synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio] calls.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::synthesize_long_audio][crate::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SynthesizeLongAudio {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SynthesizeLongAudio(RequestBuilder<crate::model::SynthesizeLongAudioRequest>);
 
     impl SynthesizeLongAudio {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -406,7 +556,7 @@ pub mod text_to_speech_long_audio_synthesize {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [synthesize_long_audio][super::super::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
+        /// on [synthesize_long_audio][crate::client::TextToSpeechLongAudioSynthesize::synthesize_long_audio].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .synthesize_long_audio(self.0.request, self.0.options)
@@ -421,7 +571,7 @@ pub mod text_to_speech_long_audio_synthesize {
             crate::model::SynthesizeLongAudioResponse,
             crate::model::SynthesizeLongAudioMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SynthesizeLongAudioResponse,
                 crate::model::SynthesizeLongAudioMetadata,
             >;
@@ -449,7 +599,7 @@ pub mod text_to_speech_long_audio_synthesize {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::SynthesizeLongAudioRequest::parent].
@@ -461,22 +611,44 @@ pub mod text_to_speech_long_audio_synthesize {
         /// Sets the value of [input][crate::model::SynthesizeLongAudioRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::SynthesisInput>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SynthesisInput>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_audio_config<T: Into<std::option::Option<crate::model::AudioConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.audio_config = v.into();
+        pub fn set_audio_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AudioConfig>,
+        {
+            self.0.request.audio_config = v.map(|x| x.into());
             self
         }
 
@@ -491,11 +663,22 @@ pub mod text_to_speech_long_audio_synthesize {
         /// Sets the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
         ///
         /// This is a **required** field for requests.
-        pub fn set_voice<T: Into<std::option::Option<crate::model::VoiceSelectionParams>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.voice = v.into();
+        pub fn set_voice<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VoiceSelectionParams>,
+        {
+            self.0.request.voice = v.map(|x| x.into());
             self
         }
     }
@@ -507,13 +690,33 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for [TextToSpeechLongAudioSynthesize::list_operations][super::super::client::TextToSpeechLongAudioSynthesize::list_operations] calls.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::list_operations][crate::client::TextToSpeechLongAudioSynthesize::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech_long_audio_synthesize::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -541,8 +744,8 @@ pub mod text_to_speech_long_audio_synthesize {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -554,6 +757,17 @@ pub mod text_to_speech_long_audio_synthesize {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -588,13 +802,29 @@ pub mod text_to_speech_long_audio_synthesize {
         }
     }
 
-    /// The request builder for [TextToSpeechLongAudioSynthesize::get_operation][super::super::client::TextToSpeechLongAudioSynthesize::get_operation] calls.
+    /// The request builder for [TextToSpeechLongAudioSynthesize::get_operation][crate::client::TextToSpeechLongAudioSynthesize::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_texttospeech_v1::builder;
+    /// use builder::text_to_speech_long_audio_synthesize::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

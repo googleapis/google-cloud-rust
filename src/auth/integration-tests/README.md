@@ -1,6 +1,6 @@
 # Auth Integration Tests
 
-## Running Integration Tests
+## Running integration tests
 
 ### In `rust-auth-testing`
 
@@ -11,9 +11,44 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
   cargo test --features run-integration-tests -p auth-integration-tests
 ```
 
+### Workload Identity integration tests
+
+These tests use service account impersonation to generate an OIDC ID token for a
+service account in a different project (`rust-auth-testing-joonix`). This ID
+token acts as the source credential for testing WIF flow.
+
+To run these tests locally, first, ensure your local Application Default
+Credentials are up to date by running:
+
+```sh
+gcloud auth application-default login
+```
+
+Then, set the following environment variables and run the tests:
+
+```sh
+env GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
+    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
+  cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+```
+
+#### Rotating the service account key
+
+Service account keys expire after 90 days, due to our org policy.
+
+Rerunning terraform (after 60 days of key creation) will generate a new service
+account key, and save it as the `test-sa-creds-json` secret.
+
+```sh
+cd ${HOME}/google-cloud-rust/src/auth/.gcb/builds
+terraform plan -out="/tmp/builds.plan"
+terraform apply "/tmp/builds.plan"
+```
+
 ### In your own test project
 
-#### Create the Test Resources
+#### Create the test resources
 
 Set your test project
 
@@ -84,7 +119,7 @@ terraform plan \
 terraform apply "/tmp/builds.plan"
 ```
 
-## Test Design
+## Test design
 
 For access token credentials, there are integration tests for each type of
 principal (service account, authorized user, etc.).

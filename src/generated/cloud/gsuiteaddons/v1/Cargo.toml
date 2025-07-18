@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-gsuiteaddons-v1"
-version                = "0.3.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Google Workspace add-ons API"
 edition.workspace      = true
 authors.workspace      = true
@@ -36,8 +36,8 @@ apps_script_slides.workspace = true
 apps_script_type.workspace = true
 async-trait.workspace = true
 bytes.workspace      = true
-gax                  = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi                 = { workspace = true, features = ["_internal_http_client"] }
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace = true
 reqwest.workspace    = true
 serde.workspace      = true

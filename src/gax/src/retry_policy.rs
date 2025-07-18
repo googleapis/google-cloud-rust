@@ -32,29 +32,32 @@
 //! [RequestOptionsBuilder::with_retry_policy]: crate::options::RequestOptionsBuilder::with_retry_policy
 //!
 //! # Examples
+//!
+//! Create a policy that only retries transient errors, and retries for at
+//! most 10 seconds or at most 5 attempts: whichever limit is reached first
+//! stops the retry loop.
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
 //! use std::time::Duration;
-//! // Create a policy that only retries transient errors, and retries for at
-//! // most 10 seconds or at most 5 attempts: whichever limit is reached first
-//! // stops the retry loop.
 //! let policy = Aip194Strict.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
 //! ```
 //!
+//! Create a policy that retries on any error (even when unsafe to do so),
+//! and stops retrying after 5 attempts or 10 seconds, whichever limit is
+//! reached first stops the retry loop.
 //! ```
 //! # use google_cloud_gax::retry_policy::*;
 //! use std::time::Duration;
-//! // Create a policy that retries on any error (even when unsafe to do so),
-//! // and stops retrying after 5 attempts or 10 seconds, whichever limit is
-//! // reached first stops the retry loop.
 //! let policy = AlwaysRetry.with_time_limit(Duration::from_secs(10)).with_attempt_limit(5);
 //! ```
 //!
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
-use crate::error::{CredentialsError, Error};
-use crate::loop_state::LoopState;
+use crate::error::Error;
+use crate::retry_result::RetryResult;
+use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// Determines how errors are handled in the retry loop.
 ///
@@ -71,26 +74,36 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `idempotent` - if `true` assume the operation is idempotent. Many more
     ///   errors are retryable on idempotent operations.
     /// * `error` - the last error when attempting the request.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_error(
         &self,
         loop_start: std::time::Instant,
         attempt_count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState;
+    ) -> RetryResult;
 
     /// Query the retry policy after a retry attempt is throttled.
     ///
     /// Retry attempts may be throttled before they are even sent out. The retry
     /// policy may choose to treat these as normal errors, consuming attempts,
-    /// or may prefer to ignore them and always return [LoopState::Continue].
+    /// or may prefer to ignore them and always return [RetryResult::Continue].
     ///
     /// # Parameters
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is never called
     ///   before the first attempt.
-    fn on_throttle(&self, _loop_start: std::time::Instant, _attempt_count: u32) -> Option<Error> {
-        None
+    /// * `error` - the previous error that caused the retry attempt. Throttling
+    ///   only applies to retry attempts, and a retry attempt implies that a
+    ///   previous attempt failed. The retry policy should preserve this error.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    fn on_throttle(
+        &self,
+        _loop_start: std::time::Instant,
+        _attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        ThrottleResult::Continue(error)
     }
 
     /// The remaining time in the retry policy.
@@ -103,18 +116,19 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is called before
     ///   the first attempt, so the first value is zero.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn remaining_time(
         &self,
         _loop_start: std::time::Instant,
         _attempt_count: u32,
-    ) -> Option<std::time::Duration> {
+    ) -> Option<Duration> {
         None
     }
 }
 
 /// A helper type to use [RetryPolicy] in client and request options.
-#[derive(Clone)]
-pub struct RetryPolicyArg(pub(crate) Arc<dyn RetryPolicy>);
+#[derive(Clone, Debug)]
+pub struct RetryPolicyArg(Arc<dyn RetryPolicy>);
 
 impl<T> std::convert::From<T> for RetryPolicyArg
 where
@@ -131,6 +145,12 @@ impl std::convert::From<Arc<dyn RetryPolicy>> for RetryPolicyArg {
     }
 }
 
+impl From<RetryPolicyArg> for Arc<dyn RetryPolicy> {
+    fn from(value: RetryPolicyArg) -> Arc<dyn RetryPolicy> {
+        value.0
+    }
+}
+
 /// Extension trait for [`RetryPolicy`]
 pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// Decorate a [`RetryPolicy`] to limit the total elapsed time in the retry loop.
@@ -138,12 +158,12 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// While the time spent in the retry loop (including time in backoff) is
     /// less than the prescribed duration the `on_error()` method returns the
     /// results of the inner policy. After that time it returns
-    /// [Exhausted][LoopState::Exhausted] if the inner policy returns
-    /// [Continue][LoopState::Continue].
+    /// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+    /// [Continue][RetryResult::Continue].
     ///
     /// The `remaining_time()` function returns the remaining time. This is
-    /// always [Duration::ZERO][std::time::Duration::ZERO] once or after the
-    /// policy's expiration time is reached.
+    /// always [Duration::ZERO] once or after the policy's expiration time is
+    /// reached.
     ///
     /// # Example
     /// ```
@@ -152,7 +172,7 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// let policy = Aip194Strict.with_time_limit(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
     /// ```
-    fn with_time_limit(self, maximum_duration: std::time::Duration) -> LimitedElapsedTime<Self> {
+    fn with_time_limit(self, maximum_duration: Duration) -> LimitedElapsedTime<Self> {
         LimitedElapsedTime::custom(self, maximum_duration)
     }
 
@@ -165,20 +185,22 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     ///
     /// The policy passes through the results from the inner policy as long as
     /// `attempt_count < maximum_attempts`. Once the maximum number of attempts
-    /// is reached, the policy returns [Exhausted][LoopState::Exhausted] if the
-    /// inner policy returns [Continue][LoopState::Continue].
+    /// is reached, the policy returns [Exhausted][RetryResult::Exhausted] if the
+    /// inner policy returns [Continue][RetryResult::Continue].
     ///
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::error::*;
     /// use std::time::Instant;
     /// let policy = Aip194Strict.with_attempt_limit(3);
     /// assert_eq!(policy.remaining_time(Instant::now(), 0), None);
-    /// assert!(policy.on_error(Instant::now(), 0, true, Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 1, true, Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, true, Error::authentication(format!("transient"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 3, true, Error::authentication(format!("transient"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 1, true, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, true, transient_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 3, true, transient_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// ```
     fn with_attempt_limit(self, maximum_attempts: u32) -> LimitedAttemptCount<Self> {
         LimitedAttemptCount::custom(self, maximum_attempts)
@@ -199,10 +221,14 @@ impl<T: RetryPolicy> RetryPolicyExt for T {}
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
-/// # use google_cloud_gax::options::RequestOptionsBuilder;
-/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(Aip194Strict.with_attempt_limit(3))
-/// }
+/// use std::time::Instant;
+/// let policy = Aip194Strict;
+/// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
+/// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_permanent());
+///
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 ///
 /// [AIP-194]: https://google.aip.dev/194
@@ -216,50 +242,29 @@ impl RetryPolicy for Aip194Strict {
         _attempt_count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        if let Some(svc) = error.as_inner::<crate::error::ServiceError>() {
-            if !idempotent {
-                return LoopState::Permanent(error);
-            }
-            return if svc.status().status.as_deref() == Some("UNAVAILABLE") {
-                LoopState::Continue(error)
+    ) -> RetryResult {
+        if error.is_transient_and_before_rpc() {
+            return RetryResult::Continue(error);
+        }
+        if !idempotent {
+            return RetryResult::Permanent(error);
+        }
+        if error.is_io() {
+            return RetryResult::Continue(error);
+        }
+        if let Some(status) = error.status() {
+            return if status.code == crate::error::rpc::Code::Unavailable {
+                RetryResult::Continue(error)
             } else {
-                LoopState::Permanent(error)
+                RetryResult::Permanent(error)
             };
         }
 
-        if let Some(http) = error.as_inner::<crate::error::HttpError>() {
-            if !idempotent {
-                return LoopState::Permanent(error);
+        match error.http_status_code() {
+            Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
+                RetryResult::Continue(error)
             }
-            return if http.status_code() == http::StatusCode::SERVICE_UNAVAILABLE {
-                LoopState::Continue(error)
-            } else {
-                LoopState::Permanent(error)
-            };
-        }
-        use crate::error::ErrorKind;
-        match error.kind() {
-            ErrorKind::Rpc | ErrorKind::Io => {
-                if idempotent {
-                    LoopState::Continue(error)
-                } else {
-                    LoopState::Permanent(error)
-                }
-            }
-            ErrorKind::Authentication => {
-                if let Some(cred_err) = error.as_inner::<CredentialsError>() {
-                    if cred_err.is_retryable() {
-                        LoopState::Continue(error)
-                    } else {
-                        LoopState::Permanent(error)
-                    }
-                } else {
-                    LoopState::Continue(error)
-                }
-            }
-            ErrorKind::Serde => LoopState::Permanent(error),
-            ErrorKind::Other => LoopState::Permanent(error),
+            _ => RetryResult::Permanent(error),
         }
     }
 }
@@ -274,16 +279,16 @@ impl RetryPolicy for Aip194Strict {
 ///
 /// # Example
 /// ```
-/// # use std::sync::Arc;
 /// # use google_cloud_gax::retry_policy::*;
-/// # use google_cloud_gax::options::RequestOptionsBuilder;
-/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(
-///         AlwaysRetry.with_attempt_limit(3))
-/// }
-/// ```
+/// use std::time::Instant;
+/// let policy = AlwaysRetry;
+/// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_continue());
+/// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_continue());
 ///
-/// [AIP-194]: https://google.aip.dev/194
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
+/// ```
 #[derive(Clone, Debug)]
 pub struct AlwaysRetry;
 
@@ -294,8 +299,8 @@ impl RetryPolicy for AlwaysRetry {
         _attempt_count: u32,
         _idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        LoopState::Continue(error)
+    ) -> RetryResult {
+        RetryResult::Continue(error)
     }
 }
 
@@ -307,10 +312,14 @@ impl RetryPolicy for AlwaysRetry {
 /// # Example
 /// ```
 /// # use google_cloud_gax::retry_policy::*;
-/// # use google_cloud_gax::options::RequestOptionsBuilder;
-/// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-///     builder.with_retry_policy(NeverRetry)
-/// }
+/// use std::time::Instant;
+/// let policy = NeverRetry;
+/// assert!(policy.on_error(Instant::now(), 0, true, transient_error()).is_exhausted());
+/// assert!(policy.on_error(Instant::now(), 0, true, permanent_error()).is_exhausted());
+///
+/// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+/// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+/// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
 /// ```
 #[derive(Clone, Debug)]
 pub struct NeverRetry;
@@ -322,8 +331,39 @@ impl RetryPolicy for NeverRetry {
         _attempt_count: u32,
         _idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        LoopState::Exhausted(error)
+    ) -> RetryResult {
+        RetryResult::Exhausted(error)
+    }
+}
+
+#[derive(thiserror::Error, Debug)]
+pub struct LimitedElapsedTimeError {
+    maximum_duration: Duration,
+    #[source]
+    source: Error,
+}
+
+impl LimitedElapsedTimeError {
+    pub(crate) fn new(maximum_duration: Duration, source: Error) -> Self {
+        Self {
+            maximum_duration,
+            source,
+        }
+    }
+
+    /// Returns the maximum number of attempts in the exhausted policy.
+    pub fn maximum_duration(&self) -> Duration {
+        self.maximum_duration
+    }
+}
+
+impl std::fmt::Display for LimitedElapsedTimeError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "retry policy is exhausted after {}s, the last retry attempt was throttled",
+            self.maximum_duration.as_secs_f64()
+        )
     }
 }
 
@@ -333,12 +373,11 @@ impl RetryPolicy for NeverRetry {
 /// loops. While the time spent in the retry loop (including time in backoff)
 /// is less than the prescribed duration the `on_error()` method returns the
 /// results of the inner policy. After that time it returns
-/// [Exhausted][LoopState::Exhausted] if the inner policy returns
-/// [Continue][LoopState::Continue].
+/// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+/// [Continue][RetryResult::Continue].
 ///
 /// The `remaining_time()` function returns the remaining time. This is always
-/// [Duration::ZERO][std::time::Duration::ZERO] once or after the policy's
-/// deadline is reached.
+/// [Duration::ZERO] once or after the policy's deadline is reached.
 ///
 /// # Parameters
 /// * `P` - the inner retry policy, defaults to [Aip194Strict].
@@ -348,21 +387,11 @@ where
     P: RetryPolicy,
 {
     inner: P,
-    maximum_duration: std::time::Duration,
+    maximum_duration: Duration,
 }
 
 impl LimitedElapsedTime {
     /// Creates a new instance, with the default inner policy.
-    ///
-    /// # Example
-    /// ```
-    /// # use std::sync::Arc;
-    /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::options::RequestOptionsBuilder;
-    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(LimitedElapsedTime::new(std::time::Duration::from_secs(10)))
-    /// }
-    /// ```
     ///
     /// # Example
     /// ```
@@ -371,7 +400,7 @@ impl LimitedElapsedTime {
     /// let policy = LimitedElapsedTime::new(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
     /// ```
-    pub fn new(maximum_duration: std::time::Duration) -> Self {
+    pub fn new(maximum_duration: Duration) -> Self {
         Self {
             inner: Aip194Strict,
             maximum_duration,
@@ -388,37 +417,33 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::options::RequestOptionsBuilder;
-    /// fn customize_retry_policy(builder: impl RequestOptionsBuilder) -> impl RequestOptionsBuilder {
-    ///     builder.with_retry_policy(LimitedElapsedTime::custom(AlwaysRetry, std::time::Duration::from_secs(10)))
-    /// }
-    /// ```
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_gax::retry_policy::*;
     /// # use google_cloud_gax::error;
-    /// let d = std::time::Duration::from_secs(10);
+    /// use std::time::{Duration, Instant};
+    /// let d = Duration::from_secs(10);
     /// let policy = AlwaysRetry.with_time_limit(d);
-    /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
-    /// assert!(policy.on_error(std::time::Instant::now(), 1, false, error::Error::other(format!("test"))).is_continue());
+    /// assert!(policy.remaining_time(Instant::now(), 0) <= Some(d));
+    /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
+    ///
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
+    /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
     /// ```
-    pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
+    pub fn custom(inner: P, maximum_duration: Duration) -> Self {
         Self {
             inner,
             maximum_duration,
         }
     }
 
-    fn error_if_expired(&self, loop_start: std::time::Instant) -> Option<Error> {
+    fn error_if_exhausted(&self, loop_start: std::time::Instant, error: Error) -> ThrottleResult {
         let deadline = loop_start + self.maximum_duration;
         let now = tokio::time::Instant::now().into_std();
         if now < deadline {
-            None
+            ThrottleResult::Continue(error)
         } else {
-            Some(Error::other(format!(
-                "limited time retry policy exhausted {:?} ago",
-                now.saturating_duration_since(deadline)
+            ThrottleResult::Exhausted(Error::exhausted(LimitedElapsedTimeError::new(
+                self.maximum_duration,
+                error,
             )))
         }
     }
@@ -434,31 +459,37 @@ where
         count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         match self.inner.on_error(start, count, idempotent, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if tokio::time::Instant::now().into_std() >= start + self.maximum_duration {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
     }
 
-    fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error> {
-        self.inner
-            .on_throttle(loop_start, attempt_count)
-            .or(self.error_if_expired(loop_start))
+    fn on_throttle(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        match self.inner.on_throttle(loop_start, attempt_count, error) {
+            ThrottleResult::Continue(e) => self.error_if_exhausted(loop_start, e),
+            ThrottleResult::Exhausted(e) => ThrottleResult::Exhausted(e),
+        }
     }
 
     fn remaining_time(
         &self,
         loop_start: std::time::Instant,
         attempt_count: u32,
-    ) -> Option<std::time::Duration> {
+    ) -> Option<Duration> {
         let deadline = loop_start + self.maximum_duration;
         let remaining = deadline.saturating_duration_since(tokio::time::Instant::now().into_std());
         if let Some(inner) = self.inner.remaining_time(loop_start, attempt_count) {
@@ -477,8 +508,8 @@ where
 ///
 /// The policy passes through the results from the inner policy as long as
 /// `attempt_count < maximum_attempts`. However, once the maximum number of
-/// attempts is reached, the policy replaces any [Continue][LoopState::Continue]
-/// result with [Exhausted][LoopState::Exhausted].
+/// attempts is reached, the policy replaces any [Continue][RetryResult::Continue]
+/// result with [Exhausted][RetryResult::Exhausted].
 ///
 /// # Parameters
 /// * `P` - the inner retry policy.
@@ -516,11 +547,13 @@ where
     /// # Example
     /// ```
     /// # use google_cloud_gax::retry_policy::*;
-    /// # use google_cloud_gax::error::Error;
     /// use std::time::Instant;
     /// let policy = LimitedAttemptCount::custom(AlwaysRetry, 2);
-    /// assert!(policy.on_error(Instant::now(), 1, false, Error::other(format!("test"))).is_continue());
-    /// assert!(policy.on_error(Instant::now(), 2, false, Error::other(format!("test"))).is_exhausted());
+    /// assert!(policy.on_error(Instant::now(), 1, false, permanent_error()).is_continue());
+    /// assert!(policy.on_error(Instant::now(), 2, false, permanent_error()).is_exhausted());
+    ///
+    /// use google_cloud_gax::error::{Error, rpc::Code, rpc::Status};
+    /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
     /// ```
     pub fn custom(inner: P, maximum_attempts: u32) -> Self {
         Self {
@@ -540,39 +573,37 @@ where
         count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         match self.inner.on_error(start, count, idempotent, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if count >= self.maximum_attempts {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
     }
 
-    fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error> {
-        if let Some(e) = self.inner.on_throttle(loop_start, attempt_count) {
-            return Some(e);
-        }
-        if attempt_count < self.maximum_attempts {
-            None
-        } else {
-            Some(Error::other(format!(
-                "error count already reached maximum ({})",
-                self.maximum_attempts
-            )))
-        }
+    fn on_throttle(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        // The retry loop only calls `on_throttle()` if the policy has not
+        // been exhausted.
+        assert!(attempt_count < self.maximum_attempts);
+        self.inner.on_throttle(loop_start, attempt_count, error)
     }
 
     fn remaining_time(
         &self,
         loop_start: std::time::Instant,
         attempt_count: u32,
-    ) -> Option<std::time::Duration> {
+    ) -> Option<Duration> {
         self.inner.remaining_time(loop_start, attempt_count)
     }
 }
@@ -580,7 +611,8 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::error::{ServiceError, rpc::Status};
+    use http::HeaderMap;
+    use std::error::Error as StdError;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
@@ -599,7 +631,10 @@ mod tests {
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, unavailable()).is_permanent());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(p.on_error(now, 0, true, permission_denied()).is_permanent());
         assert!(
@@ -609,7 +644,10 @@ mod tests {
 
         assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_permanent());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(
             p.on_error(now, 0, true, http_permission_denied())
@@ -629,29 +667,14 @@ mod tests {
                 .is_permanent()
         );
 
-        assert!(
-            p.on_error(now, 0, true, Error::authentication("err".to_string()))
-                .is_continue()
-        );
-        assert!(
-            p.on_error(now, 0, false, Error::authentication("err".to_string()))
-                .is_continue()
-        );
+        assert!(p.on_error(now, 0, true, pre_rpc_transient()).is_continue());
+        assert!(p.on_error(now, 0, false, pre_rpc_transient()).is_continue());
 
+        assert!(p.on_error(now, 0, true, Error::ser("err")).is_permanent());
+        assert!(p.on_error(now, 0, false, Error::ser("err")).is_permanent());
+        assert!(p.on_error(now, 0, true, Error::deser("err")).is_permanent());
         assert!(
-            p.on_error(now, 0, true, Error::serde("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, false, Error::serde("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, true, Error::other("err".to_string()))
-                .is_permanent()
-        );
-        assert!(
-            p.on_error(now, 0, false, Error::other("err".to_string()))
+            p.on_error(now, 0, false, Error::deser("err"))
                 .is_permanent()
         );
 
@@ -666,20 +689,21 @@ mod tests {
         assert!(p.remaining_time(now, 0).is_none());
         assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_continue());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(p.on_error(now, 0, true, unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, unavailable()).is_continue());
     }
 
     #[test_case::test_case(true, Error::io("err"))]
-    #[test_case::test_case(true, Error::authentication("err"))]
-    #[test_case::test_case(true, Error::serde("err"))]
-    #[test_case::test_case(true, Error::other("err"))]
+    #[test_case::test_case(true, pre_rpc_transient())]
+    #[test_case::test_case(true, Error::ser("err"))]
     #[test_case::test_case(false, Error::io("err"))]
-    #[test_case::test_case(false, Error::authentication("err"))]
-    #[test_case::test_case(false, Error::serde("err"))]
-    #[test_case::test_case(false, Error::other("err"))]
+    #[test_case::test_case(false, pre_rpc_transient())]
+    #[test_case::test_case(false, Error::ser("err"))]
     fn always_retry_error_kind(idempotent: bool, error: Error) {
         let p = AlwaysRetry;
         let now = std::time::Instant::now();
@@ -694,7 +718,10 @@ mod tests {
         assert!(p.remaining_time(now, 0).is_none());
         assert!(p.on_error(now, 0, true, http_unavailable()).is_exhausted());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_exhausted());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(p.on_error(now, 0, true, unavailable()).is_exhausted());
         assert!(p.on_error(now, 0, false, unavailable()).is_exhausted());
@@ -710,131 +737,129 @@ mod tests {
     }
 
     #[test_case::test_case(true, Error::io("err"))]
-    #[test_case::test_case(true, Error::authentication("err"))]
-    #[test_case::test_case(true, Error::serde("err"))]
-    #[test_case::test_case(true, Error::other("err"))]
+    #[test_case::test_case(true, pre_rpc_transient())]
+    #[test_case::test_case(true, Error::ser("err"))]
     #[test_case::test_case(false, Error::io("err"))]
-    #[test_case::test_case(false, Error::authentication("err"))]
-    #[test_case::test_case(false, Error::serde("err"))]
-    #[test_case::test_case(false, Error::other("err"))]
+    #[test_case::test_case(false, pre_rpc_transient())]
+    #[test_case::test_case(false, Error::ser("err"))]
     fn never_retry_error_kind(idempotent: bool, error: Error) {
         let p = NeverRetry;
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, idempotent, error).is_exhausted());
     }
 
-    fn http_from_status(status: Status) -> Error {
-        use std::collections::HashMap;
-        Error::rpc(crate::error::HttpError::new(
-            status.code as u16,
-            HashMap::new(),
-            bytes::Bytes::from_owner(status.message).into(),
-        ))
+    fn pre_rpc_transient() -> Error {
+        use crate::error::CredentialsError;
+        Error::authentication(CredentialsError::from_msg(true, "err"))
     }
 
     fn http_unavailable() -> Error {
-        let status = Status {
-            code: 503,
-            message: "SERVICE UNAVAILABLE".into(),
-            status: Some("UNAVAILABLE".into()),
-            ..Default::default()
-        };
-        http_from_status(status)
+        Error::http(
+            503_u16,
+            HeaderMap::new(),
+            bytes::Bytes::from_owner("SERVICE UNAVAILABLE".to_string()),
+        )
     }
 
     fn http_permission_denied() -> Error {
-        let status = Status {
-            code: 403,
-            message: "PERMISSION DENIED".into(),
-            status: Some("PERMISSION_DENIED".into()),
-            ..Default::default()
-        };
-        http_from_status(status)
+        Error::http(
+            403_u16,
+            HeaderMap::new(),
+            bytes::Bytes::from_owner("PERMISSION DENIED".to_string()),
+        )
     }
 
     fn unavailable() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::Unavailable as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::Unavailable)
             .set_message("UNAVAILABLE");
-        Error::rpc(ServiceError::from(status))
+        Error::service(status)
     }
 
     fn permission_denied() -> Error {
         use crate::error::rpc::Code;
-        let status = rpc::model::Status::default()
-            .set_code(Code::PermissionDenied as i32)
+        let status = crate::error::rpc::Status::default()
+            .set_code(Code::PermissionDenied)
             .set_message("PERMISSION_DENIED");
-        Error::rpc(ServiceError::from(status))
+        Error::service(status)
     }
 
     mockall::mock! {
         #[derive(Debug)]
         Policy {}
         impl RetryPolicy for Policy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
-            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryResult;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
+            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
         }
     }
 
-    use std::time::Duration;
+    #[test]
+    fn limited_elapsed_time_error() {
+        let limit = Duration::from_secs(123) + Duration::from_millis(567);
+        let err = LimitedElapsedTimeError::new(limit, unavailable());
+        assert_eq!(err.maximum_duration(), limit);
+        let fmt = err.to_string();
+        assert!(fmt.contains("123.567s"), "display={fmt}, debug={err:?}");
+        assert!(err.source().is_some(), "{err:?}");
+    }
 
     #[test]
     fn test_limited_time_forwards() {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
-        mock.expect_on_throttle().times(1..).returning(|_, _| None);
+            .returning(|_, _, _, e| RetryResult::Continue(e));
+        mock.expect_on_throttle()
+            .times(1..)
+            .returning(|_, _, e| ThrottleResult::Continue(e));
         mock.expect_remaining_time().times(1).returning(|_, _| None);
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(now, 0, true, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 0, true, transient_error());
         assert!(rf.is_continue());
 
         let rt = policy.remaining_time(now, 0);
         assert!(rt.is_some());
 
-        let e = policy.on_throttle(now, 0);
-        assert!(e.is_none());
+        let e = policy.on_throttle(now, 0, transient_error());
+        assert!(matches!(e, ThrottleResult::Continue(_)));
     }
 
     #[test]
-    fn test_limited_time_on_throttle_none() {
-        let mut mock = MockPolicy::new();
-        mock.expect_on_throttle().times(1..).returning(|_, _| None);
-
-        let now = std::time::Instant::now();
-        let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-
-        // Before the policy expires the inner result is returned verbatim.
-        let rf = policy.on_throttle(now - Duration::from_secs(50), 1);
-        assert!(rf.is_none());
-
-        // After the policy expires the innter result is always "exhausted".
-        let rf = policy.on_throttle(now - Duration::from_secs(70), 1);
-        assert!(rf.is_some());
-    }
-
-    #[test]
-    fn test_limited_time_on_throttle_error() {
+    fn test_limited_time_on_throttle_continue() {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(Error::other("err".to_string())));
+            .returning(|_, _, e| ThrottleResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
         // Before the policy expires the inner result is returned verbatim.
-        let rf = policy.on_throttle(now - Duration::from_secs(50), 1);
-        assert!(rf.is_some());
+        let rf = policy.on_throttle(now - Duration::from_secs(50), 1, unavailable());
+        assert!(matches!(rf, ThrottleResult::Continue(_)), "{rf:?}");
 
         // After the policy expires the innter result is always "exhausted".
-        let rf = policy.on_throttle(now - Duration::from_secs(70), 1);
-        assert!(rf.is_some());
+        let rf = policy.on_throttle(now - Duration::from_secs(70), 1, unavailable());
+        assert!(matches!(rf, ThrottleResult::Exhausted(_)), "{rf:?}");
+    }
+
+    #[test]
+    fn test_limited_time_on_throttle_exhausted() {
+        let mut mock = MockPolicy::new();
+        mock.expect_on_throttle()
+            .times(1..)
+            .returning(|_, _, e| ThrottleResult::Exhausted(e));
+
+        let now = std::time::Instant::now();
+        let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
+
+        // Before the policy expires the inner result is returned verbatim.
+        let rf = policy.on_throttle(now - Duration::from_secs(50), 1, unavailable());
+        assert!(matches!(rf, ThrottleResult::Exhausted(_)), "{rf:?}");
     }
 
     #[test]
@@ -842,24 +867,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        let rf = policy.on_error(
-            now - Duration::from_secs(10),
-            1,
-            true,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(10), 1, true, transient_error());
         assert!(rf.is_continue());
 
-        let rf = policy.on_error(
-            now - Duration::from_secs(70),
-            1,
-            true,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(70), 1, true, transient_error());
         assert!(rf.is_exhausted());
     }
 
@@ -868,25 +883,15 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Permanent(e));
+            .returning(|_, _, _, e| RetryResult::Permanent(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error(
-            now - Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(
-            now + Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now + Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_permanent());
     }
 
@@ -895,25 +900,15 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, _, e| RetryResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
-        let rf = policy.on_error(
-            now - Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now - Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(
-            now + Duration::from_secs(10),
-            1,
-            false,
-            Error::other("err".to_string()),
-        );
+        let rf = policy.on_error(now + Duration::from_secs(10), 1, false, transient_error());
         assert!(rf.is_exhausted());
     }
 
@@ -960,51 +955,40 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
         assert!(
             policy
-                .on_error(now, 1, true, Error::other("err".to_string()))
+                .on_error(now, 1, true, transient_error())
                 .is_continue()
         );
         assert!(
             policy
-                .on_error(now, 2, true, Error::other("err".to_string()))
+                .on_error(now, 2, true, transient_error())
                 .is_continue()
         );
         assert!(
             policy
-                .on_error(now, 3, true, Error::other("err".to_string()))
+                .on_error(now, 3, true, transient_error())
                 .is_exhausted()
         );
     }
 
     #[test]
-    fn test_limited_attempt_count_on_throttle_none() {
-        let mut mock = MockPolicy::new();
-        mock.expect_on_throttle().times(1..).returning(|_, _| None);
-
-        let now = std::time::Instant::now();
-        let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_throttle(now, 1).is_none());
-        assert!(policy.on_throttle(now, 2).is_none());
-        assert!(policy.on_throttle(now, 3).is_some());
-    }
-
-    #[test]
-    fn test_limited_attempt_count_on_throttle_some() {
+    fn test_limited_attempt_count_on_throttle_continue() {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, a| Some(Error::other(format!("err {a}"))));
+            .returning(|_, _, e| ThrottleResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_throttle(now, 1).is_some());
-        assert!(policy.on_throttle(now, 2).is_some());
-        assert!(policy.on_throttle(now, 3).is_some());
+        assert!(matches!(
+            policy.on_throttle(now, 2, unavailable()),
+            ThrottleResult::Continue(_)
+        ));
     }
 
     #[test]
@@ -1012,13 +996,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(Error::other("err".to_string())));
+            .returning(|_, _, e| ThrottleResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_throttle(now, 1).is_some());
-        assert!(policy.on_throttle(now, 2).is_some());
-        assert!(policy.on_throttle(now, 3).is_some());
+        assert!(matches!(
+            policy.on_throttle(now, 1, unavailable()),
+            ThrottleResult::Exhausted(_)
+        ));
     }
 
     #[test]
@@ -1051,14 +1036,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Permanent(e));
+            .returning(|_, _, _, e| RetryResult::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_permanent());
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_permanent());
     }
 
@@ -1067,14 +1052,23 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, _, e| RetryResult::Exhausted(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_exhausted());
 
-        let rf = policy.on_error(now, 1, false, Error::other("err".to_string()));
+        let rf = policy.on_error(now, 1, false, transient_error());
         assert!(rf.is_exhausted());
+    }
+
+    fn transient_error() -> Error {
+        use crate::error::rpc::{Code, Status};
+        Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("try-again"),
+        )
     }
 }

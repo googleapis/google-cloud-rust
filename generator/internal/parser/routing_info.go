@@ -90,13 +90,13 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 			Variants: []*api.RoutingInfoVariant{{
 				FieldPath: fieldPath,
 				Matching: api.RoutingPathSpec{
-					Segments: []string{api.RoutingMultiSegmentWildcard},
+					Segments: []string{api.MultiSegmentWildcard},
 				},
 			}},
 		}
 		return info, nil
 	}
-	if strings.Count(pathTemplate, api.RoutingMultiSegmentWildcard) > 1 {
+	if strings.Count(pathTemplate, api.MultiSegmentWildcard) > 1 {
 		return nil, fmt.Errorf("too many `**` matchers in pathTemplate=%q", pathTemplate)
 	}
 
@@ -122,12 +122,12 @@ func parseRoutingPathTemplate(fieldName, pathTemplate string) (*api.RoutingInfo,
 		suffix, width = parseRoutingSuffix(pathTemplate[pos:])
 		pos += width
 	}
-	index := slices.Index(prefix.Segments, api.RoutingMultiSegmentWildcard)
+	index := slices.Index(prefix.Segments, api.MultiSegmentWildcard)
 	if index != -1 {
 		return nil, fmt.Errorf("multi segment wildcards may not appear in the prefix portion of a path template, template=%s", pathTemplate)
 	}
 	for _, spec := range []*api.RoutingPathSpec{&match, &suffix} {
-		index := slices.Index(spec.Segments, api.RoutingMultiSegmentWildcard)
+		index := slices.Index(spec.Segments, api.MultiSegmentWildcard)
 		if index == -1 || index == len(spec.Segments)-1 {
 			continue
 		}
@@ -153,7 +153,7 @@ func parseRoutingPrefix(pathTemplate string) (api.RoutingPathSpec, int) {
 }
 
 func isRoutingWildcard(segment string) bool {
-	return segment == api.RoutingSingleSegmentWildcard || segment == api.RoutingMultiSegmentWildcard
+	return segment == api.SingleSegmentWildcard || segment == api.MultiSegmentWildcard
 }
 
 func parseRoutingVariable(defaultName, pathTemplate string) (string, api.RoutingPathSpec, int, error) {
@@ -195,11 +195,11 @@ func parseRoutingPathSpec(pathTemplate string) (api.RoutingPathSpec, int) {
 }
 
 func parseRoutingSegment(pathTemplate string) (string, int) {
-	if strings.HasPrefix(pathTemplate, api.RoutingMultiSegmentWildcard) {
-		return api.RoutingMultiSegmentWildcard, len(api.RoutingMultiSegmentWildcard)
+	if strings.HasPrefix(pathTemplate, api.MultiSegmentWildcard) {
+		return api.MultiSegmentWildcard, len(api.MultiSegmentWildcard)
 	}
-	if strings.HasPrefix(pathTemplate, api.RoutingSingleSegmentWildcard) {
-		return api.RoutingSingleSegmentWildcard, len(api.RoutingSingleSegmentWildcard)
+	if strings.HasPrefix(pathTemplate, api.SingleSegmentWildcard) {
+		return api.SingleSegmentWildcard, len(api.SingleSegmentWildcard)
 	}
 	index := strings.IndexAny(pathTemplate, "=/{}")
 	if index == -1 {

@@ -41,7 +41,8 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
 
     println!("\nTesting create_secret()");
     let create = client
-        .create_secret(&project_id)
+        .create_secret()
+        .set_project(&project_id)
         .set_secret_id(&secret_id)
         .set_request_body(
             smo::model::Secret::new()
@@ -61,7 +62,12 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     assert!(project_name.is_some());
 
     println!("\nTesting get_secret()");
-    let get = client.get_secret(&project_id, &secret_id).send().await?;
+    let get = client
+        .get_secret()
+        .set_project(&project_id)
+        .set_secret(&secret_id)
+        .send()
+        .await?;
     println!("GET = {get:?}");
     assert_eq!(get, create);
     assert!(get.name.is_some());
@@ -72,7 +78,9 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
     let update = client
-        .update_secret(&project_id, &secret_id)
+        .update_secret()
+        .set_project(&project_id)
+        .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
         .set_request_body(smo::model::Secret::new().set_labels(new_labels))
         .send()
@@ -92,14 +100,23 @@ pub async fn run(builder: smo::builder::secret_manager_service::ClientBuilder) -
     run_locations(&client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
-    let response = client.delete_secret(&project_id, &secret_id).send().await?;
+    let response = client
+        .delete_secret()
+        .set_project(&project_id)
+        .set_secret(&secret_id)
+        .send()
+        .await?;
     println!("DELETE = {response:?}");
     Ok(())
 }
 
 async fn run_locations(client: &smo::client::SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
-    let locations = client.list_locations(project_id).send().await?;
+    let locations = client
+        .list_locations()
+        .set_project(project_id)
+        .send()
+        .await?;
     println!("LOCATIONS = {locations:?}");
 
     assert!(
@@ -114,7 +131,9 @@ async fn run_locations(client: &smo::client::SecretManagerService, project_id: &
 
     println!("\nTesting get_location()");
     let get = client
-        .get_location(project_id, first.location_id.clone().unwrap())
+        .get_location()
+        .set_project(project_id)
+        .set_location(first.location_id.clone().unwrap())
         .send()
         .await?;
     println!("GET = {get:?}");
@@ -132,12 +151,19 @@ async fn run_iam(
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
-    let policy = client.get_iam_policy(project_id, secret_id).send().await?;
+    let policy = client
+        .get_iam_policy()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .send()
+        .await?;
     println!("POLICY = {policy:?}");
 
     println!("\nTesting test_iam_permissions()");
     let response = client
-        .test_iam_permissions(project_id, secret_id)
+        .test_iam_permissions()
+        .set_project(project_id)
+        .set_secret(secret_id)
         .set_permissions(["secretmanager.versions.access"])
         .send()
         .await?;
@@ -165,7 +191,9 @@ async fn run_iam(
         );
     }
     let response = client
-        .set_iam_policy(project_id, secret_id)
+        .set_iam_policy()
+        .set_project(project_id)
+        .set_secret(secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
@@ -184,7 +212,9 @@ async fn run_secret_versions(
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
     let create = client
-        .add_secret_version(project_id, secret_id)
+        .add_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
         .set_payload(
             smo::model::SecretPayload::new()
                 .set_data(bytes::Bytes::from(data))
@@ -210,7 +240,10 @@ async fn run_secret_versions(
 
     println!("\nTesting get_secret_version()");
     let get = client
-        .get_secret_version(project_id, secret_id, version_id)
+        .get_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("GET_SECRET_VERSION = {get:?}");
@@ -228,7 +261,10 @@ async fn run_secret_versions(
 
     println!("\nTesting access_secret_version()");
     let access_secret_version = client
-        .access_secret_version(project_id, secret_id, version_id)
+        .access_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
@@ -239,21 +275,30 @@ async fn run_secret_versions(
 
     println!("\nTesting disable_secret_version()");
     let disable = client
-        .disable_secret_version(project_id, secret_id, version_id)
+        .disable_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
     println!("\nTesting enable_secret_version()");
     let enable = client
-        .enable_secret_version(project_id, secret_id, version_id)
+        .enable_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
 
     println!("\nTesting destroy_secret_version()");
     let delete = client
-        .destroy_secret_version(project_id, secret_id, version_id)
+        .destroy_secret_version()
+        .set_project(project_id)
+        .set_secret(secret_id)
+        .set_version(version_id)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -270,8 +315,10 @@ async fn get_all_secret_version_names(
     let mut page_token = None::<String>;
     loop {
         let response = client
-            .list_secret_versions(project_id, secret_id)
-            .set_page_token(page_token)
+            .list_secret_versions()
+            .set_project(project_id)
+            .set_secret(secret_id)
+            .set_or_clear_page_token(page_token)
             .send()
             .await?;
         response
@@ -292,7 +339,7 @@ async fn get_all_secret_names(
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
-    let mut paginator = client.list_secrets(project_id).paginator().await;
+    let mut paginator = client.list_secrets().set_project(project_id).by_page();
     while let Some(response) = paginator.next().await {
         response?
             .secrets

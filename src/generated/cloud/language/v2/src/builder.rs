@@ -16,9 +16,8 @@
 
 pub mod language_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [LanguageService][super::super::client::LanguageService].
+    /// A builder for [LanguageService][crate::client::LanguageService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod language_service {
     /// let client = builder
     ///     .with_endpoint("https://language.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod language_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LanguageService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::LanguageService] request builders.
+    /// Common implementation for [crate::client::LanguageService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LanguageService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod language_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::analyze_sentiment][super::super::client::LanguageService::analyze_sentiment] calls.
+    /// The request builder for [LanguageService::analyze_sentiment][crate::client::LanguageService::analyze_sentiment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::AnalyzeSentiment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeSentiment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeSentiment(RequestBuilder<crate::model::AnalyzeSentimentRequest>);
 
     impl AnalyzeSentiment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -102,11 +124,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::AnalyzeSentimentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::AnalyzeSentimentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -124,12 +157,30 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::analyze_entities][super::super::client::LanguageService::analyze_entities] calls.
+    /// The request builder for [LanguageService::analyze_entities][crate::client::LanguageService::analyze_entities] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::AnalyzeEntities;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnalyzeEntities {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnalyzeEntities(RequestBuilder<crate::model::AnalyzeEntitiesRequest>);
 
     impl AnalyzeEntities {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,11 +207,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::AnalyzeEntitiesRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::AnalyzeEntitiesRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -178,12 +240,30 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::classify_text][super::super::client::LanguageService::classify_text] calls.
+    /// The request builder for [LanguageService::classify_text][crate::client::LanguageService::classify_text] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::ClassifyText;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ClassifyText {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ClassifyText(RequestBuilder<crate::model::ClassifyTextRequest>);
 
     impl ClassifyText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -210,11 +290,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::ClassifyTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::ClassifyTextRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
     }
@@ -226,12 +317,30 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::moderate_text][super::super::client::LanguageService::moderate_text] calls.
+    /// The request builder for [LanguageService::moderate_text][crate::client::LanguageService::moderate_text] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::ModerateText;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModerateText {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModerateText(RequestBuilder<crate::model::ModerateTextRequest>);
 
     impl ModerateText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -258,11 +367,22 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::ModerateTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::ModerateTextRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
@@ -283,12 +403,30 @@ pub mod language_service {
         }
     }
 
-    /// The request builder for [LanguageService::annotate_text][super::super::client::LanguageService::annotate_text] calls.
+    /// The request builder for [LanguageService::annotate_text][crate::client::LanguageService::annotate_text] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_language_v2::builder;
+    /// use builder::language_service::AnnotateText;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnnotateText {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnnotateText(RequestBuilder<crate::model::AnnotateTextRequest>);
 
     impl AnnotateText {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LanguageService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LanguageService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -315,24 +453,44 @@ pub mod language_service {
         /// Sets the value of [document][crate::model::AnnotateTextRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::AnnotateTextRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [features][crate::model::AnnotateTextRequest::features].
         ///
         /// This is a **required** field for requests.
-        pub fn set_features<
-            T: Into<std::option::Option<crate::model::annotate_text_request::Features>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.features = v.into();
+        pub fn set_features<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::annotate_text_request::Features>,
+        {
+            self.0.request.features = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [features][crate::model::AnnotateTextRequest::features].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_features<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::annotate_text_request::Features>,
+        {
+            self.0.request.features = v.map(|x| x.into());
             self
         }
 

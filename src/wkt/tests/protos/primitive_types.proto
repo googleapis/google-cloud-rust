@@ -1,0 +1,151 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+package google.rust.sdk.test;
+
+// A test message for f32.
+message MessageWithF32 {
+    // A singular field.
+    float singular = 1;
+    // An optional field.
+    optional float optional = 2;
+    // A repeated field.
+    repeated float repeated = 3;
+    // A map field, floats cannot be keys, so we only need to test them as
+    // values.
+    map<string, float> map = 4;
+}
+
+// A test message for f64.
+message MessageWithF64 {
+    // A singular field.
+    double singular = 1;
+    // An optional field.
+    optional double optional = 2;
+    // A repeated field.
+    repeated double repeated = 3;
+    // A map field, doubles cannot be keys, so we only need to test them as
+    // values.
+    map<string, double> map = 4;
+}
+
+// A test message for i32.
+message MessageWithI32 {
+    // A singular field.
+    int32 singular = 1;
+    // An optional field.
+    optional int32 optional = 2;
+    // A repeated field.
+    repeated int32 repeated = 3;
+    // Test i32 as values.
+    map<string, int32> map_value = 4;
+    // Test i32 as keys.
+    map<int32, string> map_key = 5;
+    // Test i32 as both keys and values.
+    map<int32, int32> map_key_value = 6;
+}
+
+// A test message for u32.
+message MessageWithU32 {
+    // A singular field.
+    uint32 singular = 1;
+    // An optional field.
+    optional uint32 optional = 2;
+    // A repeated field.
+    repeated uint32 repeated = 3;
+    // Test u32 as values.
+    map<string, uint32> map_value = 4;
+    // Test u32 as keys.
+    map<uint32, string> map_key = 5;
+    // Test u32 as both keys and values.
+    map<uint32, uint32> map_key_value = 6;
+}
+
+// A test message for i64.
+message MessageWithI64 {
+    // A singular field.
+    int64 singular = 1;
+    // An optional field.
+    optional int64 optional = 2;
+    // A repeated field.
+    repeated int64 repeated = 3;
+    // Test i64 as values.
+    map<string, int64> map_value = 4;
+    // Test i64 as keys.
+    map<int64, string> map_key = 5;
+    // Test i64 as both keys and values.
+    map<int64, int64> map_key_value = 6;
+}
+
+// A test message for u64.
+message MessageWithU64 {
+    // A singular field.
+    uint64 singular = 1;
+    // An optional field.
+    optional uint64 optional = 2;
+    // A repeated field.
+    repeated uint64 repeated = 3;
+    // Test u64 as values.
+    map<string, uint64> map_value = 4;
+    // Test u64 as keys.
+    map<uint64, string> map_key = 5;
+    // Test u64 as both keys and values.
+    map<uint64, uint64> map_key_value = 6;
+}
+
+// A test message for bytes.
+message MessageWithBytes {
+    // A singular field.
+    bytes singular = 1;
+    // An optional field.
+    optional bytes optional = 2;
+    // A repeated field.
+    repeated bytes repeated = 3;
+    // A map field, bytes cannot be keys, so we only need to test them as
+    // values.
+    map<string, bytes> map = 4;
+}
+
+// A test message for bool.
+message MessageWithBool {
+    // A singular field.
+    bool singular = 1;
+    // An optional field.
+    optional bool optional = 2;
+    // A repeated field.
+    repeated bool repeated = 3;
+    // Test bool as map values.
+    map<string, bool> map_value = 4;
+    // Test bool as map keys.
+    map<bool, string> map_key = 5;
+    // Test bool as map key and value.
+    map<bool, bool> map_key_value = 6;
+}
+
+// A test message for string.
+message MessageWithString {
+    // A singular field.
+    string singular = 1;
+    // An optional field.
+    optional string optional = 2;
+    // A repeated field.
+    repeated string repeated = 3;
+    // Test string as map values.
+    map<int32, string> map_value = 4;
+    // Test string as map keys.
+    map<string, int32> map_key = 5;
+    // Test string as map key and value.
+    map<string, string> map_key_value = 6;
+}

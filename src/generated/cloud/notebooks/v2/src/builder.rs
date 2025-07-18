@@ -16,9 +16,8 @@
 
 pub mod notebook_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [NotebookService][super::super::client::NotebookService].
+    /// A builder for [NotebookService][crate::client::NotebookService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod notebook_service {
     /// let client = builder
     ///     .with_endpoint("https://notebooks.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod notebook_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = NotebookService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::NotebookService] request builders.
+    /// Common implementation for [crate::client::NotebookService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NotebookService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod notebook_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::list_instances][super::super::client::NotebookService::list_instances] calls.
+    /// The request builder for [NotebookService::list_instances][crate::client::NotebookService::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod notebook_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -151,12 +186,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_instance][super::super::client::NotebookService::get_instance] calls.
+    /// The request builder for [NotebookService::get_instance][crate::client::NotebookService::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::create_instance][super::super::client::NotebookService::create_instance] calls.
+    /// The request builder for [NotebookService::create_instance][crate::client::NotebookService::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +294,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::NotebookService::create_instance].
+        /// on [create_instance][crate::client::NotebookService::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -235,7 +307,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -260,7 +332,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -282,11 +354,22 @@ pub mod notebook_service {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -304,12 +387,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::update_instance][super::super::client::NotebookService::update_instance] calls.
+    /// The request builder for [NotebookService::update_instance][crate::client::NotebookService::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -330,7 +432,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::NotebookService::update_instance].
+        /// on [update_instance][crate::client::NotebookService::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -343,7 +445,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,28 +470,50 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -407,12 +531,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::delete_instance][super::super::client::NotebookService::delete_instance] calls.
+    /// The request builder for [NotebookService::delete_instance][crate::client::NotebookService::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +576,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::NotebookService::delete_instance].
+        /// on [delete_instance][crate::client::NotebookService::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -442,8 +585,8 @@ pub mod notebook_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -468,7 +611,12 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -493,12 +641,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::start_instance][super::super::client::NotebookService::start_instance] calls.
+    /// The request builder for [NotebookService::start_instance][crate::client::NotebookService::start_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::StartInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,7 +686,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_instance][super::super::client::NotebookService::start_instance].
+        /// on [start_instance][crate::client::NotebookService::start_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
@@ -532,7 +699,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -557,7 +724,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
@@ -576,12 +743,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::stop_instance][super::super::client::NotebookService::stop_instance] calls.
+    /// The request builder for [NotebookService::stop_instance][crate::client::NotebookService::stop_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::StopInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -602,7 +788,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_instance][super::super::client::NotebookService::stop_instance].
+        /// on [stop_instance][crate::client::NotebookService::stop_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
@@ -615,7 +801,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -640,7 +826,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
@@ -659,12 +845,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::reset_instance][super::super::client::NotebookService::reset_instance] calls.
+    /// The request builder for [NotebookService::reset_instance][crate::client::NotebookService::reset_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::ResetInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -685,7 +890,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_instance][super::super::client::NotebookService::reset_instance].
+        /// on [reset_instance][crate::client::NotebookService::reset_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
@@ -698,7 +903,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -723,7 +928,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
@@ -742,14 +947,32 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::check_instance_upgradability][super::super::client::NotebookService::check_instance_upgradability] calls.
+    /// The request builder for [NotebookService::check_instance_upgradability][crate::client::NotebookService::check_instance_upgradability] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::CheckInstanceUpgradability;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckInstanceUpgradability {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckInstanceUpgradability(
         RequestBuilder<crate::model::CheckInstanceUpgradabilityRequest>,
     );
 
     impl CheckInstanceUpgradability {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -792,12 +1015,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::upgrade_instance][super::super::client::NotebookService::upgrade_instance] calls.
+    /// The request builder for [NotebookService::upgrade_instance][crate::client::NotebookService::upgrade_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::UpgradeInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpgradeInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpgradeInstance(RequestBuilder<crate::model::UpgradeInstanceRequest>);
 
     impl UpgradeInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -818,7 +1060,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_instance][super::super::client::NotebookService::upgrade_instance].
+        /// on [upgrade_instance][crate::client::NotebookService::upgrade_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_instance(self.0.request, self.0.options)
@@ -831,7 +1073,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -856,7 +1098,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpgradeInstanceRequest::name].
@@ -875,12 +1117,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::rollback_instance][super::super::client::NotebookService::rollback_instance] calls.
+    /// The request builder for [NotebookService::rollback_instance][crate::client::NotebookService::rollback_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::RollbackInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RollbackInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackInstance(RequestBuilder<crate::model::RollbackInstanceRequest>);
 
     impl RollbackInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -904,7 +1165,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_instance][super::super::client::NotebookService::rollback_instance].
+        /// on [rollback_instance][crate::client::NotebookService::rollback_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_instance(self.0.request, self.0.options)
@@ -917,7 +1178,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -942,7 +1203,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RollbackInstanceRequest::name].
@@ -977,12 +1238,31 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::diagnose_instance][super::super::client::NotebookService::diagnose_instance] calls.
+    /// The request builder for [NotebookService::diagnose_instance][crate::client::NotebookService::diagnose_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::DiagnoseInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiagnoseInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiagnoseInstance(RequestBuilder<crate::model::DiagnoseInstanceRequest>);
 
     impl DiagnoseInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1006,7 +1286,7 @@ pub mod notebook_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [diagnose_instance][super::super::client::NotebookService::diagnose_instance].
+        /// on [diagnose_instance][crate::client::NotebookService::diagnose_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .diagnose_instance(self.0.request, self.0.options)
@@ -1019,7 +1299,7 @@ pub mod notebook_service {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1044,7 +1324,7 @@ pub mod notebook_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DiagnoseInstanceRequest::name].
@@ -1058,13 +1338,22 @@ pub mod notebook_service {
         /// Sets the value of [diagnostic_config][crate::model::DiagnoseInstanceRequest::diagnostic_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_diagnostic_config<
-            T: Into<std::option::Option<crate::model::DiagnosticConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.diagnostic_config = v.into();
+        pub fn set_diagnostic_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DiagnosticConfig>,
+        {
+            self.0.request.diagnostic_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [diagnostic_config][crate::model::DiagnoseInstanceRequest::diagnostic_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_diagnostic_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DiagnosticConfig>,
+        {
+            self.0.request.diagnostic_config = v.map(|x| x.into());
             self
         }
 
@@ -1082,12 +1371,34 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::list_locations][super::super::client::NotebookService::list_locations] calls.
+    /// The request builder for [NotebookService::list_locations][crate::client::NotebookService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1114,8 +1425,8 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1127,6 +1438,15 @@ pub mod notebook_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1161,12 +1481,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_location][super::super::client::NotebookService::get_location] calls.
+    /// The request builder for [NotebookService::get_location][crate::client::NotebookService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1204,12 +1542,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::set_iam_policy][super::super::client::NotebookService::set_iam_policy] calls.
+    /// The request builder for [NotebookService::set_iam_policy][crate::client::NotebookService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1244,20 +1600,40 @@ pub mod notebook_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1269,12 +1645,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_iam_policy][super::super::client::NotebookService::get_iam_policy] calls.
+    /// The request builder for [NotebookService::get_iam_policy][crate::client::NotebookService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1307,11 +1701,20 @@ pub mod notebook_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1323,12 +1726,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::test_iam_permissions][super::super::client::NotebookService::test_iam_permissions] calls.
+    /// The request builder for [NotebookService::test_iam_permissions][crate::client::NotebookService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1384,12 +1805,34 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::list_operations][super::super::client::NotebookService::list_operations] calls.
+    /// The request builder for [NotebookService::list_operations][crate::client::NotebookService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1416,8 +1859,8 @@ pub mod notebook_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1429,6 +1872,17 @@ pub mod notebook_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1463,12 +1917,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::get_operation][super::super::client::NotebookService::get_operation] calls.
+    /// The request builder for [NotebookService::get_operation][crate::client::NotebookService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1509,12 +1981,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::delete_operation][super::super::client::NotebookService::delete_operation] calls.
+    /// The request builder for [NotebookService::delete_operation][crate::client::NotebookService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1555,12 +2045,30 @@ pub mod notebook_service {
         }
     }
 
-    /// The request builder for [NotebookService::cancel_operation][super::super::client::NotebookService::cancel_operation] calls.
+    /// The request builder for [NotebookService::cancel_operation][crate::client::NotebookService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_notebooks_v2::builder;
+    /// use builder::notebook_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NotebookService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NotebookService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,8 @@
 
 pub mod secret_manager_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SecretManagerService][super::super::client::SecretManagerService].
+    /// A builder for [SecretManagerService][crate::client::SecretManagerService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod secret_manager_service {
     /// let client = builder
     ///     .with_endpoint("https://secretmanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod secret_manager_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SecretManagerService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SecretManagerService] request builders.
+    /// Common implementation for [crate::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod secret_manager_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secrets][super::super::client::SecretManagerService::list_secrets] calls.
+    /// The request builder for [SecretManagerService::list_secrets][crate::client::SecretManagerService::list_secrets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::ListSecrets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecrets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecrets(RequestBuilder<crate::model::ListSecretsRequest>);
 
     impl ListSecrets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -100,8 +122,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
         {
@@ -113,6 +135,15 @@ pub mod secret_manager_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSecretsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSecretsRequest::parent].
@@ -149,13 +180,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::create_secret][super::super::client::SecretManagerService::create_secret] calls.
+    /// The request builder for [SecretManagerService::create_secret][crate::client::SecretManagerService::create_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::CreateSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecret(RequestBuilder<crate::model::CreateSecretRequest>);
 
     impl CreateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -199,11 +246,22 @@ pub mod secret_manager_service {
         /// Sets the value of [secret][crate::model::CreateSecretRequest::secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_secret<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.secret = v.into();
+        pub fn set_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secret][crate::model::CreateSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = v.map(|x| x.into());
             self
         }
     }
@@ -215,13 +273,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::add_secret_version][super::super::client::SecretManagerService::add_secret_version] calls.
+    /// The request builder for [SecretManagerService::add_secret_version][crate::client::SecretManagerService::add_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::AddSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddSecretVersion(RequestBuilder<crate::model::AddSecretVersionRequest>);
 
     impl AddSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -260,11 +334,22 @@ pub mod secret_manager_service {
         /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
         ///
         /// This is a **required** field for requests.
-        pub fn set_payload<T: Into<std::option::Option<crate::model::SecretPayload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.payload = v.into();
+        pub fn set_payload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = v.map(|x| x.into());
             self
         }
     }
@@ -276,13 +361,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret][super::super::client::SecretManagerService::get_secret] calls.
+    /// The request builder for [SecretManagerService::get_secret][crate::client::SecretManagerService::get_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::GetSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecret(RequestBuilder<crate::model::GetSecretRequest>);
 
     impl GetSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -323,13 +424,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::update_secret][super::super::client::SecretManagerService::update_secret] calls.
+    /// The request builder for [SecretManagerService::update_secret][crate::client::SecretManagerService::update_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::UpdateSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecret(RequestBuilder<crate::model::UpdateSecretRequest>);
 
     impl UpdateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -357,22 +474,44 @@ pub mod secret_manager_service {
         /// Sets the value of [secret][crate::model::UpdateSecretRequest::secret].
         ///
         /// This is a **required** field for requests.
-        pub fn set_secret<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.secret = v.into();
+        pub fn set_secret<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [secret][crate::model::UpdateSecretRequest::secret].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_secret<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.secret = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSecretRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -384,13 +523,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::delete_secret][super::super::client::SecretManagerService::delete_secret] calls.
+    /// The request builder for [SecretManagerService::delete_secret][crate::client::SecretManagerService::delete_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::DeleteSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecret(RequestBuilder<crate::model::DeleteSecretRequest>);
 
     impl DeleteSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -437,13 +592,33 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secret_versions][super::super::client::SecretManagerService::list_secret_versions] calls.
+    /// The request builder for [SecretManagerService::list_secret_versions][crate::client::SecretManagerService::list_secret_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::ListSecretVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretVersions(RequestBuilder<crate::model::ListSecretVersionsRequest>);
 
     impl ListSecretVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -471,8 +646,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
         {
@@ -484,6 +659,17 @@ pub mod secret_manager_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSecretVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSecretVersionsRequest::parent].
@@ -520,13 +706,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_version][super::super::client::SecretManagerService::get_secret_version] calls.
+    /// The request builder for [SecretManagerService::get_secret_version][crate::client::SecretManagerService::get_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::GetSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretVersion(RequestBuilder<crate::model::GetSecretVersionRequest>);
 
     impl GetSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -570,13 +772,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::access_secret_version][super::super::client::SecretManagerService::access_secret_version] calls.
+    /// The request builder for [SecretManagerService::access_secret_version][crate::client::SecretManagerService::access_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::AccessSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AccessSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersion(RequestBuilder<crate::model::AccessSecretVersionRequest>);
 
     impl AccessSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -620,13 +838,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::disable_secret_version][super::super::client::SecretManagerService::disable_secret_version] calls.
+    /// The request builder for [SecretManagerService::disable_secret_version][crate::client::SecretManagerService::disable_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::DisableSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersion(RequestBuilder<crate::model::DisableSecretVersionRequest>);
 
     impl DisableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -676,13 +910,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::enable_secret_version][super::super::client::SecretManagerService::enable_secret_version] calls.
+    /// The request builder for [SecretManagerService::enable_secret_version][crate::client::SecretManagerService::enable_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::EnableSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersion(RequestBuilder<crate::model::EnableSecretVersionRequest>);
 
     impl EnableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -732,13 +982,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::destroy_secret_version][super::super::client::SecretManagerService::destroy_secret_version] calls.
+    /// The request builder for [SecretManagerService::destroy_secret_version][crate::client::SecretManagerService::destroy_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::DestroySecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DestroySecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersion(RequestBuilder<crate::model::DestroySecretVersionRequest>);
 
     impl DestroySecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -788,13 +1054,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::set_iam_policy][super::super::client::SecretManagerService::set_iam_policy] calls.
+    /// The request builder for [SecretManagerService::set_iam_policy][crate::client::SecretManagerService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -830,20 +1112,40 @@ pub mod secret_manager_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -855,13 +1157,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_iam_policy][super::super::client::SecretManagerService::get_iam_policy] calls.
+    /// The request builder for [SecretManagerService::get_iam_policy][crate::client::SecretManagerService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -895,11 +1213,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -911,13 +1238,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::test_iam_permissions][super::super::client::SecretManagerService::test_iam_permissions] calls.
+    /// The request builder for [SecretManagerService::test_iam_permissions][crate::client::SecretManagerService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -974,13 +1317,33 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_locations][super::super::client::SecretManagerService::list_locations] calls.
+    /// The request builder for [SecretManagerService::list_locations][crate::client::SecretManagerService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1008,8 +1371,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1021,6 +1384,15 @@ pub mod secret_manager_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1055,13 +1427,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_location][super::super::client::SecretManagerService::get_location] calls.
+    /// The request builder for [SecretManagerService::get_location][crate::client::SecretManagerService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_secretmanager_v1::builder;
+    /// use builder::secret_manager_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,9 +16,8 @@
 
 pub mod essential_contacts_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [EssentialContactsService][super::super::client::EssentialContactsService].
+    /// A builder for [EssentialContactsService][crate::client::EssentialContactsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod essential_contacts_service {
     /// let client = builder
     ///     .with_endpoint("https://essentialcontacts.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod essential_contacts_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EssentialContactsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::EssentialContactsService] request builders.
+    /// Common implementation for [crate::client::EssentialContactsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod essential_contacts_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::create_contact][super::super::client::EssentialContactsService::create_contact] calls.
+    /// The request builder for [EssentialContactsService::create_contact][crate::client::EssentialContactsService::create_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::CreateContact;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateContact(RequestBuilder<crate::model::CreateContactRequest>);
 
     impl CreateContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -111,11 +129,22 @@ pub mod essential_contacts_service {
         /// Sets the value of [contact][crate::model::CreateContactRequest::contact].
         ///
         /// This is a **required** field for requests.
-        pub fn set_contact<T: Into<std::option::Option<crate::model::Contact>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contact = v.into();
+        pub fn set_contact<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contact][crate::model::CreateContactRequest::contact].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = v.map(|x| x.into());
             self
         }
     }
@@ -127,13 +156,29 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::update_contact][super::super::client::EssentialContactsService::update_contact] calls.
+    /// The request builder for [EssentialContactsService::update_contact][crate::client::EssentialContactsService::update_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::UpdateContact;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateContact(RequestBuilder<crate::model::UpdateContactRequest>);
 
     impl UpdateContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -161,20 +206,40 @@ pub mod essential_contacts_service {
         /// Sets the value of [contact][crate::model::UpdateContactRequest::contact].
         ///
         /// This is a **required** field for requests.
-        pub fn set_contact<T: Into<std::option::Option<crate::model::Contact>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contact = v.into();
+        pub fn set_contact<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contact][crate::model::UpdateContactRequest::contact].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_contact<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Contact>,
+        {
+            self.0.request.contact = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateContactRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -186,13 +251,33 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::list_contacts][super::super::client::EssentialContactsService::list_contacts] calls.
+    /// The request builder for [EssentialContactsService::list_contacts][crate::client::EssentialContactsService::list_contacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::ListContacts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListContacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListContacts(RequestBuilder<crate::model::ListContactsRequest>);
 
     impl ListContacts {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -217,8 +302,8 @@ pub mod essential_contacts_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListContactsResponse, gax::error::Error>
         {
@@ -230,6 +315,15 @@ pub mod essential_contacts_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListContactsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListContactsRequest::parent].
@@ -260,13 +354,29 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::get_contact][super::super::client::EssentialContactsService::get_contact] calls.
+    /// The request builder for [EssentialContactsService::get_contact][crate::client::EssentialContactsService::get_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::GetContact;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetContact(RequestBuilder<crate::model::GetContactRequest>);
 
     impl GetContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -307,13 +417,29 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::delete_contact][super::super::client::EssentialContactsService::delete_contact] calls.
+    /// The request builder for [EssentialContactsService::delete_contact][crate::client::EssentialContactsService::delete_contact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::DeleteContact;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteContact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteContact(RequestBuilder<crate::model::DeleteContactRequest>);
 
     impl DeleteContact {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -354,13 +480,33 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::compute_contacts][super::super::client::EssentialContactsService::compute_contacts] calls.
+    /// The request builder for [EssentialContactsService::compute_contacts][crate::client::EssentialContactsService::compute_contacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::ComputeContacts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ComputeContacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeContacts(RequestBuilder<crate::model::ComputeContactsRequest>);
 
     impl ComputeContacts {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -385,8 +531,8 @@ pub mod essential_contacts_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ComputeContactsResponse, gax::error::Error>
         {
@@ -400,11 +546,31 @@ pub mod essential_contacts_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ComputeContactsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ComputeContactsRequest::parent].
         ///
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
+        pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::NotificationCategory>,
+        {
+            use std::iter::Iterator;
+            self.0.request.notification_categories = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -419,17 +585,6 @@ pub mod essential_contacts_service {
             self.0.request.page_token = v.into();
             self
         }
-
-        /// Sets the value of [notification_categories][crate::model::ComputeContactsRequest::notification_categories].
-        pub fn set_notification_categories<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::NotificationCategory>,
-        {
-            use std::iter::Iterator;
-            self.0.request.notification_categories = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -439,13 +594,29 @@ pub mod essential_contacts_service {
         }
     }
 
-    /// The request builder for [EssentialContactsService::send_test_message][super::super::client::EssentialContactsService::send_test_message] calls.
+    /// The request builder for [EssentialContactsService::send_test_message][crate::client::EssentialContactsService::send_test_message] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_essentialcontacts_v1::builder;
+    /// use builder::essential_contacts_service::SendTestMessage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SendTestMessage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SendTestMessage(RequestBuilder<crate::model::SendTestMessageRequest>);
 
     impl SendTestMessage {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EssentialContactsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -470,6 +641,19 @@ pub mod essential_contacts_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_contacts<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.contacts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [resource][crate::model::SendTestMessageRequest::resource].
         ///
         /// This is a **required** field for requests.
@@ -486,19 +670,6 @@ pub mod essential_contacts_service {
             v: T,
         ) -> Self {
             self.0.request.notification_category = v.into();
-            self
-        }
-
-        /// Sets the value of [contacts][crate::model::SendTestMessageRequest::contacts].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_contacts<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.contacts = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

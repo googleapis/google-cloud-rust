@@ -16,9 +16,8 @@
 
 pub mod migration_center {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [MigrationCenter][super::super::client::MigrationCenter].
+    /// A builder for [MigrationCenter][crate::client::MigrationCenter].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod migration_center {
     /// let client = builder
     ///     .with_endpoint("https://migrationcenter.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod migration_center {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = MigrationCenter;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::MigrationCenter] request builders.
+    /// Common implementation for [crate::client::MigrationCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod migration_center {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_assets][super::super::client::MigrationCenter::list_assets] calls.
+    /// The request builder for [MigrationCenter::list_assets][crate::client::MigrationCenter::list_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListAssets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
@@ -157,12 +192,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_asset][super::super::client::MigrationCenter::get_asset] calls.
+    /// The request builder for [MigrationCenter::get_asset][crate::client::MigrationCenter::get_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetAsset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,12 +261,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_asset][super::super::client::MigrationCenter::update_asset] calls.
+    /// The request builder for [MigrationCenter::update_asset][crate::client::MigrationCenter::update_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::UpdateAsset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAsset(RequestBuilder<crate::model::UpdateAssetRequest>);
 
     impl UpdateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -240,22 +311,44 @@ pub mod migration_center {
         /// Sets the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [asset][crate::model::UpdateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.asset = v.into();
+        pub fn set_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asset][crate::model::UpdateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = v.map(|x| x.into());
             self
         }
 
@@ -273,12 +366,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::batch_update_assets][super::super::client::MigrationCenter::batch_update_assets] calls.
+    /// The request builder for [MigrationCenter::batch_update_assets][crate::client::MigrationCenter::batch_update_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::BatchUpdateAssets;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchUpdateAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchUpdateAssets(RequestBuilder<crate::model::BatchUpdateAssetsRequest>);
 
     impl BatchUpdateAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -334,12 +445,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_asset][super::super::client::MigrationCenter::delete_asset] calls.
+    /// The request builder for [MigrationCenter::delete_asset][crate::client::MigrationCenter::delete_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteAsset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -385,12 +514,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::batch_delete_assets][super::super::client::MigrationCenter::batch_delete_assets] calls.
+    /// The request builder for [MigrationCenter::batch_delete_assets][crate::client::MigrationCenter::batch_delete_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::BatchDeleteAssets;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchDeleteAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteAssets(RequestBuilder<crate::model::BatchDeleteAssetsRequest>);
 
     impl BatchDeleteAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -425,12 +572,6 @@ pub mod migration_center {
             self
         }
 
-        /// Sets the value of [allow_missing][crate::model::BatchDeleteAssetsRequest::allow_missing].
-        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.allow_missing = v.into();
-            self
-        }
-
         /// Sets the value of [names][crate::model::BatchDeleteAssetsRequest::names].
         ///
         /// This is a **required** field for requests.
@@ -443,6 +584,12 @@ pub mod migration_center {
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [allow_missing][crate::model::BatchDeleteAssetsRequest::allow_missing].
+        pub fn set_allow_missing<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.allow_missing = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -452,12 +599,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::report_asset_frames][super::super::client::MigrationCenter::report_asset_frames] calls.
+    /// The request builder for [MigrationCenter::report_asset_frames][crate::client::MigrationCenter::report_asset_frames] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ReportAssetFrames;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReportAssetFrames {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReportAssetFrames(RequestBuilder<crate::model::ReportAssetFramesRequest>);
 
     impl ReportAssetFrames {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -493,11 +658,20 @@ pub mod migration_center {
         }
 
         /// Sets the value of [frames][crate::model::ReportAssetFramesRequest::frames].
-        pub fn set_frames<T: Into<std::option::Option<crate::model::Frames>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.frames = v.into();
+        pub fn set_frames<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Frames>,
+        {
+            self.0.request.frames = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [frames][crate::model::ReportAssetFramesRequest::frames].
+        pub fn set_or_clear_frames<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Frames>,
+        {
+            self.0.request.frames = v.map(|x| x.into());
             self
         }
 
@@ -517,12 +691,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::aggregate_assets_values][super::super::client::MigrationCenter::aggregate_assets_values] calls.
+    /// The request builder for [MigrationCenter::aggregate_assets_values][crate::client::MigrationCenter::aggregate_assets_values] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::AggregateAssetsValues;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AggregateAssetsValues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AggregateAssetsValues(RequestBuilder<crate::model::AggregateAssetsValuesRequest>);
 
     impl AggregateAssetsValues {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -557,12 +749,6 @@ pub mod migration_center {
             self
         }
 
-        /// Sets the value of [filter][crate::model::AggregateAssetsValuesRequest::filter].
-        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.filter = v.into();
-            self
-        }
-
         /// Sets the value of [aggregations][crate::model::AggregateAssetsValuesRequest::aggregations].
         pub fn set_aggregations<T, V>(mut self, v: T) -> Self
         where
@@ -571,6 +757,12 @@ pub mod migration_center {
         {
             use std::iter::Iterator;
             self.0.request.aggregations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::AggregateAssetsValuesRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
             self
         }
     }
@@ -582,12 +774,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_import_job][super::super::client::MigrationCenter::create_import_job] calls.
+    /// The request builder for [MigrationCenter::create_import_job][crate::client::MigrationCenter::create_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreateImportJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateImportJob(RequestBuilder<crate::model::CreateImportJobRequest>);
 
     impl CreateImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -608,7 +819,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_import_job][super::super::client::MigrationCenter::create_import_job].
+        /// on [create_import_job][crate::client::MigrationCenter::create_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_import_job(self.0.request, self.0.options)
@@ -621,7 +832,7 @@ pub mod migration_center {
             self,
         ) -> impl lro::Poller<crate::model::ImportJob, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::ImportJob, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::ImportJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -646,7 +857,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateImportJobRequest::parent].
@@ -668,11 +879,22 @@ pub mod migration_center {
         /// Sets the value of [import_job][crate::model::CreateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_job = v.into();
+        pub fn set_import_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_job][crate::model::CreateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = v.map(|x| x.into());
             self
         }
 
@@ -690,12 +912,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_import_jobs][super::super::client::MigrationCenter::list_import_jobs] calls.
+    /// The request builder for [MigrationCenter::list_import_jobs][crate::client::MigrationCenter::list_import_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListImportJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListImportJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListImportJobs(RequestBuilder<crate::model::ListImportJobsRequest>);
 
     impl ListImportJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -719,8 +963,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListImportJobsResponse, gax::error::Error>
         {
@@ -732,6 +976,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListImportJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListImportJobsRequest::parent].
@@ -780,12 +1033,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_import_job][super::super::client::MigrationCenter::get_import_job] calls.
+    /// The request builder for [MigrationCenter::get_import_job][crate::client::MigrationCenter::get_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetImportJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetImportJob(RequestBuilder<crate::model::GetImportJobRequest>);
 
     impl GetImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -831,12 +1102,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_import_job][super::super::client::MigrationCenter::delete_import_job] calls.
+    /// The request builder for [MigrationCenter::delete_import_job][crate::client::MigrationCenter::delete_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteImportJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteImportJob(RequestBuilder<crate::model::DeleteImportJobRequest>);
 
     impl DeleteImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -857,7 +1147,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_import_job][super::super::client::MigrationCenter::delete_import_job].
+        /// on [delete_import_job][crate::client::MigrationCenter::delete_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_import_job(self.0.request, self.0.options)
@@ -866,8 +1156,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_import_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -892,7 +1182,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteImportJobRequest::name].
@@ -923,12 +1218,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_import_job][super::super::client::MigrationCenter::update_import_job] calls.
+    /// The request builder for [MigrationCenter::update_import_job][crate::client::MigrationCenter::update_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::UpdateImportJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateImportJob(RequestBuilder<crate::model::UpdateImportJobRequest>);
 
     impl UpdateImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -949,7 +1263,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_import_job][super::super::client::MigrationCenter::update_import_job].
+        /// on [update_import_job][crate::client::MigrationCenter::update_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_import_job(self.0.request, self.0.options)
@@ -962,7 +1276,7 @@ pub mod migration_center {
             self,
         ) -> impl lro::Poller<crate::model::ImportJob, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::ImportJob, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::ImportJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -987,28 +1301,50 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateImportJobRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_job<T: Into<std::option::Option<crate::model::ImportJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_job = v.into();
+        pub fn set_import_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_job][crate::model::UpdateImportJobRequest::import_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportJob>,
+        {
+            self.0.request.import_job = v.map(|x| x.into());
             self
         }
 
@@ -1026,12 +1362,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::validate_import_job][super::super::client::MigrationCenter::validate_import_job] calls.
+    /// The request builder for [MigrationCenter::validate_import_job][crate::client::MigrationCenter::validate_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ValidateImportJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateImportJob(RequestBuilder<crate::model::ValidateImportJobRequest>);
 
     impl ValidateImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1055,7 +1410,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_import_job][super::super::client::MigrationCenter::validate_import_job].
+        /// on [validate_import_job][crate::client::MigrationCenter::validate_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_import_job(self.0.request, self.0.options)
@@ -1064,8 +1419,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `validate_import_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1090,7 +1445,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ValidateImportJobRequest::name].
@@ -1115,12 +1475,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::run_import_job][super::super::client::MigrationCenter::run_import_job] calls.
+    /// The request builder for [MigrationCenter::run_import_job][crate::client::MigrationCenter::run_import_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::RunImportJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunImportJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunImportJob(RequestBuilder<crate::model::RunImportJobRequest>);
 
     impl RunImportJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1141,7 +1520,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_import_job][super::super::client::MigrationCenter::run_import_job].
+        /// on [run_import_job][crate::client::MigrationCenter::run_import_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_import_job(self.0.request, self.0.options)
@@ -1150,8 +1529,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_import_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1176,7 +1555,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::RunImportJobRequest::name].
@@ -1201,12 +1585,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_import_data_file][super::super::client::MigrationCenter::get_import_data_file] calls.
+    /// The request builder for [MigrationCenter::get_import_data_file][crate::client::MigrationCenter::get_import_data_file] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetImportDataFile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetImportDataFile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetImportDataFile(RequestBuilder<crate::model::GetImportDataFileRequest>);
 
     impl GetImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1249,12 +1651,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_import_data_files][super::super::client::MigrationCenter::list_import_data_files] calls.
+    /// The request builder for [MigrationCenter::list_import_data_files][crate::client::MigrationCenter::list_import_data_files] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListImportDataFiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListImportDataFiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListImportDataFiles(RequestBuilder<crate::model::ListImportDataFilesRequest>);
 
     impl ListImportDataFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1281,8 +1705,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListImportDataFilesResponse, gax::error::Error>
         {
@@ -1294,6 +1718,17 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListImportDataFilesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListImportDataFilesRequest::parent].
@@ -1336,12 +1771,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_import_data_file][super::super::client::MigrationCenter::create_import_data_file] calls.
+    /// The request builder for [MigrationCenter::create_import_data_file][crate::client::MigrationCenter::create_import_data_file] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreateImportDataFile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateImportDataFile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateImportDataFile(RequestBuilder<crate::model::CreateImportDataFileRequest>);
 
     impl CreateImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1365,7 +1819,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_import_data_file][super::super::client::MigrationCenter::create_import_data_file].
+        /// on [create_import_data_file][crate::client::MigrationCenter::create_import_data_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_import_data_file(self.0.request, self.0.options)
@@ -1378,8 +1832,10 @@ pub mod migration_center {
             self,
         ) -> impl lro::Poller<crate::model::ImportDataFile, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ImportDataFile, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ImportDataFile,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1404,7 +1860,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateImportDataFileRequest::parent].
@@ -1426,11 +1882,22 @@ pub mod migration_center {
         /// Sets the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
         ///
         /// This is a **required** field for requests.
-        pub fn set_import_data_file<T: Into<std::option::Option<crate::model::ImportDataFile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.import_data_file = v.into();
+        pub fn set_import_data_file<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportDataFile>,
+        {
+            self.0.request.import_data_file = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [import_data_file][crate::model::CreateImportDataFileRequest::import_data_file].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_import_data_file<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ImportDataFile>,
+        {
+            self.0.request.import_data_file = v.map(|x| x.into());
             self
         }
 
@@ -1448,12 +1915,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_import_data_file][super::super::client::MigrationCenter::delete_import_data_file] calls.
+    /// The request builder for [MigrationCenter::delete_import_data_file][crate::client::MigrationCenter::delete_import_data_file] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteImportDataFile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteImportDataFile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteImportDataFile(RequestBuilder<crate::model::DeleteImportDataFileRequest>);
 
     impl DeleteImportDataFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1477,7 +1963,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_import_data_file][super::super::client::MigrationCenter::delete_import_data_file].
+        /// on [delete_import_data_file][crate::client::MigrationCenter::delete_import_data_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_import_data_file(self.0.request, self.0.options)
@@ -1486,8 +1972,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_import_data_file`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1512,7 +1998,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteImportDataFileRequest::name].
@@ -1537,12 +2028,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_groups][super::super::client::MigrationCenter::list_groups] calls.
+    /// The request builder for [MigrationCenter::list_groups][crate::client::MigrationCenter::list_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListGroups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1566,8 +2079,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
@@ -1579,6 +2092,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGroupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListGroupsRequest::parent].
@@ -1621,12 +2143,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_group][super::super::client::MigrationCenter::get_group] calls.
+    /// The request builder for [MigrationCenter::get_group][crate::client::MigrationCenter::get_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1666,12 +2206,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_group][super::super::client::MigrationCenter::create_group] calls.
+    /// The request builder for [MigrationCenter::create_group][crate::client::MigrationCenter::create_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreateGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1692,7 +2251,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_group][super::super::client::MigrationCenter::create_group].
+        /// on [create_group][crate::client::MigrationCenter::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
@@ -1704,7 +2263,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1729,7 +2289,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGroupRequest::parent].
@@ -1751,11 +2311,22 @@ pub mod migration_center {
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -1773,12 +2344,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_group][super::super::client::MigrationCenter::update_group] calls.
+    /// The request builder for [MigrationCenter::update_group][crate::client::MigrationCenter::update_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::UpdateGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1799,7 +2389,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][super::super::client::MigrationCenter::update_group].
+        /// on [update_group][crate::client::MigrationCenter::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -1811,7 +2401,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1836,28 +2427,50 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -1875,12 +2488,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_group][super::super::client::MigrationCenter::delete_group] calls.
+    /// The request builder for [MigrationCenter::delete_group][crate::client::MigrationCenter::delete_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1901,7 +2533,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_group][super::super::client::MigrationCenter::delete_group].
+        /// on [delete_group][crate::client::MigrationCenter::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
@@ -1910,8 +2542,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_group`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1936,7 +2568,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
@@ -1961,12 +2598,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::add_assets_to_group][super::super::client::MigrationCenter::add_assets_to_group] calls.
+    /// The request builder for [MigrationCenter::add_assets_to_group][crate::client::MigrationCenter::add_assets_to_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::AddAssetsToGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddAssetsToGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddAssetsToGroup(RequestBuilder<crate::model::AddAssetsToGroupRequest>);
 
     impl AddAssetsToGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1990,7 +2646,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_assets_to_group][super::super::client::MigrationCenter::add_assets_to_group].
+        /// on [add_assets_to_group][crate::client::MigrationCenter::add_assets_to_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_assets_to_group(self.0.request, self.0.options)
@@ -2002,7 +2658,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2027,7 +2684,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [group][crate::model::AddAssetsToGroupRequest::group].
@@ -2047,11 +2704,22 @@ pub mod migration_center {
         /// Sets the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
-        pub fn set_assets<T: Into<std::option::Option<crate::model::AssetList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assets = v.into();
+        pub fn set_assets<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assets][crate::model::AddAssetsToGroupRequest::assets].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = v.map(|x| x.into());
             self
         }
 
@@ -2069,12 +2737,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::remove_assets_from_group][super::super::client::MigrationCenter::remove_assets_from_group] calls.
+    /// The request builder for [MigrationCenter::remove_assets_from_group][crate::client::MigrationCenter::remove_assets_from_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::RemoveAssetsFromGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveAssetsFromGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveAssetsFromGroup(RequestBuilder<crate::model::RemoveAssetsFromGroupRequest>);
 
     impl RemoveAssetsFromGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2098,7 +2785,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_assets_from_group][super::super::client::MigrationCenter::remove_assets_from_group].
+        /// on [remove_assets_from_group][crate::client::MigrationCenter::remove_assets_from_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_assets_from_group(self.0.request, self.0.options)
@@ -2110,7 +2797,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2135,7 +2823,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [group][crate::model::RemoveAssetsFromGroupRequest::group].
@@ -2155,11 +2843,22 @@ pub mod migration_center {
         /// Sets the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
         ///
         /// This is a **required** field for requests.
-        pub fn set_assets<T: Into<std::option::Option<crate::model::AssetList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assets = v.into();
+        pub fn set_assets<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assets][crate::model::RemoveAssetsFromGroupRequest::assets].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_assets<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AssetList>,
+        {
+            self.0.request.assets = v.map(|x| x.into());
             self
         }
 
@@ -2177,12 +2876,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_error_frames][super::super::client::MigrationCenter::list_error_frames] calls.
+    /// The request builder for [MigrationCenter::list_error_frames][crate::client::MigrationCenter::list_error_frames] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListErrorFrames;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListErrorFrames {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListErrorFrames(RequestBuilder<crate::model::ListErrorFramesRequest>);
 
     impl ListErrorFrames {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2206,8 +2927,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListErrorFramesResponse, gax::error::Error>
         {
@@ -2219,6 +2940,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListErrorFramesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListErrorFramesRequest::parent].
@@ -2255,12 +2985,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_error_frame][super::super::client::MigrationCenter::get_error_frame] calls.
+    /// The request builder for [MigrationCenter::get_error_frame][crate::client::MigrationCenter::get_error_frame] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetErrorFrame;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetErrorFrame {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetErrorFrame(RequestBuilder<crate::model::GetErrorFrameRequest>);
 
     impl GetErrorFrame {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2306,12 +3054,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_sources][super::super::client::MigrationCenter::list_sources] calls.
+    /// The request builder for [MigrationCenter::list_sources][crate::client::MigrationCenter::list_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListSources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2335,8 +3105,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
@@ -2348,6 +3118,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
@@ -2390,12 +3169,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_source][super::super::client::MigrationCenter::get_source] calls.
+    /// The request builder for [MigrationCenter::get_source][crate::client::MigrationCenter::get_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2435,12 +3232,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_source][super::super::client::MigrationCenter::create_source] calls.
+    /// The request builder for [MigrationCenter::create_source][crate::client::MigrationCenter::create_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreateSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2461,7 +3277,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_source][super::super::client::MigrationCenter::create_source].
+        /// on [create_source][crate::client::MigrationCenter::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
@@ -2473,7 +3289,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2498,7 +3315,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -2520,11 +3337,22 @@ pub mod migration_center {
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -2542,12 +3370,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_source][super::super::client::MigrationCenter::update_source] calls.
+    /// The request builder for [MigrationCenter::update_source][crate::client::MigrationCenter::update_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::UpdateSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2568,7 +3415,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_source][super::super::client::MigrationCenter::update_source].
+        /// on [update_source][crate::client::MigrationCenter::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
@@ -2580,7 +3427,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2605,28 +3453,50 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -2644,12 +3514,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_source][super::super::client::MigrationCenter::delete_source] calls.
+    /// The request builder for [MigrationCenter::delete_source][crate::client::MigrationCenter::delete_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2670,7 +3559,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_source][super::super::client::MigrationCenter::delete_source].
+        /// on [delete_source][crate::client::MigrationCenter::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
@@ -2679,8 +3568,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_source`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2705,7 +3594,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
@@ -2730,12 +3624,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_preference_sets][super::super::client::MigrationCenter::list_preference_sets] calls.
+    /// The request builder for [MigrationCenter::list_preference_sets][crate::client::MigrationCenter::list_preference_sets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListPreferenceSets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPreferenceSets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPreferenceSets(RequestBuilder<crate::model::ListPreferenceSetsRequest>);
 
     impl ListPreferenceSets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2762,8 +3678,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPreferenceSetsResponse, gax::error::Error>
         {
@@ -2775,6 +3691,17 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPreferenceSetsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPreferenceSetsRequest::parent].
@@ -2811,12 +3738,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_preference_set][super::super::client::MigrationCenter::get_preference_set] calls.
+    /// The request builder for [MigrationCenter::get_preference_set][crate::client::MigrationCenter::get_preference_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetPreferenceSet;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPreferenceSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPreferenceSet(RequestBuilder<crate::model::GetPreferenceSetRequest>);
 
     impl GetPreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2859,12 +3804,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_preference_set][super::super::client::MigrationCenter::create_preference_set] calls.
+    /// The request builder for [MigrationCenter::create_preference_set][crate::client::MigrationCenter::create_preference_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreatePreferenceSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePreferenceSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePreferenceSet(RequestBuilder<crate::model::CreatePreferenceSetRequest>);
 
     impl CreatePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2888,7 +3852,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_preference_set][super::super::client::MigrationCenter::create_preference_set].
+        /// on [create_preference_set][crate::client::MigrationCenter::create_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_preference_set(self.0.request, self.0.options)
@@ -2901,8 +3865,10 @@ pub mod migration_center {
             self,
         ) -> impl lro::Poller<crate::model::PreferenceSet, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PreferenceSet, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PreferenceSet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2927,7 +3893,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePreferenceSetRequest::parent].
@@ -2949,11 +3915,22 @@ pub mod migration_center {
         /// Sets the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_preference_set<T: Into<std::option::Option<crate::model::PreferenceSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.preference_set = v.into();
+        pub fn set_preference_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [preference_set][crate::model::CreatePreferenceSetRequest::preference_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = v.map(|x| x.into());
             self
         }
 
@@ -2971,12 +3948,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_preference_set][super::super::client::MigrationCenter::update_preference_set] calls.
+    /// The request builder for [MigrationCenter::update_preference_set][crate::client::MigrationCenter::update_preference_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::UpdatePreferenceSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePreferenceSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePreferenceSet(RequestBuilder<crate::model::UpdatePreferenceSetRequest>);
 
     impl UpdatePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3000,7 +3996,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_preference_set][super::super::client::MigrationCenter::update_preference_set].
+        /// on [update_preference_set][crate::client::MigrationCenter::update_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_preference_set(self.0.request, self.0.options)
@@ -3013,8 +4009,10 @@ pub mod migration_center {
             self,
         ) -> impl lro::Poller<crate::model::PreferenceSet, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PreferenceSet, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PreferenceSet,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3039,28 +4037,50 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePreferenceSetRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
         ///
         /// This is a **required** field for requests.
-        pub fn set_preference_set<T: Into<std::option::Option<crate::model::PreferenceSet>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.preference_set = v.into();
+        pub fn set_preference_set<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [preference_set][crate::model::UpdatePreferenceSetRequest::preference_set].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_preference_set<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PreferenceSet>,
+        {
+            self.0.request.preference_set = v.map(|x| x.into());
             self
         }
 
@@ -3078,12 +4098,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_preference_set][super::super::client::MigrationCenter::delete_preference_set] calls.
+    /// The request builder for [MigrationCenter::delete_preference_set][crate::client::MigrationCenter::delete_preference_set] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeletePreferenceSet;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePreferenceSet {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePreferenceSet(RequestBuilder<crate::model::DeletePreferenceSetRequest>);
 
     impl DeletePreferenceSet {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3107,7 +4146,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_preference_set][super::super::client::MigrationCenter::delete_preference_set].
+        /// on [delete_preference_set][crate::client::MigrationCenter::delete_preference_set].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_preference_set(self.0.request, self.0.options)
@@ -3116,8 +4155,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_preference_set`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3142,7 +4181,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePreferenceSetRequest::name].
@@ -3167,12 +4211,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_settings][super::super::client::MigrationCenter::get_settings] calls.
+    /// The request builder for [MigrationCenter::get_settings][crate::client::MigrationCenter::get_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3212,12 +4274,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::update_settings][super::super::client::MigrationCenter::update_settings] calls.
+    /// The request builder for [MigrationCenter::update_settings][crate::client::MigrationCenter::update_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::UpdateSettings;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3238,7 +4319,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_settings][super::super::client::MigrationCenter::update_settings].
+        /// on [update_settings][crate::client::MigrationCenter::update_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_settings(self.0.request, self.0.options)
@@ -3251,7 +4332,7 @@ pub mod migration_center {
             self,
         ) -> impl lro::Poller<crate::model::Settings, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Settings, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Settings, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3276,28 +4357,50 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
@@ -3315,12 +4418,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_report_config][super::super::client::MigrationCenter::create_report_config] calls.
+    /// The request builder for [MigrationCenter::create_report_config][crate::client::MigrationCenter::create_report_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreateReportConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReportConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReportConfig(RequestBuilder<crate::model::CreateReportConfigRequest>);
 
     impl CreateReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3344,7 +4466,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_report_config][super::super::client::MigrationCenter::create_report_config].
+        /// on [create_report_config][crate::client::MigrationCenter::create_report_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_report_config(self.0.request, self.0.options)
@@ -3356,8 +4478,10 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::ReportConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::ReportConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ReportConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3382,7 +4506,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReportConfigRequest::parent].
@@ -3404,11 +4528,22 @@ pub mod migration_center {
         /// Sets the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_report_config<T: Into<std::option::Option<crate::model::ReportConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.report_config = v.into();
+        pub fn set_report_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [report_config][crate::model::CreateReportConfigRequest::report_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_report_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReportConfig>,
+        {
+            self.0.request.report_config = v.map(|x| x.into());
             self
         }
 
@@ -3426,12 +4561,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_report_config][super::super::client::MigrationCenter::get_report_config] calls.
+    /// The request builder for [MigrationCenter::get_report_config][crate::client::MigrationCenter::get_report_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetReportConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReportConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReportConfig(RequestBuilder<crate::model::GetReportConfigRequest>);
 
     impl GetReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3471,12 +4624,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_report_configs][super::super::client::MigrationCenter::list_report_configs] calls.
+    /// The request builder for [MigrationCenter::list_report_configs][crate::client::MigrationCenter::list_report_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListReportConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReportConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReportConfigs(RequestBuilder<crate::model::ListReportConfigsRequest>);
 
     impl ListReportConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3503,8 +4678,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReportConfigsResponse, gax::error::Error>
         {
@@ -3516,6 +4691,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReportConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReportConfigsRequest::parent].
@@ -3558,12 +4742,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_report_config][super::super::client::MigrationCenter::delete_report_config] calls.
+    /// The request builder for [MigrationCenter::delete_report_config][crate::client::MigrationCenter::delete_report_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteReportConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteReportConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteReportConfig(RequestBuilder<crate::model::DeleteReportConfigRequest>);
 
     impl DeleteReportConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3587,7 +4790,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_report_config][super::super::client::MigrationCenter::delete_report_config].
+        /// on [delete_report_config][crate::client::MigrationCenter::delete_report_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_report_config(self.0.request, self.0.options)
@@ -3596,8 +4799,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_report_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3622,7 +4825,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteReportConfigRequest::name].
@@ -3653,12 +4861,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::create_report][super::super::client::MigrationCenter::create_report] calls.
+    /// The request builder for [MigrationCenter::create_report][crate::client::MigrationCenter::create_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CreateReport;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReport(RequestBuilder<crate::model::CreateReportRequest>);
 
     impl CreateReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3679,7 +4906,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_report][super::super::client::MigrationCenter::create_report].
+        /// on [create_report][crate::client::MigrationCenter::create_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_report(self.0.request, self.0.options)
@@ -3691,7 +4918,8 @@ pub mod migration_center {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Report, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Report, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Report, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3716,7 +4944,7 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReportRequest::parent].
@@ -3738,11 +4966,22 @@ pub mod migration_center {
         /// Sets the value of [report][crate::model::CreateReportRequest::report].
         ///
         /// This is a **required** field for requests.
-        pub fn set_report<T: Into<std::option::Option<crate::model::Report>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.report = v.into();
+        pub fn set_report<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Report>,
+        {
+            self.0.request.report = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [report][crate::model::CreateReportRequest::report].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_report<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Report>,
+        {
+            self.0.request.report = v.map(|x| x.into());
             self
         }
 
@@ -3760,12 +4999,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_report][super::super::client::MigrationCenter::get_report] calls.
+    /// The request builder for [MigrationCenter::get_report][crate::client::MigrationCenter::get_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetReport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReport(RequestBuilder<crate::model::GetReportRequest>);
 
     impl GetReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3811,12 +5068,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_reports][super::super::client::MigrationCenter::list_reports] calls.
+    /// The request builder for [MigrationCenter::list_reports][crate::client::MigrationCenter::list_reports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListReports;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReports(RequestBuilder<crate::model::ListReportsRequest>);
 
     impl ListReports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3840,8 +5119,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReportsResponse, gax::error::Error>
         {
@@ -3853,6 +5132,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReportsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReportsRequest::parent].
@@ -3901,12 +5189,31 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_report][super::super::client::MigrationCenter::delete_report] calls.
+    /// The request builder for [MigrationCenter::delete_report][crate::client::MigrationCenter::delete_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteReport;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteReport(RequestBuilder<crate::model::DeleteReportRequest>);
 
     impl DeleteReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3927,7 +5234,7 @@ pub mod migration_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_report][super::super::client::MigrationCenter::delete_report].
+        /// on [delete_report][crate::client::MigrationCenter::delete_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_report(self.0.request, self.0.options)
@@ -3936,8 +5243,8 @@ pub mod migration_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_report`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3962,7 +5269,12 @@ pub mod migration_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteReportRequest::name].
@@ -3987,12 +5299,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_locations][super::super::client::MigrationCenter::list_locations] calls.
+    /// The request builder for [MigrationCenter::list_locations][crate::client::MigrationCenter::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4019,8 +5353,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -4032,6 +5366,15 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -4066,12 +5409,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_location][super::super::client::MigrationCenter::get_location] calls.
+    /// The request builder for [MigrationCenter::get_location][crate::client::MigrationCenter::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4109,12 +5470,34 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::list_operations][super::super::client::MigrationCenter::list_operations] calls.
+    /// The request builder for [MigrationCenter::list_operations][crate::client::MigrationCenter::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4141,8 +5524,8 @@ pub mod migration_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4154,6 +5537,17 @@ pub mod migration_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4188,12 +5582,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::get_operation][super::super::client::MigrationCenter::get_operation] calls.
+    /// The request builder for [MigrationCenter::get_operation][crate::client::MigrationCenter::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4234,12 +5646,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::delete_operation][super::super::client::MigrationCenter::delete_operation] calls.
+    /// The request builder for [MigrationCenter::delete_operation][crate::client::MigrationCenter::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4280,12 +5710,30 @@ pub mod migration_center {
         }
     }
 
-    /// The request builder for [MigrationCenter::cancel_operation][super::super::client::MigrationCenter::cancel_operation] calls.
+    /// The request builder for [MigrationCenter::cancel_operation][crate::client::MigrationCenter::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_migrationcenter_v1::builder;
+    /// use builder::migration_center::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

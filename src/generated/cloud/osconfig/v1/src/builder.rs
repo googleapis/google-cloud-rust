@@ -16,9 +16,8 @@
 
 pub mod os_config_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [OsConfigService][super::super::client::OsConfigService].
+    /// A builder for [OsConfigService][crate::client::OsConfigService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod os_config_service {
     /// let client = builder
     ///     .with_endpoint("https://osconfig.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod os_config_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OsConfigService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::OsConfigService] request builders.
+    /// Common implementation for [crate::client::OsConfigService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod os_config_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::execute_patch_job][super::super::client::OsConfigService::execute_patch_job] calls.
+    /// The request builder for [OsConfigService::execute_patch_job][crate::client::OsConfigService::execute_patch_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::ExecutePatchJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExecutePatchJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExecutePatchJob(RequestBuilder<crate::model::ExecutePatchJobRequest>);
 
     impl ExecutePatchJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -113,28 +135,58 @@ pub mod os_config_service {
         /// Sets the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_filter<
-            T: Into<std::option::Option<crate::model::PatchInstanceFilter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_filter = v.into();
+        pub fn set_instance_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchInstanceFilter>,
+        {
+            self.0.request.instance_filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_filter][crate::model::ExecutePatchJobRequest::instance_filter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchInstanceFilter>,
+        {
+            self.0.request.instance_filter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
-        pub fn set_patch_config<T: Into<std::option::Option<crate::model::PatchConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.patch_config = v.into();
+        pub fn set_patch_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchConfig>,
+        {
+            self.0.request.patch_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [patch_config][crate::model::ExecutePatchJobRequest::patch_config].
+        pub fn set_or_clear_patch_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchConfig>,
+        {
+            self.0.request.patch_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [duration][crate::model::ExecutePatchJobRequest::duration].
-        pub fn set_duration<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.duration = v.into();
+        pub fn set_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [duration][crate::model::ExecutePatchJobRequest::duration].
+        pub fn set_or_clear_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.duration = v.map(|x| x.into());
             self
         }
 
@@ -151,11 +203,20 @@ pub mod os_config_service {
         }
 
         /// Sets the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
-        pub fn set_rollout<T: Into<std::option::Option<crate::model::PatchRollout>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollout = v.into();
+        pub fn set_rollout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchRollout>,
+        {
+            self.0.request.rollout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rollout][crate::model::ExecutePatchJobRequest::rollout].
+        pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchRollout>,
+        {
+            self.0.request.rollout = v.map(|x| x.into());
             self
         }
     }
@@ -167,12 +228,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::get_patch_job][super::super::client::OsConfigService::get_patch_job] calls.
+    /// The request builder for [OsConfigService::get_patch_job][crate::client::OsConfigService::get_patch_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::GetPatchJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPatchJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPatchJob(RequestBuilder<crate::model::GetPatchJobRequest>);
 
     impl GetPatchJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -212,12 +291,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::cancel_patch_job][super::super::client::OsConfigService::cancel_patch_job] calls.
+    /// The request builder for [OsConfigService::cancel_patch_job][crate::client::OsConfigService::cancel_patch_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::CancelPatchJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelPatchJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelPatchJob(RequestBuilder<crate::model::CancelPatchJobRequest>);
 
     impl CancelPatchJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -257,12 +354,34 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::list_patch_jobs][super::super::client::OsConfigService::list_patch_jobs] calls.
+    /// The request builder for [OsConfigService::list_patch_jobs][crate::client::OsConfigService::list_patch_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::ListPatchJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPatchJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPatchJobs(RequestBuilder<crate::model::ListPatchJobsRequest>);
 
     impl ListPatchJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,8 +405,8 @@ pub mod os_config_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPatchJobsResponse, gax::error::Error>
         {
@@ -299,6 +418,15 @@ pub mod os_config_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPatchJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPatchJobsRequest::parent].
@@ -335,14 +463,36 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::list_patch_job_instance_details][super::super::client::OsConfigService::list_patch_job_instance_details] calls.
+    /// The request builder for [OsConfigService::list_patch_job_instance_details][crate::client::OsConfigService::list_patch_job_instance_details] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::ListPatchJobInstanceDetails;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPatchJobInstanceDetails {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPatchJobInstanceDetails(
         RequestBuilder<crate::model::ListPatchJobInstanceDetailsRequest>,
     );
 
     impl ListPatchJobInstanceDetails {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -369,8 +519,8 @@ pub mod os_config_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListPatchJobInstanceDetailsResponse,
@@ -384,6 +534,17 @@ pub mod os_config_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPatchJobInstanceDetailsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPatchJobInstanceDetailsRequest::parent].
@@ -420,12 +581,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::create_patch_deployment][super::super::client::OsConfigService::create_patch_deployment] calls.
+    /// The request builder for [OsConfigService::create_patch_deployment][crate::client::OsConfigService::create_patch_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::CreatePatchDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePatchDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePatchDeployment(RequestBuilder<crate::model::CreatePatchDeploymentRequest>);
 
     impl CreatePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -471,11 +650,22 @@ pub mod os_config_service {
         /// Sets the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_patch_deployment<T: Into<std::option::Option<crate::model::PatchDeployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.patch_deployment = v.into();
+        pub fn set_patch_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [patch_deployment][crate::model::CreatePatchDeploymentRequest::patch_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = v.map(|x| x.into());
             self
         }
     }
@@ -487,12 +677,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::get_patch_deployment][super::super::client::OsConfigService::get_patch_deployment] calls.
+    /// The request builder for [OsConfigService::get_patch_deployment][crate::client::OsConfigService::get_patch_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::GetPatchDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPatchDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPatchDeployment(RequestBuilder<crate::model::GetPatchDeploymentRequest>);
 
     impl GetPatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -535,12 +743,34 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::list_patch_deployments][super::super::client::OsConfigService::list_patch_deployments] calls.
+    /// The request builder for [OsConfigService::list_patch_deployments][crate::client::OsConfigService::list_patch_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::ListPatchDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPatchDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPatchDeployments(RequestBuilder<crate::model::ListPatchDeploymentsRequest>);
 
     impl ListPatchDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -567,8 +797,8 @@ pub mod os_config_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPatchDeploymentsResponse, gax::error::Error>
         {
@@ -580,6 +810,17 @@ pub mod os_config_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPatchDeploymentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPatchDeploymentsRequest::parent].
@@ -610,12 +851,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::delete_patch_deployment][super::super::client::OsConfigService::delete_patch_deployment] calls.
+    /// The request builder for [OsConfigService::delete_patch_deployment][crate::client::OsConfigService::delete_patch_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::DeletePatchDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePatchDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePatchDeployment(RequestBuilder<crate::model::DeletePatchDeploymentRequest>);
 
     impl DeletePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -658,12 +917,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::update_patch_deployment][super::super::client::OsConfigService::update_patch_deployment] calls.
+    /// The request builder for [OsConfigService::update_patch_deployment][crate::client::OsConfigService::update_patch_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::UpdatePatchDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePatchDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePatchDeployment(RequestBuilder<crate::model::UpdatePatchDeploymentRequest>);
 
     impl UpdatePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,20 +970,40 @@ pub mod os_config_service {
         /// Sets the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_patch_deployment<T: Into<std::option::Option<crate::model::PatchDeployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.patch_deployment = v.into();
+        pub fn set_patch_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [patch_deployment][crate::model::UpdatePatchDeploymentRequest::patch_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_patch_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PatchDeployment>,
+        {
+            self.0.request.patch_deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePatchDeploymentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -718,12 +1015,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::pause_patch_deployment][super::super::client::OsConfigService::pause_patch_deployment] calls.
+    /// The request builder for [OsConfigService::pause_patch_deployment][crate::client::OsConfigService::pause_patch_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::PausePatchDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PausePatchDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PausePatchDeployment(RequestBuilder<crate::model::PausePatchDeploymentRequest>);
 
     impl PausePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -766,12 +1081,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::resume_patch_deployment][super::super::client::OsConfigService::resume_patch_deployment] calls.
+    /// The request builder for [OsConfigService::resume_patch_deployment][crate::client::OsConfigService::resume_patch_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::ResumePatchDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumePatchDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumePatchDeployment(RequestBuilder<crate::model::ResumePatchDeploymentRequest>);
 
     impl ResumePatchDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -814,12 +1147,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::get_operation][super::super::client::OsConfigService::get_operation] calls.
+    /// The request builder for [OsConfigService::get_operation][crate::client::OsConfigService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -860,12 +1211,30 @@ pub mod os_config_service {
         }
     }
 
-    /// The request builder for [OsConfigService::cancel_operation][super::super::client::OsConfigService::cancel_operation] calls.
+    /// The request builder for [OsConfigService::cancel_operation][crate::client::OsConfigService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsConfigService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -909,9 +1278,8 @@ pub mod os_config_service {
 
 pub mod os_config_zonal_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [OsConfigZonalService][super::super::client::OsConfigZonalService].
+    /// A builder for [OsConfigZonalService][crate::client::OsConfigZonalService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -922,7 +1290,7 @@ pub mod os_config_zonal_service {
     /// let client = builder
     ///     .with_endpoint("https://osconfig.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -933,16 +1301,19 @@ pub mod os_config_zonal_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OsConfigZonalService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::OsConfigZonalService] request builders.
+    /// Common implementation for [crate::client::OsConfigZonalService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -952,7 +1323,7 @@ pub mod os_config_zonal_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self {
                 stub,
@@ -962,7 +1333,24 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::create_os_policy_assignment][super::super::client::OsConfigZonalService::create_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::create_os_policy_assignment][crate::client::OsConfigZonalService::create_os_policy_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::CreateOSPolicyAssignment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateOSPolicyAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOSPolicyAssignment(
         RequestBuilder<crate::model::CreateOSPolicyAssignmentRequest>,
@@ -970,7 +1358,7 @@ pub mod os_config_zonal_service {
 
     impl CreateOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -995,7 +1383,7 @@ pub mod os_config_zonal_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_os_policy_assignment][super::super::client::OsConfigZonalService::create_os_policy_assignment].
+        /// on [create_os_policy_assignment][crate::client::OsConfigZonalService::create_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_os_policy_assignment(self.0.request, self.0.options)
@@ -1010,7 +1398,7 @@ pub mod os_config_zonal_service {
             crate::model::OSPolicyAssignment,
             crate::model::OSPolicyAssignmentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::OSPolicyAssignment,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1038,7 +1426,7 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateOSPolicyAssignmentRequest::parent].
@@ -1052,13 +1440,22 @@ pub mod os_config_zonal_service {
         /// Sets the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_os_policy_assignment<
-            T: Into<std::option::Option<crate::model::OSPolicyAssignment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.os_policy_assignment = v.into();
+        pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [os_policy_assignment][crate::model::CreateOSPolicyAssignmentRequest::os_policy_assignment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = v.map(|x| x.into());
             self
         }
 
@@ -1078,7 +1475,24 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::update_os_policy_assignment][super::super::client::OsConfigZonalService::update_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::update_os_policy_assignment][crate::client::OsConfigZonalService::update_os_policy_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::UpdateOSPolicyAssignment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateOSPolicyAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateOSPolicyAssignment(
         RequestBuilder<crate::model::UpdateOSPolicyAssignmentRequest>,
@@ -1086,7 +1500,7 @@ pub mod os_config_zonal_service {
 
     impl UpdateOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1111,7 +1525,7 @@ pub mod os_config_zonal_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_os_policy_assignment][super::super::client::OsConfigZonalService::update_os_policy_assignment].
+        /// on [update_os_policy_assignment][crate::client::OsConfigZonalService::update_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_os_policy_assignment(self.0.request, self.0.options)
@@ -1126,7 +1540,7 @@ pub mod os_config_zonal_service {
             crate::model::OSPolicyAssignment,
             crate::model::OSPolicyAssignmentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::OSPolicyAssignment,
                 crate::model::OSPolicyAssignmentOperationMetadata,
             >;
@@ -1154,28 +1568,46 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_os_policy_assignment<
-            T: Into<std::option::Option<crate::model::OSPolicyAssignment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.os_policy_assignment = v.into();
+        pub fn set_os_policy_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [os_policy_assignment][crate::model::UpdateOSPolicyAssignmentRequest::os_policy_assignment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_os_policy_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OSPolicyAssignment>,
+        {
+            self.0.request.os_policy_assignment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateOSPolicyAssignmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1187,13 +1619,29 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_os_policy_assignment][super::super::client::OsConfigZonalService::get_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::get_os_policy_assignment][crate::client::OsConfigZonalService::get_os_policy_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::GetOSPolicyAssignment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOSPolicyAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOSPolicyAssignment(RequestBuilder<crate::model::GetOSPolicyAssignmentRequest>);
 
     impl GetOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1237,7 +1685,27 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_os_policy_assignments][super::super::client::OsConfigZonalService::list_os_policy_assignments] calls.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignments][crate::client::OsConfigZonalService::list_os_policy_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::ListOSPolicyAssignments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOSPolicyAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignments(
         RequestBuilder<crate::model::ListOSPolicyAssignmentsRequest>,
@@ -1245,7 +1713,7 @@ pub mod os_config_zonal_service {
 
     impl ListOSPolicyAssignments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1273,8 +1741,8 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentsResponse,
@@ -1288,6 +1756,17 @@ pub mod os_config_zonal_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOSPolicyAssignmentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentsRequest::parent].
@@ -1318,7 +1797,27 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_revisions][super::super::client::OsConfigZonalService::list_os_policy_assignment_revisions] calls.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_revisions][crate::client::OsConfigZonalService::list_os_policy_assignment_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOSPolicyAssignmentRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignmentRevisions(
         RequestBuilder<crate::model::ListOSPolicyAssignmentRevisionsRequest>,
@@ -1326,7 +1825,7 @@ pub mod os_config_zonal_service {
 
     impl ListOSPolicyAssignmentRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1354,8 +1853,8 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentRevisionsResponse,
@@ -1369,6 +1868,17 @@ pub mod os_config_zonal_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOSPolicyAssignmentRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListOSPolicyAssignmentRevisionsRequest::name].
@@ -1399,7 +1909,24 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::delete_os_policy_assignment][super::super::client::OsConfigZonalService::delete_os_policy_assignment] calls.
+    /// The request builder for [OsConfigZonalService::delete_os_policy_assignment][crate::client::OsConfigZonalService::delete_os_policy_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::DeleteOSPolicyAssignment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOSPolicyAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOSPolicyAssignment(
         RequestBuilder<crate::model::DeleteOSPolicyAssignmentRequest>,
@@ -1407,7 +1934,7 @@ pub mod os_config_zonal_service {
 
     impl DeleteOSPolicyAssignment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1432,7 +1959,7 @@ pub mod os_config_zonal_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_os_policy_assignment][super::super::client::OsConfigZonalService::delete_os_policy_assignment].
+        /// on [delete_os_policy_assignment][crate::client::OsConfigZonalService::delete_os_policy_assignment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_os_policy_assignment(self.0.request, self.0.options)
@@ -1443,10 +1970,11 @@ pub mod os_config_zonal_service {
         /// Creates a [Poller][lro::Poller] to work with `delete_os_policy_assignment`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::OSPolicyAssignmentOperationMetadata>
-        {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::OSPolicyAssignmentOperationMetadata>;
+        ) -> impl lro::Poller<(), crate::model::OSPolicyAssignmentOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::OSPolicyAssignmentOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1471,7 +1999,12 @@ pub mod os_config_zonal_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteOSPolicyAssignmentRequest::name].
@@ -1490,7 +2023,23 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_os_policy_assignment_report][super::super::client::OsConfigZonalService::get_os_policy_assignment_report] calls.
+    /// The request builder for [OsConfigZonalService::get_os_policy_assignment_report][crate::client::OsConfigZonalService::get_os_policy_assignment_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::GetOSPolicyAssignmentReport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOSPolicyAssignmentReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOSPolicyAssignmentReport(
         RequestBuilder<crate::model::GetOSPolicyAssignmentReportRequest>,
@@ -1498,7 +2047,7 @@ pub mod os_config_zonal_service {
 
     impl GetOSPolicyAssignmentReport {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1542,7 +2091,27 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_reports][super::super::client::OsConfigZonalService::list_os_policy_assignment_reports] calls.
+    /// The request builder for [OsConfigZonalService::list_os_policy_assignment_reports][crate::client::OsConfigZonalService::list_os_policy_assignment_reports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::ListOSPolicyAssignmentReports;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOSPolicyAssignmentReports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSPolicyAssignmentReports(
         RequestBuilder<crate::model::ListOSPolicyAssignmentReportsRequest>,
@@ -1550,7 +2119,7 @@ pub mod os_config_zonal_service {
 
     impl ListOSPolicyAssignmentReports {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1578,8 +2147,8 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListOSPolicyAssignmentReportsResponse,
@@ -1593,6 +2162,17 @@ pub mod os_config_zonal_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOSPolicyAssignmentReportsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOSPolicyAssignmentReportsRequest::parent].
@@ -1629,13 +2209,29 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_inventory][super::super::client::OsConfigZonalService::get_inventory] calls.
+    /// The request builder for [OsConfigZonalService::get_inventory][crate::client::OsConfigZonalService::get_inventory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::GetInventory;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInventory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInventory(RequestBuilder<crate::model::GetInventoryRequest>);
 
     impl GetInventory {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1682,13 +2278,33 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_inventories][super::super::client::OsConfigZonalService::list_inventories] calls.
+    /// The request builder for [OsConfigZonalService::list_inventories][crate::client::OsConfigZonalService::list_inventories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::ListInventories;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInventories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInventories(RequestBuilder<crate::model::ListInventoriesRequest>);
 
     impl ListInventories {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1713,8 +2329,8 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInventoriesResponse, gax::error::Error>
         {
@@ -1726,6 +2342,15 @@ pub mod os_config_zonal_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInventoriesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInventoriesRequest::parent].
@@ -1768,13 +2393,29 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_vulnerability_report][super::super::client::OsConfigZonalService::get_vulnerability_report] calls.
+    /// The request builder for [OsConfigZonalService::get_vulnerability_report][crate::client::OsConfigZonalService::get_vulnerability_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::GetVulnerabilityReport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVulnerabilityReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityReport(RequestBuilder<crate::model::GetVulnerabilityReportRequest>);
 
     impl GetVulnerabilityReport {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1818,7 +2459,27 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::list_vulnerability_reports][super::super::client::OsConfigZonalService::list_vulnerability_reports] calls.
+    /// The request builder for [OsConfigZonalService::list_vulnerability_reports][crate::client::OsConfigZonalService::list_vulnerability_reports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::ListVulnerabilityReports;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVulnerabilityReports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVulnerabilityReports(
         RequestBuilder<crate::model::ListVulnerabilityReportsRequest>,
@@ -1826,7 +2487,7 @@ pub mod os_config_zonal_service {
 
     impl ListVulnerabilityReports {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1854,8 +2515,8 @@ pub mod os_config_zonal_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListVulnerabilityReportsResponse,
@@ -1869,6 +2530,17 @@ pub mod os_config_zonal_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVulnerabilityReportsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVulnerabilityReportsRequest::parent].
@@ -1905,13 +2577,29 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::get_operation][super::super::client::OsConfigZonalService::get_operation] calls.
+    /// The request builder for [OsConfigZonalService::get_operation][crate::client::OsConfigZonalService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1953,13 +2641,29 @@ pub mod os_config_zonal_service {
         }
     }
 
-    /// The request builder for [OsConfigZonalService::cancel_operation][super::super::client::OsConfigZonalService::cancel_operation] calls.
+    /// The request builder for [OsConfigZonalService::cancel_operation][crate::client::OsConfigZonalService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_osconfig_v1::builder;
+    /// use builder::os_config_zonal_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsConfigZonalService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

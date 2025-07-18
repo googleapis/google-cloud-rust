@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Artifact Registry API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
 /// let client = ArtifactRegistry::builder().build().await?;
 /// // use `client` to make requests to the Artifact Registry API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -70,11 +67,11 @@ use std::sync::Arc;
 ///
 /// `ArtifactRegistry` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ArtifactRegistry` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ArtifactRegistry {
-    inner: Arc<dyn super::stub::dynamic::ArtifactRegistry>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ArtifactRegistry>,
 }
 
 impl ArtifactRegistry {
@@ -84,7 +81,7 @@ impl ArtifactRegistry {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// let client = ArtifactRegistry::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::artifact_registry::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -101,108 +98,79 @@ impl ArtifactRegistry {
         T: super::stub::ArtifactRegistry + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ArtifactRegistry>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ArtifactRegistry>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ArtifactRegistry> {
+    ) -> gax::client_builder::Result<impl super::stub::ArtifactRegistry> {
         super::transport::ArtifactRegistry::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ArtifactRegistry> {
+    ) -> gax::client_builder::Result<impl super::stub::ArtifactRegistry> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ArtifactRegistry::new)
     }
 
     /// Lists docker images.
-    pub fn list_docker_images(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListDockerImages {
+    pub fn list_docker_images(&self) -> super::builder::artifact_registry::ListDockerImages {
         super::builder::artifact_registry::ListDockerImages::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a docker image.
-    pub fn get_docker_image(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetDockerImage {
+    pub fn get_docker_image(&self) -> super::builder::artifact_registry::GetDockerImage {
         super::builder::artifact_registry::GetDockerImage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists maven artifacts.
-    pub fn list_maven_artifacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListMavenArtifacts {
+    pub fn list_maven_artifacts(&self) -> super::builder::artifact_registry::ListMavenArtifacts {
         super::builder::artifact_registry::ListMavenArtifacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a maven artifact.
-    pub fn get_maven_artifact(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetMavenArtifact {
+    pub fn get_maven_artifact(&self) -> super::builder::artifact_registry::GetMavenArtifact {
         super::builder::artifact_registry::GetMavenArtifact::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists npm packages.
-    pub fn list_npm_packages(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListNpmPackages {
+    pub fn list_npm_packages(&self) -> super::builder::artifact_registry::ListNpmPackages {
         super::builder::artifact_registry::ListNpmPackages::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a npm package.
-    pub fn get_npm_package(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetNpmPackage {
+    pub fn get_npm_package(&self) -> super::builder::artifact_registry::GetNpmPackage {
         super::builder::artifact_registry::GetNpmPackage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists python packages.
-    pub fn list_python_packages(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListPythonPackages {
+    pub fn list_python_packages(&self) -> super::builder::artifact_registry::ListPythonPackages {
         super::builder::artifact_registry::ListPythonPackages::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a python package.
-    pub fn get_python_package(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetPythonPackage {
+    pub fn get_python_package(&self) -> super::builder::artifact_registry::GetPythonPackage {
         super::builder::artifact_registry::GetPythonPackage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Imports Apt artifacts. The returned Operation will complete once the
@@ -219,12 +187,8 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_apt_artifacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ImportAptArtifacts {
+    pub fn import_apt_artifacts(&self) -> super::builder::artifact_registry::ImportAptArtifacts {
         super::builder::artifact_registry::ImportAptArtifacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Imports Yum (RPM) artifacts. The returned Operation will complete once the
@@ -241,30 +205,18 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_yum_artifacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ImportYumArtifacts {
+    pub fn import_yum_artifacts(&self) -> super::builder::artifact_registry::ImportYumArtifacts {
         super::builder::artifact_registry::ImportYumArtifacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists repositories.
-    pub fn list_repositories(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListRepositories {
+    pub fn list_repositories(&self) -> super::builder::artifact_registry::ListRepositories {
         super::builder::artifact_registry::ListRepositories::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a repository.
-    pub fn get_repository(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetRepository {
+    pub fn get_repository(&self) -> super::builder::artifact_registry::GetRepository {
         super::builder::artifact_registry::GetRepository::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a repository. The returned Operation will finish once the
@@ -279,21 +231,13 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_repository(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::CreateRepository {
+    pub fn create_repository(&self) -> super::builder::artifact_registry::CreateRepository {
         super::builder::artifact_registry::CreateRepository::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a repository.
-    pub fn update_repository(
-        &self,
-        repository: impl Into<crate::model::Repository>,
-    ) -> super::builder::artifact_registry::UpdateRepository {
+    pub fn update_repository(&self) -> super::builder::artifact_registry::UpdateRepository {
         super::builder::artifact_registry::UpdateRepository::new(self.inner.clone())
-            .set_repository(repository.into())
     }
 
     /// Deletes a repository and all of its contents. The returned Operation will
@@ -309,29 +253,18 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_repository(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeleteRepository {
+    pub fn delete_repository(&self) -> super::builder::artifact_registry::DeleteRepository {
         super::builder::artifact_registry::DeleteRepository::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists packages.
-    pub fn list_packages(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListPackages {
+    pub fn list_packages(&self) -> super::builder::artifact_registry::ListPackages {
         super::builder::artifact_registry::ListPackages::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a package.
-    pub fn get_package(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetPackage {
-        super::builder::artifact_registry::GetPackage::new(self.inner.clone()).set_name(name.into())
+    pub fn get_package(&self) -> super::builder::artifact_registry::GetPackage {
+        super::builder::artifact_registry::GetPackage::new(self.inner.clone())
     }
 
     /// Deletes a package and all of its versions and tags. The returned operation
@@ -346,29 +279,18 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_package(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeletePackage {
+    pub fn delete_package(&self) -> super::builder::artifact_registry::DeletePackage {
         super::builder::artifact_registry::DeletePackage::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists versions.
-    pub fn list_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListVersions {
+    pub fn list_versions(&self) -> super::builder::artifact_registry::ListVersions {
         super::builder::artifact_registry::ListVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a version
-    pub fn get_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetVersion {
-        super::builder::artifact_registry::GetVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_version(&self) -> super::builder::artifact_registry::GetVersion {
+        super::builder::artifact_registry::GetVersion::new(self.inner.clone())
     }
 
     /// Deletes a version and all of its content. The returned operation will
@@ -383,12 +305,8 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeleteVersion {
+    pub fn delete_version(&self) -> super::builder::artifact_registry::DeleteVersion {
         super::builder::artifact_registry::DeleteVersion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes multiple versions across a repository. The returned operation will
@@ -403,38 +321,23 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_delete_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::BatchDeleteVersions {
+    pub fn batch_delete_versions(&self) -> super::builder::artifact_registry::BatchDeleteVersions {
         super::builder::artifact_registry::BatchDeleteVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a version.
-    pub fn update_version(
-        &self,
-        version: impl Into<crate::model::Version>,
-    ) -> super::builder::artifact_registry::UpdateVersion {
+    pub fn update_version(&self) -> super::builder::artifact_registry::UpdateVersion {
         super::builder::artifact_registry::UpdateVersion::new(self.inner.clone())
-            .set_version(version.into())
     }
 
     /// Lists files.
-    pub fn list_files(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListFiles {
+    pub fn list_files(&self) -> super::builder::artifact_registry::ListFiles {
         super::builder::artifact_registry::ListFiles::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a file.
-    pub fn get_file(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetFile {
-        super::builder::artifact_registry::GetFile::new(self.inner.clone()).set_name(name.into())
+    pub fn get_file(&self) -> super::builder::artifact_registry::GetFile {
+        super::builder::artifact_registry::GetFile::new(self.inner.clone())
     }
 
     /// Deletes a file and all of its content. It is only allowed on generic
@@ -450,193 +353,115 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_file(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeleteFile {
-        super::builder::artifact_registry::DeleteFile::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_file(&self) -> super::builder::artifact_registry::DeleteFile {
+        super::builder::artifact_registry::DeleteFile::new(self.inner.clone())
     }
 
     /// Updates a file.
-    pub fn update_file(
-        &self,
-        file: impl Into<crate::model::File>,
-    ) -> super::builder::artifact_registry::UpdateFile {
-        super::builder::artifact_registry::UpdateFile::new(self.inner.clone()).set_file(file.into())
+    pub fn update_file(&self) -> super::builder::artifact_registry::UpdateFile {
+        super::builder::artifact_registry::UpdateFile::new(self.inner.clone())
     }
 
     /// Lists tags.
-    pub fn list_tags(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListTags {
+    pub fn list_tags(&self) -> super::builder::artifact_registry::ListTags {
         super::builder::artifact_registry::ListTags::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a tag.
-    pub fn get_tag(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetTag {
-        super::builder::artifact_registry::GetTag::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tag(&self) -> super::builder::artifact_registry::GetTag {
+        super::builder::artifact_registry::GetTag::new(self.inner.clone())
     }
 
     /// Creates a tag.
-    pub fn create_tag(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::CreateTag {
+    pub fn create_tag(&self) -> super::builder::artifact_registry::CreateTag {
         super::builder::artifact_registry::CreateTag::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a tag.
-    pub fn update_tag(
-        &self,
-        tag: impl Into<crate::model::Tag>,
-    ) -> super::builder::artifact_registry::UpdateTag {
-        super::builder::artifact_registry::UpdateTag::new(self.inner.clone()).set_tag(tag.into())
+    pub fn update_tag(&self) -> super::builder::artifact_registry::UpdateTag {
+        super::builder::artifact_registry::UpdateTag::new(self.inner.clone())
     }
 
     /// Deletes a tag.
-    pub fn delete_tag(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeleteTag {
-        super::builder::artifact_registry::DeleteTag::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tag(&self) -> super::builder::artifact_registry::DeleteTag {
+        super::builder::artifact_registry::DeleteTag::new(self.inner.clone())
     }
 
     /// Creates a rule.
-    pub fn create_rule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::CreateRule {
+    pub fn create_rule(&self) -> super::builder::artifact_registry::CreateRule {
         super::builder::artifact_registry::CreateRule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists rules.
-    pub fn list_rules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListRules {
+    pub fn list_rules(&self) -> super::builder::artifact_registry::ListRules {
         super::builder::artifact_registry::ListRules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a rule.
-    pub fn get_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetRule {
-        super::builder::artifact_registry::GetRule::new(self.inner.clone()).set_name(name.into())
+    pub fn get_rule(&self) -> super::builder::artifact_registry::GetRule {
+        super::builder::artifact_registry::GetRule::new(self.inner.clone())
     }
 
     /// Updates a rule.
-    pub fn update_rule(
-        &self,
-        rule: impl Into<crate::model::Rule>,
-    ) -> super::builder::artifact_registry::UpdateRule {
-        super::builder::artifact_registry::UpdateRule::new(self.inner.clone()).set_rule(rule.into())
+    pub fn update_rule(&self) -> super::builder::artifact_registry::UpdateRule {
+        super::builder::artifact_registry::UpdateRule::new(self.inner.clone())
     }
 
     /// Deletes a rule.
-    pub fn delete_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeleteRule {
-        super::builder::artifact_registry::DeleteRule::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_rule(&self) -> super::builder::artifact_registry::DeleteRule {
+        super::builder::artifact_registry::DeleteRule::new(self.inner.clone())
     }
 
     /// Updates the IAM policy for a given resource.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::artifact_registry::SetIamPolicy {
         super::builder::artifact_registry::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the IAM policy for a given resource.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::artifact_registry::GetIamPolicy {
         super::builder::artifact_registry::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Tests if the caller has a list of permissions on a resource.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::artifact_registry::TestIamPermissions {
         super::builder::artifact_registry::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Retrieves the Settings for the Project.
-    pub fn get_project_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetProjectSettings {
+    pub fn get_project_settings(&self) -> super::builder::artifact_registry::GetProjectSettings {
         super::builder::artifact_registry::GetProjectSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the Settings for the Project.
     pub fn update_project_settings(
         &self,
-        project_settings: impl Into<crate::model::ProjectSettings>,
     ) -> super::builder::artifact_registry::UpdateProjectSettings {
         super::builder::artifact_registry::UpdateProjectSettings::new(self.inner.clone())
-            .set_project_settings(project_settings.into())
     }
 
     /// Retrieves the VPCSC Config for the Project.
-    pub fn get_vpcsc_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetVPCSCConfig {
+    pub fn get_vpcsc_config(&self) -> super::builder::artifact_registry::GetVPCSCConfig {
         super::builder::artifact_registry::GetVPCSCConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the VPCSC Config for the Project.
-    pub fn update_vpcsc_config(
-        &self,
-        vpcsc_config: impl Into<crate::model::VPCSCConfig>,
-    ) -> super::builder::artifact_registry::UpdateVPCSCConfig {
+    pub fn update_vpcsc_config(&self) -> super::builder::artifact_registry::UpdateVPCSCConfig {
         super::builder::artifact_registry::UpdateVPCSCConfig::new(self.inner.clone())
-            .set_vpcsc_config(vpcsc_config.into())
     }
 
     /// Updates a package.
-    pub fn update_package(
-        &self,
-        package: impl Into<crate::model::Package>,
-    ) -> super::builder::artifact_registry::UpdatePackage {
+    pub fn update_package(&self) -> super::builder::artifact_registry::UpdatePackage {
         super::builder::artifact_registry::UpdatePackage::new(self.inner.clone())
-            .set_package(package.into())
     }
 
     /// Lists attachments.
-    pub fn list_attachments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListAttachments {
+    pub fn list_attachments(&self) -> super::builder::artifact_registry::ListAttachments {
         super::builder::artifact_registry::ListAttachments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an attachment.
-    pub fn get_attachment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetAttachment {
+    pub fn get_attachment(&self) -> super::builder::artifact_registry::GetAttachment {
         super::builder::artifact_registry::GetAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an attachment. The returned Operation will finish once the
@@ -651,12 +476,8 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_attachment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::CreateAttachment {
+    pub fn create_attachment(&self) -> super::builder::artifact_registry::CreateAttachment {
         super::builder::artifact_registry::CreateAttachment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes an attachment. The returned Operation will
@@ -672,40 +493,24 @@ impl ArtifactRegistry {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_attachment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::DeleteAttachment {
+    pub fn delete_attachment(&self) -> super::builder::artifact_registry::DeleteAttachment {
         super::builder::artifact_registry::DeleteAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::ListLocations {
+    pub fn list_locations(&self) -> super::builder::artifact_registry::ListLocations {
         super::builder::artifact_registry::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetLocation {
+    pub fn get_location(&self) -> super::builder::artifact_registry::GetLocation {
         super::builder::artifact_registry::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::artifact_registry::GetOperation {
+    pub fn get_operation(&self) -> super::builder::artifact_registry::GetOperation {
         super::builder::artifact_registry::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

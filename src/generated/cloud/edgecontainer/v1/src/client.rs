@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Distributed Cloud Edge Container API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
 /// let client = EdgeContainer::builder().build().await?;
 /// // use `client` to make requests to the Distributed Cloud Edge Container API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `EdgeContainer` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EdgeContainer` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct EdgeContainer {
-    inner: Arc<dyn super::stub::dynamic::EdgeContainer>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EdgeContainer>,
 }
 
 impl EdgeContainer {
@@ -73,7 +70,7 @@ impl EdgeContainer {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
     /// let client = EdgeContainer::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::edge_container::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::edge_container::client::Factory)
@@ -88,53 +85,48 @@ impl EdgeContainer {
         T: super::stub::EdgeContainer + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EdgeContainer>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EdgeContainer>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EdgeContainer> {
+    ) -> gax::client_builder::Result<impl super::stub::EdgeContainer> {
         super::transport::EdgeContainer::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EdgeContainer> {
+    ) -> gax::client_builder::Result<impl super::stub::EdgeContainer> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EdgeContainer::new)
     }
 
     /// Lists Clusters in a given project and location.
-    pub fn list_clusters(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::ListClusters {
+    pub fn list_clusters(&self) -> super::builder::edge_container::ListClusters {
         super::builder::edge_container::ListClusters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Cluster.
-    pub fn get_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetCluster {
-        super::builder::edge_container::GetCluster::new(self.inner.clone()).set_name(name.into())
+    pub fn get_cluster(&self) -> super::builder::edge_container::GetCluster {
+        super::builder::edge_container::GetCluster::new(self.inner.clone())
     }
 
     /// Creates a new Cluster in a given project and location.
@@ -148,12 +140,8 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cluster(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::CreateCluster {
+    pub fn create_cluster(&self) -> super::builder::edge_container::CreateCluster {
         super::builder::edge_container::CreateCluster::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Cluster.
@@ -167,12 +155,8 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cluster(
-        &self,
-        cluster: impl Into<crate::model::Cluster>,
-    ) -> super::builder::edge_container::UpdateCluster {
+    pub fn update_cluster(&self) -> super::builder::edge_container::UpdateCluster {
         super::builder::edge_container::UpdateCluster::new(self.inner.clone())
-            .set_cluster(cluster.into())
     }
 
     /// Upgrades a single cluster.
@@ -186,12 +170,8 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn upgrade_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::UpgradeCluster {
+    pub fn upgrade_cluster(&self) -> super::builder::edge_container::UpgradeCluster {
         super::builder::edge_container::UpgradeCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a single Cluster.
@@ -205,46 +185,30 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::DeleteCluster {
-        super::builder::edge_container::DeleteCluster::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_cluster(&self) -> super::builder::edge_container::DeleteCluster {
+        super::builder::edge_container::DeleteCluster::new(self.inner.clone())
     }
 
     /// Generates an access token for a Cluster.
-    pub fn generate_access_token(
-        &self,
-        cluster: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GenerateAccessToken {
+    pub fn generate_access_token(&self) -> super::builder::edge_container::GenerateAccessToken {
         super::builder::edge_container::GenerateAccessToken::new(self.inner.clone())
-            .set_cluster(cluster.into())
     }
 
     /// Generates an offline credential for a Cluster.
     pub fn generate_offline_credential(
         &self,
-        cluster: impl Into<std::string::String>,
     ) -> super::builder::edge_container::GenerateOfflineCredential {
         super::builder::edge_container::GenerateOfflineCredential::new(self.inner.clone())
-            .set_cluster(cluster.into())
     }
 
     /// Lists NodePools in a given project and location.
-    pub fn list_node_pools(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::ListNodePools {
+    pub fn list_node_pools(&self) -> super::builder::edge_container::ListNodePools {
         super::builder::edge_container::ListNodePools::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single NodePool.
-    pub fn get_node_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetNodePool {
-        super::builder::edge_container::GetNodePool::new(self.inner.clone()).set_name(name.into())
+    pub fn get_node_pool(&self) -> super::builder::edge_container::GetNodePool {
+        super::builder::edge_container::GetNodePool::new(self.inner.clone())
     }
 
     /// Creates a new NodePool in a given project and location.
@@ -258,12 +222,8 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_node_pool(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::CreateNodePool {
+    pub fn create_node_pool(&self) -> super::builder::edge_container::CreateNodePool {
         super::builder::edge_container::CreateNodePool::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single NodePool.
@@ -277,12 +237,8 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_node_pool(
-        &self,
-        node_pool: impl Into<crate::model::NodePool>,
-    ) -> super::builder::edge_container::UpdateNodePool {
+    pub fn update_node_pool(&self) -> super::builder::edge_container::UpdateNodePool {
         super::builder::edge_container::UpdateNodePool::new(self.inner.clone())
-            .set_node_pool(node_pool.into())
     }
 
     /// Deletes a single NodePool.
@@ -296,47 +252,28 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_node_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::DeleteNodePool {
+    pub fn delete_node_pool(&self) -> super::builder::edge_container::DeleteNodePool {
         super::builder::edge_container::DeleteNodePool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Machines in a given project and location.
-    pub fn list_machines(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::ListMachines {
+    pub fn list_machines(&self) -> super::builder::edge_container::ListMachines {
         super::builder::edge_container::ListMachines::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Machine.
-    pub fn get_machine(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetMachine {
-        super::builder::edge_container::GetMachine::new(self.inner.clone()).set_name(name.into())
+    pub fn get_machine(&self) -> super::builder::edge_container::GetMachine {
+        super::builder::edge_container::GetMachine::new(self.inner.clone())
     }
 
     /// Lists VPN connections in a given project and location.
-    pub fn list_vpn_connections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::ListVpnConnections {
+    pub fn list_vpn_connections(&self) -> super::builder::edge_container::ListVpnConnections {
         super::builder::edge_container::ListVpnConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single VPN connection.
-    pub fn get_vpn_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetVpnConnection {
+    pub fn get_vpn_connection(&self) -> super::builder::edge_container::GetVpnConnection {
         super::builder::edge_container::GetVpnConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new VPN connection in a given project and location.
@@ -350,12 +287,8 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_vpn_connection(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::CreateVpnConnection {
+    pub fn create_vpn_connection(&self) -> super::builder::edge_container::CreateVpnConnection {
         super::builder::edge_container::CreateVpnConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single VPN connection.
@@ -369,79 +302,50 @@ impl EdgeContainer {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_vpn_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::DeleteVpnConnection {
+    pub fn delete_vpn_connection(&self) -> super::builder::edge_container::DeleteVpnConnection {
         super::builder::edge_container::DeleteVpnConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the server config.
-    pub fn get_server_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetServerConfig {
+    pub fn get_server_config(&self) -> super::builder::edge_container::GetServerConfig {
         super::builder::edge_container::GetServerConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::ListLocations {
-        super::builder::edge_container::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::edge_container::ListLocations {
+        super::builder::edge_container::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetLocation {
-        super::builder::edge_container::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::edge_container::GetLocation {
+        super::builder::edge_container::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::ListOperations {
+    pub fn list_operations(&self) -> super::builder::edge_container::ListOperations {
         super::builder::edge_container::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::GetOperation {
-        super::builder::edge_container::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::edge_container::GetOperation {
+        super::builder::edge_container::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::edge_container::DeleteOperation {
         super::builder::edge_container::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::edge_container::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::edge_container::CancelOperation {
         super::builder::edge_container::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

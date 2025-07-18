@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the NetApp API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_netapp_v1::client::NetApp;
 /// let client = NetApp::builder().build().await?;
 /// // use `client` to make requests to the NetApp API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `NetApp` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `NetApp` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct NetApp {
-    inner: Arc<dyn super::stub::dynamic::NetApp>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::NetApp>,
 }
 
 impl NetApp {
@@ -72,7 +69,7 @@ impl NetApp {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_netapp_v1::client::NetApp;
     /// let client = NetApp::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::net_app::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::net_app::client::Factory)
@@ -87,44 +84,43 @@ impl NetApp {
         T: super::stub::NetApp + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::NetApp>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::NetApp>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::NetApp> {
+    ) -> gax::client_builder::Result<impl super::stub::NetApp> {
         super::transport::NetApp::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::NetApp> {
+    ) -> gax::client_builder::Result<impl super::stub::NetApp> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::NetApp::new)
     }
 
     /// Returns descriptions of all storage pools owned by the caller.
-    pub fn list_storage_pools(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListStoragePools {
-        super::builder::net_app::ListStoragePools::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_storage_pools(&self) -> super::builder::net_app::ListStoragePools {
+        super::builder::net_app::ListStoragePools::new(self.inner.clone())
     }
 
     /// Creates a new storage pool.
@@ -138,20 +134,13 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_storage_pool(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateStoragePool {
+    pub fn create_storage_pool(&self) -> super::builder::net_app::CreateStoragePool {
         super::builder::net_app::CreateStoragePool::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the description of the specified storage pool by poolId.
-    pub fn get_storage_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetStoragePool {
-        super::builder::net_app::GetStoragePool::new(self.inner.clone()).set_name(name.into())
+    pub fn get_storage_pool(&self) -> super::builder::net_app::GetStoragePool {
+        super::builder::net_app::GetStoragePool::new(self.inner.clone())
     }
 
     /// Updates the storage pool properties with the full spec
@@ -165,12 +154,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_storage_pool(
-        &self,
-        storage_pool: impl Into<crate::model::StoragePool>,
-    ) -> super::builder::net_app::UpdateStoragePool {
+    pub fn update_storage_pool(&self) -> super::builder::net_app::UpdateStoragePool {
         super::builder::net_app::UpdateStoragePool::new(self.inner.clone())
-            .set_storage_pool(storage_pool.into())
     }
 
     /// Warning! This operation will permanently delete the storage pool.
@@ -184,11 +169,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_storage_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteStoragePool {
-        super::builder::net_app::DeleteStoragePool::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_storage_pool(&self) -> super::builder::net_app::DeleteStoragePool {
+        super::builder::net_app::DeleteStoragePool::new(self.inner.clone())
     }
 
     /// ValidateDirectoryService does a connectivity check for a directory service
@@ -203,12 +185,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn validate_directory_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ValidateDirectoryService {
+    pub fn validate_directory_service(&self) -> super::builder::net_app::ValidateDirectoryService {
         super::builder::net_app::ValidateDirectoryService::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// This operation will switch the active/replica zone for a regional
@@ -223,28 +201,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn switch_active_replica_zone(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::SwitchActiveReplicaZone {
+    pub fn switch_active_replica_zone(&self) -> super::builder::net_app::SwitchActiveReplicaZone {
         super::builder::net_app::SwitchActiveReplicaZone::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Volumes in a given project.
-    pub fn list_volumes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListVolumes {
-        super::builder::net_app::ListVolumes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_volumes(&self) -> super::builder::net_app::ListVolumes {
+        super::builder::net_app::ListVolumes::new(self.inner.clone())
     }
 
     /// Gets details of a single Volume.
-    pub fn get_volume(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetVolume {
-        super::builder::net_app::GetVolume::new(self.inner.clone()).set_name(name.into())
+    pub fn get_volume(&self) -> super::builder::net_app::GetVolume {
+        super::builder::net_app::GetVolume::new(self.inner.clone())
     }
 
     /// Creates a new Volume in a given project and location.
@@ -258,11 +226,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_volume(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateVolume {
-        super::builder::net_app::CreateVolume::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_volume(&self) -> super::builder::net_app::CreateVolume {
+        super::builder::net_app::CreateVolume::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Volume.
@@ -276,11 +241,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_volume(
-        &self,
-        volume: impl Into<crate::model::Volume>,
-    ) -> super::builder::net_app::UpdateVolume {
-        super::builder::net_app::UpdateVolume::new(self.inner.clone()).set_volume(volume.into())
+    pub fn update_volume(&self) -> super::builder::net_app::UpdateVolume {
+        super::builder::net_app::UpdateVolume::new(self.inner.clone())
     }
 
     /// Deletes a single Volume.
@@ -294,11 +256,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_volume(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteVolume {
-        super::builder::net_app::DeleteVolume::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_volume(&self) -> super::builder::net_app::DeleteVolume {
+        super::builder::net_app::DeleteVolume::new(self.inner.clone())
     }
 
     /// Revert an existing volume to a specified snapshot.
@@ -314,27 +273,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn revert_volume(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::RevertVolume {
-        super::builder::net_app::RevertVolume::new(self.inner.clone()).set_name(name.into())
+    pub fn revert_volume(&self) -> super::builder::net_app::RevertVolume {
+        super::builder::net_app::RevertVolume::new(self.inner.clone())
     }
 
     /// Returns descriptions of all snapshots for a volume.
-    pub fn list_snapshots(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListSnapshots {
-        super::builder::net_app::ListSnapshots::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_snapshots(&self) -> super::builder::net_app::ListSnapshots {
+        super::builder::net_app::ListSnapshots::new(self.inner.clone())
     }
 
     /// Describe a snapshot for a volume.
-    pub fn get_snapshot(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetSnapshot {
-        super::builder::net_app::GetSnapshot::new(self.inner.clone()).set_name(name.into())
+    pub fn get_snapshot(&self) -> super::builder::net_app::GetSnapshot {
+        super::builder::net_app::GetSnapshot::new(self.inner.clone())
     }
 
     /// Create a new snapshot for a volume.
@@ -348,11 +298,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_snapshot(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateSnapshot {
-        super::builder::net_app::CreateSnapshot::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_snapshot(&self) -> super::builder::net_app::CreateSnapshot {
+        super::builder::net_app::CreateSnapshot::new(self.inner.clone())
     }
 
     /// Deletes a snapshot.
@@ -366,11 +313,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_snapshot(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteSnapshot {
-        super::builder::net_app::DeleteSnapshot::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_snapshot(&self) -> super::builder::net_app::DeleteSnapshot {
+        super::builder::net_app::DeleteSnapshot::new(self.inner.clone())
     }
 
     /// Updates the settings of a specific snapshot.
@@ -384,29 +328,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_snapshot(
-        &self,
-        snapshot: impl Into<crate::model::Snapshot>,
-    ) -> super::builder::net_app::UpdateSnapshot {
+    pub fn update_snapshot(&self) -> super::builder::net_app::UpdateSnapshot {
         super::builder::net_app::UpdateSnapshot::new(self.inner.clone())
-            .set_snapshot(snapshot.into())
     }
 
     /// Lists active directories.
-    pub fn list_active_directories(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListActiveDirectories {
+    pub fn list_active_directories(&self) -> super::builder::net_app::ListActiveDirectories {
         super::builder::net_app::ListActiveDirectories::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Describes a specified active directory.
-    pub fn get_active_directory(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetActiveDirectory {
-        super::builder::net_app::GetActiveDirectory::new(self.inner.clone()).set_name(name.into())
+    pub fn get_active_directory(&self) -> super::builder::net_app::GetActiveDirectory {
+        super::builder::net_app::GetActiveDirectory::new(self.inner.clone())
     }
 
     /// CreateActiveDirectory
@@ -421,12 +354,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_active_directory(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateActiveDirectory {
+    pub fn create_active_directory(&self) -> super::builder::net_app::CreateActiveDirectory {
         super::builder::net_app::CreateActiveDirectory::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update the parameters of an active directories.
@@ -440,12 +369,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_active_directory(
-        &self,
-        active_directory: impl Into<crate::model::ActiveDirectory>,
-    ) -> super::builder::net_app::UpdateActiveDirectory {
+    pub fn update_active_directory(&self) -> super::builder::net_app::UpdateActiveDirectory {
         super::builder::net_app::UpdateActiveDirectory::new(self.inner.clone())
-            .set_active_directory(active_directory.into())
     }
 
     /// Delete the active directory specified in the request.
@@ -459,20 +384,13 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_active_directory(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteActiveDirectory {
+    pub fn delete_active_directory(&self) -> super::builder::net_app::DeleteActiveDirectory {
         super::builder::net_app::DeleteActiveDirectory::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns descriptions of all KMS configs owned by the caller.
-    pub fn list_kms_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListKmsConfigs {
-        super::builder::net_app::ListKmsConfigs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_kms_configs(&self) -> super::builder::net_app::ListKmsConfigs {
+        super::builder::net_app::ListKmsConfigs::new(self.inner.clone())
     }
 
     /// Creates a new KMS config.
@@ -486,19 +404,13 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_kms_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateKmsConfig {
-        super::builder::net_app::CreateKmsConfig::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_kms_config(&self) -> super::builder::net_app::CreateKmsConfig {
+        super::builder::net_app::CreateKmsConfig::new(self.inner.clone())
     }
 
     /// Returns the description of the specified KMS config by kms_config_id.
-    pub fn get_kms_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetKmsConfig {
-        super::builder::net_app::GetKmsConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn get_kms_config(&self) -> super::builder::net_app::GetKmsConfig {
+        super::builder::net_app::GetKmsConfig::new(self.inner.clone())
     }
 
     /// Updates the Kms config properties with the full spec
@@ -512,12 +424,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_kms_config(
-        &self,
-        kms_config: impl Into<crate::model::KmsConfig>,
-    ) -> super::builder::net_app::UpdateKmsConfig {
+    pub fn update_kms_config(&self) -> super::builder::net_app::UpdateKmsConfig {
         super::builder::net_app::UpdateKmsConfig::new(self.inner.clone())
-            .set_kms_config(kms_config.into())
     }
 
     /// Encrypt the existing volumes without CMEK encryption with the desired the
@@ -532,19 +440,13 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn encrypt_volumes(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::EncryptVolumes {
-        super::builder::net_app::EncryptVolumes::new(self.inner.clone()).set_name(name.into())
+    pub fn encrypt_volumes(&self) -> super::builder::net_app::EncryptVolumes {
+        super::builder::net_app::EncryptVolumes::new(self.inner.clone())
     }
 
     /// Verifies KMS config reachability.
-    pub fn verify_kms_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::VerifyKmsConfig {
-        super::builder::net_app::VerifyKmsConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn verify_kms_config(&self) -> super::builder::net_app::VerifyKmsConfig {
+        super::builder::net_app::VerifyKmsConfig::new(self.inner.clone())
     }
 
     /// Warning! This operation will permanently delete the Kms config.
@@ -558,27 +460,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_kms_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteKmsConfig {
-        super::builder::net_app::DeleteKmsConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_kms_config(&self) -> super::builder::net_app::DeleteKmsConfig {
+        super::builder::net_app::DeleteKmsConfig::new(self.inner.clone())
     }
 
     /// Returns descriptions of all replications for a volume.
-    pub fn list_replications(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListReplications {
-        super::builder::net_app::ListReplications::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_replications(&self) -> super::builder::net_app::ListReplications {
+        super::builder::net_app::ListReplications::new(self.inner.clone())
     }
 
     /// Describe a replication for a volume.
-    pub fn get_replication(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetReplication {
-        super::builder::net_app::GetReplication::new(self.inner.clone()).set_name(name.into())
+    pub fn get_replication(&self) -> super::builder::net_app::GetReplication {
+        super::builder::net_app::GetReplication::new(self.inner.clone())
     }
 
     /// Create a new replication for a volume.
@@ -592,12 +485,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_replication(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateReplication {
+    pub fn create_replication(&self) -> super::builder::net_app::CreateReplication {
         super::builder::net_app::CreateReplication::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a replication.
@@ -611,11 +500,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_replication(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteReplication {
-        super::builder::net_app::DeleteReplication::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_replication(&self) -> super::builder::net_app::DeleteReplication {
+        super::builder::net_app::DeleteReplication::new(self.inner.clone())
     }
 
     /// Updates the settings of a specific replication.
@@ -629,12 +515,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_replication(
-        &self,
-        replication: impl Into<crate::model::Replication>,
-    ) -> super::builder::net_app::UpdateReplication {
+    pub fn update_replication(&self) -> super::builder::net_app::UpdateReplication {
         super::builder::net_app::UpdateReplication::new(self.inner.clone())
-            .set_replication(replication.into())
     }
 
     /// Stop Cross Region Replication.
@@ -648,11 +530,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_replication(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::StopReplication {
-        super::builder::net_app::StopReplication::new(self.inner.clone()).set_name(name.into())
+    pub fn stop_replication(&self) -> super::builder::net_app::StopReplication {
+        super::builder::net_app::StopReplication::new(self.inner.clone())
     }
 
     /// Resume Cross Region Replication.
@@ -666,11 +545,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn resume_replication(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ResumeReplication {
-        super::builder::net_app::ResumeReplication::new(self.inner.clone()).set_name(name.into())
+    pub fn resume_replication(&self) -> super::builder::net_app::ResumeReplication {
+        super::builder::net_app::ResumeReplication::new(self.inner.clone())
     }
 
     /// Reverses direction of replication. Source becomes destination and
@@ -687,10 +563,8 @@ impl NetApp {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn reverse_replication_direction(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::net_app::ReverseReplicationDirection {
         super::builder::net_app::ReverseReplicationDirection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Establish replication peering.
@@ -704,11 +578,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn establish_peering(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::EstablishPeering {
-        super::builder::net_app::EstablishPeering::new(self.inner.clone()).set_name(name.into())
+    pub fn establish_peering(&self) -> super::builder::net_app::EstablishPeering {
+        super::builder::net_app::EstablishPeering::new(self.inner.clone())
     }
 
     /// Syncs the replication. This will invoke one time volume data transfer from
@@ -723,11 +594,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn sync_replication(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::SyncReplication {
-        super::builder::net_app::SyncReplication::new(self.inner.clone()).set_name(name.into())
+    pub fn sync_replication(&self) -> super::builder::net_app::SyncReplication {
+        super::builder::net_app::SyncReplication::new(self.inner.clone())
     }
 
     /// Creates new backup vault
@@ -741,28 +609,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_vault(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateBackupVault {
+    pub fn create_backup_vault(&self) -> super::builder::net_app::CreateBackupVault {
         super::builder::net_app::CreateBackupVault::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the description of the specified backup vault
-    pub fn get_backup_vault(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetBackupVault {
-        super::builder::net_app::GetBackupVault::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup_vault(&self) -> super::builder::net_app::GetBackupVault {
+        super::builder::net_app::GetBackupVault::new(self.inner.clone())
     }
 
     /// Returns list of all available backup vaults.
-    pub fn list_backup_vaults(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListBackupVaults {
-        super::builder::net_app::ListBackupVaults::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_backup_vaults(&self) -> super::builder::net_app::ListBackupVaults {
+        super::builder::net_app::ListBackupVaults::new(self.inner.clone())
     }
 
     /// Updates the settings of a specific backup vault.
@@ -776,12 +634,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup_vault(
-        &self,
-        backup_vault: impl Into<crate::model::BackupVault>,
-    ) -> super::builder::net_app::UpdateBackupVault {
+    pub fn update_backup_vault(&self) -> super::builder::net_app::UpdateBackupVault {
         super::builder::net_app::UpdateBackupVault::new(self.inner.clone())
-            .set_backup_vault(backup_vault.into())
     }
 
     /// Warning! This operation will permanently delete the backup vault.
@@ -795,11 +649,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_vault(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteBackupVault {
-        super::builder::net_app::DeleteBackupVault::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup_vault(&self) -> super::builder::net_app::DeleteBackupVault {
+        super::builder::net_app::DeleteBackupVault::new(self.inner.clone())
     }
 
     /// Creates a backup from the volume specified in the request
@@ -816,27 +667,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateBackup {
-        super::builder::net_app::CreateBackup::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_backup(&self) -> super::builder::net_app::CreateBackup {
+        super::builder::net_app::CreateBackup::new(self.inner.clone())
     }
 
     /// Returns the description of the specified backup
-    pub fn get_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetBackup {
-        super::builder::net_app::GetBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup(&self) -> super::builder::net_app::GetBackup {
+        super::builder::net_app::GetBackup::new(self.inner.clone())
     }
 
     /// Returns descriptions of all backups for a backupVault.
-    pub fn list_backups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListBackups {
-        super::builder::net_app::ListBackups::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_backups(&self) -> super::builder::net_app::ListBackups {
+        super::builder::net_app::ListBackups::new(self.inner.clone())
     }
 
     /// Warning! This operation will permanently delete the backup.
@@ -850,11 +692,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteBackup {
-        super::builder::net_app::DeleteBackup::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup(&self) -> super::builder::net_app::DeleteBackup {
+        super::builder::net_app::DeleteBackup::new(self.inner.clone())
     }
 
     /// Update backup with full spec.
@@ -868,11 +707,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup(
-        &self,
-        backup: impl Into<crate::model::Backup>,
-    ) -> super::builder::net_app::UpdateBackup {
-        super::builder::net_app::UpdateBackup::new(self.inner.clone()).set_backup(backup.into())
+    pub fn update_backup(&self) -> super::builder::net_app::UpdateBackup {
+        super::builder::net_app::UpdateBackup::new(self.inner.clone())
     }
 
     /// Creates new backup policy
@@ -886,29 +722,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_backup_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateBackupPolicy {
+    pub fn create_backup_policy(&self) -> super::builder::net_app::CreateBackupPolicy {
         super::builder::net_app::CreateBackupPolicy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the description of the specified backup policy by backup_policy_id.
-    pub fn get_backup_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetBackupPolicy {
-        super::builder::net_app::GetBackupPolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn get_backup_policy(&self) -> super::builder::net_app::GetBackupPolicy {
+        super::builder::net_app::GetBackupPolicy::new(self.inner.clone())
     }
 
     /// Returns list of all available backup policies.
-    pub fn list_backup_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListBackupPolicies {
+    pub fn list_backup_policies(&self) -> super::builder::net_app::ListBackupPolicies {
         super::builder::net_app::ListBackupPolicies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates settings of a specific backup policy.
@@ -922,12 +747,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_backup_policy(
-        &self,
-        backup_policy: impl Into<crate::model::BackupPolicy>,
-    ) -> super::builder::net_app::UpdateBackupPolicy {
+    pub fn update_backup_policy(&self) -> super::builder::net_app::UpdateBackupPolicy {
         super::builder::net_app::UpdateBackupPolicy::new(self.inner.clone())
-            .set_backup_policy(backup_policy.into())
     }
 
     /// Warning! This operation will permanently delete the backup policy.
@@ -941,27 +762,18 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_backup_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteBackupPolicy {
-        super::builder::net_app::DeleteBackupPolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_backup_policy(&self) -> super::builder::net_app::DeleteBackupPolicy {
+        super::builder::net_app::DeleteBackupPolicy::new(self.inner.clone())
     }
 
     /// Returns list of all quota rules in a location.
-    pub fn list_quota_rules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListQuotaRules {
-        super::builder::net_app::ListQuotaRules::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_quota_rules(&self) -> super::builder::net_app::ListQuotaRules {
+        super::builder::net_app::ListQuotaRules::new(self.inner.clone())
     }
 
     /// Returns details of the specified quota rule.
-    pub fn get_quota_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetQuotaRule {
-        super::builder::net_app::GetQuotaRule::new(self.inner.clone()).set_name(name.into())
+    pub fn get_quota_rule(&self) -> super::builder::net_app::GetQuotaRule {
+        super::builder::net_app::GetQuotaRule::new(self.inner.clone())
     }
 
     /// Creates a new quota rule.
@@ -975,11 +787,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_quota_rule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CreateQuotaRule {
-        super::builder::net_app::CreateQuotaRule::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_quota_rule(&self) -> super::builder::net_app::CreateQuotaRule {
+        super::builder::net_app::CreateQuotaRule::new(self.inner.clone())
     }
 
     /// Updates a quota rule.
@@ -993,12 +802,8 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_quota_rule(
-        &self,
-        quota_rule: impl Into<crate::model::QuotaRule>,
-    ) -> super::builder::net_app::UpdateQuotaRule {
+    pub fn update_quota_rule(&self) -> super::builder::net_app::UpdateQuotaRule {
         super::builder::net_app::UpdateQuotaRule::new(self.inner.clone())
-            .set_quota_rule(quota_rule.into())
     }
 
     /// Deletes a quota rule.
@@ -1012,66 +817,45 @@ impl NetApp {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_quota_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteQuotaRule {
-        super::builder::net_app::DeleteQuotaRule::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_quota_rule(&self) -> super::builder::net_app::DeleteQuotaRule {
+        super::builder::net_app::DeleteQuotaRule::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListLocations {
-        super::builder::net_app::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::net_app::ListLocations {
+        super::builder::net_app::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetLocation {
-        super::builder::net_app::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::net_app::GetLocation {
+        super::builder::net_app::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::ListOperations {
-        super::builder::net_app::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::net_app::ListOperations {
+        super::builder::net_app::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::GetOperation {
-        super::builder::net_app::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::net_app::GetOperation {
+        super::builder::net_app::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::DeleteOperation {
-        super::builder::net_app::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::net_app::DeleteOperation {
+        super::builder::net_app::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::net_app::CancelOperation {
-        super::builder::net_app::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::net_app::CancelOperation {
+        super::builder::net_app::CancelOperation::new(self.inner.clone())
     }
 }

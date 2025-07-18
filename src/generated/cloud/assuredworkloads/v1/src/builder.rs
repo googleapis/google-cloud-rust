@@ -16,9 +16,8 @@
 
 pub mod assured_workloads_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AssuredWorkloadsService][super::super::client::AssuredWorkloadsService].
+    /// A builder for [AssuredWorkloadsService][crate::client::AssuredWorkloadsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod assured_workloads_service {
     /// let client = builder
     ///     .with_endpoint("https://assuredworkloads.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod assured_workloads_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AssuredWorkloadsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AssuredWorkloadsService] request builders.
+    /// Common implementation for [crate::client::AssuredWorkloadsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod assured_workloads_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,30 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::create_workload][super::super::client::AssuredWorkloadsService::create_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::create_workload][crate::client::AssuredWorkloadsService::create_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::CreateWorkload;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -97,7 +116,7 @@ pub mod assured_workloads_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workload][super::super::client::AssuredWorkloadsService::create_workload].
+        /// on [create_workload][crate::client::AssuredWorkloadsService::create_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
@@ -110,7 +129,7 @@ pub mod assured_workloads_service {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::CreateWorkloadOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Workload,
                 crate::model::CreateWorkloadOperationMetadata,
             >;
@@ -138,7 +157,7 @@ pub mod assured_workloads_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
@@ -152,11 +171,22 @@ pub mod assured_workloads_service {
         /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workload = v.into();
+        pub fn set_workload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = v.map(|x| x.into());
             self
         }
 
@@ -174,13 +204,29 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::update_workload][super::super::client::AssuredWorkloadsService::update_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::update_workload][crate::client::AssuredWorkloadsService::update_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::UpdateWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -208,22 +254,44 @@ pub mod assured_workloads_service {
         /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workload = v.into();
+        pub fn set_workload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -235,7 +303,23 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::restrict_allowed_resources][super::super::client::AssuredWorkloadsService::restrict_allowed_resources] calls.
+    /// The request builder for [AssuredWorkloadsService::restrict_allowed_resources][crate::client::AssuredWorkloadsService::restrict_allowed_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::RestrictAllowedResources;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestrictAllowedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestrictAllowedResources(
         RequestBuilder<crate::model::RestrictAllowedResourcesRequest>,
@@ -243,7 +327,7 @@ pub mod assured_workloads_service {
 
     impl RestrictAllowedResources {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -300,13 +384,29 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::delete_workload][super::super::client::AssuredWorkloadsService::delete_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::delete_workload][crate::client::AssuredWorkloadsService::delete_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::DeleteWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -353,13 +453,29 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::get_workload][super::super::client::AssuredWorkloadsService::get_workload] calls.
+    /// The request builder for [AssuredWorkloadsService::get_workload][crate::client::AssuredWorkloadsService::get_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::GetWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -400,13 +516,33 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::list_workloads][super::super::client::AssuredWorkloadsService::list_workloads] calls.
+    /// The request builder for [AssuredWorkloadsService::list_workloads][crate::client::AssuredWorkloadsService::list_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::ListWorkloads;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -431,8 +567,8 @@ pub mod assured_workloads_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
@@ -444,6 +580,15 @@ pub mod assured_workloads_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
@@ -480,13 +625,33 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::list_operations][super::super::client::AssuredWorkloadsService::list_operations] calls.
+    /// The request builder for [AssuredWorkloadsService::list_operations][crate::client::AssuredWorkloadsService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -514,8 +679,8 @@ pub mod assured_workloads_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -527,6 +692,17 @@ pub mod assured_workloads_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -561,13 +737,29 @@ pub mod assured_workloads_service {
         }
     }
 
-    /// The request builder for [AssuredWorkloadsService::get_operation][super::super::client::AssuredWorkloadsService::get_operation] calls.
+    /// The request builder for [AssuredWorkloadsService::get_operation][crate::client::AssuredWorkloadsService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_assuredworkloads_v1::builder;
+    /// use builder::assured_workloads_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AssuredWorkloadsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

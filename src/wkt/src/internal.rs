@@ -17,75 +17,29 @@
 //! These types are intended for developers of the Google Cloud client libraries
 //! for Rust. They are undocumented and may change at any time.
 
-pub struct F32;
+#[macro_use]
+mod visitor_32;
+mod int32;
+pub use int32::I32;
+mod uint32;
+pub use uint32::U32;
 
-impl serde_with::SerializeAs<f32> for F32 {
-    fn serialize_as<S>(value: &f32, serializer: S) -> Result<S::Ok, S::Error>
-    where
-        S: serde::ser::Serializer,
-    {
-        match value {
-            x if x.is_nan() => serializer.serialize_str("NaN"),
-            x if x.is_infinite() && x.is_sign_negative() => serializer.serialize_str("-Infinity"),
-            x if x.is_infinite() => serializer.serialize_str("Infinity"),
-            x => serializer.serialize_f32(*x),
-        }
-    }
-}
+#[macro_use]
+mod visitor_64;
+mod int64;
+pub use int64::I64;
+mod uint64;
+pub use uint64::U64;
 
-impl<'de> serde_with::DeserializeAs<'de, f32> for F32 {
-    fn deserialize_as<D>(deserializer: D) -> Result<f32, D::Error>
-    where
-        D: serde::de::Deserializer<'de>,
-    {
-        deserializer.deserialize_any(FloatVisitor)
-    }
-}
+mod value;
+pub use value::OptionalValue;
 
-struct FloatVisitor;
-
-impl serde::de::Visitor<'_> for FloatVisitor {
-    type Value = f32;
-
-    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        // Handle special strings, see https://protobuf.dev/programming-guides/json/.
-        match value {
-            "NaN" => Ok(f32::NAN),
-            "Infinity" => Ok(f32::INFINITY),
-            "-Infinity" => Ok(f32::NEG_INFINITY),
-            _ => Err(serde::de::Error::invalid_value(
-                serde::de::Unexpected::Other(value),
-                &"a valid ProtoJSON string for f32 (NaN, Infinity, -Infinity)",
-            )),
-        }
-    }
-
-    fn visit_f32<E>(self, value: f32) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        // TODO(#1767): Find a way to test this code path, serde_json floats
-        // stored as f64.
-        Ok(value)
-    }
-
-    // Floats in serde_json are f64.
-    fn visit_f64<E>(self, value: f64) -> std::result::Result<Self::Value, E>
-    where
-        E: serde::de::Error,
-    {
-        // Cast f64 to f32 to produce the closest possible float value.
-        // See https://doc.rust-lang.org/reference/expressions/operator-expr.html#r-expr.as.numeric.float-narrowing
-        Ok(value as f32)
-    }
-
-    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("a 32-bit floating point in ProtoJSON format")
-    }
-}
+#[macro_use]
+mod visitor_float;
+mod float32;
+pub use float32::F32;
+mod float64;
+pub use float64::F64;
 
 // For skipping serialization of default values of bool/numeric types.
 pub fn is_default<T>(t: &T) -> bool
@@ -97,54 +51,3 @@ where
 
 mod enums;
 pub use enums::*;
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use serde_with::{DeserializeAs, SerializeAs};
-    use test_case::test_case;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    #[test_case(9876.5)]
-    #[test_case(0.0)]
-    fn roundtrip(input: f32) -> Result {
-        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!(input, got);
-        let rt = F32::deserialize_as(got)?;
-        assert_eq!(input, rt);
-        Ok(())
-    }
-
-    #[test_case(f32::NAN)]
-    #[test_case(-f32::NAN)]
-    fn roundtrip_nan(input: f32) -> Result {
-        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!("NaN", got);
-        let rt = F32::deserialize_as(got)?;
-        assert!(rt.is_nan(), "expected NaN, got {rt}");
-        Ok(())
-    }
-
-    #[test_case(f32::INFINITY, "Infinity")]
-    #[test_case(2.0*f32::INFINITY, "Infinity")]
-    #[test_case(f32::NEG_INFINITY, "-Infinity")]
-    #[test_case(2.0*f32::NEG_INFINITY, "-Infinity")]
-    fn roundtrip_inf(input: f32, want: &str) -> Result {
-        let got = F32::serialize_as(&input, serde_json::value::Serializer)?;
-        assert_eq!(want, got);
-        let rt = F32::deserialize_as(got)?;
-        assert!(rt.is_infinite(), "expected infinite, got {rt}");
-        assert_eq!(rt.is_sign_positive(), input.is_sign_positive());
-        Ok(())
-    }
-
-    #[test]
-    fn deserialize_expect_err() {
-        assert!(
-            F32::deserialize_as(serde_json::Value::String(
-                "not a special float string".to_string()
-            ))
-            .is_err()
-        );
-    }
-}

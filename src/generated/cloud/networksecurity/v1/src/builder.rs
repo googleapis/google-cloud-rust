@@ -16,9 +16,8 @@
 
 pub mod network_security {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [NetworkSecurity][super::super::client::NetworkSecurity].
+    /// A builder for [NetworkSecurity][crate::client::NetworkSecurity].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod network_security {
     /// let client = builder
     ///     .with_endpoint("https://networksecurity.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod network_security {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = NetworkSecurity;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::NetworkSecurity] request builders.
+    /// Common implementation for [crate::client::NetworkSecurity] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod network_security {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,14 +71,36 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_authorization_policies][super::super::client::NetworkSecurity::list_authorization_policies] calls.
+    /// The request builder for [NetworkSecurity::list_authorization_policies][crate::client::NetworkSecurity::list_authorization_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListAuthorizationPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAuthorizationPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAuthorizationPolicies(
         RequestBuilder<crate::model::ListAuthorizationPoliciesRequest>,
     );
 
     impl ListAuthorizationPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -101,8 +127,8 @@ pub mod network_security {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListAuthorizationPoliciesResponse,
@@ -116,6 +142,17 @@ pub mod network_security {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAuthorizationPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAuthorizationPoliciesRequest::parent].
@@ -146,12 +183,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_authorization_policy][super::super::client::NetworkSecurity::get_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::get_authorization_policy][crate::client::NetworkSecurity::get_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAuthorizationPolicy(RequestBuilder<crate::model::GetAuthorizationPolicyRequest>);
 
     impl GetAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -194,14 +249,33 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::create_authorization_policy][crate::client::NetworkSecurity::create_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CreateAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAuthorizationPolicy(
         RequestBuilder<crate::model::CreateAuthorizationPolicyRequest>,
     );
 
     impl CreateAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -225,7 +299,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_authorization_policy][super::super::client::NetworkSecurity::create_authorization_policy].
+        /// on [create_authorization_policy][crate::client::NetworkSecurity::create_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorization_policy(self.0.request, self.0.options)
@@ -238,8 +312,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AuthorizationPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -264,7 +340,7 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizationPolicyRequest::parent].
@@ -286,13 +362,22 @@ pub mod network_security {
         /// Sets the value of [authorization_policy][crate::model::CreateAuthorizationPolicyRequest::authorization_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorization_policy<
-            T: Into<std::option::Option<crate::model::AuthorizationPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorization_policy = v.into();
+        pub fn set_authorization_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationPolicy>,
+        {
+            self.0.request.authorization_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorization_policy][crate::model::CreateAuthorizationPolicyRequest::authorization_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authorization_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationPolicy>,
+        {
+            self.0.request.authorization_policy = v.map(|x| x.into());
             self
         }
     }
@@ -304,14 +389,33 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::update_authorization_policy][crate::client::NetworkSecurity::update_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::UpdateAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAuthorizationPolicy(
         RequestBuilder<crate::model::UpdateAuthorizationPolicyRequest>,
     );
 
     impl UpdateAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -335,7 +439,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_authorization_policy][super::super::client::NetworkSecurity::update_authorization_policy].
+        /// on [update_authorization_policy][crate::client::NetworkSecurity::update_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorization_policy(self.0.request, self.0.options)
@@ -348,8 +452,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AuthorizationPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AuthorizationPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -374,28 +480,46 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAuthorizationPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthorizationPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [authorization_policy][crate::model::UpdateAuthorizationPolicyRequest::authorization_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorization_policy<
-            T: Into<std::option::Option<crate::model::AuthorizationPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorization_policy = v.into();
+        pub fn set_authorization_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationPolicy>,
+        {
+            self.0.request.authorization_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorization_policy][crate::model::UpdateAuthorizationPolicyRequest::authorization_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authorization_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationPolicy>,
+        {
+            self.0.request.authorization_policy = v.map(|x| x.into());
             self
         }
     }
@@ -407,14 +531,33 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy] calls.
+    /// The request builder for [NetworkSecurity::delete_authorization_policy][crate::client::NetworkSecurity::delete_authorization_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteAuthorizationPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAuthorizationPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAuthorizationPolicy(
         RequestBuilder<crate::model::DeleteAuthorizationPolicyRequest>,
     );
 
     impl DeleteAuthorizationPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +581,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_authorization_policy][super::super::client::NetworkSecurity::delete_authorization_policy].
+        /// on [delete_authorization_policy][crate::client::NetworkSecurity::delete_authorization_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_authorization_policy(self.0.request, self.0.options)
@@ -447,8 +590,8 @@ pub mod network_security {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_authorization_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -473,7 +616,12 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAuthorizationPolicyRequest::name].
@@ -492,12 +640,34 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_server_tls_policies][super::super::client::NetworkSecurity::list_server_tls_policies] calls.
+    /// The request builder for [NetworkSecurity::list_server_tls_policies][crate::client::NetworkSecurity::list_server_tls_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListServerTlsPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServerTlsPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServerTlsPolicies(RequestBuilder<crate::model::ListServerTlsPoliciesRequest>);
 
     impl ListServerTlsPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -524,8 +694,8 @@ pub mod network_security {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServerTlsPoliciesResponse, gax::error::Error>
         {
@@ -537,6 +707,17 @@ pub mod network_security {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListServerTlsPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServerTlsPoliciesRequest::parent].
@@ -567,12 +748,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_server_tls_policy][super::super::client::NetworkSecurity::get_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::get_server_tls_policy][crate::client::NetworkSecurity::get_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServerTlsPolicy(RequestBuilder<crate::model::GetServerTlsPolicyRequest>);
 
     impl GetServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -615,12 +814,31 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::create_server_tls_policy][crate::client::NetworkSecurity::create_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CreateServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServerTlsPolicy(RequestBuilder<crate::model::CreateServerTlsPolicyRequest>);
 
     impl CreateServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,7 +862,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_server_tls_policy][super::super::client::NetworkSecurity::create_server_tls_policy].
+        /// on [create_server_tls_policy][crate::client::NetworkSecurity::create_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_server_tls_policy(self.0.request, self.0.options)
@@ -657,8 +875,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ServerTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -683,7 +903,7 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServerTlsPolicyRequest::parent].
@@ -705,13 +925,22 @@ pub mod network_security {
         /// Sets the value of [server_tls_policy][crate::model::CreateServerTlsPolicyRequest::server_tls_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_server_tls_policy<
-            T: Into<std::option::Option<crate::model::ServerTlsPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.server_tls_policy = v.into();
+        pub fn set_server_tls_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServerTlsPolicy>,
+        {
+            self.0.request.server_tls_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [server_tls_policy][crate::model::CreateServerTlsPolicyRequest::server_tls_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_server_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServerTlsPolicy>,
+        {
+            self.0.request.server_tls_policy = v.map(|x| x.into());
             self
         }
     }
@@ -723,12 +952,31 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::update_server_tls_policy][crate::client::NetworkSecurity::update_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::UpdateServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServerTlsPolicy(RequestBuilder<crate::model::UpdateServerTlsPolicyRequest>);
 
     impl UpdateServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,7 +1000,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_server_tls_policy][super::super::client::NetworkSecurity::update_server_tls_policy].
+        /// on [update_server_tls_policy][crate::client::NetworkSecurity::update_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_server_tls_policy(self.0.request, self.0.options)
@@ -765,8 +1013,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ServerTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ServerTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -791,28 +1041,46 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServerTlsPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServerTlsPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [server_tls_policy][crate::model::UpdateServerTlsPolicyRequest::server_tls_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_server_tls_policy<
-            T: Into<std::option::Option<crate::model::ServerTlsPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.server_tls_policy = v.into();
+        pub fn set_server_tls_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServerTlsPolicy>,
+        {
+            self.0.request.server_tls_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [server_tls_policy][crate::model::UpdateServerTlsPolicyRequest::server_tls_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_server_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServerTlsPolicy>,
+        {
+            self.0.request.server_tls_policy = v.map(|x| x.into());
             self
         }
     }
@@ -824,12 +1092,31 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::delete_server_tls_policy][crate::client::NetworkSecurity::delete_server_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteServerTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServerTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServerTlsPolicy(RequestBuilder<crate::model::DeleteServerTlsPolicyRequest>);
 
     impl DeleteServerTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -853,7 +1140,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_server_tls_policy][super::super::client::NetworkSecurity::delete_server_tls_policy].
+        /// on [delete_server_tls_policy][crate::client::NetworkSecurity::delete_server_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_server_tls_policy(self.0.request, self.0.options)
@@ -862,8 +1149,8 @@ pub mod network_security {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_server_tls_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -888,7 +1175,12 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteServerTlsPolicyRequest::name].
@@ -907,12 +1199,34 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_client_tls_policies][super::super::client::NetworkSecurity::list_client_tls_policies] calls.
+    /// The request builder for [NetworkSecurity::list_client_tls_policies][crate::client::NetworkSecurity::list_client_tls_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListClientTlsPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClientTlsPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClientTlsPolicies(RequestBuilder<crate::model::ListClientTlsPoliciesRequest>);
 
     impl ListClientTlsPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -939,8 +1253,8 @@ pub mod network_security {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListClientTlsPoliciesResponse, gax::error::Error>
         {
@@ -952,6 +1266,17 @@ pub mod network_security {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListClientTlsPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListClientTlsPoliciesRequest::parent].
@@ -982,12 +1307,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_client_tls_policy][super::super::client::NetworkSecurity::get_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::get_client_tls_policy][crate::client::NetworkSecurity::get_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetClientTlsPolicy(RequestBuilder<crate::model::GetClientTlsPolicyRequest>);
 
     impl GetClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1030,12 +1373,31 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::create_client_tls_policy][crate::client::NetworkSecurity::create_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CreateClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateClientTlsPolicy(RequestBuilder<crate::model::CreateClientTlsPolicyRequest>);
 
     impl CreateClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1059,7 +1421,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_tls_policy][super::super::client::NetworkSecurity::create_client_tls_policy].
+        /// on [create_client_tls_policy][crate::client::NetworkSecurity::create_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_tls_policy(self.0.request, self.0.options)
@@ -1072,8 +1434,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ClientTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1098,7 +1462,7 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClientTlsPolicyRequest::parent].
@@ -1120,13 +1484,22 @@ pub mod network_security {
         /// Sets the value of [client_tls_policy][crate::model::CreateClientTlsPolicyRequest::client_tls_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_client_tls_policy<
-            T: Into<std::option::Option<crate::model::ClientTlsPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.client_tls_policy = v.into();
+        pub fn set_client_tls_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientTlsPolicy>,
+        {
+            self.0.request.client_tls_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_tls_policy][crate::model::CreateClientTlsPolicyRequest::client_tls_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_client_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientTlsPolicy>,
+        {
+            self.0.request.client_tls_policy = v.map(|x| x.into());
             self
         }
     }
@@ -1138,12 +1511,31 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::update_client_tls_policy][crate::client::NetworkSecurity::update_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::UpdateClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateClientTlsPolicy(RequestBuilder<crate::model::UpdateClientTlsPolicyRequest>);
 
     impl UpdateClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1167,7 +1559,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_client_tls_policy][super::super::client::NetworkSecurity::update_client_tls_policy].
+        /// on [update_client_tls_policy][crate::client::NetworkSecurity::update_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_client_tls_policy(self.0.request, self.0.options)
@@ -1180,8 +1572,10 @@ pub mod network_security {
             self,
         ) -> impl lro::Poller<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ClientTlsPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ClientTlsPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1206,28 +1600,46 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClientTlsPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClientTlsPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [client_tls_policy][crate::model::UpdateClientTlsPolicyRequest::client_tls_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_client_tls_policy<
-            T: Into<std::option::Option<crate::model::ClientTlsPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.client_tls_policy = v.into();
+        pub fn set_client_tls_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientTlsPolicy>,
+        {
+            self.0.request.client_tls_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_tls_policy][crate::model::UpdateClientTlsPolicyRequest::client_tls_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_client_tls_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientTlsPolicy>,
+        {
+            self.0.request.client_tls_policy = v.map(|x| x.into());
             self
         }
     }
@@ -1239,12 +1651,31 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy] calls.
+    /// The request builder for [NetworkSecurity::delete_client_tls_policy][crate::client::NetworkSecurity::delete_client_tls_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteClientTlsPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteClientTlsPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteClientTlsPolicy(RequestBuilder<crate::model::DeleteClientTlsPolicyRequest>);
 
     impl DeleteClientTlsPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1268,7 +1699,7 @@ pub mod network_security {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_tls_policy][super::super::client::NetworkSecurity::delete_client_tls_policy].
+        /// on [delete_client_tls_policy][crate::client::NetworkSecurity::delete_client_tls_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_tls_policy(self.0.request, self.0.options)
@@ -1277,8 +1708,8 @@ pub mod network_security {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_client_tls_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1303,7 +1734,12 @@ pub mod network_security {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClientTlsPolicyRequest::name].
@@ -1322,12 +1758,34 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_locations][super::super::client::NetworkSecurity::list_locations] calls.
+    /// The request builder for [NetworkSecurity::list_locations][crate::client::NetworkSecurity::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1354,8 +1812,8 @@ pub mod network_security {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1367,6 +1825,15 @@ pub mod network_security {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1401,12 +1868,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_location][super::super::client::NetworkSecurity::get_location] calls.
+    /// The request builder for [NetworkSecurity::get_location][crate::client::NetworkSecurity::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1444,12 +1929,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::set_iam_policy][super::super::client::NetworkSecurity::set_iam_policy] calls.
+    /// The request builder for [NetworkSecurity::set_iam_policy][crate::client::NetworkSecurity::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1484,20 +1987,40 @@ pub mod network_security {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1509,12 +2032,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_iam_policy][super::super::client::NetworkSecurity::get_iam_policy] calls.
+    /// The request builder for [NetworkSecurity::get_iam_policy][crate::client::NetworkSecurity::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1547,11 +2088,20 @@ pub mod network_security {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1563,12 +2113,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::test_iam_permissions][super::super::client::NetworkSecurity::test_iam_permissions] calls.
+    /// The request builder for [NetworkSecurity::test_iam_permissions][crate::client::NetworkSecurity::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1624,12 +2192,34 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::list_operations][super::super::client::NetworkSecurity::list_operations] calls.
+    /// The request builder for [NetworkSecurity::list_operations][crate::client::NetworkSecurity::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1656,8 +2246,8 @@ pub mod network_security {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1669,6 +2259,17 @@ pub mod network_security {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1703,12 +2304,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::get_operation][super::super::client::NetworkSecurity::get_operation] calls.
+    /// The request builder for [NetworkSecurity::get_operation][crate::client::NetworkSecurity::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1749,12 +2368,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::delete_operation][super::super::client::NetworkSecurity::delete_operation] calls.
+    /// The request builder for [NetworkSecurity::delete_operation][crate::client::NetworkSecurity::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1795,12 +2432,30 @@ pub mod network_security {
         }
     }
 
-    /// The request builder for [NetworkSecurity::cancel_operation][super::super::client::NetworkSecurity::cancel_operation] calls.
+    /// The request builder for [NetworkSecurity::cancel_operation][crate::client::NetworkSecurity::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networksecurity_v1::builder;
+    /// use builder::network_security::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetworkSecurity>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkSecurity>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

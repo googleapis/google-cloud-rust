@@ -16,9 +16,8 @@
 
 pub mod migration_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [MigrationService][super::super::client::MigrationService].
+    /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod migration_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquerymigration.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod migration_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = MigrationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::MigrationService] request builders.
+    /// Common implementation for [crate::client::MigrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MigrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod migration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,14 +71,32 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::create_migration_workflow][super::super::client::MigrationService::create_migration_workflow] calls.
+    /// The request builder for [MigrationService::create_migration_workflow][crate::client::MigrationService::create_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::CreateMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMigrationWorkflow(
         RequestBuilder<crate::model::CreateMigrationWorkflowRequest>,
     );
 
     impl CreateMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,13 +134,22 @@ pub mod migration_service {
         /// Sets the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migration_workflow<
-            T: Into<std::option::Option<crate::model::MigrationWorkflow>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migration_workflow = v.into();
+        pub fn set_migration_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationWorkflow>,
+        {
+            self.0.request.migration_workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migration_workflow][crate::model::CreateMigrationWorkflowRequest::migration_workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migration_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigrationWorkflow>,
+        {
+            self.0.request.migration_workflow = v.map(|x| x.into());
             self
         }
     }
@@ -130,12 +161,30 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::get_migration_workflow][super::super::client::MigrationService::get_migration_workflow] calls.
+    /// The request builder for [MigrationService::get_migration_workflow][crate::client::MigrationService::get_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::GetMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMigrationWorkflow(RequestBuilder<crate::model::GetMigrationWorkflowRequest>);
 
     impl GetMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,8 +220,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::GetMigrationWorkflowRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -184,12 +245,34 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::list_migration_workflows][super::super::client::MigrationService::list_migration_workflows] calls.
+    /// The request builder for [MigrationService::list_migration_workflows][crate::client::MigrationService::list_migration_workflows] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::ListMigrationWorkflows;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMigrationWorkflows {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMigrationWorkflows(RequestBuilder<crate::model::ListMigrationWorkflowsRequest>);
 
     impl ListMigrationWorkflows {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -216,8 +299,8 @@ pub mod migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListMigrationWorkflowsResponse,
@@ -233,6 +316,17 @@ pub mod migration_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListMigrationWorkflowsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ListMigrationWorkflowsRequest::parent].
         ///
         /// This is a **required** field for requests.
@@ -242,8 +336,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::ListMigrationWorkflowsRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 
@@ -267,14 +373,32 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::delete_migration_workflow][super::super::client::MigrationService::delete_migration_workflow] calls.
+    /// The request builder for [MigrationService::delete_migration_workflow][crate::client::MigrationService::delete_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::DeleteMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMigrationWorkflow(
         RequestBuilder<crate::model::DeleteMigrationWorkflowRequest>,
     );
 
     impl DeleteMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -317,12 +441,30 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::start_migration_workflow][super::super::client::MigrationService::start_migration_workflow] calls.
+    /// The request builder for [MigrationService::start_migration_workflow][crate::client::MigrationService::start_migration_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::StartMigrationWorkflow;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartMigrationWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartMigrationWorkflow(RequestBuilder<crate::model::StartMigrationWorkflowRequest>);
 
     impl StartMigrationWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -365,12 +507,30 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::get_migration_subtask][super::super::client::MigrationService::get_migration_subtask] calls.
+    /// The request builder for [MigrationService::get_migration_subtask][crate::client::MigrationService::get_migration_subtask] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::GetMigrationSubtask;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMigrationSubtask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMigrationSubtask(RequestBuilder<crate::model::GetMigrationSubtaskRequest>);
 
     impl GetMigrationSubtask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -406,8 +566,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::GetMigrationSubtaskRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -419,12 +591,34 @@ pub mod migration_service {
         }
     }
 
-    /// The request builder for [MigrationService::list_migration_subtasks][super::super::client::MigrationService::list_migration_subtasks] calls.
+    /// The request builder for [MigrationService::list_migration_subtasks][crate::client::MigrationService::list_migration_subtasks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_migration_v2::builder;
+    /// use builder::migration_service::ListMigrationSubtasks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMigrationSubtasks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMigrationSubtasks(RequestBuilder<crate::model::ListMigrationSubtasksRequest>);
 
     impl ListMigrationSubtasks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MigrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MigrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -451,8 +645,8 @@ pub mod migration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMigrationSubtasksResponse, gax::error::Error>
         {
@@ -466,6 +660,17 @@ pub mod migration_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListMigrationSubtasksResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ListMigrationSubtasksRequest::parent].
         ///
         /// This is a **required** field for requests.
@@ -475,8 +680,20 @@ pub mod migration_service {
         }
 
         /// Sets the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::ListMigrationSubtasksRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
 

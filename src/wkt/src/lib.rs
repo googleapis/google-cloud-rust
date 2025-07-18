@@ -23,6 +23,8 @@
 //! custom JSON encoding, and may provide conversion functions to and from
 //! native or commonly used Rust types.
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
+
 mod any;
 pub use crate::any::*;
 mod duration;
@@ -34,7 +36,7 @@ pub use crate::field_mask::*;
 // The generated code contains (and uses) deprecated code.
 #[allow(deprecated)]
 mod generated;
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal;
 pub use crate::generated::*;
 mod timestamp;

@@ -16,9 +16,8 @@
 
 pub mod data_transfer_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DataTransferService][super::super::client::DataTransferService].
+    /// A builder for [DataTransferService][crate::client::DataTransferService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod data_transfer_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquerydatatransfer.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod data_transfer_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataTransferService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DataTransferService] request builders.
+    /// Common implementation for [crate::client::DataTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod data_transfer_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_data_source][super::super::client::DataTransferService::get_data_source] calls.
+    /// The request builder for [DataTransferService::get_data_source][crate::client::DataTransferService::get_data_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetDataSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataSource(RequestBuilder<crate::model::GetDataSourceRequest>);
 
     impl GetDataSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,12 +134,34 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_data_sources][super::super::client::DataTransferService::list_data_sources] calls.
+    /// The request builder for [DataTransferService::list_data_sources][crate::client::DataTransferService::list_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListDataSources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataSources(RequestBuilder<crate::model::ListDataSourcesRequest>);
 
     impl ListDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,8 +185,8 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataSourcesResponse, gax::error::Error>
         {
@@ -154,6 +198,15 @@ pub mod data_transfer_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataSourcesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataSourcesRequest::parent].
@@ -184,12 +237,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::create_transfer_config][super::super::client::DataTransferService::create_transfer_config] calls.
+    /// The request builder for [DataTransferService::create_transfer_config][crate::client::DataTransferService::create_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::CreateTransferConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTransferConfig(RequestBuilder<crate::model::CreateTransferConfigRequest>);
 
     impl CreateTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -227,11 +298,22 @@ pub mod data_transfer_service {
         /// Sets the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_config<T: Into<std::option::Option<crate::model::TransferConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_config = v.into();
+        pub fn set_transfer_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_config][crate::model::CreateTransferConfigRequest::transfer_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = v.map(|x| x.into());
             self
         }
 
@@ -262,12 +344,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::update_transfer_config][super::super::client::DataTransferService::update_transfer_config] calls.
+    /// The request builder for [DataTransferService::update_transfer_config][crate::client::DataTransferService::update_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::UpdateTransferConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTransferConfig(RequestBuilder<crate::model::UpdateTransferConfigRequest>);
 
     impl UpdateTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -297,11 +397,22 @@ pub mod data_transfer_service {
         /// Sets the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_config<T: Into<std::option::Option<crate::model::TransferConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_config = v.into();
+        pub fn set_transfer_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_config][crate::model::UpdateTransferConfigRequest::transfer_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferConfig>,
+        {
+            self.0.request.transfer_config = v.map(|x| x.into());
             self
         }
 
@@ -315,11 +426,22 @@ pub mod data_transfer_service {
         /// Sets the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTransferConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -343,12 +465,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::delete_transfer_config][super::super::client::DataTransferService::delete_transfer_config] calls.
+    /// The request builder for [DataTransferService::delete_transfer_config][crate::client::DataTransferService::delete_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::DeleteTransferConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTransferConfig(RequestBuilder<crate::model::DeleteTransferConfigRequest>);
 
     impl DeleteTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -391,12 +531,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_transfer_config][super::super::client::DataTransferService::get_transfer_config] calls.
+    /// The request builder for [DataTransferService::get_transfer_config][crate::client::DataTransferService::get_transfer_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetTransferConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTransferConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTransferConfig(RequestBuilder<crate::model::GetTransferConfigRequest>);
 
     impl GetTransferConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -439,12 +597,34 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_transfer_configs][super::super::client::DataTransferService::list_transfer_configs] calls.
+    /// The request builder for [DataTransferService::list_transfer_configs][crate::client::DataTransferService::list_transfer_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListTransferConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferConfigs(RequestBuilder<crate::model::ListTransferConfigsRequest>);
 
     impl ListTransferConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -471,8 +651,8 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTransferConfigsResponse, gax::error::Error>
         {
@@ -486,11 +666,33 @@ pub mod data_transfer_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListTransferConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ListTransferConfigsRequest::parent].
         ///
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
+        pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -505,17 +707,6 @@ pub mod data_transfer_service {
             self.0.request.page_size = v.into();
             self
         }
-
-        /// Sets the value of [data_source_ids][crate::model::ListTransferConfigsRequest::data_source_ids].
-        pub fn set_data_source_ids<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.data_source_ids = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -525,12 +716,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::schedule_transfer_runs][super::super::client::DataTransferService::schedule_transfer_runs] calls.
+    /// The request builder for [DataTransferService::schedule_transfer_runs][crate::client::DataTransferService::schedule_transfer_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ScheduleTransferRuns;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ScheduleTransferRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ScheduleTransferRuns(RequestBuilder<crate::model::ScheduleTransferRunsRequest>);
 
     impl ScheduleTransferRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -568,19 +777,44 @@ pub mod data_transfer_service {
         /// Sets the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::ScheduleTransferRunsRequest::start_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::ScheduleTransferRunsRequest::end_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
     }
@@ -592,14 +826,32 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::start_manual_transfer_runs][super::super::client::DataTransferService::start_manual_transfer_runs] calls.
+    /// The request builder for [DataTransferService::start_manual_transfer_runs][crate::client::DataTransferService::start_manual_transfer_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::StartManualTransferRuns;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartManualTransferRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartManualTransferRuns(
         RequestBuilder<crate::model::StartManualTransferRunsRequest>,
     );
 
     impl StartManualTransferRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -684,12 +936,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_transfer_run][super::super::client::DataTransferService::get_transfer_run] calls.
+    /// The request builder for [DataTransferService::get_transfer_run][crate::client::DataTransferService::get_transfer_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetTransferRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTransferRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTransferRun(RequestBuilder<crate::model::GetTransferRunRequest>);
 
     impl GetTransferRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -729,12 +999,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::delete_transfer_run][super::super::client::DataTransferService::delete_transfer_run] calls.
+    /// The request builder for [DataTransferService::delete_transfer_run][crate::client::DataTransferService::delete_transfer_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::DeleteTransferRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTransferRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTransferRun(RequestBuilder<crate::model::DeleteTransferRunRequest>);
 
     impl DeleteTransferRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -777,12 +1065,34 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_transfer_runs][super::super::client::DataTransferService::list_transfer_runs] calls.
+    /// The request builder for [DataTransferService::list_transfer_runs][crate::client::DataTransferService::list_transfer_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListTransferRuns;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferRuns(RequestBuilder<crate::model::ListTransferRunsRequest>);
 
     impl ListTransferRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -809,8 +1119,8 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTransferRunsResponse, gax::error::Error>
         {
@@ -824,11 +1134,31 @@ pub mod data_transfer_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferRunsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ListTransferRunsRequest::parent].
         ///
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
+        pub fn set_states<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::TransferState>,
+        {
+            use std::iter::Iterator;
+            self.0.request.states = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -852,17 +1182,6 @@ pub mod data_transfer_service {
             self.0.request.run_attempt = v.into();
             self
         }
-
-        /// Sets the value of [states][crate::model::ListTransferRunsRequest::states].
-        pub fn set_states<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::TransferState>,
-        {
-            use std::iter::Iterator;
-            self.0.request.states = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -872,12 +1191,34 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_transfer_logs][super::super::client::DataTransferService::list_transfer_logs] calls.
+    /// The request builder for [DataTransferService::list_transfer_logs][crate::client::DataTransferService::list_transfer_logs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListTransferLogs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferLogs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferLogs(RequestBuilder<crate::model::ListTransferLogsRequest>);
 
     impl ListTransferLogs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -904,8 +1245,8 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTransferLogsResponse, gax::error::Error>
         {
@@ -917,6 +1258,15 @@ pub mod data_transfer_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferLogsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTransferLogsRequest::parent].
@@ -958,12 +1308,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::check_valid_creds][super::super::client::DataTransferService::check_valid_creds] calls.
+    /// The request builder for [DataTransferService::check_valid_creds][crate::client::DataTransferService::check_valid_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::CheckValidCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckValidCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckValidCreds(RequestBuilder<crate::model::CheckValidCredsRequest>);
 
     impl CheckValidCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1003,12 +1371,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::enroll_data_sources][super::super::client::DataTransferService::enroll_data_sources] calls.
+    /// The request builder for [DataTransferService::enroll_data_sources][crate::client::DataTransferService::enroll_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::EnrollDataSources;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnrollDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnrollDataSources(RequestBuilder<crate::model::EnrollDataSourcesRequest>);
 
     impl EnrollDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1062,12 +1448,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::unenroll_data_sources][super::super::client::DataTransferService::unenroll_data_sources] calls.
+    /// The request builder for [DataTransferService::unenroll_data_sources][crate::client::DataTransferService::unenroll_data_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::UnenrollDataSources;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnenrollDataSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UnenrollDataSources(RequestBuilder<crate::model::UnenrollDataSourcesRequest>);
 
     impl UnenrollDataSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1121,12 +1525,34 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::list_locations][super::super::client::DataTransferService::list_locations] calls.
+    /// The request builder for [DataTransferService::list_locations][crate::client::DataTransferService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1153,8 +1579,8 @@ pub mod data_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1166,6 +1592,15 @@ pub mod data_transfer_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1200,12 +1635,30 @@ pub mod data_transfer_service {
         }
     }
 
-    /// The request builder for [DataTransferService::get_location][super::super::client::DataTransferService::get_location] calls.
+    /// The request builder for [DataTransferService::get_location][crate::client::DataTransferService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datatransfer_v1::builder;
+    /// use builder::data_transfer_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataTransferService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataTransferService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

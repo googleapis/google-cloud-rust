@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Build API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_build_v1::client::CloudBuild;
 /// let client = CloudBuild::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -65,11 +62,11 @@ use std::sync::Arc;
 ///
 /// `CloudBuild` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudBuild` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudBuild {
-    inner: Arc<dyn super::stub::dynamic::CloudBuild>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudBuild>,
 }
 
 impl CloudBuild {
@@ -79,7 +76,7 @@ impl CloudBuild {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// let client = CloudBuild::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_build::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_build::client::Factory)
@@ -94,33 +91,35 @@ impl CloudBuild {
         T: super::stub::CloudBuild + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudBuild>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBuild>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudBuild> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudBuild> {
         super::transport::CloudBuild::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudBuild> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudBuild> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudBuild::new)
@@ -141,49 +140,29 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_build(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::CreateBuild {
+    pub fn create_build(&self) -> super::builder::cloud_build::CreateBuild {
         super::builder::cloud_build::CreateBuild::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Returns information about a previously requested build.
     ///
     /// The `Build` that is returned includes its status (such as `SUCCESS`,
     /// `FAILURE`, or `WORKING`), and timing information.
-    pub fn get_build(
-        &self,
-        project_id: impl Into<std::string::String>,
-        id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::GetBuild {
+    pub fn get_build(&self) -> super::builder::cloud_build::GetBuild {
         super::builder::cloud_build::GetBuild::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_id(id.into())
     }
 
     /// Lists previously requested builds.
     ///
     /// Previously requested builds may still be in-progress, or may have finished
     /// successfully or unsuccessfully.
-    pub fn list_builds(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::ListBuilds {
+    pub fn list_builds(&self) -> super::builder::cloud_build::ListBuilds {
         super::builder::cloud_build::ListBuilds::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Cancels a build in progress.
-    pub fn cancel_build(
-        &self,
-        project_id: impl Into<std::string::String>,
-        id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::CancelBuild {
+    pub fn cancel_build(&self) -> super::builder::cloud_build::CancelBuild {
         super::builder::cloud_build::CancelBuild::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_id(id.into())
     }
 
     /// Creates a new build based on the specified build.
@@ -223,14 +202,8 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn retry_build(
-        &self,
-        project_id: impl Into<std::string::String>,
-        id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::RetryBuild {
+    pub fn retry_build(&self) -> super::builder::cloud_build::RetryBuild {
         super::builder::cloud_build::RetryBuild::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_id(id.into())
     }
 
     /// Approves or rejects a pending build.
@@ -249,72 +222,43 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn approve_build(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::ApproveBuild {
-        super::builder::cloud_build::ApproveBuild::new(self.inner.clone()).set_name(name.into())
+    pub fn approve_build(&self) -> super::builder::cloud_build::ApproveBuild {
+        super::builder::cloud_build::ApproveBuild::new(self.inner.clone())
     }
 
     /// Creates a new `BuildTrigger`.
     ///
     /// This API is experimental.
-    pub fn create_build_trigger(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::CreateBuildTrigger {
+    pub fn create_build_trigger(&self) -> super::builder::cloud_build::CreateBuildTrigger {
         super::builder::cloud_build::CreateBuildTrigger::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Returns information about a `BuildTrigger`.
     ///
     /// This API is experimental.
-    pub fn get_build_trigger(
-        &self,
-        project_id: impl Into<std::string::String>,
-        trigger_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::GetBuildTrigger {
+    pub fn get_build_trigger(&self) -> super::builder::cloud_build::GetBuildTrigger {
         super::builder::cloud_build::GetBuildTrigger::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_trigger_id(trigger_id.into())
     }
 
     /// Lists existing `BuildTrigger`s.
     ///
     /// This API is experimental.
-    pub fn list_build_triggers(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::ListBuildTriggers {
+    pub fn list_build_triggers(&self) -> super::builder::cloud_build::ListBuildTriggers {
         super::builder::cloud_build::ListBuildTriggers::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Deletes a `BuildTrigger` by its project ID and trigger ID.
     ///
     /// This API is experimental.
-    pub fn delete_build_trigger(
-        &self,
-        project_id: impl Into<std::string::String>,
-        trigger_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::DeleteBuildTrigger {
+    pub fn delete_build_trigger(&self) -> super::builder::cloud_build::DeleteBuildTrigger {
         super::builder::cloud_build::DeleteBuildTrigger::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_trigger_id(trigger_id.into())
     }
 
     /// Updates a `BuildTrigger` by its project ID and trigger ID.
     ///
     /// This API is experimental.
-    pub fn update_build_trigger(
-        &self,
-        project_id: impl Into<std::string::String>,
-        trigger_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::UpdateBuildTrigger {
+    pub fn update_build_trigger(&self) -> super::builder::cloud_build::UpdateBuildTrigger {
         super::builder::cloud_build::UpdateBuildTrigger::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_trigger_id(trigger_id.into())
     }
 
     /// Runs a `BuildTrigger` at a particular source revision.
@@ -334,26 +278,14 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_build_trigger(
-        &self,
-        project_id: impl Into<std::string::String>,
-        trigger_id: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::RunBuildTrigger {
+    pub fn run_build_trigger(&self) -> super::builder::cloud_build::RunBuildTrigger {
         super::builder::cloud_build::RunBuildTrigger::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_trigger_id(trigger_id.into())
     }
 
     /// ReceiveTriggerWebhook [Experimental] is called when the API receives a
     /// webhook request targeted at a specific trigger.
-    pub fn receive_trigger_webhook(
-        &self,
-        project_id: impl Into<std::string::String>,
-        trigger: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::ReceiveTriggerWebhook {
+    pub fn receive_trigger_webhook(&self) -> super::builder::cloud_build::ReceiveTriggerWebhook {
         super::builder::cloud_build::ReceiveTriggerWebhook::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_trigger(trigger.into())
     }
 
     /// Creates a `WorkerPool`.
@@ -367,20 +299,13 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_worker_pool(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::CreateWorkerPool {
+    pub fn create_worker_pool(&self) -> super::builder::cloud_build::CreateWorkerPool {
         super::builder::cloud_build::CreateWorkerPool::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns details of a `WorkerPool`.
-    pub fn get_worker_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::GetWorkerPool {
-        super::builder::cloud_build::GetWorkerPool::new(self.inner.clone()).set_name(name.into())
+    pub fn get_worker_pool(&self) -> super::builder::cloud_build::GetWorkerPool {
+        super::builder::cloud_build::GetWorkerPool::new(self.inner.clone())
     }
 
     /// Deletes a `WorkerPool`.
@@ -394,11 +319,8 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_worker_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::DeleteWorkerPool {
-        super::builder::cloud_build::DeleteWorkerPool::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_worker_pool(&self) -> super::builder::cloud_build::DeleteWorkerPool {
+        super::builder::cloud_build::DeleteWorkerPool::new(self.inner.clone())
     }
 
     /// Updates a `WorkerPool`.
@@ -412,40 +334,26 @@ impl CloudBuild {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_worker_pool(
-        &self,
-        worker_pool: impl Into<crate::model::WorkerPool>,
-    ) -> super::builder::cloud_build::UpdateWorkerPool {
+    pub fn update_worker_pool(&self) -> super::builder::cloud_build::UpdateWorkerPool {
         super::builder::cloud_build::UpdateWorkerPool::new(self.inner.clone())
-            .set_worker_pool(worker_pool.into())
     }
 
     /// Lists `WorkerPool`s.
-    pub fn list_worker_pools(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::ListWorkerPools {
+    pub fn list_worker_pools(&self) -> super::builder::cloud_build::ListWorkerPools {
         super::builder::cloud_build::ListWorkerPools::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::GetOperation {
-        super::builder::cloud_build::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::cloud_build::GetOperation {
+        super::builder::cloud_build::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_build::CancelOperation {
-        super::builder::cloud_build::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::cloud_build::CancelOperation {
+        super::builder::cloud_build::CancelOperation::new(self.inner.clone())
     }
 }

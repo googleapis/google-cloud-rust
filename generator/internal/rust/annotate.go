@@ -46,9 +46,6 @@ type modelAnnotations struct {
 	Services          []*api.Service
 	NameToLower       string
 	NotForPublication bool
-	// When bootstrapping the well-known types crate the templates add some
-	// ad-hoc code.
-	IsWktCrate bool
 	// If true, disable rustdoc warnings known to be triggered by our generated
 	// documentation.
 	DisabledRustdocWarnings []string
@@ -56,11 +53,25 @@ type modelAnnotations struct {
 	DefaultSystemParameters []systemParameter
 	// Enables per-service features
 	PerServiceFeatures bool
+	// If true, at lease one service has a method we cannot wrap (yet).
+	Incomplete bool
+}
+
+// When bootstrapping the well-known types crate the templates add some
+// ad-hoc code.
+func (m *modelAnnotations) IsWktCrate() bool {
+	return m.PackageName == "google-cloud-wkt"
 }
 
 // HasServices returns true if there are any services in the model
 func (m *modelAnnotations) HasServices() bool {
 	return len(m.Services) > 0
+}
+
+// We handle references to `gaxi` traits from within the `gaxi` crate, by
+// injecting some ad-hoc code.
+func (m *modelAnnotations) IsGaxiCrate() bool {
+	return m.PackageName == "google-cloud-gax-internal"
 }
 
 type serviceAnnotations struct {
@@ -78,13 +89,36 @@ type serviceAnnotations struct {
 	// Only a subset of the methods is generated.
 	Methods     []*api.Method
 	DefaultHost string
-	// If true, this service includes methods that return long-running operations.
-	HasLROs  bool
+	// A set of all types involved in an LRO, whether used as metadata or
+	// response.
+	LROTypes []*api.Message
 	APITitle string
 	// If set, gate this service under a feature named `ModuleName`.
 	PerServiceFeatures bool
-	// If set, skip the builder documentation.
-	SkipBuilderDocs bool
+	// If true, there is a handwritten client surface.
+	HasVeneer bool
+	// If true, the service has a method we cannot wrap (yet).
+	Incomplete bool
+}
+
+func (m *methodAnnotation) HasBindingSubstitutions() bool {
+	for _, b := range m.PathInfo.Bindings {
+		for _, s := range b.PathTemplate.Segments {
+			if s.Variable != nil {
+				return true
+			}
+		}
+	}
+	return false
+}
+
+// If true, this service includes methods that return long-running operations.
+func (s *serviceAnnotations) HasLROs() bool {
+	return len(s.LROTypes) > 0
+}
+
+func (a *serviceAnnotations) FeatureName() string {
+	return strcase.ToKebab(a.ModuleName)
 }
 
 func (a *messageAnnotation) MultiFeatureGates() bool {
@@ -124,24 +158,19 @@ type messageAnnotation struct {
 	// becomes `google::service::v1`.
 	PackageModuleName string
 	// The FQN is the source specification
-	SourceFQN         string
-	MessageAttributes []string
-	DocLines          []string
-	HasNestedTypes    bool
+	SourceFQN      string
+	DocLines       []string
+	HasNestedTypes bool
 	// All the fields except OneOfs.
 	BasicFields []*api.Field
-	// The subset of `BasicFields` that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of `BasicFields` that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of `BasicFields` that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
 	// synthetic messages
 	HasSyntheticFields bool
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, this message's visibility should only be `pub(crate)`
+	Internal bool
 }
 
 type methodAnnotation struct {
@@ -149,8 +178,6 @@ type methodAnnotation struct {
 	BuilderName         string
 	DocLines            []string
 	PathInfo            *api.PathInfo
-	PathParams          []*api.Field
-	QueryParams         []*api.Field
 	BodyAccessor        string
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
@@ -158,32 +185,130 @@ type methodAnnotation struct {
 	OperationInfo       *operationInfo
 	SystemParameters    []systemParameter
 	ReturnType          string
-	SkipBuilderDocs     bool
+	HasVeneer           bool
+	Attributes          []string
 }
 
 type pathInfoAnnotation struct {
-	Method        string
-	MethodToLower string
-	PathFmt       string
-	PathArgs      []pathArg
-	HasPathArgs   bool
-	HasBody       bool
+	// Whether the request has a body or not
+	HasBody bool
+
+	// A list of possible request parameters
+	//
+	// This is only used for gRPC-based clients, where we must consider all
+	// possible request parameters.
+	//
+	// https://google.aip.dev/client-libraries/4222
+	//
+	// Templates are ignored. We only care about the FieldName and FieldAccessor.
+	UniqueParameters []*bindingSubstitution
+
+	// Whether this is idempotent by default
+	//
+	// This is only used for gRPC-based clients.
+	IsIdempotent string
 }
 
 type operationInfo struct {
-	MetadataType       string
-	ResponseType       string
-	MetadataTypeInDocs string
-	ResponseTypeInDocs string
-	PackageNamespace   string
+	MetadataType     string
+	ResponseType     string
+	PackageNamespace string
+}
+
+func (info *operationInfo) OnlyMetadataIsEmpty() bool {
+	return info.MetadataType == "wkt::Empty" && info.ResponseType != "wkt::Empty"
+}
+
+func (info *operationInfo) OnlyResponseIsEmpty() bool {
+	return info.MetadataType != "wkt::Empty" && info.ResponseType == "wkt::Empty"
+}
+
+func (info *operationInfo) BothAreEmpty() bool {
+	return info.MetadataType == "wkt::Empty" && info.ResponseType == "wkt::Empty"
+}
+
+func (info *operationInfo) NoneAreEmpty() bool {
+	return info.MetadataType != "wkt::Empty" && info.ResponseType != "wkt::Empty"
 }
 
 type routingVariantAnnotations struct {
-	FirstVariant     bool
 	FieldAccessors   []string
 	PrefixSegments   []string
 	MatchingSegments []string
 	SuffixSegments   []string
+}
+
+type bindingSubstitution struct {
+	// Rust code to access the leaf field, given a `req`
+	//
+	// This field can be deeply nested. We need to capture code for the entire
+	// chain. This accessor always returns an `Option<&T>`, even for fields
+	// which are always present. This simplifies the mustache templates.
+	//
+	// The accessor should not
+	// - copy any fields
+	// - move any fields
+	// - panic
+	// - assume context i.e. use the try operator: `?`
+	FieldAccessor string
+
+	// The field name
+	//
+	// Nested fields are '.'-separated.
+	//
+	// e.g. "message_field.nested_field"
+	FieldName string
+
+	// The path template to match this substitution against
+	//
+	// e.g. ["projects", "*"]
+	Template []string
+}
+
+// Rust code that yields an array of path segments.
+//
+// This array is supplied as an argument to `gaxi::path_parameter::try_match()`,
+// and `gaxi::path_parameter::PathMismatchBuilder`.
+//
+// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard]`
+func (s *bindingSubstitution) TemplateAsArray() string {
+	return "&[" + strings.Join(annotateSegments(s.Template), ", ") + "]"
+}
+
+// The expected template, which can be used as a static string.
+//
+// e.g.: "projects/*"
+func (s *bindingSubstitution) TemplateAsString() string {
+	return strings.Join(s.Template, "/")
+}
+
+type pathBindingAnnotation struct {
+	// The path format string for this binding
+	//
+	// e.g. "/v1/projects/{}/locations/{}"
+	PathFmt string
+
+	// The fields to be sent as query parameters for this binding
+	QueryParams []*api.Field
+
+	// The variables to be substituted into the path
+	Substitutions []*bindingSubstitution
+}
+
+// We serialize certain query parameters, which can fail. The code we generate
+// uses the try operator '?'. We need to run this code in a closure which
+// returns a `Result<>`.
+func (b *pathBindingAnnotation) QueryParamsCanFail() bool {
+	for _, f := range b.QueryParams {
+		if f.Typez == api.MESSAGE_TYPE {
+			return true
+		}
+	}
+	return false
+}
+
+func (b *pathBindingAnnotation) HasVariablePath() bool {
+	return len(b.Substitutions) != 0
 }
 
 type oneOfAnnotation struct {
@@ -205,12 +330,6 @@ type oneOfAnnotation struct {
 	StructQualifiedName string
 	FieldType           string
 	DocLines            []string
-	// The subset of the oneof fields that are neither maps, nor repeated.
-	SingularFields []*api.Field
-	// The subset of the oneof fields that are repeated (`Vec<T>` in Rust).
-	RepeatedFields []*api.Field
-	// The subset of the oneof fields that are maps (`HashMap<K, V>` in Rust).
-	MapFields []*api.Field
 	// If set, this enum is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
@@ -230,7 +349,6 @@ type fieldAnnotations struct {
 	// The fully qualified name of the containing message.
 	FQMessageName      string
 	DocLines           []string
-	Attributes         []string
 	FieldType          string
 	PrimitiveFieldType string
 	AddQueryParameter  string
@@ -242,6 +360,24 @@ type fieldAnnotations struct {
 	ValueField *api.Field
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
+	// If true, it requires a serde_with::serde_as() transformation.
+	SerdeAs string
+	// If true, use `wkt::internal::is_default()` to skip the field
+	SkipIfIsDefault bool
+	// If true, this is a `wkt::Value` field, and requires super-extra custom
+	// deserialization.
+	IsWktValue bool
+	// If true, this is a `wkt::NullValue` field, and also requires super-extra
+	// custom deserialization.
+	IsWktNullValue bool
+}
+
+func (a *fieldAnnotations) SkipIfIsEmpty() bool {
+	return !a.SkipIfIsDefault
+}
+
+func (a *fieldAnnotations) RequiresSerdeAs() bool {
+	return a.SerdeAs != ""
 }
 
 type enumAnnotation struct {
@@ -309,13 +445,13 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 	}
 
 	servicesSubset := language.FilterSlice(model.Services, func(s *api.Service) bool {
-		for _, m := range s.Methods {
-			if codec.generateMethod(m) {
-				return true
-			}
-		}
-		return false
+		return slices.ContainsFunc(s.Methods, func(m *api.Method) bool { return codec.generateMethod(m) })
 	})
+	// The maximum (15) was chosen more or less arbitrarily circa 2025-06. At
+	// the time, only a handful of services exceeded this number of services.
+	if len(servicesSubset) > 15 && !codec.perServiceFeatures {
+		slog.Warn("package has more than 15 services, consider enabling per-service features", "package", packageName, "count", len(servicesSubset))
+	}
 
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.
@@ -350,9 +486,11 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		Services:                servicesSubset,
 		NameToLower:             strings.ToLower(model.Name),
 		NotForPublication:       codec.doNotPublish,
-		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
+		Incomplete: slices.ContainsFunc(model.Services, func(s *api.Service) bool {
+			return slices.ContainsFunc(s.Methods, func(m *api.Method) bool { return !codec.generateMethod(m) })
+		}),
 	}
 
 	codec.addFeatureAnnotations(model, ann)
@@ -368,7 +506,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 	var allFeatures []string
 	for _, service := range ann.Services {
 		svcAnn := service.Codec.(*serviceAnnotations)
-		allFeatures = append(allFeatures, svcAnn.ModuleName)
+		allFeatures = append(allFeatures, svcAnn.FeatureName())
 		deps := api.FindServiceDependencies(model, service.ID)
 		for _, id := range deps.Enums {
 			enum, ok := model.State.EnumByID[id]
@@ -377,7 +515,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 				continue
 			}
 			annotation := enum.Codec.(*enumAnnotation)
-			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 			slices.Sort(annotation.FeatureGates)
 			annotation.FeatureGatesOp = "any"
 		}
@@ -388,7 +526,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 				continue
 			}
 			annotation := msg.Codec.(*messageAnnotation)
-			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+			annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 			slices.Sort(annotation.FeatureGates)
 			annotation.FeatureGatesOp = "any"
 			for _, one := range msg.OneOfs {
@@ -396,7 +534,7 @@ func (c *codec) addFeatureAnnotations(model *api.API, ann *modelAnnotations) {
 					continue
 				}
 				annotation := one.Codec.(*oneOfAnnotation)
-				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.ModuleName)
+				annotation.FeatureGates = append(annotation.FeatureGates, svcAnn.FeatureName())
 				slices.Sort(annotation.FeatureGates)
 				annotation.FeatureGatesOp = "any"
 			}
@@ -444,60 +582,37 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 	methods := language.FilterSlice(s.Methods, func(m *api.Method) bool {
 		return c.generateMethod(m)
 	})
-	hasLROs := false
+	seenLROTypes := make(map[string]bool)
+	var lroTypes []*api.Message
 	for _, m := range methods {
 		if m.OperationInfo != nil {
-			hasLROs = true
-			break
+			if _, ok := seenLROTypes[m.OperationInfo.MetadataTypeID]; !ok {
+				seenLROTypes[m.OperationInfo.MetadataTypeID] = true
+				lroTypes = append(lroTypes, model.State.MessageByID[m.OperationInfo.MetadataTypeID])
+			}
+			if _, ok := seenLROTypes[m.OperationInfo.ResponseTypeID]; !ok {
+				seenLROTypes[m.OperationInfo.ResponseTypeID] = true
+				lroTypes = append(lroTypes, model.State.MessageByID[m.OperationInfo.ResponseTypeID])
+			}
 		}
 	}
-	moduleName := toSnake(s.Name)
+	serviceName := c.ServiceName(s)
+	moduleName := toSnake(serviceName)
 	ann := &serviceAnnotations{
-		Name:              toPascal(s.Name),
+		Name:              toPascal(serviceName),
 		PackageModuleName: packageToModuleName(s.Package),
 		ModuleName:        moduleName,
 		DocLines: c.formatDocComments(
 			s.Documentation, s.ID, model.State, []string{s.ID, s.Package}),
 		Methods:            methods,
 		DefaultHost:        s.DefaultHost,
-		HasLROs:            hasLROs,
+		LROTypes:           lroTypes,
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
-		SkipBuilderDocs:    c.skipBuilderDocs,
+		HasVeneer:          c.hasVeneer,
+		Incomplete:         slices.ContainsFunc(s.Methods, func(m *api.Method) bool { return !c.generateMethod(m) }),
 	}
 	s.Codec = ann
-}
-
-type fieldPartition struct {
-	singularFields []*api.Field
-	repeatedFields []*api.Field
-	mapFields      []*api.Field
-}
-
-func partitionFields(fields []*api.Field, state *api.APIState) fieldPartition {
-	isMap := func(f *api.Field) bool {
-		if f.Typez != api.MESSAGE_TYPE {
-			return false
-		}
-		if m, ok := state.MessageByID[f.TypezID]; ok {
-			return m.IsMap
-		}
-		return false
-	}
-	isRepeated := func(f *api.Field) bool {
-		return f.Repeated && !isMap(f)
-	}
-	return fieldPartition{
-		singularFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return !isRepeated(f) && !isMap(f)
-		}),
-		repeatedFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isRepeated(f)
-		}),
-		mapFields: language.FilterSlice(fields, func(f *api.Field) bool {
-			return isMap(f)
-		}),
-	}
 }
 
 // annotateMessage annotates the message, its fields, its nested
@@ -525,7 +640,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 	basicFields := language.FilterSlice(m.Fields, func(f *api.Field) bool {
 		return !f.IsOneOf
 	})
-	partition := partitionFields(basicFields, state)
 	qualifiedName := fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 	relativeName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	m.Codec = &messageAnnotation{
@@ -536,30 +650,18 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		PackageModuleName:  packageToModuleName(m.Package),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           c.formatDocComments(m.Documentation, m.ID, state, m.Scopes()),
-		MessageAttributes:  messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
-		SingularFields:     partition.singularFields,
-		RepeatedFields:     partition.repeatedFields,
-		MapFields:          partition.mapFields,
 		HasSyntheticFields: hasSyntheticFields,
+		Internal:           slices.Contains(c.internalTypes, m.ID),
 	}
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
-	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:        m.PathInfo.Verb,
-		MethodToLower: strings.ToLower(m.PathInfo.Verb),
-		PathFmt:       httpPathFmt(m.PathInfo),
-		PathArgs:      httpPathArgs(m.PathInfo, m, state),
-		HasBody:       m.PathInfo.BodyFieldPath != "",
-	}
-	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
-
+	annotatePathInfo(m.PathInfo, m, state)
 	for _, routing := range m.Routing {
-		for index, variant := range routing.Variants {
+		for _, variant := range routing.Variants {
 			routingVariantAnnotations := &routingVariantAnnotations{
-				FirstVariant:     index == 0,
 				FieldAccessors:   c.annotateRoutingAccessors(variant, m, state),
 				PrefixSegments:   annotateSegments(variant.Prefix.Segments),
 				MatchingSegments: annotateSegments(variant.Matching.Segments),
@@ -568,42 +670,46 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 			variant.Codec = routingVariantAnnotations
 		}
 	}
-
-	m.PathInfo.Codec = pathInfoAnnotation
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
+	serviceName := c.ServiceName(s)
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		PathParams:          language.PathParams(m, state),
-		QueryParams:         language.QueryParams(m, state),
-		ServiceNameToPascal: toPascal(s.Name),
-		ServiceNameToCamel:  toCamel(s.Name),
-		ServiceNameToSnake:  toSnake(s.Name),
+		ServiceNameToPascal: toPascal(serviceName),
+		ServiceNameToCamel:  toCamel(serviceName),
+		ServiceNameToSnake:  toSnake(serviceName),
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
-		SkipBuilderDocs:     c.skipBuilderDocs,
+		HasVeneer:           c.hasVeneer,
+	}
+	if annotation.Name == "clone" {
+		// Some methods look too similar to standard Rust traits. Clippy makes
+		// a recommendation that is not applicable to generated code.
+		annotation.Attributes = []string{"#[allow(clippy::should_implement_trait)]"}
 	}
 	if m.OperationInfo != nil {
 		metadataType := c.methodInOutTypeName(m.OperationInfo.MetadataTypeID, state, sourceSpecificationPackageName)
 		responseType := c.methodInOutTypeName(m.OperationInfo.ResponseTypeID, state, sourceSpecificationPackageName)
 		m.OperationInfo.Codec = &operationInfo{
-			MetadataType:       metadataType,
-			ResponseType:       responseType,
-			MetadataTypeInDocs: strings.TrimPrefix(metadataType, "crate::"),
-			ResponseTypeInDocs: strings.TrimPrefix(responseType, "crate::"),
-			PackageNamespace:   packageNamespace,
+			MetadataType:     metadataType,
+			ResponseType:     responseType,
+			PackageNamespace: packageNamespace,
 		}
 	}
 	m.Codec = annotation
 }
 
 func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
+	return makeAccessors(variant.FieldPath, m, state)
+}
+
+func makeAccessors(fields []string, m *api.Method, state *api.APIState) []string {
 	findField := func(name string, message *api.Message) *api.Field {
 		for _, f := range message.Fields {
 			if f.Name == name {
@@ -614,19 +720,19 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 	}
 	var accessors []string
 	message := m.InputType
-	for _, name := range variant.FieldPath {
+	for _, name := range fields {
 		field := findField(name, message)
 		if field == nil {
-			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
+			slog.Error("invalid routing/path field for request message", "field", name, "message ID", message.ID)
 			continue
 		}
-		switch {
-		case field.Optional:
-			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
-		case field.Typez == api.STRING_TYPE:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
-		default:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
+		if field.Optional {
+			accessors = append(accessors, fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name))
+		} else {
+			accessors = append(accessors, fmt.Sprintf(".map(|m| &m.%s)", name))
+		}
+		if field.Typez == api.STRING_TYPE {
+			accessors = append(accessors, ".map(|s| s.as_str())")
 		}
 		if field.Typez == api.MESSAGE_TYPE {
 			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
@@ -639,9 +745,19 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 
 func annotateSegments(segments []string) []string {
 	var ann []string
+	// The model may have multiple consecutive literal segments. We use this
+	// buffer to consolidate them into a single literal segment.
+	literalBuffer := ""
+	flushBuffer := func() {
+		if literalBuffer != "" {
+			ann = append(ann, fmt.Sprintf(`Segment::Literal("%s")`, literalBuffer))
+		}
+		literalBuffer = ""
+	}
 	for index, segment := range segments {
 		switch {
-		case segment == api.RoutingMultiSegmentWildcard:
+		case segment == api.MultiSegmentWildcard:
+			flushBuffer()
 			if len(segments) == 1 {
 				ann = append(ann, "Segment::MultiWildcard")
 			} else if len(segments) != index+1 {
@@ -649,25 +765,82 @@ func annotateSegments(segments []string) []string {
 			} else {
 				ann = append(ann, "Segment::TrailingMultiWildcard")
 			}
-		case segment == api.RoutingSingleSegmentWildcard:
+		case segment == api.SingleSegmentWildcard:
 			if index != 0 {
-				ann = append(ann, `Segment::Literal("/")`)
+				literalBuffer += "/"
 			}
+			flushBuffer()
 			ann = append(ann, "Segment::SingleWildcard")
 		default:
 			if index != 0 {
-				ann = append(ann, `Segment::Literal("/")`)
+				literalBuffer += "/"
 			}
-			ann = append(ann, fmt.Sprintf(`Segment::Literal("%s")`, segment))
+			literalBuffer += segment
 		}
 	}
+	flushBuffer()
 	return ann
 }
 
+func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIState) bindingSubstitution {
+	fieldAccessor := "Some(&req)"
+	for _, a := range makeAccessors(v.FieldPath, m, state) {
+		fieldAccessor += a
+	}
+	return bindingSubstitution{
+		FieldAccessor: fieldAccessor,
+		FieldName:     strings.Join(v.FieldPath, "."),
+		Template:      v.Segments,
+	}
+}
+
+func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) *pathBindingAnnotation {
+	var subs []*bindingSubstitution
+	for _, s := range b.PathTemplate.Segments {
+		if s.Variable != nil {
+			sub := makeBindingSubstitution(s.Variable, m, state)
+			subs = append(subs, &sub)
+		}
+	}
+	return &pathBindingAnnotation{
+		PathFmt:       httpPathFmt(b.PathTemplate),
+		QueryParams:   language.QueryParams(m, b),
+		Substitutions: subs,
+	}
+}
+
+// Annotates the `PathInfo` and all of its `PathBinding`s.
+func annotatePathInfo(p *api.PathInfo, m *api.Method, state *api.APIState) {
+	seen := make(map[string]bool)
+	var uniqueParameters []*bindingSubstitution
+
+	for _, b := range p.Bindings {
+		ann := annotatePathBinding(b, m, state)
+
+		// We need to keep track of unique path parameters to support
+		// implicit routing over gRPC. This is go/aip/4222.
+		for _, s := range ann.Substitutions {
+			if _, ok := seen[s.FieldName]; !ok {
+				uniqueParameters = append(uniqueParameters, s)
+				seen[s.FieldName] = true
+			}
+		}
+
+		// Annotate the `PathBinding`
+		b.Codec = ann
+	}
+
+	// Annotate the `PathInfo`
+	p.Codec = &pathInfoAnnotation{
+		HasBody:          m.PathInfo.BodyFieldPath != "",
+		UniqueParameters: uniqueParameters,
+		IsIdempotent:     isIdempotent(p),
+	}
+}
+
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
-	partition := partitionFields(oneof.Fields, state)
 	scope := messageScopeName(message, "", c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-	enumName := toPascal(oneof.Name)
+	enumName := c.OneOfEnumName(oneof)
 	qualifiedName := fmt.Sprintf("%s::%s", scope, enumName)
 	relativeEnumName := strings.TrimPrefix(qualifiedName, c.modulePath+"::")
 	structQualifiedName := fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
@@ -678,11 +851,66 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		QualifiedName:       qualifiedName,
 		RelativeName:        relativeEnumName,
 		StructQualifiedName: structQualifiedName,
-		FieldType:           fmt.Sprintf("%s::%s", scope, toPascal(oneof.Name)),
+		FieldType:           fmt.Sprintf("%s::%s", scope, enumName),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
-		SingularFields:      partition.singularFields,
-		RepeatedFields:      partition.repeatedFields,
-		MapFields:           partition.mapFields,
+	}
+}
+
+func (c *codec) primitiveSerdeAs(field *api.Field) string {
+	switch field.Typez {
+	case api.INT32_TYPE, api.SFIXED32_TYPE, api.SINT32_TYPE:
+		return "wkt::internal::I32"
+	case api.INT64_TYPE, api.SFIXED64_TYPE, api.SINT64_TYPE:
+		return "wkt::internal::I64"
+	case api.UINT32_TYPE, api.FIXED32_TYPE:
+		return "wkt::internal::U32"
+	case api.UINT64_TYPE, api.FIXED64_TYPE:
+		return "wkt::internal::U64"
+	case api.FLOAT_TYPE:
+		return "wkt::internal::F32"
+	case api.DOUBLE_TYPE:
+		return "wkt::internal::F64"
+	case api.BYTES_TYPE:
+		return "serde_with::base64::Base64"
+	default:
+		return ""
+	}
+}
+
+func (c *codec) mapKeySerdeAs(field *api.Field) string {
+	if field.Typez == api.BOOL_TYPE {
+		return "serde_with::DisplayFromStr"
+	}
+	return c.primitiveSerdeAs(field)
+}
+
+func (c *codec) mapValueSerdeAs(field *api.Field) string {
+	if field.Typez == api.MESSAGE_TYPE {
+		return c.messageFieldSerdeAs(field)
+	}
+	return c.primitiveSerdeAs(field)
+}
+
+func (c *codec) messageFieldSerdeAs(field *api.Field) string {
+	switch field.TypezID {
+	case ".google.protobuf.BytesValue":
+		return "serde_with::base64::Base64"
+	case ".google.protobuf.UInt64Value":
+		return "wkt::internal::U64"
+	case ".google.protobuf.Int64Value":
+		return "wkt::internal::I64"
+	case ".google.protobuf.UInt32Value":
+		return "wkt::internal::U32"
+	case ".google.protobuf.Int32Value":
+		return "wkt::internal::I32"
+	case ".google.protobuf.FloatValue":
+		return "wkt::internal::F32"
+	case ".google.protobuf.DoubleValue":
+		return "wkt::internal::F64"
+	case ".google.protobuf.BoolValue":
+		return ""
+	default:
+		return ""
 	}
 }
 
@@ -693,26 +921,42 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FQMessageName:      fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		BranchName:         toPascal(field.Name),
 		DocLines:           c.formatDocComments(field.Documentation, field.ID, state, message.Scopes()),
-		Attributes:         fieldAttributes(field, state),
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
+		SerdeAs:            c.primitiveSerdeAs(field),
+		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
+		IsWktValue:         field.Typez == api.MESSAGE_TYPE && field.TypezID == ".google.protobuf.Value",
+		IsWktNullValue:     field.Typez == api.ENUM_TYPE && field.TypezID == ".google.protobuf.NullValue",
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
 	}
 	field.Codec = ann
-	if field.Typez != api.MESSAGE_TYPE {
-		return
+	if field.Typez == api.MESSAGE_TYPE {
+		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
+			if len(msg.Fields) != 2 {
+				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
+			}
+			ann.KeyField = msg.Fields[0]
+			ann.KeyType = mapType(msg.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+			ann.ValueField = msg.Fields[1]
+			ann.ValueType = mapType(msg.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+			key := c.mapKeySerdeAs(msg.Fields[0])
+			value := c.mapValueSerdeAs(msg.Fields[1])
+			if key != "" || value != "" {
+				if key == "" {
+					key = "serde_with::Same"
+				}
+				if value == "" {
+					value = "serde_with::Same"
+				}
+				ann.SerdeAs = fmt.Sprintf("std::collections::HashMap<%s, %s>", key, value)
+			}
+		} else {
+			ann.SerdeAs = c.messageFieldSerdeAs(field)
+		}
 	}
-	mapMessage, ok := state.MessageByID[field.TypezID]
-	if !ok || !mapMessage.IsMap {
-		return
-	}
-	ann.KeyField = mapMessage.Fields[0]
-	ann.KeyType = mapType(mapMessage.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-	ann.ValueField = mapMessage.Fields[1]
-	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
 func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) {
@@ -764,9 +1008,14 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 }
 
 // Returns "true" if the method is idempotent by default, and "false", if not.
-func (p *pathInfoAnnotation) IsIdempotent() string {
-	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
-		return "true"
+func isIdempotent(p *api.PathInfo) string {
+	if len(p.Bindings) == 0 {
+		return "false"
 	}
-	return "false"
+	for _, b := range p.Bindings {
+		if b.Verb == "POST" || b.Verb == "PATCH" {
+			return "false"
+		}
+	}
+	return "true"
 }

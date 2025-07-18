@@ -16,9 +16,8 @@
 
 pub mod binauthz_management_service_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [BinauthzManagementServiceV1][super::super::client::BinauthzManagementServiceV1].
+    /// A builder for [BinauthzManagementServiceV1][crate::client::BinauthzManagementServiceV1].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod binauthz_management_service_v_1 {
     /// let client = builder
     ///     .with_endpoint("https://binaryauthorization.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod binauthz_management_service_v_1 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BinauthzManagementServiceV1;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::BinauthzManagementServiceV1] request builders.
+    /// Common implementation for [crate::client::BinauthzManagementServiceV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod binauthz_management_service_v_1 {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::get_policy][super::super::client::BinauthzManagementServiceV1::get_policy] calls.
+    /// The request builder for [BinauthzManagementServiceV1::get_policy][crate::client::BinauthzManagementServiceV1::get_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::GetPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,13 +134,29 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::update_policy][super::super::client::BinauthzManagementServiceV1::update_policy] calls.
+    /// The request builder for [BinauthzManagementServiceV1::update_policy][crate::client::BinauthzManagementServiceV1::update_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::UpdatePolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -150,11 +184,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -166,13 +211,29 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::create_attestor][super::super::client::BinauthzManagementServiceV1::create_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::create_attestor][crate::client::BinauthzManagementServiceV1::create_attestor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::CreateAttestor;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAttestor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAttestor(RequestBuilder<crate::model::CreateAttestorRequest>);
 
     impl CreateAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -216,11 +277,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [attestor][crate::model::CreateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestor = v.into();
+        pub fn set_attestor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attestor][crate::model::CreateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = v.map(|x| x.into());
             self
         }
     }
@@ -232,13 +304,29 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::get_attestor][super::super::client::BinauthzManagementServiceV1::get_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::get_attestor][crate::client::BinauthzManagementServiceV1::get_attestor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::GetAttestor;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAttestor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttestor(RequestBuilder<crate::model::GetAttestorRequest>);
 
     impl GetAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -279,13 +367,29 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::update_attestor][super::super::client::BinauthzManagementServiceV1::update_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::update_attestor][crate::client::BinauthzManagementServiceV1::update_attestor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::UpdateAttestor;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAttestor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAttestor(RequestBuilder<crate::model::UpdateAttestorRequest>);
 
     impl UpdateAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -313,11 +417,22 @@ pub mod binauthz_management_service_v_1 {
         /// Sets the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestor<T: Into<std::option::Option<crate::model::Attestor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestor = v.into();
+        pub fn set_attestor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attestor][crate::model::UpdateAttestorRequest::attestor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attestor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attestor>,
+        {
+            self.0.request.attestor = v.map(|x| x.into());
             self
         }
     }
@@ -329,13 +444,33 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::list_attestors][super::super::client::BinauthzManagementServiceV1::list_attestors] calls.
+    /// The request builder for [BinauthzManagementServiceV1::list_attestors][crate::client::BinauthzManagementServiceV1::list_attestors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::ListAttestors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttestors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttestors(RequestBuilder<crate::model::ListAttestorsRequest>);
 
     impl ListAttestors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -360,8 +495,8 @@ pub mod binauthz_management_service_v_1 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAttestorsResponse, gax::error::Error>
         {
@@ -373,6 +508,15 @@ pub mod binauthz_management_service_v_1 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttestorsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAttestorsRequest::parent].
@@ -403,13 +547,29 @@ pub mod binauthz_management_service_v_1 {
         }
     }
 
-    /// The request builder for [BinauthzManagementServiceV1::delete_attestor][super::super::client::BinauthzManagementServiceV1::delete_attestor] calls.
+    /// The request builder for [BinauthzManagementServiceV1::delete_attestor][crate::client::BinauthzManagementServiceV1::delete_attestor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::binauthz_management_service_v_1::DeleteAttestor;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAttestor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAttestor(RequestBuilder<crate::model::DeleteAttestorRequest>);
 
     impl DeleteAttestor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BinauthzManagementServiceV1>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -453,9 +613,8 @@ pub mod binauthz_management_service_v_1 {
 
 pub mod system_policy_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SystemPolicyV1][super::super::client::SystemPolicyV1].
+    /// A builder for [SystemPolicyV1][crate::client::SystemPolicyV1].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -466,7 +625,7 @@ pub mod system_policy_v_1 {
     /// let client = builder
     ///     .with_endpoint("https://binaryauthorization.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -477,16 +636,19 @@ pub mod system_policy_v_1 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SystemPolicyV1;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SystemPolicyV1] request builders.
+    /// Common implementation for [crate::client::SystemPolicyV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -495,7 +657,9 @@ pub mod system_policy_v_1 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -504,12 +668,30 @@ pub mod system_policy_v_1 {
         }
     }
 
-    /// The request builder for [SystemPolicyV1::get_system_policy][super::super::client::SystemPolicyV1::get_system_policy] calls.
+    /// The request builder for [SystemPolicyV1::get_system_policy][crate::client::SystemPolicyV1::get_system_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::system_policy_v_1::GetSystemPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSystemPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSystemPolicy(RequestBuilder<crate::model::GetSystemPolicyRequest>);
 
     impl GetSystemPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SystemPolicyV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SystemPolicyV1>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,9 +734,8 @@ pub mod system_policy_v_1 {
 
 pub mod validation_helper_v_1 {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ValidationHelperV1][super::super::client::ValidationHelperV1].
+    /// A builder for [ValidationHelperV1][crate::client::ValidationHelperV1].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -565,7 +746,7 @@ pub mod validation_helper_v_1 {
     /// let client = builder
     ///     .with_endpoint("https://binaryauthorization.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -576,16 +757,19 @@ pub mod validation_helper_v_1 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ValidationHelperV1;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ValidationHelperV1] request builders.
+    /// Common implementation for [crate::client::ValidationHelperV1] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -594,7 +778,9 @@ pub mod validation_helper_v_1 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -603,14 +789,32 @@ pub mod validation_helper_v_1 {
         }
     }
 
-    /// The request builder for [ValidationHelperV1::validate_attestation_occurrence][super::super::client::ValidationHelperV1::validate_attestation_occurrence] calls.
+    /// The request builder for [ValidationHelperV1::validate_attestation_occurrence][crate::client::ValidationHelperV1::validate_attestation_occurrence] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_binaryauthorization_v1::builder;
+    /// use builder::validation_helper_v_1::ValidateAttestationOccurrence;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateAttestationOccurrence {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateAttestationOccurrence(
         RequestBuilder<crate::model::ValidateAttestationOccurrenceRequest>,
     );
 
     impl ValidateAttestationOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ValidationHelperV1>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ValidationHelperV1>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -648,13 +852,22 @@ pub mod validation_helper_v_1 {
         /// Sets the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attestation<
-            T: Into<std::option::Option<grafeas::model::AttestationOccurrence>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attestation = v.into();
+        pub fn set_attestation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        {
+            self.0.request.attestation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attestation][crate::model::ValidateAttestationOccurrenceRequest::attestation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attestation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<grafeas::model::AttestationOccurrence>,
+        {
+            self.0.request.attestation = v.map(|x| x.into());
             self
         }
 

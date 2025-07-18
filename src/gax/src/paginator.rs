@@ -12,17 +12,85 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Defines some types and traits to simplify working with list RPCs.
+//!
+//! When listing large collections of items Google Cloud services typically
+//! break the responses in "pages". Each one of these pages contains a limited
+//! number of items, and a token to request the next page. The caller must
+//! repeatedly call the list RPC (using the token from the previous page) to
+//! obtain additional items.
+//!
+//! Sequencing these calls can be tedious. The Google Cloud client libraries
+//! for Rust provide implementations of this trait to simplify the use of
+//! these paginated APIs.
+//!
+//! For more information on the RPCs with paginated responses see [AIP-4233].
+//!
+//! # Example: stream each item for a list operation
+//! ```no_run
+//! # use google_cloud_gax::{paginator, Result, error::Error};
+//! struct Page { items: Vec<String>, token: String }
+//! # impl paginator::internal::PageableResponse for Page {
+//! #     type PageItem = String;
+//! #     fn items(self) -> Vec<String> { self.items }
+//! #     fn next_page_token(&self) -> String { self.token.clone() }
+//! # }
+//! # async fn get_page(_: String) -> Result<Page> { panic!(); }
+//! use paginator::{Paginator, ItemPaginator};
+//! fn list() -> impl Paginator<Page, Error> {
+//!     // ... details omitted ...
+//!     # fn execute(_: String) -> Result<Page> { panic!(); }
+//!     # paginator::internal::new_paginator(String::new(), get_page)
+//! }
+//! # tokio_test::block_on(async {
+//! let mut items = list().items();
+//! while let Some(item) = items.next().await {
+//!     let item = item?;
+//!     println!("  item = {item}");
+//! }
+//! # Result::<()>::Ok(()) });
+//! ```
+//!
+//! # Example: manually iterate over all the pages for a list operation
+//! ```no_run
+//! # use google_cloud_gax::{paginator, Result, error::Error};
+//! struct Page { items: Vec<String>, token: String }
+//! # impl paginator::internal::PageableResponse for Page {
+//! #     type PageItem = String;
+//! #     fn items(self) -> Vec<String> { self.items }
+//! #     fn next_page_token(&self) -> String { self.token.clone() }
+//! # }
+//! # async fn get_page(_: String) -> Result<Page> { panic!(); }
+//! use paginator::Paginator;
+//! fn list() -> impl Paginator<Page, Error> {
+//!     // ... details omitted ...
+//!     # fn execute(_: String) -> Result<Page> { panic!(); }
+//!     # paginator::internal::new_paginator(String::new(), get_page)
+//! }
+//! # tokio_test::block_on(async {
+//! let mut pages = list();
+//! while let Some(page) = pages.next().await {
+//!     let page = page?;
+//!     println!("a page with {} items", page.items.len());
+//!     page.items.into_iter().enumerate().for_each(|(n, i)| println!("  item[{n}]= {i}"));
+//! }
+//! # Result::<()>::Ok(()) });
+//! ```
+//!
+//! [AIP-4233]: https://google.aip.dev/client-libraries/4233
+
 use futures::stream::unfold;
 use futures::{Stream, StreamExt};
 use pin_project::pin_project;
 use std::future::Future;
 use std::pin::Pin;
 
-/// This module contains implementation details. It is not part of the public
-/// API. Types inside may be changed or removed without warnings. Applications
-/// should not use any types contained within.
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod internal {
+    //! This module contains implementation details. It is not part of the
+    //! public API. Types and functions in this module may be changed or removed
+    //! without warnings. Applications should not use any types contained
+    //! within.
     use super::*;
 
     /// Describes a type that can be iterated over asynchronously when used with
@@ -56,23 +124,37 @@ mod sealed {
     pub trait Paginator {}
 }
 
-/// An adapter that converts list RPCs as defined by [AIP-4233](https://google.aip.dev/client-libraries/4233)
-/// into a [futures::Stream] that can be iterated over in an async fashion.
-pub trait Paginator<T, E>: Send + sealed::Paginator
+/// Automatically streams pages in list RPCs.
+///
+/// When listing large collections of items Google Cloud services typically
+/// break the responses in "pages", where each page contains a limited number
+/// of items, and a token to request the next page. The caller must
+/// repeatedly call the list RPC (using the token from the previous page) to
+/// obtain additional items.
+///
+/// Sequencing these calls can be tedious. The Google Cloud client libraries
+/// for Rust provide implementations of this trait to simplify the use of
+/// these paginated APIs.
+///
+/// Enable the `unstable-stream` feature to convert this type to a [Stream].
+///
+/// For more information on the RPCs with paginated responses see [AIP-4233].
+///
+/// [AIP-4233]: https://google.aip.dev/client-libraries/4233
+pub trait Paginator<PageType, Error>: Send + sealed::Paginator
 where
-    T: internal::PageableResponse,
+    PageType: internal::PageableResponse,
 {
     /// Creates a new [ItemPaginator] from an existing [Paginator].
-    fn items(self) -> impl ItemPaginator<T, E>;
+    fn items(self) -> impl ItemPaginator<PageType, Error>;
 
     /// Returns the next mutation of the wrapped stream.
-    fn next(&mut self) -> impl Future<Output = Option<Result<T, E>>> + Send;
+    fn next(&mut self) -> impl Future<Output = Option<Result<PageType, Error>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
-    /// Convert the paginator to a stream.
-    ///
-    /// This API is gated by the `unstable-stream` feature.
-    fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin;
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Convert the paginator to a [Stream].
+    fn into_stream(self) -> impl futures::Stream<Item = Result<PageType, Error>> + Unpin;
 }
 
 #[pin_project]
@@ -138,9 +220,8 @@ where
     }
 
     #[cfg(feature = "unstable-stream")]
-    /// Convert the paginator to a stream.
-    ///
-    /// This API is gated by the `unstable-stream` feature.
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Convert the paginator to a [Stream][futures::stream::Stream].
     fn into_stream(self) -> impl futures::Stream<Item = Result<T, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
@@ -161,26 +242,40 @@ impl<T, E> std::fmt::Debug for PaginatorImpl<T, E> {
     }
 }
 
-pub trait ItemPaginator<T, E>: Send + sealed::Paginator
+/// Automatically stream items in list RPCs.
+///
+/// When listing large collections of items Google Cloud services typically
+/// break the responses in "pages", where each page contains a subset of
+/// the items, and a token to request the next page. The caller must
+/// repeatedly call the list RPC using the token from the previous page.
+///
+/// Sequencing these calls can be tedious. The Google Cloud client libraries
+/// for rust provide implementations of this trait to simplify the use of
+/// these paginated APIs.
+///
+/// Many applications want to operate on one item at a time. The Google Cloud
+/// client libraries for Rust provide implementations of this trait that
+/// automatically iterate over each item and then fetch the next page, stopping
+/// when all the pages are processed.
+///
+/// Enable the `unstable-stream` feature to convert this type to a [Stream].
+///
+/// For more information on the RPCs with paginated responses see [AIP-4233].
+///
+/// [AIP-4233]: https://google.aip.dev/client-libraries/4233
+pub trait ItemPaginator<PageType, Error>: Send + sealed::Paginator
 where
-    T: internal::PageableResponse,
+    PageType: internal::PageableResponse,
 {
-    /// Returns the next mutation of the wrapped stream.
-    ///
-    /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
-    ///
-    /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
-    fn next(&mut self) -> impl Future<Output = Option<Result<T::PageItem, E>>> + Send;
+    /// Returns the next item from the stream of (paginated) responses.
+    fn next(&mut self) -> impl Future<Output = Option<Result<PageType::PageItem, Error>>> + Send;
 
     #[cfg(feature = "unstable-stream")]
-    /// Convert the paginator to a stream.
-    ///
-    /// This API is gated by the `unstable-stream` feature.
-    fn into_stream(self) -> impl futures::Stream<Item = Result<T::PageItem, E>> + Unpin;
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Convert the paginator to a [Stream].
+    fn into_stream(self) -> impl futures::Stream<Item = Result<PageType::PageItem, Error>> + Unpin;
 }
 
-/// An adapter that converts a [Paginator] into a stream of individual page
-/// items.
 #[pin_project]
 struct ItemPaginatorImpl<T, E>
 where
@@ -208,11 +303,9 @@ impl<T, E> ItemPaginator<T, E> for ItemPaginatorImpl<T, E>
 where
     T: internal::PageableResponse,
 {
-    /// Returns the next mutation of the wrapped stream.
+    /// Returns the next item in the stream of (paginated) responses.
     ///
-    /// Enable the `unstable-stream` feature to interact with a [`futures::stream::Stream`].
-    ///
-    /// [`futures::stream::Stream`]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
+    /// Enable the `unstable-stream` feature to convert this to a [Stream].
     async fn next(&mut self) -> Option<Result<T::PageItem, E>> {
         loop {
             if let Some(ref mut iter) = self.current_items {
@@ -235,9 +328,8 @@ where
     }
 
     #[cfg(feature = "unstable-stream")]
-    /// Convert the paginator to a stream.
-    ///
-    /// This API is gated by the `unstable-stream` feature.
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Convert the paginator to a [Stream].
     fn into_stream(self) -> impl Stream<Item = Result<T::PageItem, E>> + Unpin {
         Box::pin(unfold(Some(self), move |state| async move {
             if let Some(mut paginator) = state {
@@ -331,7 +423,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_paginator() {
+    async fn test_pagination() {
         let seed = "token1".to_string();
         let mut responses = VecDeque::new();
         responses.push_back(TestResponse {

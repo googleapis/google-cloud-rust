@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_http_client"))]
-mod test {
+#[cfg(all(test, feature = "_internal-http-client"))]
+mod tests {
     use google_cloud_gax_internal as gaxi;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
@@ -168,7 +168,7 @@ mod test {
         let builder = request
             .duration
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -178,7 +178,7 @@ mod test {
         let builder = request
             .field_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -188,14 +188,14 @@ mod test {
         let builder = {
             use gaxi::query_parameter::QueryParameter;
             serde_json::to_value(&request.required_field_mask)
-                .map_err(Error::serde)?
+                .map_err(Error::ser)?
                 .add(builder, "requiredFieldMask")
         };
 
         let builder = request
             .timestamp
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -205,7 +205,7 @@ mod test {
         let builder = request
             .optional_nested
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -226,7 +226,7 @@ mod test {
                 *p != "requiredString="
                     && *p != "requiredInt32=0"
                     && *p != "requiredEnumValue="
-                    && *p != "requiredFieldMask.paths="
+                    && *p != "requiredFieldMask="
             })
             .collect()
     }
@@ -468,8 +468,7 @@ mod test {
         let builder = add_query_parameters(&request)?;
 
         let r = builder.build()?;
-        // TODO(#736) - the `.paths` field here may not be correct, investigate
-        assert_eq!(split_query(&r), vec!["fieldMask.paths=a%2Cb"]);
+        assert_eq!(split_query(&r), vec!["fieldMask=a%2Cb"]);
 
         Ok(())
     }
@@ -485,8 +484,7 @@ mod test {
         let builder = add_query_parameters(&request)?;
 
         let r = builder.build()?;
-        // TODO(#736) - the `.paths` field here may not be correct, investigate
-        assert_eq!(split_query(&r), vec!["requiredFieldMask.paths=a%2Cb"]);
+        assert_eq!(split_query(&r), vec!["requiredFieldMask=a%2Cb"]);
 
         Ok(())
     }

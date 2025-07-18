@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-aiplatform-v1"
-version                = "0.3.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Vertex AI API"
 edition.workspace      = true
 authors.workspace      = true
@@ -28,78 +28,110 @@ rust-version.workspace = true
 
 [features]
 default = [
-    "dataset_service",
-    "deployment_resource_pool_service",
-    "endpoint_service",
-    "evaluation_service",
-    "feature_online_store_admin_service",
-    "feature_online_store_service",
-    "feature_registry_service",
-    "featurestore_online_serving_service",
-    "featurestore_service",
-    "gen_ai_cache_service",
-    "gen_ai_tuning_service",
-    "index_endpoint_service",
-    "index_service",
-    "job_service",
-    "llm_utility_service",
-    "match_service",
-    "metadata_service",
-    "migration_service",
-    "model_garden_service",
-    "model_service",
-    "notebook_service",
-    "persistent_resource_service",
-    "pipeline_service",
-    "prediction_service",
-    "reasoning_engine_execution_service",
-    "reasoning_engine_service",
-    "schedule_service",
-    "specialist_pool_service",
-    "tensorboard_service",
-    "vertex_rag_data_service",
-    "vertex_rag_service",
-    "vizier_service",
+    "dataset-service",
+    "deployment-resource-pool-service",
+    "endpoint-service",
+    "evaluation-service",
+    "feature-online-store-admin-service",
+    "feature-online-store-service",
+    "feature-registry-service",
+    "featurestore-online-serving-service",
+    "featurestore-service",
+    "gen-ai-cache-service",
+    "gen-ai-tuning-service",
+    "index-endpoint-service",
+    "index-service",
+    "job-service",
+    "llm-utility-service",
+    "match-service",
+    "metadata-service",
+    "migration-service",
+    "model-garden-service",
+    "model-service",
+    "notebook-service",
+    "persistent-resource-service",
+    "pipeline-service",
+    "prediction-service",
+    "reasoning-engine-execution-service",
+    "reasoning-engine-service",
+    "schedule-service",
+    "specialist-pool-service",
+    "tensorboard-service",
+    "vertex-rag-data-service",
+    "vertex-rag-service",
+    "vizier-service",
 ]
-dataset_service = []
-deployment_resource_pool_service = []
-endpoint_service = []
-evaluation_service = []
-feature_online_store_admin_service = []
-feature_online_store_service = []
-feature_registry_service = []
-featurestore_online_serving_service = []
-featurestore_service = []
-gen_ai_cache_service = []
-gen_ai_tuning_service = []
-index_endpoint_service = []
-index_service = []
-job_service = []
-llm_utility_service = []
-match_service = []
-metadata_service = []
-migration_service = []
-model_garden_service = []
-model_service = []
-notebook_service = []
-persistent_resource_service = []
-pipeline_service = []
-prediction_service = []
-reasoning_engine_execution_service = []
-reasoning_engine_service = []
-schedule_service = []
-specialist_pool_service = []
-tensorboard_service = []
-vertex_rag_data_service = []
-vertex_rag_service = []
-vizier_service = []
+# Enables `client::DatasetService` and all the types it depends on.
+dataset-service = []
+# Enables `client::DeploymentResourcePoolService` and all the types it depends on.
+deployment-resource-pool-service = []
+# Enables `client::EndpointService` and all the types it depends on.
+endpoint-service = []
+# Enables `client::EvaluationService` and all the types it depends on.
+evaluation-service = []
+# Enables `client::FeatureOnlineStoreAdminService` and all the types it depends on.
+feature-online-store-admin-service = []
+# Enables `client::FeatureOnlineStoreService` and all the types it depends on.
+feature-online-store-service = []
+# Enables `client::FeatureRegistryService` and all the types it depends on.
+feature-registry-service = []
+# Enables `client::FeaturestoreOnlineServingService` and all the types it depends on.
+featurestore-online-serving-service = []
+# Enables `client::FeaturestoreService` and all the types it depends on.
+featurestore-service = []
+# Enables `client::GenAiCacheService` and all the types it depends on.
+gen-ai-cache-service = []
+# Enables `client::GenAiTuningService` and all the types it depends on.
+gen-ai-tuning-service = []
+# Enables `client::IndexEndpointService` and all the types it depends on.
+index-endpoint-service = []
+# Enables `client::IndexService` and all the types it depends on.
+index-service = []
+# Enables `client::JobService` and all the types it depends on.
+job-service = []
+# Enables `client::LlmUtilityService` and all the types it depends on.
+llm-utility-service = []
+# Enables `client::MatchService` and all the types it depends on.
+match-service = []
+# Enables `client::MetadataService` and all the types it depends on.
+metadata-service = []
+# Enables `client::MigrationService` and all the types it depends on.
+migration-service = []
+# Enables `client::ModelGardenService` and all the types it depends on.
+model-garden-service = []
+# Enables `client::ModelService` and all the types it depends on.
+model-service = []
+# Enables `client::NotebookService` and all the types it depends on.
+notebook-service = []
+# Enables `client::PersistentResourceService` and all the types it depends on.
+persistent-resource-service = []
+# Enables `client::PipelineService` and all the types it depends on.
+pipeline-service = []
+# Enables `client::PredictionService` and all the types it depends on.
+prediction-service = []
+# Enables `client::ReasoningEngineExecutionService` and all the types it depends on.
+reasoning-engine-execution-service = []
+# Enables `client::ReasoningEngineService` and all the types it depends on.
+reasoning-engine-service = []
+# Enables `client::ScheduleService` and all the types it depends on.
+schedule-service = []
+# Enables `client::SpecialistPoolService` and all the types it depends on.
+specialist-pool-service = []
+# Enables `client::TensorboardService` and all the types it depends on.
+tensorboard-service = []
+# Enables `client::VertexRagDataService` and all the types it depends on.
+vertex-rag-data-service = []
+# Enables `client::VertexRagService` and all the types it depends on.
+vertex-rag-service = []
+# Enables `client::VizierService` and all the types it depends on.
+vizier-service = []
 
 [dependencies]
 api.workspace        = true
 async-trait.workspace = true
 bytes.workspace      = true
-gax                  = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi                 = { workspace = true, features = ["_internal_http_client"] }
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 gtype.workspace      = true
 iam_v1.workspace     = true
 lazy_static.workspace = true

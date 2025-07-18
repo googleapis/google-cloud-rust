@@ -16,9 +16,8 @@
 
 pub mod livestream_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [LivestreamService][super::super::client::LivestreamService].
+    /// A builder for [LivestreamService][crate::client::LivestreamService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod livestream_service {
     /// let client = builder
     ///     .with_endpoint("https://livestream.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod livestream_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LivestreamService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::LivestreamService] request builders.
+    /// Common implementation for [crate::client::LivestreamService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod livestream_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_channel][super::super::client::LivestreamService::create_channel] calls.
+    /// The request builder for [LivestreamService::create_channel][crate::client::LivestreamService::create_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CreateChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateChannel(RequestBuilder<crate::model::CreateChannelRequest>);
 
     impl CreateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -93,7 +116,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_channel][super::super::client::LivestreamService::create_channel].
+        /// on [create_channel][crate::client::LivestreamService::create_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_channel(self.0.request, self.0.options)
@@ -105,7 +128,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -130,7 +154,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateChannelRequest::parent].
@@ -144,11 +168,22 @@ pub mod livestream_service {
         /// Sets the value of [channel][crate::model::CreateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::CreateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
@@ -174,12 +209,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_channels][super::super::client::LivestreamService::list_channels] calls.
+    /// The request builder for [LivestreamService::list_channels][crate::client::LivestreamService::list_channels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListChannels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListChannels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListChannels(RequestBuilder<crate::model::ListChannelsRequest>);
 
     impl ListChannels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -203,8 +260,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListChannelsResponse, gax::error::Error>
         {
@@ -216,6 +273,15 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListChannelsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListChannelsRequest::parent].
@@ -258,12 +324,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_channel][super::super::client::LivestreamService::get_channel] calls.
+    /// The request builder for [LivestreamService::get_channel][crate::client::LivestreamService::get_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetChannel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetChannel(RequestBuilder<crate::model::GetChannelRequest>);
 
     impl GetChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -303,12 +387,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_channel][super::super::client::LivestreamService::delete_channel] calls.
+    /// The request builder for [LivestreamService::delete_channel][crate::client::LivestreamService::delete_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteChannel(RequestBuilder<crate::model::DeleteChannelRequest>);
 
     impl DeleteChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +432,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_channel][super::super::client::LivestreamService::delete_channel].
+        /// on [delete_channel][crate::client::LivestreamService::delete_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_channel(self.0.request, self.0.options)
@@ -338,8 +441,8 @@ pub mod livestream_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_channel`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -364,7 +467,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteChannelRequest::name].
@@ -395,12 +503,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::update_channel][super::super::client::LivestreamService::update_channel] calls.
+    /// The request builder for [LivestreamService::update_channel][crate::client::LivestreamService::update_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::UpdateChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateChannel(RequestBuilder<crate::model::UpdateChannelRequest>);
 
     impl UpdateChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,7 +548,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_channel][super::super::client::LivestreamService::update_channel].
+        /// on [update_channel][crate::client::LivestreamService::update_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_channel(self.0.request, self.0.options)
@@ -433,7 +560,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Channel, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Channel, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Channel, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -458,26 +586,46 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateChannelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [channel][crate::model::UpdateChannelRequest::channel].
         ///
         /// This is a **required** field for requests.
-        pub fn set_channel<T: Into<std::option::Option<crate::model::Channel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.channel = v.into();
+        pub fn set_channel<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [channel][crate::model::UpdateChannelRequest::channel].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_channel<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Channel>,
+        {
+            self.0.request.channel = v.map(|x| x.into());
             self
         }
 
@@ -495,12 +643,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::start_channel][super::super::client::LivestreamService::start_channel] calls.
+    /// The request builder for [LivestreamService::start_channel][crate::client::LivestreamService::start_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::StartChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartChannel(RequestBuilder<crate::model::StartChannelRequest>);
 
     impl StartChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,7 +688,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_channel][super::super::client::LivestreamService::start_channel].
+        /// on [start_channel][crate::client::LivestreamService::start_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_channel(self.0.request, self.0.options)
@@ -534,7 +701,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -562,7 +729,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartChannelRequest::name].
@@ -587,12 +754,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::stop_channel][super::super::client::LivestreamService::stop_channel] calls.
+    /// The request builder for [LivestreamService::stop_channel][crate::client::LivestreamService::stop_channel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::StopChannel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopChannel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopChannel(RequestBuilder<crate::model::StopChannelRequest>);
 
     impl StopChannel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -613,7 +799,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_channel][super::super::client::LivestreamService::stop_channel].
+        /// on [stop_channel][crate::client::LivestreamService::stop_channel].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_channel(self.0.request, self.0.options)
@@ -626,7 +812,7 @@ pub mod livestream_service {
             self,
         ) -> impl lro::Poller<crate::model::ChannelOperationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ChannelOperationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -654,7 +840,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopChannelRequest::name].
@@ -679,12 +865,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_input][super::super::client::LivestreamService::create_input] calls.
+    /// The request builder for [LivestreamService::create_input][crate::client::LivestreamService::create_input] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CreateInput;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInput {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInput(RequestBuilder<crate::model::CreateInputRequest>);
 
     impl CreateInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -705,7 +910,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_input][super::super::client::LivestreamService::create_input].
+        /// on [create_input][crate::client::LivestreamService::create_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_input(self.0.request, self.0.options)
@@ -717,7 +922,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Input, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -742,7 +948,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInputRequest::parent].
@@ -756,11 +962,22 @@ pub mod livestream_service {
         /// Sets the value of [input][crate::model::CreateInputRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::CreateInputRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
@@ -786,12 +1003,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_inputs][super::super::client::LivestreamService::list_inputs] calls.
+    /// The request builder for [LivestreamService::list_inputs][crate::client::LivestreamService::list_inputs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListInputs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInputs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInputs(RequestBuilder<crate::model::ListInputsRequest>);
 
     impl ListInputs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -815,8 +1054,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInputsResponse, gax::error::Error>
         {
@@ -828,6 +1067,15 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInputsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInputsRequest::parent].
@@ -870,12 +1118,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_input][super::super::client::LivestreamService::get_input] calls.
+    /// The request builder for [LivestreamService::get_input][crate::client::LivestreamService::get_input] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetInput;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInput {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInput(RequestBuilder<crate::model::GetInputRequest>);
 
     impl GetInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,12 +1181,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_input][super::super::client::LivestreamService::delete_input] calls.
+    /// The request builder for [LivestreamService::delete_input][crate::client::LivestreamService::delete_input] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteInput;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInput {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInput(RequestBuilder<crate::model::DeleteInputRequest>);
 
     impl DeleteInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -941,7 +1226,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_input][super::super::client::LivestreamService::delete_input].
+        /// on [delete_input][crate::client::LivestreamService::delete_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_input(self.0.request, self.0.options)
@@ -950,8 +1235,8 @@ pub mod livestream_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_input`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -976,7 +1261,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInputRequest::name].
@@ -1001,12 +1291,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::update_input][super::super::client::LivestreamService::update_input] calls.
+    /// The request builder for [LivestreamService::update_input][crate::client::LivestreamService::update_input] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::UpdateInput;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInput {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInput(RequestBuilder<crate::model::UpdateInputRequest>);
 
     impl UpdateInput {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1027,7 +1336,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_input][super::super::client::LivestreamService::update_input].
+        /// on [update_input][crate::client::LivestreamService::update_input].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_input(self.0.request, self.0.options)
@@ -1039,7 +1348,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Input, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Input, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Input, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1064,26 +1374,46 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInputRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [input][crate::model::UpdateInputRequest::input].
         ///
         /// This is a **required** field for requests.
-        pub fn set_input<T: Into<std::option::Option<crate::model::Input>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input = v.into();
+        pub fn set_input<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input][crate::model::UpdateInputRequest::input].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Input>,
+        {
+            self.0.request.input = v.map(|x| x.into());
             self
         }
 
@@ -1101,12 +1431,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_event][super::super::client::LivestreamService::create_event] calls.
+    /// The request builder for [LivestreamService::create_event][crate::client::LivestreamService::create_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CreateEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEvent(RequestBuilder<crate::model::CreateEventRequest>);
 
     impl CreateEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1141,11 +1489,22 @@ pub mod livestream_service {
         /// Sets the value of [event][crate::model::CreateEventRequest::event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_event<T: Into<std::option::Option<crate::model::Event>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.event = v.into();
+        pub fn set_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Event>,
+        {
+            self.0.request.event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [event][crate::model::CreateEventRequest::event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Event>,
+        {
+            self.0.request.event = v.map(|x| x.into());
             self
         }
 
@@ -1171,12 +1530,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_events][super::super::client::LivestreamService::list_events] calls.
+    /// The request builder for [LivestreamService::list_events][crate::client::LivestreamService::list_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListEvents;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1200,8 +1581,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error>
         {
@@ -1213,6 +1594,15 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEventsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
@@ -1255,12 +1645,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_event][super::super::client::LivestreamService::get_event] calls.
+    /// The request builder for [LivestreamService::get_event][crate::client::LivestreamService::get_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1300,12 +1708,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_event][super::super::client::LivestreamService::delete_event] calls.
+    /// The request builder for [LivestreamService::delete_event][crate::client::LivestreamService::delete_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEvent(RequestBuilder<crate::model::DeleteEventRequest>);
 
     impl DeleteEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1351,12 +1777,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_clips][super::super::client::LivestreamService::list_clips] calls.
+    /// The request builder for [LivestreamService::list_clips][crate::client::LivestreamService::list_clips] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListClips;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClips {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClips(RequestBuilder<crate::model::ListClipsRequest>);
 
     impl ListClips {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1380,8 +1828,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListClipsResponse, gax::error::Error>
         {
@@ -1393,6 +1841,15 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClipsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListClipsRequest::parent].
@@ -1435,12 +1892,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_clip][super::super::client::LivestreamService::get_clip] calls.
+    /// The request builder for [LivestreamService::get_clip][crate::client::LivestreamService::get_clip] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetClip;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetClip {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetClip(RequestBuilder<crate::model::GetClipRequest>);
 
     impl GetClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1480,12 +1955,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_clip][super::super::client::LivestreamService::create_clip] calls.
+    /// The request builder for [LivestreamService::create_clip][crate::client::LivestreamService::create_clip] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CreateClip;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateClip {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateClip(RequestBuilder<crate::model::CreateClipRequest>);
 
     impl CreateClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1506,7 +2000,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_clip][super::super::client::LivestreamService::create_clip].
+        /// on [create_clip][crate::client::LivestreamService::create_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clip(self.0.request, self.0.options)
@@ -1518,7 +2012,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Clip, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Clip, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Clip, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1543,7 +2038,7 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClipRequest::parent].
@@ -1565,8 +2060,22 @@ pub mod livestream_service {
         /// Sets the value of [clip][crate::model::CreateClipRequest::clip].
         ///
         /// This is a **required** field for requests.
-        pub fn set_clip<T: Into<std::option::Option<crate::model::Clip>>>(mut self, v: T) -> Self {
-            self.0.request.clip = v.into();
+        pub fn set_clip<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Clip>,
+        {
+            self.0.request.clip = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [clip][crate::model::CreateClipRequest::clip].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_clip<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Clip>,
+        {
+            self.0.request.clip = v.map(|x| x.into());
             self
         }
 
@@ -1584,12 +2093,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_clip][super::super::client::LivestreamService::delete_clip] calls.
+    /// The request builder for [LivestreamService::delete_clip][crate::client::LivestreamService::delete_clip] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteClip;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteClip {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteClip(RequestBuilder<crate::model::DeleteClipRequest>);
 
     impl DeleteClip {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1610,7 +2138,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_clip][super::super::client::LivestreamService::delete_clip].
+        /// on [delete_clip][crate::client::LivestreamService::delete_clip].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_clip(self.0.request, self.0.options)
@@ -1619,8 +2147,8 @@ pub mod livestream_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_clip`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1645,7 +2173,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClipRequest::name].
@@ -1670,17 +2203,39 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::create_asset][super::super::client::LivestreamService::create_asset] calls.
+    /// The request builder for [LivestreamService::create_dvr_session][crate::client::LivestreamService::create_dvr_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CreateDvrSession;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDvrSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
+    pub struct CreateDvrSession(RequestBuilder<crate::model::CreateDvrSessionRequest>);
 
-    impl CreateAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+    impl CreateDvrSession {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::CreateAssetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::CreateDvrSessionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1696,19 +2251,20 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_asset][super::super::client::LivestreamService::create_asset].
+        /// on [create_dvr_session][crate::client::LivestreamService::create_dvr_session].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
-                .create_asset(self.0.request, self.0.options)
+                .create_dvr_session(self.0.request, self.0.options)
                 .await
                 .map(gax::response::Response::into_body)
         }
 
-        /// Creates a [Poller][lro::Poller] to work with `create_asset`.
+        /// Creates a [Poller][lro::Poller] to work with `create_dvr_session`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+        ) -> impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1733,7 +2289,583 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateDvrSessionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [dvr_session_id][crate::model::CreateDvrSessionRequest::dvr_session_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dvr_session_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.dvr_session_id = v.into();
+            self
+        }
+
+        /// Sets the value of [dvr_session][crate::model::CreateDvrSessionRequest::dvr_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dvr_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
+        {
+            self.0.request.dvr_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dvr_session][crate::model::CreateDvrSessionRequest::dvr_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
+        {
+            self.0.request.dvr_session = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateDvrSessionRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateDvrSession {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [LivestreamService::list_dvr_sessions][crate::client::LivestreamService::list_dvr_sessions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListDvrSessions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDvrSessions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListDvrSessions(RequestBuilder<crate::model::ListDvrSessionsRequest>);
+
+    impl ListDvrSessions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListDvrSessionsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListDvrSessionsResponse> {
+            (*self.0.stub)
+                .list_dvr_sessions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListDvrSessionsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDvrSessionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListDvrSessionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListDvrSessionsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListDvrSessionsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListDvrSessionsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListDvrSessionsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListDvrSessions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [LivestreamService::get_dvr_session][crate::client::LivestreamService::get_dvr_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetDvrSession;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDvrSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetDvrSession(RequestBuilder<crate::model::GetDvrSessionRequest>);
+
+    impl GetDvrSession {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetDvrSessionRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::DvrSession> {
+            (*self.0.stub)
+                .get_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetDvrSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetDvrSession {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [LivestreamService::delete_dvr_session][crate::client::LivestreamService::delete_dvr_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteDvrSession;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDvrSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteDvrSession(RequestBuilder<crate::model::DeleteDvrSessionRequest>);
+
+    impl DeleteDvrSession {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteDvrSessionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_dvr_session][crate::client::LivestreamService::delete_dvr_session].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_dvr_session`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteDvrSessionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteDvrSessionRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteDvrSession {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [LivestreamService::update_dvr_session][crate::client::LivestreamService::update_dvr_session] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::UpdateDvrSession;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDvrSession {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateDvrSession(RequestBuilder<crate::model::UpdateDvrSessionRequest>);
+
+    impl UpdateDvrSession {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateDvrSessionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_dvr_session][crate::client::LivestreamService::update_dvr_session].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_dvr_session(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_dvr_session`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::DvrSession, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::DvrSession, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDvrSessionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [dvr_session][crate::model::UpdateDvrSessionRequest::dvr_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_dvr_session<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
+        {
+            self.0.request.dvr_session = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dvr_session][crate::model::UpdateDvrSessionRequest::dvr_session].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dvr_session<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DvrSession>,
+        {
+            self.0.request.dvr_session = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateDvrSessionRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateDvrSession {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [LivestreamService::create_asset][crate::client::LivestreamService::create_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CreateAsset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateAsset(RequestBuilder<crate::model::CreateAssetRequest>);
+
+    impl CreateAsset {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateAssetRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_asset][crate::client::LivestreamService::create_asset].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_asset(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_asset`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::Asset, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::Asset, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAssetRequest::parent].
@@ -1747,11 +2879,22 @@ pub mod livestream_service {
         /// Sets the value of [asset][crate::model::CreateAssetRequest::asset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_asset<T: Into<std::option::Option<crate::model::Asset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.asset = v.into();
+        pub fn set_asset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [asset][crate::model::CreateAssetRequest::asset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_asset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Asset>,
+        {
+            self.0.request.asset = v.map(|x| x.into());
             self
         }
 
@@ -1777,12 +2920,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_asset][super::super::client::LivestreamService::delete_asset] calls.
+    /// The request builder for [LivestreamService::delete_asset][crate::client::LivestreamService::delete_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteAsset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAsset(RequestBuilder<crate::model::DeleteAssetRequest>);
 
     impl DeleteAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1803,7 +2965,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_asset][super::super::client::LivestreamService::delete_asset].
+        /// on [delete_asset][crate::client::LivestreamService::delete_asset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_asset(self.0.request, self.0.options)
@@ -1812,8 +2974,8 @@ pub mod livestream_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_asset`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1838,7 +3000,12 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAssetRequest::name].
@@ -1863,12 +3030,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_asset][super::super::client::LivestreamService::get_asset] calls.
+    /// The request builder for [LivestreamService::get_asset][crate::client::LivestreamService::get_asset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetAsset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAsset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAsset(RequestBuilder<crate::model::GetAssetRequest>);
 
     impl GetAsset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1908,12 +3093,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_assets][super::super::client::LivestreamService::list_assets] calls.
+    /// The request builder for [LivestreamService::list_assets][crate::client::LivestreamService::list_assets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListAssets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssets(RequestBuilder<crate::model::ListAssetsRequest>);
 
     impl ListAssets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1937,8 +3144,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAssetsResponse, gax::error::Error>
         {
@@ -1950,6 +3157,15 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssetsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAssetsRequest::parent].
@@ -1992,12 +3208,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_pool][super::super::client::LivestreamService::get_pool] calls.
+    /// The request builder for [LivestreamService::get_pool][crate::client::LivestreamService::get_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetPool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPool(RequestBuilder<crate::model::GetPoolRequest>);
 
     impl GetPool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2037,12 +3271,31 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::update_pool][super::super::client::LivestreamService::update_pool] calls.
+    /// The request builder for [LivestreamService::update_pool][crate::client::LivestreamService::update_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::UpdatePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePool(RequestBuilder<crate::model::UpdatePoolRequest>);
 
     impl UpdatePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2063,7 +3316,7 @@ pub mod livestream_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_pool][super::super::client::LivestreamService::update_pool].
+        /// on [update_pool][crate::client::LivestreamService::update_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_pool(self.0.request, self.0.options)
@@ -2075,7 +3328,8 @@ pub mod livestream_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Pool, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Pool, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Pool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2100,23 +3354,46 @@ pub mod livestream_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [pool][crate::model::UpdatePoolRequest::pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_pool<T: Into<std::option::Option<crate::model::Pool>>>(mut self, v: T) -> Self {
-            self.0.request.pool = v.into();
+        pub fn set_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Pool>,
+        {
+            self.0.request.pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [pool][crate::model::UpdatePoolRequest::pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Pool>,
+        {
+            self.0.request.pool = v.map(|x| x.into());
             self
         }
 
@@ -2134,12 +3411,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_locations][super::super::client::LivestreamService::list_locations] calls.
+    /// The request builder for [LivestreamService::list_locations][crate::client::LivestreamService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2166,8 +3465,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2179,6 +3478,15 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2213,12 +3521,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_location][super::super::client::LivestreamService::get_location] calls.
+    /// The request builder for [LivestreamService::get_location][crate::client::LivestreamService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2256,12 +3582,34 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::list_operations][super::super::client::LivestreamService::list_operations] calls.
+    /// The request builder for [LivestreamService::list_operations][crate::client::LivestreamService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2288,8 +3636,8 @@ pub mod livestream_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2301,6 +3649,17 @@ pub mod livestream_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2335,12 +3694,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::get_operation][super::super::client::LivestreamService::get_operation] calls.
+    /// The request builder for [LivestreamService::get_operation][crate::client::LivestreamService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2381,12 +3758,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::delete_operation][super::super::client::LivestreamService::delete_operation] calls.
+    /// The request builder for [LivestreamService::delete_operation][crate::client::LivestreamService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2427,12 +3822,30 @@ pub mod livestream_service {
         }
     }
 
-    /// The request builder for [LivestreamService::cancel_operation][super::super::client::LivestreamService::cancel_operation] calls.
+    /// The request builder for [LivestreamService::cancel_operation][crate::client::LivestreamService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_livestream_v1::builder;
+    /// use builder::livestream_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LivestreamService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LivestreamService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

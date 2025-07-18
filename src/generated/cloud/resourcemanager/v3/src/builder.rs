@@ -16,9 +16,8 @@
 
 pub mod folders {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Folders][super::super::client::Folders].
+    /// A builder for [Folders][crate::client::Folders].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod folders {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod folders {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Folders;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Folders] request builders.
+    /// Common implementation for [crate::client::Folders] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Folders>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod folders {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,28 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::get_folder][super::super::client::Folders::get_folder] calls.
+    /// The request builder for [Folders::get_folder][crate::client::Folders::get_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::GetFolder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFolder(RequestBuilder<crate::model::GetFolderRequest>);
 
     impl GetFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,12 +130,32 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::list_folders][super::super::client::Folders::list_folders] calls.
+    /// The request builder for [Folders::list_folders][crate::client::Folders::list_folders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::ListFolders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFolders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFolders(RequestBuilder<crate::model::ListFoldersRequest>);
 
     impl ListFolders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,8 +179,8 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFoldersResponse, gax::error::Error>
         {
@@ -154,6 +192,15 @@ pub mod folders {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFoldersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFoldersRequest::parent].
@@ -190,12 +237,32 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::search_folders][super::super::client::Folders::search_folders] calls.
+    /// The request builder for [Folders::search_folders][crate::client::Folders::search_folders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::SearchFolders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchFolders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchFolders(RequestBuilder<crate::model::SearchFoldersRequest>);
 
     impl SearchFolders {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -219,8 +286,8 @@ pub mod folders {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchFoldersResponse, gax::error::Error>
         {
@@ -232,6 +299,15 @@ pub mod folders {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchFoldersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [page_size][crate::model::SearchFoldersRequest::page_size].
@@ -260,12 +336,29 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::create_folder][super::super::client::Folders::create_folder] calls.
+    /// The request builder for [Folders::create_folder][crate::client::Folders::create_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::CreateFolder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFolder(RequestBuilder<crate::model::CreateFolderRequest>);
 
     impl CreateFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -286,7 +379,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_folder][super::super::client::Folders::create_folder].
+        /// on [create_folder][crate::client::Folders::create_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_folder(self.0.request, self.0.options)
@@ -299,7 +392,7 @@ pub mod folders {
             self,
         ) -> impl lro::Poller<crate::model::Folder, crate::model::CreateFolderMetadata> {
             type Operation =
-                lro::Operation<crate::model::Folder, crate::model::CreateFolderMetadata>;
+                lro::internal::Operation<crate::model::Folder, crate::model::CreateFolderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -324,17 +417,28 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [folder][crate::model::CreateFolderRequest::folder].
         ///
         /// This is a **required** field for requests.
-        pub fn set_folder<T: Into<std::option::Option<crate::model::Folder>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.folder = v.into();
+        pub fn set_folder<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [folder][crate::model::CreateFolderRequest::folder].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = v.map(|x| x.into());
             self
         }
     }
@@ -346,12 +450,29 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::update_folder][super::super::client::Folders::update_folder] calls.
+    /// The request builder for [Folders::update_folder][crate::client::Folders::update_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::UpdateFolder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFolder(RequestBuilder<crate::model::UpdateFolderRequest>);
 
     impl UpdateFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -372,7 +493,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_folder][super::super::client::Folders::update_folder].
+        /// on [update_folder][crate::client::Folders::update_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_folder(self.0.request, self.0.options)
@@ -385,7 +506,7 @@ pub mod folders {
             self,
         ) -> impl lro::Poller<crate::model::Folder, crate::model::UpdateFolderMetadata> {
             type Operation =
-                lro::Operation<crate::model::Folder, crate::model::UpdateFolderMetadata>;
+                lro::internal::Operation<crate::model::Folder, crate::model::UpdateFolderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -410,28 +531,50 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [folder][crate::model::UpdateFolderRequest::folder].
         ///
         /// This is a **required** field for requests.
-        pub fn set_folder<T: Into<std::option::Option<crate::model::Folder>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.folder = v.into();
+        pub fn set_folder<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [folder][crate::model::UpdateFolderRequest::folder].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_folder<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Folder>,
+        {
+            self.0.request.folder = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFolderRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -443,12 +586,29 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::move_folder][super::super::client::Folders::move_folder] calls.
+    /// The request builder for [Folders::move_folder][crate::client::Folders::move_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::MoveFolder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveFolder(RequestBuilder<crate::model::MoveFolderRequest>);
 
     impl MoveFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -469,7 +629,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_folder][super::super::client::Folders::move_folder].
+        /// on [move_folder][crate::client::Folders::move_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_folder(self.0.request, self.0.options)
@@ -481,7 +641,8 @@ pub mod folders {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Folder, crate::model::MoveFolderMetadata> {
-            type Operation = lro::Operation<crate::model::Folder, crate::model::MoveFolderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Folder, crate::model::MoveFolderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -506,7 +667,7 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::MoveFolderRequest::name].
@@ -533,12 +694,29 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::delete_folder][super::super::client::Folders::delete_folder] calls.
+    /// The request builder for [Folders::delete_folder][crate::client::Folders::delete_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::DeleteFolder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFolder(RequestBuilder<crate::model::DeleteFolderRequest>);
 
     impl DeleteFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -559,7 +737,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_folder][super::super::client::Folders::delete_folder].
+        /// on [delete_folder][crate::client::Folders::delete_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_folder(self.0.request, self.0.options)
@@ -572,7 +750,7 @@ pub mod folders {
             self,
         ) -> impl lro::Poller<crate::model::Folder, crate::model::DeleteFolderMetadata> {
             type Operation =
-                lro::Operation<crate::model::Folder, crate::model::DeleteFolderMetadata>;
+                lro::internal::Operation<crate::model::Folder, crate::model::DeleteFolderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -597,7 +775,7 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteFolderRequest::name].
@@ -616,12 +794,29 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::undelete_folder][super::super::client::Folders::undelete_folder] calls.
+    /// The request builder for [Folders::undelete_folder][crate::client::Folders::undelete_folder] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::UndeleteFolder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteFolder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteFolder(RequestBuilder<crate::model::UndeleteFolderRequest>);
 
     impl UndeleteFolder {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,7 +837,7 @@ pub mod folders {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_folder][super::super::client::Folders::undelete_folder].
+        /// on [undelete_folder][crate::client::Folders::undelete_folder].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_folder(self.0.request, self.0.options)
@@ -654,8 +849,10 @@ pub mod folders {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Folder, crate::model::UndeleteFolderMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Folder, crate::model::UndeleteFolderMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Folder,
+                crate::model::UndeleteFolderMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -680,7 +877,7 @@ pub mod folders {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteFolderRequest::name].
@@ -699,12 +896,28 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::get_iam_policy][super::super::client::Folders::get_iam_policy] calls.
+    /// The request builder for [Folders::get_iam_policy][crate::client::Folders::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -737,11 +950,20 @@ pub mod folders {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -753,12 +975,28 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::set_iam_policy][super::super::client::Folders::set_iam_policy] calls.
+    /// The request builder for [Folders::set_iam_policy][crate::client::Folders::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -793,20 +1031,40 @@ pub mod folders {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -818,12 +1076,28 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::test_iam_permissions][super::super::client::Folders::test_iam_permissions] calls.
+    /// The request builder for [Folders::test_iam_permissions][crate::client::Folders::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -879,12 +1153,28 @@ pub mod folders {
         }
     }
 
-    /// The request builder for [Folders::get_operation][super::super::client::Folders::get_operation] calls.
+    /// The request builder for [Folders::get_operation][crate::client::Folders::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::folders::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Folders>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -928,9 +1218,8 @@ pub mod folders {
 
 pub mod organizations {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Organizations][super::super::client::Organizations].
+    /// A builder for [Organizations][crate::client::Organizations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -941,7 +1230,7 @@ pub mod organizations {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -952,16 +1241,19 @@ pub mod organizations {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Organizations;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Organizations] request builders.
+    /// Common implementation for [crate::client::Organizations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Organizations>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -970,7 +1262,9 @@ pub mod organizations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -979,12 +1273,30 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for [Organizations::get_organization][super::super::client::Organizations::get_organization] calls.
+    /// The request builder for [Organizations::get_organization][crate::client::Organizations::get_organization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::GetOrganization;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganization(RequestBuilder<crate::model::GetOrganizationRequest>);
 
     impl GetOrganization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1024,12 +1336,34 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for [Organizations::search_organizations][super::super::client::Organizations::search_organizations] calls.
+    /// The request builder for [Organizations::search_organizations][crate::client::Organizations::search_organizations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::SearchOrganizations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchOrganizations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchOrganizations(RequestBuilder<crate::model::SearchOrganizationsRequest>);
 
     impl SearchOrganizations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1056,8 +1390,8 @@ pub mod organizations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchOrganizationsResponse, gax::error::Error>
         {
@@ -1069,6 +1403,17 @@ pub mod organizations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchOrganizationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [page_size][crate::model::SearchOrganizationsRequest::page_size].
@@ -1097,12 +1442,30 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for [Organizations::get_iam_policy][super::super::client::Organizations::get_iam_policy] calls.
+    /// The request builder for [Organizations::get_iam_policy][crate::client::Organizations::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1135,11 +1498,20 @@ pub mod organizations {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1151,12 +1523,30 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for [Organizations::set_iam_policy][super::super::client::Organizations::set_iam_policy] calls.
+    /// The request builder for [Organizations::set_iam_policy][crate::client::Organizations::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1191,20 +1581,40 @@ pub mod organizations {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1216,12 +1626,30 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for [Organizations::test_iam_permissions][super::super::client::Organizations::test_iam_permissions] calls.
+    /// The request builder for [Organizations::test_iam_permissions][crate::client::Organizations::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1277,12 +1705,30 @@ pub mod organizations {
         }
     }
 
-    /// The request builder for [Organizations::get_operation][super::super::client::Organizations::get_operation] calls.
+    /// The request builder for [Organizations::get_operation][crate::client::Organizations::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::organizations::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Organizations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Organizations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1326,9 +1772,8 @@ pub mod organizations {
 
 pub mod projects {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Projects][super::super::client::Projects].
+    /// A builder for [Projects][crate::client::Projects].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1339,7 +1784,7 @@ pub mod projects {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1350,16 +1795,19 @@ pub mod projects {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Projects;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Projects] request builders.
+    /// Common implementation for [crate::client::Projects] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Projects>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1368,7 +1816,7 @@ pub mod projects {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1377,12 +1825,28 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::get_project][super::super::client::Projects::get_project] calls.
+    /// The request builder for [Projects::get_project][crate::client::Projects::get_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::GetProject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProject(RequestBuilder<crate::model::GetProjectRequest>);
 
     impl GetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1422,12 +1886,32 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::list_projects][super::super::client::Projects::list_projects] calls.
+    /// The request builder for [Projects::list_projects][crate::client::Projects::list_projects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::ListProjects;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProjects(RequestBuilder<crate::model::ListProjectsRequest>);
 
     impl ListProjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1451,8 +1935,8 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProjectsResponse, gax::error::Error>
         {
@@ -1464,6 +1948,15 @@ pub mod projects {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProjectsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProjectsRequest::parent].
@@ -1500,12 +1993,32 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::search_projects][super::super::client::Projects::search_projects] calls.
+    /// The request builder for [Projects::search_projects][crate::client::Projects::search_projects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::SearchProjects;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchProjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchProjects(RequestBuilder<crate::model::SearchProjectsRequest>);
 
     impl SearchProjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1529,8 +2042,8 @@ pub mod projects {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchProjectsResponse, gax::error::Error>
         {
@@ -1542,6 +2055,15 @@ pub mod projects {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchProjectsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [query][crate::model::SearchProjectsRequest::query].
@@ -1570,12 +2092,29 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::create_project][super::super::client::Projects::create_project] calls.
+    /// The request builder for [Projects::create_project][crate::client::Projects::create_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::CreateProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProject(RequestBuilder<crate::model::CreateProjectRequest>);
 
     impl CreateProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1596,7 +2135,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_project][super::super::client::Projects::create_project].
+        /// on [create_project][crate::client::Projects::create_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_project(self.0.request, self.0.options)
@@ -1608,8 +2147,10 @@ pub mod projects {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::CreateProjectMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Project, crate::model::CreateProjectMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Project,
+                crate::model::CreateProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1634,17 +2175,28 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project][crate::model::CreateProjectRequest::project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_project<T: Into<std::option::Option<crate::model::Project>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project = v.into();
+        pub fn set_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project][crate::model::CreateProjectRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = v.map(|x| x.into());
             self
         }
     }
@@ -1656,12 +2208,29 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::update_project][super::super::client::Projects::update_project] calls.
+    /// The request builder for [Projects::update_project][crate::client::Projects::update_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::UpdateProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProject(RequestBuilder<crate::model::UpdateProjectRequest>);
 
     impl UpdateProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1682,7 +2251,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_project][super::super::client::Projects::update_project].
+        /// on [update_project][crate::client::Projects::update_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_project(self.0.request, self.0.options)
@@ -1694,8 +2263,10 @@ pub mod projects {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::UpdateProjectMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Project, crate::model::UpdateProjectMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Project,
+                crate::model::UpdateProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1720,26 +2291,46 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [project][crate::model::UpdateProjectRequest::project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_project<T: Into<std::option::Option<crate::model::Project>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project = v.into();
+        pub fn set_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project][crate::model::UpdateProjectRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Project>,
+        {
+            self.0.request.project = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProjectRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1751,12 +2342,29 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::move_project][super::super::client::Projects::move_project] calls.
+    /// The request builder for [Projects::move_project][crate::client::Projects::move_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::MoveProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveProject(RequestBuilder<crate::model::MoveProjectRequest>);
 
     impl MoveProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1777,7 +2385,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_project][super::super::client::Projects::move_project].
+        /// on [move_project][crate::client::Projects::move_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_project(self.0.request, self.0.options)
@@ -1790,7 +2398,7 @@ pub mod projects {
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::MoveProjectMetadata> {
             type Operation =
-                lro::Operation<crate::model::Project, crate::model::MoveProjectMetadata>;
+                lro::internal::Operation<crate::model::Project, crate::model::MoveProjectMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1815,7 +2423,7 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::MoveProjectRequest::name].
@@ -1842,12 +2450,29 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::delete_project][super::super::client::Projects::delete_project] calls.
+    /// The request builder for [Projects::delete_project][crate::client::Projects::delete_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::DeleteProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProject(RequestBuilder<crate::model::DeleteProjectRequest>);
 
     impl DeleteProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1868,7 +2493,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_project][super::super::client::Projects::delete_project].
+        /// on [delete_project][crate::client::Projects::delete_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_project(self.0.request, self.0.options)
@@ -1880,8 +2505,10 @@ pub mod projects {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::DeleteProjectMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Project, crate::model::DeleteProjectMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Project,
+                crate::model::DeleteProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1906,7 +2533,7 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteProjectRequest::name].
@@ -1925,12 +2552,29 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::undelete_project][super::super::client::Projects::undelete_project] calls.
+    /// The request builder for [Projects::undelete_project][crate::client::Projects::undelete_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::UndeleteProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteProject(RequestBuilder<crate::model::UndeleteProjectRequest>);
 
     impl UndeleteProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1951,7 +2595,7 @@ pub mod projects {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_project][super::super::client::Projects::undelete_project].
+        /// on [undelete_project][crate::client::Projects::undelete_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_project(self.0.request, self.0.options)
@@ -1964,8 +2608,10 @@ pub mod projects {
             self,
         ) -> impl lro::Poller<crate::model::Project, crate::model::UndeleteProjectMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Project, crate::model::UndeleteProjectMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Project,
+                crate::model::UndeleteProjectMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1990,7 +2636,7 @@ pub mod projects {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteProjectRequest::name].
@@ -2009,12 +2655,28 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::get_iam_policy][super::super::client::Projects::get_iam_policy] calls.
+    /// The request builder for [Projects::get_iam_policy][crate::client::Projects::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2047,11 +2709,20 @@ pub mod projects {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2063,12 +2734,28 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::set_iam_policy][super::super::client::Projects::set_iam_policy] calls.
+    /// The request builder for [Projects::set_iam_policy][crate::client::Projects::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2103,20 +2790,40 @@ pub mod projects {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2128,12 +2835,28 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::test_iam_permissions][super::super::client::Projects::test_iam_permissions] calls.
+    /// The request builder for [Projects::test_iam_permissions][crate::client::Projects::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2189,12 +2912,28 @@ pub mod projects {
         }
     }
 
-    /// The request builder for [Projects::get_operation][super::super::client::Projects::get_operation] calls.
+    /// The request builder for [Projects::get_operation][crate::client::Projects::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::projects::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Projects>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2238,9 +2977,8 @@ pub mod projects {
 
 pub mod tag_bindings {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TagBindings][super::super::client::TagBindings].
+    /// A builder for [TagBindings][crate::client::TagBindings].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2251,7 +2989,7 @@ pub mod tag_bindings {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2262,16 +3000,19 @@ pub mod tag_bindings {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TagBindings;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TagBindings] request builders.
+    /// Common implementation for [crate::client::TagBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TagBindings>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2280,7 +3021,9 @@ pub mod tag_bindings {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2289,12 +3032,34 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for [TagBindings::list_tag_bindings][super::super::client::TagBindings::list_tag_bindings] calls.
+    /// The request builder for [TagBindings::list_tag_bindings][crate::client::TagBindings::list_tag_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::ListTagBindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagBindings(RequestBuilder<crate::model::ListTagBindingsRequest>);
 
     impl ListTagBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2318,8 +3083,8 @@ pub mod tag_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTagBindingsResponse, gax::error::Error>
         {
@@ -2331,6 +3096,15 @@ pub mod tag_bindings {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagBindingsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTagBindingsRequest::parent].
@@ -2361,12 +3135,31 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for [TagBindings::create_tag_binding][super::super::client::TagBindings::create_tag_binding] calls.
+    /// The request builder for [TagBindings::create_tag_binding][crate::client::TagBindings::create_tag_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::CreateTagBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagBinding(RequestBuilder<crate::model::CreateTagBindingRequest>);
 
     impl CreateTagBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2390,7 +3183,7 @@ pub mod tag_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_binding][super::super::client::TagBindings::create_tag_binding].
+        /// on [create_tag_binding][crate::client::TagBindings::create_tag_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_binding(self.0.request, self.0.options)
@@ -2403,8 +3196,10 @@ pub mod tag_bindings {
             self,
         ) -> impl lro::Poller<crate::model::TagBinding, crate::model::CreateTagBindingMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TagBinding, crate::model::CreateTagBindingMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TagBinding,
+                crate::model::CreateTagBindingMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2429,17 +3224,28 @@ pub mod tag_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_binding<T: Into<std::option::Option<crate::model::TagBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_binding = v.into();
+        pub fn set_tag_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagBinding>,
+        {
+            self.0.request.tag_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_binding][crate::model::CreateTagBindingRequest::tag_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagBinding>,
+        {
+            self.0.request.tag_binding = v.map(|x| x.into());
             self
         }
 
@@ -2457,12 +3263,31 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for [TagBindings::delete_tag_binding][super::super::client::TagBindings::delete_tag_binding] calls.
+    /// The request builder for [TagBindings::delete_tag_binding][crate::client::TagBindings::delete_tag_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::DeleteTagBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagBinding(RequestBuilder<crate::model::DeleteTagBindingRequest>);
 
     impl DeleteTagBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2486,7 +3311,7 @@ pub mod tag_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_binding][super::super::client::TagBindings::delete_tag_binding].
+        /// on [delete_tag_binding][crate::client::TagBindings::delete_tag_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_binding(self.0.request, self.0.options)
@@ -2495,10 +3320,9 @@ pub mod tag_bindings {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_binding`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTagBindingMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteTagBindingMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTagBindingMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteTagBindingMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2523,7 +3347,12 @@ pub mod tag_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTagBindingRequest::name].
@@ -2542,12 +3371,34 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for [TagBindings::list_effective_tags][super::super::client::TagBindings::list_effective_tags] calls.
+    /// The request builder for [TagBindings::list_effective_tags][crate::client::TagBindings::list_effective_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::ListEffectiveTags;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEffectiveTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEffectiveTags(RequestBuilder<crate::model::ListEffectiveTagsRequest>);
 
     impl ListEffectiveTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2574,8 +3425,8 @@ pub mod tag_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEffectiveTagsResponse, gax::error::Error>
         {
@@ -2587,6 +3438,15 @@ pub mod tag_bindings {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEffectiveTagsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEffectiveTagsRequest::parent].
@@ -2617,12 +3477,30 @@ pub mod tag_bindings {
         }
     }
 
-    /// The request builder for [TagBindings::get_operation][super::super::client::TagBindings::get_operation] calls.
+    /// The request builder for [TagBindings::get_operation][crate::client::TagBindings::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_bindings::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2666,9 +3544,8 @@ pub mod tag_bindings {
 
 pub mod tag_holds {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TagHolds][super::super::client::TagHolds].
+    /// A builder for [TagHolds][crate::client::TagHolds].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2679,7 +3556,7 @@ pub mod tag_holds {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2690,16 +3567,19 @@ pub mod tag_holds {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TagHolds;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TagHolds] request builders.
+    /// Common implementation for [crate::client::TagHolds] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TagHolds>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2708,7 +3588,7 @@ pub mod tag_holds {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2717,12 +3597,29 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for [TagHolds::create_tag_hold][super::super::client::TagHolds::create_tag_hold] calls.
+    /// The request builder for [TagHolds::create_tag_hold][crate::client::TagHolds::create_tag_hold] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::CreateTagHold;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagHold {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagHold(RequestBuilder<crate::model::CreateTagHoldRequest>);
 
     impl CreateTagHold {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2743,7 +3640,7 @@ pub mod tag_holds {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_hold][super::super::client::TagHolds::create_tag_hold].
+        /// on [create_tag_hold][crate::client::TagHolds::create_tag_hold].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_hold(self.0.request, self.0.options)
@@ -2755,8 +3652,10 @@ pub mod tag_holds {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::TagHold, crate::model::CreateTagHoldMetadata> {
-            type Operation =
-                lro::Operation<crate::model::TagHold, crate::model::CreateTagHoldMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TagHold,
+                crate::model::CreateTagHoldMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2781,7 +3680,7 @@ pub mod tag_holds {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTagHoldRequest::parent].
@@ -2795,11 +3694,22 @@ pub mod tag_holds {
         /// Sets the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_hold<T: Into<std::option::Option<crate::model::TagHold>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_hold = v.into();
+        pub fn set_tag_hold<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagHold>,
+        {
+            self.0.request.tag_hold = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_hold][crate::model::CreateTagHoldRequest::tag_hold].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_hold<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagHold>,
+        {
+            self.0.request.tag_hold = v.map(|x| x.into());
             self
         }
 
@@ -2817,12 +3727,29 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for [TagHolds::delete_tag_hold][super::super::client::TagHolds::delete_tag_hold] calls.
+    /// The request builder for [TagHolds::delete_tag_hold][crate::client::TagHolds::delete_tag_hold] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::DeleteTagHold;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagHold {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagHold(RequestBuilder<crate::model::DeleteTagHoldRequest>);
 
     impl DeleteTagHold {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2843,7 +3770,7 @@ pub mod tag_holds {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_hold][super::super::client::TagHolds::delete_tag_hold].
+        /// on [delete_tag_hold][crate::client::TagHolds::delete_tag_hold].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_hold(self.0.request, self.0.options)
@@ -2852,8 +3779,9 @@ pub mod tag_holds {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_tag_hold`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteTagHoldMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteTagHoldMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteTagHoldMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteTagHoldMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2878,7 +3806,12 @@ pub mod tag_holds {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTagHoldRequest::name].
@@ -2903,12 +3836,32 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for [TagHolds::list_tag_holds][super::super::client::TagHolds::list_tag_holds] calls.
+    /// The request builder for [TagHolds::list_tag_holds][crate::client::TagHolds::list_tag_holds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::ListTagHolds;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagHolds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagHolds(RequestBuilder<crate::model::ListTagHoldsRequest>);
 
     impl ListTagHolds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2932,8 +3885,8 @@ pub mod tag_holds {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTagHoldsResponse, gax::error::Error>
         {
@@ -2945,6 +3898,15 @@ pub mod tag_holds {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagHoldsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTagHoldsRequest::parent].
@@ -2981,12 +3943,28 @@ pub mod tag_holds {
         }
     }
 
-    /// The request builder for [TagHolds::get_operation][super::super::client::TagHolds::get_operation] calls.
+    /// The request builder for [TagHolds::get_operation][crate::client::TagHolds::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_holds::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagHolds>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3030,9 +4008,8 @@ pub mod tag_holds {
 
 pub mod tag_keys {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TagKeys][super::super::client::TagKeys].
+    /// A builder for [TagKeys][crate::client::TagKeys].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3043,7 +4020,7 @@ pub mod tag_keys {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3054,16 +4031,19 @@ pub mod tag_keys {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TagKeys;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TagKeys] request builders.
+    /// Common implementation for [crate::client::TagKeys] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TagKeys>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3072,7 +4052,7 @@ pub mod tag_keys {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3081,12 +4061,32 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::list_tag_keys][super::super::client::TagKeys::list_tag_keys] calls.
+    /// The request builder for [TagKeys::list_tag_keys][crate::client::TagKeys::list_tag_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::ListTagKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagKeys(RequestBuilder<crate::model::ListTagKeysRequest>);
 
     impl ListTagKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3110,8 +4110,8 @@ pub mod tag_keys {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTagKeysResponse, gax::error::Error>
         {
@@ -3123,6 +4123,15 @@ pub mod tag_keys {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTagKeysRequest::parent].
@@ -3153,12 +4162,28 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::get_tag_key][super::super::client::TagKeys::get_tag_key] calls.
+    /// The request builder for [TagKeys::get_tag_key][crate::client::TagKeys::get_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetTagKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTagKey(RequestBuilder<crate::model::GetTagKeyRequest>);
 
     impl GetTagKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3198,12 +4223,28 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::get_namespaced_tag_key][super::super::client::TagKeys::get_namespaced_tag_key] calls.
+    /// The request builder for [TagKeys::get_namespaced_tag_key][crate::client::TagKeys::get_namespaced_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetNamespacedTagKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNamespacedTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNamespacedTagKey(RequestBuilder<crate::model::GetNamespacedTagKeyRequest>);
 
     impl GetNamespacedTagKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3246,12 +4287,29 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::create_tag_key][super::super::client::TagKeys::create_tag_key] calls.
+    /// The request builder for [TagKeys::create_tag_key][crate::client::TagKeys::create_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::CreateTagKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagKey(RequestBuilder<crate::model::CreateTagKeyRequest>);
 
     impl CreateTagKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3272,7 +4330,7 @@ pub mod tag_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_key][super::super::client::TagKeys::create_tag_key].
+        /// on [create_tag_key][crate::client::TagKeys::create_tag_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_key(self.0.request, self.0.options)
@@ -3285,7 +4343,7 @@ pub mod tag_keys {
             self,
         ) -> impl lro::Poller<crate::model::TagKey, crate::model::CreateTagKeyMetadata> {
             type Operation =
-                lro::Operation<crate::model::TagKey, crate::model::CreateTagKeyMetadata>;
+                lro::internal::Operation<crate::model::TagKey, crate::model::CreateTagKeyMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3310,17 +4368,28 @@ pub mod tag_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_key<T: Into<std::option::Option<crate::model::TagKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_key = v.into();
+        pub fn set_tag_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_key][crate::model::CreateTagKeyRequest::tag_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = v.map(|x| x.into());
             self
         }
 
@@ -3338,12 +4407,29 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::update_tag_key][super::super::client::TagKeys::update_tag_key] calls.
+    /// The request builder for [TagKeys::update_tag_key][crate::client::TagKeys::update_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::UpdateTagKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagKey(RequestBuilder<crate::model::UpdateTagKeyRequest>);
 
     impl UpdateTagKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3364,7 +4450,7 @@ pub mod tag_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_tag_key][super::super::client::TagKeys::update_tag_key].
+        /// on [update_tag_key][crate::client::TagKeys::update_tag_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_tag_key(self.0.request, self.0.options)
@@ -3377,7 +4463,7 @@ pub mod tag_keys {
             self,
         ) -> impl lro::Poller<crate::model::TagKey, crate::model::UpdateTagKeyMetadata> {
             type Operation =
-                lro::Operation<crate::model::TagKey, crate::model::UpdateTagKeyMetadata>;
+                lro::internal::Operation<crate::model::TagKey, crate::model::UpdateTagKeyMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3402,26 +4488,46 @@ pub mod tag_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_key<T: Into<std::option::Option<crate::model::TagKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_key = v.into();
+        pub fn set_tag_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_key][crate::model::UpdateTagKeyRequest::tag_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagKey>,
+        {
+            self.0.request.tag_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagKeyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3439,12 +4545,29 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::delete_tag_key][super::super::client::TagKeys::delete_tag_key] calls.
+    /// The request builder for [TagKeys::delete_tag_key][crate::client::TagKeys::delete_tag_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::DeleteTagKey;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagKey(RequestBuilder<crate::model::DeleteTagKeyRequest>);
 
     impl DeleteTagKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3465,7 +4588,7 @@ pub mod tag_keys {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_key][super::super::client::TagKeys::delete_tag_key].
+        /// on [delete_tag_key][crate::client::TagKeys::delete_tag_key].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_key(self.0.request, self.0.options)
@@ -3478,7 +4601,7 @@ pub mod tag_keys {
             self,
         ) -> impl lro::Poller<crate::model::TagKey, crate::model::DeleteTagKeyMetadata> {
             type Operation =
-                lro::Operation<crate::model::TagKey, crate::model::DeleteTagKeyMetadata>;
+                lro::internal::Operation<crate::model::TagKey, crate::model::DeleteTagKeyMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3503,7 +4626,7 @@ pub mod tag_keys {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagKeyRequest::name].
@@ -3534,12 +4657,28 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::get_iam_policy][super::super::client::TagKeys::get_iam_policy] calls.
+    /// The request builder for [TagKeys::get_iam_policy][crate::client::TagKeys::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3572,11 +4711,20 @@ pub mod tag_keys {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3588,12 +4736,28 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::set_iam_policy][super::super::client::TagKeys::set_iam_policy] calls.
+    /// The request builder for [TagKeys::set_iam_policy][crate::client::TagKeys::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3628,20 +4792,40 @@ pub mod tag_keys {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3653,12 +4837,28 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::test_iam_permissions][super::super::client::TagKeys::test_iam_permissions] calls.
+    /// The request builder for [TagKeys::test_iam_permissions][crate::client::TagKeys::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3714,12 +4914,28 @@ pub mod tag_keys {
         }
     }
 
-    /// The request builder for [TagKeys::get_operation][super::super::client::TagKeys::get_operation] calls.
+    /// The request builder for [TagKeys::get_operation][crate::client::TagKeys::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_keys::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::TagKeys>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3763,9 +4979,8 @@ pub mod tag_keys {
 
 pub mod tag_values {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TagValues][super::super::client::TagValues].
+    /// A builder for [TagValues][crate::client::TagValues].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3776,7 +4991,7 @@ pub mod tag_values {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3787,16 +5002,19 @@ pub mod tag_values {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TagValues;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TagValues] request builders.
+    /// Common implementation for [crate::client::TagValues] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TagValues>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3805,7 +5023,9 @@ pub mod tag_values {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3814,12 +5034,34 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::list_tag_values][super::super::client::TagValues::list_tag_values] calls.
+    /// The request builder for [TagValues::list_tag_values][crate::client::TagValues::list_tag_values] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::ListTagValues;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTagValues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTagValues(RequestBuilder<crate::model::ListTagValuesRequest>);
 
     impl ListTagValues {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3843,8 +5085,8 @@ pub mod tag_values {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTagValuesResponse, gax::error::Error>
         {
@@ -3856,6 +5098,15 @@ pub mod tag_values {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagValuesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTagValuesRequest::parent].
@@ -3886,12 +5137,30 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::get_tag_value][super::super::client::TagValues::get_tag_value] calls.
+    /// The request builder for [TagValues::get_tag_value][crate::client::TagValues::get_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetTagValue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTagValue(RequestBuilder<crate::model::GetTagValueRequest>);
 
     impl GetTagValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3931,12 +5200,30 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::get_namespaced_tag_value][super::super::client::TagValues::get_namespaced_tag_value] calls.
+    /// The request builder for [TagValues::get_namespaced_tag_value][crate::client::TagValues::get_namespaced_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetNamespacedTagValue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNamespacedTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNamespacedTagValue(RequestBuilder<crate::model::GetNamespacedTagValueRequest>);
 
     impl GetNamespacedTagValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3979,12 +5266,31 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::create_tag_value][super::super::client::TagValues::create_tag_value] calls.
+    /// The request builder for [TagValues::create_tag_value][crate::client::TagValues::create_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::CreateTagValue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagValue(RequestBuilder<crate::model::CreateTagValueRequest>);
 
     impl CreateTagValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4005,7 +5311,7 @@ pub mod tag_values {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_tag_value][super::super::client::TagValues::create_tag_value].
+        /// on [create_tag_value][crate::client::TagValues::create_tag_value].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_tag_value(self.0.request, self.0.options)
@@ -4018,8 +5324,10 @@ pub mod tag_values {
             self,
         ) -> impl lro::Poller<crate::model::TagValue, crate::model::CreateTagValueMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TagValue, crate::model::CreateTagValueMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TagValue,
+                crate::model::CreateTagValueMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4044,17 +5352,28 @@ pub mod tag_values {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_value<T: Into<std::option::Option<crate::model::TagValue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_value = v.into();
+        pub fn set_tag_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_value][crate::model::CreateTagValueRequest::tag_value].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = v.map(|x| x.into());
             self
         }
 
@@ -4072,12 +5391,31 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::update_tag_value][super::super::client::TagValues::update_tag_value] calls.
+    /// The request builder for [TagValues::update_tag_value][crate::client::TagValues::update_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::UpdateTagValue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagValue(RequestBuilder<crate::model::UpdateTagValueRequest>);
 
     impl UpdateTagValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4098,7 +5436,7 @@ pub mod tag_values {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_tag_value][super::super::client::TagValues::update_tag_value].
+        /// on [update_tag_value][crate::client::TagValues::update_tag_value].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_tag_value(self.0.request, self.0.options)
@@ -4111,8 +5449,10 @@ pub mod tag_values {
             self,
         ) -> impl lro::Poller<crate::model::TagValue, crate::model::UpdateTagValueMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TagValue, crate::model::UpdateTagValueMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TagValue,
+                crate::model::UpdateTagValueMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4137,26 +5477,46 @@ pub mod tag_values {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_value<T: Into<std::option::Option<crate::model::TagValue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_value = v.into();
+        pub fn set_tag_value<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_value][crate::model::UpdateTagValueRequest::tag_value].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_value<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagValue>,
+        {
+            self.0.request.tag_value = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagValueRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -4174,12 +5534,31 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::delete_tag_value][super::super::client::TagValues::delete_tag_value] calls.
+    /// The request builder for [TagValues::delete_tag_value][crate::client::TagValues::delete_tag_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::DeleteTagValue;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagValue(RequestBuilder<crate::model::DeleteTagValueRequest>);
 
     impl DeleteTagValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4200,7 +5579,7 @@ pub mod tag_values {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_tag_value][super::super::client::TagValues::delete_tag_value].
+        /// on [delete_tag_value][crate::client::TagValues::delete_tag_value].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_tag_value(self.0.request, self.0.options)
@@ -4213,8 +5592,10 @@ pub mod tag_values {
             self,
         ) -> impl lro::Poller<crate::model::TagValue, crate::model::DeleteTagValueMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TagValue, crate::model::DeleteTagValueMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TagValue,
+                crate::model::DeleteTagValueMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4239,7 +5620,7 @@ pub mod tag_values {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteTagValueRequest::name].
@@ -4270,12 +5651,30 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::get_iam_policy][super::super::client::TagValues::get_iam_policy] calls.
+    /// The request builder for [TagValues::get_iam_policy][crate::client::TagValues::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4308,11 +5707,20 @@ pub mod tag_values {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4324,12 +5732,30 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::set_iam_policy][super::super::client::TagValues::set_iam_policy] calls.
+    /// The request builder for [TagValues::set_iam_policy][crate::client::TagValues::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4364,20 +5790,40 @@ pub mod tag_values {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4389,12 +5835,30 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::test_iam_permissions][super::super::client::TagValues::test_iam_permissions] calls.
+    /// The request builder for [TagValues::test_iam_permissions][crate::client::TagValues::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4450,12 +5914,30 @@ pub mod tag_values {
         }
     }
 
-    /// The request builder for [TagValues::get_operation][super::super::client::TagValues::get_operation] calls.
+    /// The request builder for [TagValues::get_operation][crate::client::TagValues::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_resourcemanager_v3::builder;
+    /// use builder::tag_values::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TagValues>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TagValues>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,8 @@
 
 pub mod web_risk_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [WebRiskService][super::super::client::WebRiskService].
+    /// A builder for [WebRiskService][crate::client::WebRiskService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod web_risk_service {
     /// let client = builder
     ///     .with_endpoint("https://webrisk.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod web_risk_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = WebRiskService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::WebRiskService] request builders.
+    /// Common implementation for [crate::client::WebRiskService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod web_risk_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::compute_threat_list_diff][super::super::client::WebRiskService::compute_threat_list_diff] calls.
+    /// The request builder for [WebRiskService::compute_threat_list_diff][crate::client::WebRiskService::compute_threat_list_diff] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::ComputeThreatListDiff;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ComputeThreatListDiff {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeThreatListDiff(RequestBuilder<crate::model::ComputeThreatListDiffRequest>);
 
     impl ComputeThreatListDiff {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -116,13 +138,22 @@ pub mod web_risk_service {
         /// Sets the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
         ///
         /// This is a **required** field for requests.
-        pub fn set_constraints<
-            T: Into<std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.constraints = v.into();
+        pub fn set_constraints<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
+        {
+            self.0.request.constraints = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [constraints][crate::model::ComputeThreatListDiffRequest::constraints].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_constraints<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::compute_threat_list_diff_request::Constraints>,
+        {
+            self.0.request.constraints = v.map(|x| x.into());
             self
         }
     }
@@ -134,12 +165,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::search_uris][super::super::client::WebRiskService::search_uris] calls.
+    /// The request builder for [WebRiskService::search_uris][crate::client::WebRiskService::search_uris] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::SearchUris;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchUris {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchUris(RequestBuilder<crate::model::SearchUrisRequest>);
 
     impl SearchUris {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -192,12 +241,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::search_hashes][super::super::client::WebRiskService::search_hashes] calls.
+    /// The request builder for [WebRiskService::search_hashes][crate::client::WebRiskService::search_hashes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::SearchHashes;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchHashes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchHashes(RequestBuilder<crate::model::SearchHashesRequest>);
 
     impl SearchHashes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -248,12 +315,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::create_submission][super::super::client::WebRiskService::create_submission] calls.
+    /// The request builder for [WebRiskService::create_submission][crate::client::WebRiskService::create_submission] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::CreateSubmission;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSubmission {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSubmission(RequestBuilder<crate::model::CreateSubmissionRequest>);
 
     impl CreateSubmission {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,11 +376,22 @@ pub mod web_risk_service {
         /// Sets the value of [submission][crate::model::CreateSubmissionRequest::submission].
         ///
         /// This is a **required** field for requests.
-        pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.submission = v.into();
+        pub fn set_submission<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [submission][crate::model::CreateSubmissionRequest::submission].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = v.map(|x| x.into());
             self
         }
     }
@@ -307,12 +403,31 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::submit_uri][super::super::client::WebRiskService::submit_uri] calls.
+    /// The request builder for [WebRiskService::submit_uri][crate::client::WebRiskService::submit_uri] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::SubmitUri;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitUri {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitUri(RequestBuilder<crate::model::SubmitUriRequest>);
 
     impl SubmitUri {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -333,7 +448,7 @@ pub mod web_risk_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [submit_uri][super::super::client::WebRiskService::submit_uri].
+        /// on [submit_uri][crate::client::WebRiskService::submit_uri].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .submit_uri(self.0.request, self.0.options)
@@ -346,7 +461,7 @@ pub mod web_risk_service {
             self,
         ) -> impl lro::Poller<crate::model::Submission, crate::model::SubmitUriMetadata> {
             type Operation =
-                lro::Operation<crate::model::Submission, crate::model::SubmitUriMetadata>;
+                lro::internal::Operation<crate::model::Submission, crate::model::SubmitUriMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -371,7 +486,7 @@ pub mod web_risk_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::SubmitUriRequest::parent].
@@ -385,29 +500,58 @@ pub mod web_risk_service {
         /// Sets the value of [submission][crate::model::SubmitUriRequest::submission].
         ///
         /// This is a **required** field for requests.
-        pub fn set_submission<T: Into<std::option::Option<crate::model::Submission>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.submission = v.into();
+        pub fn set_submission<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [submission][crate::model::SubmitUriRequest::submission].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_submission<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Submission>,
+        {
+            self.0.request.submission = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
-        pub fn set_threat_info<T: Into<std::option::Option<crate::model::ThreatInfo>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.threat_info = v.into();
+        pub fn set_threat_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatInfo>,
+        {
+            self.0.request.threat_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [threat_info][crate::model::SubmitUriRequest::threat_info].
+        pub fn set_or_clear_threat_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatInfo>,
+        {
+            self.0.request.threat_info = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
-        pub fn set_threat_discovery<T: Into<std::option::Option<crate::model::ThreatDiscovery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.threat_discovery = v.into();
+        pub fn set_threat_discovery<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatDiscovery>,
+        {
+            self.0.request.threat_discovery = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [threat_discovery][crate::model::SubmitUriRequest::threat_discovery].
+        pub fn set_or_clear_threat_discovery<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ThreatDiscovery>,
+        {
+            self.0.request.threat_discovery = v.map(|x| x.into());
             self
         }
     }
@@ -419,12 +563,34 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::list_operations][super::super::client::WebRiskService::list_operations] calls.
+    /// The request builder for [WebRiskService::list_operations][crate::client::WebRiskService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -451,8 +617,8 @@ pub mod web_risk_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -464,6 +630,17 @@ pub mod web_risk_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -498,12 +675,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::get_operation][super::super::client::WebRiskService::get_operation] calls.
+    /// The request builder for [WebRiskService::get_operation][crate::client::WebRiskService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -544,12 +739,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::delete_operation][super::super::client::WebRiskService::delete_operation] calls.
+    /// The request builder for [WebRiskService::delete_operation][crate::client::WebRiskService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -590,12 +803,30 @@ pub mod web_risk_service {
         }
     }
 
-    /// The request builder for [WebRiskService::cancel_operation][super::super::client::WebRiskService::cancel_operation] calls.
+    /// The request builder for [WebRiskService::cancel_operation][crate::client::WebRiskService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_webrisk_v1::builder;
+    /// use builder::web_risk_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::WebRiskService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::WebRiskService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

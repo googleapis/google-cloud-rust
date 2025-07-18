@@ -21,21 +21,36 @@ version           = "0.0.0"
 
 [features]
 log-integration-tests = ["dep:tracing-subscriber"]
+# These are normally disabled because they run against production.
 run-integration-tests = []
+# These are normally disabled because they require installing the golang
+# toolchain.
+run-showcase-tests = []
 
 [dependencies]
-bytes                 = "1"
-crc32c                = "0.6"
-futures               = "0.3"
+anyhow.workspace      = true
+bytes.workspace       = true
+crc32c.workspace      = true
+futures.workspace     = true
+auth.workspace        = true
 gax                   = { workspace = true, features = ["unstable-stream"] }
+gaxi                  = { workspace = true, features = ["_internal-http-client"] }
 iam_v1.workspace      = true
 longrunning.workspace = true
-rand                  = "0.9"
-serde_json            = "1"
-tokio                 = { version = "1", features = ["full", "macros"] }
-tracing               = "0.1"
-tracing-subscriber    = { version = "0.3", optional = true }
+lro.workspace         = true
+rand                  = { workspace = true, features = ["thread_rng"] }
+serde_json.workspace  = true
+tokio                 = { workspace = true, features = ["process"] }
+tracing.workspace     = true
+tracing-subscriber    = { workspace = true, optional = true, features = ["fmt", "std"] }
+uuid                  = { workspace = true, features = ["std", "v4"] }
 wkt.workspace         = true
+
+[dependencies.aiplatform]
+package          = "google-cloud-aiplatform-v1"
+path             = "../../src/generated/cloud/aiplatform/v1"
+default-features = false
+features         = ["prediction-service"]
 
 [dependencies.bigquery]
 package = "google-cloud-bigquery"
@@ -49,9 +64,9 @@ path    = "../../src/generated/cloud/bigquery/v2"
 package = "google-cloud-firestore"
 path    = "../../src/firestore"
 
-[dependencies.storage]
-package = "google-cloud-storage-control"
-path    = "../../src/storage-control"
+[dependencies.showcase]
+package = "google-cloud-showcase-v1beta1"
+path    = "../../src/generated/showcase"
 
 [dependencies.sm]
 package = "google-cloud-secretmanager-v1"
@@ -60,6 +75,15 @@ path    = "../../src/generated/cloud/secretmanager/v1"
 [dependencies.smo]
 package = "secretmanager-openapi-v1"
 path    = "../../src/generated/openapi-validation"
+
+[dependencies.sql]
+package = "google-cloud-sql-v1"
+path    = "../../src/generated/cloud/sql/v1"
+
+[dependencies.storage]
+package  = "google-cloud-storage"
+path     = "../../src/storage"
+features = ["unstable-stream"]
 
 [dependencies.ta]
 package = "google-cloud-telcoautomation-v1"
@@ -74,9 +98,11 @@ package = "google-cloud-workflows-executions-v1"
 path    = "../../src/generated/cloud/workflows/executions/v1"
 
 [dev-dependencies]
-anyhow.workspace    = true
-mockall             = "0.13"
-serde               = { version = "1", features = ["serde_derive"] }
-serde_with          = { version = "3", features = ["base64"] }
-test-case.workspace = true
-tokio               = { version = "1", features = ["full", "macros"] }
+anyhow.workspace     = true
+axum                 = { workspace = true, features = ["http2", "json", "query", "tokio"] }
+mockall.workspace    = true
+reqwest.workspace    = true
+serde.workspace      = true
+serde_with.workspace = true
+test-case.workspace  = true
+tokio.workspace      = true

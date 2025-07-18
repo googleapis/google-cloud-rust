@@ -16,9 +16,8 @@
 
 pub mod os_login_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [OsLoginService][super::super::client::OsLoginService].
+    /// A builder for [OsLoginService][crate::client::OsLoginService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod os_login_service {
     /// let client = builder
     ///     .with_endpoint("https://oslogin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod os_login_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OsLoginService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::OsLoginService] request builders.
+    /// Common implementation for [crate::client::OsLoginService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod os_login_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::create_ssh_public_key][super::super::client::OsLoginService::create_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::create_ssh_public_key][crate::client::OsLoginService::create_ssh_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::CreateSshPublicKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSshPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSshPublicKey(RequestBuilder<crate::model::CreateSshPublicKeyRequest>);
 
     impl CreateSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -110,13 +132,22 @@ pub mod os_login_service {
         /// Sets the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ssh_public_key<
-            T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ssh_public_key = v.into();
+        pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        {
+            self.0.request.ssh_public_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ssh_public_key][crate::model::CreateSshPublicKeyRequest::ssh_public_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        {
+            self.0.request.ssh_public_key = v.map(|x| x.into());
             self
         }
     }
@@ -128,12 +159,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::delete_posix_account][super::super::client::OsLoginService::delete_posix_account] calls.
+    /// The request builder for [OsLoginService::delete_posix_account][crate::client::OsLoginService::delete_posix_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::DeletePosixAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePosixAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePosixAccount(RequestBuilder<crate::model::DeletePosixAccountRequest>);
 
     impl DeletePosixAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -176,12 +225,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::delete_ssh_public_key][super::super::client::OsLoginService::delete_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::delete_ssh_public_key][crate::client::OsLoginService::delete_ssh_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::DeleteSshPublicKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSshPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSshPublicKey(RequestBuilder<crate::model::DeleteSshPublicKeyRequest>);
 
     impl DeleteSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -224,12 +291,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::get_login_profile][super::super::client::OsLoginService::get_login_profile] calls.
+    /// The request builder for [OsLoginService::get_login_profile][crate::client::OsLoginService::get_login_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::GetLoginProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLoginProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLoginProfile(RequestBuilder<crate::model::GetLoginProfileRequest>);
 
     impl GetLoginProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -281,12 +366,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::get_ssh_public_key][super::super::client::OsLoginService::get_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::get_ssh_public_key][crate::client::OsLoginService::get_ssh_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::GetSshPublicKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSshPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSshPublicKey(RequestBuilder<crate::model::GetSshPublicKeyRequest>);
 
     impl GetSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -326,12 +429,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::import_ssh_public_key][super::super::client::OsLoginService::import_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::import_ssh_public_key][crate::client::OsLoginService::import_ssh_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::ImportSshPublicKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportSshPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportSshPublicKey(RequestBuilder<crate::model::ImportSshPublicKeyRequest>);
 
     impl ImportSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -367,13 +488,20 @@ pub mod os_login_service {
         }
 
         /// Sets the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
-        pub fn set_ssh_public_key<
-            T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ssh_public_key = v.into();
+        pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        {
+            self.0.request.ssh_public_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ssh_public_key][crate::model::ImportSshPublicKeyRequest::ssh_public_key].
+        pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        {
+            self.0.request.ssh_public_key = v.map(|x| x.into());
             self
         }
 
@@ -402,12 +530,30 @@ pub mod os_login_service {
         }
     }
 
-    /// The request builder for [OsLoginService::update_ssh_public_key][super::super::client::OsLoginService::update_ssh_public_key] calls.
+    /// The request builder for [OsLoginService::update_ssh_public_key][crate::client::OsLoginService::update_ssh_public_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_oslogin_v1::builder;
+    /// use builder::os_login_service::UpdateSshPublicKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSshPublicKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSshPublicKey(RequestBuilder<crate::model::UpdateSshPublicKeyRequest>);
 
     impl UpdateSshPublicKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OsLoginService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OsLoginService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -445,22 +591,40 @@ pub mod os_login_service {
         /// Sets the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ssh_public_key<
-            T: Into<std::option::Option<oslogin_common::model::SshPublicKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ssh_public_key = v.into();
+        pub fn set_ssh_public_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        {
+            self.0.request.ssh_public_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ssh_public_key][crate::model::UpdateSshPublicKeyRequest::ssh_public_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ssh_public_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<oslogin_common::model::SshPublicKey>,
+        {
+            self.0.request.ssh_public_key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSshPublicKeyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

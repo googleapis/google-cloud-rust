@@ -16,9 +16,8 @@
 
 pub mod telco_automation {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TelcoAutomation][super::super::client::TelcoAutomation].
+    /// A builder for [TelcoAutomation][crate::client::TelcoAutomation].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod telco_automation {
     /// let client = builder
     ///     .with_endpoint("https://telcoautomation.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod telco_automation {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TelcoAutomation;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TelcoAutomation] request builders.
+    /// Common implementation for [crate::client::TelcoAutomation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod telco_automation {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,14 +71,36 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_orchestration_clusters][super::super::client::TelcoAutomation::list_orchestration_clusters] calls.
+    /// The request builder for [TelcoAutomation::list_orchestration_clusters][crate::client::TelcoAutomation::list_orchestration_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListOrchestrationClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrchestrationClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrchestrationClusters(
         RequestBuilder<crate::model::ListOrchestrationClustersRequest>,
     );
 
     impl ListOrchestrationClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -101,8 +127,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListOrchestrationClustersResponse,
@@ -116,6 +142,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrchestrationClustersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOrchestrationClustersRequest::parent].
@@ -158,14 +195,32 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_orchestration_cluster][super::super::client::TelcoAutomation::get_orchestration_cluster] calls.
+    /// The request builder for [TelcoAutomation::get_orchestration_cluster][crate::client::TelcoAutomation::get_orchestration_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetOrchestrationCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrchestrationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrchestrationCluster(
         RequestBuilder<crate::model::GetOrchestrationClusterRequest>,
     );
 
     impl GetOrchestrationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,14 +263,33 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_orchestration_cluster][super::super::client::TelcoAutomation::create_orchestration_cluster] calls.
+    /// The request builder for [TelcoAutomation::create_orchestration_cluster][crate::client::TelcoAutomation::create_orchestration_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::CreateOrchestrationCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateOrchestrationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOrchestrationCluster(
         RequestBuilder<crate::model::CreateOrchestrationClusterRequest>,
     );
 
     impl CreateOrchestrationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -239,7 +313,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_orchestration_cluster][super::super::client::TelcoAutomation::create_orchestration_cluster].
+        /// on [create_orchestration_cluster][crate::client::TelcoAutomation::create_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_orchestration_cluster(self.0.request, self.0.options)
@@ -252,8 +326,10 @@ pub mod telco_automation {
             self,
         ) -> impl lro::Poller<crate::model::OrchestrationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::OrchestrationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::OrchestrationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -278,7 +354,7 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateOrchestrationClusterRequest::parent].
@@ -300,13 +376,22 @@ pub mod telco_automation {
         /// Sets the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_orchestration_cluster<
-            T: Into<std::option::Option<crate::model::OrchestrationCluster>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.orchestration_cluster = v.into();
+        pub fn set_orchestration_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::OrchestrationCluster>,
+        {
+            self.0.request.orchestration_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [orchestration_cluster][crate::model::CreateOrchestrationClusterRequest::orchestration_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_orchestration_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::OrchestrationCluster>,
+        {
+            self.0.request.orchestration_cluster = v.map(|x| x.into());
             self
         }
 
@@ -324,14 +409,33 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_orchestration_cluster][super::super::client::TelcoAutomation::delete_orchestration_cluster] calls.
+    /// The request builder for [TelcoAutomation::delete_orchestration_cluster][crate::client::TelcoAutomation::delete_orchestration_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::DeleteOrchestrationCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOrchestrationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOrchestrationCluster(
         RequestBuilder<crate::model::DeleteOrchestrationClusterRequest>,
     );
 
     impl DeleteOrchestrationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -355,7 +459,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_orchestration_cluster][super::super::client::TelcoAutomation::delete_orchestration_cluster].
+        /// on [delete_orchestration_cluster][crate::client::TelcoAutomation::delete_orchestration_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_orchestration_cluster(self.0.request, self.0.options)
@@ -364,8 +468,8 @@ pub mod telco_automation {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_orchestration_cluster`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -390,7 +494,12 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteOrchestrationClusterRequest::name].
@@ -415,12 +524,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_edge_slms][super::super::client::TelcoAutomation::list_edge_slms] calls.
+    /// The request builder for [TelcoAutomation::list_edge_slms][crate::client::TelcoAutomation::list_edge_slms] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListEdgeSlms;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEdgeSlms {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEdgeSlms(RequestBuilder<crate::model::ListEdgeSlmsRequest>);
 
     impl ListEdgeSlms {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -444,8 +575,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
         {
@@ -457,6 +588,15 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEdgeSlmsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEdgeSlmsRequest::parent].
@@ -499,12 +639,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_edge_slm][super::super::client::TelcoAutomation::get_edge_slm] calls.
+    /// The request builder for [TelcoAutomation::get_edge_slm][crate::client::TelcoAutomation::get_edge_slm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetEdgeSlm;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEdgeSlm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEdgeSlm(RequestBuilder<crate::model::GetEdgeSlmRequest>);
 
     impl GetEdgeSlm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -544,12 +702,31 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_edge_slm][super::super::client::TelcoAutomation::create_edge_slm] calls.
+    /// The request builder for [TelcoAutomation::create_edge_slm][crate::client::TelcoAutomation::create_edge_slm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::CreateEdgeSlm;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEdgeSlm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEdgeSlm(RequestBuilder<crate::model::CreateEdgeSlmRequest>);
 
     impl CreateEdgeSlm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -570,7 +747,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_edge_slm][super::super::client::TelcoAutomation::create_edge_slm].
+        /// on [create_edge_slm][crate::client::TelcoAutomation::create_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_edge_slm(self.0.request, self.0.options)
@@ -582,7 +759,8 @@ pub mod telco_automation {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::EdgeSlm, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::EdgeSlm, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -607,7 +785,7 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEdgeSlmRequest::parent].
@@ -629,11 +807,22 @@ pub mod telco_automation {
         /// Sets the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
         ///
         /// This is a **required** field for requests.
-        pub fn set_edge_slm<T: Into<std::option::Option<crate::model::EdgeSlm>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.edge_slm = v.into();
+        pub fn set_edge_slm<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EdgeSlm>,
+        {
+            self.0.request.edge_slm = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [edge_slm][crate::model::CreateEdgeSlmRequest::edge_slm].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_edge_slm<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EdgeSlm>,
+        {
+            self.0.request.edge_slm = v.map(|x| x.into());
             self
         }
 
@@ -651,12 +840,31 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_edge_slm][super::super::client::TelcoAutomation::delete_edge_slm] calls.
+    /// The request builder for [TelcoAutomation::delete_edge_slm][crate::client::TelcoAutomation::delete_edge_slm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::DeleteEdgeSlm;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEdgeSlm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEdgeSlm(RequestBuilder<crate::model::DeleteEdgeSlmRequest>);
 
     impl DeleteEdgeSlm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -677,7 +885,7 @@ pub mod telco_automation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_edge_slm][super::super::client::TelcoAutomation::delete_edge_slm].
+        /// on [delete_edge_slm][crate::client::TelcoAutomation::delete_edge_slm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_edge_slm(self.0.request, self.0.options)
@@ -686,8 +894,8 @@ pub mod telco_automation {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_edge_slm`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -712,7 +920,12 @@ pub mod telco_automation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEdgeSlmRequest::name].
@@ -737,12 +950,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_blueprint][super::super::client::TelcoAutomation::create_blueprint] calls.
+    /// The request builder for [TelcoAutomation::create_blueprint][crate::client::TelcoAutomation::create_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::CreateBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBlueprint(RequestBuilder<crate::model::CreateBlueprintRequest>);
 
     impl CreateBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -783,11 +1014,22 @@ pub mod telco_automation {
         /// Sets the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_blueprint<T: Into<std::option::Option<crate::model::Blueprint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.blueprint = v.into();
+        pub fn set_blueprint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
+        {
+            self.0.request.blueprint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blueprint][crate::model::CreateBlueprintRequest::blueprint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
+        {
+            self.0.request.blueprint = v.map(|x| x.into());
             self
         }
     }
@@ -799,12 +1041,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::update_blueprint][super::super::client::TelcoAutomation::update_blueprint] calls.
+    /// The request builder for [TelcoAutomation::update_blueprint][crate::client::TelcoAutomation::update_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::UpdateBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBlueprint(RequestBuilder<crate::model::UpdateBlueprintRequest>);
 
     impl UpdateBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -831,22 +1091,44 @@ pub mod telco_automation {
         /// Sets the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_blueprint<T: Into<std::option::Option<crate::model::Blueprint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.blueprint = v.into();
+        pub fn set_blueprint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
+        {
+            self.0.request.blueprint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [blueprint][crate::model::UpdateBlueprintRequest::blueprint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_blueprint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Blueprint>,
+        {
+            self.0.request.blueprint = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBlueprintRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -858,12 +1140,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_blueprint][super::super::client::TelcoAutomation::get_blueprint] calls.
+    /// The request builder for [TelcoAutomation::get_blueprint][crate::client::TelcoAutomation::get_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBlueprint(RequestBuilder<crate::model::GetBlueprintRequest>);
 
     impl GetBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -909,12 +1209,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_blueprint][super::super::client::TelcoAutomation::delete_blueprint] calls.
+    /// The request builder for [TelcoAutomation::delete_blueprint][crate::client::TelcoAutomation::delete_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::DeleteBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBlueprint(RequestBuilder<crate::model::DeleteBlueprintRequest>);
 
     impl DeleteBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -954,12 +1272,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_blueprints][super::super::client::TelcoAutomation::list_blueprints] calls.
+    /// The request builder for [TelcoAutomation::list_blueprints][crate::client::TelcoAutomation::list_blueprints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListBlueprints;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBlueprints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBlueprints(RequestBuilder<crate::model::ListBlueprintsRequest>);
 
     impl ListBlueprints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -983,8 +1323,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBlueprintsResponse, gax::error::Error>
         {
@@ -996,6 +1336,15 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBlueprintsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBlueprintsRequest::parent].
@@ -1032,12 +1381,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::approve_blueprint][super::super::client::TelcoAutomation::approve_blueprint] calls.
+    /// The request builder for [TelcoAutomation::approve_blueprint][crate::client::TelcoAutomation::approve_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ApproveBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveBlueprint(RequestBuilder<crate::model::ApproveBlueprintRequest>);
 
     impl ApproveBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1080,12 +1447,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::propose_blueprint][super::super::client::TelcoAutomation::propose_blueprint] calls.
+    /// The request builder for [TelcoAutomation::propose_blueprint][crate::client::TelcoAutomation::propose_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ProposeBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ProposeBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ProposeBlueprint(RequestBuilder<crate::model::ProposeBlueprintRequest>);
 
     impl ProposeBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1128,12 +1513,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::reject_blueprint][super::super::client::TelcoAutomation::reject_blueprint] calls.
+    /// The request builder for [TelcoAutomation::reject_blueprint][crate::client::TelcoAutomation::reject_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::RejectBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RejectBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RejectBlueprint(RequestBuilder<crate::model::RejectBlueprintRequest>);
 
     impl RejectBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1173,12 +1576,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_blueprint_revisions][super::super::client::TelcoAutomation::list_blueprint_revisions] calls.
+    /// The request builder for [TelcoAutomation::list_blueprint_revisions][crate::client::TelcoAutomation::list_blueprint_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListBlueprintRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBlueprintRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBlueprintRevisions(RequestBuilder<crate::model::ListBlueprintRevisionsRequest>);
 
     impl ListBlueprintRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1205,8 +1630,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListBlueprintRevisionsResponse,
@@ -1220,6 +1645,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBlueprintRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListBlueprintRevisionsRequest::name].
@@ -1250,14 +1686,36 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::search_blueprint_revisions][super::super::client::TelcoAutomation::search_blueprint_revisions] calls.
+    /// The request builder for [TelcoAutomation::search_blueprint_revisions][crate::client::TelcoAutomation::search_blueprint_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::SearchBlueprintRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchBlueprintRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchBlueprintRevisions(
         RequestBuilder<crate::model::SearchBlueprintRevisionsRequest>,
     );
 
     impl SearchBlueprintRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1284,8 +1742,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchBlueprintRevisionsResponse,
@@ -1299,6 +1757,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchBlueprintRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchBlueprintRevisionsRequest::parent].
@@ -1337,14 +1806,36 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::search_deployment_revisions][super::super::client::TelcoAutomation::search_deployment_revisions] calls.
+    /// The request builder for [TelcoAutomation::search_deployment_revisions][crate::client::TelcoAutomation::search_deployment_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::SearchDeploymentRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchDeploymentRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchDeploymentRevisions(
         RequestBuilder<crate::model::SearchDeploymentRevisionsRequest>,
     );
 
     impl SearchDeploymentRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1371,8 +1862,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchDeploymentRevisionsResponse,
@@ -1386,6 +1877,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchDeploymentRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchDeploymentRevisionsRequest::parent].
@@ -1424,14 +1926,32 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::discard_blueprint_changes][super::super::client::TelcoAutomation::discard_blueprint_changes] calls.
+    /// The request builder for [TelcoAutomation::discard_blueprint_changes][crate::client::TelcoAutomation::discard_blueprint_changes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::DiscardBlueprintChanges;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiscardBlueprintChanges {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiscardBlueprintChanges(
         RequestBuilder<crate::model::DiscardBlueprintChangesRequest>,
     );
 
     impl DiscardBlueprintChanges {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1474,12 +1994,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_public_blueprints][super::super::client::TelcoAutomation::list_public_blueprints] calls.
+    /// The request builder for [TelcoAutomation::list_public_blueprints][crate::client::TelcoAutomation::list_public_blueprints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListPublicBlueprints;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPublicBlueprints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPublicBlueprints(RequestBuilder<crate::model::ListPublicBlueprintsRequest>);
 
     impl ListPublicBlueprints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1506,8 +2048,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPublicBlueprintsResponse, gax::error::Error>
         {
@@ -1519,6 +2061,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPublicBlueprintsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPublicBlueprintsRequest::parent].
@@ -1549,12 +2102,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_public_blueprint][super::super::client::TelcoAutomation::get_public_blueprint] calls.
+    /// The request builder for [TelcoAutomation::get_public_blueprint][crate::client::TelcoAutomation::get_public_blueprint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetPublicBlueprint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPublicBlueprint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPublicBlueprint(RequestBuilder<crate::model::GetPublicBlueprintRequest>);
 
     impl GetPublicBlueprint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1597,12 +2168,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::create_deployment][super::super::client::TelcoAutomation::create_deployment] calls.
+    /// The request builder for [TelcoAutomation::create_deployment][crate::client::TelcoAutomation::create_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::CreateDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1646,11 +2235,22 @@ pub mod telco_automation {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -1662,12 +2262,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::update_deployment][super::super::client::TelcoAutomation::update_deployment] calls.
+    /// The request builder for [TelcoAutomation::update_deployment][crate::client::TelcoAutomation::update_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::UpdateDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
     impl UpdateDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1697,22 +2315,44 @@ pub mod telco_automation {
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1724,12 +2364,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_deployment][super::super::client::TelcoAutomation::get_deployment] calls.
+    /// The request builder for [TelcoAutomation::get_deployment][crate::client::TelcoAutomation::get_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1775,12 +2433,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::remove_deployment][super::super::client::TelcoAutomation::remove_deployment] calls.
+    /// The request builder for [TelcoAutomation::remove_deployment][crate::client::TelcoAutomation::remove_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::RemoveDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveDeployment(RequestBuilder<crate::model::RemoveDeploymentRequest>);
 
     impl RemoveDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1823,12 +2499,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_deployments][super::super::client::TelcoAutomation::list_deployments] calls.
+    /// The request builder for [TelcoAutomation::list_deployments][crate::client::TelcoAutomation::list_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1852,8 +2550,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
@@ -1865,6 +2563,15 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
@@ -1901,14 +2608,36 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_deployment_revisions][super::super::client::TelcoAutomation::list_deployment_revisions] calls.
+    /// The request builder for [TelcoAutomation::list_deployment_revisions][crate::client::TelcoAutomation::list_deployment_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListDeploymentRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeploymentRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeploymentRevisions(
         RequestBuilder<crate::model::ListDeploymentRevisionsRequest>,
     );
 
     impl ListDeploymentRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1935,8 +2664,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListDeploymentRevisionsResponse,
@@ -1950,6 +2679,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDeploymentRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListDeploymentRevisionsRequest::name].
@@ -1980,14 +2720,32 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::discard_deployment_changes][super::super::client::TelcoAutomation::discard_deployment_changes] calls.
+    /// The request builder for [TelcoAutomation::discard_deployment_changes][crate::client::TelcoAutomation::discard_deployment_changes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::DiscardDeploymentChanges;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DiscardDeploymentChanges {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DiscardDeploymentChanges(
         RequestBuilder<crate::model::DiscardDeploymentChangesRequest>,
     );
 
     impl DiscardDeploymentChanges {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2030,12 +2788,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::apply_deployment][super::super::client::TelcoAutomation::apply_deployment] calls.
+    /// The request builder for [TelcoAutomation::apply_deployment][crate::client::TelcoAutomation::apply_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ApplyDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApplyDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApplyDeployment(RequestBuilder<crate::model::ApplyDeploymentRequest>);
 
     impl ApplyDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2075,14 +2851,32 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::compute_deployment_status][super::super::client::TelcoAutomation::compute_deployment_status] calls.
+    /// The request builder for [TelcoAutomation::compute_deployment_status][crate::client::TelcoAutomation::compute_deployment_status] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ComputeDeploymentStatus;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ComputeDeploymentStatus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ComputeDeploymentStatus(
         RequestBuilder<crate::model::ComputeDeploymentStatusRequest>,
     );
 
     impl ComputeDeploymentStatus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2125,12 +2919,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::rollback_deployment][super::super::client::TelcoAutomation::rollback_deployment] calls.
+    /// The request builder for [TelcoAutomation::rollback_deployment][crate::client::TelcoAutomation::rollback_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::RollbackDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RollbackDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackDeployment(RequestBuilder<crate::model::RollbackDeploymentRequest>);
 
     impl RollbackDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2181,12 +2993,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_hydrated_deployment][super::super::client::TelcoAutomation::get_hydrated_deployment] calls.
+    /// The request builder for [TelcoAutomation::get_hydrated_deployment][crate::client::TelcoAutomation::get_hydrated_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetHydratedDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetHydratedDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetHydratedDeployment(RequestBuilder<crate::model::GetHydratedDeploymentRequest>);
 
     impl GetHydratedDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2229,14 +3059,36 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_hydrated_deployments][super::super::client::TelcoAutomation::list_hydrated_deployments] calls.
+    /// The request builder for [TelcoAutomation::list_hydrated_deployments][crate::client::TelcoAutomation::list_hydrated_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListHydratedDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListHydratedDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListHydratedDeployments(
         RequestBuilder<crate::model::ListHydratedDeploymentsRequest>,
     );
 
     impl ListHydratedDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2263,8 +3115,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListHydratedDeploymentsResponse,
@@ -2278,6 +3130,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListHydratedDeploymentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListHydratedDeploymentsRequest::parent].
@@ -2308,14 +3171,32 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::update_hydrated_deployment][super::super::client::TelcoAutomation::update_hydrated_deployment] calls.
+    /// The request builder for [TelcoAutomation::update_hydrated_deployment][crate::client::TelcoAutomation::update_hydrated_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::UpdateHydratedDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateHydratedDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateHydratedDeployment(
         RequestBuilder<crate::model::UpdateHydratedDeploymentRequest>,
     );
 
     impl UpdateHydratedDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2345,24 +3226,44 @@ pub mod telco_automation {
         /// Sets the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_hydrated_deployment<
-            T: Into<std::option::Option<crate::model::HydratedDeployment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.hydrated_deployment = v.into();
+        pub fn set_hydrated_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HydratedDeployment>,
+        {
+            self.0.request.hydrated_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [hydrated_deployment][crate::model::UpdateHydratedDeploymentRequest::hydrated_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_hydrated_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::HydratedDeployment>,
+        {
+            self.0.request.hydrated_deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateHydratedDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2374,14 +3275,32 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::apply_hydrated_deployment][super::super::client::TelcoAutomation::apply_hydrated_deployment] calls.
+    /// The request builder for [TelcoAutomation::apply_hydrated_deployment][crate::client::TelcoAutomation::apply_hydrated_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ApplyHydratedDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApplyHydratedDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApplyHydratedDeployment(
         RequestBuilder<crate::model::ApplyHydratedDeploymentRequest>,
     );
 
     impl ApplyHydratedDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2424,12 +3343,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_locations][super::super::client::TelcoAutomation::list_locations] calls.
+    /// The request builder for [TelcoAutomation::list_locations][crate::client::TelcoAutomation::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2456,8 +3397,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2469,6 +3410,15 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2503,12 +3453,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_location][super::super::client::TelcoAutomation::get_location] calls.
+    /// The request builder for [TelcoAutomation::get_location][crate::client::TelcoAutomation::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2546,12 +3514,34 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::list_operations][super::super::client::TelcoAutomation::list_operations] calls.
+    /// The request builder for [TelcoAutomation::list_operations][crate::client::TelcoAutomation::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2578,8 +3568,8 @@ pub mod telco_automation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2591,6 +3581,17 @@ pub mod telco_automation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2625,12 +3626,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::get_operation][super::super::client::TelcoAutomation::get_operation] calls.
+    /// The request builder for [TelcoAutomation::get_operation][crate::client::TelcoAutomation::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2671,12 +3690,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::delete_operation][super::super::client::TelcoAutomation::delete_operation] calls.
+    /// The request builder for [TelcoAutomation::delete_operation][crate::client::TelcoAutomation::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2717,12 +3754,30 @@ pub mod telco_automation {
         }
     }
 
-    /// The request builder for [TelcoAutomation::cancel_operation][super::super::client::TelcoAutomation::cancel_operation] calls.
+    /// The request builder for [TelcoAutomation::cancel_operation][crate::client::TelcoAutomation::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_telcoautomation_v1::builder;
+    /// use builder::telco_automation::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TelcoAutomation>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TelcoAutomation>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

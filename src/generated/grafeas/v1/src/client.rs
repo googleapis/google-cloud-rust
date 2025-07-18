@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Container Analysis API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_grafeas_v1::client::Grafeas;
 /// let client = Grafeas::builder().build().await?;
 /// // use `client` to make requests to the Container Analysis API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,11 +68,11 @@ use std::sync::Arc;
 ///
 /// `Grafeas` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Grafeas` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Grafeas {
-    inner: Arc<dyn super::stub::dynamic::Grafeas>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Grafeas>,
 }
 
 impl Grafeas {
@@ -85,7 +82,7 @@ impl Grafeas {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// let client = Grafeas::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::grafeas::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::grafeas::client::Factory)
@@ -100,153 +97,112 @@ impl Grafeas {
         T: super::stub::Grafeas + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Grafeas>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Grafeas>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Grafeas> {
+    ) -> gax::client_builder::Result<impl super::stub::Grafeas> {
         super::transport::Grafeas::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Grafeas> {
+    ) -> gax::client_builder::Result<impl super::stub::Grafeas> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Grafeas::new)
     }
 
     /// Gets the specified occurrence.
-    pub fn get_occurrence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::GetOccurrence {
-        super::builder::grafeas::GetOccurrence::new(self.inner.clone()).set_name(name.into())
+    pub fn get_occurrence(&self) -> super::builder::grafeas::GetOccurrence {
+        super::builder::grafeas::GetOccurrence::new(self.inner.clone())
     }
 
     /// Lists occurrences for the specified project.
-    pub fn list_occurrences(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::ListOccurrences {
-        super::builder::grafeas::ListOccurrences::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_occurrences(&self) -> super::builder::grafeas::ListOccurrences {
+        super::builder::grafeas::ListOccurrences::new(self.inner.clone())
     }
 
     /// Deletes the specified occurrence. For example, use this method to delete an
     /// occurrence when the occurrence is no longer applicable for the given
     /// resource.
-    pub fn delete_occurrence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::DeleteOccurrence {
-        super::builder::grafeas::DeleteOccurrence::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_occurrence(&self) -> super::builder::grafeas::DeleteOccurrence {
+        super::builder::grafeas::DeleteOccurrence::new(self.inner.clone())
     }
 
     /// Creates a new occurrence.
-    pub fn create_occurrence(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::CreateOccurrence {
-        super::builder::grafeas::CreateOccurrence::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_occurrence(&self) -> super::builder::grafeas::CreateOccurrence {
+        super::builder::grafeas::CreateOccurrence::new(self.inner.clone())
     }
 
     /// Creates new occurrences in batch.
-    pub fn batch_create_occurrences(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::BatchCreateOccurrences {
+    pub fn batch_create_occurrences(&self) -> super::builder::grafeas::BatchCreateOccurrences {
         super::builder::grafeas::BatchCreateOccurrences::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified occurrence.
-    pub fn update_occurrence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::UpdateOccurrence {
-        super::builder::grafeas::UpdateOccurrence::new(self.inner.clone()).set_name(name.into())
+    pub fn update_occurrence(&self) -> super::builder::grafeas::UpdateOccurrence {
+        super::builder::grafeas::UpdateOccurrence::new(self.inner.clone())
     }
 
     /// Gets the note attached to the specified occurrence. Consumer projects can
     /// use this method to get a note that belongs to a provider project.
-    pub fn get_occurrence_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::GetOccurrenceNote {
-        super::builder::grafeas::GetOccurrenceNote::new(self.inner.clone()).set_name(name.into())
+    pub fn get_occurrence_note(&self) -> super::builder::grafeas::GetOccurrenceNote {
+        super::builder::grafeas::GetOccurrenceNote::new(self.inner.clone())
     }
 
     /// Gets the specified note.
-    pub fn get_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::GetNote {
-        super::builder::grafeas::GetNote::new(self.inner.clone()).set_name(name.into())
+    pub fn get_note(&self) -> super::builder::grafeas::GetNote {
+        super::builder::grafeas::GetNote::new(self.inner.clone())
     }
 
     /// Lists notes for the specified project.
-    pub fn list_notes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::ListNotes {
-        super::builder::grafeas::ListNotes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_notes(&self) -> super::builder::grafeas::ListNotes {
+        super::builder::grafeas::ListNotes::new(self.inner.clone())
     }
 
     /// Deletes the specified note.
-    pub fn delete_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::DeleteNote {
-        super::builder::grafeas::DeleteNote::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_note(&self) -> super::builder::grafeas::DeleteNote {
+        super::builder::grafeas::DeleteNote::new(self.inner.clone())
     }
 
     /// Creates a new note.
-    pub fn create_note(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::CreateNote {
-        super::builder::grafeas::CreateNote::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_note(&self) -> super::builder::grafeas::CreateNote {
+        super::builder::grafeas::CreateNote::new(self.inner.clone())
     }
 
     /// Creates new notes in batch.
-    pub fn batch_create_notes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::BatchCreateNotes {
-        super::builder::grafeas::BatchCreateNotes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn batch_create_notes(&self) -> super::builder::grafeas::BatchCreateNotes {
+        super::builder::grafeas::BatchCreateNotes::new(self.inner.clone())
     }
 
     /// Updates the specified note.
-    pub fn update_note(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::UpdateNote {
-        super::builder::grafeas::UpdateNote::new(self.inner.clone()).set_name(name.into())
+    pub fn update_note(&self) -> super::builder::grafeas::UpdateNote {
+        super::builder::grafeas::UpdateNote::new(self.inner.clone())
     }
 
     /// Lists occurrences referencing the specified note. Provider projects can use
     /// this method to get all occurrences across consumer projects referencing the
     /// specified note.
-    pub fn list_note_occurrences(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::grafeas::ListNoteOccurrences {
-        super::builder::grafeas::ListNoteOccurrences::new(self.inner.clone()).set_name(name.into())
+    pub fn list_note_occurrences(&self) -> super::builder::grafeas::ListNoteOccurrences {
+        super::builder::grafeas::ListNoteOccurrences::new(self.inner.clone())
     }
 }

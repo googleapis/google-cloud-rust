@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Network Management API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
 /// let client = ReachabilityService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -65,11 +62,11 @@ use std::sync::Arc;
 ///
 /// `ReachabilityService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ReachabilityService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ReachabilityService {
-    inner: Arc<dyn super::stub::dynamic::ReachabilityService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>,
 }
 
 impl ReachabilityService {
@@ -79,7 +76,7 @@ impl ReachabilityService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
     /// let client = ReachabilityService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::reachability_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -96,33 +93,36 @@ impl ReachabilityService {
         T: super::stub::ReachabilityService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ReachabilityService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReachabilityService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ReachabilityService> {
+    ) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
         super::transport::ReachabilityService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ReachabilityService> {
+    ) -> gax::client_builder::Result<impl super::stub::ReachabilityService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ReachabilityService::new)
@@ -131,19 +131,15 @@ impl ReachabilityService {
     /// Lists all Connectivity Tests owned by a project.
     pub fn list_connectivity_tests(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::ListConnectivityTests {
         super::builder::reachability_service::ListConnectivityTests::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a specific Connectivity Test.
     pub fn get_connectivity_test(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::GetConnectivityTest {
         super::builder::reachability_service::GetConnectivityTest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Connectivity Test.
@@ -171,10 +167,8 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_connectivity_test(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::CreateConnectivityTest {
         super::builder::reachability_service::CreateConnectivityTest::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the configuration of an existing `ConnectivityTest`.
@@ -203,10 +197,8 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_connectivity_test(
         &self,
-        resource: impl Into<crate::model::ConnectivityTest>,
     ) -> super::builder::reachability_service::UpdateConnectivityTest {
         super::builder::reachability_service::UpdateConnectivityTest::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Rerun an existing `ConnectivityTest`.
@@ -233,10 +225,8 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn rerun_connectivity_test(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::RerunConnectivityTest {
         super::builder::reachability_service::RerunConnectivityTest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a specific `ConnectivityTest`.
@@ -252,28 +242,18 @@ impl ReachabilityService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_connectivity_test(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::reachability_service::DeleteConnectivityTest {
         super::builder::reachability_service::DeleteConnectivityTest::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::reachability_service::ListLocations {
         super::builder::reachability_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::reachability_service::GetLocation {
         super::builder::reachability_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -281,22 +261,14 @@ impl ReachabilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::reachability_service::SetIamPolicy {
         super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::reachability_service::GetIamPolicy {
         super::builder::reachability_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -306,56 +278,36 @@ impl ReachabilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::reachability_service::TestIamPermissions {
         super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::reachability_service::ListOperations {
         super::builder::reachability_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::reachability_service::GetOperation {
         super::builder::reachability_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::reachability_service::DeleteOperation {
         super::builder::reachability_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::reachability_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::reachability_service::CancelOperation {
         super::builder::reachability_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -367,7 +319,7 @@ impl ReachabilityService {
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
 /// let client = VpcFlowLogsService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -400,11 +352,11 @@ impl ReachabilityService {
 ///
 /// `VpcFlowLogsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VpcFlowLogsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct VpcFlowLogsService {
-    inner: Arc<dyn super::stub::dynamic::VpcFlowLogsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>,
 }
 
 impl VpcFlowLogsService {
@@ -414,7 +366,7 @@ impl VpcFlowLogsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
     /// let client = VpcFlowLogsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::vpc_flow_logs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -431,33 +383,36 @@ impl VpcFlowLogsService {
         T: super::stub::VpcFlowLogsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::VpcFlowLogsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VpcFlowLogsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::VpcFlowLogsService> {
+    ) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
         super::transport::VpcFlowLogsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::VpcFlowLogsService> {
+    ) -> gax::client_builder::Result<impl super::stub::VpcFlowLogsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VpcFlowLogsService::new)
@@ -466,19 +421,15 @@ impl VpcFlowLogsService {
     /// Lists all `VpcFlowLogsConfigs` in a given project.
     pub fn list_vpc_flow_logs_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs {
         super::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
     pub fn get_vpc_flow_logs_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new `VpcFlowLogsConfig`.
@@ -486,16 +437,16 @@ impl VpcFlowLogsService {
     /// ID is different), the creation fails.
     /// Notes:
     ///
-    /// . Creating a configuration with state=DISABLED will fail
-    /// . The following fields are not considered as `settings` for the purpose
-    ///   of the check mentioned above, therefore - creating another configuration
-    ///   with the same fields but different values for the following fields will
-    ///   fail as well:
-    ///   * name
-    ///   * create_time
-    ///   * update_time
-    ///   * labels
-    ///   * description
+    /// 1. Creating a configuration with state=DISABLED will fail
+    /// 1. The following fields are not considered as `settings` for the purpose
+    ///    of the check mentioned above, therefore - creating another configuration
+    ///    with the same fields but different values for the following fields will
+    ///    fail as well:
+    ///    * name
+    ///    * create_time
+    ///    * update_time
+    ///    * labels
+    ///    * description
     ///
     /// # Long running operations
     ///
@@ -508,10 +459,8 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_vpc_flow_logs_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing `VpcFlowLogsConfig`.
@@ -519,16 +468,16 @@ impl VpcFlowLogsService {
     /// ID is different), the creation fails.
     /// Notes:
     ///
-    /// . Updating a configuration with state=DISABLED will fail.
-    /// . The following fields are not considered as `settings` for the purpose
-    ///   of the check mentioned above, therefore - updating another configuration
-    ///   with the same fields but different values for the following fields will
-    ///   fail as well:
-    ///   * name
-    ///   * create_time
-    ///   * update_time
-    ///   * labels
-    ///   * description
+    /// 1. Updating a configuration with state=DISABLED will fail.
+    /// 1. The following fields are not considered as `settings` for the purpose
+    ///    of the check mentioned above, therefore - updating another configuration
+    ///    with the same fields but different values for the following fields will
+    ///    fail as well:
+    ///    * name
+    ///    * create_time
+    ///    * update_time
+    ///    * labels
+    ///    * description
     ///
     /// # Long running operations
     ///
@@ -541,10 +490,8 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_vpc_flow_logs_config(
         &self,
-        vpc_flow_logs_config: impl Into<crate::model::VpcFlowLogsConfig>,
     ) -> super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig::new(self.inner.clone())
-            .set_vpc_flow_logs_config(vpc_flow_logs_config.into())
     }
 
     /// Deletes a specific `VpcFlowLogsConfig`.
@@ -560,28 +507,18 @@ impl VpcFlowLogsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_vpc_flow_logs_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig {
         super::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::vpc_flow_logs_service::ListLocations {
         super::builder::vpc_flow_logs_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::vpc_flow_logs_service::GetLocation {
         super::builder::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -589,22 +526,14 @@ impl VpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
         super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
         super::builder::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -616,53 +545,35 @@ impl VpcFlowLogsService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
         super::builder::vpc_flow_logs_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::vpc_flow_logs_service::ListOperations {
         super::builder::vpc_flow_logs_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::vpc_flow_logs_service::GetOperation {
         super::builder::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::vpc_flow_logs_service::DeleteOperation {
         super::builder::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::vpc_flow_logs_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation {
         super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

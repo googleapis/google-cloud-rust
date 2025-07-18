@@ -16,9 +16,8 @@
 
 pub mod attached_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AttachedClusters][super::super::client::AttachedClusters].
+    /// A builder for [AttachedClusters][crate::client::AttachedClusters].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod attached_clusters {
     /// let client = builder
     ///     .with_endpoint("https://gkemulticloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod attached_clusters {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AttachedClusters;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AttachedClusters] request builders.
+    /// Common implementation for [crate::client::AttachedClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod attached_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::create_attached_cluster][super::super::client::AttachedClusters::create_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::create_attached_cluster][crate::client::AttachedClusters::create_attached_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::CreateAttachedCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAttachedCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAttachedCluster(RequestBuilder<crate::model::CreateAttachedClusterRequest>);
 
     impl CreateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,7 +119,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_attached_cluster][super::super::client::AttachedClusters::create_attached_cluster].
+        /// on [create_attached_cluster][crate::client::AttachedClusters::create_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_attached_cluster(self.0.request, self.0.options)
@@ -109,8 +132,10 @@ pub mod attached_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AttachedCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AttachedCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -135,7 +160,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachedClusterRequest::parent].
@@ -149,11 +174,22 @@ pub mod attached_clusters {
         /// Sets the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attached_cluster = v.into();
+        pub fn set_attached_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attached_cluster][crate::model::CreateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = v.map(|x| x.into());
             self
         }
 
@@ -179,12 +215,31 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::update_attached_cluster][super::super::client::AttachedClusters::update_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::update_attached_cluster][crate::client::AttachedClusters::update_attached_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::UpdateAttachedCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAttachedCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAttachedCluster(RequestBuilder<crate::model::UpdateAttachedClusterRequest>);
 
     impl UpdateAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -208,7 +263,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_attached_cluster][super::super::client::AttachedClusters::update_attached_cluster].
+        /// on [update_attached_cluster][crate::client::AttachedClusters::update_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_attached_cluster(self.0.request, self.0.options)
@@ -221,8 +276,10 @@ pub mod attached_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AttachedCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AttachedCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -247,17 +304,28 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attached_cluster<T: Into<std::option::Option<crate::model::AttachedCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attached_cluster = v.into();
+        pub fn set_attached_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attached_cluster][crate::model::UpdateAttachedClusterRequest::attached_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attached_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedCluster>,
+        {
+            self.0.request.attached_cluster = v.map(|x| x.into());
             self
         }
 
@@ -270,11 +338,22 @@ pub mod attached_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAttachedClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -286,12 +365,31 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::import_attached_cluster][super::super::client::AttachedClusters::import_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::import_attached_cluster][crate::client::AttachedClusters::import_attached_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::ImportAttachedCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportAttachedCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportAttachedCluster(RequestBuilder<crate::model::ImportAttachedClusterRequest>);
 
     impl ImportAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -315,7 +413,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_attached_cluster][super::super::client::AttachedClusters::import_attached_cluster].
+        /// on [import_attached_cluster][crate::client::AttachedClusters::import_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_attached_cluster(self.0.request, self.0.options)
@@ -328,8 +426,10 @@ pub mod attached_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AttachedCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AttachedCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AttachedCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -354,7 +454,7 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportAttachedClusterRequest::parent].
@@ -396,11 +496,20 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [proxy_config][crate::model::ImportAttachedClusterRequest::proxy_config].
-        pub fn set_proxy_config<T: Into<std::option::Option<crate::model::AttachedProxyConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.proxy_config = v.into();
+        pub fn set_proxy_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [proxy_config][crate::model::ImportAttachedClusterRequest::proxy_config].
+        pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = v.map(|x| x.into());
             self
         }
     }
@@ -412,12 +521,30 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::get_attached_cluster][super::super::client::AttachedClusters::get_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::get_attached_cluster][crate::client::AttachedClusters::get_attached_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::GetAttachedCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAttachedCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttachedCluster(RequestBuilder<crate::model::GetAttachedClusterRequest>);
 
     impl GetAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -460,12 +587,34 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::list_attached_clusters][super::super::client::AttachedClusters::list_attached_clusters] calls.
+    /// The request builder for [AttachedClusters::list_attached_clusters][crate::client::AttachedClusters::list_attached_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::ListAttachedClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttachedClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttachedClusters(RequestBuilder<crate::model::ListAttachedClustersRequest>);
 
     impl ListAttachedClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -492,8 +641,8 @@ pub mod attached_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAttachedClustersResponse, gax::error::Error>
         {
@@ -505,6 +654,17 @@ pub mod attached_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAttachedClustersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAttachedClustersRequest::parent].
@@ -535,12 +695,31 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::delete_attached_cluster][super::super::client::AttachedClusters::delete_attached_cluster] calls.
+    /// The request builder for [AttachedClusters::delete_attached_cluster][crate::client::AttachedClusters::delete_attached_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::DeleteAttachedCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAttachedCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAttachedCluster(RequestBuilder<crate::model::DeleteAttachedClusterRequest>);
 
     impl DeleteAttachedCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -564,7 +743,7 @@ pub mod attached_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_attached_cluster][super::super::client::AttachedClusters::delete_attached_cluster].
+        /// on [delete_attached_cluster][crate::client::AttachedClusters::delete_attached_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_attached_cluster(self.0.request, self.0.options)
@@ -573,8 +752,8 @@ pub mod attached_clusters {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_attached_cluster`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -599,7 +778,12 @@ pub mod attached_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachedClusterRequest::name].
@@ -642,14 +826,32 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::get_attached_server_config][super::super::client::AttachedClusters::get_attached_server_config] calls.
+    /// The request builder for [AttachedClusters::get_attached_server_config][crate::client::AttachedClusters::get_attached_server_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::GetAttachedServerConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAttachedServerConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttachedServerConfig(
         RequestBuilder<crate::model::GetAttachedServerConfigRequest>,
     );
 
     impl GetAttachedServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -692,14 +894,32 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::generate_attached_cluster_install_manifest][super::super::client::AttachedClusters::generate_attached_cluster_install_manifest] calls.
+    /// The request builder for [AttachedClusters::generate_attached_cluster_install_manifest][crate::client::AttachedClusters::generate_attached_cluster_install_manifest] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::GenerateAttachedClusterInstallManifest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAttachedClusterInstallManifest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAttachedClusterInstallManifest(
         RequestBuilder<crate::model::GenerateAttachedClusterInstallManifestRequest>,
     );
 
     impl GenerateAttachedClusterInstallManifest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -755,11 +975,20 @@ pub mod attached_clusters {
         }
 
         /// Sets the value of [proxy_config][crate::model::GenerateAttachedClusterInstallManifestRequest::proxy_config].
-        pub fn set_proxy_config<T: Into<std::option::Option<crate::model::AttachedProxyConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.proxy_config = v.into();
+        pub fn set_proxy_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [proxy_config][crate::model::GenerateAttachedClusterInstallManifestRequest::proxy_config].
+        pub fn set_or_clear_proxy_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AttachedProxyConfig>,
+        {
+            self.0.request.proxy_config = v.map(|x| x.into());
             self
         }
     }
@@ -771,14 +1000,32 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::generate_attached_cluster_agent_token][super::super::client::AttachedClusters::generate_attached_cluster_agent_token] calls.
+    /// The request builder for [AttachedClusters::generate_attached_cluster_agent_token][crate::client::AttachedClusters::generate_attached_cluster_agent_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::GenerateAttachedClusterAgentToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAttachedClusterAgentToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAttachedClusterAgentToken(
         RequestBuilder<crate::model::GenerateAttachedClusterAgentTokenRequest>,
     );
 
     impl GenerateAttachedClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -875,12 +1122,34 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::list_operations][super::super::client::AttachedClusters::list_operations] calls.
+    /// The request builder for [AttachedClusters::list_operations][crate::client::AttachedClusters::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -907,8 +1176,8 @@ pub mod attached_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -920,6 +1189,17 @@ pub mod attached_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -954,12 +1234,30 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::get_operation][super::super::client::AttachedClusters::get_operation] calls.
+    /// The request builder for [AttachedClusters::get_operation][crate::client::AttachedClusters::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1000,12 +1298,30 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::delete_operation][super::super::client::AttachedClusters::delete_operation] calls.
+    /// The request builder for [AttachedClusters::delete_operation][crate::client::AttachedClusters::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1046,12 +1362,30 @@ pub mod attached_clusters {
         }
     }
 
-    /// The request builder for [AttachedClusters::cancel_operation][super::super::client::AttachedClusters::cancel_operation] calls.
+    /// The request builder for [AttachedClusters::cancel_operation][crate::client::AttachedClusters::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::attached_clusters::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AttachedClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AttachedClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1095,9 +1429,8 @@ pub mod attached_clusters {
 
 pub mod aws_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AwsClusters][super::super::client::AwsClusters].
+    /// A builder for [AwsClusters][crate::client::AwsClusters].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1108,7 +1441,7 @@ pub mod aws_clusters {
     /// let client = builder
     ///     .with_endpoint("https://gkemulticloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1119,16 +1452,19 @@ pub mod aws_clusters {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AwsClusters;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AwsClusters] request builders.
+    /// Common implementation for [crate::client::AwsClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1137,7 +1473,9 @@ pub mod aws_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1146,12 +1484,31 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::create_aws_cluster][super::super::client::AwsClusters::create_aws_cluster] calls.
+    /// The request builder for [AwsClusters::create_aws_cluster][crate::client::AwsClusters::create_aws_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::CreateAwsCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAwsCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAwsCluster(RequestBuilder<crate::model::CreateAwsClusterRequest>);
 
     impl CreateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1175,7 +1532,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aws_cluster][super::super::client::AwsClusters::create_aws_cluster].
+        /// on [create_aws_cluster][crate::client::AwsClusters::create_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aws_cluster(self.0.request, self.0.options)
@@ -1188,7 +1545,7 @@ pub mod aws_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1213,7 +1570,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsClusterRequest::parent].
@@ -1227,11 +1584,22 @@ pub mod aws_clusters {
         /// Sets the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_cluster = v.into();
+        pub fn set_aws_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_cluster][crate::model::CreateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = v.map(|x| x.into());
             self
         }
 
@@ -1257,12 +1625,31 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::update_aws_cluster][super::super::client::AwsClusters::update_aws_cluster] calls.
+    /// The request builder for [AwsClusters::update_aws_cluster][crate::client::AwsClusters::update_aws_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::UpdateAwsCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAwsCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAwsCluster(RequestBuilder<crate::model::UpdateAwsClusterRequest>);
 
     impl UpdateAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1286,7 +1673,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aws_cluster][super::super::client::AwsClusters::update_aws_cluster].
+        /// on [update_aws_cluster][crate::client::AwsClusters::update_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aws_cluster(self.0.request, self.0.options)
@@ -1299,7 +1686,7 @@ pub mod aws_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AwsCluster, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::AwsCluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1324,17 +1711,28 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_cluster<T: Into<std::option::Option<crate::model::AwsCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_cluster = v.into();
+        pub fn set_aws_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_cluster][crate::model::UpdateAwsClusterRequest::aws_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsCluster>,
+        {
+            self.0.request.aws_cluster = v.map(|x| x.into());
             self
         }
 
@@ -1347,11 +1745,22 @@ pub mod aws_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAwsClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1363,12 +1772,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_cluster][super::super::client::AwsClusters::get_aws_cluster] calls.
+    /// The request builder for [AwsClusters::get_aws_cluster][crate::client::AwsClusters::get_aws_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GetAwsCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAwsCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAwsCluster(RequestBuilder<crate::model::GetAwsClusterRequest>);
 
     impl GetAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1408,12 +1835,34 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::list_aws_clusters][super::super::client::AwsClusters::list_aws_clusters] calls.
+    /// The request builder for [AwsClusters::list_aws_clusters][crate::client::AwsClusters::list_aws_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::ListAwsClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAwsClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAwsClusters(RequestBuilder<crate::model::ListAwsClustersRequest>);
 
     impl ListAwsClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1437,8 +1886,8 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAwsClustersResponse, gax::error::Error>
         {
@@ -1450,6 +1899,15 @@ pub mod aws_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAwsClustersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAwsClustersRequest::parent].
@@ -1480,12 +1938,31 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::delete_aws_cluster][super::super::client::AwsClusters::delete_aws_cluster] calls.
+    /// The request builder for [AwsClusters::delete_aws_cluster][crate::client::AwsClusters::delete_aws_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::DeleteAwsCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAwsCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAwsCluster(RequestBuilder<crate::model::DeleteAwsClusterRequest>);
 
     impl DeleteAwsCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1509,7 +1986,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aws_cluster][super::super::client::AwsClusters::delete_aws_cluster].
+        /// on [delete_aws_cluster][crate::client::AwsClusters::delete_aws_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aws_cluster(self.0.request, self.0.options)
@@ -1518,8 +1995,8 @@ pub mod aws_clusters {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aws_cluster`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1544,7 +2021,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsClusterRequest::name].
@@ -1587,14 +2069,32 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::generate_aws_cluster_agent_token][super::super::client::AwsClusters::generate_aws_cluster_agent_token] calls.
+    /// The request builder for [AwsClusters::generate_aws_cluster_agent_token][crate::client::AwsClusters::generate_aws_cluster_agent_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GenerateAwsClusterAgentToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAwsClusterAgentToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAwsClusterAgentToken(
         RequestBuilder<crate::model::GenerateAwsClusterAgentTokenRequest>,
     );
 
     impl GenerateAwsClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1697,12 +2197,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::generate_aws_access_token][super::super::client::AwsClusters::generate_aws_access_token] calls.
+    /// The request builder for [AwsClusters::generate_aws_access_token][crate::client::AwsClusters::generate_aws_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GenerateAwsAccessToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAwsAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAwsAccessToken(RequestBuilder<crate::model::GenerateAwsAccessTokenRequest>);
 
     impl GenerateAwsAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1745,12 +2263,31 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::create_aws_node_pool][super::super::client::AwsClusters::create_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::create_aws_node_pool][crate::client::AwsClusters::create_aws_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::CreateAwsNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAwsNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAwsNodePool(RequestBuilder<crate::model::CreateAwsNodePoolRequest>);
 
     impl CreateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1774,7 +2311,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_aws_node_pool][super::super::client::AwsClusters::create_aws_node_pool].
+        /// on [create_aws_node_pool][crate::client::AwsClusters::create_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_aws_node_pool(self.0.request, self.0.options)
@@ -1786,8 +2323,10 @@ pub mod aws_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AwsNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AwsNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1812,7 +2351,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAwsNodePoolRequest::parent].
@@ -1826,11 +2365,22 @@ pub mod aws_clusters {
         /// Sets the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_node_pool = v.into();
+        pub fn set_aws_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_node_pool][crate::model::CreateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -1856,12 +2406,31 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::update_aws_node_pool][super::super::client::AwsClusters::update_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::update_aws_node_pool][crate::client::AwsClusters::update_aws_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::UpdateAwsNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAwsNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAwsNodePool(RequestBuilder<crate::model::UpdateAwsNodePoolRequest>);
 
     impl UpdateAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1885,7 +2454,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_aws_node_pool][super::super::client::AwsClusters::update_aws_node_pool].
+        /// on [update_aws_node_pool][crate::client::AwsClusters::update_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_aws_node_pool(self.0.request, self.0.options)
@@ -1897,8 +2466,10 @@ pub mod aws_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AwsNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AwsNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1923,17 +2494,28 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_aws_node_pool<T: Into<std::option::Option<crate::model::AwsNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.aws_node_pool = v.into();
+        pub fn set_aws_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [aws_node_pool][crate::model::UpdateAwsNodePoolRequest::aws_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_aws_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AwsNodePool>,
+        {
+            self.0.request.aws_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -1946,11 +2528,22 @@ pub mod aws_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAwsNodePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1962,14 +2555,33 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::rollback_aws_node_pool_update][super::super::client::AwsClusters::rollback_aws_node_pool_update] calls.
+    /// The request builder for [AwsClusters::rollback_aws_node_pool_update][crate::client::AwsClusters::rollback_aws_node_pool_update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::RollbackAwsNodePoolUpdate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RollbackAwsNodePoolUpdate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackAwsNodePoolUpdate(
         RequestBuilder<crate::model::RollbackAwsNodePoolUpdateRequest>,
     );
 
     impl RollbackAwsNodePoolUpdate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1993,7 +2605,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rollback_aws_node_pool_update][super::super::client::AwsClusters::rollback_aws_node_pool_update].
+        /// on [rollback_aws_node_pool_update][crate::client::AwsClusters::rollback_aws_node_pool_update].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rollback_aws_node_pool_update(self.0.request, self.0.options)
@@ -2005,8 +2617,10 @@ pub mod aws_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AwsNodePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AwsNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AwsNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2031,7 +2645,7 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RollbackAwsNodePoolUpdateRequest::name].
@@ -2056,12 +2670,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_node_pool][super::super::client::AwsClusters::get_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::get_aws_node_pool][crate::client::AwsClusters::get_aws_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GetAwsNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAwsNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAwsNodePool(RequestBuilder<crate::model::GetAwsNodePoolRequest>);
 
     impl GetAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2101,12 +2733,34 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::list_aws_node_pools][super::super::client::AwsClusters::list_aws_node_pools] calls.
+    /// The request builder for [AwsClusters::list_aws_node_pools][crate::client::AwsClusters::list_aws_node_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::ListAwsNodePools;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAwsNodePools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAwsNodePools(RequestBuilder<crate::model::ListAwsNodePoolsRequest>);
 
     impl ListAwsNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2133,8 +2787,8 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAwsNodePoolsResponse, gax::error::Error>
         {
@@ -2146,6 +2800,15 @@ pub mod aws_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAwsNodePoolsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAwsNodePoolsRequest::parent].
@@ -2176,12 +2839,31 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::delete_aws_node_pool][super::super::client::AwsClusters::delete_aws_node_pool] calls.
+    /// The request builder for [AwsClusters::delete_aws_node_pool][crate::client::AwsClusters::delete_aws_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::DeleteAwsNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAwsNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAwsNodePool(RequestBuilder<crate::model::DeleteAwsNodePoolRequest>);
 
     impl DeleteAwsNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2205,7 +2887,7 @@ pub mod aws_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_aws_node_pool][super::super::client::AwsClusters::delete_aws_node_pool].
+        /// on [delete_aws_node_pool][crate::client::AwsClusters::delete_aws_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_aws_node_pool(self.0.request, self.0.options)
@@ -2214,8 +2896,8 @@ pub mod aws_clusters {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_aws_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2240,7 +2922,12 @@ pub mod aws_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAwsNodePoolRequest::name].
@@ -2283,12 +2970,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_open_id_config][super::super::client::AwsClusters::get_aws_open_id_config] calls.
+    /// The request builder for [AwsClusters::get_aws_open_id_config][crate::client::AwsClusters::get_aws_open_id_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GetAwsOpenIdConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAwsOpenIdConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAwsOpenIdConfig(RequestBuilder<crate::model::GetAwsOpenIdConfigRequest>);
 
     impl GetAwsOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2331,12 +3036,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_json_web_keys][super::super::client::AwsClusters::get_aws_json_web_keys] calls.
+    /// The request builder for [AwsClusters::get_aws_json_web_keys][crate::client::AwsClusters::get_aws_json_web_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GetAwsJsonWebKeys;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAwsJsonWebKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAwsJsonWebKeys(RequestBuilder<crate::model::GetAwsJsonWebKeysRequest>);
 
     impl GetAwsJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2379,12 +3102,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_aws_server_config][super::super::client::AwsClusters::get_aws_server_config] calls.
+    /// The request builder for [AwsClusters::get_aws_server_config][crate::client::AwsClusters::get_aws_server_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GetAwsServerConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAwsServerConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAwsServerConfig(RequestBuilder<crate::model::GetAwsServerConfigRequest>);
 
     impl GetAwsServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2427,12 +3168,34 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::list_operations][super::super::client::AwsClusters::list_operations] calls.
+    /// The request builder for [AwsClusters::list_operations][crate::client::AwsClusters::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2459,8 +3222,8 @@ pub mod aws_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2472,6 +3235,17 @@ pub mod aws_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2506,12 +3280,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::get_operation][super::super::client::AwsClusters::get_operation] calls.
+    /// The request builder for [AwsClusters::get_operation][crate::client::AwsClusters::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2552,12 +3344,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::delete_operation][super::super::client::AwsClusters::delete_operation] calls.
+    /// The request builder for [AwsClusters::delete_operation][crate::client::AwsClusters::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2598,12 +3408,30 @@ pub mod aws_clusters {
         }
     }
 
-    /// The request builder for [AwsClusters::cancel_operation][super::super::client::AwsClusters::cancel_operation] calls.
+    /// The request builder for [AwsClusters::cancel_operation][crate::client::AwsClusters::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::aws_clusters::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AwsClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AwsClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2647,9 +3475,8 @@ pub mod aws_clusters {
 
 pub mod azure_clusters {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AzureClusters][super::super::client::AzureClusters].
+    /// A builder for [AzureClusters][crate::client::AzureClusters].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2660,7 +3487,7 @@ pub mod azure_clusters {
     /// let client = builder
     ///     .with_endpoint("https://gkemulticloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2671,16 +3498,19 @@ pub mod azure_clusters {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AzureClusters;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AzureClusters] request builders.
+    /// Common implementation for [crate::client::AzureClusters] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2689,7 +3519,9 @@ pub mod azure_clusters {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2698,12 +3530,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::create_azure_client][super::super::client::AzureClusters::create_azure_client] calls.
+    /// The request builder for [AzureClusters::create_azure_client][crate::client::AzureClusters::create_azure_client] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::CreateAzureClient;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAzureClient {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAzureClient(RequestBuilder<crate::model::CreateAzureClientRequest>);
 
     impl CreateAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2727,7 +3578,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_client][super::super::client::AzureClusters::create_azure_client].
+        /// on [create_azure_client][crate::client::AzureClusters::create_azure_client].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_client(self.0.request, self.0.options)
@@ -2739,8 +3590,10 @@ pub mod azure_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AzureClient, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AzureClient, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureClient,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2765,7 +3618,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClientRequest::parent].
@@ -2779,11 +3632,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_client<T: Into<std::option::Option<crate::model::AzureClient>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_client = v.into();
+        pub fn set_azure_client<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureClient>,
+        {
+            self.0.request.azure_client = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_client][crate::model::CreateAzureClientRequest::azure_client].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_client<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureClient>,
+        {
+            self.0.request.azure_client = v.map(|x| x.into());
             self
         }
 
@@ -2809,12 +3673,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_client][super::super::client::AzureClusters::get_azure_client] calls.
+    /// The request builder for [AzureClusters::get_azure_client][crate::client::AzureClusters::get_azure_client] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetAzureClient;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAzureClient {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAzureClient(RequestBuilder<crate::model::GetAzureClientRequest>);
 
     impl GetAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2854,12 +3736,34 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_azure_clients][super::super::client::AzureClusters::list_azure_clients] calls.
+    /// The request builder for [AzureClusters::list_azure_clients][crate::client::AzureClusters::list_azure_clients] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::ListAzureClients;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAzureClients {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAzureClients(RequestBuilder<crate::model::ListAzureClientsRequest>);
 
     impl ListAzureClients {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2886,8 +3790,8 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAzureClientsResponse, gax::error::Error>
         {
@@ -2899,6 +3803,15 @@ pub mod azure_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAzureClientsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAzureClientsRequest::parent].
@@ -2929,12 +3842,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_azure_client][super::super::client::AzureClusters::delete_azure_client] calls.
+    /// The request builder for [AzureClusters::delete_azure_client][crate::client::AzureClusters::delete_azure_client] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::DeleteAzureClient;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAzureClient {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAzureClient(RequestBuilder<crate::model::DeleteAzureClientRequest>);
 
     impl DeleteAzureClient {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2958,7 +3890,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_client][super::super::client::AzureClusters::delete_azure_client].
+        /// on [delete_azure_client][crate::client::AzureClusters::delete_azure_client].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_client(self.0.request, self.0.options)
@@ -2967,8 +3899,8 @@ pub mod azure_clusters {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_client`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2993,7 +3925,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClientRequest::name].
@@ -3024,12 +3961,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::create_azure_cluster][super::super::client::AzureClusters::create_azure_cluster] calls.
+    /// The request builder for [AzureClusters::create_azure_cluster][crate::client::AzureClusters::create_azure_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::CreateAzureCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAzureCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAzureCluster(RequestBuilder<crate::model::CreateAzureClusterRequest>);
 
     impl CreateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3053,7 +4009,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_cluster][super::super::client::AzureClusters::create_azure_cluster].
+        /// on [create_azure_cluster][crate::client::AzureClusters::create_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_cluster(self.0.request, self.0.options)
@@ -3065,8 +4021,10 @@ pub mod azure_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AzureCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3091,7 +4049,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureClusterRequest::parent].
@@ -3105,11 +4063,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_cluster = v.into();
+        pub fn set_azure_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_cluster][crate::model::CreateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = v.map(|x| x.into());
             self
         }
 
@@ -3135,12 +4104,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::update_azure_cluster][super::super::client::AzureClusters::update_azure_cluster] calls.
+    /// The request builder for [AzureClusters::update_azure_cluster][crate::client::AzureClusters::update_azure_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::UpdateAzureCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAzureCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAzureCluster(RequestBuilder<crate::model::UpdateAzureClusterRequest>);
 
     impl UpdateAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3164,7 +4152,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_azure_cluster][super::super::client::AzureClusters::update_azure_cluster].
+        /// on [update_azure_cluster][crate::client::AzureClusters::update_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_azure_cluster(self.0.request, self.0.options)
@@ -3176,8 +4164,10 @@ pub mod azure_clusters {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::AzureCluster, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::AzureCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3202,17 +4192,28 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_cluster<T: Into<std::option::Option<crate::model::AzureCluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_cluster = v.into();
+        pub fn set_azure_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_cluster][crate::model::UpdateAzureClusterRequest::azure_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureCluster>,
+        {
+            self.0.request.azure_cluster = v.map(|x| x.into());
             self
         }
 
@@ -3225,11 +4226,22 @@ pub mod azure_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAzureClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3241,12 +4253,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_cluster][super::super::client::AzureClusters::get_azure_cluster] calls.
+    /// The request builder for [AzureClusters::get_azure_cluster][crate::client::AzureClusters::get_azure_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetAzureCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAzureCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAzureCluster(RequestBuilder<crate::model::GetAzureClusterRequest>);
 
     impl GetAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3286,12 +4316,34 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_azure_clusters][super::super::client::AzureClusters::list_azure_clusters] calls.
+    /// The request builder for [AzureClusters::list_azure_clusters][crate::client::AzureClusters::list_azure_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::ListAzureClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAzureClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAzureClusters(RequestBuilder<crate::model::ListAzureClustersRequest>);
 
     impl ListAzureClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3318,8 +4370,8 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAzureClustersResponse, gax::error::Error>
         {
@@ -3331,6 +4383,15 @@ pub mod azure_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAzureClustersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAzureClustersRequest::parent].
@@ -3361,12 +4422,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_azure_cluster][super::super::client::AzureClusters::delete_azure_cluster] calls.
+    /// The request builder for [AzureClusters::delete_azure_cluster][crate::client::AzureClusters::delete_azure_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::DeleteAzureCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAzureCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAzureCluster(RequestBuilder<crate::model::DeleteAzureClusterRequest>);
 
     impl DeleteAzureCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3390,7 +4470,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_cluster][super::super::client::AzureClusters::delete_azure_cluster].
+        /// on [delete_azure_cluster][crate::client::AzureClusters::delete_azure_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_cluster(self.0.request, self.0.options)
@@ -3399,8 +4479,8 @@ pub mod azure_clusters {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_cluster`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3425,7 +4505,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureClusterRequest::name].
@@ -3468,14 +4553,32 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::generate_azure_cluster_agent_token][super::super::client::AzureClusters::generate_azure_cluster_agent_token] calls.
+    /// The request builder for [AzureClusters::generate_azure_cluster_agent_token][crate::client::AzureClusters::generate_azure_cluster_agent_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GenerateAzureClusterAgentToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAzureClusterAgentToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAzureClusterAgentToken(
         RequestBuilder<crate::model::GenerateAzureClusterAgentTokenRequest>,
     );
 
     impl GenerateAzureClusterAgentToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3578,14 +4681,32 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::generate_azure_access_token][super::super::client::AzureClusters::generate_azure_access_token] calls.
+    /// The request builder for [AzureClusters::generate_azure_access_token][crate::client::AzureClusters::generate_azure_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GenerateAzureAccessToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAzureAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAzureAccessToken(
         RequestBuilder<crate::model::GenerateAzureAccessTokenRequest>,
     );
 
     impl GenerateAzureAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3628,12 +4749,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::create_azure_node_pool][super::super::client::AzureClusters::create_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::create_azure_node_pool][crate::client::AzureClusters::create_azure_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::CreateAzureNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAzureNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAzureNodePool(RequestBuilder<crate::model::CreateAzureNodePoolRequest>);
 
     impl CreateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3657,7 +4797,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_azure_node_pool][super::super::client::AzureClusters::create_azure_node_pool].
+        /// on [create_azure_node_pool][crate::client::AzureClusters::create_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_azure_node_pool(self.0.request, self.0.options)
@@ -3670,8 +4810,10 @@ pub mod azure_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AzureNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3696,7 +4838,7 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAzureNodePoolRequest::parent].
@@ -3710,11 +4852,22 @@ pub mod azure_clusters {
         /// Sets the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_node_pool = v.into();
+        pub fn set_azure_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_node_pool][crate::model::CreateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -3740,12 +4893,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::update_azure_node_pool][super::super::client::AzureClusters::update_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::update_azure_node_pool][crate::client::AzureClusters::update_azure_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::UpdateAzureNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAzureNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAzureNodePool(RequestBuilder<crate::model::UpdateAzureNodePoolRequest>);
 
     impl UpdateAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3769,7 +4941,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_azure_node_pool][super::super::client::AzureClusters::update_azure_node_pool].
+        /// on [update_azure_node_pool][crate::client::AzureClusters::update_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_azure_node_pool(self.0.request, self.0.options)
@@ -3782,8 +4954,10 @@ pub mod azure_clusters {
             self,
         ) -> impl lro::Poller<crate::model::AzureNodePool, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AzureNodePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AzureNodePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3808,17 +4982,28 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_azure_node_pool<T: Into<std::option::Option<crate::model::AzureNodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.azure_node_pool = v.into();
+        pub fn set_azure_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [azure_node_pool][crate::model::UpdateAzureNodePoolRequest::azure_node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_azure_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AzureNodePool>,
+        {
+            self.0.request.azure_node_pool = v.map(|x| x.into());
             self
         }
 
@@ -3831,11 +5016,22 @@ pub mod azure_clusters {
         /// Sets the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAzureNodePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3847,12 +5043,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_node_pool][super::super::client::AzureClusters::get_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::get_azure_node_pool][crate::client::AzureClusters::get_azure_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetAzureNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAzureNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAzureNodePool(RequestBuilder<crate::model::GetAzureNodePoolRequest>);
 
     impl GetAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3895,12 +5109,34 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_azure_node_pools][super::super::client::AzureClusters::list_azure_node_pools] calls.
+    /// The request builder for [AzureClusters::list_azure_node_pools][crate::client::AzureClusters::list_azure_node_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::ListAzureNodePools;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAzureNodePools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAzureNodePools(RequestBuilder<crate::model::ListAzureNodePoolsRequest>);
 
     impl ListAzureNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3927,8 +5163,8 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAzureNodePoolsResponse, gax::error::Error>
         {
@@ -3940,6 +5176,17 @@ pub mod azure_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAzureNodePoolsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAzureNodePoolsRequest::parent].
@@ -3970,12 +5217,31 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_azure_node_pool][super::super::client::AzureClusters::delete_azure_node_pool] calls.
+    /// The request builder for [AzureClusters::delete_azure_node_pool][crate::client::AzureClusters::delete_azure_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::DeleteAzureNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAzureNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAzureNodePool(RequestBuilder<crate::model::DeleteAzureNodePoolRequest>);
 
     impl DeleteAzureNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3999,7 +5265,7 @@ pub mod azure_clusters {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_azure_node_pool][super::super::client::AzureClusters::delete_azure_node_pool].
+        /// on [delete_azure_node_pool][crate::client::AzureClusters::delete_azure_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_azure_node_pool(self.0.request, self.0.options)
@@ -4008,8 +5274,8 @@ pub mod azure_clusters {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_azure_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4034,7 +5300,12 @@ pub mod azure_clusters {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAzureNodePoolRequest::name].
@@ -4077,12 +5348,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_open_id_config][super::super::client::AzureClusters::get_azure_open_id_config] calls.
+    /// The request builder for [AzureClusters::get_azure_open_id_config][crate::client::AzureClusters::get_azure_open_id_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetAzureOpenIdConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAzureOpenIdConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAzureOpenIdConfig(RequestBuilder<crate::model::GetAzureOpenIdConfigRequest>);
 
     impl GetAzureOpenIdConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4125,12 +5414,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_json_web_keys][super::super::client::AzureClusters::get_azure_json_web_keys] calls.
+    /// The request builder for [AzureClusters::get_azure_json_web_keys][crate::client::AzureClusters::get_azure_json_web_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetAzureJsonWebKeys;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAzureJsonWebKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAzureJsonWebKeys(RequestBuilder<crate::model::GetAzureJsonWebKeysRequest>);
 
     impl GetAzureJsonWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4173,12 +5480,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_azure_server_config][super::super::client::AzureClusters::get_azure_server_config] calls.
+    /// The request builder for [AzureClusters::get_azure_server_config][crate::client::AzureClusters::get_azure_server_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetAzureServerConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAzureServerConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAzureServerConfig(RequestBuilder<crate::model::GetAzureServerConfigRequest>);
 
     impl GetAzureServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4221,12 +5546,34 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::list_operations][super::super::client::AzureClusters::list_operations] calls.
+    /// The request builder for [AzureClusters::list_operations][crate::client::AzureClusters::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4253,8 +5600,8 @@ pub mod azure_clusters {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4266,6 +5613,17 @@ pub mod azure_clusters {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4300,12 +5658,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::get_operation][super::super::client::AzureClusters::get_operation] calls.
+    /// The request builder for [AzureClusters::get_operation][crate::client::AzureClusters::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4346,12 +5722,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::delete_operation][super::super::client::AzureClusters::delete_operation] calls.
+    /// The request builder for [AzureClusters::delete_operation][crate::client::AzureClusters::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4392,12 +5786,30 @@ pub mod azure_clusters {
         }
     }
 
-    /// The request builder for [AzureClusters::cancel_operation][super::super::client::AzureClusters::cancel_operation] calls.
+    /// The request builder for [AzureClusters::cancel_operation][crate::client::AzureClusters::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_gkemulticloud_v1::builder;
+    /// use builder::azure_clusters::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AzureClusters>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AzureClusters>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

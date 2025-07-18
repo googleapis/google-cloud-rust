@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Text-to-Speech API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
 /// let client = TextToSpeech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `TextToSpeech` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TextToSpeech` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TextToSpeech {
-    inner: Arc<dyn super::stub::dynamic::TextToSpeech>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TextToSpeech>,
 }
 
 impl TextToSpeech {
@@ -72,7 +69,7 @@ impl TextToSpeech {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
     /// let client = TextToSpeech::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::text_to_speech::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::text_to_speech::client::Factory)
@@ -87,33 +84,35 @@ impl TextToSpeech {
         T: super::stub::TextToSpeech + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TextToSpeech>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TextToSpeech>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeech> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
         super::transport::TextToSpeech::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeech> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeech> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TextToSpeech::new)
@@ -133,22 +132,15 @@ impl TextToSpeech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::text_to_speech::ListOperations {
+    pub fn list_operations(&self) -> super::builder::text_to_speech::ListOperations {
         super::builder::text_to_speech::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::text_to_speech::GetOperation {
-        super::builder::text_to_speech::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::text_to_speech::GetOperation {
+        super::builder::text_to_speech::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -160,7 +152,7 @@ impl TextToSpeech {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
 /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -191,11 +183,11 @@ impl TextToSpeech {
 ///
 /// `TextToSpeechLongAudioSynthesize` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TextToSpeechLongAudioSynthesize` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TextToSpeechLongAudioSynthesize {
-    inner: Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
 }
 
 impl TextToSpeechLongAudioSynthesize {
@@ -205,7 +197,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
     /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::text_to_speech_long_audio_synthesize::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -222,33 +214,37 @@ impl TextToSpeechLongAudioSynthesize {
         T: super::stub::TextToSpeechLongAudioSynthesize + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::TextToSpeechLongAudioSynthesize>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         super::transport::TextToSpeechLongAudioSynthesize::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
+    ) -> gax::client_builder::Result<impl super::stub::TextToSpeechLongAudioSynthesize> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TextToSpeechLongAudioSynthesize::new)
@@ -267,12 +263,10 @@ impl TextToSpeechLongAudioSynthesize {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn synthesize_long_audio(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio {
         super::builder::text_to_speech_long_audio_synthesize::SynthesizeLongAudio::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -280,12 +274,10 @@ impl TextToSpeechLongAudioSynthesize {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::ListOperations {
         super::builder::text_to_speech_long_audio_synthesize::ListOperations::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -293,9 +285,7 @@ impl TextToSpeechLongAudioSynthesize {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation {
         super::builder::text_to_speech_long_audio_synthesize::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

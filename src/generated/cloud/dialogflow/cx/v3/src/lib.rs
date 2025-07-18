@@ -16,10 +16,22 @@
 
 //! Google Cloud Client Libraries for Rust - Dialogflow API
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
+//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
+//! do not anticipate any breaking changes are needed. We are looking for
+//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
+//! are still possible, but not expected.
+//!
+//! We also believe the implementation is ready for production, bugs are
+//! still possible, but not expected.
+//!
+//!
+//! **WARNING:** some RPCs have no corresponding Rust function to call them.
+//! Typically these are streaming RPCs. We expect adding these RPCs in a
+//! way that does not break the existing APIs or changes their behavior in a
+//! significant way. We do anticipate a number of new crate dependencies
+//! will be required. If you need these RPCs please open an issue in our
+//! GitHub repository.
+//!
 //!
 //! This crate contains traits, types, and functions to interact with Dialogflow API
 //! Most applications will use the structs defined in the [client] module.
@@ -43,6 +55,7 @@
 //! * [Versions](client/struct.Versions.html)
 //! * [Webhooks](client/struct.Webhooks.html)
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
 #![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
@@ -69,8 +82,46 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
+#[cfg(any(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "sessions",
+    feature = "session-entity-types",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
 
+#[cfg(any(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "sessions",
+    feature = "session-entity-types",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -81,10 +132,7 @@ pub(crate) mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.rest_header_value()
         };
     }
 }
-
-pub use lro::Poller;
-pub use lro::PollingResult;

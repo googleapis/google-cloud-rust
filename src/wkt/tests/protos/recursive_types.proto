@@ -1,0 +1,39 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+package google.rust.sdk.test;
+
+// A test message for FieldMask.
+message MessageWithRecursion {
+    message Level0 {
+        Level1 level_1 = 1;
+        NonRecursive side = 2;
+    }
+    message Level1 {
+        MessageWithRecursion recurse = 1;
+    }
+    message NonRecursive {
+        string value = 1; 
+    }
+
+    // A singular field.
+    Level0 singular = 1;
+    // An optional field.
+    optional Level0 optional = 2;
+    // A repeated field.
+    repeated Level0 repeated = 3;
+    // A map field, messages cannot be keys.
+    map<string, Level0> map = 4;
+}

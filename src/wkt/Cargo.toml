@@ -15,7 +15,7 @@
 [package]
 description = "Google Cloud Client Libraries for Rust - Well Known Types"
 name        = "google-cloud-wkt"
-version     = "0.4.0"
+version     = "0.5.2"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -33,19 +33,26 @@ features = ["chrono", "time"]
 [features]
 chrono = ["dep:chrono"]
 time   = []
+# DO NOT USE: this allows us to detect semver changes in types used in the
+# implementation of client libraries. None of the types or functions gated
+# by this feature are intended for general use. We do not plan to document these
+# features and offer no guarantees on their stability.
+_internal-semver = []
 
 [dependencies]
-base64     = "0.22"
-bytes      = { version = "1", features = ["serde"] }
-chrono     = { version = "0.4", optional = true }
-serde      = { version = "1", features = ["serde_derive"] }
-serde_json = "1"
-serde_with = { version = "3", default-features = false, features = ["base64", "macros", "std"] }
-thiserror  = "2"
-time       = { version = "0.3", features = ["formatting", "parsing"] }
+base64.workspace     = true
+bytes.workspace      = true
+chrono               = { workspace = true, optional = true }
+serde.workspace      = true
+serde_json.workspace = true
+serde_with.workspace = true
+thiserror.workspace  = true
+time                 = { workspace = true, features = ["formatting", "parsing"] }
+url.workspace        = true
 
 [dev-dependencies]
 anyhow.workspace    = true
-bytes               = { version = "1", features = ["serde"] }
 test-case.workspace = true
+time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }
+common              = { path = "tests/common" }

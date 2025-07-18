@@ -13,8 +13,8 @@
 // limitations under the License.
 
 use super::library::model;
+use anyhow::Result;
 use axum::http::StatusCode;
-type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
 pub fn success(
     name: impl Into<String>,
@@ -24,9 +24,9 @@ pub fn success(
         name: resource.into(),
     };
     let metadata = model::CreateResourceMetadata { percent: 100 };
-    let metadata = wkt::Any::try_from(&metadata)?;
+    let metadata = wkt::Any::from_msg(&metadata)?;
     let result =
-        longrunning::model::operation::Result::Response(wkt::Any::try_from(&resource)?.into());
+        longrunning::model::operation::Result::Response(wkt::Any::from_msg(&resource)?.into());
     let operation = longrunning::model::Operation::default()
         .set_name(name)
         .set_metadata(metadata)
@@ -38,7 +38,7 @@ pub fn success(
 
 pub fn pending(name: impl Into<String>, percent: u32) -> Result<(StatusCode, String)> {
     let metadata = model::CreateResourceMetadata { percent };
-    let metadata = wkt::Any::try_from(&metadata)?;
+    let metadata = wkt::Any::from_msg(&metadata)?;
     let operation = longrunning::model::Operation::default()
         .set_name(name)
         .set_metadata(metadata);
@@ -50,8 +50,7 @@ pub fn operation_error(name: impl Into<String>) -> Result<(StatusCode, String)> 
     let error = rpc::model::Status::default()
         .set_code(gax::error::rpc::Code::AlreadyExists as i32)
         .set_message("The resource  already exists");
-    let result =
-        longrunning::model::operation::Result::Response(wkt::Any::try_from(&error)?.into());
+    let result = longrunning::model::operation::Result::Error(Box::new(error));
     let operation = longrunning::model::Operation::default()
         .set_name(name)
         .set_done(true)

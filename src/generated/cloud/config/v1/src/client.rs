@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Infrastructure Manager API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_config_v1::client::Config;
 /// let client = Config::builder().build().await?;
 /// // use `client` to make requests to the Infrastructure Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `Config` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Config` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Config {
-    inner: Arc<dyn super::stub::dynamic::Config>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Config>,
 }
 
 impl Config {
@@ -73,7 +70,7 @@ impl Config {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_config_v1::client::Config;
     /// let client = Config::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::config::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::config::client::Factory)
@@ -88,33 +85,35 @@ impl Config {
         T: super::stub::Config + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Config>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Config>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Config> {
+    ) -> gax::client_builder::Result<impl super::stub::Config> {
         super::transport::Config::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Config> {
+    ) -> gax::client_builder::Result<impl super::stub::Config> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Config::new)
@@ -124,21 +123,15 @@ impl Config {
     /// and location.
     ///
     /// [google.cloud.config.v1.Deployment]: crate::model::Deployment
-    pub fn list_deployments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ListDeployments {
-        super::builder::config::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_deployments(&self) -> super::builder::config::ListDeployments {
+        super::builder::config::ListDeployments::new(self.inner.clone())
     }
 
     /// Gets details about a [Deployment][google.cloud.config.v1.Deployment].
     ///
     /// [google.cloud.config.v1.Deployment]: crate::model::Deployment
-    pub fn get_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetDeployment {
-        super::builder::config::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_deployment(&self) -> super::builder::config::GetDeployment {
+        super::builder::config::GetDeployment::new(self.inner.clone())
     }
 
     /// Creates a [Deployment][google.cloud.config.v1.Deployment].
@@ -154,11 +147,8 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_deployment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::CreateDeployment {
-        super::builder::config::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_deployment(&self) -> super::builder::config::CreateDeployment {
+        super::builder::config::CreateDeployment::new(self.inner.clone())
     }
 
     /// Updates a [Deployment][google.cloud.config.v1.Deployment].
@@ -174,12 +164,8 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_deployment(
-        &self,
-        deployment: impl Into<crate::model::Deployment>,
-    ) -> super::builder::config::UpdateDeployment {
+    pub fn update_deployment(&self) -> super::builder::config::UpdateDeployment {
         super::builder::config::UpdateDeployment::new(self.inner.clone())
-            .set_deployment(deployment.into())
     }
 
     /// Deletes a [Deployment][google.cloud.config.v1.Deployment].
@@ -195,87 +181,58 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::DeleteDeployment {
-        super::builder::config::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_deployment(&self) -> super::builder::config::DeleteDeployment {
+        super::builder::config::DeleteDeployment::new(self.inner.clone())
     }
 
     /// Lists [Revision][google.cloud.config.v1.Revision]s of a deployment.
     ///
     /// [google.cloud.config.v1.Revision]: crate::model::Revision
-    pub fn list_revisions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ListRevisions {
-        super::builder::config::ListRevisions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_revisions(&self) -> super::builder::config::ListRevisions {
+        super::builder::config::ListRevisions::new(self.inner.clone())
     }
 
     /// Gets details about a [Revision][google.cloud.config.v1.Revision].
     ///
     /// [google.cloud.config.v1.Revision]: crate::model::Revision
-    pub fn get_revision(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetRevision {
-        super::builder::config::GetRevision::new(self.inner.clone()).set_name(name.into())
+    pub fn get_revision(&self) -> super::builder::config::GetRevision {
+        super::builder::config::GetRevision::new(self.inner.clone())
     }
 
     /// Gets details about a [Resource][google.cloud.config.v1.Resource] deployed
     /// by Infra Manager.
     ///
     /// [google.cloud.config.v1.Resource]: crate::model::Resource
-    pub fn get_resource(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetResource {
-        super::builder::config::GetResource::new(self.inner.clone()).set_name(name.into())
+    pub fn get_resource(&self) -> super::builder::config::GetResource {
+        super::builder::config::GetResource::new(self.inner.clone())
     }
 
     /// Lists [Resources][google.cloud.config.v1.Resource] in a given revision.
     ///
     /// [google.cloud.config.v1.Resource]: crate::model::Resource
-    pub fn list_resources(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ListResources {
-        super::builder::config::ListResources::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_resources(&self) -> super::builder::config::ListResources {
+        super::builder::config::ListResources::new(self.inner.clone())
     }
 
     /// Exports Terraform state file from a given deployment.
-    pub fn export_deployment_statefile(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ExportDeploymentStatefile {
+    pub fn export_deployment_statefile(&self) -> super::builder::config::ExportDeploymentStatefile {
         super::builder::config::ExportDeploymentStatefile::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Exports Terraform state file from a given revision.
-    pub fn export_revision_statefile(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ExportRevisionStatefile {
+    pub fn export_revision_statefile(&self) -> super::builder::config::ExportRevisionStatefile {
         super::builder::config::ExportRevisionStatefile::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Imports Terraform state file in a given deployment. The state file does not
     /// take effect until the Deployment has been unlocked.
-    pub fn import_statefile(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ImportStatefile {
-        super::builder::config::ImportStatefile::new(self.inner.clone()).set_parent(parent.into())
+    pub fn import_statefile(&self) -> super::builder::config::ImportStatefile {
+        super::builder::config::ImportStatefile::new(self.inner.clone())
     }
 
     /// Deletes Terraform state file in a given deployment.
-    pub fn delete_statefile(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::DeleteStatefile {
-        super::builder::config::DeleteStatefile::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_statefile(&self) -> super::builder::config::DeleteStatefile {
+        super::builder::config::DeleteStatefile::new(self.inner.clone())
     }
 
     /// Locks a deployment.
@@ -289,11 +246,8 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn lock_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::LockDeployment {
-        super::builder::config::LockDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn lock_deployment(&self) -> super::builder::config::LockDeployment {
+        super::builder::config::LockDeployment::new(self.inner.clone())
     }
 
     /// Unlocks a locked deployment.
@@ -307,19 +261,13 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn unlock_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::UnlockDeployment {
-        super::builder::config::UnlockDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn unlock_deployment(&self) -> super::builder::config::UnlockDeployment {
+        super::builder::config::UnlockDeployment::new(self.inner.clone())
     }
 
     /// Exports the lock info on a locked deployment.
-    pub fn export_lock_info(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::ExportLockInfo {
-        super::builder::config::ExportLockInfo::new(self.inner.clone()).set_name(name.into())
+    pub fn export_lock_info(&self) -> super::builder::config::ExportLockInfo {
+        super::builder::config::ExportLockInfo::new(self.inner.clone())
     }
 
     /// Creates a [Preview][google.cloud.config.v1.Preview].
@@ -335,32 +283,23 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_preview(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::CreatePreview {
-        super::builder::config::CreatePreview::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_preview(&self) -> super::builder::config::CreatePreview {
+        super::builder::config::CreatePreview::new(self.inner.clone())
     }
 
     /// Gets details about a [Preview][google.cloud.config.v1.Preview].
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
-    pub fn get_preview(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetPreview {
-        super::builder::config::GetPreview::new(self.inner.clone()).set_name(name.into())
+    pub fn get_preview(&self) -> super::builder::config::GetPreview {
+        super::builder::config::GetPreview::new(self.inner.clone())
     }
 
     /// Lists [Preview][google.cloud.config.v1.Preview]s in a given project and
     /// location.
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
-    pub fn list_previews(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ListPreviews {
-        super::builder::config::ListPreviews::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_previews(&self) -> super::builder::config::ListPreviews {
+        super::builder::config::ListPreviews::new(self.inner.clone())
     }
 
     /// Deletes a [Preview][google.cloud.config.v1.Preview].
@@ -376,61 +315,61 @@ impl Config {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_preview(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::DeletePreview {
-        super::builder::config::DeletePreview::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_preview(&self) -> super::builder::config::DeletePreview {
+        super::builder::config::DeletePreview::new(self.inner.clone())
     }
 
     /// Export [Preview][google.cloud.config.v1.Preview] results.
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
-    pub fn export_preview_result(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ExportPreviewResult {
+    pub fn export_preview_result(&self) -> super::builder::config::ExportPreviewResult {
         super::builder::config::ExportPreviewResult::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists [TerraformVersion][google.cloud.config.v1.TerraformVersion]s in a
     /// given project and location.
     ///
     /// [google.cloud.config.v1.TerraformVersion]: crate::model::TerraformVersion
-    pub fn list_terraform_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::config::ListTerraformVersions {
+    pub fn list_terraform_versions(&self) -> super::builder::config::ListTerraformVersions {
         super::builder::config::ListTerraformVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details about a
     /// [TerraformVersion][google.cloud.config.v1.TerraformVersion].
     ///
     /// [google.cloud.config.v1.TerraformVersion]: crate::model::TerraformVersion
-    pub fn get_terraform_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetTerraformVersion {
-        super::builder::config::GetTerraformVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_terraform_version(&self) -> super::builder::config::GetTerraformVersion {
+        super::builder::config::GetTerraformVersion::new(self.inner.clone())
+    }
+
+    /// Lists ResourceChanges for a given preview.
+    pub fn list_resource_changes(&self) -> super::builder::config::ListResourceChanges {
+        super::builder::config::ListResourceChanges::new(self.inner.clone())
+    }
+
+    /// Get a ResourceChange for a given preview.
+    pub fn get_resource_change(&self) -> super::builder::config::GetResourceChange {
+        super::builder::config::GetResourceChange::new(self.inner.clone())
+    }
+
+    /// List ResourceDrifts for a given preview.
+    pub fn list_resource_drifts(&self) -> super::builder::config::ListResourceDrifts {
+        super::builder::config::ListResourceDrifts::new(self.inner.clone())
+    }
+
+    /// Get a ResourceDrift for a given preview.
+    pub fn get_resource_drift(&self) -> super::builder::config::GetResourceDrift {
+        super::builder::config::GetResourceDrift::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::ListLocations {
-        super::builder::config::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::config::ListLocations {
+        super::builder::config::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetLocation {
-        super::builder::config::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::config::GetLocation {
+        super::builder::config::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -438,20 +377,14 @@ impl Config {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::config::SetIamPolicy {
-        super::builder::config::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::config::SetIamPolicy {
+        super::builder::config::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::config::GetIamPolicy {
-        super::builder::config::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::config::GetIamPolicy {
+        super::builder::config::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -461,51 +394,35 @@ impl Config {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::config::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::config::TestIamPermissions {
         super::builder::config::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::ListOperations {
-        super::builder::config::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::config::ListOperations {
+        super::builder::config::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::GetOperation {
-        super::builder::config::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::config::GetOperation {
+        super::builder::config::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::DeleteOperation {
-        super::builder::config::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::config::DeleteOperation {
+        super::builder::config::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::config::CancelOperation {
-        super::builder::config::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::config::CancelOperation {
+        super::builder::config::CancelOperation::new(self.inner.clone())
     }
 }

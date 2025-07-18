@@ -14,7 +14,7 @@
 
 [general]
 specification-source = 'google/cloud/workflows/v1'
-service-config = 'google/cloud/workflows/v1/workflows_v1.yaml'
+service-config       = 'google/cloud/workflows/v1/workflows_v1.yaml'
 
 [codec]
 copyright-year = '2025'

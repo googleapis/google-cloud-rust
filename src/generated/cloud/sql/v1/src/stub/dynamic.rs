@@ -40,7 +40,6 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>>;
-
 }
 
 /// All implementations of [super::SqlBackupRunsService] also implement [SqlBackupRunsService].
@@ -81,7 +80,6 @@ impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
     ) -> crate::Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
         T::list(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlConnectService].
@@ -98,7 +96,6 @@ pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>>;
-
 }
 
 /// All implementations of [super::SqlConnectService] also implement [SqlConnectService].
@@ -121,7 +118,6 @@ impl<T: super::SqlConnectService> SqlConnectService for T {
     ) -> crate::Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
         T::generate_ephemeral_cert(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlDatabasesService].
@@ -162,7 +158,6 @@ pub trait SqlDatabasesService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
-
 }
 
 /// All implementations of [super::SqlDatabasesService] also implement [SqlDatabasesService].
@@ -221,7 +216,6 @@ impl<T: super::SqlDatabasesService> SqlDatabasesService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlFlagsService].
@@ -232,7 +226,6 @@ pub trait SqlFlagsService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::FlagsListResponse>>;
-
 }
 
 /// All implementations of [super::SqlFlagsService] also implement [SqlFlagsService].
@@ -246,7 +239,6 @@ impl<T: super::SqlFlagsService> SqlFlagsService for T {
     ) -> crate::Result<gax::response::Response<crate::model::FlagsListResponse>> {
         T::list(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlInstancesService].
@@ -412,7 +404,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>,
+    >;
 
     async fn start_external_sync(
         &self,
@@ -442,7 +436,9 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>;
+    ) -> crate::Result<
+        gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
+    >;
 
     async fn acquire_ssrs_lease(
         &self,
@@ -455,7 +451,6 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>;
-
 }
 
 /// All implementations of [super::SqlInstancesService] also implement [SqlInstancesService].
@@ -700,7 +695,9 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesVerifyExternalSyncSettingsRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>,
+    > {
         T::verify_external_sync_settings(self, req, options).await
     }
 
@@ -727,7 +724,8 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesGetDiskShrinkConfigRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
+    {
         T::get_disk_shrink_config(self, req, options).await
     }
 
@@ -745,7 +743,9 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesGetLatestRecoveryTimeRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>> {
+    ) -> crate::Result<
+        gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
+    > {
         T::get_latest_recovery_time(self, req, options).await
     }
 
@@ -754,7 +754,8 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>>
+    {
         T::acquire_ssrs_lease(self, req, options).await
     }
 
@@ -763,10 +764,10 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         &self,
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>
+    {
         T::release_ssrs_lease(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlOperationsService].
@@ -789,7 +790,6 @@ pub trait SqlOperationsService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
-
 }
 
 /// All implementations of [super::SqlOperationsService] also implement [SqlOperationsService].
@@ -821,7 +821,6 @@ impl<T: super::SqlOperationsService> SqlOperationsService for T {
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlSslCertsService].
@@ -850,7 +849,6 @@ pub trait SqlSslCertsService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SslCertsListResponse>>;
-
 }
 
 /// All implementations of [super::SqlSslCertsService] also implement [SqlSslCertsService].
@@ -891,7 +889,6 @@ impl<T: super::SqlSslCertsService> SqlSslCertsService for T {
     ) -> crate::Result<gax::response::Response<crate::model::SslCertsListResponse>> {
         T::list(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlTiersService].
@@ -902,7 +899,6 @@ pub trait SqlTiersService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::TiersListResponse>>;
-
 }
 
 /// All implementations of [super::SqlTiersService] also implement [SqlTiersService].
@@ -916,7 +912,6 @@ impl<T: super::SqlTiersService> SqlTiersService for T {
     ) -> crate::Result<gax::response::Response<crate::model::TiersListResponse>> {
         T::list(self, req, options).await
     }
-
 }
 
 /// A dyn-compatible, crate-private version of [super::SqlUsersService].
@@ -951,7 +946,6 @@ pub trait SqlUsersService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
-
 }
 
 /// All implementations of [super::SqlUsersService] also implement [SqlUsersService].
@@ -1001,5 +995,4 @@ impl<T: super::SqlUsersService> SqlUsersService for T {
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::update(self, req, options).await
     }
-
 }

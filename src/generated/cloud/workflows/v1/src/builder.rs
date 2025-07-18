@@ -16,9 +16,8 @@
 
 pub mod workflows {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Workflows][super::super::client::Workflows].
+    /// A builder for [Workflows][crate::client::Workflows].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod workflows {
     /// let client = builder
     ///     .with_endpoint("https://workflows.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod workflows {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Workflows;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Workflows] request builders.
+    /// Common implementation for [crate::client::Workflows] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Workflows>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod workflows {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_workflows][super::super::client::Workflows::list_workflows] calls.
+    /// The request builder for [Workflows::list_workflows][crate::client::Workflows::list_workflows] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListWorkflows;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkflows {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflows(RequestBuilder<crate::model::ListWorkflowsRequest>);
 
     impl ListWorkflows {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod workflows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkflowsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod workflows {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkflowsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkflowsRequest::parent].
@@ -151,12 +186,30 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::get_workflow][super::super::client::Workflows::get_workflow] calls.
+    /// The request builder for [Workflows::get_workflow][crate::client::Workflows::get_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::GetWorkflow;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkflow(RequestBuilder<crate::model::GetWorkflowRequest>);
 
     impl GetWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,12 +255,31 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::create_workflow][super::super::client::Workflows::create_workflow] calls.
+    /// The request builder for [Workflows::create_workflow][crate::client::Workflows::create_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::CreateWorkflow;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkflow(RequestBuilder<crate::model::CreateWorkflowRequest>);
 
     impl CreateWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -228,7 +300,7 @@ pub mod workflows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workflow][super::super::client::Workflows::create_workflow].
+        /// on [create_workflow][crate::client::Workflows::create_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workflow(self.0.request, self.0.options)
@@ -241,7 +313,7 @@ pub mod workflows {
             self,
         ) -> impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -266,7 +338,7 @@ pub mod workflows {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkflowRequest::parent].
@@ -280,11 +352,22 @@ pub mod workflows {
         /// Sets the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workflow = v.into();
+        pub fn set_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workflow][crate::model::CreateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = v.map(|x| x.into());
             self
         }
 
@@ -304,12 +387,31 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::delete_workflow][super::super::client::Workflows::delete_workflow] calls.
+    /// The request builder for [Workflows::delete_workflow][crate::client::Workflows::delete_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::DeleteWorkflow;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkflow(RequestBuilder<crate::model::DeleteWorkflowRequest>);
 
     impl DeleteWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -330,7 +432,7 @@ pub mod workflows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workflow][super::super::client::Workflows::delete_workflow].
+        /// on [delete_workflow][crate::client::Workflows::delete_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workflow(self.0.request, self.0.options)
@@ -339,8 +441,8 @@ pub mod workflows {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workflow`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -365,7 +467,12 @@ pub mod workflows {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkflowRequest::name].
@@ -384,12 +491,31 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::update_workflow][super::super::client::Workflows::update_workflow] calls.
+    /// The request builder for [Workflows::update_workflow][crate::client::Workflows::update_workflow] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::UpdateWorkflow;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkflow {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkflow(RequestBuilder<crate::model::UpdateWorkflowRequest>);
 
     impl UpdateWorkflow {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,7 +536,7 @@ pub mod workflows {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workflow][super::super::client::Workflows::update_workflow].
+        /// on [update_workflow][crate::client::Workflows::update_workflow].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workflow(self.0.request, self.0.options)
@@ -423,7 +549,7 @@ pub mod workflows {
             self,
         ) -> impl lro::Poller<crate::model::Workflow, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Workflow, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -448,26 +574,46 @@ pub mod workflows {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workflow<T: Into<std::option::Option<crate::model::Workflow>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workflow = v.into();
+        pub fn set_workflow<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workflow][crate::model::UpdateWorkflowRequest::workflow].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workflow<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workflow>,
+        {
+            self.0.request.workflow = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkflowRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -479,12 +625,34 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_workflow_revisions][super::super::client::Workflows::list_workflow_revisions] calls.
+    /// The request builder for [Workflows::list_workflow_revisions][crate::client::Workflows::list_workflow_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListWorkflowRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkflowRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkflowRevisions(RequestBuilder<crate::model::ListWorkflowRevisionsRequest>);
 
     impl ListWorkflowRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -511,8 +679,8 @@ pub mod workflows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkflowRevisionsResponse, gax::error::Error>
         {
@@ -524,6 +692,17 @@ pub mod workflows {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWorkflowRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListWorkflowRevisionsRequest::name].
@@ -554,12 +733,34 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_locations][super::super::client::Workflows::list_locations] calls.
+    /// The request builder for [Workflows::list_locations][crate::client::Workflows::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -586,8 +787,8 @@ pub mod workflows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -599,6 +800,15 @@ pub mod workflows {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -633,12 +843,30 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::get_location][super::super::client::Workflows::get_location] calls.
+    /// The request builder for [Workflows::get_location][crate::client::Workflows::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -676,12 +904,34 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::list_operations][super::super::client::Workflows::list_operations] calls.
+    /// The request builder for [Workflows::list_operations][crate::client::Workflows::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -708,8 +958,8 @@ pub mod workflows {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -721,6 +971,17 @@ pub mod workflows {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -755,12 +1016,30 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::get_operation][super::super::client::Workflows::get_operation] calls.
+    /// The request builder for [Workflows::get_operation][crate::client::Workflows::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -801,12 +1080,30 @@ pub mod workflows {
         }
     }
 
-    /// The request builder for [Workflows::delete_operation][super::super::client::Workflows::delete_operation] calls.
+    /// The request builder for [Workflows::delete_operation][crate::client::Workflows::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_v1::builder;
+    /// use builder::workflows::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workflows>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workflows>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

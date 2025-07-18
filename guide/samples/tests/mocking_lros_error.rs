@@ -16,7 +16,6 @@
 
 // ANCHOR: all
 use gax::Result;
-use gax::error::Error;
 use gax::response::Response;
 use google_cloud_gax as gax;
 use google_cloud_longrunning as longrunning;
@@ -48,17 +47,18 @@ mod my_application {
         client: &speech::client::Speech,
         project_id: &str,
     ) -> BatchRecognizeResult {
-        use speech::Poller;
+        use google_cloud_lro::{Poller, PollingResult};
         let mut progress_updates = Vec::new();
         let mut poller = client
-            .batch_recognize(format!(
+            .batch_recognize()
+            .set_recognizer(format!(
                 "projects/{project_id}/locations/global/recognizers/_"
             ))
             .poller();
         while let Some(p) = poller.poll().await {
             match p {
                 // ANCHOR: completed-branch
-                speech::PollingResult::Completed(r) => {
+                PollingResult::Completed(r) => {
                     // ANCHOR_END: completed-branch
                     let billed_duration = r.map(|r| r.total_billed_duration);
                     return BatchRecognizeResult {
@@ -66,7 +66,7 @@ mod my_application {
                         billed_duration,
                     };
                 }
-                speech::PollingResult::InProgress(m) => {
+                PollingResult::InProgress(m) => {
                     if let Some(metadata) = m {
                         // This is a silly application. Your application likely
                         // performs some task immediately with the partial
@@ -76,7 +76,7 @@ mod my_application {
                     }
                 }
                 // ANCHOR: polling-error-branch
-                speech::PollingResult::PollingError(e) => {
+                PollingResult::PollingError(e) => {
                     // ANCHOR_END: polling-error-branch
                     return BatchRecognizeResult {
                         progress_updates,
@@ -95,7 +95,7 @@ mod my_application {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::my_application::*;
     use super::*;
 
@@ -110,8 +110,8 @@ mod test {
 
     fn make_partial_operation(progress: i32) -> Result<Response<Operation>> {
         let metadata = OperationMetadata::new().set_progress_percent(progress);
-        let any = wkt::Any::try_from(&metadata).map_err(Error::serde)?;
-        let operation = Operation::new().set_metadata(Some(any));
+        let any = wkt::Any::from_msg(&metadata).expect("test message should succeed");
+        let operation = Operation::new().set_metadata(any);
         Ok(Response::from(operation))
     }
 
@@ -129,14 +129,12 @@ mod test {
         let mut mock = MockSpeech::new();
         // ANCHOR: expectation-initial
         mock.expect_batch_recognize().return_once(|_, _| {
-            use gax::error::rpc::Status;
-            use gax::error::{Error, ServiceError};
-            let s = Status::default()
-                .set_code(429)
+            use gax::error::Error;
+            use gax::error::rpc::{Code, Status};
+            let status = Status::default()
+                .set_code(Code::Aborted)
                 .set_message("Resource exhausted");
-            Err(Error::rpc(
-                ServiceError::from(s).with_http_status_code(429_u16),
-            ))
+            Err(Error::service(status))
         });
         // ANCHOR_END: expectation-initial
 
@@ -208,14 +206,12 @@ mod test {
             .once()
             .in_sequence(&mut seq)
             .returning(|_, _| {
-                use gax::error::rpc::Status;
-                use gax::error::{Error, ServiceError};
-                let s = Status::default()
-                    .set_code(409)
+                use gax::error::Error;
+                use gax::error::rpc::{Code, Status};
+                let status = Status::default()
+                    .set_code(Code::Aborted)
                     .set_message("Operation was aborted");
-                Err(Error::rpc(
-                    ServiceError::from(s).with_http_status_code(409_u16),
-                ))
+                Err(Error::service(status))
             });
         // ANCHOR_END: expectation-polling-error
 

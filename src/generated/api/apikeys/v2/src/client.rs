@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the API Keys API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_apikeys_v2::client::ApiKeys;
 /// let client = ApiKeys::builder().build().await?;
 /// // use `client` to make requests to the API Keys API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `ApiKeys` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiKeys` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiKeys {
-    inner: Arc<dyn super::stub::dynamic::ApiKeys>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiKeys>,
 }
 
 impl ApiKeys {
@@ -72,7 +69,7 @@ impl ApiKeys {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apikeys_v2::client::ApiKeys;
     /// let client = ApiKeys::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::api_keys::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_keys::client::Factory)
@@ -87,33 +84,35 @@ impl ApiKeys {
         T: super::stub::ApiKeys + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ApiKeys>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiKeys> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
         super::transport::ApiKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiKeys> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiKeys> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiKeys::new)
@@ -133,11 +132,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_key(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::CreateKey {
-        super::builder::api_keys::CreateKey::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_key(&self) -> super::builder::api_keys::CreateKey {
+        super::builder::api_keys::CreateKey::new(self.inner.clone())
     }
 
     /// Lists the API keys owned by a project. The key string of the API key
@@ -145,11 +141,8 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn list_keys(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::ListKeys {
-        super::builder::api_keys::ListKeys::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_keys(&self) -> super::builder::api_keys::ListKeys {
+        super::builder::api_keys::ListKeys::new(self.inner.clone())
     }
 
     /// Gets the metadata for an API key. The key string of the API key
@@ -157,22 +150,16 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn get_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::GetKey {
-        super::builder::api_keys::GetKey::new(self.inner.clone()).set_name(name.into())
+    pub fn get_key(&self) -> super::builder::api_keys::GetKey {
+        super::builder::api_keys::GetKey::new(self.inner.clone())
     }
 
     /// Get the key string for an API key.
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
-    pub fn get_key_string(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::GetKeyString {
-        super::builder::api_keys::GetKeyString::new(self.inner.clone()).set_name(name.into())
+    pub fn get_key_string(&self) -> super::builder::api_keys::GetKeyString {
+        super::builder::api_keys::GetKeyString::new(self.inner.clone())
     }
 
     /// Patches the modifiable fields of an API key.
@@ -190,11 +177,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_key(
-        &self,
-        key: impl Into<crate::model::Key>,
-    ) -> super::builder::api_keys::UpdateKey {
-        super::builder::api_keys::UpdateKey::new(self.inner.clone()).set_key(key.into())
+    pub fn update_key(&self) -> super::builder::api_keys::UpdateKey {
+        super::builder::api_keys::UpdateKey::new(self.inner.clone())
     }
 
     /// Deletes an API key. Deleted key can be retrieved within 30 days of
@@ -212,11 +196,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::DeleteKey {
-        super::builder::api_keys::DeleteKey::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_key(&self) -> super::builder::api_keys::DeleteKey {
+        super::builder::api_keys::DeleteKey::new(self.inner.clone())
     }
 
     /// Undeletes an API key which was deleted within 30 days.
@@ -233,11 +214,8 @@ impl ApiKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::UndeleteKey {
-        super::builder::api_keys::UndeleteKey::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_key(&self) -> super::builder::api_keys::UndeleteKey {
+        super::builder::api_keys::UndeleteKey::new(self.inner.clone())
     }
 
     /// Find the parent project and resource name of the API
@@ -252,10 +230,7 @@ impl ApiKeys {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_keys::GetOperation {
-        super::builder::api_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::api_keys::GetOperation {
+        super::builder::api_keys::GetOperation::new(self.inner.clone())
     }
 }

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Identity and Access Management (IAM) API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_iam_v2::client::Policies;
 /// let client = Policies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Policies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Policies` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Policies {
-    inner: Arc<dyn super::stub::dynamic::Policies>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Policies>,
 }
 
 impl Policies {
@@ -72,7 +69,7 @@ impl Policies {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_iam_v2::client::Policies;
     /// let client = Policies::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policies::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::policies::client::Factory)
@@ -87,33 +84,35 @@ impl Policies {
         T: super::stub::Policies + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Policies>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Policies>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Policies> {
+    ) -> gax::client_builder::Result<impl super::stub::Policies> {
         super::transport::Policies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Policies> {
+    ) -> gax::client_builder::Result<impl super::stub::Policies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Policies::new)
@@ -124,19 +123,13 @@ impl Policies {
     ///
     /// The response lists only policy metadata. In particular, policy rules are
     /// omitted.
-    pub fn list_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policies::ListPolicies {
-        super::builder::policies::ListPolicies::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_policies(&self) -> super::builder::policies::ListPolicies {
+        super::builder::policies::ListPolicies::new(self.inner.clone())
     }
 
     /// Gets a policy.
-    pub fn get_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policies::GetPolicy {
-        super::builder::policies::GetPolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn get_policy(&self) -> super::builder::policies::GetPolicy {
+        super::builder::policies::GetPolicy::new(self.inner.clone())
     }
 
     /// Creates a policy.
@@ -150,11 +143,8 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policies::CreatePolicy {
-        super::builder::policies::CreatePolicy::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_policy(&self) -> super::builder::policies::CreatePolicy {
+        super::builder::policies::CreatePolicy::new(self.inner.clone())
     }
 
     /// Updates the specified policy.
@@ -163,9 +153,9 @@ impl Policies {
     ///
     /// To update a policy, you should use a read-modify-write loop:
     ///
-    /// . Use [GetPolicy][google.iam.v2.Policies.GetPolicy] to read the current version of the policy.
-    /// . Modify the policy as needed.
-    /// . Use `UpdatePolicy` to write the updated policy.
+    /// 1. Use [GetPolicy][google.iam.v2.Policies.GetPolicy] to read the current version of the policy.
+    /// 1. Modify the policy as needed.
+    /// 1. Use `UpdatePolicy` to write the updated policy.
     ///
     /// This pattern helps prevent conflicts between concurrent updates.
     ///
@@ -180,11 +170,8 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_policy(
-        &self,
-        policy: impl Into<crate::model::Policy>,
-    ) -> super::builder::policies::UpdatePolicy {
-        super::builder::policies::UpdatePolicy::new(self.inner.clone()).set_policy(policy.into())
+    pub fn update_policy(&self) -> super::builder::policies::UpdatePolicy {
+        super::builder::policies::UpdatePolicy::new(self.inner.clone())
     }
 
     /// Deletes a policy. This action is permanent.
@@ -198,20 +185,14 @@ impl Policies {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policies::DeletePolicy {
-        super::builder::policies::DeletePolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_policy(&self) -> super::builder::policies::DeletePolicy {
+        super::builder::policies::DeletePolicy::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policies::GetOperation {
-        super::builder::policies::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::policies::GetOperation {
+        super::builder::policies::GetOperation::new(self.inner.clone())
     }
 }

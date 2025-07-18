@@ -1,0 +1,97 @@
+{{!
+Copyright 2025 Google LLC
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+}}
+{{! Serialize message fields that **do** require transformations. }}
+{{#Singular}}
+{{! First deal with all the fields that are not part of a oneof }}
+{{^IsOneOf}}
+{{#Optional}}
+if self.{{Codec.FieldName}}.is_some() {
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::< std::option::Option<{{{Codec.SerdeAs}}}> >::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(&self.{{Codec.FieldName}}))?;
+}
+{{/Optional}}
+{{^Optional}}
+{{#Codec.SkipIfIsEmpty}}
+if !self.{{Codec.FieldName}}.is_empty() {
+{{/Codec.SkipIfIsEmpty}}
+{{#Codec.SkipIfIsDefault}}
+if !wkt::internal::is_default(&self.{{Codec.FieldName}}) {
+{{/Codec.SkipIfIsDefault}}
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::<{{{Codec.SerdeAs}}}>::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(&self.{{Codec.FieldName}}))?;
+}
+{{/Optional}}
+{{/IsOneOf}}
+{{#IsOneOf}}
+if let Some(value) = self.{{Codec.FieldName}}() {
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::<{{{Codec.SerdeAs}}}>::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(value))?;
+}
+{{/IsOneOf}}
+{{/Singular}}
+{{! repeated and map fields are never part of a oneof }}
+{{#Repeated}}
+if !self.{{Codec.FieldName}}.is_empty() {
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::< std::vec::Vec<{{{Codec.SerdeAs}}}> >::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(&self.{{Codec.FieldName}}))?;
+}
+{{/Repeated}}
+{{#Map}}
+if !self.{{Codec.FieldName}}.is_empty() {
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::< {{{Codec.SerdeAs}}} >::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(&self.{{Codec.FieldName}}))?;
+}
+{{/Map}}

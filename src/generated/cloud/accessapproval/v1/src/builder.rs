@@ -16,9 +16,8 @@
 
 pub mod access_approval {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AccessApproval][super::super::client::AccessApproval].
+    /// A builder for [AccessApproval][crate::client::AccessApproval].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod access_approval {
     /// let client = builder
     ///     .with_endpoint("https://accessapproval.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod access_approval {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AccessApproval;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AccessApproval] request builders.
+    /// Common implementation for [crate::client::AccessApproval] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod access_approval {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::list_approval_requests][super::super::client::AccessApproval::list_approval_requests] calls.
+    /// The request builder for [AccessApproval::list_approval_requests][crate::client::AccessApproval::list_approval_requests] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::ListApprovalRequests;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApprovalRequests {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApprovalRequests(RequestBuilder<crate::model::ListApprovalRequestsMessage>);
 
     impl ListApprovalRequests {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod access_approval {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListApprovalRequestsResponse, gax::error::Error>
         {
@@ -112,6 +138,17 @@ pub mod access_approval {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListApprovalRequestsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListApprovalRequestsMessage::parent].
@@ -146,12 +183,30 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::get_approval_request][super::super::client::AccessApproval::get_approval_request] calls.
+    /// The request builder for [AccessApproval::get_approval_request][crate::client::AccessApproval::get_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::GetApprovalRequest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApprovalRequest(RequestBuilder<crate::model::GetApprovalRequestMessage>);
 
     impl GetApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -192,12 +247,30 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::approve_approval_request][super::super::client::AccessApproval::approve_approval_request] calls.
+    /// The request builder for [AccessApproval::approve_approval_request][crate::client::AccessApproval::approve_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::ApproveApprovalRequest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveApprovalRequest(RequestBuilder<crate::model::ApproveApprovalRequestMessage>);
 
     impl ApproveApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -231,11 +304,20 @@ pub mod access_approval {
         }
 
         /// Sets the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::ApproveApprovalRequestMessage::expire_time].
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -247,12 +329,30 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::dismiss_approval_request][super::super::client::AccessApproval::dismiss_approval_request] calls.
+    /// The request builder for [AccessApproval::dismiss_approval_request][crate::client::AccessApproval::dismiss_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::DismissApprovalRequest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DismissApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DismissApprovalRequest(RequestBuilder<crate::model::DismissApprovalRequestMessage>);
 
     impl DismissApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -293,14 +393,32 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::invalidate_approval_request][super::super::client::AccessApproval::invalidate_approval_request] calls.
+    /// The request builder for [AccessApproval::invalidate_approval_request][crate::client::AccessApproval::invalidate_approval_request] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::InvalidateApprovalRequest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InvalidateApprovalRequest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InvalidateApprovalRequest(
         RequestBuilder<crate::model::InvalidateApprovalRequestMessage>,
     );
 
     impl InvalidateApprovalRequest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,14 +459,32 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::get_access_approval_settings][super::super::client::AccessApproval::get_access_approval_settings] calls.
+    /// The request builder for [AccessApproval::get_access_approval_settings][crate::client::AccessApproval::get_access_approval_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::GetAccessApprovalSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessApprovalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalSettings(
         RequestBuilder<crate::model::GetAccessApprovalSettingsMessage>,
     );
 
     impl GetAccessApprovalSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -389,14 +525,32 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::update_access_approval_settings][super::super::client::AccessApproval::update_access_approval_settings] calls.
+    /// The request builder for [AccessApproval::update_access_approval_settings][crate::client::AccessApproval::update_access_approval_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::UpdateAccessApprovalSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAccessApprovalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessApprovalSettings(
         RequestBuilder<crate::model::UpdateAccessApprovalSettingsMessage>,
     );
 
     impl UpdateAccessApprovalSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -424,20 +578,38 @@ pub mod access_approval {
         }
 
         /// Sets the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
-        pub fn set_settings<T: Into<std::option::Option<crate::model::AccessApprovalSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessApprovalSettings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateAccessApprovalSettingsMessage::settings].
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessApprovalSettings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAccessApprovalSettingsMessage::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -449,14 +621,32 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::delete_access_approval_settings][super::super::client::AccessApproval::delete_access_approval_settings] calls.
+    /// The request builder for [AccessApproval::delete_access_approval_settings][crate::client::AccessApproval::delete_access_approval_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::DeleteAccessApprovalSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAccessApprovalSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessApprovalSettings(
         RequestBuilder<crate::model::DeleteAccessApprovalSettingsMessage>,
     );
 
     impl DeleteAccessApprovalSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -497,14 +687,32 @@ pub mod access_approval {
         }
     }
 
-    /// The request builder for [AccessApproval::get_access_approval_service_account][super::super::client::AccessApproval::get_access_approval_service_account] calls.
+    /// The request builder for [AccessApproval::get_access_approval_service_account][crate::client::AccessApproval::get_access_approval_service_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_accessapproval_v1::builder;
+    /// use builder::access_approval::GetAccessApprovalServiceAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessApprovalServiceAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessApprovalServiceAccount(
         RequestBuilder<crate::model::GetAccessApprovalServiceAccountMessage>,
     );
 
     impl GetAccessApprovalServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AccessApproval>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessApproval>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

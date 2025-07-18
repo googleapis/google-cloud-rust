@@ -37,9 +37,8 @@
 //!
 //! # Example
 //! ```
-//! # use google_cloud_gax::*;
-//! # use polling_backoff_policy::*;
-//! use exponential_backoff::ExponentialBackoffBuilder;
+//! # use google_cloud_gax::exponential_backoff::Error;
+//! # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 //! use std::time::Duration;
 //!
 //! let policy = ExponentialBackoffBuilder::new()
@@ -48,7 +47,7 @@
 //!     .with_scaling(4.0)
 //!     .build()?;
 //! // `policy` implements the `PollingBackoffPolicy` trait.
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
 //! [Exponential backoff]: https://en.wikipedia.org/wiki/Exponential_backoff
@@ -63,6 +62,7 @@ pub trait PollingBackoffPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the polling loop started.
     /// * `attempt_count` - the number of poll queries. This method is always
     ///   called after the first attempt.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn wait_period(
         &self,
         loop_start: std::time::Instant,

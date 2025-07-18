@@ -16,9 +16,8 @@
 
 pub mod org_policy {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [OrgPolicy][super::super::client::OrgPolicy].
+    /// A builder for [OrgPolicy][crate::client::OrgPolicy].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod org_policy {
     /// let client = builder
     ///     .with_endpoint("https://orgpolicy.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod org_policy {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = OrgPolicy;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::OrgPolicy] request builders.
+    /// Common implementation for [crate::client::OrgPolicy] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod org_policy {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::list_constraints][super::super::client::OrgPolicy::list_constraints] calls.
+    /// The request builder for [OrgPolicy::list_constraints][crate::client::OrgPolicy::list_constraints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::ListConstraints;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConstraints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConstraints(RequestBuilder<crate::model::ListConstraintsRequest>);
 
     impl ListConstraints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod org_policy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConstraintsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod org_policy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConstraintsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConstraintsRequest::parent].
@@ -139,12 +174,34 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::list_policies][super::super::client::OrgPolicy::list_policies] calls.
+    /// The request builder for [OrgPolicy::list_policies][crate::client::OrgPolicy::list_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::ListPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,8 +225,8 @@ pub mod org_policy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
         {
@@ -181,6 +238,15 @@ pub mod org_policy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
@@ -211,12 +277,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::get_policy][super::super::client::OrgPolicy::get_policy] calls.
+    /// The request builder for [OrgPolicy::get_policy][crate::client::OrgPolicy::get_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::GetPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -256,12 +340,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::get_effective_policy][super::super::client::OrgPolicy::get_effective_policy] calls.
+    /// The request builder for [OrgPolicy::get_effective_policy][crate::client::OrgPolicy::get_effective_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::GetEffectivePolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEffectivePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEffectivePolicy(RequestBuilder<crate::model::GetEffectivePolicyRequest>);
 
     impl GetEffectivePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -304,12 +406,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::create_policy][super::super::client::OrgPolicy::create_policy] calls.
+    /// The request builder for [OrgPolicy::create_policy][crate::client::OrgPolicy::create_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::CreatePolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -344,11 +464,22 @@ pub mod org_policy {
         /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -360,12 +491,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::update_policy][super::super::client::OrgPolicy::update_policy] calls.
+    /// The request builder for [OrgPolicy::update_policy][crate::client::OrgPolicy::update_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::UpdatePolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -392,20 +541,40 @@ pub mod org_policy {
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -417,12 +586,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::delete_policy][super::super::client::OrgPolicy::delete_policy] calls.
+    /// The request builder for [OrgPolicy::delete_policy][crate::client::OrgPolicy::delete_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::DeletePolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -468,12 +655,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::create_custom_constraint][super::super::client::OrgPolicy::create_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::create_custom_constraint][crate::client::OrgPolicy::create_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::CreateCustomConstraint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCustomConstraint(RequestBuilder<crate::model::CreateCustomConstraintRequest>);
 
     impl CreateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -511,13 +716,22 @@ pub mod org_policy {
         /// Sets the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_constraint<
-            T: Into<std::option::Option<crate::model::CustomConstraint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_constraint = v.into();
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_constraint][crate::model::CreateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = v.map(|x| x.into());
             self
         }
     }
@@ -529,12 +743,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::update_custom_constraint][super::super::client::OrgPolicy::update_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::update_custom_constraint][crate::client::OrgPolicy::update_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::UpdateCustomConstraint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCustomConstraint(RequestBuilder<crate::model::UpdateCustomConstraintRequest>);
 
     impl UpdateCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -564,13 +796,22 @@ pub mod org_policy {
         /// Sets the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_custom_constraint<
-            T: Into<std::option::Option<crate::model::CustomConstraint>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_constraint = v.into();
+        pub fn set_custom_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_constraint][crate::model::UpdateCustomConstraintRequest::custom_constraint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_custom_constraint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CustomConstraint>,
+        {
+            self.0.request.custom_constraint = v.map(|x| x.into());
             self
         }
     }
@@ -582,12 +823,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::get_custom_constraint][super::super::client::OrgPolicy::get_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::get_custom_constraint][crate::client::OrgPolicy::get_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::GetCustomConstraint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomConstraint(RequestBuilder<crate::model::GetCustomConstraintRequest>);
 
     impl GetCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -630,12 +889,34 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::list_custom_constraints][super::super::client::OrgPolicy::list_custom_constraints] calls.
+    /// The request builder for [OrgPolicy::list_custom_constraints][crate::client::OrgPolicy::list_custom_constraints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::ListCustomConstraints;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomConstraints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomConstraints(RequestBuilder<crate::model::ListCustomConstraintsRequest>);
 
     impl ListCustomConstraints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -662,8 +943,8 @@ pub mod org_policy {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCustomConstraintsResponse, gax::error::Error>
         {
@@ -675,6 +956,17 @@ pub mod org_policy {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCustomConstraintsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCustomConstraintsRequest::parent].
@@ -705,12 +997,30 @@ pub mod org_policy {
         }
     }
 
-    /// The request builder for [OrgPolicy::delete_custom_constraint][super::super::client::OrgPolicy::delete_custom_constraint] calls.
+    /// The request builder for [OrgPolicy::delete_custom_constraint][crate::client::OrgPolicy::delete_custom_constraint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_orgpolicy_v2::builder;
+    /// use builder::org_policy::DeleteCustomConstraint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomConstraint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCustomConstraint(RequestBuilder<crate::model::DeleteCustomConstraintRequest>);
 
     impl DeleteCustomConstraint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::OrgPolicy>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::OrgPolicy>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

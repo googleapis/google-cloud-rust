@@ -13,32 +13,81 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
-    use serde_json::json;
-    type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+mod tests {
+    use common::MessageWithBytes;
+    use serde_json::{Value, json};
+    use test_case::test_case;
+    type Result = anyhow::Result<()>;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    pub struct MessageWithBytes {
-        #[serde(skip_serializing_if = "google_cloud_wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::base64::Base64")]
-        pub singular: bytes::Bytes,
-        #[serde(skip_serializing_if = "Option::is_none")]
-        #[serde_as(as = "Option<serde_with::base64::Base64>")]
-        pub optional: Option<bytes::Bytes>,
-        #[serde(skip_serializing_if = "Vec::is_empty")]
-        #[serde_as(as = "Vec<serde_with::base64::Base64>")]
-        pub repeated: Vec<bytes::Bytes>,
+    const LAZY: &[u8] = b"the quick brown fox jumps over the lazy dog";
+    const LAZY_BASE64: &str = "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==";
+
+    #[test_case(MessageWithBytes::new(), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular("".as_bytes()), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular(LAZY), json!({"singular": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_optional("".as_bytes()), json!({"optional": ""}))]
+    #[test_case(MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>), json!({}))]
+    #[test_case(MessageWithBytes::new().set_optional(LAZY), json!({"optional": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_repeated([""; 0]), json!({}))]
+    #[test_case(MessageWithBytes::new().set_repeated([LAZY]), json!({"repeated": [LAZY_BASE64]}))]
+    #[test_case(MessageWithBytes::new().set_map([("", ""); 0]), json!({}))]
+    #[test_case(MessageWithBytes::new().set_map([("a", LAZY)]), json!({"map": {"a": LAZY_BASE64}}))]
+    fn test_ser(input: MessageWithBytes, want: Value) -> Result {
+        let got = serde_json::to_value(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithBytes::new(), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular("".as_bytes()), json!({"singular": null}))]
+    #[test_case(MessageWithBytes::new().set_singular("".as_bytes()), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular(LAZY), json!({"singular": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_optional("".as_bytes()), json!({"optional": ""}))]
+    #[test_case(MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>), json!({}))]
+    #[test_case(MessageWithBytes::new().set_optional(LAZY), json!({"optional": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_repeated([""; 0]), json!({}))]
+    #[test_case(MessageWithBytes::new().set_repeated([LAZY]), json!({"repeated": [LAZY_BASE64]}))]
+    #[test_case(MessageWithBytes::new().set_map([("", ""); 0]), json!({}))]
+    #[test_case(MessageWithBytes::new().set_map([("a", LAZY)]), json!({"map": {"a": LAZY_BASE64}}))]
+    fn test_de(want: MessageWithBytes, input: Value) -> Result {
+        let got = serde_json::from_value::<MessageWithBytes>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(r#"{"singular": null}"#)]
+    #[test_case(r#"{"optional": null}"#)]
+    #[test_case(r#"{"repeated": null}"#)]
+    #[test_case(r#"{"map":       null}"#)]
+    fn test_null_is_default(input: &str) -> Result {
+        let got = serde_json::from_str::<MessageWithBytes>(input)?;
+        assert_eq!(got, MessageWithBytes::default());
+        Ok(())
+    }
+
+    #[test_case(r#"{"singular": "", "singular": ""}"#)]
+    #[test_case(r#"{"optional": "", "optional": ""}"#)]
+    #[test_case(r#"{"repeated": [], "repeated": []}"#)]
+    #[test_case(r#"{"map":      {}, "map":      {}}"#)]
+    fn reject_duplicate_fields(input: &str) -> Result {
+        let err = serde_json::from_str::<MessageWithBytes>(input).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<MessageWithBytes>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
     }
 
     #[test]
     fn test_serialize_singular() -> Result {
         let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
-        let msg = MessageWithBytes {
-            singular: b,
-            ..Default::default()
-        };
+        let msg = MessageWithBytes::new().set_singular(b);
         let got = serde_json::to_value(&msg)?;
         let want =
             json!({"singular": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="});
@@ -52,10 +101,7 @@ mod test {
     #[test]
     fn test_serialize_optional() -> Result {
         let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
-        let msg = MessageWithBytes {
-            optional: Some(b),
-            ..Default::default()
-        };
+        let msg = MessageWithBytes::new().set_optional(b);
         let got = serde_json::to_value(&msg)?;
         let want =
             json!({"optional": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="});
@@ -69,13 +115,23 @@ mod test {
     #[test]
     fn test_serialize_repeated() -> Result {
         let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
-        let msg = MessageWithBytes {
-            repeated: vec![b],
-            ..Default::default()
-        };
+        let msg = MessageWithBytes::new().set_repeated([b]);
         let got = serde_json::to_value(&msg)?;
         let want =
             json!({"repeated": ["dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="]});
+        assert_eq!(want, got);
+
+        let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;
+        assert_eq!(msg, roundtrip);
+        Ok(())
+    }
+
+    #[test]
+    fn test_serialize_map() -> Result {
+        let b = bytes::Bytes::from("the quick brown fox jumps over the laze dog");
+        let msg = MessageWithBytes::new().set_map([("quick", b)]);
+        let got = serde_json::to_value(&msg)?;
+        let want = json!({"map": {"quick": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXplIGRvZw=="}});
         assert_eq!(want, got);
 
         let roundtrip = serde_json::from_value::<MessageWithBytes>(got)?;

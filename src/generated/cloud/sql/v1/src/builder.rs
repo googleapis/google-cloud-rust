@@ -16,9 +16,8 @@
 
 pub mod sql_backup_runs_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlBackupRunsService][super::super::client::SqlBackupRunsService].
+    /// A builder for [SqlBackupRunsService][crate::client::SqlBackupRunsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod sql_backup_runs_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,23 +39,30 @@ pub mod sql_backup_runs_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlBackupRunsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlBackupRunsService] request builders.
+    /// Common implementation for [crate::client::SqlBackupRunsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -65,19 +71,38 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::delete][super::super::client::SqlBackupRunsService::delete] calls.
+    /// The request builder for [SqlBackupRunsService::delete][crate::client::SqlBackupRunsService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlBackupRunsDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlBackupRunsDeleteRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlBackupRunsDeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -90,7 +115,10 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [id][crate::model::SqlBackupRunsDeleteRequest::id].
@@ -119,19 +147,38 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::get][super::super::client::SqlBackupRunsService::get] calls.
+    /// The request builder for [SqlBackupRunsService::get][crate::client::SqlBackupRunsService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlBackupRunsGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlBackupRunsGetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlBackupRunsGetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -144,7 +191,10 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupRun> {
-            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [id][crate::model::SqlBackupRunsGetRequest::id].
@@ -173,19 +223,38 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::insert][super::super::client::SqlBackupRunsService::insert] calls.
+    /// The request builder for [SqlBackupRunsService::insert][crate::client::SqlBackupRunsService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlBackupRunsInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlBackupRunsInsertRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlBackupRunsInsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -198,7 +267,10 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlBackupRunsInsertRequest::instance].
@@ -214,8 +286,20 @@ pub mod sql_backup_runs_service {
         }
 
         /// Sets the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::BackupRun>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupRun>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlBackupRunsInsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupRun>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -227,19 +311,42 @@ pub mod sql_backup_runs_service {
         }
     }
 
-    /// The request builder for [SqlBackupRunsService::list][super::super::client::SqlBackupRunsService::list] calls.
+    /// The request builder for [SqlBackupRunsService::list][crate::client::SqlBackupRunsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_backup_runs_service::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlBackupRunsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupRunsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlBackupRunsListRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlBackupRunsListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -252,7 +359,34 @@ pub mod sql_backup_runs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::BackupRunsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::BackupRunsListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::BackupRunsListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [instance][crate::model::SqlBackupRunsListRequest::instance].
@@ -286,14 +420,12 @@ pub mod sql_backup_runs_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_connect_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlConnectService][super::super::client::SqlConnectService].
+    /// A builder for [SqlConnectService][crate::client::SqlConnectService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -304,7 +436,7 @@ pub mod sql_connect_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -315,23 +447,30 @@ pub mod sql_connect_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlConnectService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlConnectService] request builders.
+    /// Common implementation for [crate::client::SqlConnectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlConnectService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlConnectService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -340,19 +479,38 @@ pub mod sql_connect_service {
         }
     }
 
-    /// The request builder for [SqlConnectService::get_connect_settings][super::super::client::SqlConnectService::get_connect_settings] calls.
+    /// The request builder for [SqlConnectService::get_connect_settings][crate::client::SqlConnectService::get_connect_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_connect_service::GetConnectSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectSettings(RequestBuilder<crate::model::GetConnectSettingsRequest>);
 
     impl GetConnectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlConnectService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GetConnectSettingsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GetConnectSettingsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -365,7 +523,10 @@ pub mod sql_connect_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::ConnectSettings> {
-            (*self.0.stub).get_connect_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_connect_settings(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::GetConnectSettingsRequest::instance].
@@ -381,8 +542,20 @@ pub mod sql_connect_service {
         }
 
         /// Sets the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
-        pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.read_time = v.into();
+        pub fn set_read_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_time][crate::model::GetConnectSettingsRequest::read_time].
+        pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = v.map(|x| x.into());
             self
         }
     }
@@ -394,19 +567,38 @@ pub mod sql_connect_service {
         }
     }
 
-    /// The request builder for [SqlConnectService::generate_ephemeral_cert][super::super::client::SqlConnectService::generate_ephemeral_cert] calls.
+    /// The request builder for [SqlConnectService::generate_ephemeral_cert][crate::client::SqlConnectService::generate_ephemeral_cert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_connect_service::GenerateEphemeralCert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateEphemeralCert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateEphemeralCert(RequestBuilder<crate::model::GenerateEphemeralCertRequest>);
 
     impl GenerateEphemeralCert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlConnectService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlConnectService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::GenerateEphemeralCertRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::GenerateEphemeralCertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -419,7 +611,10 @@ pub mod sql_connect_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::GenerateEphemeralCertResponse> {
-            (*self.0.stub).generate_ephemeral_cert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .generate_ephemeral_cert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::GenerateEphemeralCertRequest::instance].
@@ -447,14 +642,38 @@ pub mod sql_connect_service {
         }
 
         /// Sets the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
-        pub fn set_read_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.read_time = v.into();
+        pub fn set_read_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_time][crate::model::GenerateEphemeralCertRequest::read_time].
+        pub fn set_or_clear_read_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.read_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
-        pub fn set_valid_duration<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.valid_duration = v.into();
+        pub fn set_valid_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.valid_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [valid_duration][crate::model::GenerateEphemeralCertRequest::valid_duration].
+        pub fn set_or_clear_valid_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.valid_duration = v.map(|x| x.into());
             self
         }
     }
@@ -465,14 +684,12 @@ pub mod sql_connect_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_databases_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlDatabasesService][super::super::client::SqlDatabasesService].
+    /// A builder for [SqlDatabasesService][crate::client::SqlDatabasesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -483,7 +700,7 @@ pub mod sql_databases_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -494,23 +711,30 @@ pub mod sql_databases_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlDatabasesService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlDatabasesService] request builders.
+    /// Common implementation for [crate::client::SqlDatabasesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -519,19 +743,38 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::delete][super::super::client::SqlDatabasesService::delete] calls.
+    /// The request builder for [SqlDatabasesService::delete][crate::client::SqlDatabasesService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlDatabasesDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlDatabasesDeleteRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlDatabasesDeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -544,7 +787,10 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesDeleteRequest::database].
@@ -573,15 +819,31 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::get][super::super::client::SqlDatabasesService::get] calls.
+    /// The request builder for [SqlDatabasesService::get][crate::client::SqlDatabasesService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlDatabasesGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -598,7 +860,10 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Database> {
-            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesGetRequest::database].
@@ -627,19 +892,38 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::insert][super::super::client::SqlDatabasesService::insert] calls.
+    /// The request builder for [SqlDatabasesService::insert][crate::client::SqlDatabasesService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlDatabasesInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlDatabasesInsertRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlDatabasesInsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -652,7 +936,10 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlDatabasesInsertRequest::instance].
@@ -668,8 +955,20 @@ pub mod sql_databases_service {
         }
 
         /// Sets the value of [body][crate::model::SqlDatabasesInsertRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::Database>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlDatabasesInsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -681,19 +980,38 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::list][super::super::client::SqlDatabasesService::list] calls.
+    /// The request builder for [SqlDatabasesService::list][crate::client::SqlDatabasesService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::List;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlDatabasesListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlDatabasesListRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlDatabasesListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -706,7 +1024,10 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DatabasesListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlDatabasesListRequest::instance].
@@ -729,19 +1050,38 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::patch][super::super::client::SqlDatabasesService::patch] calls.
+    /// The request builder for [SqlDatabasesService::patch][crate::client::SqlDatabasesService::patch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Patch;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Patch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Patch(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
     impl Patch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlDatabasesUpdateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlDatabasesUpdateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -754,7 +1094,10 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).patch(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .patch(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
@@ -776,8 +1119,20 @@ pub mod sql_databases_service {
         }
 
         /// Sets the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::Database>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -789,19 +1144,38 @@ pub mod sql_databases_service {
         }
     }
 
-    /// The request builder for [SqlDatabasesService::update][super::super::client::SqlDatabasesService::update] calls.
+    /// The request builder for [SqlDatabasesService::update][crate::client::SqlDatabasesService::update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_databases_service::Update;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Update {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlDatabasesUpdateRequest>);
 
     impl Update {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlDatabasesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlDatabasesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlDatabasesUpdateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlDatabasesUpdateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -814,7 +1188,10 @@ pub mod sql_databases_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).update(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database][crate::model::SqlDatabasesUpdateRequest::database].
@@ -836,8 +1213,20 @@ pub mod sql_databases_service {
         }
 
         /// Sets the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::Database>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlDatabasesUpdateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -848,14 +1237,12 @@ pub mod sql_databases_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_flags_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlFlagsService][super::super::client::SqlFlagsService].
+    /// A builder for [SqlFlagsService][crate::client::SqlFlagsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -866,7 +1253,7 @@ pub mod sql_flags_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -877,23 +1264,30 @@ pub mod sql_flags_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlFlagsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlFlagsService] request builders.
+    /// Common implementation for [crate::client::SqlFlagsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlFlagsService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -902,15 +1296,31 @@ pub mod sql_flags_service {
         }
     }
 
-    /// The request builder for [SqlFlagsService::list][super::super::client::SqlFlagsService::list] calls.
+    /// The request builder for [SqlFlagsService::list][crate::client::SqlFlagsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_flags_service::List;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlFlagsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlFlagsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlFlagsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -927,7 +1337,10 @@ pub mod sql_flags_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::FlagsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [database_version][crate::model::SqlFlagsListRequest::database_version].
@@ -943,14 +1356,12 @@ pub mod sql_flags_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_instances_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlInstancesService][super::super::client::SqlInstancesService].
+    /// A builder for [SqlInstancesService][crate::client::SqlInstancesService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -961,7 +1372,7 @@ pub mod sql_instances_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -972,23 +1383,30 @@ pub mod sql_instances_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlInstancesService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlInstancesService] request builders.
+    /// Common implementation for [crate::client::SqlInstancesService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -997,19 +1415,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::add_server_ca][super::super::client::SqlInstancesService::add_server_ca] calls.
+    /// The request builder for [SqlInstancesService::add_server_ca][crate::client::SqlInstancesService::add_server_ca] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::AddServerCa;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddServerCa {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddServerCa(RequestBuilder<crate::model::SqlInstancesAddServerCaRequest>);
 
     impl AddServerCa {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesAddServerCaRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesAddServerCaRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1022,7 +1459,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).add_server_ca(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .add_server_ca(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAddServerCaRequest::instance].
@@ -1045,19 +1485,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::clone][super::super::client::SqlInstancesService::clone] calls.
+    /// The request builder for [SqlInstancesService::clone][crate::client::SqlInstancesService::clone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Clone;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Clone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Clone(RequestBuilder<crate::model::SqlInstancesCloneRequest>);
 
     impl Clone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesCloneRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesCloneRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1070,7 +1529,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).clone(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .clone(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
@@ -1086,8 +1548,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesCloneRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesCloneRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesCloneRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesCloneRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesCloneRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1099,19 +1573,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::delete][super::super::client::SqlInstancesService::delete] calls.
+    /// The request builder for [SqlInstancesService::delete][crate::client::SqlInstancesService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlInstancesDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesDeleteRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesDeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1124,7 +1617,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDeleteRequest::instance].
@@ -1147,19 +1643,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::demote_master][super::super::client::SqlInstancesService::demote_master] calls.
+    /// The request builder for [SqlInstancesService::demote_master][crate::client::SqlInstancesService::demote_master] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::DemoteMaster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DemoteMaster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DemoteMaster(RequestBuilder<crate::model::SqlInstancesDemoteMasterRequest>);
 
     impl DemoteMaster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesDemoteMasterRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesDemoteMasterRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1172,7 +1687,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).demote_master(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .demote_master(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteMasterRequest::instance].
@@ -1188,8 +1706,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesDemoteMasterRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteMasterRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesDemoteMasterRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1201,19 +1731,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::demote][super::super::client::SqlInstancesService::demote] calls.
+    /// The request builder for [SqlInstancesService::demote][crate::client::SqlInstancesService::demote] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Demote;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Demote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Demote(RequestBuilder<crate::model::SqlInstancesDemoteRequest>);
 
     impl Demote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesDemoteRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesDemoteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1226,7 +1775,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).demote(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .demote(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesDemoteRequest::instance].
@@ -1248,8 +1800,22 @@ pub mod sql_instances_service {
         /// Sets the value of [body][crate::model::SqlInstancesDemoteRequest::body].
         ///
         /// This is a **required** field for requests.
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesDemoteRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesDemoteRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesDemoteRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesDemoteRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1261,19 +1827,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::export][super::super::client::SqlInstancesService::export] calls.
+    /// The request builder for [SqlInstancesService::export][crate::client::SqlInstancesService::export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Export;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Export {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Export(RequestBuilder<crate::model::SqlInstancesExportRequest>);
 
     impl Export {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesExportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesExportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1286,7 +1871,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).export(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .export(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesExportRequest::instance].
@@ -1302,8 +1890,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesExportRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesExportRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesExportRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesExportRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesExportRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1315,19 +1915,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::failover][super::super::client::SqlInstancesService::failover] calls.
+    /// The request builder for [SqlInstancesService::failover][crate::client::SqlInstancesService::failover] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Failover;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Failover {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Failover(RequestBuilder<crate::model::SqlInstancesFailoverRequest>);
 
     impl Failover {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesFailoverRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesFailoverRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1340,7 +1959,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).failover(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .failover(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesFailoverRequest::instance].
@@ -1356,8 +1978,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesFailoverRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesFailoverRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesFailoverRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesFailoverRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesFailoverRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1369,19 +2003,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reencrypt][super::super::client::SqlInstancesService::reencrypt] calls.
+    /// The request builder for [SqlInstancesService::reencrypt][crate::client::SqlInstancesService::reencrypt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Reencrypt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Reencrypt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Reencrypt(RequestBuilder<crate::model::SqlInstancesReencryptRequest>);
 
     impl Reencrypt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesReencryptRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesReencryptRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1394,7 +2047,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reencrypt(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reencrypt(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReencryptRequest::instance].
@@ -1410,8 +2066,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesReencryptRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesReencryptRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesReencryptRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesReencryptRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesReencryptRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1423,15 +2091,31 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::get][super::super::client::SqlInstancesService::get] calls.
+    /// The request builder for [SqlInstancesService::get][crate::client::SqlInstancesService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlInstancesGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -1448,7 +2132,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::DatabaseInstance> {
-            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
@@ -1471,19 +2158,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::import][super::super::client::SqlInstancesService::import] calls.
+    /// The request builder for [SqlInstancesService::import][crate::client::SqlInstancesService::import] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Import;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Import {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Import(RequestBuilder<crate::model::SqlInstancesImportRequest>);
 
     impl Import {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesImportRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesImportRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1496,7 +2202,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).import(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .import(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesImportRequest::instance].
@@ -1512,8 +2221,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesImportRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesImportRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesImportRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesImportRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesImportRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1525,19 +2246,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::insert][super::super::client::SqlInstancesService::insert] calls.
+    /// The request builder for [SqlInstancesService::insert][crate::client::SqlInstancesService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlInstancesInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesInsertRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesInsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1550,7 +2290,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesInsertRequest::project].
@@ -1560,8 +2303,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesInsertRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::DatabaseInstance>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatabaseInstance>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesInsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatabaseInstance>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1573,19 +2328,42 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::list][super::super::client::SqlInstancesService::list] calls.
+    /// The request builder for [SqlInstancesService::list][crate::client::SqlInstancesService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlInstancesListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesListRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1598,7 +2376,34 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstancesListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::InstancesListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::InstancesListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [filter][crate::model::SqlInstancesListRequest::filter].
@@ -1633,19 +2438,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::list_server_cas][super::super::client::SqlInstancesService::list_server_cas] calls.
+    /// The request builder for [SqlInstancesService::list_server_cas][crate::client::SqlInstancesService::list_server_cas] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ListServerCas;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServerCas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServerCas(RequestBuilder<crate::model::SqlInstancesListServerCasRequest>);
 
     impl ListServerCas {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesListServerCasRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesListServerCasRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1658,7 +2482,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::InstancesListServerCasResponse> {
-            (*self.0.stub).list_server_cas(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list_server_cas(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesListServerCasRequest::instance].
@@ -1681,19 +2508,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::patch][super::super::client::SqlInstancesService::patch] calls.
+    /// The request builder for [SqlInstancesService::patch][crate::client::SqlInstancesService::patch] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Patch;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Patch {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Patch(RequestBuilder<crate::model::SqlInstancesPatchRequest>);
 
     impl Patch {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesPatchRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesPatchRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1706,7 +2552,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).patch(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .patch(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPatchRequest::instance].
@@ -1722,8 +2571,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesPatchRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::DatabaseInstance>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatabaseInstance>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesPatchRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatabaseInstance>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1735,19 +2596,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::promote_replica][super::super::client::SqlInstancesService::promote_replica] calls.
+    /// The request builder for [SqlInstancesService::promote_replica][crate::client::SqlInstancesService::promote_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::PromoteReplica;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PromoteReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PromoteReplica(RequestBuilder<crate::model::SqlInstancesPromoteReplicaRequest>);
 
     impl PromoteReplica {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesPromoteReplicaRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesPromoteReplicaRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1760,7 +2640,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).promote_replica(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .promote_replica(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPromoteReplicaRequest::instance].
@@ -1789,19 +2672,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::switchover][super::super::client::SqlInstancesService::switchover] calls.
+    /// The request builder for [SqlInstancesService::switchover][crate::client::SqlInstancesService::switchover] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Switchover;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Switchover {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Switchover(RequestBuilder<crate::model::SqlInstancesSwitchoverRequest>);
 
     impl Switchover {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesSwitchoverRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesSwitchoverRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1814,7 +2716,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).switchover(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .switchover(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesSwitchoverRequest::instance].
@@ -1830,8 +2735,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
-        pub fn set_db_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.db_timeout = v.into();
+        pub fn set_db_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.db_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [db_timeout][crate::model::SqlInstancesSwitchoverRequest::db_timeout].
+        pub fn set_or_clear_db_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.db_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -1843,19 +2760,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reset_ssl_config][super::super::client::SqlInstancesService::reset_ssl_config] calls.
+    /// The request builder for [SqlInstancesService::reset_ssl_config][crate::client::SqlInstancesService::reset_ssl_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ResetSslConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetSslConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetSslConfig(RequestBuilder<crate::model::SqlInstancesResetSslConfigRequest>);
 
     impl ResetSslConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesResetSslConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesResetSslConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1868,7 +2804,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reset_ssl_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reset_ssl_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesResetSslConfigRequest::instance].
@@ -1891,19 +2830,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::restart][super::super::client::SqlInstancesService::restart] calls.
+    /// The request builder for [SqlInstancesService::restart][crate::client::SqlInstancesService::restart] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Restart;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Restart {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Restart(RequestBuilder<crate::model::SqlInstancesRestartRequest>);
 
     impl Restart {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesRestartRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesRestartRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1916,7 +2874,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).restart(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restart(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRestartRequest::instance].
@@ -1939,19 +2900,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::restore_backup][super::super::client::SqlInstancesService::restore_backup] calls.
+    /// The request builder for [SqlInstancesService::restore_backup][crate::client::SqlInstancesService::restore_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::RestoreBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreBackup(RequestBuilder<crate::model::SqlInstancesRestoreBackupRequest>);
 
     impl RestoreBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesRestoreBackupRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesRestoreBackupRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -1964,7 +2944,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).restore_backup(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .restore_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRestoreBackupRequest::instance].
@@ -1980,8 +2963,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesRestoreBackupRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRestoreBackupRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRestoreBackupRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -1993,19 +2988,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::rotate_server_ca][super::super::client::SqlInstancesService::rotate_server_ca] calls.
+    /// The request builder for [SqlInstancesService::rotate_server_ca][crate::client::SqlInstancesService::rotate_server_ca] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::RotateServerCa;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RotateServerCa {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RotateServerCa(RequestBuilder<crate::model::SqlInstancesRotateServerCaRequest>);
 
     impl RotateServerCa {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesRotateServerCaRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesRotateServerCaRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2018,7 +3032,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).rotate_server_ca(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .rotate_server_ca(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCaRequest::instance].
@@ -2034,8 +3051,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesRotateServerCaRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRotateServerCaRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRotateServerCaRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2047,19 +3076,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::start_replica][super::super::client::SqlInstancesService::start_replica] calls.
+    /// The request builder for [SqlInstancesService::start_replica][crate::client::SqlInstancesService::start_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::StartReplica;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartReplica(RequestBuilder<crate::model::SqlInstancesStartReplicaRequest>);
 
     impl StartReplica {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesStartReplicaRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesStartReplicaRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2072,7 +3120,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).start_replica(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_replica(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStartReplicaRequest::instance].
@@ -2095,19 +3146,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::stop_replica][super::super::client::SqlInstancesService::stop_replica] calls.
+    /// The request builder for [SqlInstancesService::stop_replica][crate::client::SqlInstancesService::stop_replica] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::StopReplica;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopReplica {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopReplica(RequestBuilder<crate::model::SqlInstancesStopReplicaRequest>);
 
     impl StopReplica {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesStopReplicaRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesStopReplicaRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2120,7 +3190,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).stop_replica(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .stop_replica(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStopReplicaRequest::instance].
@@ -2143,19 +3216,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::truncate_log][super::super::client::SqlInstancesService::truncate_log] calls.
+    /// The request builder for [SqlInstancesService::truncate_log][crate::client::SqlInstancesService::truncate_log] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::TruncateLog;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TruncateLog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TruncateLog(RequestBuilder<crate::model::SqlInstancesTruncateLogRequest>);
 
     impl TruncateLog {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesTruncateLogRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesTruncateLogRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2168,7 +3260,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).truncate_log(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .truncate_log(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesTruncateLogRequest::instance].
@@ -2184,8 +3279,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesTruncateLogRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesTruncateLogRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesTruncateLogRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2197,19 +3304,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::update][super::super::client::SqlInstancesService::update] calls.
+    /// The request builder for [SqlInstancesService::update][crate::client::SqlInstancesService::update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::Update;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Update {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlInstancesUpdateRequest>);
 
     impl Update {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesUpdateRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesUpdateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2222,7 +3348,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).update(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesUpdateRequest::instance].
@@ -2238,8 +3367,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesUpdateRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::DatabaseInstance>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatabaseInstance>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesUpdateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatabaseInstance>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2251,19 +3392,40 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::create_ephemeral][super::super::client::SqlInstancesService::create_ephemeral] calls.
+    /// The request builder for [SqlInstancesService::create_ephemeral][crate::client::SqlInstancesService::create_ephemeral] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::CreateEphemeral;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEphemeral {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct CreateEphemeral(RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>);
+    pub struct CreateEphemeral(
+        RequestBuilder<crate::model::SqlInstancesCreateEphemeralCertRequest>,
+    );
 
     impl CreateEphemeral {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesCreateEphemeralCertRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesCreateEphemeralCertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2276,7 +3438,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCert> {
-            (*self.0.stub).create_ephemeral(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .create_ephemeral(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCreateEphemeralCertRequest::instance].
@@ -2292,8 +3457,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::SslCertsCreateEphemeralRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesCreateEphemeralCertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SslCertsCreateEphemeralRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2305,19 +3482,40 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reschedule_maintenance][super::super::client::SqlInstancesService::reschedule_maintenance] calls.
+    /// The request builder for [SqlInstancesService::reschedule_maintenance][crate::client::SqlInstancesService::reschedule_maintenance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::RescheduleMaintenance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RescheduleMaintenance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct RescheduleMaintenance(RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>);
+    pub struct RescheduleMaintenance(
+        RequestBuilder<crate::model::SqlInstancesRescheduleMaintenanceRequest>,
+    );
 
     impl RescheduleMaintenance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesRescheduleMaintenanceRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesRescheduleMaintenanceRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2330,7 +3528,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reschedule_maintenance(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reschedule_maintenance(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesRescheduleMaintenanceRequest::instance].
@@ -2346,8 +3547,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRescheduleMaintenanceRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SqlInstancesRescheduleMaintenanceRequestBody>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2359,19 +3572,42 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::verify_external_sync_settings][super::super::client::SqlInstancesService::verify_external_sync_settings] calls.
+    /// The request builder for [SqlInstancesService::verify_external_sync_settings][crate::client::SqlInstancesService::verify_external_sync_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::VerifyExternalSyncSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> VerifyExternalSyncSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct VerifyExternalSyncSettings(RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>);
+    pub struct VerifyExternalSyncSettings(
+        RequestBuilder<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>,
+    );
 
     impl VerifyExternalSyncSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<
+            V: Into<crate::model::SqlInstancesVerifyExternalSyncSettingsRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2383,8 +3619,13 @@ pub mod sql_instances_service {
         }
 
         /// Sends the request.
-        pub async fn send(self) -> Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse> {
-            (*self.0.stub).verify_external_sync_settings(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+        pub async fn send(
+            self,
+        ) -> Result<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse> {
+            (*self.0.stub)
+                .verify_external_sync_settings(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::instance].
@@ -2406,7 +3647,14 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [sync_mode][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_mode].
-        pub fn set_sync_mode<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode>>(mut self, v: T) -> Self {
+        pub fn set_sync_mode<
+            T: Into<
+                crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.sync_mode = v.into();
             self
         }
@@ -2418,13 +3666,21 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [migration_type][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::migration_type].
-        pub fn set_migration_type<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>>(mut self, v: T) -> Self {
+        pub fn set_migration_type<
+            T: Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.migration_type = v.into();
             self
         }
 
         /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_parallel_level].
-        pub fn set_sync_parallel_level<T: Into<crate::model::ExternalSyncParallelLevel>>(mut self, v: T) -> Self {
+        pub fn set_sync_parallel_level<T: Into<crate::model::ExternalSyncParallelLevel>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.sync_parallel_level = v.into();
             self
         }
@@ -2433,7 +3689,16 @@ pub mod sql_instances_service {
         ///
         /// Note that all the setters affecting `sync_config` are
         /// mutually exclusive.
-        pub fn set_sync_config<T: Into<Option<crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig>>>(mut self, v: T) ->Self {
+        pub fn set_sync_config<
+            T: Into<
+                Option<
+                    crate::model::sql_instances_verify_external_sync_settings_request::SyncConfig,
+                >,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.sync_config = v.into();
             self
         }
@@ -2443,7 +3708,12 @@ pub mod sql_instances_service {
         ///
         /// Note that all the setters affecting `sync_config` are
         /// mutually exclusive.
-        pub fn set_mysql_sync_config<T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>>(mut self, v: T) -> Self {
+        pub fn set_mysql_sync_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_mysql_sync_config(v);
             self
         }
@@ -2456,19 +3726,40 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::start_external_sync][super::super::client::SqlInstancesService::start_external_sync] calls.
+    /// The request builder for [SqlInstancesService::start_external_sync][crate::client::SqlInstancesService::start_external_sync] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::StartExternalSync;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartExternalSync {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct StartExternalSync(RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>);
+    pub struct StartExternalSync(
+        RequestBuilder<crate::model::SqlInstancesStartExternalSyncRequest>,
+    );
 
     impl StartExternalSync {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesStartExternalSyncRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesStartExternalSyncRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2481,7 +3772,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).start_external_sync(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .start_external_sync(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesStartExternalSyncRequest::instance].
@@ -2497,7 +3791,14 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [sync_mode][crate::model::SqlInstancesStartExternalSyncRequest::sync_mode].
-        pub fn set_sync_mode<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode>>(mut self, v: T) -> Self {
+        pub fn set_sync_mode<
+            T: Into<
+                crate::model::sql_instances_verify_external_sync_settings_request::ExternalSyncMode,
+            >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.sync_mode = v.into();
             self
         }
@@ -2509,13 +3810,21 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [sync_parallel_level][crate::model::SqlInstancesStartExternalSyncRequest::sync_parallel_level].
-        pub fn set_sync_parallel_level<T: Into<crate::model::ExternalSyncParallelLevel>>(mut self, v: T) -> Self {
+        pub fn set_sync_parallel_level<T: Into<crate::model::ExternalSyncParallelLevel>>(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.sync_parallel_level = v.into();
             self
         }
 
         /// Sets the value of [migration_type][crate::model::SqlInstancesStartExternalSyncRequest::migration_type].
-        pub fn set_migration_type<T: Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>>(mut self, v: T) -> Self {
+        pub fn set_migration_type<
+            T: Into<crate::model::sql_instances_verify_external_sync_settings_request::MigrationType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.migration_type = v.into();
             self
         }
@@ -2524,7 +3833,12 @@ pub mod sql_instances_service {
         ///
         /// Note that all the setters affecting `sync_config` are
         /// mutually exclusive.
-        pub fn set_sync_config<T: Into<Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>>>(mut self, v: T) ->Self {
+        pub fn set_sync_config<
+            T: Into<Option<crate::model::sql_instances_start_external_sync_request::SyncConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request.sync_config = v.into();
             self
         }
@@ -2534,7 +3848,12 @@ pub mod sql_instances_service {
         ///
         /// Note that all the setters affecting `sync_config` are
         /// mutually exclusive.
-        pub fn set_mysql_sync_config<T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>>(mut self, v: T) -> Self {
+        pub fn set_mysql_sync_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::MySqlSyncConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
             self.0.request = self.0.request.set_mysql_sync_config(v);
             self
         }
@@ -2547,19 +3866,40 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::perform_disk_shrink][super::super::client::SqlInstancesService::perform_disk_shrink] calls.
+    /// The request builder for [SqlInstancesService::perform_disk_shrink][crate::client::SqlInstancesService::perform_disk_shrink] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::PerformDiskShrink;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PerformDiskShrink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct PerformDiskShrink(RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>);
+    pub struct PerformDiskShrink(
+        RequestBuilder<crate::model::SqlInstancesPerformDiskShrinkRequest>,
+    );
 
     impl PerformDiskShrink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesPerformDiskShrinkRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesPerformDiskShrinkRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2572,7 +3912,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).perform_disk_shrink(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .perform_disk_shrink(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesPerformDiskShrinkRequest::instance].
@@ -2588,8 +3931,20 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::PerformDiskShrinkContext>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesPerformDiskShrinkRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PerformDiskShrinkContext>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2601,19 +3956,40 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::get_disk_shrink_config][super::super::client::SqlInstancesService::get_disk_shrink_config] calls.
+    /// The request builder for [SqlInstancesService::get_disk_shrink_config][crate::client::SqlInstancesService::get_disk_shrink_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::GetDiskShrinkConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiskShrinkConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct GetDiskShrinkConfig(RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>);
+    pub struct GetDiskShrinkConfig(
+        RequestBuilder<crate::model::SqlInstancesGetDiskShrinkConfigRequest>,
+    );
 
     impl GetDiskShrinkConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesGetDiskShrinkConfigRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesGetDiskShrinkConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2626,7 +4002,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesGetDiskShrinkConfigResponse> {
-            (*self.0.stub).get_disk_shrink_config(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_disk_shrink_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetDiskShrinkConfigRequest::instance].
@@ -2649,19 +4028,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::reset_replica_size][super::super::client::SqlInstancesService::reset_replica_size] calls.
+    /// The request builder for [SqlInstancesService::reset_replica_size][crate::client::SqlInstancesService::reset_replica_size] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ResetReplicaSize;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetReplicaSize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetReplicaSize(RequestBuilder<crate::model::SqlInstancesResetReplicaSizeRequest>);
 
     impl ResetReplicaSize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesResetReplicaSizeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesResetReplicaSizeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2674,7 +4072,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).reset_replica_size(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .reset_replica_size(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesResetReplicaSizeRequest::instance].
@@ -2697,19 +4098,40 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::get_latest_recovery_time][super::super::client::SqlInstancesService::get_latest_recovery_time] calls.
+    /// The request builder for [SqlInstancesService::get_latest_recovery_time][crate::client::SqlInstancesService::get_latest_recovery_time] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::GetLatestRecoveryTime;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLatestRecoveryTime {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
-    pub struct GetLatestRecoveryTime(RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>);
+    pub struct GetLatestRecoveryTime(
+        RequestBuilder<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>,
+    );
 
     impl GetLatestRecoveryTime {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesGetLatestRecoveryTimeRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2722,7 +4144,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesGetLatestRecoveryTimeResponse> {
-            (*self.0.stub).get_latest_recovery_time(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get_latest_recovery_time(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::instance].
@@ -2745,19 +4170,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::acquire_ssrs_lease][super::super::client::SqlInstancesService::acquire_ssrs_lease] calls.
+    /// The request builder for [SqlInstancesService::acquire_ssrs_lease][crate::client::SqlInstancesService::acquire_ssrs_lease] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::AcquireSsrsLease;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AcquireSsrsLease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AcquireSsrsLease(RequestBuilder<crate::model::SqlInstancesAcquireSsrsLeaseRequest>);
 
     impl AcquireSsrsLease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesAcquireSsrsLeaseRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesAcquireSsrsLeaseRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2770,7 +4214,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesAcquireSsrsLeaseResponse> {
-            (*self.0.stub).acquire_ssrs_lease(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .acquire_ssrs_lease(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesAcquireSsrsLeaseRequest::instance].
@@ -2792,8 +4239,22 @@ pub mod sql_instances_service {
         /// Sets the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
         ///
         /// This is a **required** field for requests.
-        pub fn set_body<T: Into<std::option::Option<crate::model::InstancesAcquireSsrsLeaseRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesAcquireSsrsLeaseRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesAcquireSsrsLeaseRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -2805,19 +4266,38 @@ pub mod sql_instances_service {
         }
     }
 
-    /// The request builder for [SqlInstancesService::release_ssrs_lease][super::super::client::SqlInstancesService::release_ssrs_lease] calls.
+    /// The request builder for [SqlInstancesService::release_ssrs_lease][crate::client::SqlInstancesService::release_ssrs_lease] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_instances_service::ReleaseSsrsLease;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReleaseSsrsLease {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReleaseSsrsLease(RequestBuilder<crate::model::SqlInstancesReleaseSsrsLeaseRequest>);
 
     impl ReleaseSsrsLease {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlInstancesService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlInstancesReleaseSsrsLeaseRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlInstancesReleaseSsrsLeaseRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2830,7 +4310,10 @@ pub mod sql_instances_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SqlInstancesReleaseSsrsLeaseResponse> {
-            (*self.0.stub).release_ssrs_lease(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .release_ssrs_lease(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesReleaseSsrsLeaseRequest::instance].
@@ -2856,14 +4339,12 @@ pub mod sql_instances_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_operations_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlOperationsService][super::super::client::SqlOperationsService].
+    /// A builder for [SqlOperationsService][crate::client::SqlOperationsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2874,7 +4355,7 @@ pub mod sql_operations_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2885,23 +4366,30 @@ pub mod sql_operations_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlOperationsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlOperationsService] request builders.
+    /// Common implementation for [crate::client::SqlOperationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlOperationsService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2910,19 +4398,38 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for [SqlOperationsService::get][super::super::client::SqlOperationsService::get] calls.
+    /// The request builder for [SqlOperationsService::get][crate::client::SqlOperationsService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_operations_service::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlOperationsGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlOperationsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlOperationsGetRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlOperationsGetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2935,7 +4442,10 @@ pub mod sql_operations_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
@@ -2958,19 +4468,42 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for [SqlOperationsService::list][super::super::client::SqlOperationsService::list] calls.
+    /// The request builder for [SqlOperationsService::list][crate::client::SqlOperationsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_operations_service::List;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlOperationsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlOperationsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlOperationsListRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlOperationsListRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -2983,7 +4516,34 @@ pub mod sql_operations_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::OperationsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::OperationsListResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::OperationsListResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [instance][crate::model::SqlOperationsListRequest::instance].
@@ -3018,19 +4578,38 @@ pub mod sql_operations_service {
         }
     }
 
-    /// The request builder for [SqlOperationsService::cancel][super::super::client::SqlOperationsService::cancel] calls.
+    /// The request builder for [SqlOperationsService::cancel][crate::client::SqlOperationsService::cancel] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_operations_service::Cancel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Cancel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Cancel(RequestBuilder<crate::model::SqlOperationsCancelRequest>);
 
     impl Cancel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlOperationsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlOperationsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlOperationsCancelRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlOperationsCancelRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3043,7 +4622,10 @@ pub mod sql_operations_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<()> {
-            (*self.0.stub).cancel(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .cancel(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsCancelRequest::operation].
@@ -3065,14 +4647,12 @@ pub mod sql_operations_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_ssl_certs_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlSslCertsService][super::super::client::SqlSslCertsService].
+    /// A builder for [SqlSslCertsService][crate::client::SqlSslCertsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3083,7 +4663,7 @@ pub mod sql_ssl_certs_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3094,23 +4674,30 @@ pub mod sql_ssl_certs_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlSslCertsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlSslCertsService] request builders.
+    /// Common implementation for [crate::client::SqlSslCertsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlSslCertsService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3119,19 +4706,38 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::delete][super::super::client::SqlSslCertsService::delete] calls.
+    /// The request builder for [SqlSslCertsService::delete][crate::client::SqlSslCertsService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlSslCertsDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlSslCertsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlSslCertsDeleteRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlSslCertsDeleteRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3144,7 +4750,10 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsDeleteRequest::instance].
@@ -3173,15 +4782,31 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::get][super::super::client::SqlSslCertsService::get] calls.
+    /// The request builder for [SqlSslCertsService::get][crate::client::SqlSslCertsService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlSslCertsGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlSslCertsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3198,7 +4823,10 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCert> {
-            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsGetRequest::instance].
@@ -3227,19 +4855,38 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::insert][super::super::client::SqlSslCertsService::insert] calls.
+    /// The request builder for [SqlSslCertsService::insert][crate::client::SqlSslCertsService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlSslCertsInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlSslCertsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
-        pub fn with_request<V: Into<crate::model::SqlSslCertsInsertRequest>>(mut self, v: V) -> Self {
+        pub fn with_request<V: Into<crate::model::SqlSslCertsInsertRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
             self.0.request = v.into();
             self
         }
@@ -3252,7 +4899,10 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCertsInsertResponse> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsInsertRequest::instance].
@@ -3268,8 +4918,20 @@ pub mod sql_ssl_certs_service {
         }
 
         /// Sets the value of [body][crate::model::SqlSslCertsInsertRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::SslCertsInsertRequest>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SslCertsInsertRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlSslCertsInsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SslCertsInsertRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -3281,15 +4943,31 @@ pub mod sql_ssl_certs_service {
         }
     }
 
-    /// The request builder for [SqlSslCertsService::list][super::super::client::SqlSslCertsService::list] calls.
+    /// The request builder for [SqlSslCertsService::list][crate::client::SqlSslCertsService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_ssl_certs_service::List;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlSslCertsListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlSslCertsService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlSslCertsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3306,7 +4984,10 @@ pub mod sql_ssl_certs_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::SslCertsListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlSslCertsListRequest::instance].
@@ -3328,14 +5009,12 @@ pub mod sql_ssl_certs_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_tiers_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlTiersService][super::super::client::SqlTiersService].
+    /// A builder for [SqlTiersService][crate::client::SqlTiersService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3346,7 +5025,7 @@ pub mod sql_tiers_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3357,23 +5036,30 @@ pub mod sql_tiers_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlTiersService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlTiersService] request builders.
+    /// Common implementation for [crate::client::SqlTiersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlTiersService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlTiersService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3382,15 +5068,31 @@ pub mod sql_tiers_service {
         }
     }
 
-    /// The request builder for [SqlTiersService::list][super::super::client::SqlTiersService::list] calls.
+    /// The request builder for [SqlTiersService::list][crate::client::SqlTiersService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_tiers_service::List;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlTiersListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlTiersService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlTiersService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3407,7 +5109,10 @@ pub mod sql_tiers_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::TiersListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [project][crate::model::SqlTiersListRequest::project].
@@ -3423,14 +5128,12 @@ pub mod sql_tiers_service {
             &mut self.0.options
         }
     }
-
 }
 
 pub mod sql_users_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SqlUsersService][super::super::client::SqlUsersService].
+    /// A builder for [SqlUsersService][crate::client::SqlUsersService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3441,7 +5144,7 @@ pub mod sql_users_service {
     /// let client = builder
     ///     .with_endpoint("https://sqladmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3452,23 +5155,30 @@ pub mod sql_users_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SqlUsersService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SqlUsersService] request builders.
+    /// Common implementation for [crate::client::SqlUsersService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
         request: R,
         options: gax::options::RequestOptions,
     }
 
     impl<R> RequestBuilder<R>
-    where R: std::default::Default {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>) -> Self {
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3477,15 +5187,31 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::delete][super::super::client::SqlUsersService::delete] calls.
+    /// The request builder for [SqlUsersService::delete][crate::client::SqlUsersService::delete] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Delete;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Delete {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Delete(RequestBuilder<crate::model::SqlUsersDeleteRequest>);
 
     impl Delete {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3502,7 +5228,10 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).delete(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .delete(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [host][crate::model::SqlUsersDeleteRequest::host].
@@ -3537,15 +5266,31 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::get][super::super::client::SqlUsersService::get] calls.
+    /// The request builder for [SqlUsersService::get][crate::client::SqlUsersService::get] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Get;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Get {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Get(RequestBuilder<crate::model::SqlUsersGetRequest>);
 
     impl Get {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3562,7 +5307,10 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::User> {
-            (*self.0.stub).get(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .get(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersGetRequest::instance].
@@ -3597,15 +5345,31 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::insert][super::super::client::SqlUsersService::insert] calls.
+    /// The request builder for [SqlUsersService::insert][crate::client::SqlUsersService::insert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Insert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Insert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Insert(RequestBuilder<crate::model::SqlUsersInsertRequest>);
 
     impl Insert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3622,7 +5386,10 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).insert(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .insert(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersInsertRequest::instance].
@@ -3638,8 +5405,20 @@ pub mod sql_users_service {
         }
 
         /// Sets the value of [body][crate::model::SqlUsersInsertRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlUsersInsertRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -3651,15 +5430,31 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::list][super::super::client::SqlUsersService::list] calls.
+    /// The request builder for [SqlUsersService::list][crate::client::SqlUsersService::list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::List;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> List {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct List(RequestBuilder<crate::model::SqlUsersListRequest>);
 
     impl List {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3676,7 +5471,10 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::UsersListResponse> {
-            (*self.0.stub).list(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .list(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [instance][crate::model::SqlUsersListRequest::instance].
@@ -3699,15 +5497,31 @@ pub mod sql_users_service {
         }
     }
 
-    /// The request builder for [SqlUsersService::update][super::super::client::SqlUsersService::update] calls.
+    /// The request builder for [SqlUsersService::update][crate::client::SqlUsersService::update] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_sql_v1::builder;
+    /// use builder::sql_users_service::Update;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Update {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Update(RequestBuilder<crate::model::SqlUsersUpdateRequest>);
 
     impl Update {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SqlUsersService>) -> Self {
-            Self(
-                RequestBuilder::new(stub)
-            )
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlUsersService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
         }
 
         /// Sets the full request, replacing any prior values.
@@ -3724,7 +5538,10 @@ pub mod sql_users_service {
 
         /// Sends the request.
         pub async fn send(self) -> Result<crate::model::Operation> {
-            (*self.0.stub).update(self.0.request, self.0.options).await.map(gax::response::Response::into_body)
+            (*self.0.stub)
+                .update(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
         }
 
         /// Sets the value of [host][crate::model::SqlUsersUpdateRequest::host].
@@ -3752,8 +5569,20 @@ pub mod sql_users_service {
         }
 
         /// Sets the value of [body][crate::model::SqlUsersUpdateRequest::body].
-        pub fn set_body<T: Into<std::option::Option<crate::model::User>>>(mut self, v: T) -> Self {
-            self.0.request.body = v.into();
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlUsersUpdateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::User>,
+        {
+            self.0.request.body = v.map(|x| x.into());
             self
         }
     }
@@ -3764,5 +5593,4 @@ pub mod sql_users_service {
             &mut self.0.options
         }
     }
-
 }

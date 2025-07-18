@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud TPU API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_tpu_v2::client::Tpu;
 /// let client = Tpu::builder().build().await?;
 /// // use `client` to make requests to the Cloud TPU API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `Tpu` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Tpu` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Tpu {
-    inner: Arc<dyn super::stub::dynamic::Tpu>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Tpu>,
 }
 
 impl Tpu {
@@ -74,7 +71,7 @@ impl Tpu {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_tpu_v2::client::Tpu;
     /// let client = Tpu::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tpu::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tpu::client::Factory)
@@ -89,47 +86,48 @@ impl Tpu {
         T: super::stub::Tpu + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Tpu>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Tpu>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::Tpu> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Tpu> {
         super::transport::Tpu::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Tpu> {
+    ) -> gax::client_builder::Result<impl super::stub::Tpu> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Tpu::new)
     }
 
     /// Lists nodes.
-    pub fn list_nodes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ListNodes {
-        super::builder::tpu::ListNodes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_nodes(&self) -> super::builder::tpu::ListNodes {
+        super::builder::tpu::ListNodes::new(self.inner.clone())
     }
 
     /// Gets the details of a node.
-    pub fn get_node(&self, name: impl Into<std::string::String>) -> super::builder::tpu::GetNode {
-        super::builder::tpu::GetNode::new(self.inner.clone()).set_name(name.into())
+    pub fn get_node(&self) -> super::builder::tpu::GetNode {
+        super::builder::tpu::GetNode::new(self.inner.clone())
     }
 
     /// Creates a node.
@@ -143,11 +141,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_node(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::CreateNode {
-        super::builder::tpu::CreateNode::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_node(&self) -> super::builder::tpu::CreateNode {
+        super::builder::tpu::CreateNode::new(self.inner.clone())
     }
 
     /// Deletes a node.
@@ -161,11 +156,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_node(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::DeleteNode {
-        super::builder::tpu::DeleteNode::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_node(&self) -> super::builder::tpu::DeleteNode {
+        super::builder::tpu::DeleteNode::new(self.inner.clone())
     }
 
     /// Stops a node. This operation is only available with single TPU nodes.
@@ -179,8 +171,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_node(&self, name: impl Into<std::string::String>) -> super::builder::tpu::StopNode {
-        super::builder::tpu::StopNode::new(self.inner.clone()).set_name(name.into())
+    pub fn stop_node(&self) -> super::builder::tpu::StopNode {
+        super::builder::tpu::StopNode::new(self.inner.clone())
     }
 
     /// Starts a node.
@@ -194,11 +186,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_node(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::StartNode {
-        super::builder::tpu::StartNode::new(self.inner.clone()).set_name(name.into())
+    pub fn start_node(&self) -> super::builder::tpu::StartNode {
+        super::builder::tpu::StartNode::new(self.inner.clone())
     }
 
     /// Updates the configurations of a node.
@@ -212,27 +201,18 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_node(
-        &self,
-        node: impl Into<crate::model::Node>,
-    ) -> super::builder::tpu::UpdateNode {
-        super::builder::tpu::UpdateNode::new(self.inner.clone()).set_node(node.into())
+    pub fn update_node(&self) -> super::builder::tpu::UpdateNode {
+        super::builder::tpu::UpdateNode::new(self.inner.clone())
     }
 
     /// Lists queued resources.
-    pub fn list_queued_resources(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ListQueuedResources {
-        super::builder::tpu::ListQueuedResources::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_queued_resources(&self) -> super::builder::tpu::ListQueuedResources {
+        super::builder::tpu::ListQueuedResources::new(self.inner.clone())
     }
 
     /// Gets details of a queued resource.
-    pub fn get_queued_resource(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GetQueuedResource {
-        super::builder::tpu::GetQueuedResource::new(self.inner.clone()).set_name(name.into())
+    pub fn get_queued_resource(&self) -> super::builder::tpu::GetQueuedResource {
+        super::builder::tpu::GetQueuedResource::new(self.inner.clone())
     }
 
     /// Creates a QueuedResource TPU instance.
@@ -246,11 +226,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_queued_resource(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::CreateQueuedResource {
-        super::builder::tpu::CreateQueuedResource::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_queued_resource(&self) -> super::builder::tpu::CreateQueuedResource {
+        super::builder::tpu::CreateQueuedResource::new(self.inner.clone())
     }
 
     /// Deletes a QueuedResource TPU instance.
@@ -264,11 +241,8 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_queued_resource(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::DeleteQueuedResource {
-        super::builder::tpu::DeleteQueuedResource::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_queued_resource(&self) -> super::builder::tpu::DeleteQueuedResource {
+        super::builder::tpu::DeleteQueuedResource::new(self.inner.clone())
     }
 
     /// Resets a QueuedResource TPU instance
@@ -282,115 +256,75 @@ impl Tpu {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reset_queued_resource(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ResetQueuedResource {
-        super::builder::tpu::ResetQueuedResource::new(self.inner.clone()).set_name(name.into())
+    pub fn reset_queued_resource(&self) -> super::builder::tpu::ResetQueuedResource {
+        super::builder::tpu::ResetQueuedResource::new(self.inner.clone())
     }
 
     /// Generates the Cloud TPU service identity for the project.
-    pub fn generate_service_identity(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GenerateServiceIdentity {
+    pub fn generate_service_identity(&self) -> super::builder::tpu::GenerateServiceIdentity {
         super::builder::tpu::GenerateServiceIdentity::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists accelerator types supported by this API.
-    pub fn list_accelerator_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ListAcceleratorTypes {
-        super::builder::tpu::ListAcceleratorTypes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_accelerator_types(&self) -> super::builder::tpu::ListAcceleratorTypes {
+        super::builder::tpu::ListAcceleratorTypes::new(self.inner.clone())
     }
 
     /// Gets AcceleratorType.
-    pub fn get_accelerator_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GetAcceleratorType {
-        super::builder::tpu::GetAcceleratorType::new(self.inner.clone()).set_name(name.into())
+    pub fn get_accelerator_type(&self) -> super::builder::tpu::GetAcceleratorType {
+        super::builder::tpu::GetAcceleratorType::new(self.inner.clone())
     }
 
     /// Lists runtime versions supported by this API.
-    pub fn list_runtime_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ListRuntimeVersions {
-        super::builder::tpu::ListRuntimeVersions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_runtime_versions(&self) -> super::builder::tpu::ListRuntimeVersions {
+        super::builder::tpu::ListRuntimeVersions::new(self.inner.clone())
     }
 
     /// Gets a runtime version.
-    pub fn get_runtime_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GetRuntimeVersion {
-        super::builder::tpu::GetRuntimeVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_runtime_version(&self) -> super::builder::tpu::GetRuntimeVersion {
+        super::builder::tpu::GetRuntimeVersion::new(self.inner.clone())
     }
 
     /// Retrieves the guest attributes for the node.
-    pub fn get_guest_attributes(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GetGuestAttributes {
-        super::builder::tpu::GetGuestAttributes::new(self.inner.clone()).set_name(name.into())
+    pub fn get_guest_attributes(&self) -> super::builder::tpu::GetGuestAttributes {
+        super::builder::tpu::GetGuestAttributes::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ListLocations {
-        super::builder::tpu::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::tpu::ListLocations {
+        super::builder::tpu::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GetLocation {
-        super::builder::tpu::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::tpu::GetLocation {
+        super::builder::tpu::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::ListOperations {
-        super::builder::tpu::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::tpu::ListOperations {
+        super::builder::tpu::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::GetOperation {
-        super::builder::tpu::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tpu::GetOperation {
+        super::builder::tpu::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::DeleteOperation {
-        super::builder::tpu::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::tpu::DeleteOperation {
+        super::builder::tpu::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tpu::CancelOperation {
-        super::builder::tpu::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::tpu::CancelOperation {
+        super::builder::tpu::CancelOperation::new(self.inner.clone())
     }
 }

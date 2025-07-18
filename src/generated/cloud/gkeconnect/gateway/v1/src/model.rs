@@ -31,13 +31,10 @@ extern crate tracing;
 extern crate wkt;
 
 /// A request for connection information for a particular membership.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateCredentialsRequest {
     /// Required. The Fleet membership resource.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Optional. Whether to force the use of Connect Agent-based transport.
@@ -46,27 +43,23 @@ pub struct GenerateCredentialsRequest {
     /// transport mechanism for cluster types that would otherwise have used a
     /// different transport. Requires that Connect Agent be installed on the
     /// cluster. Setting this field to false is equivalent to not setting it.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub force_use_agent: bool,
 
     /// Optional. The Connect Gateway version to be used in the resulting
     /// configuration.
     ///
     /// Leave this field blank to let the server choose the version (recommended).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub version: std::string::String,
 
     /// Optional. The namespace to use in the kubeconfig context.
     ///
     /// If this field is specified, the server will set the `namespace` field in
     /// kubeconfig context. If not specified, the `namespace` field is omitted.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub kubernetes_namespace: std::string::String,
 
     /// Optional. The operating system where the kubeconfig will be used.
     pub operating_system: crate::model::generate_credentials_request::OperatingSystem,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -117,6 +110,173 @@ impl GenerateCredentialsRequest {
 impl wkt::message::Message for GenerateCredentialsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.gkeconnect.gateway.v1.GenerateCredentialsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GenerateCredentialsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __force_use_agent,
+            __version,
+            __kubernetes_namespace,
+            __operating_system,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GenerateCredentialsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "forceUseAgent" => Ok(__FieldTag::__force_use_agent),
+                            "force_use_agent" => Ok(__FieldTag::__force_use_agent),
+                            "version" => Ok(__FieldTag::__version),
+                            "kubernetesNamespace" => Ok(__FieldTag::__kubernetes_namespace),
+                            "kubernetes_namespace" => Ok(__FieldTag::__kubernetes_namespace),
+                            "operatingSystem" => Ok(__FieldTag::__operating_system),
+                            "operating_system" => Ok(__FieldTag::__operating_system),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GenerateCredentialsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GenerateCredentialsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__force_use_agent => {
+                            if !fields.insert(__FieldTag::__force_use_agent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for force_use_agent",
+                                ));
+                            }
+                            result.force_use_agent = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__kubernetes_namespace => {
+                            if !fields.insert(__FieldTag::__kubernetes_namespace) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kubernetes_namespace",
+                                ));
+                            }
+                            result.kubernetes_namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__operating_system => {
+                            if !fields.insert(__FieldTag::__operating_system) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for operating_system",
+                                ));
+                            }
+                            result.operating_system = map
+                                .next_value::<std::option::Option<
+                                    crate::model::generate_credentials_request::OperatingSystem,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GenerateCredentialsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.force_use_agent) {
+            state.serialize_entry("forceUseAgent", &self.force_use_agent)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self.kubernetes_namespace.is_empty() {
+            state.serialize_entry("kubernetesNamespace", &self.kubernetes_namespace)?;
+        }
+        if !wkt::internal::is_default(&self.operating_system) {
+            state.serialize_entry("operatingSystem", &self.operating_system)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -254,22 +414,16 @@ pub mod generate_credentials_request {
 }
 
 /// Connection information for a particular membership.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GenerateCredentialsResponse {
     /// A full YAML kubeconfig in serialized format.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
     pub kubeconfig: ::bytes::Bytes,
 
     /// The generated URI of the cluster as accessed through the Connect Gateway
     /// API.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub endpoint: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -294,5 +448,140 @@ impl GenerateCredentialsResponse {
 impl wkt::message::Message for GenerateCredentialsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.gkeconnect.gateway.v1.GenerateCredentialsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GenerateCredentialsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __kubeconfig,
+            __endpoint,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GenerateCredentialsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "kubeconfig" => Ok(__FieldTag::__kubeconfig),
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GenerateCredentialsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GenerateCredentialsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__kubeconfig => {
+                            if !fields.insert(__FieldTag::__kubeconfig) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kubeconfig",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.kubeconfig = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GenerateCredentialsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.kubeconfig.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("kubeconfig", &__With(&self.kubeconfig))?;
+        }
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }

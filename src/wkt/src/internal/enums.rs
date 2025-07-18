@@ -112,13 +112,13 @@ pub fn display_enum(
 ) -> Result<(), std::fmt::Error> {
     match (name, value) {
         (Some(n), _) => f.write_str(n),
-        (None, Some(v)) => write!(f, "{}", v),
+        (None, Some(v)) => write!(f, "{v}"),
         (None, None) => unreachable!("enums must have a numeric or string value"),
     }
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::field_descriptor_proto::Label;
     use serde_json::json;

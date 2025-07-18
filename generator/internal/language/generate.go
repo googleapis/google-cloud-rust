@@ -67,7 +67,7 @@ func GenerateFromModel(outdir string, model *api.API, provider TemplateProvider,
 			errs = append(errs, err)
 			continue
 		}
-		if err := os.WriteFile(destination, []byte(s), os.ModePerm); err != nil {
+		if err := os.WriteFile(destination, []byte(s), 0666); err != nil {
 			errs = append(errs, err)
 		}
 	}

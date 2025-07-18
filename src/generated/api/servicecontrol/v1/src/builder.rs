@@ -16,9 +16,8 @@
 
 pub mod quota_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [QuotaController][super::super::client::QuotaController].
+    /// A builder for [QuotaController][crate::client::QuotaController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod quota_controller {
     /// let client = builder
     ///     .with_endpoint("https://servicecontrol.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod quota_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = QuotaController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::QuotaController] request builders.
+    /// Common implementation for [crate::client::QuotaController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::QuotaController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod quota_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::QuotaController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod quota_controller {
         }
     }
 
-    /// The request builder for [QuotaController::allocate_quota][super::super::client::QuotaController::allocate_quota] calls.
+    /// The request builder for [QuotaController::allocate_quota][crate::client::QuotaController::allocate_quota] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v1::builder;
+    /// use builder::quota_controller::AllocateQuota;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AllocateQuota {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AllocateQuota(RequestBuilder<crate::model::AllocateQuotaRequest>);
 
     impl AllocateQuota {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::QuotaController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::QuotaController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,13 +125,20 @@ pub mod quota_controller {
         }
 
         /// Sets the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
-        pub fn set_allocate_operation<
-            T: Into<std::option::Option<crate::model::QuotaOperation>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.allocate_operation = v.into();
+        pub fn set_allocate_operation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaOperation>,
+        {
+            self.0.request.allocate_operation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [allocate_operation][crate::model::AllocateQuotaRequest::allocate_operation].
+        pub fn set_or_clear_allocate_operation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaOperation>,
+        {
+            self.0.request.allocate_operation = v.map(|x| x.into());
             self
         }
 
@@ -130,9 +159,8 @@ pub mod quota_controller {
 
 pub mod service_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ServiceController][super::super::client::ServiceController].
+    /// A builder for [ServiceController][crate::client::ServiceController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -143,7 +171,7 @@ pub mod service_controller {
     /// let client = builder
     ///     .with_endpoint("https://servicecontrol.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -154,16 +182,19 @@ pub mod service_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceController] request builders.
+    /// Common implementation for [crate::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -172,7 +203,9 @@ pub mod service_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -181,12 +214,30 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for [ServiceController::check][super::super::client::ServiceController::check] calls.
+    /// The request builder for [ServiceController::check][crate::client::ServiceController::check] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v1::builder;
+    /// use builder::service_controller::Check;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Check {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
     impl Check {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -217,11 +268,20 @@ pub mod service_controller {
         }
 
         /// Sets the value of [operation][crate::model::CheckRequest::operation].
-        pub fn set_operation<T: Into<std::option::Option<crate::model::Operation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.operation = v.into();
+        pub fn set_operation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Operation>,
+        {
+            self.0.request.operation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [operation][crate::model::CheckRequest::operation].
+        pub fn set_or_clear_operation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Operation>,
+        {
+            self.0.request.operation = v.map(|x| x.into());
             self
         }
 
@@ -239,12 +299,30 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for [ServiceController::report][super::super::client::ServiceController::report] calls.
+    /// The request builder for [ServiceController::report][crate::client::ServiceController::report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v1::builder;
+    /// use builder::service_controller::Report;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Report {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 
     impl Report {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -274,12 +352,6 @@ pub mod service_controller {
             self
         }
 
-        /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
-        pub fn set_service_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.service_config_id = v.into();
-            self
-        }
-
         /// Sets the value of [operations][crate::model::ReportRequest::operations].
         pub fn set_operations<T, V>(mut self, v: T) -> Self
         where
@@ -288,6 +360,12 @@ pub mod service_controller {
         {
             use std::iter::Iterator;
             self.0.request.operations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [service_config_id][crate::model::ReportRequest::service_config_id].
+        pub fn set_service_config_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.service_config_id = v.into();
             self
         }
     }

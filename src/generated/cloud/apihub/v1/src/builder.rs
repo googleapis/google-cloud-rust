@@ -16,9 +16,8 @@
 
 pub mod api_hub {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ApiHub][super::super::client::ApiHub].
+    /// A builder for [ApiHub][crate::client::ApiHub].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod api_hub {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod api_hub {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ApiHub;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ApiHub] request builders.
+    /// Common implementation for [crate::client::ApiHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiHub>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod api_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_api][super::super::client::ApiHub::create_api] calls.
+    /// The request builder for [ApiHub::create_api][crate::client::ApiHub::create_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CreateApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApi(RequestBuilder<crate::model::CreateApiRequest>);
 
     impl CreateApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -113,8 +131,22 @@ pub mod api_hub {
         /// Sets the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -126,12 +158,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_api][super::super::client::ApiHub::get_api] calls.
+    /// The request builder for [ApiHub::get_api][crate::client::ApiHub::get_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApi(RequestBuilder<crate::model::GetApiRequest>);
 
     impl GetApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,12 +219,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_apis][super::super::client::ApiHub::list_apis] calls.
+    /// The request builder for [ApiHub::list_apis][crate::client::ApiHub::list_apis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListApis;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApis(RequestBuilder<crate::model::ListApisRequest>);
 
     impl ListApis {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -200,8 +268,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListApisResponse, gax::error::Error>
         {
@@ -213,6 +281,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListApisResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListApisRequest::parent].
@@ -249,12 +326,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_api][super::super::client::ApiHub::update_api] calls.
+    /// The request builder for [ApiHub::update_api][crate::client::ApiHub::update_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::UpdateApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApi(RequestBuilder<crate::model::UpdateApiRequest>);
 
     impl UpdateApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -281,19 +374,44 @@ pub mod api_hub {
         /// Sets the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -305,12 +423,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_api][super::super::client::ApiHub::delete_api] calls.
+    /// The request builder for [ApiHub::delete_api][crate::client::ApiHub::delete_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApi(RequestBuilder<crate::model::DeleteApiRequest>);
 
     impl DeleteApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -356,12 +490,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_version][super::super::client::ApiHub::create_version] calls.
+    /// The request builder for [ApiHub::create_version][crate::client::ApiHub::create_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CreateVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVersion(RequestBuilder<crate::model::CreateVersionRequest>);
 
     impl CreateVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -402,11 +552,22 @@ pub mod api_hub {
         /// Sets the value of [version][crate::model::CreateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::CreateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
     }
@@ -418,12 +579,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_version][super::super::client::ApiHub::get_version] calls.
+    /// The request builder for [ApiHub::get_version][crate::client::ApiHub::get_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -463,12 +640,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_versions][super::super::client::ApiHub::list_versions] calls.
+    /// The request builder for [ApiHub::list_versions][crate::client::ApiHub::list_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -492,8 +689,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVersionsResponse, gax::error::Error>
         {
@@ -505,6 +702,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVersionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
@@ -541,12 +747,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_version][super::super::client::ApiHub::update_version] calls.
+    /// The request builder for [ApiHub::update_version][crate::client::ApiHub::update_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::UpdateVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -573,22 +795,44 @@ pub mod api_hub {
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -600,12 +844,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_version][super::super::client::ApiHub::delete_version] calls.
+    /// The request builder for [ApiHub::delete_version][crate::client::ApiHub::delete_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -651,12 +911,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_spec][super::super::client::ApiHub::create_spec] calls.
+    /// The request builder for [ApiHub::create_spec][crate::client::ApiHub::create_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CreateSpec;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSpec(RequestBuilder<crate::model::CreateSpecRequest>);
 
     impl CreateSpec {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -697,8 +973,22 @@ pub mod api_hub {
         /// Sets the value of [spec][crate::model::CreateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
-        pub fn set_spec<T: Into<std::option::Option<crate::model::Spec>>>(mut self, v: T) -> Self {
-            self.0.request.spec = v.into();
+        pub fn set_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spec][crate::model::CreateSpecRequest::spec].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = v.map(|x| x.into());
             self
         }
     }
@@ -710,12 +1000,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_spec][super::super::client::ApiHub::get_spec] calls.
+    /// The request builder for [ApiHub::get_spec][crate::client::ApiHub::get_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetSpec;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSpec(RequestBuilder<crate::model::GetSpecRequest>);
 
     impl GetSpec {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -755,12 +1061,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_spec_contents][super::super::client::ApiHub::get_spec_contents] calls.
+    /// The request builder for [ApiHub::get_spec_contents][crate::client::ApiHub::get_spec_contents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetSpecContents;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSpecContents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSpecContents(RequestBuilder<crate::model::GetSpecContentsRequest>);
 
     impl GetSpecContents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -800,12 +1122,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_specs][super::super::client::ApiHub::list_specs] calls.
+    /// The request builder for [ApiHub::list_specs][crate::client::ApiHub::list_specs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListSpecs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSpecs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSpecs(RequestBuilder<crate::model::ListSpecsRequest>);
 
     impl ListSpecs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -829,8 +1171,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSpecsResponse, gax::error::Error>
         {
@@ -842,6 +1184,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSpecsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSpecsRequest::parent].
@@ -878,12 +1229,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_spec][super::super::client::ApiHub::update_spec] calls.
+    /// The request builder for [ApiHub::update_spec][crate::client::ApiHub::update_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::UpdateSpec;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSpec(RequestBuilder<crate::model::UpdateSpecRequest>);
 
     impl UpdateSpec {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -910,19 +1277,44 @@ pub mod api_hub {
         /// Sets the value of [spec][crate::model::UpdateSpecRequest::spec].
         ///
         /// This is a **required** field for requests.
-        pub fn set_spec<T: Into<std::option::Option<crate::model::Spec>>>(mut self, v: T) -> Self {
-            self.0.request.spec = v.into();
+        pub fn set_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [spec][crate::model::UpdateSpecRequest::spec].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Spec>,
+        {
+            self.0.request.spec = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSpecRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -934,12 +1326,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_spec][super::super::client::ApiHub::delete_spec] calls.
+    /// The request builder for [ApiHub::delete_spec][crate::client::ApiHub::delete_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteSpec;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSpec(RequestBuilder<crate::model::DeleteSpecRequest>);
 
     impl DeleteSpec {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,12 +1387,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_api_operation][super::super::client::ApiHub::get_api_operation] calls.
+    /// The request builder for [ApiHub::get_api_operation][crate::client::ApiHub::get_api_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetApiOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApiOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApiOperation(RequestBuilder<crate::model::GetApiOperationRequest>);
 
     impl GetApiOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1024,12 +1448,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_api_operations][super::super::client::ApiHub::list_api_operations] calls.
+    /// The request builder for [ApiHub::list_api_operations][crate::client::ApiHub::list_api_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListApiOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApiOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApiOperations(RequestBuilder<crate::model::ListApiOperationsRequest>);
 
     impl ListApiOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1056,8 +1500,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListApiOperationsResponse, gax::error::Error>
         {
@@ -1069,6 +1513,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListApiOperationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListApiOperationsRequest::parent].
@@ -1105,12 +1558,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_definition][super::super::client::ApiHub::get_definition] calls.
+    /// The request builder for [ApiHub::get_definition][crate::client::ApiHub::get_definition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetDefinition;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDefinition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDefinition(RequestBuilder<crate::model::GetDefinitionRequest>);
 
     impl GetDefinition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1150,12 +1619,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_deployment][super::super::client::ApiHub::create_deployment] calls.
+    /// The request builder for [ApiHub::create_deployment][crate::client::ApiHub::create_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CreateDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDeployment(RequestBuilder<crate::model::CreateDeploymentRequest>);
 
     impl CreateDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1199,11 +1684,22 @@ pub mod api_hub {
         /// Sets the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
     }
@@ -1215,12 +1711,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_deployment][super::super::client::ApiHub::get_deployment] calls.
+    /// The request builder for [ApiHub::get_deployment][crate::client::ApiHub::get_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDeployment(RequestBuilder<crate::model::GetDeploymentRequest>);
 
     impl GetDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1260,12 +1772,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_deployments][super::super::client::ApiHub::list_deployments] calls.
+    /// The request builder for [ApiHub::list_deployments][crate::client::ApiHub::list_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDeployments(RequestBuilder<crate::model::ListDeploymentsRequest>);
 
     impl ListDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1289,8 +1821,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDeploymentsResponse, gax::error::Error>
         {
@@ -1302,6 +1834,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDeploymentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDeploymentsRequest::parent].
@@ -1338,12 +1879,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_deployment][super::super::client::ApiHub::update_deployment] calls.
+    /// The request builder for [ApiHub::update_deployment][crate::client::ApiHub::update_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::UpdateDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDeployment(RequestBuilder<crate::model::UpdateDeploymentRequest>);
 
     impl UpdateDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1373,22 +1930,44 @@ pub mod api_hub {
         /// Sets the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::UpdateDeploymentRequest::deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1400,12 +1979,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_deployment][super::super::client::ApiHub::delete_deployment] calls.
+    /// The request builder for [ApiHub::delete_deployment][crate::client::ApiHub::delete_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDeployment(RequestBuilder<crate::model::DeleteDeploymentRequest>);
 
     impl DeleteDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1448,12 +2043,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_attribute][super::super::client::ApiHub::create_attribute] calls.
+    /// The request builder for [ApiHub::create_attribute][crate::client::ApiHub::create_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CreateAttribute;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAttribute(RequestBuilder<crate::model::CreateAttributeRequest>);
 
     impl CreateAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1494,11 +2105,22 @@ pub mod api_hub {
         /// Sets the value of [attribute][crate::model::CreateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attribute<T: Into<std::option::Option<crate::model::Attribute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attribute = v.into();
+        pub fn set_attribute<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attribute][crate::model::CreateAttributeRequest::attribute].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = v.map(|x| x.into());
             self
         }
     }
@@ -1510,12 +2132,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_attribute][super::super::client::ApiHub::get_attribute] calls.
+    /// The request builder for [ApiHub::get_attribute][crate::client::ApiHub::get_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetAttribute;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttribute(RequestBuilder<crate::model::GetAttributeRequest>);
 
     impl GetAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1555,12 +2193,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_attribute][super::super::client::ApiHub::update_attribute] calls.
+    /// The request builder for [ApiHub::update_attribute][crate::client::ApiHub::update_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::UpdateAttribute;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAttribute(RequestBuilder<crate::model::UpdateAttributeRequest>);
 
     impl UpdateAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1587,22 +2241,44 @@ pub mod api_hub {
         /// Sets the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attribute<T: Into<std::option::Option<crate::model::Attribute>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attribute = v.into();
+        pub fn set_attribute<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attribute][crate::model::UpdateAttributeRequest::attribute].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attribute<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attribute>,
+        {
+            self.0.request.attribute = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAttributeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1614,12 +2290,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_attribute][super::super::client::ApiHub::delete_attribute] calls.
+    /// The request builder for [ApiHub::delete_attribute][crate::client::ApiHub::delete_attribute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteAttribute;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAttribute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAttribute(RequestBuilder<crate::model::DeleteAttributeRequest>);
 
     impl DeleteAttribute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1659,12 +2351,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_attributes][super::super::client::ApiHub::list_attributes] calls.
+    /// The request builder for [ApiHub::list_attributes][crate::client::ApiHub::list_attributes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListAttributes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttributes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttributes(RequestBuilder<crate::model::ListAttributesRequest>);
 
     impl ListAttributes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1688,8 +2400,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAttributesResponse, gax::error::Error>
         {
@@ -1701,6 +2413,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttributesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAttributesRequest::parent].
@@ -1737,12 +2458,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::search_resources][super::super::client::ApiHub::search_resources] calls.
+    /// The request builder for [ApiHub::search_resources][crate::client::ApiHub::search_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::SearchResources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchResources(RequestBuilder<crate::model::SearchResourcesRequest>);
 
     impl SearchResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1766,8 +2507,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchResourcesResponse, gax::error::Error>
         {
@@ -1779,6 +2520,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchResourcesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [location][crate::model::SearchResourcesRequest::location].
@@ -1823,12 +2573,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::create_external_api][super::super::client::ApiHub::create_external_api] calls.
+    /// The request builder for [ApiHub::create_external_api][crate::client::ApiHub::create_external_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CreateExternalApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExternalApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExternalApi(RequestBuilder<crate::model::CreateExternalApiRequest>);
 
     impl CreateExternalApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1872,11 +2638,22 @@ pub mod api_hub {
         /// Sets the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_api<T: Into<std::option::Option<crate::model::ExternalApi>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_api = v.into();
+        pub fn set_external_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_api][crate::model::CreateExternalApiRequest::external_api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = v.map(|x| x.into());
             self
         }
     }
@@ -1888,12 +2665,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_external_api][super::super::client::ApiHub::get_external_api] calls.
+    /// The request builder for [ApiHub::get_external_api][crate::client::ApiHub::get_external_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetExternalApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetExternalApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetExternalApi(RequestBuilder<crate::model::GetExternalApiRequest>);
 
     impl GetExternalApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1933,12 +2726,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::update_external_api][super::super::client::ApiHub::update_external_api] calls.
+    /// The request builder for [ApiHub::update_external_api][crate::client::ApiHub::update_external_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::UpdateExternalApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateExternalApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExternalApi(RequestBuilder<crate::model::UpdateExternalApiRequest>);
 
     impl UpdateExternalApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1968,22 +2777,44 @@ pub mod api_hub {
         /// Sets the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_api<T: Into<std::option::Option<crate::model::ExternalApi>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_api = v.into();
+        pub fn set_external_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_api][crate::model::UpdateExternalApiRequest::external_api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalApi>,
+        {
+            self.0.request.external_api = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExternalApiRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1995,12 +2826,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_external_api][super::super::client::ApiHub::delete_external_api] calls.
+    /// The request builder for [ApiHub::delete_external_api][crate::client::ApiHub::delete_external_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteExternalApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteExternalApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteExternalApi(RequestBuilder<crate::model::DeleteExternalApiRequest>);
 
     impl DeleteExternalApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2043,12 +2890,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_external_apis][super::super::client::ApiHub::list_external_apis] calls.
+    /// The request builder for [ApiHub::list_external_apis][crate::client::ApiHub::list_external_apis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListExternalApis;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListExternalApis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListExternalApis(RequestBuilder<crate::model::ListExternalApisRequest>);
 
     impl ListExternalApis {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2075,8 +2942,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListExternalApisResponse, gax::error::Error>
         {
@@ -2088,6 +2955,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListExternalApisResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListExternalApisRequest::parent].
@@ -2118,12 +2994,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_locations][super::super::client::ApiHub::list_locations] calls.
+    /// The request builder for [ApiHub::list_locations][crate::client::ApiHub::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2150,8 +3046,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2163,6 +3059,15 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2197,12 +3102,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_location][super::super::client::ApiHub::get_location] calls.
+    /// The request builder for [ApiHub::get_location][crate::client::ApiHub::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2240,12 +3161,32 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::list_operations][super::super::client::ApiHub::list_operations] calls.
+    /// The request builder for [ApiHub::list_operations][crate::client::ApiHub::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2272,8 +3213,8 @@ pub mod api_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2285,6 +3226,17 @@ pub mod api_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2319,12 +3271,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::get_operation][super::super::client::ApiHub::get_operation] calls.
+    /// The request builder for [ApiHub::get_operation][crate::client::ApiHub::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2365,12 +3333,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::delete_operation][super::super::client::ApiHub::delete_operation] calls.
+    /// The request builder for [ApiHub::delete_operation][crate::client::ApiHub::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2411,12 +3395,28 @@ pub mod api_hub {
         }
     }
 
-    /// The request builder for [ApiHub::cancel_operation][super::super::client::ApiHub::cancel_operation] calls.
+    /// The request builder for [ApiHub::cancel_operation][crate::client::ApiHub::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2460,9 +3460,8 @@ pub mod api_hub {
 
 pub mod api_hub_dependencies {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ApiHubDependencies][super::super::client::ApiHubDependencies].
+    /// A builder for [ApiHubDependencies][crate::client::ApiHubDependencies].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2473,7 +3472,7 @@ pub mod api_hub_dependencies {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2484,16 +3483,19 @@ pub mod api_hub_dependencies {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ApiHubDependencies;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ApiHubDependencies] request builders.
+    /// Common implementation for [crate::client::ApiHubDependencies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2502,7 +3504,9 @@ pub mod api_hub_dependencies {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2511,12 +3515,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::create_dependency][super::super::client::ApiHubDependencies::create_dependency] calls.
+    /// The request builder for [ApiHubDependencies::create_dependency][crate::client::ApiHubDependencies::create_dependency] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::CreateDependency;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDependency {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDependency(RequestBuilder<crate::model::CreateDependencyRequest>);
 
     impl CreateDependency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2560,11 +3582,22 @@ pub mod api_hub_dependencies {
         /// Sets the value of [dependency][crate::model::CreateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dependency<T: Into<std::option::Option<crate::model::Dependency>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dependency = v.into();
+        pub fn set_dependency<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dependency][crate::model::CreateDependencyRequest::dependency].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = v.map(|x| x.into());
             self
         }
     }
@@ -2576,12 +3609,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::get_dependency][super::super::client::ApiHubDependencies::get_dependency] calls.
+    /// The request builder for [ApiHubDependencies::get_dependency][crate::client::ApiHubDependencies::get_dependency] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::GetDependency;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDependency {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDependency(RequestBuilder<crate::model::GetDependencyRequest>);
 
     impl GetDependency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2621,12 +3672,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::update_dependency][super::super::client::ApiHubDependencies::update_dependency] calls.
+    /// The request builder for [ApiHubDependencies::update_dependency][crate::client::ApiHubDependencies::update_dependency] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::UpdateDependency;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDependency {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDependency(RequestBuilder<crate::model::UpdateDependencyRequest>);
 
     impl UpdateDependency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2656,22 +3725,44 @@ pub mod api_hub_dependencies {
         /// Sets the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dependency<T: Into<std::option::Option<crate::model::Dependency>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dependency = v.into();
+        pub fn set_dependency<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dependency][crate::model::UpdateDependencyRequest::dependency].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dependency<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dependency>,
+        {
+            self.0.request.dependency = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDependencyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2683,12 +3774,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::delete_dependency][super::super::client::ApiHubDependencies::delete_dependency] calls.
+    /// The request builder for [ApiHubDependencies::delete_dependency][crate::client::ApiHubDependencies::delete_dependency] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::DeleteDependency;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDependency {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDependency(RequestBuilder<crate::model::DeleteDependencyRequest>);
 
     impl DeleteDependency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2731,12 +3840,34 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::list_dependencies][super::super::client::ApiHubDependencies::list_dependencies] calls.
+    /// The request builder for [ApiHubDependencies::list_dependencies][crate::client::ApiHubDependencies::list_dependencies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::ListDependencies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDependencies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDependencies(RequestBuilder<crate::model::ListDependenciesRequest>);
 
     impl ListDependencies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2763,8 +3894,8 @@ pub mod api_hub_dependencies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDependenciesResponse, gax::error::Error>
         {
@@ -2776,6 +3907,15 @@ pub mod api_hub_dependencies {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDependenciesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDependenciesRequest::parent].
@@ -2812,12 +3952,34 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::list_locations][super::super::client::ApiHubDependencies::list_locations] calls.
+    /// The request builder for [ApiHubDependencies::list_locations][crate::client::ApiHubDependencies::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2844,8 +4006,8 @@ pub mod api_hub_dependencies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2857,6 +4019,15 @@ pub mod api_hub_dependencies {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2891,12 +4062,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::get_location][super::super::client::ApiHubDependencies::get_location] calls.
+    /// The request builder for [ApiHubDependencies::get_location][crate::client::ApiHubDependencies::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2934,12 +4123,34 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::list_operations][super::super::client::ApiHubDependencies::list_operations] calls.
+    /// The request builder for [ApiHubDependencies::list_operations][crate::client::ApiHubDependencies::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2966,8 +4177,8 @@ pub mod api_hub_dependencies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2979,6 +4190,17 @@ pub mod api_hub_dependencies {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3013,12 +4235,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::get_operation][super::super::client::ApiHubDependencies::get_operation] calls.
+    /// The request builder for [ApiHubDependencies::get_operation][crate::client::ApiHubDependencies::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3059,12 +4299,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::delete_operation][super::super::client::ApiHubDependencies::delete_operation] calls.
+    /// The request builder for [ApiHubDependencies::delete_operation][crate::client::ApiHubDependencies::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3105,12 +4363,30 @@ pub mod api_hub_dependencies {
         }
     }
 
-    /// The request builder for [ApiHubDependencies::cancel_operation][super::super::client::ApiHubDependencies::cancel_operation] calls.
+    /// The request builder for [ApiHubDependencies::cancel_operation][crate::client::ApiHubDependencies::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_dependencies::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubDependencies>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubDependencies>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3154,9 +4430,8 @@ pub mod api_hub_dependencies {
 
 pub mod host_project_registration_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [HostProjectRegistrationService][super::super::client::HostProjectRegistrationService].
+    /// A builder for [HostProjectRegistrationService][crate::client::HostProjectRegistrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3167,7 +4442,7 @@ pub mod host_project_registration_service {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3178,16 +4453,19 @@ pub mod host_project_registration_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = HostProjectRegistrationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::HostProjectRegistrationService] request builders.
+    /// Common implementation for [crate::client::HostProjectRegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3197,7 +4475,7 @@ pub mod host_project_registration_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self {
                 stub,
@@ -3207,7 +4485,23 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::create_host_project_registration][super::super::client::HostProjectRegistrationService::create_host_project_registration] calls.
+    /// The request builder for [HostProjectRegistrationService::create_host_project_registration][crate::client::HostProjectRegistrationService::create_host_project_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::CreateHostProjectRegistration;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateHostProjectRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateHostProjectRegistration(
         RequestBuilder<crate::model::CreateHostProjectRegistrationRequest>,
@@ -3215,7 +4509,7 @@ pub mod host_project_registration_service {
 
     impl CreateHostProjectRegistration {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3265,13 +4559,25 @@ pub mod host_project_registration_service {
         /// Sets the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_host_project_registration<
-            T: Into<std::option::Option<crate::model::HostProjectRegistration>>,
-        >(
+        pub fn set_host_project_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::HostProjectRegistration>,
+        {
+            self.0.request.host_project_registration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [host_project_registration][crate::model::CreateHostProjectRegistrationRequest::host_project_registration].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_host_project_registration<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.host_project_registration = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::HostProjectRegistration>,
+        {
+            self.0.request.host_project_registration = v.map(|x| x.into());
             self
         }
     }
@@ -3283,7 +4589,23 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::get_host_project_registration][super::super::client::HostProjectRegistrationService::get_host_project_registration] calls.
+    /// The request builder for [HostProjectRegistrationService::get_host_project_registration][crate::client::HostProjectRegistrationService::get_host_project_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::GetHostProjectRegistration;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetHostProjectRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetHostProjectRegistration(
         RequestBuilder<crate::model::GetHostProjectRegistrationRequest>,
@@ -3291,7 +4613,7 @@ pub mod host_project_registration_service {
 
     impl GetHostProjectRegistration {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3335,7 +4657,27 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::list_host_project_registrations][super::super::client::HostProjectRegistrationService::list_host_project_registrations] calls.
+    /// The request builder for [HostProjectRegistrationService::list_host_project_registrations][crate::client::HostProjectRegistrationService::list_host_project_registrations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::ListHostProjectRegistrations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListHostProjectRegistrations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListHostProjectRegistrations(
         RequestBuilder<crate::model::ListHostProjectRegistrationsRequest>,
@@ -3343,7 +4685,7 @@ pub mod host_project_registration_service {
 
     impl ListHostProjectRegistrations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3371,8 +4713,8 @@ pub mod host_project_registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListHostProjectRegistrationsResponse,
@@ -3386,6 +4728,17 @@ pub mod host_project_registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListHostProjectRegistrationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListHostProjectRegistrationsRequest::parent].
@@ -3428,13 +4781,33 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::list_locations][super::super::client::HostProjectRegistrationService::list_locations] calls.
+    /// The request builder for [HostProjectRegistrationService::list_locations][crate::client::HostProjectRegistrationService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3462,8 +4835,8 @@ pub mod host_project_registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3475,6 +4848,15 @@ pub mod host_project_registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -3509,13 +4891,29 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::get_location][super::super::client::HostProjectRegistrationService::get_location] calls.
+    /// The request builder for [HostProjectRegistrationService::get_location][crate::client::HostProjectRegistrationService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3554,13 +4952,33 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::list_operations][super::super::client::HostProjectRegistrationService::list_operations] calls.
+    /// The request builder for [HostProjectRegistrationService::list_operations][crate::client::HostProjectRegistrationService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3588,8 +5006,8 @@ pub mod host_project_registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3601,6 +5019,17 @@ pub mod host_project_registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3635,13 +5064,29 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::get_operation][super::super::client::HostProjectRegistrationService::get_operation] calls.
+    /// The request builder for [HostProjectRegistrationService::get_operation][crate::client::HostProjectRegistrationService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3683,13 +5128,29 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::delete_operation][super::super::client::HostProjectRegistrationService::delete_operation] calls.
+    /// The request builder for [HostProjectRegistrationService::delete_operation][crate::client::HostProjectRegistrationService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3731,13 +5192,29 @@ pub mod host_project_registration_service {
         }
     }
 
-    /// The request builder for [HostProjectRegistrationService::cancel_operation][super::super::client::HostProjectRegistrationService::cancel_operation] calls.
+    /// The request builder for [HostProjectRegistrationService::cancel_operation][crate::client::HostProjectRegistrationService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::host_project_registration_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::HostProjectRegistrationService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3782,9 +5259,8 @@ pub mod host_project_registration_service {
 
 pub mod linting_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [LintingService][super::super::client::LintingService].
+    /// A builder for [LintingService][crate::client::LintingService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3795,7 +5271,7 @@ pub mod linting_service {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3806,16 +5282,19 @@ pub mod linting_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LintingService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::LintingService] request builders.
+    /// Common implementation for [crate::client::LintingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LintingService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3824,7 +5303,9 @@ pub mod linting_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -3833,12 +5314,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_style_guide][super::super::client::LintingService::get_style_guide] calls.
+    /// The request builder for [LintingService::get_style_guide][crate::client::LintingService::get_style_guide] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::GetStyleGuide;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStyleGuide {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStyleGuide(RequestBuilder<crate::model::GetStyleGuideRequest>);
 
     impl GetStyleGuide {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3878,12 +5377,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::update_style_guide][super::super::client::LintingService::update_style_guide] calls.
+    /// The request builder for [LintingService::update_style_guide][crate::client::LintingService::update_style_guide] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::UpdateStyleGuide;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateStyleGuide {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateStyleGuide(RequestBuilder<crate::model::UpdateStyleGuideRequest>);
 
     impl UpdateStyleGuide {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3913,20 +5430,40 @@ pub mod linting_service {
         /// Sets the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
         ///
         /// This is a **required** field for requests.
-        pub fn set_style_guide<T: Into<std::option::Option<crate::model::StyleGuide>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.style_guide = v.into();
+        pub fn set_style_guide<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StyleGuide>,
+        {
+            self.0.request.style_guide = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [style_guide][crate::model::UpdateStyleGuideRequest::style_guide].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_style_guide<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StyleGuide>,
+        {
+            self.0.request.style_guide = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStyleGuideRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3938,12 +5475,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_style_guide_contents][super::super::client::LintingService::get_style_guide_contents] calls.
+    /// The request builder for [LintingService::get_style_guide_contents][crate::client::LintingService::get_style_guide_contents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::GetStyleGuideContents;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStyleGuideContents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStyleGuideContents(RequestBuilder<crate::model::GetStyleGuideContentsRequest>);
 
     impl GetStyleGuideContents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3986,12 +5541,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::lint_spec][super::super::client::LintingService::lint_spec] calls.
+    /// The request builder for [LintingService::lint_spec][crate::client::LintingService::lint_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::LintSpec;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LintSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LintSpec(RequestBuilder<crate::model::LintSpecRequest>);
 
     impl LintSpec {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4031,12 +5604,34 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::list_locations][super::super::client::LintingService::list_locations] calls.
+    /// The request builder for [LintingService::list_locations][crate::client::LintingService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4063,8 +5658,8 @@ pub mod linting_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -4076,6 +5671,15 @@ pub mod linting_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -4110,12 +5714,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_location][super::super::client::LintingService::get_location] calls.
+    /// The request builder for [LintingService::get_location][crate::client::LintingService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4153,12 +5775,34 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::list_operations][super::super::client::LintingService::list_operations] calls.
+    /// The request builder for [LintingService::list_operations][crate::client::LintingService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4185,8 +5829,8 @@ pub mod linting_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4198,6 +5842,17 @@ pub mod linting_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4232,12 +5887,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::get_operation][super::super::client::LintingService::get_operation] calls.
+    /// The request builder for [LintingService::get_operation][crate::client::LintingService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4278,12 +5951,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::delete_operation][super::super::client::LintingService::delete_operation] calls.
+    /// The request builder for [LintingService::delete_operation][crate::client::LintingService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4324,12 +6015,30 @@ pub mod linting_service {
         }
     }
 
-    /// The request builder for [LintingService::cancel_operation][super::super::client::LintingService::cancel_operation] calls.
+    /// The request builder for [LintingService::cancel_operation][crate::client::LintingService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::linting_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LintingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LintingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4373,9 +6082,8 @@ pub mod linting_service {
 
 pub mod api_hub_plugin {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ApiHubPlugin][super::super::client::ApiHubPlugin].
+    /// A builder for [ApiHubPlugin][crate::client::ApiHubPlugin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4386,7 +6094,7 @@ pub mod api_hub_plugin {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4397,16 +6105,19 @@ pub mod api_hub_plugin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ApiHubPlugin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ApiHubPlugin] request builders.
+    /// Common implementation for [crate::client::ApiHubPlugin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4415,7 +6126,9 @@ pub mod api_hub_plugin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4424,12 +6137,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::get_plugin][super::super::client::ApiHubPlugin::get_plugin] calls.
+    /// The request builder for [ApiHubPlugin::get_plugin][crate::client::ApiHubPlugin::get_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::GetPlugin;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPlugin(RequestBuilder<crate::model::GetPluginRequest>);
 
     impl GetPlugin {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4469,12 +6200,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::enable_plugin][super::super::client::ApiHubPlugin::enable_plugin] calls.
+    /// The request builder for [ApiHubPlugin::enable_plugin][crate::client::ApiHubPlugin::enable_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::EnablePlugin;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnablePlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnablePlugin(RequestBuilder<crate::model::EnablePluginRequest>);
 
     impl EnablePlugin {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4514,12 +6263,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::disable_plugin][super::super::client::ApiHubPlugin::disable_plugin] calls.
+    /// The request builder for [ApiHubPlugin::disable_plugin][crate::client::ApiHubPlugin::disable_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::DisablePlugin;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisablePlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisablePlugin(RequestBuilder<crate::model::DisablePluginRequest>);
 
     impl DisablePlugin {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4559,12 +6326,34 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::list_locations][super::super::client::ApiHubPlugin::list_locations] calls.
+    /// The request builder for [ApiHubPlugin::list_locations][crate::client::ApiHubPlugin::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4591,8 +6380,8 @@ pub mod api_hub_plugin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -4604,6 +6393,15 @@ pub mod api_hub_plugin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -4638,12 +6436,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::get_location][super::super::client::ApiHubPlugin::get_location] calls.
+    /// The request builder for [ApiHubPlugin::get_location][crate::client::ApiHubPlugin::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4681,12 +6497,34 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::list_operations][super::super::client::ApiHubPlugin::list_operations] calls.
+    /// The request builder for [ApiHubPlugin::list_operations][crate::client::ApiHubPlugin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4713,8 +6551,8 @@ pub mod api_hub_plugin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4726,6 +6564,17 @@ pub mod api_hub_plugin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4760,12 +6609,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::get_operation][super::super::client::ApiHubPlugin::get_operation] calls.
+    /// The request builder for [ApiHubPlugin::get_operation][crate::client::ApiHubPlugin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4806,12 +6673,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::delete_operation][super::super::client::ApiHubPlugin::delete_operation] calls.
+    /// The request builder for [ApiHubPlugin::delete_operation][crate::client::ApiHubPlugin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4852,12 +6737,30 @@ pub mod api_hub_plugin {
         }
     }
 
-    /// The request builder for [ApiHubPlugin::cancel_operation][super::super::client::ApiHubPlugin::cancel_operation] calls.
+    /// The request builder for [ApiHubPlugin::cancel_operation][crate::client::ApiHubPlugin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::api_hub_plugin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiHubPlugin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiHubPlugin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4901,9 +6804,8 @@ pub mod api_hub_plugin {
 
 pub mod provisioning {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Provisioning][super::super::client::Provisioning].
+    /// A builder for [Provisioning][crate::client::Provisioning].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -4914,7 +6816,7 @@ pub mod provisioning {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4925,16 +6827,19 @@ pub mod provisioning {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Provisioning;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Provisioning] request builders.
+    /// Common implementation for [crate::client::Provisioning] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Provisioning>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -4943,7 +6848,9 @@ pub mod provisioning {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -4952,12 +6859,31 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::create_api_hub_instance][super::super::client::Provisioning::create_api_hub_instance] calls.
+    /// The request builder for [Provisioning::create_api_hub_instance][crate::client::Provisioning::create_api_hub_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::CreateApiHubInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApiHubInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApiHubInstance(RequestBuilder<crate::model::CreateApiHubInstanceRequest>);
 
     impl CreateApiHubInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4981,7 +6907,7 @@ pub mod provisioning {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api_hub_instance][super::super::client::Provisioning::create_api_hub_instance].
+        /// on [create_api_hub_instance][crate::client::Provisioning::create_api_hub_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api_hub_instance(self.0.request, self.0.options)
@@ -4994,8 +6920,10 @@ pub mod provisioning {
             self,
         ) -> impl lro::Poller<crate::model::ApiHubInstance, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ApiHubInstance, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ApiHubInstance,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5020,7 +6948,7 @@ pub mod provisioning {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateApiHubInstanceRequest::parent].
@@ -5040,11 +6968,22 @@ pub mod provisioning {
         /// Sets the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_hub_instance<T: Into<std::option::Option<crate::model::ApiHubInstance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_hub_instance = v.into();
+        pub fn set_api_hub_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiHubInstance>,
+        {
+            self.0.request.api_hub_instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api_hub_instance][crate::model::CreateApiHubInstanceRequest::api_hub_instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api_hub_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiHubInstance>,
+        {
+            self.0.request.api_hub_instance = v.map(|x| x.into());
             self
         }
     }
@@ -5056,12 +6995,30 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::get_api_hub_instance][super::super::client::Provisioning::get_api_hub_instance] calls.
+    /// The request builder for [Provisioning::get_api_hub_instance][crate::client::Provisioning::get_api_hub_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::GetApiHubInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApiHubInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApiHubInstance(RequestBuilder<crate::model::GetApiHubInstanceRequest>);
 
     impl GetApiHubInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5104,12 +7061,30 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::lookup_api_hub_instance][super::super::client::Provisioning::lookup_api_hub_instance] calls.
+    /// The request builder for [Provisioning::lookup_api_hub_instance][crate::client::Provisioning::lookup_api_hub_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::LookupApiHubInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupApiHubInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupApiHubInstance(RequestBuilder<crate::model::LookupApiHubInstanceRequest>);
 
     impl LookupApiHubInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5152,12 +7127,34 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::list_locations][super::super::client::Provisioning::list_locations] calls.
+    /// The request builder for [Provisioning::list_locations][crate::client::Provisioning::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5184,8 +7181,8 @@ pub mod provisioning {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -5197,6 +7194,15 @@ pub mod provisioning {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -5231,12 +7237,30 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::get_location][super::super::client::Provisioning::get_location] calls.
+    /// The request builder for [Provisioning::get_location][crate::client::Provisioning::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5274,12 +7298,34 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::list_operations][super::super::client::Provisioning::list_operations] calls.
+    /// The request builder for [Provisioning::list_operations][crate::client::Provisioning::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5306,8 +7352,8 @@ pub mod provisioning {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -5319,6 +7365,17 @@ pub mod provisioning {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -5353,12 +7410,30 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::get_operation][super::super::client::Provisioning::get_operation] calls.
+    /// The request builder for [Provisioning::get_operation][crate::client::Provisioning::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5399,12 +7474,30 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::delete_operation][super::super::client::Provisioning::delete_operation] calls.
+    /// The request builder for [Provisioning::delete_operation][crate::client::Provisioning::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5445,12 +7538,30 @@ pub mod provisioning {
         }
     }
 
-    /// The request builder for [Provisioning::cancel_operation][super::super::client::Provisioning::cancel_operation] calls.
+    /// The request builder for [Provisioning::cancel_operation][crate::client::Provisioning::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::provisioning::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Provisioning>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Provisioning>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5494,9 +7605,8 @@ pub mod provisioning {
 
 pub mod runtime_project_attachment_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RuntimeProjectAttachmentService][super::super::client::RuntimeProjectAttachmentService].
+    /// A builder for [RuntimeProjectAttachmentService][crate::client::RuntimeProjectAttachmentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -5507,7 +7617,7 @@ pub mod runtime_project_attachment_service {
     /// let client = builder
     ///     .with_endpoint("https://apihub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5518,16 +7628,19 @@ pub mod runtime_project_attachment_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RuntimeProjectAttachmentService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RuntimeProjectAttachmentService] request builders.
+    /// Common implementation for [crate::client::RuntimeProjectAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -5537,7 +7650,7 @@ pub mod runtime_project_attachment_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self {
                 stub,
@@ -5547,7 +7660,23 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::create_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::create_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::create_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::create_runtime_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRuntimeProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRuntimeProjectAttachment(
         RequestBuilder<crate::model::CreateRuntimeProjectAttachmentRequest>,
@@ -5555,7 +7684,7 @@ pub mod runtime_project_attachment_service {
 
     impl CreateRuntimeProjectAttachment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5605,13 +7734,25 @@ pub mod runtime_project_attachment_service {
         /// Sets the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_runtime_project_attachment<
-            T: Into<std::option::Option<crate::model::RuntimeProjectAttachment>>,
-        >(
+        pub fn set_runtime_project_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RuntimeProjectAttachment>,
+        {
+            self.0.request.runtime_project_attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [runtime_project_attachment][crate::model::CreateRuntimeProjectAttachmentRequest::runtime_project_attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_runtime_project_attachment<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.runtime_project_attachment = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::RuntimeProjectAttachment>,
+        {
+            self.0.request.runtime_project_attachment = v.map(|x| x.into());
             self
         }
     }
@@ -5623,7 +7764,23 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::get_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::get_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::get_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::get_runtime_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::GetRuntimeProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRuntimeProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRuntimeProjectAttachment(
         RequestBuilder<crate::model::GetRuntimeProjectAttachmentRequest>,
@@ -5631,7 +7788,7 @@ pub mod runtime_project_attachment_service {
 
     impl GetRuntimeProjectAttachment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5675,7 +7832,27 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::list_runtime_project_attachments][super::super::client::RuntimeProjectAttachmentService::list_runtime_project_attachments] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::list_runtime_project_attachments][crate::client::RuntimeProjectAttachmentService::list_runtime_project_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::ListRuntimeProjectAttachments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuntimeProjectAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuntimeProjectAttachments(
         RequestBuilder<crate::model::ListRuntimeProjectAttachmentsRequest>,
@@ -5683,7 +7860,7 @@ pub mod runtime_project_attachment_service {
 
     impl ListRuntimeProjectAttachments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5711,8 +7888,8 @@ pub mod runtime_project_attachment_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListRuntimeProjectAttachmentsResponse,
@@ -5726,6 +7903,17 @@ pub mod runtime_project_attachment_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRuntimeProjectAttachmentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRuntimeProjectAttachmentsRequest::parent].
@@ -5768,7 +7956,23 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::delete_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::delete_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::delete_runtime_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRuntimeProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRuntimeProjectAttachment(
         RequestBuilder<crate::model::DeleteRuntimeProjectAttachmentRequest>,
@@ -5776,7 +7980,7 @@ pub mod runtime_project_attachment_service {
 
     impl DeleteRuntimeProjectAttachment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5820,7 +8024,23 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::lookup_runtime_project_attachment][super::super::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::lookup_runtime_project_attachment][crate::client::RuntimeProjectAttachmentService::lookup_runtime_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupRuntimeProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupRuntimeProjectAttachment(
         RequestBuilder<crate::model::LookupRuntimeProjectAttachmentRequest>,
@@ -5828,7 +8048,7 @@ pub mod runtime_project_attachment_service {
 
     impl LookupRuntimeProjectAttachment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5872,13 +8092,33 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::list_locations][super::super::client::RuntimeProjectAttachmentService::list_locations] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::list_locations][crate::client::RuntimeProjectAttachmentService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5906,8 +8146,8 @@ pub mod runtime_project_attachment_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -5919,6 +8159,15 @@ pub mod runtime_project_attachment_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -5953,13 +8202,29 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::get_location][super::super::client::RuntimeProjectAttachmentService::get_location] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::get_location][crate::client::RuntimeProjectAttachmentService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5998,13 +8263,33 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::list_operations][super::super::client::RuntimeProjectAttachmentService::list_operations] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::list_operations][crate::client::RuntimeProjectAttachmentService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6032,8 +8317,8 @@ pub mod runtime_project_attachment_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -6045,6 +8330,17 @@ pub mod runtime_project_attachment_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -6079,13 +8375,29 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::get_operation][super::super::client::RuntimeProjectAttachmentService::get_operation] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::get_operation][crate::client::RuntimeProjectAttachmentService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6127,13 +8439,29 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::delete_operation][super::super::client::RuntimeProjectAttachmentService::delete_operation] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::delete_operation][crate::client::RuntimeProjectAttachmentService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -6175,13 +8503,29 @@ pub mod runtime_project_attachment_service {
         }
     }
 
-    /// The request builder for [RuntimeProjectAttachmentService::cancel_operation][super::super::client::RuntimeProjectAttachmentService::cancel_operation] calls.
+    /// The request builder for [RuntimeProjectAttachmentService::cancel_operation][crate::client::RuntimeProjectAttachmentService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apihub_v1::builder;
+    /// use builder::runtime_project_attachment_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuntimeProjectAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

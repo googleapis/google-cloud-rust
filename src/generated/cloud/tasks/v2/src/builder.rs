@@ -16,9 +16,8 @@
 
 pub mod cloud_tasks {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudTasks][super::super::client::CloudTasks].
+    /// A builder for [CloudTasks][crate::client::CloudTasks].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cloud_tasks {
     /// let client = builder
     ///     .with_endpoint("https://cloudtasks.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cloud_tasks {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudTasks;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudTasks] request builders.
+    /// Common implementation for [crate::client::CloudTasks] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod cloud_tasks {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::list_queues][super::super::client::CloudTasks::list_queues] calls.
+    /// The request builder for [CloudTasks::list_queues][crate::client::CloudTasks::list_queues] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::ListQueues;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQueues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQueues(RequestBuilder<crate::model::ListQueuesRequest>);
 
     impl ListQueues {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod cloud_tasks {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListQueuesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod cloud_tasks {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQueuesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListQueuesRequest::parent].
@@ -145,12 +180,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_queue][super::super::client::CloudTasks::get_queue] calls.
+    /// The request builder for [CloudTasks::get_queue][crate::client::CloudTasks::get_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::GetQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQueue(RequestBuilder<crate::model::GetQueueRequest>);
 
     impl GetQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,12 +243,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::create_queue][super::super::client::CloudTasks::create_queue] calls.
+    /// The request builder for [CloudTasks::create_queue][crate::client::CloudTasks::create_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::CreateQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQueue(RequestBuilder<crate::model::CreateQueueRequest>);
 
     impl CreateQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -230,11 +301,22 @@ pub mod cloud_tasks {
         /// Sets the value of [queue][crate::model::CreateQueueRequest::queue].
         ///
         /// This is a **required** field for requests.
-        pub fn set_queue<T: Into<std::option::Option<crate::model::Queue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queue = v.into();
+        pub fn set_queue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Queue>,
+        {
+            self.0.request.queue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [queue][crate::model::CreateQueueRequest::queue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Queue>,
+        {
+            self.0.request.queue = v.map(|x| x.into());
             self
         }
     }
@@ -246,12 +328,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::update_queue][super::super::client::CloudTasks::update_queue] calls.
+    /// The request builder for [CloudTasks::update_queue][crate::client::CloudTasks::update_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::UpdateQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQueue(RequestBuilder<crate::model::UpdateQueueRequest>);
 
     impl UpdateQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -278,20 +378,40 @@ pub mod cloud_tasks {
         /// Sets the value of [queue][crate::model::UpdateQueueRequest::queue].
         ///
         /// This is a **required** field for requests.
-        pub fn set_queue<T: Into<std::option::Option<crate::model::Queue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queue = v.into();
+        pub fn set_queue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Queue>,
+        {
+            self.0.request.queue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [queue][crate::model::UpdateQueueRequest::queue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_queue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Queue>,
+        {
+            self.0.request.queue = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQueueRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -303,12 +423,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::delete_queue][super::super::client::CloudTasks::delete_queue] calls.
+    /// The request builder for [CloudTasks::delete_queue][crate::client::CloudTasks::delete_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::DeleteQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQueue(RequestBuilder<crate::model::DeleteQueueRequest>);
 
     impl DeleteQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -348,12 +486,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::purge_queue][super::super::client::CloudTasks::purge_queue] calls.
+    /// The request builder for [CloudTasks::purge_queue][crate::client::CloudTasks::purge_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::PurgeQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PurgeQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PurgeQueue(RequestBuilder<crate::model::PurgeQueueRequest>);
 
     impl PurgeQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -393,12 +549,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::pause_queue][super::super::client::CloudTasks::pause_queue] calls.
+    /// The request builder for [CloudTasks::pause_queue][crate::client::CloudTasks::pause_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::PauseQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseQueue(RequestBuilder<crate::model::PauseQueueRequest>);
 
     impl PauseQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,12 +612,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::resume_queue][super::super::client::CloudTasks::resume_queue] calls.
+    /// The request builder for [CloudTasks::resume_queue][crate::client::CloudTasks::resume_queue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::ResumeQueue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeQueue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeQueue(RequestBuilder<crate::model::ResumeQueueRequest>);
 
     impl ResumeQueue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -483,12 +675,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_iam_policy][super::super::client::CloudTasks::get_iam_policy] calls.
+    /// The request builder for [CloudTasks::get_iam_policy][crate::client::CloudTasks::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,11 +731,20 @@ pub mod cloud_tasks {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -537,12 +756,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::set_iam_policy][super::super::client::CloudTasks::set_iam_policy] calls.
+    /// The request builder for [CloudTasks::set_iam_policy][crate::client::CloudTasks::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -577,20 +814,40 @@ pub mod cloud_tasks {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -602,12 +859,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::test_iam_permissions][super::super::client::CloudTasks::test_iam_permissions] calls.
+    /// The request builder for [CloudTasks::test_iam_permissions][crate::client::CloudTasks::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -663,12 +938,34 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::list_tasks][super::super::client::CloudTasks::list_tasks] calls.
+    /// The request builder for [CloudTasks::list_tasks][crate::client::CloudTasks::list_tasks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::ListTasks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTasks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTasks(RequestBuilder<crate::model::ListTasksRequest>);
 
     impl ListTasks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -692,8 +989,8 @@ pub mod cloud_tasks {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTasksResponse, gax::error::Error>
         {
@@ -705,6 +1002,15 @@ pub mod cloud_tasks {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTasksResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTasksRequest::parent].
@@ -741,12 +1047,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_task][super::super::client::CloudTasks::get_task] calls.
+    /// The request builder for [CloudTasks::get_task][crate::client::CloudTasks::get_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::GetTask;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTask(RequestBuilder<crate::model::GetTaskRequest>);
 
     impl GetTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -792,12 +1116,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::create_task][super::super::client::CloudTasks::create_task] calls.
+    /// The request builder for [CloudTasks::create_task][crate::client::CloudTasks::create_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::CreateTask;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTask(RequestBuilder<crate::model::CreateTaskRequest>);
 
     impl CreateTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -832,8 +1174,22 @@ pub mod cloud_tasks {
         /// Sets the value of [task][crate::model::CreateTaskRequest::task].
         ///
         /// This is a **required** field for requests.
-        pub fn set_task<T: Into<std::option::Option<crate::model::Task>>>(mut self, v: T) -> Self {
-            self.0.request.task = v.into();
+        pub fn set_task<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Task>,
+        {
+            self.0.request.task = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [task][crate::model::CreateTaskRequest::task].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_task<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Task>,
+        {
+            self.0.request.task = v.map(|x| x.into());
             self
         }
 
@@ -851,12 +1207,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::delete_task][super::super::client::CloudTasks::delete_task] calls.
+    /// The request builder for [CloudTasks::delete_task][crate::client::CloudTasks::delete_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::DeleteTask;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTask(RequestBuilder<crate::model::DeleteTaskRequest>);
 
     impl DeleteTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -896,12 +1270,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::run_task][super::super::client::CloudTasks::run_task] calls.
+    /// The request builder for [CloudTasks::run_task][crate::client::CloudTasks::run_task] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::RunTask;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunTask {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunTask(RequestBuilder<crate::model::RunTaskRequest>);
 
     impl RunTask {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -947,12 +1339,34 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::list_locations][super::super::client::CloudTasks::list_locations] calls.
+    /// The request builder for [CloudTasks::list_locations][crate::client::CloudTasks::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,8 +1393,8 @@ pub mod cloud_tasks {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -992,6 +1406,15 @@ pub mod cloud_tasks {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1026,12 +1449,30 @@ pub mod cloud_tasks {
         }
     }
 
-    /// The request builder for [CloudTasks::get_location][super::super::client::CloudTasks::get_location] calls.
+    /// The request builder for [CloudTasks::get_location][crate::client::CloudTasks::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_tasks_v2::builder;
+    /// use builder::cloud_tasks::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudTasks>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudTasks>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

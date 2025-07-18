@@ -1,9 +1,9 @@
 # How-To Guide: Implementing a new Codec
 
-This guide is intended for contributors to the `sidekick` project. It will
-walk you through the steps necessary to add a new `codec`. If you are just
-looking for instructions on how to use the `sidekick` consult the top-level
-README or the specific guide for your SDK.
+This guide is intended for contributors to the `sidekick` project. It will walk
+you through the steps necessary to add a new `codec`. If you are just looking
+for instructions on how to use the `sidekick` consult the top-level README or
+the specific guide for your SDK.
 
 ## What is a `codec`
 
@@ -18,8 +18,8 @@ The basic data flows is:
 - Sidekick parses the source specification of an API (Protobuf or OpenAPIv3) and
   converts this into a language-neutral, source-neutral abstract syntax tree. We
   often call this syntax tree "the model".
-- Sidekick then calls the `Generate()` function in a codec, and passes the
-  model (as a `api.API` data structure, and some configuration options).
+- Sidekick then calls the `Generate()` function in a codec, and passes the model
+  (as a `api.API` data structure, and some configuration options).
 - The codec annotates the syntax tree. Each node in the tree has a `Codec`
   field. The codec is expected to put its own data structure in that node.
 - The code then loads a number of mustache templates and calls these templates

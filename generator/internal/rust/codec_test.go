@@ -31,7 +31,6 @@ func createRustCodec() *codec {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "types",
-		path:        "../../types",
 	}
 
 	return &codec{
@@ -49,9 +48,9 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		"package-name-override":     "test-only",
 		"copyright-year":            "2035",
 		"module-path":               "alternative::generated",
-		"package:wkt":               "package=types,path=src/wkt,source=google.protobuf,source=test-only",
-		"package:gax":               "package=gax,path=src/gax,feature=unstable-sdk-client",
-		"package:serde_with":        "package=serde_with,version=2.3.4,default-features=false",
+		"package:wkt":               "package=types,source=google.protobuf,source=test-only",
+		"package:gax":               "package=gax,feature=unstable-sdk-client",
+		"package:serde_with":        "package=serde_with",
 		"include-grpc-only-methods": "true",
 		"per-service-features":      "true",
 	}
@@ -60,10 +59,8 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		t.Fatal(err)
 	}
 	gp := &packagez{
-		name:            "wkt",
-		packageName:     "types",
-		path:            "src/wkt",
-		defaultFeatures: true,
+		name:        "wkt",
+		packageName: "types",
 	}
 	want := &codec{
 		version:             "1.2.3",
@@ -76,17 +73,13 @@ func TestParseOptionsProtobuf(t *testing.T) {
 			{
 				name:        "gax",
 				packageName: "gax",
-				path:        "src/gax",
 				features: []string{
 					"unstable-sdk-client",
 				},
-				defaultFeatures: true,
 			},
 			{
-				name:            "serde_with",
-				packageName:     "serde_with",
-				version:         "2.3.4",
-				defaultFeatures: false,
+				name:        "serde_with",
+				packageName: "serde_with",
 			},
 		},
 		packageMapping: map[string]*packagez{
@@ -219,6 +212,67 @@ func rustPackageNameImpl(t *testing.T, want string, opts map[string]string, api 
 	}
 }
 
+func TestServiceName(t *testing.T) {
+	c, err := newCodec(true, map[string]string{
+		"name-overrides": ".google.testing.BadName=GoodName,.google.testing.Old=New",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	testServiceNameImpl(t, c, "BadName", "GoodName")
+	testServiceNameImpl(t, c, "Old", "New")
+	testServiceNameImpl(t, c, "Unchanged", "Unchanged")
+
+	c2, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	testServiceNameImpl(t, c2, "Unchanged", "Unchanged")
+}
+
+func testServiceNameImpl(t *testing.T, c *codec, serviceName string, want string) {
+	t.Helper()
+	s := &api.Service{
+		Name:    serviceName,
+		ID:      fmt.Sprintf(".google.testing.%s", serviceName),
+		Package: "google.testing",
+	}
+	got := c.ServiceName(s)
+	if want != got {
+		t.Errorf("mismatch in service name, want=%s, got=%s", want, got)
+	}
+}
+
+func TestOneOfEnumName(t *testing.T) {
+	c, err := newCodec(true, map[string]string{
+		"name-overrides": ".google.testing.Message.conflict=ConflictOneOf",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	testOneOfEnumNameImpl(t, c, "conflict", "ConflictOneOf")
+	testOneOfEnumNameImpl(t, c, "basic_case", "BasicCase")
+
+	c2, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	testOneOfEnumNameImpl(t, c2, "conflict", "Conflict")
+	testOneOfEnumNameImpl(t, c2, "basic_case", "BasicCase")
+}
+
+func testOneOfEnumNameImpl(t *testing.T, c *codec, name string, want string) {
+	t.Helper()
+	oneof := &api.OneOf{
+		Name: name,
+		ID:   fmt.Sprintf(".google.testing.Message.%s", name),
+	}
+	got := c.OneOfEnumName(oneof)
+	if want != got {
+		t.Errorf("mismatch in service name, want=%s, got=%s", want, got)
+	}
+}
+
 func checkRustPackages(t *testing.T, got *codec, want *codec) {
 	t.Helper()
 	less := func(a, b *packagez) bool { return a.name < b.name }
@@ -329,430 +383,6 @@ func TestMethodInOut(t *testing.T) {
 	got = c.methodInOutTypeName("..Target.Nested", model.State, model.PackageName)
 	if want != got {
 		t.Errorf("mismatched well-known type name as method argument or response, want=%s, got=%s", want, got)
-	}
-}
-
-func TestFieldAttributes(t *testing.T) {
-	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
-		Fields: []*api.Field{
-			{
-				Name:     "f_int64",
-				JSONName: "fInt64",
-				Typez:    api.INT64_TYPE,
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_int64_optional",
-				JSONName: "fInt64Optional",
-				Typez:    api.INT64_TYPE,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_int64_repeated",
-				JSONName: "fInt64Repeated",
-				Typez:    api.INT64_TYPE,
-				Optional: false,
-				Repeated: true,
-			},
-
-			{
-				Name:     "f_bytes",
-				JSONName: "fBytes",
-				Typez:    api.BYTES_TYPE,
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_bytes_optional",
-				JSONName: "fBytesOptional",
-				Typez:    api.BYTES_TYPE,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_bytes_repeated",
-				JSONName: "fBytesRepeated",
-				Typez:    api.BYTES_TYPE,
-				Optional: false,
-				Repeated: true,
-			},
-
-			{
-				Name:     "f_string",
-				JSONName: "fString",
-				Typez:    api.STRING_TYPE,
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_string_optional",
-				JSONName: "fStringOptional",
-				Typez:    api.STRING_TYPE,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_string_repeated",
-				JSONName: "fStringRepeated",
-				Typez:    api.STRING_TYPE,
-				Optional: false,
-				Repeated: true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DisplayFromStr")]`,
-		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
-
-		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
-		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
-
-		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
-		"f_string_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestMapFieldAttributes(t *testing.T) {
-	target := &api.Message{
-		Name: "Target",
-		ID:   "..Target",
-	}
-	map1 := &api.Message{
-		Name:  "$map<string, string>",
-		ID:    "$map<string, string>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.STRING_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.STRING_TYPE,
-			},
-		},
-	}
-	map2 := &api.Message{
-		Name:  "$map<string, int64>",
-		ID:    "$map<string, int64>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:     "key",
-				JSONName: "key",
-				Typez:    api.STRING_TYPE,
-			},
-			{
-				Name:     "value",
-				JSONName: "value",
-				Typez:    api.INT64_TYPE,
-			},
-		},
-	}
-	map3 := &api.Message{
-		Name:  "$map<int64, string>",
-		ID:    "$map<int64, string>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.INT64_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.STRING_TYPE,
-			},
-		},
-	}
-	map4 := &api.Message{
-		Name:  "$map<string, bytes>",
-		ID:    "$map<string, bytes>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.STRING_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.BYTES_TYPE,
-			},
-		},
-	}
-	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
-		Fields: []*api.Field{
-			{
-				Name:     "target",
-				JSONName: "target",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  target.ID,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "map",
-				JSONName: "map",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map1.ID,
-			},
-			{
-				Name:     "map_i64",
-				JSONName: "mapI64",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map2.ID,
-			},
-			{
-				Name:     "map_i64_key",
-				JSONName: "mapI64Key",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map3.ID,
-			},
-			{
-				Name:     "map_bytes",
-				JSONName: "mapBytes",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map4.ID,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
-		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
-		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestWktFieldAttributes(t *testing.T) {
-	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
-		Fields: []*api.Field{
-			{
-				Name:     "f_int64",
-				JSONName: "fInt64",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Int64Value",
-				Optional: true,
-			},
-			{
-				Name:     "f_int64_repeated",
-				JSONName: "fInt64Repeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Int64Value",
-				Repeated: true,
-			},
-			{
-				Name:     "f_uint64",
-				JSONName: "fUint64",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.UInt64Value",
-				Optional: true,
-			},
-			{
-				Name:     "f_uint64_repeated",
-				JSONName: "fUint64Repeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.UInt64Value",
-				Repeated: true,
-			},
-			{
-				Name:     "f_bytes",
-				JSONName: "fBytes",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.BytesValue",
-				Optional: true,
-			},
-			{
-				Name:     "f_bytes_repeated",
-				JSONName: "fBytesRepeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.BytesValue",
-				Repeated: true,
-			},
-			{
-				Name:     "f_string",
-				JSONName: "fString",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.StringValue",
-				Optional: true,
-			},
-			{
-				Name:     "f_string_repeated",
-				JSONName: "fStringRepeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.StringValue",
-				Repeated: true,
-			},
-			{
-				Name:     "f_any",
-				JSONName: "fAny",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Any",
-				Optional: true,
-			},
-			{
-				Name:     "f_any_repeated",
-				JSONName: "fAnyRepeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Any",
-				Repeated: true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
-		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
-		"f_bytes":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
-		"f_string":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-		"f_any":             `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_any_repeated":    `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestFieldLossyName(t *testing.T) {
-	message := &api.Message{
-		Name:          "SecretPayload",
-		ID:            "..SecretPayload",
-		Documentation: "A secret payload resource in the Secret Manager API.",
-		Fields: []*api.Field{
-			{
-				Name:          "data",
-				JSONName:      "data",
-				Documentation: "The secret data. Must be no larger than 64KiB.",
-				Typez:         api.BYTES_TYPE,
-				TypezID:       "bytes",
-			},
-			{
-				Name:          "dataCrc32c",
-				JSONName:      "dataCrc32c",
-				Documentation: "Optional. If specified, SecretManagerService will verify the integrity of the received data.",
-				Typez:         api.INT64_TYPE,
-				TypezID:       "int64",
-				Optional:      true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"data": `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" +
-			`#[serde_as(as = "serde_with::base64::Base64")]`,
-		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
-			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +
-			`#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestSyntheticField(t *testing.T) {
-	message := &api.Message{
-		Name: "Unused",
-		ID:   "..Unused",
-		Fields: []*api.Field{
-			{
-				Name:     "updateMask",
-				JSONName: "updateMask",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.FieldMask",
-				Optional: true,
-			},
-			{
-				Name:      "project",
-				JSONName:  "project",
-				Typez:     api.STRING_TYPE,
-				TypezID:   "string",
-				Synthetic: true,
-			},
-			{
-				Name:      "data_crc32c",
-				JSONName:  "dataCrc32c",
-				Typez:     api.STRING_TYPE,
-				TypezID:   "string",
-				Synthetic: true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"updateMask":  `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"project":     `#[serde(skip)]`,
-		"data_crc32c": `#[serde(skip)]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
 	}
 }
 
@@ -1176,15 +806,15 @@ func TestAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
+		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
 		{requiredField, `let builder = builder.query(&[("requiredField", &req.required_field)]);`},
 		{optionalField, `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field)]);`},
 		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p)]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
-		{requiredFieldMaskField, `let builder = req.required_field_mask.paths.iter().fold(builder, |builder, v| builder.query(&[("requiredFieldMask", v)]));`},
-		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().iter().flat_map(|p| p.paths.iter()).fold(builder, |builder, v| builder.query(&[("optionalFieldMask", v)]));`},
+		{requiredFieldMaskField, `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::ser)?.add(builder, "requiredFieldMask") };`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {
@@ -1277,13 +907,13 @@ func TestOneOfAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
+		{optionsField, `let builder = req.options_field().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
 		{typeField, `let builder = req.r#type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
 		{singularField, `let builder = req.singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{singularEnumField, `let builder = req.singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p)]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
-		{singularFieldMaskField, `let builder = req.singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
+		{singularFieldMaskField, `let builder = req.singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {
@@ -1414,6 +1044,59 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 		"///   first email_addresses message",
 		"/// * email_addresses[3].type[2] for a violation in the second type",
 		"///   value in the third email_addresses message.)",
+	}
+
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := createRustCodec()
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestFormatDocCommentsNumbers(t *testing.T) {
+	input := `Numbered lists are different:
+
+1.   A simple list item
+2.   A number list item
+     continued in the next line
+3.   A second list item
+
+     with a second paragraph
+4.   A third list item
+
+     also with a second paragraph
+
+	 * And some nested list items
+	 * and some more
+	   even split ones
+	 * and more
+5.   A fourth list item
+    with some bad indentation
+`
+	want := []string{
+		"/// Numbered lists are different:",
+		"///",
+		"/// 1. A simple list item",
+		"///",
+		"/// 1. A number list item",
+		"///    continued in the next line",
+		"///",
+		"/// 1. A second list item",
+		"///",
+		"///    with a second paragraph",
+		"///",
+		"/// 1. A third list item",
+		"///",
+		"///    also with a second paragraph",
+		"///",
+		"///    * And some nested list items",
+		"///    * and some more",
+		"///      even split ones",
+		"///    * and more",
+		"/// 1. A fourth list item",
+		"///    with some bad indentation",
+		"///",
 	}
 
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
@@ -1607,12 +1290,10 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1669,12 +1350,10 @@ func TestFormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1731,12 +1410,10 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1842,9 +1519,13 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 			{
 				Name: "CreateFoo", ID: ".test.v1.SomeService.CreateFoo",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("/v1/foo"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("foo"),
+						},
 					},
 				},
 			},
@@ -1860,9 +1541,13 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 				Name: "CreateThing",
 				ID:   ".test.v1.YELL.CreateThing",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("/v1/thing"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("thing"),
+						},
 					},
 				},
 			},
@@ -1924,12 +1609,10 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "model",
@@ -2031,7 +1714,6 @@ func TestEnumValueVariantName(t *testing.T) {
 		Package: "test",
 		Values: []*api.EnumValue{
 			{Number: 0, Name: "ENUM_NAME_UNSPECIFIED"},
-			{Number: 1, Name: "ENUM_NAME1"},
 			{Number: 2, Name: "ENUM_NAME_1"},
 			{Number: 3, Name: "ENUM_NAME_A"},
 			{Number: 4, Name: "ENUM_NAME_PARTIAL"},
@@ -2063,7 +1745,7 @@ func TestEnumValueVariantName(t *testing.T) {
 	for _, value := range testEnum.Values {
 		got = append(got, enumValueVariantName(value))
 	}
-	want := []string{"Unspecified", "EnumName1", "_1", "A", "Partial", "Green"}
+	want := []string{"Unspecified", "EnumName1", "A", "Partial", "Green"}
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("mismatch in enum variant names (-want, +got):\n%s", diff)
 	}
@@ -2090,223 +1772,54 @@ func TestEnumValueVariantName(t *testing.T) {
 func TestPathFmt(t *testing.T) {
 	for _, test := range []struct {
 		want     string
-		pathInfo *api.PathInfo
+		template *api.PathTemplate
 	}{
 		{
 			"/v1/fixed",
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("fixed"),
 		},
 		{
 			"/v1/{}",
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariableNamed("parent"),
+		},
+		{
+			"/v1/{}",
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariable(api.NewPathVariable("parent").
+					WithLiteral("projects").
+					WithMatch().
+					WithLiteral("locations").
+					WithMatch()),
 		},
 		{
 			"/v1/{}:action",
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariableNamed("parent").
+				WithVerb("action"),
 		},
 		{
 			"/v1/projects/{}/locations/{}/secrets/{}:action",
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewLiteralPathSegment("projects"),
-					api.NewFieldPathPathSegment("project"),
-					api.NewLiteralPathSegment("locations"),
-					api.NewFieldPathPathSegment("location"),
-					api.NewLiteralPathSegment("secrets"),
-					api.NewFieldPathPathSegment("secret"),
-					api.NewVerbPathSegment("action"),
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("projects").
+				WithVariableNamed("project").
+				WithLiteral("locations").
+				WithVariableNamed("location").
+				WithLiteral("secrets").
+				WithVariableNamed("secret").
+				WithVerb("action"),
 		},
 	} {
-		got := httpPathFmt(test.pathInfo)
+		got := httpPathFmt(test.template)
 		if test.want != got {
-			t.Errorf("mismatched path info fmt for %v\nwant=%s\n got=%s", test.pathInfo, test.want, got)
+			t.Errorf("mismatched path fmt for %v\nwant=%s\n got=%s", test.template, test.want, got)
 		}
 	}
 
-}
-
-func TestPathArgs(t *testing.T) {
-	subMessage := &api.Message{
-		Name: "Body",
-		ID:   ".test.Body",
-		Fields: []*api.Field{
-			{Name: "a", Typez: api.STRING_TYPE},
-			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
-			{Name: "c", Typez: api.ENUM_TYPE},
-			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
-		},
-	}
-	message := &api.Message{
-		Name: "CreateResourceRequest",
-		ID:   ".test.CreateResourceRequest",
-		Fields: []*api.Field{
-			{Name: "a", Typez: api.STRING_TYPE},
-			{Name: "b", Typez: api.STRING_TYPE, Optional: true},
-			{Name: "c", Typez: api.ENUM_TYPE},
-			{Name: "d", Typez: api.ENUM_TYPE, Optional: true},
-			{Name: "e", Typez: api.MESSAGE_TYPE, TypezID: ".test.Body", Optional: true},
-		},
-	}
-	method := &api.Method{
-		Name:        "CreateResource",
-		InputTypeID: ".test.CreateResourceRequest",
-	}
-	service := &api.Service{
-		Name:    "TestService",
-		ID:      ".test.Service",
-		Methods: []*api.Method{method},
-	}
-	model := api.NewTestAPI([]*api.Message{subMessage, message}, []*api.Enum{}, []*api.Service{service})
-
-	for _, test := range []struct {
-		want     []pathArg
-		pathInfo *api.PathInfo
-	}{
-		{
-			nil,
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-				},
-			},
-		},
-		{
-			[]pathArg{{Name: "a", Accessor: ".a"}},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("a")},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "b",
-					Accessor: `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("b"),
-				},
-			},
-		},
-		{
-			[]pathArg{{Name: "c", Accessor: `.c`}},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("c"),
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "d",
-					Accessor: `.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("d"),
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "e.a",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.a`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.a"),
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name: "e.b",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
-						`.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.b"),
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "e.c",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?.c`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.c"),
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name: "e.d",
-					Accessor: `.e.as_ref().ok_or_else(|| gaxi::path_parameter::missing("e"))?` +
-						`.d.as_ref().ok_or_else(|| gaxi::path_parameter::missing("d"))?`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("e.d"),
-				},
-			},
-		},
-		{
-			[]pathArg{
-				{
-					Name:     "a",
-					Accessor: ".a",
-				},
-				{
-					Name:     "b",
-					Accessor: `.b.as_ref().ok_or_else(|| gaxi::path_parameter::missing("b"))?`,
-				},
-			},
-			&api.PathInfo{
-				PathTemplate: []api.PathSegment{
-					api.NewLiteralPathSegment("v1"),
-					api.NewFieldPathPathSegment("a"),
-					api.NewFieldPathPathSegment("b"),
-				},
-			},
-		},
-	} {
-		// Modify the method to match the test case.
-		method.PathInfo = test.pathInfo
-		got := httpPathArgs(test.pathInfo, method, model.State)
-		if diff := cmp.Diff(test.want, got); diff != "" {
-			t.Errorf("mismatched path info args (-want, +got):\n%s", diff)
-		}
-	}
 }

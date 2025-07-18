@@ -22,24 +22,25 @@ use crate::AnyError as Error;
 /// Messages sent to and received from Google Cloud services may be wrapped in
 /// [Any][crate::any::Any]. `Any` uses a `@type` field to encode the type
 /// name and then validates extraction and insertion against this type.
-pub trait Message {
+pub trait Message: serde::ser::Serialize + serde::de::DeserializeOwned {
     /// The typename of this message.
     fn typename() -> &'static str;
 
     /// Returns the serializer for this message type.
-    #[doc(hidden)]
-    #[allow(private_interfaces)]
-    fn serializer() -> impl MessageSerializer<Self>
-    where
-        Self: serde::ser::Serialize + serde::de::DeserializeOwned,
-    {
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    fn serializer() -> impl MessageSerializer<Self> {
         DefaultSerializer::<Self>::new()
     }
 }
 
+pub(crate) mod sealed {
+    pub trait MessageSerializer {}
+}
+
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 /// Internal API for message serialization.
 /// This is not intended for direct use by consumers of this crate.
-pub(crate) trait MessageSerializer<T> {
+pub trait MessageSerializer<T>: sealed::MessageSerializer {
     /// Store the value into a JSON object.
     fn serialize_to_map(&self, message: &T) -> Result<Map, Error>;
 
@@ -60,9 +61,12 @@ impl<T> DefaultSerializer<T> {
     }
 }
 
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl<T> sealed::MessageSerializer for DefaultSerializer<T> {}
+
 impl<T> MessageSerializer<T> for DefaultSerializer<T>
 where
-    T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
+    T: Message,
 {
     fn serialize_to_map(&self, message: &T) -> Result<Map, Error> {
         to_json_object(message)
@@ -86,9 +90,12 @@ impl<T> ValueSerializer<T> {
     }
 }
 
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl<T> sealed::MessageSerializer for ValueSerializer<T> {}
+
 impl<T> MessageSerializer<T> for ValueSerializer<T>
 where
-    T: serde::ser::Serialize + serde::de::DeserializeOwned + Sized + Message,
+    T: Message,
 {
     fn serialize_to_map(&self, message: &T) -> Result<Map, Error> {
         to_json_other(message)
@@ -107,7 +114,7 @@ where
 /// That typically means that `T` is an object.
 pub(crate) fn to_json_object<T>(message: &T) -> Result<Map, Error>
 where
-    T: Message + serde::ser::Serialize,
+    T: Message,
 {
     use serde_json::Value;
 
@@ -134,7 +141,7 @@ where
 /// conflicting `@type` fields.
 pub(crate) fn to_json_other<T>(message: &T) -> Result<Map, Error>
 where
-    T: Message + serde::ser::Serialize,
+    T: Message,
 {
     let value = serde_json::to_value(message).map_err(Error::ser)?;
     let mut map = crate::message::Map::new();
@@ -146,7 +153,7 @@ where
 /// The analog of `to_json_object()`
 pub(crate) fn from_object<T>(map: &Map) -> Result<T, Error>
 where
-    T: serde::de::DeserializeOwned,
+    T: Message,
 {
     let map = map
         .iter()
@@ -163,7 +170,7 @@ where
 /// The analog of `to_json_other()`
 pub(crate) fn from_other<T>(map: &Map) -> Result<T, Error>
 where
-    T: serde::de::DeserializeOwned,
+    T: Message,
 {
     map.get("value")
         .map(|v| serde_json::from_value::<T>(v.clone()))
@@ -180,7 +187,7 @@ fn unexpected_json_type() -> Error {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
 

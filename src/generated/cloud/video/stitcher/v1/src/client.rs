@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Video Stitcher API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
 /// let client = VideoStitcherService::builder().build().await?;
 /// // use `client` to make requests to the Video Stitcher API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -62,11 +59,11 @@ use std::sync::Arc;
 ///
 /// `VideoStitcherService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `VideoStitcherService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct VideoStitcherService {
-    inner: Arc<dyn super::stub::dynamic::VideoStitcherService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::VideoStitcherService>,
 }
 
 impl VideoStitcherService {
@@ -76,7 +73,7 @@ impl VideoStitcherService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// let client = VideoStitcherService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::video_stitcher_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -93,33 +90,36 @@ impl VideoStitcherService {
         T: super::stub::VideoStitcherService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::VideoStitcherService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::VideoStitcherService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::VideoStitcherService> {
+    ) -> gax::client_builder::Result<impl super::stub::VideoStitcherService> {
         super::transport::VideoStitcherService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::VideoStitcherService> {
+    ) -> gax::client_builder::Result<impl super::stub::VideoStitcherService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::VideoStitcherService::new)
@@ -136,30 +136,18 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_cdn_key(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CreateCdnKey {
+    pub fn create_cdn_key(&self) -> super::builder::video_stitcher_service::CreateCdnKey {
         super::builder::video_stitcher_service::CreateCdnKey::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all CDN keys in the specified project and location.
-    pub fn list_cdn_keys(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::ListCdnKeys {
+    pub fn list_cdn_keys(&self) -> super::builder::video_stitcher_service::ListCdnKeys {
         super::builder::video_stitcher_service::ListCdnKeys::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified CDN key.
-    pub fn get_cdn_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetCdnKey {
+    pub fn get_cdn_key(&self) -> super::builder::video_stitcher_service::GetCdnKey {
         super::builder::video_stitcher_service::GetCdnKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the specified CDN key.
@@ -173,12 +161,8 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_cdn_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::DeleteCdnKey {
+    pub fn delete_cdn_key(&self) -> super::builder::video_stitcher_service::DeleteCdnKey {
         super::builder::video_stitcher_service::DeleteCdnKey::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified CDN key. Only update fields specified
@@ -193,87 +177,63 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_cdn_key(
-        &self,
-        cdn_key: impl Into<crate::model::CdnKey>,
-    ) -> super::builder::video_stitcher_service::UpdateCdnKey {
+    pub fn update_cdn_key(&self) -> super::builder::video_stitcher_service::UpdateCdnKey {
         super::builder::video_stitcher_service::UpdateCdnKey::new(self.inner.clone())
-            .set_cdn_key(cdn_key.into())
     }
 
     /// Creates a client side playback VOD session and returns the full
     /// tracking and playback metadata of the session.
-    pub fn create_vod_session(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CreateVodSession {
+    pub fn create_vod_session(&self) -> super::builder::video_stitcher_service::CreateVodSession {
         super::builder::video_stitcher_service::CreateVodSession::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the full tracking, playback metadata, and relevant ad-ops
     /// logs for the specified VOD session.
-    pub fn get_vod_session(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetVodSession {
+    pub fn get_vod_session(&self) -> super::builder::video_stitcher_service::GetVodSession {
         super::builder::video_stitcher_service::GetVodSession::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns a list of detailed stitching information of the specified VOD
     /// session.
     pub fn list_vod_stitch_details(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::ListVodStitchDetails {
         super::builder::video_stitcher_service::ListVodStitchDetails::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified stitching information for the specified VOD session.
     pub fn get_vod_stitch_detail(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::GetVodStitchDetail {
         super::builder::video_stitcher_service::GetVodStitchDetail::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Return the list of ad tag details for the specified VOD session.
     pub fn list_vod_ad_tag_details(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::ListVodAdTagDetails {
         super::builder::video_stitcher_service::ListVodAdTagDetails::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified ad tag detail for the specified VOD session.
     pub fn get_vod_ad_tag_detail(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::GetVodAdTagDetail {
         super::builder::video_stitcher_service::GetVodAdTagDetail::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Return the list of ad tag details for the specified live session.
     pub fn list_live_ad_tag_details(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::ListLiveAdTagDetails {
         super::builder::video_stitcher_service::ListLiveAdTagDetails::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified ad tag detail for the specified live session.
     pub fn get_live_ad_tag_detail(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::video_stitcher_service::GetLiveAdTagDetail {
         super::builder::video_stitcher_service::GetLiveAdTagDetail::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a slate.
@@ -287,30 +247,18 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_slate(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CreateSlate {
+    pub fn create_slate(&self) -> super::builder::video_stitcher_service::CreateSlate {
         super::builder::video_stitcher_service::CreateSlate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all slates in the specified project and location.
-    pub fn list_slates(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::ListSlates {
+    pub fn list_slates(&self) -> super::builder::video_stitcher_service::ListSlates {
         super::builder::video_stitcher_service::ListSlates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified slate.
-    pub fn get_slate(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetSlate {
+    pub fn get_slate(&self) -> super::builder::video_stitcher_service::GetSlate {
         super::builder::video_stitcher_service::GetSlate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified slate.
@@ -324,12 +272,8 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_slate(
-        &self,
-        slate: impl Into<crate::model::Slate>,
-    ) -> super::builder::video_stitcher_service::UpdateSlate {
+    pub fn update_slate(&self) -> super::builder::video_stitcher_service::UpdateSlate {
         super::builder::video_stitcher_service::UpdateSlate::new(self.inner.clone())
-            .set_slate(slate.into())
     }
 
     /// Deletes the specified slate.
@@ -343,30 +287,18 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_slate(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::DeleteSlate {
+    pub fn delete_slate(&self) -> super::builder::video_stitcher_service::DeleteSlate {
         super::builder::video_stitcher_service::DeleteSlate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new live session.
-    pub fn create_live_session(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CreateLiveSession {
+    pub fn create_live_session(&self) -> super::builder::video_stitcher_service::CreateLiveSession {
         super::builder::video_stitcher_service::CreateLiveSession::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the details for the specified live session.
-    pub fn get_live_session(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetLiveSession {
+    pub fn get_live_session(&self) -> super::builder::video_stitcher_service::GetLiveSession {
         super::builder::video_stitcher_service::GetLiveSession::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Registers the live config with the provided unique ID in
@@ -381,32 +313,20 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_live_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CreateLiveConfig {
+    pub fn create_live_config(&self) -> super::builder::video_stitcher_service::CreateLiveConfig {
         super::builder::video_stitcher_service::CreateLiveConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all live configs managed by the Video Stitcher that
     /// belong to the specified project and region.
-    pub fn list_live_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::ListLiveConfigs {
+    pub fn list_live_configs(&self) -> super::builder::video_stitcher_service::ListLiveConfigs {
         super::builder::video_stitcher_service::ListLiveConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified live config managed by the Video
     /// Stitcher service.
-    pub fn get_live_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetLiveConfig {
+    pub fn get_live_config(&self) -> super::builder::video_stitcher_service::GetLiveConfig {
         super::builder::video_stitcher_service::GetLiveConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the specified live config.
@@ -420,12 +340,8 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_live_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::DeleteLiveConfig {
+    pub fn delete_live_config(&self) -> super::builder::video_stitcher_service::DeleteLiveConfig {
         super::builder::video_stitcher_service::DeleteLiveConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified LiveConfig. Only update fields specified
@@ -440,12 +356,8 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_live_config(
-        &self,
-        live_config: impl Into<crate::model::LiveConfig>,
-    ) -> super::builder::video_stitcher_service::UpdateLiveConfig {
+    pub fn update_live_config(&self) -> super::builder::video_stitcher_service::UpdateLiveConfig {
         super::builder::video_stitcher_service::UpdateLiveConfig::new(self.inner.clone())
-            .set_live_config(live_config.into())
     }
 
     /// Registers the VOD config with the provided unique ID in
@@ -460,32 +372,20 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_vod_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CreateVodConfig {
+    pub fn create_vod_config(&self) -> super::builder::video_stitcher_service::CreateVodConfig {
         super::builder::video_stitcher_service::CreateVodConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists all VOD configs managed by the Video Stitcher API that
     /// belong to the specified project and region.
-    pub fn list_vod_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::ListVodConfigs {
+    pub fn list_vod_configs(&self) -> super::builder::video_stitcher_service::ListVodConfigs {
         super::builder::video_stitcher_service::ListVodConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified VOD config managed by the Video
     /// Stitcher API service.
-    pub fn get_vod_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetVodConfig {
+    pub fn get_vod_config(&self) -> super::builder::video_stitcher_service::GetVodConfig {
         super::builder::video_stitcher_service::GetVodConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the specified VOD config.
@@ -499,12 +399,8 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_vod_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::DeleteVodConfig {
+    pub fn delete_vod_config(&self) -> super::builder::video_stitcher_service::DeleteVodConfig {
         super::builder::video_stitcher_service::DeleteVodConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified VOD config. Only update fields specified
@@ -519,55 +415,35 @@ impl VideoStitcherService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_vod_config(
-        &self,
-        vod_config: impl Into<crate::model::VodConfig>,
-    ) -> super::builder::video_stitcher_service::UpdateVodConfig {
+    pub fn update_vod_config(&self) -> super::builder::video_stitcher_service::UpdateVodConfig {
         super::builder::video_stitcher_service::UpdateVodConfig::new(self.inner.clone())
-            .set_vod_config(vod_config.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::video_stitcher_service::ListOperations {
         super::builder::video_stitcher_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::video_stitcher_service::GetOperation {
         super::builder::video_stitcher_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::video_stitcher_service::DeleteOperation {
         super::builder::video_stitcher_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::video_stitcher_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::video_stitcher_service::CancelOperation {
         super::builder::video_stitcher_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

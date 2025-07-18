@@ -16,9 +16,8 @@
 
 pub mod policies {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Policies][super::super::client::Policies].
+    /// A builder for [Policies][crate::client::Policies].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod policies {
     /// let client = builder
     ///     .with_endpoint("https://iam.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod policies {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Policies;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Policies] request builders.
+    /// Common implementation for [crate::client::Policies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Policies>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod policies {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,32 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::list_policies][super::super::client::Policies::list_policies] calls.
+    /// The request builder for [Policies::list_policies][crate::client::Policies::list_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v2::builder;
+    /// use builder::policies::ListPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicies(RequestBuilder<crate::model::ListPoliciesRequest>);
 
     impl ListPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +118,8 @@ pub mod policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPoliciesResponse, gax::error::Error>
         {
@@ -109,6 +131,15 @@ pub mod policies {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPoliciesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPoliciesRequest::parent].
@@ -139,12 +170,28 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::get_policy][super::super::client::Policies::get_policy] calls.
+    /// The request builder for [Policies::get_policy][crate::client::Policies::get_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v2::builder;
+    /// use builder::policies::GetPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicy(RequestBuilder<crate::model::GetPolicyRequest>);
 
     impl GetPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -184,12 +231,29 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::create_policy][super::super::client::Policies::create_policy] calls.
+    /// The request builder for [Policies::create_policy][crate::client::Policies::create_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v2::builder;
+    /// use builder::policies::CreatePolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicy(RequestBuilder<crate::model::CreatePolicyRequest>);
 
     impl CreatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -210,7 +274,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy][super::super::client::Policies::create_policy].
+        /// on [create_policy][crate::client::Policies::create_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy(self.0.request, self.0.options)
@@ -222,8 +286,10 @@ pub mod policies {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -248,7 +314,7 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyRequest::parent].
@@ -262,11 +328,22 @@ pub mod policies {
         /// Sets the value of [policy][crate::model::CreatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::CreatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
@@ -284,12 +361,29 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::update_policy][super::super::client::Policies::update_policy] calls.
+    /// The request builder for [Policies::update_policy][crate::client::Policies::update_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v2::builder;
+    /// use builder::policies::UpdatePolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicy(RequestBuilder<crate::model::UpdatePolicyRequest>);
 
     impl UpdatePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -310,7 +404,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_policy][super::super::client::Policies::update_policy].
+        /// on [update_policy][crate::client::Policies::update_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy(self.0.request, self.0.options)
@@ -322,8 +416,10 @@ pub mod policies {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -348,17 +444,28 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [policy][crate::model::UpdatePolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdatePolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
     }
@@ -370,12 +477,29 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::delete_policy][super::super::client::Policies::delete_policy] calls.
+    /// The request builder for [Policies::delete_policy][crate::client::Policies::delete_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v2::builder;
+    /// use builder::policies::DeletePolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicy(RequestBuilder<crate::model::DeletePolicyRequest>);
 
     impl DeletePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -396,7 +520,7 @@ pub mod policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy][super::super::client::Policies::delete_policy].
+        /// on [delete_policy][crate::client::Policies::delete_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy(self.0.request, self.0.options)
@@ -408,8 +532,10 @@ pub mod policies {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Policy, crate::model::PolicyOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Policy, crate::model::PolicyOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Policy,
+                crate::model::PolicyOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -434,7 +560,7 @@ pub mod policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyRequest::name].
@@ -459,12 +585,28 @@ pub mod policies {
         }
     }
 
-    /// The request builder for [Policies::get_operation][super::super::client::Policies::get_operation] calls.
+    /// The request builder for [Policies::get_operation][crate::client::Policies::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v2::builder;
+    /// use builder::policies::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Policies>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

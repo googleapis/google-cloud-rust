@@ -16,7 +16,7 @@
 
 // ANCHOR: client-retry
 pub async fn client_retry(project_id: &str) -> crate::Result<()> {
-    use google_cloud_gax::paginator::{ItemPaginator as _, Paginator as _};
+    use google_cloud_gax::paginator::ItemPaginator as _;
     use google_cloud_gax::retry_policy::Aip194Strict;
     use google_cloud_secretmanager_v1 as secret_manager;
 
@@ -29,10 +29,9 @@ pub async fn client_retry(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-retry-request
     let mut list = client
-        .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
     while let Some(secret) = list.next().await {
         let secret = secret?;
         println!("  secret={}", secret.name);
@@ -45,7 +44,7 @@ pub async fn client_retry(project_id: &str) -> crate::Result<()> {
 
 // ANCHOR: client-retry-full
 pub async fn client_retry_full(project_id: &str) -> crate::Result<()> {
-    use google_cloud_gax::paginator::{ItemPaginator as _, Paginator as _};
+    use google_cloud_gax::paginator::ItemPaginator as _;
     use google_cloud_gax::retry_policy::Aip194Strict;
     use google_cloud_gax::retry_policy::RetryPolicyExt;
     use google_cloud_secretmanager_v1 as secret_manager;
@@ -64,10 +63,9 @@ pub async fn client_retry_full(project_id: &str) -> crate::Result<()> {
 
     // ANCHOR: client-retry-full-request
     let mut list = client
-        .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
     while let Some(secret) = list.next().await {
         let secret = secret?;
         println!("  secret={}", secret.name);
@@ -92,7 +90,8 @@ pub async fn request_retry(
 
     // ANCHOR: request-retry-request
     client
-        .delete_secret(format!("projects/{project_id}/secrets/{secret_id}"))
+        .delete_secret()
+        .set_name(format!("projects/{project_id}/secrets/{secret_id}"))
         .with_retry_policy(
             AlwaysRetry
                 .with_attempt_limit(5)

@@ -18,18 +18,17 @@ limitations under the License.
 
 The Google Cloud Client Libraries for Rust provide helper functions to simplify
 waiting and monitoring the progress of
-[LROs (Long-Running Operations)](working_with_long_running_operations.md).
-These helpers use policies to configure the polling frequency and to determine
-what polling errors are transient and may be ignored until the next polling
-event.
+[LROs (Long-Running Operations)](working_with_long_running_operations.md). These
+helpers use policies to configure the polling frequency and to determine what
+polling errors are transient and may be ignored until the next polling event.
 
 This guide will walk you through the configuration of these policies for all the
 long-running operations started by a client, or just for one specific request.
 
 There are two different policies controlling the behavior of the LRO loops:
 
-- The polling backoff policy controls how long the loop waits before polling
-  the status of a LRO that is still in progress.
+- The polling backoff policy controls how long the loop waits before polling the
+  status of a LRO that is still in progress.
 - The polling error policy controls what to do on an polling error. Some polling
   errors are unrecoverable, and indicate that the operation was aborted or the
   caller has no permissions to check the status of the LRO. Other polling errors
@@ -53,11 +52,13 @@ diagnose.
 
 ## Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:speech}}
+
+{{#include ../samples/Cargo.toml:lro}}
 ```
 
 ## Configuring the polling frequency for all requests in a client
@@ -95,7 +96,9 @@ The client library will first wait for 500ms, after the first polling attempt,
 then for 1,000ms (or 1s) for the second attempt, and sub-sequent attempts will
 wait 2s, 4s, 8s and then all attempts will wait 10s.
 
-See [below](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code) for the complete code.
+See
+[below](#configuring-the-polling-frequency-for-all-requests-in-a-client-complete-code)
+for the complete code.
 
 ## Configuring the polling frequency for a specific request
 
@@ -131,7 +134,9 @@ You can issue this request as usual. For example:
 {{#include ../samples/src/polling_policies.rs:rpc-backoff-print}}
 ```
 
-See [below](#configuring-the-polling-frequency-for-a-specific-request-complete-code) for the complete code.
+See
+[below](#configuring-the-polling-frequency-for-a-specific-request-complete-code)
+for the complete code.
 
 ## Configuring the retryable polling errors for all requests in a client
 
@@ -146,10 +151,16 @@ conservative choice is [Aip194Strict]:
 If you are planning to use the same polling policy for all (or even most)
 requests with the same client then consider setting this as a client option.
 
-Initialize the client with the configuration you want:
+Add the polling policies that you will use for all long running operations:
 
 ```rust,ignore
 {{#include ../samples/src/polling_policies.rs:client-errors-client}}
+```
+
+You can also add retry policies to handle errors in the initial request:
+
+```rust,ignore
+{{#include ../samples/src/polling_policies.rs:client-errors-client-retry}}
 ```
 
 Unless you override the policy with a [per-request setting] this policy will be
@@ -168,7 +179,9 @@ The client library will only treat `UNAVAILABLE` (see [AIP-194]) as a retryable
 error, and will stop polling after 100 attempts or 300 seconds, whichever comes
 first.
 
-See [below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code) for the complete code.
+See
+[below](#configuring-the-retryable-polling-errors-for-all-requests-in-a-client-complete-code)
+for the complete code.
 
 ## Configuring the retryable polling errors for a specific request
 
@@ -204,7 +217,16 @@ You can issue this request as usual. For example:
 {{#include ../samples/src/polling_policies.rs:rpc-errors-print}}
 ```
 
-See [below](#configuring-the-retryable-polling-errors-for-a-specific-request-complete-code) for the complete code.
+Consider adding a retry policy in case the initial request to start the LRO
+fails:
+
+```rust,ignore
+{{#include ../samples/src/polling_policies.rs:rpc-errors-client}}
+```
+
+See
+[below](#configuring-the-retryable-polling-errors-for-a-specific-request-complete-code)
+for the complete code.
 
 ## Configuring the polling frequency for all requests in a client: complete code
 

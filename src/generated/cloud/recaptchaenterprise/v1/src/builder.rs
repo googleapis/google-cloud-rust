@@ -16,9 +16,8 @@
 
 pub mod recaptcha_enterprise_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RecaptchaEnterpriseService][super::super::client::RecaptchaEnterpriseService].
+    /// A builder for [RecaptchaEnterpriseService][crate::client::RecaptchaEnterpriseService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod recaptcha_enterprise_service {
     /// let client = builder
     ///     .with_endpoint("https://recaptchaenterprise.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod recaptcha_enterprise_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RecaptchaEnterpriseService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RecaptchaEnterpriseService] request builders.
+    /// Common implementation for [crate::client::RecaptchaEnterpriseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod recaptcha_enterprise_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::create_assessment][super::super::client::RecaptchaEnterpriseService::create_assessment] calls.
+    /// The request builder for [RecaptchaEnterpriseService::create_assessment][crate::client::RecaptchaEnterpriseService::create_assessment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::CreateAssessment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAssessment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAssessment(RequestBuilder<crate::model::CreateAssessmentRequest>);
 
     impl CreateAssessment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -114,11 +132,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_assessment<T: Into<std::option::Option<crate::model::Assessment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assessment = v.into();
+        pub fn set_assessment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Assessment>,
+        {
+            self.0.request.assessment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assessment][crate::model::CreateAssessmentRequest::assessment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_assessment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Assessment>,
+        {
+            self.0.request.assessment = v.map(|x| x.into());
             self
         }
     }
@@ -130,13 +159,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][super::super::client::RecaptchaEnterpriseService::annotate_assessment] calls.
+    /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][crate::client::RecaptchaEnterpriseService::annotate_assessment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::AnnotateAssessment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnnotateAssessment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnnotateAssessment(RequestBuilder<crate::model::AnnotateAssessmentRequest>);
 
     impl AnnotateAssessment {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -181,6 +226,17 @@ pub mod recaptcha_enterprise_service {
             self
         }
 
+        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
+        pub fn set_reasons<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+        {
+            use std::iter::Iterator;
+            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [account_id][crate::model::AnnotateAssessmentRequest::account_id].
         pub fn set_account_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.account_id = v.into();
@@ -194,24 +250,20 @@ pub mod recaptcha_enterprise_service {
         }
 
         /// Sets the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
-        pub fn set_transaction_event<
-            T: Into<std::option::Option<crate::model::TransactionEvent>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transaction_event = v.into();
+        pub fn set_transaction_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionEvent>,
+        {
+            self.0.request.transaction_event = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [reasons][crate::model::AnnotateAssessmentRequest::reasons].
-        pub fn set_reasons<T, V>(mut self, v: T) -> Self
+        /// Sets or clears the value of [transaction_event][crate::model::AnnotateAssessmentRequest::transaction_event].
+        pub fn set_or_clear_transaction_event<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::annotate_assessment_request::Reason>,
+            T: std::convert::Into<crate::model::TransactionEvent>,
         {
-            use std::iter::Iterator;
-            self.0.request.reasons = v.into_iter().map(|i| i.into()).collect();
+            self.0.request.transaction_event = v.map(|x| x.into());
             self
         }
     }
@@ -223,13 +275,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::create_key][super::super::client::RecaptchaEnterpriseService::create_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::create_key][crate::client::RecaptchaEnterpriseService::create_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::CreateKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKey(RequestBuilder<crate::model::CreateKeyRequest>);
 
     impl CreateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -265,8 +333,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [key][crate::model::CreateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
-            self.0.request.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key][crate::model::CreateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = v.map(|x| x.into());
             self
         }
     }
@@ -278,13 +360,33 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_keys][super::super::client::RecaptchaEnterpriseService::list_keys] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_keys][crate::client::RecaptchaEnterpriseService::list_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKeys(RequestBuilder<crate::model::ListKeysRequest>);
 
     impl ListKeys {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -309,8 +411,8 @@ pub mod recaptcha_enterprise_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListKeysResponse, gax::error::Error>
         {
@@ -322,6 +424,15 @@ pub mod recaptcha_enterprise_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListKeysRequest::parent].
@@ -352,7 +463,23 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][super::super::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][crate::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveLegacySecretKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveLegacySecretKey(
         RequestBuilder<crate::model::RetrieveLegacySecretKeyRequest>,
@@ -360,7 +487,7 @@ pub mod recaptcha_enterprise_service {
 
     impl RetrieveLegacySecretKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -404,13 +531,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::get_key][super::super::client::RecaptchaEnterpriseService::get_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::get_key][crate::client::RecaptchaEnterpriseService::get_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::GetKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKey(RequestBuilder<crate::model::GetKeyRequest>);
 
     impl GetKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -451,13 +594,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::update_key][super::super::client::RecaptchaEnterpriseService::update_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::update_key][crate::client::RecaptchaEnterpriseService::update_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::UpdateKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateKey(RequestBuilder<crate::model::UpdateKeyRequest>);
 
     impl UpdateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -485,17 +644,40 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [key][crate::model::UpdateKeyRequest::key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_key<T: Into<std::option::Option<crate::model::Key>>>(mut self, v: T) -> Self {
-            self.0.request.key = v.into();
+        pub fn set_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [key][crate::model::UpdateKeyRequest::key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Key>,
+        {
+            self.0.request.key = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateKeyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -507,13 +689,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::delete_key][super::super::client::RecaptchaEnterpriseService::delete_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::delete_key][crate::client::RecaptchaEnterpriseService::delete_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::DeleteKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteKey(RequestBuilder<crate::model::DeleteKeyRequest>);
 
     impl DeleteKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -554,13 +752,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::migrate_key][super::super::client::RecaptchaEnterpriseService::migrate_key] calls.
+    /// The request builder for [RecaptchaEnterpriseService::migrate_key][crate::client::RecaptchaEnterpriseService::migrate_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::MigrateKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MigrateKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MigrateKey(RequestBuilder<crate::model::MigrateKeyRequest>);
 
     impl MigrateKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -607,13 +821,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::add_ip_override][super::super::client::RecaptchaEnterpriseService::add_ip_override] calls.
+    /// The request builder for [RecaptchaEnterpriseService::add_ip_override][crate::client::RecaptchaEnterpriseService::add_ip_override] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::AddIpOverride;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddIpOverride {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddIpOverride(RequestBuilder<crate::model::AddIpOverrideRequest>);
 
     impl AddIpOverride {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -649,11 +879,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ip_override_data = v.into();
+        pub fn set_ip_override_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ip_override_data][crate::model::AddIpOverrideRequest::ip_override_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = v.map(|x| x.into());
             self
         }
     }
@@ -665,13 +906,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][super::super::client::RecaptchaEnterpriseService::remove_ip_override] calls.
+    /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][crate::client::RecaptchaEnterpriseService::remove_ip_override] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::RemoveIpOverride;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveIpOverride {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveIpOverride(RequestBuilder<crate::model::RemoveIpOverrideRequest>);
 
     impl RemoveIpOverride {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -710,11 +967,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ip_override_data<T: Into<std::option::Option<crate::model::IpOverrideData>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ip_override_data = v.into();
+        pub fn set_ip_override_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ip_override_data][crate::model::RemoveIpOverrideRequest::ip_override_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ip_override_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IpOverrideData>,
+        {
+            self.0.request.ip_override_data = v.map(|x| x.into());
             self
         }
     }
@@ -726,13 +994,33 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][super::super::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][crate::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListIpOverrides;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIpOverrides {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIpOverrides(RequestBuilder<crate::model::ListIpOverridesRequest>);
 
     impl ListIpOverrides {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -757,8 +1045,8 @@ pub mod recaptcha_enterprise_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListIpOverridesResponse, gax::error::Error>
         {
@@ -770,6 +1058,15 @@ pub mod recaptcha_enterprise_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIpOverridesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListIpOverridesRequest::parent].
@@ -800,13 +1097,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::get_metrics][super::super::client::RecaptchaEnterpriseService::get_metrics] calls.
+    /// The request builder for [RecaptchaEnterpriseService::get_metrics][crate::client::RecaptchaEnterpriseService::get_metrics] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::GetMetrics;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMetrics(RequestBuilder<crate::model::GetMetricsRequest>);
 
     impl GetMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -847,13 +1160,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][super::super::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][crate::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::CreateFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFirewallPolicy(RequestBuilder<crate::model::CreateFirewallPolicyRequest>);
 
     impl CreateFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -892,11 +1221,22 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.firewall_policy = v.into();
+        pub fn set_firewall_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [firewall_policy][crate::model::CreateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = v.map(|x| x.into());
             self
         }
     }
@@ -908,13 +1248,33 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][super::super::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][crate::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListFirewallPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFirewallPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFirewallPolicies(RequestBuilder<crate::model::ListFirewallPoliciesRequest>);
 
     impl ListFirewallPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -942,8 +1302,8 @@ pub mod recaptcha_enterprise_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFirewallPoliciesResponse, gax::error::Error>
         {
@@ -955,6 +1315,17 @@ pub mod recaptcha_enterprise_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListFirewallPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFirewallPoliciesRequest::parent].
@@ -985,13 +1356,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][super::super::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][crate::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::GetFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFirewallPolicy(RequestBuilder<crate::model::GetFirewallPolicyRequest>);
 
     impl GetFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1035,13 +1422,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][super::super::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][crate::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFirewallPolicy(RequestBuilder<crate::model::UpdateFirewallPolicyRequest>);
 
     impl UpdateFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1072,20 +1475,40 @@ pub mod recaptcha_enterprise_service {
         /// Sets the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_firewall_policy<T: Into<std::option::Option<crate::model::FirewallPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.firewall_policy = v.into();
+        pub fn set_firewall_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [firewall_policy][crate::model::UpdateFirewallPolicyRequest::firewall_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_firewall_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FirewallPolicy>,
+        {
+            self.0.request.firewall_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFirewallPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1097,13 +1520,29 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][super::super::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
+    /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][crate::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFirewallPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFirewallPolicy(RequestBuilder<crate::model::DeleteFirewallPolicyRequest>);
 
     impl DeleteFirewallPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1147,7 +1586,23 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][super::super::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
+    /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][crate::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReorderFirewallPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReorderFirewallPolicies(
         RequestBuilder<crate::model::ReorderFirewallPoliciesRequest>,
@@ -1155,7 +1610,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ReorderFirewallPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1212,7 +1667,27 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][super::super::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][crate::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRelatedAccountGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroups(
         RequestBuilder<crate::model::ListRelatedAccountGroupsRequest>,
@@ -1220,7 +1695,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListRelatedAccountGroups {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1248,8 +1723,8 @@ pub mod recaptcha_enterprise_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupsResponse,
@@ -1263,6 +1738,17 @@ pub mod recaptcha_enterprise_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRelatedAccountGroupsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupsRequest::parent].
@@ -1293,7 +1779,27 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
+    /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][crate::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRelatedAccountGroupMemberships {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRelatedAccountGroupMemberships(
         RequestBuilder<crate::model::ListRelatedAccountGroupMembershipsRequest>,
@@ -1301,7 +1807,7 @@ pub mod recaptcha_enterprise_service {
 
     impl ListRelatedAccountGroupMemberships {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1331,8 +1837,8 @@ pub mod recaptcha_enterprise_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListRelatedAccountGroupMembershipsResponse,
@@ -1346,6 +1852,17 @@ pub mod recaptcha_enterprise_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRelatedAccountGroupMembershipsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRelatedAccountGroupMembershipsRequest::parent].
@@ -1376,7 +1893,27 @@ pub mod recaptcha_enterprise_service {
         }
     }
 
-    /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][super::super::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
+    /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][crate::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recaptchaenterprise_v1::builder;
+    /// use builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchRelatedAccountGroupMemberships {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchRelatedAccountGroupMemberships(
         RequestBuilder<crate::model::SearchRelatedAccountGroupMembershipsRequest>,
@@ -1384,7 +1921,7 @@ pub mod recaptcha_enterprise_service {
 
     impl SearchRelatedAccountGroupMemberships {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RecaptchaEnterpriseService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1414,8 +1951,8 @@ pub mod recaptcha_enterprise_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchRelatedAccountGroupMembershipsResponse,
@@ -1429,6 +1966,17 @@ pub mod recaptcha_enterprise_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchRelatedAccountGroupMembershipsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project][crate::model::SearchRelatedAccountGroupMembershipsRequest::project].

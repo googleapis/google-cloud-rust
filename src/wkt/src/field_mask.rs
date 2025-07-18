@@ -12,7 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// `FieldMask` represents a set of symbolic field paths, for example:
+/// `FieldMask` represents a set of symbolic field paths.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::FieldMask;
+/// let mask = FieldMask::default().set_paths(["f.a", "f.b.d"]);
+/// assert_eq!(mask.paths, vec!["f.a".to_string(), "f.b.d".to_string()]);
+/// # Ok::<(), anyhow::Error>(())
+/// ```
+///
+/// # Background
+///
+/// Consider this text proto representation:
 ///
 /// ```norust
 ///     paths: "f.a"
@@ -237,16 +249,23 @@
 /// The implementation of any API method which has a FieldMask type field in the
 /// request should verify the included field paths, and return an
 /// `INVALID_ARGUMENT` error if any path is unmappable.
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize)]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldMask {
     /// The set of field mask paths.
-    #[serde(deserialize_with = "crate::field_mask::deserialize_paths")]
     pub paths: Vec<String>,
 }
 
 impl FieldMask {
     /// Set the paths.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::FieldMask;
+    /// let mask = FieldMask::default().set_paths(["abc", "xyz"]);
+    /// assert_eq!(mask.paths, vec!["abc".to_string(), "xyz".to_string()]);
+    /// # Ok::<(), anyhow::Error>(())
+    /// ```
     pub fn set_paths<T, V>(mut self, paths: T) -> Self
     where
         T: IntoIterator<Item = V>,
@@ -261,29 +280,37 @@ impl crate::message::Message for FieldMask {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.FieldMask"
     }
+
+    #[allow(private_interfaces)]
+    fn serializer() -> impl crate::message::MessageSerializer<Self> {
+        crate::message::ValueSerializer::<Self>::new()
+    }
 }
 
-/// Implement [`serde`](::serde) serialization for [FieldMask]
+/// Implement [serde] serialization for [FieldMask]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for FieldMask {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        use serde::ser::SerializeStruct;
-        let mut state = serializer.serialize_struct("FieldMask", 1)?;
-        state.serialize_field("paths", &self.paths.join(","))?;
-        state.end()
+        serializer.serialize_str(&self.paths.join(","))
+    }
+}
+
+/// Implement [serde] deserialization for [FieldMask].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+impl<'de> serde::de::Deserialize<'de> for FieldMask {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        let paths = deserializer.deserialize_any(PathVisitor)?;
+        Ok(FieldMask { paths })
     }
 }
 
 struct PathVisitor;
-
-fn deserialize_paths<'de, D>(deserializer: D) -> Result<Vec<String>, D::Error>
-where
-    D: serde::de::Deserializer<'de>,
-{
-    deserializer.deserialize_str(PathVisitor)
-}
 
 impl serde::de::Visitor<'_> for PathVisitor {
     type Value = Vec<String>;
@@ -305,9 +332,9 @@ impl serde::de::Visitor<'_> for PathVisitor {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
-    use serde_json::json;
+    use serde_json::{Value, json};
     use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
@@ -317,12 +344,7 @@ mod test {
     #[test_case(vec!["field1", "field2", "field3"], "field1,field2,field3"; "Serialize multiple")]
     fn test_serialize(paths: Vec<&str>, want: &str) -> Result {
         let value = serde_json::to_value(FieldMask::default().set_paths(paths))?;
-        let got = value
-            .get("paths")
-            .ok_or("missing paths")?
-            .as_str()
-            .ok_or("paths is not str")?;
-        assert_eq!(want, got);
+        assert!(matches!(&value, Value::String(s) if s == want), "{value:?}");
         Ok(())
     }
 
@@ -330,7 +352,7 @@ mod test {
     #[test_case("field1", vec!["field1"]; "Deserialize single")]
     #[test_case("field1,field2,field3", vec!["field1" ,"field2", "field3"]; "Deserialize multiple")]
     fn test_deserialize(paths: &str, mut want: Vec<&str>) -> Result {
-        let value = json!({ "paths": paths });
+        let value = json!(paths);
         let mut got = serde_json::from_value::<FieldMask>(value)?;
         want.sort();
         got.paths.sort();
@@ -340,10 +362,13 @@ mod test {
 
     #[test]
     fn deserialize_unexpected_input_type() -> Result {
-        let got = serde_json::from_value::<FieldMask>(json!({"paths": {"a": "b"}}));
-        assert!(got.is_err());
-        let msg = format!("{got:?}");
-        assert!(msg.contains("field mask paths"), "message={}", msg);
+        let err = serde_json::from_value::<FieldMask>(json!({"paths": {"a": "b"}})).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+        let msg = err.to_string();
+        assert!(
+            msg.contains("field mask paths"),
+            "message={msg}, debug={err:?}"
+        );
         Ok(())
     }
 }

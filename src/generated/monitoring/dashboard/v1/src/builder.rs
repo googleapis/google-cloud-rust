@@ -16,9 +16,8 @@
 
 pub mod dashboards_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DashboardsService][super::super::client::DashboardsService].
+    /// A builder for [DashboardsService][crate::client::DashboardsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod dashboards_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod dashboards_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DashboardsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DashboardsService] request builders.
+    /// Common implementation for [crate::client::DashboardsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod dashboards_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::create_dashboard][super::super::client::DashboardsService::create_dashboard] calls.
+    /// The request builder for [DashboardsService::create_dashboard][crate::client::DashboardsService::create_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::CreateDashboard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDashboard(RequestBuilder<crate::model::CreateDashboardRequest>);
 
     impl CreateDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -107,11 +129,22 @@ pub mod dashboards_service {
         /// Sets the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dashboard<T: Into<std::option::Option<crate::model::Dashboard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dashboard = v.into();
+        pub fn set_dashboard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dashboard][crate::model::CreateDashboardRequest::dashboard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = v.map(|x| x.into());
             self
         }
 
@@ -129,12 +162,34 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::list_dashboards][super::super::client::DashboardsService::list_dashboards] calls.
+    /// The request builder for [DashboardsService::list_dashboards][crate::client::DashboardsService::list_dashboards] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::ListDashboards;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDashboards {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDashboards(RequestBuilder<crate::model::ListDashboardsRequest>);
 
     impl ListDashboards {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -158,8 +213,8 @@ pub mod dashboards_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDashboardsResponse, gax::error::Error>
         {
@@ -171,6 +226,15 @@ pub mod dashboards_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDashboardsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDashboardsRequest::parent].
@@ -201,12 +265,30 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::get_dashboard][super::super::client::DashboardsService::get_dashboard] calls.
+    /// The request builder for [DashboardsService::get_dashboard][crate::client::DashboardsService::get_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::GetDashboard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDashboard(RequestBuilder<crate::model::GetDashboardRequest>);
 
     impl GetDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,12 +328,30 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::delete_dashboard][super::super::client::DashboardsService::delete_dashboard] calls.
+    /// The request builder for [DashboardsService::delete_dashboard][crate::client::DashboardsService::delete_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::DeleteDashboard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDashboard(RequestBuilder<crate::model::DeleteDashboardRequest>);
 
     impl DeleteDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,12 +391,30 @@ pub mod dashboards_service {
         }
     }
 
-    /// The request builder for [DashboardsService::update_dashboard][super::super::client::DashboardsService::update_dashboard] calls.
+    /// The request builder for [DashboardsService::update_dashboard][crate::client::DashboardsService::update_dashboard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_monitoring_dashboard_v1::builder;
+    /// use builder::dashboards_service::UpdateDashboard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDashboard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDashboard(RequestBuilder<crate::model::UpdateDashboardRequest>);
 
     impl UpdateDashboard {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DashboardsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DashboardsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,11 +441,22 @@ pub mod dashboards_service {
         /// Sets the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dashboard<T: Into<std::option::Option<crate::model::Dashboard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dashboard = v.into();
+        pub fn set_dashboard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dashboard][crate::model::UpdateDashboardRequest::dashboard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dashboard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dashboard>,
+        {
+            self.0.request.dashboard = v.map(|x| x.into());
             self
         }
 

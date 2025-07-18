@@ -16,15 +16,15 @@ limitations under the License.
 
 # Error handling
 
-Sometimes applications need to branch based on the type and details of the
-error returned by the client library. This guide will show you how to write
-code to handle such errors.
+Sometimes applications need to branch based on the type and details of the error
+returned by the client library. This guide will show you how to write code to
+handle such errors.
 
-> **Retryable errors:** one of the most common reasons to handle
-> errors in distributed systems is to retry requests that fail due to transient
-> errors. The Google Cloud client libraries for Rust implement a policy-based
-> retry loop. You only need to configure the policies to enable the retry loop,
-> and the libraries implement common retry policies. Consult the
+> **Retryable errors:** one of the most common reasons to handle errors in
+> distributed systems is to retry requests that fail due to transient errors.
+> The Google Cloud client libraries for Rust implement a policy-based retry
+> loop. You only need to configure the policies to enable the retry loop, and
+> the libraries implement common retry policies. Consult the
 > [Configuring Retry Policies] section before implementing your own retry loop.
 
 ## Prerequisites
@@ -39,8 +39,8 @@ and that your account has the necessary permissions.
 
 ### Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file. We use:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file. We use:
 
 ```toml
 {{#include ../samples/Cargo.toml:secretmanager}}
@@ -57,11 +57,11 @@ In addition, this guide uses `crc32c` to calculate the checksum:
 In this guide we will create a new *secret version*. Secret versions are
 contained in *secrets*. One must create the secret before creating secret
 versions. A common pattern in cloud services is to use a resource as-if the
-container for it existed, and only create the container if there is an error.
-If the container exists most of the time, such an approach is more efficient
-than checking if the container exists before making the request. Checking if
-the container exists consumes more quota, results in more RPC charges, and is
-slower when the container already exists.
+container for it existed, and only create the container if there is an error. If
+the container exists most of the time, such an approach is more efficient than
+checking if the container exists before making the request. Checking if the
+container exists consumes more quota, results in more RPC charges, and is slower
+when the container already exists.
 
 ## Handling the error
 
@@ -92,10 +92,6 @@ and then only in errors that correspond to a missing secret:
 
 ```rust,ignore
 {{#include ../samples/src/error_handling.rs:update-secret-not-found}}
-```
-
-```rust,ignore
-{{#include ../samples/src/error_handling.rs:examine-error}}
 ```
 
 If this is a "not found" error, we try to create the secret. This will simply

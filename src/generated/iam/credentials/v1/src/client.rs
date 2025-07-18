@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the IAM Service Account Credentials API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
 /// let client = IAMCredentials::builder().build().await?;
 /// // use `client` to make requests to the IAM Service Account Credentials API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -66,11 +63,11 @@ use std::sync::Arc;
 ///
 /// `IAMCredentials` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IAMCredentials` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct IAMCredentials {
-    inner: Arc<dyn super::stub::dynamic::IAMCredentials>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::IAMCredentials>,
 }
 
 impl IAMCredentials {
@@ -80,7 +77,7 @@ impl IAMCredentials {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
     /// let client = IAMCredentials::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::iam_credentials::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::iam_credentials::client::Factory)
@@ -95,69 +92,57 @@ impl IAMCredentials {
         T: super::stub::IAMCredentials + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::IAMCredentials>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMCredentials>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::IAMCredentials> {
+    ) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
         super::transport::IAMCredentials::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::IAMCredentials> {
+    ) -> gax::client_builder::Result<impl super::stub::IAMCredentials> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IAMCredentials::new)
     }
 
     /// Generates an OAuth 2.0 access token for a service account.
-    pub fn generate_access_token(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::GenerateAccessToken {
+    pub fn generate_access_token(&self) -> super::builder::iam_credentials::GenerateAccessToken {
         super::builder::iam_credentials::GenerateAccessToken::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Generates an OpenID Connect ID token for a service account.
-    pub fn generate_id_token(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::GenerateIdToken {
+    pub fn generate_id_token(&self) -> super::builder::iam_credentials::GenerateIdToken {
         super::builder::iam_credentials::GenerateIdToken::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Signs a blob using a service account's system-managed private key.
-    pub fn sign_blob(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::SignBlob {
-        super::builder::iam_credentials::SignBlob::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_blob(&self) -> super::builder::iam_credentials::SignBlob {
+        super::builder::iam_credentials::SignBlob::new(self.inner.clone())
     }
 
     /// Signs a JWT using a service account's system-managed private key.
-    pub fn sign_jwt(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::iam_credentials::SignJwt {
-        super::builder::iam_credentials::SignJwt::new(self.inner.clone()).set_name(name.into())
+    pub fn sign_jwt(&self) -> super::builder::iam_credentials::SignJwt {
+        super::builder::iam_credentials::SignJwt::new(self.inner.clone())
     }
 }

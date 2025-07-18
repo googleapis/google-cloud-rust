@@ -660,6 +660,51 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn create_schema_bundle(
+        &self,
+        req: crate::model::CreateSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_schema_bundle(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_schema_bundle(
+        &self,
+        req: crate::model::UpdateSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_schema_bundle(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_schema_bundle(
+        &self,
+        req: crate::model::GetSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SchemaBundle>> {
+        self.inner.get_schema_bundle(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_schema_bundles(
+        &self,
+        req: crate::model::ListSchemaBundlesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>> {
+        self.inner.list_schema_bundles(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_schema_bundle(
+        &self,
+        req: crate::model::DeleteSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_schema_bundle(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,

@@ -16,9 +16,8 @@
 
 pub mod parameter_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ParameterManager][super::super::client::ParameterManager].
+    /// A builder for [ParameterManager][crate::client::ParameterManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod parameter_manager {
     /// let client = builder
     ///     .with_endpoint("https://parametermanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod parameter_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ParameterManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ParameterManager] request builders.
+    /// Common implementation for [crate::client::ParameterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod parameter_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::list_parameters][super::super::client::ParameterManager::list_parameters] calls.
+    /// The request builder for [ParameterManager::list_parameters][crate::client::ParameterManager::list_parameters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::ListParameters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListParameters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListParameters(RequestBuilder<crate::model::ListParametersRequest>);
 
     impl ListParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod parameter_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListParametersResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod parameter_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListParametersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListParametersRequest::parent].
@@ -151,12 +186,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::get_parameter][super::super::client::ParameterManager::get_parameter] calls.
+    /// The request builder for [ParameterManager::get_parameter][crate::client::ParameterManager::get_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::GetParameter;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetParameter(RequestBuilder<crate::model::GetParameterRequest>);
 
     impl GetParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::create_parameter][super::super::client::ParameterManager::create_parameter] calls.
+    /// The request builder for [ParameterManager::create_parameter][crate::client::ParameterManager::create_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::CreateParameter;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateParameter(RequestBuilder<crate::model::CreateParameterRequest>);
 
     impl CreateParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,11 +315,22 @@ pub mod parameter_manager {
         /// Sets the value of [parameter][crate::model::CreateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter = v.into();
+        pub fn set_parameter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter][crate::model::CreateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = v.map(|x| x.into());
             self
         }
 
@@ -266,12 +348,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::update_parameter][super::super::client::ParameterManager::update_parameter] calls.
+    /// The request builder for [ParameterManager::update_parameter][crate::client::ParameterManager::update_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::UpdateParameter;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateParameter(RequestBuilder<crate::model::UpdateParameterRequest>);
 
     impl UpdateParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -296,22 +396,42 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateParameterRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameter][crate::model::UpdateParameterRequest::parameter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter<T: Into<std::option::Option<crate::model::Parameter>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter = v.into();
+        pub fn set_parameter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter][crate::model::UpdateParameterRequest::parameter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Parameter>,
+        {
+            self.0.request.parameter = v.map(|x| x.into());
             self
         }
 
@@ -329,12 +449,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::delete_parameter][super::super::client::ParameterManager::delete_parameter] calls.
+    /// The request builder for [ParameterManager::delete_parameter][crate::client::ParameterManager::delete_parameter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::DeleteParameter;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteParameter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteParameter(RequestBuilder<crate::model::DeleteParameterRequest>);
 
     impl DeleteParameter {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -380,12 +518,34 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::list_parameter_versions][super::super::client::ParameterManager::list_parameter_versions] calls.
+    /// The request builder for [ParameterManager::list_parameter_versions][crate::client::ParameterManager::list_parameter_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::ListParameterVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListParameterVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListParameterVersions(RequestBuilder<crate::model::ListParameterVersionsRequest>);
 
     impl ListParameterVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -412,8 +572,8 @@ pub mod parameter_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListParameterVersionsResponse, gax::error::Error>
         {
@@ -425,6 +585,17 @@ pub mod parameter_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListParameterVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListParameterVersionsRequest::parent].
@@ -467,12 +638,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::get_parameter_version][super::super::client::ParameterManager::get_parameter_version] calls.
+    /// The request builder for [ParameterManager::get_parameter_version][crate::client::ParameterManager::get_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::GetParameterVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetParameterVersion(RequestBuilder<crate::model::GetParameterVersionRequest>);
 
     impl GetParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -521,12 +710,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::render_parameter_version][super::super::client::ParameterManager::render_parameter_version] calls.
+    /// The request builder for [ParameterManager::render_parameter_version][crate::client::ParameterManager::render_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::RenderParameterVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenderParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenderParameterVersion(RequestBuilder<crate::model::RenderParameterVersionRequest>);
 
     impl RenderParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -569,12 +776,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::create_parameter_version][super::super::client::ParameterManager::create_parameter_version] calls.
+    /// The request builder for [ParameterManager::create_parameter_version][crate::client::ParameterManager::create_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::CreateParameterVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateParameterVersion(RequestBuilder<crate::model::CreateParameterVersionRequest>);
 
     impl CreateParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -620,13 +845,22 @@ pub mod parameter_manager {
         /// Sets the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter_version<
-            T: Into<std::option::Option<crate::model::ParameterVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter_version = v.into();
+        pub fn set_parameter_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter_version][crate::model::CreateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = v.map(|x| x.into());
             self
         }
 
@@ -644,12 +878,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::update_parameter_version][super::super::client::ParameterManager::update_parameter_version] calls.
+    /// The request builder for [ParameterManager::update_parameter_version][crate::client::ParameterManager::update_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::UpdateParameterVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateParameterVersion(RequestBuilder<crate::model::UpdateParameterVersionRequest>);
 
     impl UpdateParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -677,24 +929,42 @@ pub mod parameter_manager {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateParameterVersionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_parameter_version<
-            T: Into<std::option::Option<crate::model::ParameterVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.parameter_version = v.into();
+        pub fn set_parameter_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameter_version][crate::model::UpdateParameterVersionRequest::parameter_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_parameter_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ParameterVersion>,
+        {
+            self.0.request.parameter_version = v.map(|x| x.into());
             self
         }
 
@@ -712,12 +982,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::delete_parameter_version][super::super::client::ParameterManager::delete_parameter_version] calls.
+    /// The request builder for [ParameterManager::delete_parameter_version][crate::client::ParameterManager::delete_parameter_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::DeleteParameterVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteParameterVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteParameterVersion(RequestBuilder<crate::model::DeleteParameterVersionRequest>);
 
     impl DeleteParameterVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -766,12 +1054,34 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::list_locations][super::super::client::ParameterManager::list_locations] calls.
+    /// The request builder for [ParameterManager::list_locations][crate::client::ParameterManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -798,8 +1108,8 @@ pub mod parameter_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -811,6 +1121,15 @@ pub mod parameter_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -845,12 +1164,30 @@ pub mod parameter_manager {
         }
     }
 
-    /// The request builder for [ParameterManager::get_location][super::super::client::ParameterManager::get_location] calls.
+    /// The request builder for [ParameterManager::get_location][crate::client::ParameterManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_parametermanager_v1::builder;
+    /// use builder::parameter_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ParameterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ParameterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

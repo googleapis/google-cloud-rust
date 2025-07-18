@@ -18,9 +18,6 @@
 #![allow(rustdoc::bare_urls)]
 #![allow(rustdoc::invalid_html_tags)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the OS Config API.
 ///
 /// # Example
@@ -29,7 +26,7 @@ use std::sync::Arc;
 /// # use google_cloud_osconfig_v1::client::OsConfigService;
 /// let client = OsConfigService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -63,11 +60,11 @@ use std::sync::Arc;
 ///
 /// `OsConfigService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `OsConfigService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct OsConfigService {
-    inner: Arc<dyn super::stub::dynamic::OsConfigService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::OsConfigService>,
 }
 
 impl OsConfigService {
@@ -77,7 +74,7 @@ impl OsConfigService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// let client = OsConfigService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::os_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -94,170 +91,131 @@ impl OsConfigService {
         T: super::stub::OsConfigService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::OsConfigService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsConfigService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigService> {
         super::transport::OsConfigService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsConfigService::new)
     }
 
     /// Patch VM instances by creating and running a patch job.
-    pub fn execute_patch_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::ExecutePatchJob {
+    pub fn execute_patch_job(&self) -> super::builder::os_config_service::ExecutePatchJob {
         super::builder::os_config_service::ExecutePatchJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get the patch job. This can be used to track the progress of an
     /// ongoing patch job or review the details of completed jobs.
-    pub fn get_patch_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::GetPatchJob {
+    pub fn get_patch_job(&self) -> super::builder::os_config_service::GetPatchJob {
         super::builder::os_config_service::GetPatchJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Cancel a patch job. The patch job must be active. Canceled patch jobs
     /// cannot be restarted.
-    pub fn cancel_patch_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::CancelPatchJob {
+    pub fn cancel_patch_job(&self) -> super::builder::os_config_service::CancelPatchJob {
         super::builder::os_config_service::CancelPatchJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get a list of patch jobs.
-    pub fn list_patch_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::ListPatchJobs {
+    pub fn list_patch_jobs(&self) -> super::builder::os_config_service::ListPatchJobs {
         super::builder::os_config_service::ListPatchJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get a list of instance details for a given patch job.
     pub fn list_patch_job_instance_details(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_service::ListPatchJobInstanceDetails {
         super::builder::os_config_service::ListPatchJobInstanceDetails::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Create an OS Config patch deployment.
     pub fn create_patch_deployment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_service::CreatePatchDeployment {
         super::builder::os_config_service::CreatePatchDeployment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get an OS Config patch deployment.
-    pub fn get_patch_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::GetPatchDeployment {
+    pub fn get_patch_deployment(&self) -> super::builder::os_config_service::GetPatchDeployment {
         super::builder::os_config_service::GetPatchDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get a page of OS Config patch deployments.
     pub fn list_patch_deployments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_service::ListPatchDeployments {
         super::builder::os_config_service::ListPatchDeployments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Delete an OS Config patch deployment.
     pub fn delete_patch_deployment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_service::DeletePatchDeployment {
         super::builder::os_config_service::DeletePatchDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update an OS Config patch deployment.
     pub fn update_patch_deployment(
         &self,
-        patch_deployment: impl Into<crate::model::PatchDeployment>,
     ) -> super::builder::os_config_service::UpdatePatchDeployment {
         super::builder::os_config_service::UpdatePatchDeployment::new(self.inner.clone())
-            .set_patch_deployment(patch_deployment.into())
     }
 
     /// Change state of patch deployment to "PAUSED".
     /// Patch deployment in paused state doesn't generate patch jobs.
     pub fn pause_patch_deployment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_service::PausePatchDeployment {
         super::builder::os_config_service::PausePatchDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Change state of patch deployment back to "ACTIVE".
     /// Patch deployment in active state continues to generate patch jobs.
     pub fn resume_patch_deployment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_service::ResumePatchDeployment {
         super::builder::os_config_service::ResumePatchDeployment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::os_config_service::GetOperation {
         super::builder::os_config_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::os_config_service::CancelOperation {
         super::builder::os_config_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -269,7 +227,7 @@ impl OsConfigService {
 /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
 /// let client = OsConfigZonalService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -303,11 +261,11 @@ impl OsConfigService {
 ///
 /// `OsConfigZonalService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `OsConfigZonalService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct OsConfigZonalService {
-    inner: Arc<dyn super::stub::dynamic::OsConfigZonalService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::OsConfigZonalService>,
 }
 
 impl OsConfigZonalService {
@@ -317,7 +275,7 @@ impl OsConfigZonalService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// let client = OsConfigZonalService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::os_config_zonal_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -334,33 +292,36 @@ impl OsConfigZonalService {
         T: super::stub::OsConfigZonalService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::OsConfigZonalService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::OsConfigZonalService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigZonalService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigZonalService> {
         super::transport::OsConfigZonalService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::OsConfigZonalService> {
+    ) -> gax::client_builder::Result<impl super::stub::OsConfigZonalService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::OsConfigZonalService::new)
@@ -387,10 +348,8 @@ impl OsConfigZonalService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_os_policy_assignment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::CreateOSPolicyAssignment {
         super::builder::os_config_zonal_service::CreateOSPolicyAssignment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update an existing OS policy assignment.
@@ -414,10 +373,8 @@ impl OsConfigZonalService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_os_policy_assignment(
         &self,
-        os_policy_assignment: impl Into<crate::model::OSPolicyAssignment>,
     ) -> super::builder::os_config_zonal_service::UpdateOSPolicyAssignment {
         super::builder::os_config_zonal_service::UpdateOSPolicyAssignment::new(self.inner.clone())
-            .set_os_policy_assignment(os_policy_assignment.into())
     }
 
     /// Retrieve an existing OS policy assignment.
@@ -427,10 +384,8 @@ impl OsConfigZonalService {
     /// `name` parameter.
     pub fn get_os_policy_assignment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::GetOSPolicyAssignment {
         super::builder::os_config_zonal_service::GetOSPolicyAssignment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List the OS policy assignments under the parent resource.
@@ -438,21 +393,17 @@ impl OsConfigZonalService {
     /// For each OS policy assignment, the latest revision is returned.
     pub fn list_os_policy_assignments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::ListOSPolicyAssignments {
         super::builder::os_config_zonal_service::ListOSPolicyAssignments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// List the OS policy assignment revisions for a given OS policy assignment.
     pub fn list_os_policy_assignment_revisions(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions {
         super::builder::os_config_zonal_service::ListOSPolicyAssignmentRevisions::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Delete the OS policy assignment.
@@ -479,93 +430,67 @@ impl OsConfigZonalService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_os_policy_assignment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::DeleteOSPolicyAssignment {
         super::builder::os_config_zonal_service::DeleteOSPolicyAssignment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get the OS policy asssignment report for the specified Compute Engine VM
     /// instance.
     pub fn get_os_policy_assignment_report(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::GetOSPolicyAssignmentReport {
         super::builder::os_config_zonal_service::GetOSPolicyAssignmentReport::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// List OS policy asssignment reports for all Compute Engine VM instances in
     /// the specified zone.
     pub fn list_os_policy_assignment_reports(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::ListOSPolicyAssignmentReports {
         super::builder::os_config_zonal_service::ListOSPolicyAssignmentReports::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Get inventory data for the specified VM instance. If the VM has no
     /// associated inventory, the message `NOT_FOUND` is returned.
-    pub fn get_inventory(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_zonal_service::GetInventory {
+    pub fn get_inventory(&self) -> super::builder::os_config_zonal_service::GetInventory {
         super::builder::os_config_zonal_service::GetInventory::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List inventory data for all VM instances in the specified zone.
-    pub fn list_inventories(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::os_config_zonal_service::ListInventories {
+    pub fn list_inventories(&self) -> super::builder::os_config_zonal_service::ListInventories {
         super::builder::os_config_zonal_service::ListInventories::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the vulnerability report for the specified VM instance. Only VMs with
     /// inventory data have vulnerability reports associated with them.
     pub fn get_vulnerability_report(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::GetVulnerabilityReport {
         super::builder::os_config_zonal_service::GetVulnerabilityReport::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List vulnerability reports for all VM instances in the specified zone.
     pub fn list_vulnerability_reports(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::os_config_zonal_service::ListVulnerabilityReports {
         super::builder::os_config_zonal_service::ListVulnerabilityReports::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_zonal_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::os_config_zonal_service::GetOperation {
         super::builder::os_config_zonal_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::os_config_zonal_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::os_config_zonal_service::CancelOperation {
         super::builder::os_config_zonal_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

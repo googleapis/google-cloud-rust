@@ -16,9 +16,8 @@
 
 pub mod lookup_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [LookupService][super::super::client::LookupService].
+    /// A builder for [LookupService][crate::client::LookupService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod lookup_service {
     /// let client = builder
     ///     .with_endpoint("https://servicedirectory.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod lookup_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LookupService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::LookupService] request builders.
+    /// Common implementation for [crate::client::LookupService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LookupService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod lookup_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod lookup_service {
         }
     }
 
-    /// The request builder for [LookupService::resolve_service][super::super::client::LookupService::resolve_service] calls.
+    /// The request builder for [LookupService::resolve_service][crate::client::LookupService::resolve_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::lookup_service::ResolveService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResolveService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResolveService(RequestBuilder<crate::model::ResolveServiceRequest>);
 
     impl ResolveService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -124,12 +146,34 @@ pub mod lookup_service {
         }
     }
 
-    /// The request builder for [LookupService::list_locations][super::super::client::LookupService::list_locations] calls.
+    /// The request builder for [LookupService::list_locations][crate::client::LookupService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::lookup_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -156,8 +200,8 @@ pub mod lookup_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -169,6 +213,15 @@ pub mod lookup_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -203,12 +256,30 @@ pub mod lookup_service {
         }
     }
 
-    /// The request builder for [LookupService::get_location][super::super::client::LookupService::get_location] calls.
+    /// The request builder for [LookupService::get_location][crate::client::LookupService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::lookup_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LookupService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LookupService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -249,9 +320,8 @@ pub mod lookup_service {
 
 pub mod registration_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RegistrationService][super::super::client::RegistrationService].
+    /// A builder for [RegistrationService][crate::client::RegistrationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -262,7 +332,7 @@ pub mod registration_service {
     /// let client = builder
     ///     .with_endpoint("https://servicedirectory.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -273,16 +343,19 @@ pub mod registration_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RegistrationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RegistrationService] request builders.
+    /// Common implementation for [crate::client::RegistrationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -291,7 +364,9 @@ pub mod registration_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -300,12 +375,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::create_namespace][super::super::client::RegistrationService::create_namespace] calls.
+    /// The request builder for [RegistrationService::create_namespace][crate::client::RegistrationService::create_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::CreateNamespace;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNamespace(RequestBuilder<crate::model::CreateNamespaceRequest>);
 
     impl CreateNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -348,11 +441,22 @@ pub mod registration_service {
         /// Sets the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
-        pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.namespace = v.into();
+        pub fn set_namespace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [namespace][crate::model::CreateNamespaceRequest::namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = v.map(|x| x.into());
             self
         }
     }
@@ -364,12 +468,34 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_namespaces][super::super::client::RegistrationService::list_namespaces] calls.
+    /// The request builder for [RegistrationService::list_namespaces][crate::client::RegistrationService::list_namespaces] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListNamespaces;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNamespaces {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNamespaces(RequestBuilder<crate::model::ListNamespacesRequest>);
 
     impl ListNamespaces {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -393,8 +519,8 @@ pub mod registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNamespacesResponse, gax::error::Error>
         {
@@ -406,6 +532,15 @@ pub mod registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNamespacesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNamespacesRequest::parent].
@@ -448,12 +583,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_namespace][super::super::client::RegistrationService::get_namespace] calls.
+    /// The request builder for [RegistrationService::get_namespace][crate::client::RegistrationService::get_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetNamespace;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNamespace(RequestBuilder<crate::model::GetNamespaceRequest>);
 
     impl GetNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -493,12 +646,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::update_namespace][super::super::client::RegistrationService::update_namespace] calls.
+    /// The request builder for [RegistrationService::update_namespace][crate::client::RegistrationService::update_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::UpdateNamespace;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNamespace(RequestBuilder<crate::model::UpdateNamespaceRequest>);
 
     impl UpdateNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -525,22 +696,44 @@ pub mod registration_service {
         /// Sets the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
         ///
         /// This is a **required** field for requests.
-        pub fn set_namespace<T: Into<std::option::Option<crate::model::Namespace>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.namespace = v.into();
+        pub fn set_namespace<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [namespace][crate::model::UpdateNamespaceRequest::namespace].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_namespace<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Namespace>,
+        {
+            self.0.request.namespace = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNamespaceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -552,12 +745,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::delete_namespace][super::super::client::RegistrationService::delete_namespace] calls.
+    /// The request builder for [RegistrationService::delete_namespace][crate::client::RegistrationService::delete_namespace] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::DeleteNamespace;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNamespace {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNamespace(RequestBuilder<crate::model::DeleteNamespaceRequest>);
 
     impl DeleteNamespace {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -597,12 +808,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::create_service][super::super::client::RegistrationService::create_service] calls.
+    /// The request builder for [RegistrationService::create_service][crate::client::RegistrationService::create_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::CreateService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -645,11 +874,22 @@ pub mod registration_service {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
     }
@@ -661,12 +901,34 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_services][super::super::client::RegistrationService::list_services] calls.
+    /// The request builder for [RegistrationService::list_services][crate::client::RegistrationService::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,8 +952,8 @@ pub mod registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -703,6 +965,15 @@ pub mod registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
@@ -745,12 +1016,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_service][super::super::client::RegistrationService::get_service] calls.
+    /// The request builder for [RegistrationService::get_service][crate::client::RegistrationService::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -790,12 +1079,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::update_service][super::super::client::RegistrationService::update_service] calls.
+    /// The request builder for [RegistrationService::update_service][crate::client::RegistrationService::update_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::UpdateService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -822,22 +1129,44 @@ pub mod registration_service {
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -849,12 +1178,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::delete_service][super::super::client::RegistrationService::delete_service] calls.
+    /// The request builder for [RegistrationService::delete_service][crate::client::RegistrationService::delete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::DeleteService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -894,12 +1241,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::create_endpoint][super::super::client::RegistrationService::create_endpoint] calls.
+    /// The request builder for [RegistrationService::create_endpoint][crate::client::RegistrationService::create_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::CreateEndpoint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEndpoint(RequestBuilder<crate::model::CreateEndpointRequest>);
 
     impl CreateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -942,11 +1307,22 @@ pub mod registration_service {
         /// Sets the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [endpoint][crate::model::CreateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
     }
@@ -958,12 +1334,34 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_endpoints][super::super::client::RegistrationService::list_endpoints] calls.
+    /// The request builder for [RegistrationService::list_endpoints][crate::client::RegistrationService::list_endpoints] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListEndpoints;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEndpoints {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEndpoints(RequestBuilder<crate::model::ListEndpointsRequest>);
 
     impl ListEndpoints {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -987,8 +1385,8 @@ pub mod registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEndpointsResponse, gax::error::Error>
         {
@@ -1000,6 +1398,15 @@ pub mod registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEndpointsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEndpointsRequest::parent].
@@ -1042,12 +1449,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_endpoint][super::super::client::RegistrationService::get_endpoint] calls.
+    /// The request builder for [RegistrationService::get_endpoint][crate::client::RegistrationService::get_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetEndpoint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEndpoint(RequestBuilder<crate::model::GetEndpointRequest>);
 
     impl GetEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1087,12 +1512,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::update_endpoint][super::super::client::RegistrationService::update_endpoint] calls.
+    /// The request builder for [RegistrationService::update_endpoint][crate::client::RegistrationService::update_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::UpdateEndpoint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEndpoint(RequestBuilder<crate::model::UpdateEndpointRequest>);
 
     impl UpdateEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1119,22 +1562,44 @@ pub mod registration_service {
         /// Sets the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
         ///
         /// This is a **required** field for requests.
-        pub fn set_endpoint<T: Into<std::option::Option<crate::model::Endpoint>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.endpoint = v.into();
+        pub fn set_endpoint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [endpoint][crate::model::UpdateEndpointRequest::endpoint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_endpoint<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Endpoint>,
+        {
+            self.0.request.endpoint = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEndpointRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1146,12 +1611,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::delete_endpoint][super::super::client::RegistrationService::delete_endpoint] calls.
+    /// The request builder for [RegistrationService::delete_endpoint][crate::client::RegistrationService::delete_endpoint] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::DeleteEndpoint;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEndpoint {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEndpoint(RequestBuilder<crate::model::DeleteEndpointRequest>);
 
     impl DeleteEndpoint {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1191,12 +1674,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_iam_policy][super::super::client::RegistrationService::get_iam_policy] calls.
+    /// The request builder for [RegistrationService::get_iam_policy][crate::client::RegistrationService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1229,11 +1730,20 @@ pub mod registration_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1245,12 +1755,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::set_iam_policy][super::super::client::RegistrationService::set_iam_policy] calls.
+    /// The request builder for [RegistrationService::set_iam_policy][crate::client::RegistrationService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1285,20 +1813,40 @@ pub mod registration_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1310,12 +1858,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::test_iam_permissions][super::super::client::RegistrationService::test_iam_permissions] calls.
+    /// The request builder for [RegistrationService::test_iam_permissions][crate::client::RegistrationService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1371,12 +1937,34 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::list_locations][super::super::client::RegistrationService::list_locations] calls.
+    /// The request builder for [RegistrationService::list_locations][crate::client::RegistrationService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1403,8 +1991,8 @@ pub mod registration_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1416,6 +2004,15 @@ pub mod registration_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1450,12 +2047,30 @@ pub mod registration_service {
         }
     }
 
-    /// The request builder for [RegistrationService::get_location][super::super::client::RegistrationService::get_location] calls.
+    /// The request builder for [RegistrationService::get_location][crate::client::RegistrationService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicedirectory_v1::builder;
+    /// use builder::registration_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RegistrationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RegistrationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

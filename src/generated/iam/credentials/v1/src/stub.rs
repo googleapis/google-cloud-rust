@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::IAMCredentials].
@@ -48,9 +46,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IAMCredentials::generate_id_token].
@@ -61,9 +57,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::GenerateIdTokenResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IAMCredentials::sign_blob].
@@ -74,9 +68,7 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SignBlobResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SignBlobResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::IAMCredentials::sign_jwt].
@@ -87,8 +79,6 @@ pub trait IAMCredentials: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::SignJwtResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::SignJwtResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

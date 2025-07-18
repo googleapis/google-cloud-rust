@@ -16,9 +16,8 @@
 
 pub mod dataset_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DatasetService][super::super::client::DatasetService].
+    /// A builder for [DatasetService][crate::client::DatasetService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod dataset_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod dataset_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DatasetService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DatasetService] request builders.
+    /// Common implementation for [crate::client::DatasetService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DatasetService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod dataset_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::get_dataset][super::super::client::DatasetService::get_dataset] calls.
+    /// The request builder for [DatasetService::get_dataset][crate::client::DatasetService::get_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::GetDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -135,12 +157,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::insert_dataset][super::super::client::DatasetService::insert_dataset] calls.
+    /// The request builder for [DatasetService::insert_dataset][crate::client::DatasetService::insert_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::InsertDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertDataset(RequestBuilder<crate::model::InsertDatasetRequest>);
 
     impl InsertDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -175,11 +215,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::InsertDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::InsertDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -197,12 +248,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::patch_dataset][super::super::client::DatasetService::patch_dataset] calls.
+    /// The request builder for [DatasetService::patch_dataset][crate::client::DatasetService::patch_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::PatchDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PatchDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl PatchDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -248,11 +317,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -281,12 +361,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::update_dataset][super::super::client::DatasetService::update_dataset] calls.
+    /// The request builder for [DatasetService::update_dataset][crate::client::DatasetService::update_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::UpdateDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateOrPatchDatasetRequest>);
 
     impl UpdateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -332,11 +430,22 @@ pub mod dataset_service {
         /// Sets the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::UpdateOrPatchDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -365,12 +474,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::delete_dataset][super::super::client::DatasetService::delete_dataset] calls.
+    /// The request builder for [DatasetService::delete_dataset][crate::client::DatasetService::delete_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::DeleteDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -424,12 +551,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::list_datasets][super::super::client::DatasetService::list_datasets] calls.
+    /// The request builder for [DatasetService::list_datasets][crate::client::DatasetService::list_datasets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::ListDatasets;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatasets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -462,11 +607,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListDatasetsRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::ListDatasetsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -496,12 +650,30 @@ pub mod dataset_service {
         }
     }
 
-    /// The request builder for [DatasetService::undelete_dataset][super::super::client::DatasetService::undelete_dataset] calls.
+    /// The request builder for [DatasetService::undelete_dataset][crate::client::DatasetService::undelete_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::dataset_service::UndeleteDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteDataset(RequestBuilder<crate::model::UndeleteDatasetRequest>);
 
     impl UndeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DatasetService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DatasetService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -542,11 +714,20 @@ pub mod dataset_service {
         }
 
         /// Sets the value of [deletion_time][crate::model::UndeleteDatasetRequest::deletion_time].
-        pub fn set_deletion_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deletion_time = v.into();
+        pub fn set_deletion_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.deletion_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deletion_time][crate::model::UndeleteDatasetRequest::deletion_time].
+        pub fn set_or_clear_deletion_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.deletion_time = v.map(|x| x.into());
             self
         }
     }
@@ -561,9 +742,8 @@ pub mod dataset_service {
 
 pub mod job_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [JobService][super::super::client::JobService].
+    /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -574,7 +754,7 @@ pub mod job_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -585,16 +765,19 @@ pub mod job_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = JobService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::JobService] request builders.
+    /// Common implementation for [crate::client::JobService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::JobService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -603,7 +786,9 @@ pub mod job_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -612,12 +797,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::cancel_job][super::super::client::JobService::cancel_job] calls.
+    /// The request builder for [JobService::cancel_job][crate::client::JobService::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::CancelJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -671,12 +874,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::get_job][super::super::client::JobService::get_job] calls.
+    /// The request builder for [JobService::get_job][crate::client::JobService::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -730,12 +951,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::insert_job][super::super::client::JobService::insert_job] calls.
+    /// The request builder for [JobService::insert_job][crate::client::JobService::insert_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::InsertJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertJob(RequestBuilder<crate::model::InsertJobRequest>);
 
     impl InsertJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -766,8 +1005,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [job][crate::model::InsertJobRequest::job].
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::InsertJobRequest::job].
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -779,12 +1030,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::delete_job][super::super::client::JobService::delete_job] calls.
+    /// The request builder for [JobService::delete_job][crate::client::JobService::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -838,12 +1107,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::list_jobs][super::super::client::JobService::list_jobs] calls.
+    /// The request builder for [JobService::list_jobs][crate::client::JobService::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::ListJobs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -880,11 +1167,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListJobsRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::Int32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Int32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::ListJobsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Int32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -895,11 +1191,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [max_creation_time][crate::model::ListJobsRequest::max_creation_time].
-        pub fn set_max_creation_time<T: Into<std::option::Option<wkt::UInt64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_creation_time = v.into();
+        pub fn set_max_creation_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.max_creation_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_creation_time][crate::model::ListJobsRequest::max_creation_time].
+        pub fn set_or_clear_max_creation_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.max_creation_time = v.map(|x| x.into());
             self
         }
 
@@ -918,12 +1223,6 @@ pub mod job_service {
             self
         }
 
-        /// Sets the value of [parent_job_id][crate::model::ListJobsRequest::parent_job_id].
-        pub fn set_parent_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.parent_job_id = v.into();
-            self
-        }
-
         /// Sets the value of [state_filter][crate::model::ListJobsRequest::state_filter].
         pub fn set_state_filter<T, V>(mut self, v: T) -> Self
         where
@@ -932,6 +1231,12 @@ pub mod job_service {
         {
             use std::iter::Iterator;
             self.0.request.state_filter = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [parent_job_id][crate::model::ListJobsRequest::parent_job_id].
+        pub fn set_parent_job_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent_job_id = v.into();
             self
         }
     }
@@ -943,12 +1248,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::get_query_results][super::super::client::JobService::get_query_results] calls.
+    /// The request builder for [JobService::get_query_results][crate::client::JobService::get_query_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::GetQueryResults;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQueryResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQueryResults(RequestBuilder<crate::model::GetQueryResultsRequest>);
 
     impl GetQueryResults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -989,11 +1312,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [start_index][crate::model::GetQueryResultsRequest::start_index].
-        pub fn set_start_index<T: Into<std::option::Option<wkt::UInt64Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_index = v.into();
+        pub fn set_start_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.start_index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_index][crate::model::GetQueryResultsRequest::start_index].
+        pub fn set_or_clear_start_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt64Value>,
+        {
+            self.0.request.start_index = v.map(|x| x.into());
             self
         }
 
@@ -1004,20 +1336,38 @@ pub mod job_service {
         }
 
         /// Sets the value of [max_results][crate::model::GetQueryResultsRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::GetQueryResultsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [timeout_ms][crate::model::GetQueryResultsRequest::timeout_ms].
-        pub fn set_timeout_ms<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.timeout_ms = v.into();
+        pub fn set_timeout_ms<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.timeout_ms = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout_ms][crate::model::GetQueryResultsRequest::timeout_ms].
+        pub fn set_or_clear_timeout_ms<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.timeout_ms = v.map(|x| x.into());
             self
         }
 
@@ -1028,11 +1378,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [format_options][crate::model::GetQueryResultsRequest::format_options].
-        pub fn set_format_options<T: Into<std::option::Option<crate::model::DataFormatOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.format_options = v.into();
+        pub fn set_format_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataFormatOptions>,
+        {
+            self.0.request.format_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [format_options][crate::model::GetQueryResultsRequest::format_options].
+        pub fn set_or_clear_format_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataFormatOptions>,
+        {
+            self.0.request.format_options = v.map(|x| x.into());
             self
         }
     }
@@ -1044,12 +1403,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::query][super::super::client::JobService::query] calls.
+    /// The request builder for [JobService::query][crate::client::JobService::query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::job_service::Query;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Query {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Query(RequestBuilder<crate::model::PostQueryRequest>);
 
     impl Query {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1082,11 +1459,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [query_request][crate::model::PostQueryRequest::query_request].
-        pub fn set_query_request<T: Into<std::option::Option<crate::model::QueryRequest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.query_request = v.into();
+        pub fn set_query_request<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryRequest>,
+        {
+            self.0.request.query_request = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [query_request][crate::model::PostQueryRequest::query_request].
+        pub fn set_or_clear_query_request<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QueryRequest>,
+        {
+            self.0.request.query_request = v.map(|x| x.into());
             self
         }
     }
@@ -1101,9 +1487,8 @@ pub mod job_service {
 
 pub mod model_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ModelService][super::super::client::ModelService].
+    /// A builder for [ModelService][crate::client::ModelService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1114,7 +1499,7 @@ pub mod model_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1125,16 +1510,19 @@ pub mod model_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ModelService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ModelService] request builders.
+    /// Common implementation for [crate::client::ModelService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ModelService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1143,7 +1531,9 @@ pub mod model_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1152,12 +1542,30 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::get_model][super::super::client::ModelService::get_model] calls.
+    /// The request builder for [ModelService::get_model][crate::client::ModelService::get_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::GetModel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1213,12 +1621,30 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::list_models][super::super::client::ModelService::list_models] calls.
+    /// The request builder for [ModelService::list_models][crate::client::ModelService::list_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::ListModels;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1259,11 +1685,20 @@ pub mod model_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListModelsRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::ListModelsRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -1281,12 +1716,30 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::patch_model][super::super::client::ModelService::patch_model] calls.
+    /// The request builder for [ModelService::patch_model][crate::client::ModelService::patch_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::PatchModel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PatchModel(RequestBuilder<crate::model::PatchModelRequest>);
 
     impl PatchModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1337,11 +1790,22 @@ pub mod model_service {
         /// Sets the value of [model][crate::model::PatchModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::PatchModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
     }
@@ -1353,12 +1817,30 @@ pub mod model_service {
         }
     }
 
-    /// The request builder for [ModelService::delete_model][super::super::client::ModelService::delete_model] calls.
+    /// The request builder for [ModelService::delete_model][crate::client::ModelService::delete_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::model_service::DeleteModel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1417,9 +1899,8 @@ pub mod model_service {
 
 pub mod project_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ProjectService][super::super::client::ProjectService].
+    /// A builder for [ProjectService][crate::client::ProjectService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1430,7 +1911,7 @@ pub mod project_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1441,16 +1922,19 @@ pub mod project_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ProjectService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ProjectService] request builders.
+    /// Common implementation for [crate::client::ProjectService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProjectService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1459,7 +1943,9 @@ pub mod project_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1468,12 +1954,30 @@ pub mod project_service {
         }
     }
 
-    /// The request builder for [ProjectService::get_service_account][super::super::client::ProjectService::get_service_account] calls.
+    /// The request builder for [ProjectService::get_service_account][crate::client::ProjectService::get_service_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::project_service::GetServiceAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceAccount(RequestBuilder<crate::model::GetServiceAccountRequest>);
 
     impl GetServiceAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProjectService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProjectService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1519,9 +2023,8 @@ pub mod project_service {
 
 pub mod routine_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RoutineService][super::super::client::RoutineService].
+    /// A builder for [RoutineService][crate::client::RoutineService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1532,7 +2035,7 @@ pub mod routine_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1543,16 +2046,19 @@ pub mod routine_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RoutineService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RoutineService] request builders.
+    /// Common implementation for [crate::client::RoutineService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RoutineService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1561,7 +2067,9 @@ pub mod routine_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1570,12 +2078,30 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::get_routine][super::super::client::RoutineService::get_routine] calls.
+    /// The request builder for [RoutineService::get_routine][crate::client::RoutineService::get_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::GetRoutine;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRoutine(RequestBuilder<crate::model::GetRoutineRequest>);
 
     impl GetRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1631,12 +2157,30 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::insert_routine][super::super::client::RoutineService::insert_routine] calls.
+    /// The request builder for [RoutineService::insert_routine][crate::client::RoutineService::insert_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::InsertRoutine;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertRoutine(RequestBuilder<crate::model::InsertRoutineRequest>);
 
     impl InsertRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1679,11 +2223,22 @@ pub mod routine_service {
         /// Sets the value of [routine][crate::model::InsertRoutineRequest::routine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.routine = v.into();
+        pub fn set_routine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [routine][crate::model::InsertRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = v.map(|x| x.into());
             self
         }
     }
@@ -1695,12 +2250,30 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::update_routine][super::super::client::RoutineService::update_routine] calls.
+    /// The request builder for [RoutineService::update_routine][crate::client::RoutineService::update_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::UpdateRoutine;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRoutine(RequestBuilder<crate::model::UpdateRoutineRequest>);
 
     impl UpdateRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1751,11 +2324,22 @@ pub mod routine_service {
         /// Sets the value of [routine][crate::model::UpdateRoutineRequest::routine].
         ///
         /// This is a **required** field for requests.
-        pub fn set_routine<T: Into<std::option::Option<crate::model::Routine>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.routine = v.into();
+        pub fn set_routine<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [routine][crate::model::UpdateRoutineRequest::routine].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_routine<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Routine>,
+        {
+            self.0.request.routine = v.map(|x| x.into());
             self
         }
     }
@@ -1767,12 +2351,30 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::delete_routine][super::super::client::RoutineService::delete_routine] calls.
+    /// The request builder for [RoutineService::delete_routine][crate::client::RoutineService::delete_routine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::DeleteRoutine;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRoutine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRoutine(RequestBuilder<crate::model::DeleteRoutineRequest>);
 
     impl DeleteRoutine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1828,12 +2430,30 @@ pub mod routine_service {
         }
     }
 
-    /// The request builder for [RoutineService::list_routines][super::super::client::RoutineService::list_routines] calls.
+    /// The request builder for [RoutineService::list_routines][crate::client::RoutineService::list_routines] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::routine_service::ListRoutines;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRoutines {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRoutines(RequestBuilder<crate::model::ListRoutinesRequest>);
 
     impl ListRoutines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RoutineService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RoutineService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1874,11 +2494,20 @@ pub mod routine_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListRoutinesRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::ListRoutinesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 
@@ -1905,9 +2534,8 @@ pub mod routine_service {
 
 pub mod row_access_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RowAccessPolicyService][super::super::client::RowAccessPolicyService].
+    /// A builder for [RowAccessPolicyService][crate::client::RowAccessPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1918,7 +2546,7 @@ pub mod row_access_policy_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1929,16 +2557,19 @@ pub mod row_access_policy_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RowAccessPolicyService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RowAccessPolicyService] request builders.
+    /// Common implementation for [crate::client::RowAccessPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1948,7 +2579,7 @@ pub mod row_access_policy_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self {
                 stub,
@@ -1958,13 +2589,33 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::list_row_access_policies][super::super::client::RowAccessPolicyService::list_row_access_policies] calls.
+    /// The request builder for [RowAccessPolicyService::list_row_access_policies][crate::client::RowAccessPolicyService::list_row_access_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::ListRowAccessPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRowAccessPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRowAccessPolicies(RequestBuilder<crate::model::ListRowAccessPoliciesRequest>);
 
     impl ListRowAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1992,8 +2643,8 @@ pub mod row_access_policy_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRowAccessPoliciesResponse, gax::error::Error>
         {
@@ -2005,6 +2656,17 @@ pub mod row_access_policy_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRowAccessPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListRowAccessPoliciesRequest::project_id].
@@ -2051,13 +2713,29 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::get_row_access_policy][super::super::client::RowAccessPolicyService::get_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::get_row_access_policy][crate::client::RowAccessPolicyService::get_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::GetRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRowAccessPolicy(RequestBuilder<crate::model::GetRowAccessPolicyRequest>);
 
     impl GetRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2125,13 +2803,29 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::create_row_access_policy][super::super::client::RowAccessPolicyService::create_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::create_row_access_policy][crate::client::RowAccessPolicyService::create_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::CreateRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRowAccessPolicy(RequestBuilder<crate::model::CreateRowAccessPolicyRequest>);
 
     impl CreateRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2186,13 +2880,22 @@ pub mod row_access_policy_service {
         /// Sets the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_row_access_policy<
-            T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.row_access_policy = v.into();
+        pub fn set_row_access_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [row_access_policy][crate::model::CreateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = v.map(|x| x.into());
             self
         }
     }
@@ -2204,13 +2907,29 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::update_row_access_policy][super::super::client::RowAccessPolicyService::update_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::update_row_access_policy][crate::client::RowAccessPolicyService::update_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::UpdateRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRowAccessPolicy(RequestBuilder<crate::model::UpdateRowAccessPolicyRequest>);
 
     impl UpdateRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2273,13 +2992,22 @@ pub mod row_access_policy_service {
         /// Sets the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_row_access_policy<
-            T: Into<std::option::Option<crate::model::RowAccessPolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.row_access_policy = v.into();
+        pub fn set_row_access_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [row_access_policy][crate::model::UpdateRowAccessPolicyRequest::row_access_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_row_access_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RowAccessPolicy>,
+        {
+            self.0.request.row_access_policy = v.map(|x| x.into());
             self
         }
     }
@@ -2291,13 +3019,29 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::delete_row_access_policy][super::super::client::RowAccessPolicyService::delete_row_access_policy] calls.
+    /// The request builder for [RowAccessPolicyService::delete_row_access_policy][crate::client::RowAccessPolicyService::delete_row_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::DeleteRowAccessPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRowAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRowAccessPolicy(RequestBuilder<crate::model::DeleteRowAccessPolicyRequest>);
 
     impl DeleteRowAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2358,8 +3102,20 @@ pub mod row_access_policy_service {
         }
 
         /// Sets the value of [force][crate::model::DeleteRowAccessPolicyRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
+        pub fn set_force<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [force][crate::model::DeleteRowAccessPolicyRequest::force].
+        pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = v.map(|x| x.into());
             self
         }
     }
@@ -2371,7 +3127,23 @@ pub mod row_access_policy_service {
         }
     }
 
-    /// The request builder for [RowAccessPolicyService::batch_delete_row_access_policies][super::super::client::RowAccessPolicyService::batch_delete_row_access_policies] calls.
+    /// The request builder for [RowAccessPolicyService::batch_delete_row_access_policies][crate::client::RowAccessPolicyService::batch_delete_row_access_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::row_access_policy_service::BatchDeleteRowAccessPolicies;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchDeleteRowAccessPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteRowAccessPolicies(
         RequestBuilder<crate::model::BatchDeleteRowAccessPoliciesRequest>,
@@ -2379,7 +3151,7 @@ pub mod row_access_policy_service {
 
     impl BatchDeleteRowAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RowAccessPolicyService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2431,12 +3203,6 @@ pub mod row_access_policy_service {
             self
         }
 
-        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
-        pub fn set_force<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.force = v.into();
-            self
-        }
-
         /// Sets the value of [policy_ids][crate::model::BatchDeleteRowAccessPoliciesRequest::policy_ids].
         ///
         /// This is a **required** field for requests.
@@ -2447,6 +3213,24 @@ pub mod row_access_policy_service {
         {
             use std::iter::Iterator;
             self.0.request.policy_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+        pub fn set_force<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [force][crate::model::BatchDeleteRowAccessPoliciesRequest::force].
+        pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.force = v.map(|x| x.into());
             self
         }
     }
@@ -2461,9 +3245,8 @@ pub mod row_access_policy_service {
 
 pub mod table_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TableService][super::super::client::TableService].
+    /// A builder for [TableService][crate::client::TableService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2474,7 +3257,7 @@ pub mod table_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquery.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2485,16 +3268,19 @@ pub mod table_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TableService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TableService] request builders.
+    /// Common implementation for [crate::client::TableService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TableService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2503,7 +3289,9 @@ pub mod table_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2512,12 +3300,30 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::get_table][super::super::client::TableService::get_table] calls.
+    /// The request builder for [TableService::get_table][crate::client::TableService::get_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::GetTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2588,12 +3394,30 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::insert_table][super::super::client::TableService::insert_table] calls.
+    /// The request builder for [TableService::insert_table][crate::client::TableService::insert_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::InsertTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InsertTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InsertTable(RequestBuilder<crate::model::InsertTableRequest>);
 
     impl InsertTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2636,11 +3460,22 @@ pub mod table_service {
         /// Sets the value of [table][crate::model::InsertTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::InsertTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
     }
@@ -2652,12 +3487,30 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::patch_table][super::super::client::TableService::patch_table] calls.
+    /// The request builder for [TableService::patch_table][crate::client::TableService::patch_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::PatchTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PatchTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PatchTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl PatchTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2711,11 +3564,22 @@ pub mod table_service {
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -2733,12 +3597,30 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::update_table][super::super::client::TableService::update_table] calls.
+    /// The request builder for [TableService::update_table][crate::client::TableService::update_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::UpdateTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateOrPatchTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2792,11 +3674,22 @@ pub mod table_service {
         /// Sets the value of [table][crate::model::UpdateOrPatchTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::UpdateOrPatchTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -2814,12 +3707,30 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::delete_table][super::super::client::TableService::delete_table] calls.
+    /// The request builder for [TableService::delete_table][crate::client::TableService::delete_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::DeleteTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2875,12 +3786,30 @@ pub mod table_service {
         }
     }
 
-    /// The request builder for [TableService::list_tables][super::super::client::TableService::list_tables] calls.
+    /// The request builder for [TableService::list_tables][crate::client::TableService::list_tables] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_v2::builder;
+    /// use builder::table_service::ListTables;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTables {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TableService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TableService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2921,11 +3850,20 @@ pub mod table_service {
         }
 
         /// Sets the value of [max_results][crate::model::ListTablesRequest::max_results].
-        pub fn set_max_results<T: Into<std::option::Option<wkt::UInt32Value>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_results = v.into();
+        pub fn set_max_results<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_results][crate::model::ListTablesRequest::max_results].
+        pub fn set_or_clear_max_results<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::UInt32Value>,
+        {
+            self.0.request.max_results = v.map(|x| x.into());
             self
         }
 

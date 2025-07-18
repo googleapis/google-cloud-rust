@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the KMS Inventory API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
 /// let client = KeyDashboardService::builder().build().await?;
 /// // use `client` to make requests to the KMS Inventory API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `KeyDashboardService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `KeyDashboardService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct KeyDashboardService {
-    inner: Arc<dyn super::stub::dynamic::KeyDashboardService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::KeyDashboardService>,
 }
 
 impl KeyDashboardService {
@@ -72,7 +69,7 @@ impl KeyDashboardService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
     /// let client = KeyDashboardService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::key_dashboard_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,33 +86,36 @@ impl KeyDashboardService {
         T: super::stub::KeyDashboardService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::KeyDashboardService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyDashboardService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::KeyDashboardService> {
+    ) -> gax::client_builder::Result<impl super::stub::KeyDashboardService> {
         super::transport::KeyDashboardService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::KeyDashboardService> {
+    ) -> gax::client_builder::Result<impl super::stub::KeyDashboardService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyDashboardService::new)
@@ -124,12 +124,8 @@ impl KeyDashboardService {
     /// Returns cryptographic keys managed by Cloud KMS in a given Cloud project.
     /// Note that this data is sourced from snapshots, meaning it may not
     /// completely reflect the actual state of key metadata at call time.
-    pub fn list_crypto_keys(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::key_dashboard_service::ListCryptoKeys {
+    pub fn list_crypto_keys(&self) -> super::builder::key_dashboard_service::ListCryptoKeys {
         super::builder::key_dashboard_service::ListCryptoKeys::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }
 
@@ -141,7 +137,7 @@ impl KeyDashboardService {
 /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
 /// let client = KeyTrackingService::builder().build().await?;
 /// // use `client` to make requests to the KMS Inventory API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -173,11 +169,11 @@ impl KeyDashboardService {
 ///
 /// `KeyTrackingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `KeyTrackingService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct KeyTrackingService {
-    inner: Arc<dyn super::stub::dynamic::KeyTrackingService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::KeyTrackingService>,
 }
 
 impl KeyTrackingService {
@@ -187,7 +183,7 @@ impl KeyTrackingService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
     /// let client = KeyTrackingService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::key_tracking_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -204,33 +200,36 @@ impl KeyTrackingService {
         T: super::stub::KeyTrackingService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::KeyTrackingService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KeyTrackingService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::KeyTrackingService> {
+    ) -> gax::client_builder::Result<impl super::stub::KeyTrackingService> {
         super::transport::KeyTrackingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::KeyTrackingService> {
+    ) -> gax::client_builder::Result<impl super::stub::KeyTrackingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KeyTrackingService::new)
@@ -245,10 +244,8 @@ impl KeyTrackingService {
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     pub fn get_protected_resources_summary(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {
         super::builder::key_tracking_service::GetProtectedResourcesSummary::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns metadata about the resources protected by the given Cloud KMS
@@ -257,9 +254,7 @@ impl KeyTrackingService {
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     pub fn search_protected_resources(
         &self,
-        scope: impl Into<std::string::String>,
     ) -> super::builder::key_tracking_service::SearchProtectedResources {
         super::builder::key_tracking_service::SearchProtectedResources::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 }

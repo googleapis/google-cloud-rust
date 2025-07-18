@@ -293,7 +293,7 @@ func makeAPIForProtobuf(serviceConfig *serviceconfig.Service, req *pluginpb.Code
 		result.Services = append(result.Services, fileServices...)
 	}
 
-	// Add the mixing methods to the existing services.
+	// Add the mixin methods to the existing services.
 	for _, service := range result.Services {
 		for _, f := range mixinFileDesc {
 			fFQN := "." + f.GetPackage()
@@ -438,7 +438,7 @@ func processService(state *api.APIState, s *descriptorpb.ServiceDescriptorProto,
 func processMethod(state *api.APIState, m *descriptorpb.MethodDescriptorProto, mFQN, packagez string) *api.Method {
 	pathInfo, err := parsePathInfo(m, state)
 	if err != nil {
-		slog.Error("unsupported http method", "method", m)
+		slog.Error("unsupported http method", "method", m, "error", err)
 		return nil
 	}
 	routing, err := parseRoutingAnnotations(mFQN, m)

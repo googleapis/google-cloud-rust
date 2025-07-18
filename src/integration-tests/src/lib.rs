@@ -12,14 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use gax::error::Error;
+use anyhow::Error;
 use rand::{Rng, distr::Alphanumeric, distr::Distribution};
 
-pub type Result<T> = std::result::Result<T, gax::error::Error>;
+pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
 pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
+pub mod showcase;
+pub mod sql;
 pub mod storage;
 pub mod workflows;
 pub mod workflows_executions;
@@ -28,15 +30,17 @@ pub const SECRET_ID_LENGTH: usize = 64;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
+pub const BUCKET_ID_LENGTH: usize = 63;
+
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT").map_err(Error::other)?;
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
     Ok(project_id)
 }
 
 /// Returns an existing, but disabled service account to test IAM RPCs.
 pub fn service_account_for_iam_tests() -> Result<String> {
-    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT").map_err(Error::other)?;
+    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
     Ok(value)
 }
 
@@ -49,8 +53,14 @@ pub fn region_id() -> String {
 
 /// Returns the preferred service account for the test workflows.
 pub fn workflows_runner() -> Result<String> {
-    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER").map_err(Error::other)?;
+    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_WORKFLOWS_RUNNER")?;
     Ok(value)
+}
+
+pub fn report_error(e: anyhow::Error) -> anyhow::Error {
+    eprintln!("\n\nERROR {e:?}\n");
+    tracing::error!("ERROR {e:?}");
+    e
 }
 
 pub(crate) fn random_workflow_id() -> String {
@@ -63,6 +73,19 @@ pub(crate) fn random_workflow_id() -> String {
         .map(char::from)
         .collect();
     format!("{PREFIX}{workflow_id}")
+}
+
+pub(crate) fn random_bucket_id() -> String {
+    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
+
+    let distr = RandomChars { chars: CHARSET };
+    const PREFIX: &str = "rust-sdk-testing-";
+    let bucket_id: String = rand::rng()
+        .sample_iter(distr)
+        .take(BUCKET_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{bucket_id}")
 }
 
 pub(crate) struct RandomChars {

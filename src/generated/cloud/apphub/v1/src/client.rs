@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the App Hub API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_apphub_v1::client::AppHub;
 /// let client = AppHub::builder().build().await?;
 /// // use `client` to make requests to the App Hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `AppHub` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AppHub` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AppHub {
-    inner: Arc<dyn super::stub::dynamic::AppHub>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AppHub>,
 }
 
 impl AppHub {
@@ -72,7 +69,7 @@ impl AppHub {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apphub_v1::client::AppHub;
     /// let client = AppHub::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::app_hub::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::app_hub::client::Factory)
@@ -87,33 +84,35 @@ impl AppHub {
         T: super::stub::AppHub + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AppHub>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppHub>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AppHub> {
+    ) -> gax::client_builder::Result<impl super::stub::AppHub> {
         super::transport::AppHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AppHub> {
+    ) -> gax::client_builder::Result<impl super::stub::AppHub> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AppHub::new)
@@ -123,19 +122,15 @@ impl AppHub {
     /// call this API from any project to find if it is attached to a host project.
     pub fn lookup_service_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::app_hub::LookupServiceProjectAttachment {
         super::builder::app_hub::LookupServiceProjectAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists service projects attached to the host project.
     pub fn list_service_project_attachments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::app_hub::ListServiceProjectAttachments {
         super::builder::app_hub::ListServiceProjectAttachments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Attaches a service project to the host project.
@@ -151,19 +146,15 @@ impl AppHub {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_service_project_attachment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::app_hub::CreateServiceProjectAttachment {
         super::builder::app_hub::CreateServiceProjectAttachment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a service project attachment.
     pub fn get_service_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::app_hub::GetServiceProjectAttachment {
         super::builder::app_hub::GetServiceProjectAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a service project attachment.
@@ -179,10 +170,8 @@ impl AppHub {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_service_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::app_hub::DeleteServiceProjectAttachment {
         super::builder::app_hub::DeleteServiceProjectAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Detaches a service project from a host project.
@@ -190,46 +179,30 @@ impl AppHub {
     /// the host project that it is attached to.
     pub fn detach_service_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::app_hub::DetachServiceProjectAttachment {
         super::builder::app_hub::DetachServiceProjectAttachment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Discovered Services that can be added to an Application in a host
     /// project and location.
-    pub fn list_discovered_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListDiscoveredServices {
+    pub fn list_discovered_services(&self) -> super::builder::app_hub::ListDiscoveredServices {
         super::builder::app_hub::ListDiscoveredServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a Discovered Service in a host project and location.
-    pub fn get_discovered_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetDiscoveredService {
-        super::builder::app_hub::GetDiscoveredService::new(self.inner.clone()).set_name(name.into())
+    pub fn get_discovered_service(&self) -> super::builder::app_hub::GetDiscoveredService {
+        super::builder::app_hub::GetDiscoveredService::new(self.inner.clone())
     }
 
     /// Lists a Discovered Service in a host project and location, with a
     /// given resource URI.
-    pub fn lookup_discovered_service(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::LookupDiscoveredService {
+    pub fn lookup_discovered_service(&self) -> super::builder::app_hub::LookupDiscoveredService {
         super::builder::app_hub::LookupDiscoveredService::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists Services in an Application.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListServices {
-        super::builder::app_hub::ListServices::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_services(&self) -> super::builder::app_hub::ListServices {
+        super::builder::app_hub::ListServices::new(self.inner.clone())
     }
 
     /// Creates a Service in an Application.
@@ -243,19 +216,13 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_service(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::CreateService {
-        super::builder::app_hub::CreateService::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_service(&self) -> super::builder::app_hub::CreateService {
+        super::builder::app_hub::CreateService::new(self.inner.clone())
     }
 
     /// Gets a Service in an Application.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetService {
-        super::builder::app_hub::GetService::new(self.inner.clone()).set_name(name.into())
+    pub fn get_service(&self) -> super::builder::app_hub::GetService {
+        super::builder::app_hub::GetService::new(self.inner.clone())
     }
 
     /// Updates a Service in an Application.
@@ -269,11 +236,8 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_service(
-        &self,
-        service: impl Into<crate::model::Service>,
-    ) -> super::builder::app_hub::UpdateService {
-        super::builder::app_hub::UpdateService::new(self.inner.clone()).set_service(service.into())
+    pub fn update_service(&self) -> super::builder::app_hub::UpdateService {
+        super::builder::app_hub::UpdateService::new(self.inner.clone())
     }
 
     /// Deletes a Service from an Application.
@@ -287,48 +251,30 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::DeleteService {
-        super::builder::app_hub::DeleteService::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_service(&self) -> super::builder::app_hub::DeleteService {
+        super::builder::app_hub::DeleteService::new(self.inner.clone())
     }
 
     /// Lists Discovered Workloads that can be added to an Application in a host
     /// project and location.
-    pub fn list_discovered_workloads(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListDiscoveredWorkloads {
+    pub fn list_discovered_workloads(&self) -> super::builder::app_hub::ListDiscoveredWorkloads {
         super::builder::app_hub::ListDiscoveredWorkloads::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a Discovered Workload in a host project and location.
-    pub fn get_discovered_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetDiscoveredWorkload {
+    pub fn get_discovered_workload(&self) -> super::builder::app_hub::GetDiscoveredWorkload {
         super::builder::app_hub::GetDiscoveredWorkload::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists a Discovered Workload in a host project and location, with a
     /// given resource URI.
-    pub fn lookup_discovered_workload(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::LookupDiscoveredWorkload {
+    pub fn lookup_discovered_workload(&self) -> super::builder::app_hub::LookupDiscoveredWorkload {
         super::builder::app_hub::LookupDiscoveredWorkload::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists Workloads in an Application.
-    pub fn list_workloads(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListWorkloads {
-        super::builder::app_hub::ListWorkloads::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_workloads(&self) -> super::builder::app_hub::ListWorkloads {
+        super::builder::app_hub::ListWorkloads::new(self.inner.clone())
     }
 
     /// Creates a Workload in an Application.
@@ -342,19 +288,13 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workload(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::CreateWorkload {
-        super::builder::app_hub::CreateWorkload::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_workload(&self) -> super::builder::app_hub::CreateWorkload {
+        super::builder::app_hub::CreateWorkload::new(self.inner.clone())
     }
 
     /// Gets a Workload in an Application.
-    pub fn get_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetWorkload {
-        super::builder::app_hub::GetWorkload::new(self.inner.clone()).set_name(name.into())
+    pub fn get_workload(&self) -> super::builder::app_hub::GetWorkload {
+        super::builder::app_hub::GetWorkload::new(self.inner.clone())
     }
 
     /// Updates a Workload in an Application.
@@ -368,12 +308,8 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workload(
-        &self,
-        workload: impl Into<crate::model::Workload>,
-    ) -> super::builder::app_hub::UpdateWorkload {
+    pub fn update_workload(&self) -> super::builder::app_hub::UpdateWorkload {
         super::builder::app_hub::UpdateWorkload::new(self.inner.clone())
-            .set_workload(workload.into())
     }
 
     /// Deletes a Workload from an Application.
@@ -387,19 +323,13 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::DeleteWorkload {
-        super::builder::app_hub::DeleteWorkload::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_workload(&self) -> super::builder::app_hub::DeleteWorkload {
+        super::builder::app_hub::DeleteWorkload::new(self.inner.clone())
     }
 
     /// Lists Applications in a host project and location.
-    pub fn list_applications(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListApplications {
-        super::builder::app_hub::ListApplications::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_applications(&self) -> super::builder::app_hub::ListApplications {
+        super::builder::app_hub::ListApplications::new(self.inner.clone())
     }
 
     /// Creates an Application in a host project and location.
@@ -413,20 +343,13 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_application(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::CreateApplication {
+    pub fn create_application(&self) -> super::builder::app_hub::CreateApplication {
         super::builder::app_hub::CreateApplication::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an Application in a host project and location.
-    pub fn get_application(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetApplication {
-        super::builder::app_hub::GetApplication::new(self.inner.clone()).set_name(name.into())
+    pub fn get_application(&self) -> super::builder::app_hub::GetApplication {
+        super::builder::app_hub::GetApplication::new(self.inner.clone())
     }
 
     /// Updates an Application in a host project and location.
@@ -440,12 +363,8 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_application(
-        &self,
-        application: impl Into<crate::model::Application>,
-    ) -> super::builder::app_hub::UpdateApplication {
+    pub fn update_application(&self) -> super::builder::app_hub::UpdateApplication {
         super::builder::app_hub::UpdateApplication::new(self.inner.clone())
-            .set_application(application.into())
     }
 
     /// Deletes an Application in a host project and location.
@@ -459,27 +378,18 @@ impl AppHub {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_application(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::DeleteApplication {
-        super::builder::app_hub::DeleteApplication::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_application(&self) -> super::builder::app_hub::DeleteApplication {
+        super::builder::app_hub::DeleteApplication::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListLocations {
-        super::builder::app_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::app_hub::ListLocations {
+        super::builder::app_hub::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetLocation {
-        super::builder::app_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::app_hub::GetLocation {
+        super::builder::app_hub::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -487,20 +397,14 @@ impl AppHub {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::SetIamPolicy {
-        super::builder::app_hub::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::app_hub::SetIamPolicy {
+        super::builder::app_hub::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetIamPolicy {
-        super::builder::app_hub::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::app_hub::GetIamPolicy {
+        super::builder::app_hub::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -510,51 +414,35 @@ impl AppHub {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::app_hub::TestIamPermissions {
         super::builder::app_hub::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::ListOperations {
-        super::builder::app_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::app_hub::ListOperations {
+        super::builder::app_hub::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::GetOperation {
-        super::builder::app_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::app_hub::GetOperation {
+        super::builder::app_hub::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::DeleteOperation {
-        super::builder::app_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::app_hub::DeleteOperation {
+        super::builder::app_hub::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_hub::CancelOperation {
-        super::builder::app_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::app_hub::CancelOperation {
+        super::builder::app_hub::CancelOperation::new(self.inner.clone())
     }
 }

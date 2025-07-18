@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Advisory Notifications API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
 /// let client = AdvisoryNotificationsService::builder().build().await?;
 /// // use `client` to make requests to the Advisory Notifications API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `AdvisoryNotificationsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AdvisoryNotificationsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AdvisoryNotificationsService {
-    inner: Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,
 }
 
 impl AdvisoryNotificationsService {
@@ -72,7 +69,7 @@ impl AdvisoryNotificationsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// let client = AdvisoryNotificationsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::advisory_notifications_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,33 +86,37 @@ impl AdvisoryNotificationsService {
         T: super::stub::AdvisoryNotificationsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::AdvisoryNotificationsService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AdvisoryNotificationsService> {
+    ) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
         super::transport::AdvisoryNotificationsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AdvisoryNotificationsService> {
+    ) -> gax::client_builder::Result<impl super::stub::AdvisoryNotificationsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AdvisoryNotificationsService::new)
@@ -124,36 +125,26 @@ impl AdvisoryNotificationsService {
     /// Lists notifications under a given parent.
     pub fn list_notifications(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::advisory_notifications_service::ListNotifications {
         super::builder::advisory_notifications_service::ListNotifications::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a notification.
     pub fn get_notification(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::advisory_notifications_service::GetNotification {
         super::builder::advisory_notifications_service::GetNotification::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Get notification settings.
-    pub fn get_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::advisory_notifications_service::GetSettings {
+    pub fn get_settings(&self) -> super::builder::advisory_notifications_service::GetSettings {
         super::builder::advisory_notifications_service::GetSettings::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update notification settings.
     pub fn update_settings(
         &self,
-        settings: impl Into<crate::model::Settings>,
     ) -> super::builder::advisory_notifications_service::UpdateSettings {
         super::builder::advisory_notifications_service::UpdateSettings::new(self.inner.clone())
-            .set_settings(settings.into())
     }
 }

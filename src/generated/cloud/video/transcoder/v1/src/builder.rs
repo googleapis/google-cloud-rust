@@ -16,9 +16,8 @@
 
 pub mod transcoder_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TranscoderService][super::super::client::TranscoderService].
+    /// A builder for [TranscoderService][crate::client::TranscoderService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod transcoder_service {
     /// let client = builder
     ///     .with_endpoint("https://transcoder.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod transcoder_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TranscoderService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TranscoderService] request builders.
+    /// Common implementation for [crate::client::TranscoderService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod transcoder_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::create_job][super::super::client::TranscoderService::create_job] calls.
+    /// The request builder for [TranscoderService::create_job][crate::client::TranscoderService::create_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::CreateJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -107,8 +129,22 @@ pub mod transcoder_service {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -120,12 +156,34 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::list_jobs][super::super::client::TranscoderService::list_jobs] calls.
+    /// The request builder for [TranscoderService::list_jobs][crate::client::TranscoderService::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -149,8 +207,8 @@ pub mod transcoder_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error>
         {
@@ -162,6 +220,15 @@ pub mod transcoder_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
@@ -204,12 +271,30 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::get_job][super::super::client::TranscoderService::get_job] calls.
+    /// The request builder for [TranscoderService::get_job][crate::client::TranscoderService::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -249,12 +334,30 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::delete_job][super::super::client::TranscoderService::delete_job] calls.
+    /// The request builder for [TranscoderService::delete_job][crate::client::TranscoderService::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -300,12 +403,30 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::create_job_template][super::super::client::TranscoderService::create_job_template] calls.
+    /// The request builder for [TranscoderService::create_job_template][crate::client::TranscoderService::create_job_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::CreateJobTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJobTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJobTemplate(RequestBuilder<crate::model::CreateJobTemplateRequest>);
 
     impl CreateJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -343,11 +464,22 @@ pub mod transcoder_service {
         /// Sets the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job_template<T: Into<std::option::Option<crate::model::JobTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_template = v.into();
+        pub fn set_job_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTemplate>,
+        {
+            self.0.request.job_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_template][crate::model::CreateJobTemplateRequest::job_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobTemplate>,
+        {
+            self.0.request.job_template = v.map(|x| x.into());
             self
         }
 
@@ -367,12 +499,34 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::list_job_templates][super::super::client::TranscoderService::list_job_templates] calls.
+    /// The request builder for [TranscoderService::list_job_templates][crate::client::TranscoderService::list_job_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::ListJobTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobTemplates(RequestBuilder<crate::model::ListJobTemplatesRequest>);
 
     impl ListJobTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -399,8 +553,8 @@ pub mod transcoder_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobTemplatesResponse, gax::error::Error>
         {
@@ -412,6 +566,15 @@ pub mod transcoder_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobTemplatesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobTemplatesRequest::parent].
@@ -454,12 +617,30 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::get_job_template][super::super::client::TranscoderService::get_job_template] calls.
+    /// The request builder for [TranscoderService::get_job_template][crate::client::TranscoderService::get_job_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::GetJobTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJobTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJobTemplate(RequestBuilder<crate::model::GetJobTemplateRequest>);
 
     impl GetJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -499,12 +680,30 @@ pub mod transcoder_service {
         }
     }
 
-    /// The request builder for [TranscoderService::delete_job_template][super::super::client::TranscoderService::delete_job_template] calls.
+    /// The request builder for [TranscoderService::delete_job_template][crate::client::TranscoderService::delete_job_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_video_transcoder_v1::builder;
+    /// use builder::transcoder_service::DeleteJobTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJobTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJobTemplate(RequestBuilder<crate::model::DeleteJobTemplateRequest>);
 
     impl DeleteJobTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TranscoderService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TranscoderService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Dialogflow API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_dialogflow_v2::client::Agents;
 /// let client = Agents::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,13 +57,16 @@ use std::sync::Arc;
 ///
 /// `Agents` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Agents` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "agents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "agents")))]
 #[derive(Clone, Debug)]
 pub struct Agents {
-    inner: Arc<dyn super::stub::dynamic::Agents>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Agents>,
 }
 
+#[cfg(feature = "agents")]
 impl Agents {
     /// Returns a builder for [Agents].
     ///
@@ -74,7 +74,7 @@ impl Agents {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Agents;
     /// let client = Agents::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::agents::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::agents::client::Factory)
@@ -89,44 +89,43 @@ impl Agents {
         T: super::stub::Agents + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Agents>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Agents>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Agents> {
+    ) -> gax::client_builder::Result<impl super::stub::Agents> {
         super::transport::Agents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Agents> {
+    ) -> gax::client_builder::Result<impl super::stub::Agents> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Agents::new)
     }
 
     /// Retrieves the specified agent.
-    pub fn get_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetAgent {
-        super::builder::agents::GetAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn get_agent(&self) -> super::builder::agents::GetAgent {
+        super::builder::agents::GetAgent::new(self.inner.clone())
     }
 
     /// Creates/updates the specified agent.
@@ -134,19 +133,13 @@ impl Agents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn set_agent(
-        &self,
-        agent: impl Into<crate::model::Agent>,
-    ) -> super::builder::agents::SetAgent {
-        super::builder::agents::SetAgent::new(self.inner.clone()).set_agent(agent.into())
+    pub fn set_agent(&self) -> super::builder::agents::SetAgent {
+        super::builder::agents::SetAgent::new(self.inner.clone())
     }
 
     /// Deletes the specified agent.
-    pub fn delete_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::DeleteAgent {
-        super::builder::agents::DeleteAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn delete_agent(&self) -> super::builder::agents::DeleteAgent {
+        super::builder::agents::DeleteAgent::new(self.inner.clone())
     }
 
     /// Returns the list of agents.
@@ -156,11 +149,8 @@ impl Agents {
     /// access to. One can achieve that with a wildcard project collection id "-".
     /// Refer to [List
     /// Sub-Collections](https://cloud.google.com/apis/design/design_patterns#list_sub-collections).
-    pub fn search_agents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::SearchAgents {
-        super::builder::agents::SearchAgents::new(self.inner.clone()).set_parent(parent.into())
+    pub fn search_agents(&self) -> super::builder::agents::SearchAgents {
+        super::builder::agents::SearchAgents::new(self.inner.clone())
     }
 
     /// Trains the specified agent.
@@ -187,11 +177,8 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn train_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::TrainAgent {
-        super::builder::agents::TrainAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn train_agent(&self) -> super::builder::agents::TrainAgent {
+        super::builder::agents::TrainAgent::new(self.inner.clone())
     }
 
     /// Exports the specified agent to a ZIP file.
@@ -216,11 +203,8 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::ExportAgent {
-        super::builder::agents::ExportAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn export_agent(&self) -> super::builder::agents::ExportAgent {
+        super::builder::agents::ExportAgent::new(self.inner.clone())
     }
 
     /// Imports the specified agent from a ZIP file.
@@ -263,11 +247,8 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::ImportAgent {
-        super::builder::agents::ImportAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn import_agent(&self) -> super::builder::agents::ImportAgent {
+        super::builder::agents::ImportAgent::new(self.inner.clone())
     }
 
     /// Restores the specified agent from a ZIP file.
@@ -307,67 +288,45 @@ impl Agents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restore_agent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::RestoreAgent {
-        super::builder::agents::RestoreAgent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn restore_agent(&self) -> super::builder::agents::RestoreAgent {
+        super::builder::agents::RestoreAgent::new(self.inner.clone())
     }
 
     /// Gets agent validation result. Agent validation is performed during
     /// training time and is updated automatically when training is completed.
-    pub fn get_validation_result(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetValidationResult {
+    pub fn get_validation_result(&self) -> super::builder::agents::GetValidationResult {
         super::builder::agents::GetValidationResult::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::ListLocations {
-        super::builder::agents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::agents::ListLocations {
+        super::builder::agents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetLocation {
-        super::builder::agents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::agents::GetLocation {
+        super::builder::agents::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::ListOperations {
-        super::builder::agents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::agents::ListOperations {
+        super::builder::agents::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::GetOperation {
-        super::builder::agents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::agents::GetOperation {
+        super::builder::agents::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::agents::CancelOperation {
-        super::builder::agents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::agents::CancelOperation {
+        super::builder::agents::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -379,7 +338,7 @@ impl Agents {
 /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
 /// let client = AnswerRecords::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -413,13 +372,16 @@ impl Agents {
 ///
 /// `AnswerRecords` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AnswerRecords` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "answer-records")]
+#[cfg_attr(docsrs, doc(cfg(feature = "answer-records")))]
 #[derive(Clone, Debug)]
 pub struct AnswerRecords {
-    inner: Arc<dyn super::stub::dynamic::AnswerRecords>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AnswerRecords>,
 }
 
+#[cfg(feature = "answer-records")]
 impl AnswerRecords {
     /// Returns a builder for [AnswerRecords].
     ///
@@ -427,7 +389,7 @@ impl AnswerRecords {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::AnswerRecords;
     /// let client = AnswerRecords::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::answer_records::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::answer_records::client::Factory)
@@ -442,33 +404,35 @@ impl AnswerRecords {
         T: super::stub::AnswerRecords + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AnswerRecords>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AnswerRecords>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AnswerRecords> {
+    ) -> gax::client_builder::Result<impl super::stub::AnswerRecords> {
         super::transport::AnswerRecords::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AnswerRecords> {
+    ) -> gax::client_builder::Result<impl super::stub::AnswerRecords> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AnswerRecords::new)
@@ -476,69 +440,44 @@ impl AnswerRecords {
 
     /// Returns the list of all answer records in the specified project in reverse
     /// chronological order.
-    pub fn list_answer_records(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::answer_records::ListAnswerRecords {
+    pub fn list_answer_records(&self) -> super::builder::answer_records::ListAnswerRecords {
         super::builder::answer_records::ListAnswerRecords::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified answer record.
-    pub fn update_answer_record(
-        &self,
-        answer_record: impl Into<crate::model::AnswerRecord>,
-    ) -> super::builder::answer_records::UpdateAnswerRecord {
+    pub fn update_answer_record(&self) -> super::builder::answer_records::UpdateAnswerRecord {
         super::builder::answer_records::UpdateAnswerRecord::new(self.inner.clone())
-            .set_answer_record(answer_record.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::answer_records::ListLocations {
-        super::builder::answer_records::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::answer_records::ListLocations {
+        super::builder::answer_records::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::answer_records::GetLocation {
-        super::builder::answer_records::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::answer_records::GetLocation {
+        super::builder::answer_records::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::answer_records::ListOperations {
+    pub fn list_operations(&self) -> super::builder::answer_records::ListOperations {
         super::builder::answer_records::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::answer_records::GetOperation {
-        super::builder::answer_records::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::answer_records::GetOperation {
+        super::builder::answer_records::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::answer_records::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::answer_records::CancelOperation {
         super::builder::answer_records::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -550,7 +489,7 @@ impl AnswerRecords {
 /// # use google_cloud_dialogflow_v2::client::Contexts;
 /// let client = Contexts::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -583,13 +522,16 @@ impl AnswerRecords {
 ///
 /// `Contexts` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Contexts` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "contexts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "contexts")))]
 #[derive(Clone, Debug)]
 pub struct Contexts {
-    inner: Arc<dyn super::stub::dynamic::Contexts>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Contexts>,
 }
 
+#[cfg(feature = "contexts")]
 impl Contexts {
     /// Returns a builder for [Contexts].
     ///
@@ -597,7 +539,7 @@ impl Contexts {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Contexts;
     /// let client = Contexts::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::contexts::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::contexts::client::Factory)
@@ -612,133 +554,101 @@ impl Contexts {
         T: super::stub::Contexts + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Contexts>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Contexts>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Contexts> {
+    ) -> gax::client_builder::Result<impl super::stub::Contexts> {
         super::transport::Contexts::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Contexts> {
+    ) -> gax::client_builder::Result<impl super::stub::Contexts> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Contexts::new)
     }
 
     /// Returns the list of all contexts in the specified session.
-    pub fn list_contexts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contexts::ListContexts {
-        super::builder::contexts::ListContexts::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_contexts(&self) -> super::builder::contexts::ListContexts {
+        super::builder::contexts::ListContexts::new(self.inner.clone())
     }
 
     /// Retrieves the specified context.
-    pub fn get_context(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::GetContext {
-        super::builder::contexts::GetContext::new(self.inner.clone()).set_name(name.into())
+    pub fn get_context(&self) -> super::builder::contexts::GetContext {
+        super::builder::contexts::GetContext::new(self.inner.clone())
     }
 
     /// Creates a context.
     ///
     /// If the specified context already exists, overrides the context.
-    pub fn create_context(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contexts::CreateContext {
-        super::builder::contexts::CreateContext::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_context(&self) -> super::builder::contexts::CreateContext {
+        super::builder::contexts::CreateContext::new(self.inner.clone())
     }
 
     /// Updates the specified context.
-    pub fn update_context(
-        &self,
-        context: impl Into<crate::model::Context>,
-    ) -> super::builder::contexts::UpdateContext {
-        super::builder::contexts::UpdateContext::new(self.inner.clone()).set_context(context.into())
+    pub fn update_context(&self) -> super::builder::contexts::UpdateContext {
+        super::builder::contexts::UpdateContext::new(self.inner.clone())
     }
 
     /// Deletes the specified context.
-    pub fn delete_context(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::DeleteContext {
-        super::builder::contexts::DeleteContext::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_context(&self) -> super::builder::contexts::DeleteContext {
+        super::builder::contexts::DeleteContext::new(self.inner.clone())
     }
 
     /// Deletes all active contexts in the specified session.
-    pub fn delete_all_contexts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::contexts::DeleteAllContexts {
+    pub fn delete_all_contexts(&self) -> super::builder::contexts::DeleteAllContexts {
         super::builder::contexts::DeleteAllContexts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::ListLocations {
-        super::builder::contexts::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::contexts::ListLocations {
+        super::builder::contexts::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::GetLocation {
-        super::builder::contexts::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::contexts::GetLocation {
+        super::builder::contexts::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::ListOperations {
-        super::builder::contexts::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::contexts::ListOperations {
+        super::builder::contexts::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::GetOperation {
-        super::builder::contexts::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::contexts::GetOperation {
+        super::builder::contexts::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::contexts::CancelOperation {
-        super::builder::contexts::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::contexts::CancelOperation {
+        super::builder::contexts::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -750,7 +660,7 @@ impl Contexts {
 /// # use google_cloud_dialogflow_v2::client::Conversations;
 /// let client = Conversations::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -784,13 +694,16 @@ impl Contexts {
 ///
 /// `Conversations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Conversations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "conversations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversations")))]
 #[derive(Clone, Debug)]
 pub struct Conversations {
-    inner: Arc<dyn super::stub::dynamic::Conversations>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Conversations>,
 }
 
+#[cfg(feature = "conversations")]
 impl Conversations {
     /// Returns a builder for [Conversations].
     ///
@@ -798,7 +711,7 @@ impl Conversations {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Conversations;
     /// let client = Conversations::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::conversations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::conversations::client::Factory)
@@ -813,33 +726,35 @@ impl Conversations {
         T: super::stub::Conversations + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Conversations>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Conversations>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Conversations> {
+    ) -> gax::client_builder::Result<impl super::stub::Conversations> {
         super::transport::Conversations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Conversations> {
+    ) -> gax::client_builder::Result<impl super::stub::Conversations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Conversations::new)
@@ -870,50 +785,32 @@ impl Conversations {
     /// [google.cloud.dialogflow.v2.Conversation.conversation_profile]: crate::model::Conversation::conversation_profile
     /// [google.cloud.dialogflow.v2.Intent]: crate::model::Intent
     /// [google.cloud.dialogflow.v2.Intent.live_agent_handoff]: crate::model::Intent::live_agent_handoff
-    pub fn create_conversation(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::conversations::CreateConversation {
+    pub fn create_conversation(&self) -> super::builder::conversations::CreateConversation {
         super::builder::conversations::CreateConversation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the list of all conversations in the specified project.
-    pub fn list_conversations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::conversations::ListConversations {
+    pub fn list_conversations(&self) -> super::builder::conversations::ListConversations {
         super::builder::conversations::ListConversations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specific conversation.
-    pub fn get_conversation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::GetConversation {
+    pub fn get_conversation(&self) -> super::builder::conversations::GetConversation {
         super::builder::conversations::GetConversation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Completes the specified conversation. Finished conversations are purged
     /// from the database after 30 days.
-    pub fn complete_conversation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::CompleteConversation {
+    pub fn complete_conversation(&self) -> super::builder::conversations::CompleteConversation {
         super::builder::conversations::CompleteConversation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Data ingestion API.
     /// Ingests context references for an existing conversation.
     pub fn ingest_context_references(
         &self,
-        conversation: impl Into<std::string::String>,
     ) -> super::builder::conversations::IngestContextReferences {
         super::builder::conversations::IngestContextReferences::new(self.inner.clone())
-            .set_conversation(conversation.into())
     }
 
     /// Lists messages that belong to a given conversation.
@@ -921,12 +818,8 @@ impl Conversations {
     /// updates without duplication, send request with filter
     /// `create_time_epoch_microseconds >
     /// [first item's create_time of previous request]` and empty page_token.
-    pub fn list_messages(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::conversations::ListMessages {
+    pub fn list_messages(&self) -> super::builder::conversations::ListMessages {
         super::builder::conversations::ListMessages::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Suggests summary for a conversation based on specific historical messages.
@@ -934,99 +827,67 @@ impl Conversations {
     /// request.
     pub fn suggest_conversation_summary(
         &self,
-        conversation: impl Into<std::string::String>,
     ) -> super::builder::conversations::SuggestConversationSummary {
         super::builder::conversations::SuggestConversationSummary::new(self.inner.clone())
-            .set_conversation(conversation.into())
     }
 
     /// Generates and returns a summary for a conversation that does not have a
     /// resource created for it.
     pub fn generate_stateless_summary(
         &self,
-        stateless_conversation: impl Into<
-            crate::model::generate_stateless_summary_request::MinimalConversation,
-        >,
     ) -> super::builder::conversations::GenerateStatelessSummary {
         super::builder::conversations::GenerateStatelessSummary::new(self.inner.clone())
-            .set_stateless_conversation(stateless_conversation.into())
     }
 
     /// Generates and returns a suggestion for a conversation that does not have a
     /// resource created for it.
     pub fn generate_stateless_suggestion(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversations::GenerateStatelessSuggestion {
         super::builder::conversations::GenerateStatelessSuggestion::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get answers for the given query based on knowledge documents.
-    pub fn search_knowledge(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::conversations::SearchKnowledge {
+    pub fn search_knowledge(&self) -> super::builder::conversations::SearchKnowledge {
         super::builder::conversations::SearchKnowledge::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Generates all the suggestions using generators configured in the
     /// conversation profile. A generator is used only if its trigger event is
     /// matched.
-    pub fn generate_suggestions(
-        &self,
-        conversation: impl Into<std::string::String>,
-    ) -> super::builder::conversations::GenerateSuggestions {
+    pub fn generate_suggestions(&self) -> super::builder::conversations::GenerateSuggestions {
         super::builder::conversations::GenerateSuggestions::new(self.inner.clone())
-            .set_conversation(conversation.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::ListLocations {
-        super::builder::conversations::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::conversations::ListLocations {
+        super::builder::conversations::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::GetLocation {
-        super::builder::conversations::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::conversations::GetLocation {
+        super::builder::conversations::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::ListOperations {
-        super::builder::conversations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::conversations::ListOperations {
+        super::builder::conversations::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::GetOperation {
-        super::builder::conversations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::conversations::GetOperation {
+        super::builder::conversations::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversations::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::conversations::CancelOperation {
         super::builder::conversations::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1038,7 +899,7 @@ impl Conversations {
 /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
 /// let client = ConversationDatasets::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1072,13 +933,16 @@ impl Conversations {
 ///
 /// `ConversationDatasets` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConversationDatasets` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "conversation-datasets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-datasets")))]
 #[derive(Clone, Debug)]
 pub struct ConversationDatasets {
-    inner: Arc<dyn super::stub::dynamic::ConversationDatasets>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConversationDatasets>,
 }
 
+#[cfg(feature = "conversation-datasets")]
 impl ConversationDatasets {
     /// Returns a builder for [ConversationDatasets].
     ///
@@ -1086,7 +950,7 @@ impl ConversationDatasets {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::ConversationDatasets;
     /// let client = ConversationDatasets::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::conversation_datasets::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1103,33 +967,36 @@ impl ConversationDatasets {
         T: super::stub::ConversationDatasets + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ConversationDatasets>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConversationDatasets>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationDatasets> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationDatasets> {
         super::transport::ConversationDatasets::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationDatasets> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationDatasets> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConversationDatasets::new)
@@ -1160,29 +1027,23 @@ impl ConversationDatasets {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_conversation_dataset(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_datasets::CreateConversationDataset {
         super::builder::conversation_datasets::CreateConversationDataset::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified conversation dataset.
     pub fn get_conversation_dataset(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_datasets::GetConversationDataset {
         super::builder::conversation_datasets::GetConversationDataset::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns the list of all conversation datasets in the specified
     /// project and location.
     pub fn list_conversation_datasets(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_datasets::ListConversationDatasets {
         super::builder::conversation_datasets::ListConversationDatasets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified conversation dataset.
@@ -1209,10 +1070,8 @@ impl ConversationDatasets {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_conversation_dataset(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_datasets::DeleteConversationDataset {
         super::builder::conversation_datasets::DeleteConversationDataset::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Import data into the specified conversation dataset. Note that it
@@ -1242,61 +1101,39 @@ impl ConversationDatasets {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn import_conversation_data(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_datasets::ImportConversationData {
         super::builder::conversation_datasets::ImportConversationData::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_datasets::ListLocations {
+    pub fn list_locations(&self) -> super::builder::conversation_datasets::ListLocations {
         super::builder::conversation_datasets::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_datasets::GetLocation {
+    pub fn get_location(&self) -> super::builder::conversation_datasets::GetLocation {
         super::builder::conversation_datasets::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_datasets::ListOperations {
+    pub fn list_operations(&self) -> super::builder::conversation_datasets::ListOperations {
         super::builder::conversation_datasets::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_datasets::GetOperation {
+    pub fn get_operation(&self) -> super::builder::conversation_datasets::GetOperation {
         super::builder::conversation_datasets::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_datasets::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::conversation_datasets::CancelOperation {
         super::builder::conversation_datasets::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1308,7 +1145,7 @@ impl ConversationDatasets {
 /// # use google_cloud_dialogflow_v2::client::ConversationModels;
 /// let client = ConversationModels::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1339,13 +1176,16 @@ impl ConversationDatasets {
 ///
 /// `ConversationModels` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConversationModels` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "conversation-models")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-models")))]
 #[derive(Clone, Debug)]
 pub struct ConversationModels {
-    inner: Arc<dyn super::stub::dynamic::ConversationModels>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConversationModels>,
 }
 
+#[cfg(feature = "conversation-models")]
 impl ConversationModels {
     /// Returns a builder for [ConversationModels].
     ///
@@ -1353,7 +1193,7 @@ impl ConversationModels {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::ConversationModels;
     /// let client = ConversationModels::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::conversation_models::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1370,33 +1210,36 @@ impl ConversationModels {
         T: super::stub::ConversationModels + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ConversationModels>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConversationModels>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationModels> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationModels> {
         super::transport::ConversationModels::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationModels> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationModels> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConversationModels::new)
@@ -1427,28 +1270,22 @@ impl ConversationModels {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_conversation_model(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::CreateConversationModel {
         super::builder::conversation_models::CreateConversationModel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets conversation model.
     pub fn get_conversation_model(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::GetConversationModel {
         super::builder::conversation_models::GetConversationModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists conversation models.
     pub fn list_conversation_models(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::ListConversationModels {
         super::builder::conversation_models::ListConversationModels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a model.
@@ -1475,10 +1312,8 @@ impl ConversationModels {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_conversation_model(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::DeleteConversationModel {
         super::builder::conversation_models::DeleteConversationModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deploys a model. If a model is already deployed, deploying it
@@ -1508,10 +1343,8 @@ impl ConversationModels {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn deploy_conversation_model(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::DeployConversationModel {
         super::builder::conversation_models::DeployConversationModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Undeploys a model. If the model is not deployed this method has no effect.
@@ -1542,30 +1375,24 @@ impl ConversationModels {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn undeploy_conversation_model(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::UndeployConversationModel {
         super::builder::conversation_models::UndeployConversationModel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets an evaluation of conversation model.
     pub fn get_conversation_model_evaluation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::GetConversationModelEvaluation {
         super::builder::conversation_models::GetConversationModelEvaluation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists evaluations of a conversation model.
     pub fn list_conversation_model_evaluations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::ListConversationModelEvaluations {
         super::builder::conversation_models::ListConversationModelEvaluations::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Creates evaluation of a conversation model.
@@ -1581,63 +1408,41 @@ impl ConversationModels {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_conversation_model_evaluation(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_models::CreateConversationModelEvaluation {
         super::builder::conversation_models::CreateConversationModelEvaluation::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_models::ListLocations {
+    pub fn list_locations(&self) -> super::builder::conversation_models::ListLocations {
         super::builder::conversation_models::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_models::GetLocation {
+    pub fn get_location(&self) -> super::builder::conversation_models::GetLocation {
         super::builder::conversation_models::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_models::ListOperations {
+    pub fn list_operations(&self) -> super::builder::conversation_models::ListOperations {
         super::builder::conversation_models::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_models::GetOperation {
+    pub fn get_operation(&self) -> super::builder::conversation_models::GetOperation {
         super::builder::conversation_models::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_models::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::conversation_models::CancelOperation {
         super::builder::conversation_models::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1649,7 +1454,7 @@ impl ConversationModels {
 /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
 /// let client = ConversationProfiles::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1683,13 +1488,16 @@ impl ConversationModels {
 ///
 /// `ConversationProfiles` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConversationProfiles` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "conversation-profiles")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-profiles")))]
 #[derive(Clone, Debug)]
 pub struct ConversationProfiles {
-    inner: Arc<dyn super::stub::dynamic::ConversationProfiles>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConversationProfiles>,
 }
 
+#[cfg(feature = "conversation-profiles")]
 impl ConversationProfiles {
     /// Returns a builder for [ConversationProfiles].
     ///
@@ -1697,7 +1505,7 @@ impl ConversationProfiles {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::ConversationProfiles;
     /// let client = ConversationProfiles::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::conversation_profiles::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1714,33 +1522,36 @@ impl ConversationProfiles {
         T: super::stub::ConversationProfiles + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ConversationProfiles>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ConversationProfiles>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationProfiles> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationProfiles> {
         super::transport::ConversationProfiles::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConversationProfiles> {
+    ) -> gax::client_builder::Result<impl super::stub::ConversationProfiles> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConversationProfiles::new)
@@ -1749,19 +1560,15 @@ impl ConversationProfiles {
     /// Returns the list of all conversation profiles in the specified project.
     pub fn list_conversation_profiles(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_profiles::ListConversationProfiles {
         super::builder::conversation_profiles::ListConversationProfiles::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified conversation profile.
     pub fn get_conversation_profile(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_profiles::GetConversationProfile {
         super::builder::conversation_profiles::GetConversationProfile::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a conversation profile in the specified project.
@@ -1778,10 +1585,8 @@ impl ConversationProfiles {
     /// [google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]: crate::client::ConversationProfiles::get_conversation_profile
     pub fn create_conversation_profile(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::conversation_profiles::CreateConversationProfile {
         super::builder::conversation_profiles::CreateConversationProfile::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified conversation profile.
@@ -1798,19 +1603,15 @@ impl ConversationProfiles {
     /// [google.cloud.dialogflow.v2.ConversationProfiles.GetConversationProfile]: crate::client::ConversationProfiles::get_conversation_profile
     pub fn update_conversation_profile(
         &self,
-        conversation_profile: impl Into<crate::model::ConversationProfile>,
     ) -> super::builder::conversation_profiles::UpdateConversationProfile {
         super::builder::conversation_profiles::UpdateConversationProfile::new(self.inner.clone())
-            .set_conversation_profile(conversation_profile.into())
     }
 
     /// Deletes the specified conversation profile.
     pub fn delete_conversation_profile(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::conversation_profiles::DeleteConversationProfile {
         super::builder::conversation_profiles::DeleteConversationProfile::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds or updates a suggestion feature in a conversation profile.
@@ -1846,10 +1647,8 @@ impl ConversationProfiles {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn set_suggestion_feature_config(
         &self,
-        conversation_profile: impl Into<std::string::String>,
     ) -> super::builder::conversation_profiles::SetSuggestionFeatureConfig {
         super::builder::conversation_profiles::SetSuggestionFeatureConfig::new(self.inner.clone())
-            .set_conversation_profile(conversation_profile.into())
     }
 
     /// Clears a suggestion feature from a conversation profile for the given
@@ -1878,61 +1677,39 @@ impl ConversationProfiles {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn clear_suggestion_feature_config(
         &self,
-        conversation_profile: impl Into<std::string::String>,
     ) -> super::builder::conversation_profiles::ClearSuggestionFeatureConfig {
         super::builder::conversation_profiles::ClearSuggestionFeatureConfig::new(self.inner.clone())
-            .set_conversation_profile(conversation_profile.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_profiles::ListLocations {
+    pub fn list_locations(&self) -> super::builder::conversation_profiles::ListLocations {
         super::builder::conversation_profiles::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_profiles::GetLocation {
+    pub fn get_location(&self) -> super::builder::conversation_profiles::GetLocation {
         super::builder::conversation_profiles::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_profiles::ListOperations {
+    pub fn list_operations(&self) -> super::builder::conversation_profiles::ListOperations {
         super::builder::conversation_profiles::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_profiles::GetOperation {
+    pub fn get_operation(&self) -> super::builder::conversation_profiles::GetOperation {
         super::builder::conversation_profiles::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::conversation_profiles::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::conversation_profiles::CancelOperation {
         super::builder::conversation_profiles::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1944,7 +1721,7 @@ impl ConversationProfiles {
 /// # use google_cloud_dialogflow_v2::client::Documents;
 /// let client = Documents::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1978,13 +1755,16 @@ impl ConversationProfiles {
 ///
 /// `Documents` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Documents` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "documents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "documents")))]
 #[derive(Clone, Debug)]
 pub struct Documents {
-    inner: Arc<dyn super::stub::dynamic::Documents>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Documents>,
 }
 
+#[cfg(feature = "documents")]
 impl Documents {
     /// Returns a builder for [Documents].
     ///
@@ -1992,7 +1772,7 @@ impl Documents {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Documents;
     /// let client = Documents::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::documents::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::documents::client::Factory)
@@ -2007,52 +1787,48 @@ impl Documents {
         T: super::stub::Documents + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Documents>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Documents>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Documents> {
+    ) -> gax::client_builder::Result<impl super::stub::Documents> {
         super::transport::Documents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Documents> {
+    ) -> gax::client_builder::Result<impl super::stub::Documents> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Documents::new)
     }
 
     /// Returns the list of all documents of the knowledge base.
-    pub fn list_documents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::documents::ListDocuments {
-        super::builder::documents::ListDocuments::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_documents(&self) -> super::builder::documents::ListDocuments {
+        super::builder::documents::ListDocuments::new(self.inner.clone())
     }
 
     /// Retrieves the specified document.
-    pub fn get_document(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::GetDocument {
-        super::builder::documents::GetDocument::new(self.inner.clone()).set_name(name.into())
+    pub fn get_document(&self) -> super::builder::documents::GetDocument {
+        super::builder::documents::GetDocument::new(self.inner.clone())
     }
 
     /// Creates a new document.
@@ -2077,11 +1853,8 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_document(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::documents::CreateDocument {
-        super::builder::documents::CreateDocument::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_document(&self) -> super::builder::documents::CreateDocument {
+        super::builder::documents::CreateDocument::new(self.inner.clone())
     }
 
     /// Creates documents by importing data from external sources.
@@ -2109,12 +1882,8 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_documents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::documents::ImportDocuments {
+    pub fn import_documents(&self) -> super::builder::documents::ImportDocuments {
         super::builder::documents::ImportDocuments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified document.
@@ -2139,11 +1908,8 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_document(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::DeleteDocument {
-        super::builder::documents::DeleteDocument::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_document(&self) -> super::builder::documents::DeleteDocument {
+        super::builder::documents::DeleteDocument::new(self.inner.clone())
     }
 
     /// Updates the specified document.
@@ -2168,12 +1934,8 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_document(
-        &self,
-        document: impl Into<crate::model::Document>,
-    ) -> super::builder::documents::UpdateDocument {
+    pub fn update_document(&self) -> super::builder::documents::UpdateDocument {
         super::builder::documents::UpdateDocument::new(self.inner.clone())
-            .set_document(document.into())
     }
 
     /// Reloads the specified document from its specified source, content_uri or
@@ -2204,11 +1966,8 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reload_document(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::ReloadDocument {
-        super::builder::documents::ReloadDocument::new(self.inner.clone()).set_name(name.into())
+    pub fn reload_document(&self) -> super::builder::documents::ReloadDocument {
+        super::builder::documents::ReloadDocument::new(self.inner.clone())
     }
 
     /// Exports a smart messaging candidate document into the specified
@@ -2234,57 +1993,39 @@ impl Documents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_document(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::ExportDocument {
-        super::builder::documents::ExportDocument::new(self.inner.clone()).set_name(name.into())
+    pub fn export_document(&self) -> super::builder::documents::ExportDocument {
+        super::builder::documents::ExportDocument::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::ListLocations {
-        super::builder::documents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::documents::ListLocations {
+        super::builder::documents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::GetLocation {
-        super::builder::documents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::documents::GetLocation {
+        super::builder::documents::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::ListOperations {
-        super::builder::documents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::documents::ListOperations {
+        super::builder::documents::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::GetOperation {
-        super::builder::documents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::documents::GetOperation {
+        super::builder::documents::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::documents::CancelOperation {
-        super::builder::documents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::documents::CancelOperation {
+        super::builder::documents::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2296,7 +2037,7 @@ impl Documents {
 /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
 /// let client = EncryptionSpecService::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2327,13 +2068,16 @@ impl Documents {
 ///
 /// `EncryptionSpecService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EncryptionSpecService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "encryption-spec-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "encryption-spec-service")))]
 #[derive(Clone, Debug)]
 pub struct EncryptionSpecService {
-    inner: Arc<dyn super::stub::dynamic::EncryptionSpecService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EncryptionSpecService>,
 }
 
+#[cfg(feature = "encryption-spec-service")]
 impl EncryptionSpecService {
     /// Returns a builder for [EncryptionSpecService].
     ///
@@ -2341,7 +2085,7 @@ impl EncryptionSpecService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::EncryptionSpecService;
     /// let client = EncryptionSpecService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::encryption_spec_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2358,33 +2102,36 @@ impl EncryptionSpecService {
         T: super::stub::EncryptionSpecService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EncryptionSpecService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EncryptionSpecService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EncryptionSpecService> {
+    ) -> gax::client_builder::Result<impl super::stub::EncryptionSpecService> {
         super::transport::EncryptionSpecService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EncryptionSpecService> {
+    ) -> gax::client_builder::Result<impl super::stub::EncryptionSpecService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EncryptionSpecService::new)
@@ -2393,10 +2140,8 @@ impl EncryptionSpecService {
     /// Gets location-level encryption key specification.
     pub fn get_encryption_spec(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::encryption_spec_service::GetEncryptionSpec {
         super::builder::encryption_spec_service::GetEncryptionSpec::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Initializes a location-level encryption key specification.  An error will
@@ -2416,61 +2161,39 @@ impl EncryptionSpecService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn initialize_encryption_spec(
         &self,
-        encryption_spec: impl Into<crate::model::EncryptionSpec>,
     ) -> super::builder::encryption_spec_service::InitializeEncryptionSpec {
         super::builder::encryption_spec_service::InitializeEncryptionSpec::new(self.inner.clone())
-            .set_encryption_spec(encryption_spec.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::encryption_spec_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::encryption_spec_service::ListLocations {
         super::builder::encryption_spec_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::encryption_spec_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::encryption_spec_service::GetLocation {
         super::builder::encryption_spec_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::encryption_spec_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::encryption_spec_service::ListOperations {
         super::builder::encryption_spec_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::encryption_spec_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::encryption_spec_service::GetOperation {
         super::builder::encryption_spec_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::encryption_spec_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::encryption_spec_service::CancelOperation {
         super::builder::encryption_spec_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -2482,7 +2205,7 @@ impl EncryptionSpecService {
 /// # use google_cloud_dialogflow_v2::client::EntityTypes;
 /// let client = EntityTypes::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2515,13 +2238,16 @@ impl EncryptionSpecService {
 ///
 /// `EntityTypes` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EntityTypes` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "entity-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "entity-types")))]
 #[derive(Clone, Debug)]
 pub struct EntityTypes {
-    inner: Arc<dyn super::stub::dynamic::EntityTypes>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EntityTypes>,
 }
 
+#[cfg(feature = "entity-types")]
 impl EntityTypes {
     /// Returns a builder for [EntityTypes].
     ///
@@ -2529,7 +2255,7 @@ impl EntityTypes {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::EntityTypes;
     /// let client = EntityTypes::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::entity_types::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::entity_types::client::Factory)
@@ -2544,53 +2270,48 @@ impl EntityTypes {
         T: super::stub::EntityTypes + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EntityTypes>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EntityTypes>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EntityTypes> {
+    ) -> gax::client_builder::Result<impl super::stub::EntityTypes> {
         super::transport::EntityTypes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EntityTypes> {
+    ) -> gax::client_builder::Result<impl super::stub::EntityTypes> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EntityTypes::new)
     }
 
     /// Returns the list of all entity types in the specified agent.
-    pub fn list_entity_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ListEntityTypes {
+    pub fn list_entity_types(&self) -> super::builder::entity_types::ListEntityTypes {
         super::builder::entity_types::ListEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified entity type.
-    pub fn get_entity_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::GetEntityType {
-        super::builder::entity_types::GetEntityType::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entity_type(&self) -> super::builder::entity_types::GetEntityType {
+        super::builder::entity_types::GetEntityType::new(self.inner.clone())
     }
 
     /// Creates an entity type in the specified agent.
@@ -2598,12 +2319,8 @@ impl EntityTypes {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn create_entity_type(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::CreateEntityType {
+    pub fn create_entity_type(&self) -> super::builder::entity_types::CreateEntityType {
         super::builder::entity_types::CreateEntityType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified entity type.
@@ -2611,12 +2328,8 @@ impl EntityTypes {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn update_entity_type(
-        &self,
-        entity_type: impl Into<crate::model::EntityType>,
-    ) -> super::builder::entity_types::UpdateEntityType {
+    pub fn update_entity_type(&self) -> super::builder::entity_types::UpdateEntityType {
         super::builder::entity_types::UpdateEntityType::new(self.inner.clone())
-            .set_entity_type(entity_type.into())
     }
 
     /// Deletes the specified entity type.
@@ -2624,12 +2337,8 @@ impl EntityTypes {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn delete_entity_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::DeleteEntityType {
+    pub fn delete_entity_type(&self) -> super::builder::entity_types::DeleteEntityType {
         super::builder::entity_types::DeleteEntityType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates/Creates multiple entity types in the specified agent.
@@ -2660,10 +2369,8 @@ impl EntityTypes {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn batch_update_entity_types(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::entity_types::BatchUpdateEntityTypes {
         super::builder::entity_types::BatchUpdateEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes entity types in the specified agent.
@@ -2692,10 +2399,8 @@ impl EntityTypes {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn batch_delete_entity_types(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::entity_types::BatchDeleteEntityTypes {
         super::builder::entity_types::BatchDeleteEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates multiple new entities in the specified entity type.
@@ -2722,12 +2427,8 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_create_entities(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::BatchCreateEntities {
+    pub fn batch_create_entities(&self) -> super::builder::entity_types::BatchCreateEntities {
         super::builder::entity_types::BatchCreateEntities::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates or creates multiple entities in the specified entity type. This
@@ -2756,12 +2457,8 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_update_entities(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::BatchUpdateEntities {
+    pub fn batch_update_entities(&self) -> super::builder::entity_types::BatchUpdateEntities {
         super::builder::entity_types::BatchUpdateEntities::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes entities in the specified entity type.
@@ -2788,58 +2485,39 @@ impl EntityTypes {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_delete_entities(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::BatchDeleteEntities {
+    pub fn batch_delete_entities(&self) -> super::builder::entity_types::BatchDeleteEntities {
         super::builder::entity_types::BatchDeleteEntities::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ListLocations {
-        super::builder::entity_types::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::entity_types::ListLocations {
+        super::builder::entity_types::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::GetLocation {
-        super::builder::entity_types::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::entity_types::GetLocation {
+        super::builder::entity_types::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::ListOperations {
-        super::builder::entity_types::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::entity_types::ListOperations {
+        super::builder::entity_types::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::GetOperation {
-        super::builder::entity_types::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::entity_types::GetOperation {
+        super::builder::entity_types::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::entity_types::CancelOperation {
-        super::builder::entity_types::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::entity_types::CancelOperation {
+        super::builder::entity_types::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2851,7 +2529,7 @@ impl EntityTypes {
 /// # use google_cloud_dialogflow_v2::client::Environments;
 /// let client = Environments::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -2884,13 +2562,16 @@ impl EntityTypes {
 ///
 /// `Environments` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Environments` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "environments")]
+#[cfg_attr(docsrs, doc(cfg(feature = "environments")))]
 #[derive(Clone, Debug)]
 pub struct Environments {
-    inner: Arc<dyn super::stub::dynamic::Environments>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Environments>,
 }
 
+#[cfg(feature = "environments")]
 impl Environments {
     /// Returns a builder for [Environments].
     ///
@@ -2898,7 +2579,7 @@ impl Environments {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Environments;
     /// let client = Environments::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::environments::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::environments::client::Factory)
@@ -2913,62 +2594,53 @@ impl Environments {
         T: super::stub::Environments + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Environments>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Environments>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Environments> {
+    ) -> gax::client_builder::Result<impl super::stub::Environments> {
         super::transport::Environments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Environments> {
+    ) -> gax::client_builder::Result<impl super::stub::Environments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Environments::new)
     }
 
     /// Returns the list of all non-default environments of the specified agent.
-    pub fn list_environments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListEnvironments {
+    pub fn list_environments(&self) -> super::builder::environments::ListEnvironments {
         super::builder::environments::ListEnvironments::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified agent environment.
-    pub fn get_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetEnvironment {
-        super::builder::environments::GetEnvironment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_environment(&self) -> super::builder::environments::GetEnvironment {
+        super::builder::environments::GetEnvironment::new(self.inner.clone())
     }
 
     /// Creates an agent environment.
-    pub fn create_environment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::CreateEnvironment {
+    pub fn create_environment(&self) -> super::builder::environments::CreateEnvironment {
         super::builder::environments::CreateEnvironment::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified agent environment.
@@ -2983,76 +2655,49 @@ impl Environments {
     /// version in the default environment. WARNING: this will negate all recent
     /// changes to the draft agent and can't be undone. You may want to save the
     /// draft agent to a version before calling this method.
-    pub fn update_environment(
-        &self,
-        environment: impl Into<crate::model::Environment>,
-    ) -> super::builder::environments::UpdateEnvironment {
+    pub fn update_environment(&self) -> super::builder::environments::UpdateEnvironment {
         super::builder::environments::UpdateEnvironment::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Deletes the specified agent environment.
-    pub fn delete_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::DeleteEnvironment {
+    pub fn delete_environment(&self) -> super::builder::environments::DeleteEnvironment {
         super::builder::environments::DeleteEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the history of the specified environment.
-    pub fn get_environment_history(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetEnvironmentHistory {
+    pub fn get_environment_history(&self) -> super::builder::environments::GetEnvironmentHistory {
         super::builder::environments::GetEnvironmentHistory::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListLocations {
-        super::builder::environments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::environments::ListLocations {
+        super::builder::environments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetLocation {
-        super::builder::environments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::environments::GetLocation {
+        super::builder::environments::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::ListOperations {
-        super::builder::environments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::environments::ListOperations {
+        super::builder::environments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::GetOperation {
-        super::builder::environments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::environments::GetOperation {
+        super::builder::environments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::environments::CancelOperation {
-        super::builder::environments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::environments::CancelOperation {
+        super::builder::environments::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3064,7 +2709,7 @@ impl Environments {
 /// # use google_cloud_dialogflow_v2::client::Fulfillments;
 /// let client = Fulfillments::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -3097,13 +2742,16 @@ impl Environments {
 ///
 /// `Fulfillments` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Fulfillments` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "fulfillments")]
+#[cfg_attr(docsrs, doc(cfg(feature = "fulfillments")))]
 #[derive(Clone, Debug)]
 pub struct Fulfillments {
-    inner: Arc<dyn super::stub::dynamic::Fulfillments>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Fulfillments>,
 }
 
+#[cfg(feature = "fulfillments")]
 impl Fulfillments {
     /// Returns a builder for [Fulfillments].
     ///
@@ -3111,7 +2759,7 @@ impl Fulfillments {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Fulfillments;
     /// let client = Fulfillments::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::fulfillments::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::fulfillments::client::Factory)
@@ -3126,99 +2774,79 @@ impl Fulfillments {
         T: super::stub::Fulfillments + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Fulfillments>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Fulfillments>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Fulfillments> {
+    ) -> gax::client_builder::Result<impl super::stub::Fulfillments> {
         super::transport::Fulfillments::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Fulfillments> {
+    ) -> gax::client_builder::Result<impl super::stub::Fulfillments> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Fulfillments::new)
     }
 
     /// Retrieves the fulfillment.
-    pub fn get_fulfillment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fulfillments::GetFulfillment {
-        super::builder::fulfillments::GetFulfillment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_fulfillment(&self) -> super::builder::fulfillments::GetFulfillment {
+        super::builder::fulfillments::GetFulfillment::new(self.inner.clone())
     }
 
     /// Updates the fulfillment.
-    pub fn update_fulfillment(
-        &self,
-        fulfillment: impl Into<crate::model::Fulfillment>,
-    ) -> super::builder::fulfillments::UpdateFulfillment {
+    pub fn update_fulfillment(&self) -> super::builder::fulfillments::UpdateFulfillment {
         super::builder::fulfillments::UpdateFulfillment::new(self.inner.clone())
-            .set_fulfillment(fulfillment.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fulfillments::ListLocations {
-        super::builder::fulfillments::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::fulfillments::ListLocations {
+        super::builder::fulfillments::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fulfillments::GetLocation {
-        super::builder::fulfillments::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::fulfillments::GetLocation {
+        super::builder::fulfillments::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fulfillments::ListOperations {
-        super::builder::fulfillments::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::fulfillments::ListOperations {
+        super::builder::fulfillments::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fulfillments::GetOperation {
-        super::builder::fulfillments::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::fulfillments::GetOperation {
+        super::builder::fulfillments::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::fulfillments::CancelOperation {
-        super::builder::fulfillments::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::fulfillments::CancelOperation {
+        super::builder::fulfillments::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3230,7 +2858,7 @@ impl Fulfillments {
 /// # use google_cloud_dialogflow_v2::client::Generators;
 /// let client = Generators::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -3265,13 +2893,16 @@ impl Fulfillments {
 ///
 /// `Generators` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Generators` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "generators")]
+#[cfg_attr(docsrs, doc(cfg(feature = "generators")))]
 #[derive(Clone, Debug)]
 pub struct Generators {
-    inner: Arc<dyn super::stub::dynamic::Generators>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Generators>,
 }
 
+#[cfg(feature = "generators")]
 impl Generators {
     /// Returns a builder for [Generators].
     ///
@@ -3279,7 +2910,7 @@ impl Generators {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Generators;
     /// let client = Generators::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::generators::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::generators::client::Factory)
@@ -3294,125 +2925,94 @@ impl Generators {
         T: super::stub::Generators + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Generators>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Generators>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Generators> {
+    ) -> gax::client_builder::Result<impl super::stub::Generators> {
         super::transport::Generators::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Generators> {
+    ) -> gax::client_builder::Result<impl super::stub::Generators> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Generators::new)
     }
 
     /// Creates a generator.
-    pub fn create_generator(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::generators::CreateGenerator {
+    pub fn create_generator(&self) -> super::builder::generators::CreateGenerator {
         super::builder::generators::CreateGenerator::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a generator.
-    pub fn get_generator(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::GetGenerator {
-        super::builder::generators::GetGenerator::new(self.inner.clone()).set_name(name.into())
+    pub fn get_generator(&self) -> super::builder::generators::GetGenerator {
+        super::builder::generators::GetGenerator::new(self.inner.clone())
     }
 
     /// Lists generators.
-    pub fn list_generators(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::generators::ListGenerators {
+    pub fn list_generators(&self) -> super::builder::generators::ListGenerators {
         super::builder::generators::ListGenerators::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a generator.
-    pub fn delete_generator(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::DeleteGenerator {
-        super::builder::generators::DeleteGenerator::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_generator(&self) -> super::builder::generators::DeleteGenerator {
+        super::builder::generators::DeleteGenerator::new(self.inner.clone())
     }
 
     /// Updates a generator.
-    pub fn update_generator(
-        &self,
-        generator: impl Into<crate::model::Generator>,
-    ) -> super::builder::generators::UpdateGenerator {
+    pub fn update_generator(&self) -> super::builder::generators::UpdateGenerator {
         super::builder::generators::UpdateGenerator::new(self.inner.clone())
-            .set_generator(generator.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::ListLocations {
-        super::builder::generators::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::generators::ListLocations {
+        super::builder::generators::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::GetLocation {
-        super::builder::generators::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::generators::GetLocation {
+        super::builder::generators::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::ListOperations {
-        super::builder::generators::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::generators::ListOperations {
+        super::builder::generators::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::GetOperation {
-        super::builder::generators::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::generators::GetOperation {
+        super::builder::generators::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::generators::CancelOperation {
-        super::builder::generators::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::generators::CancelOperation {
+        super::builder::generators::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3424,7 +3024,7 @@ impl Generators {
 /// # use google_cloud_dialogflow_v2::client::Intents;
 /// let client = Intents::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -3457,13 +3057,16 @@ impl Generators {
 ///
 /// `Intents` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Intents` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "intents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "intents")))]
 #[derive(Clone, Debug)]
 pub struct Intents {
-    inner: Arc<dyn super::stub::dynamic::Intents>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Intents>,
 }
 
+#[cfg(feature = "intents")]
 impl Intents {
     /// Returns a builder for [Intents].
     ///
@@ -3471,7 +3074,7 @@ impl Intents {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Intents;
     /// let client = Intents::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::intents::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::intents::client::Factory)
@@ -3486,52 +3089,48 @@ impl Intents {
         T: super::stub::Intents + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Intents>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Intents>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Intents> {
+    ) -> gax::client_builder::Result<impl super::stub::Intents> {
         super::transport::Intents::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Intents> {
+    ) -> gax::client_builder::Result<impl super::stub::Intents> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Intents::new)
     }
 
     /// Returns the list of all intents in the specified agent.
-    pub fn list_intents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::ListIntents {
-        super::builder::intents::ListIntents::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_intents(&self) -> super::builder::intents::ListIntents {
+        super::builder::intents::ListIntents::new(self.inner.clone())
     }
 
     /// Retrieves the specified intent.
-    pub fn get_intent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::GetIntent {
-        super::builder::intents::GetIntent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_intent(&self) -> super::builder::intents::GetIntent {
+        super::builder::intents::GetIntent::new(self.inner.clone())
     }
 
     /// Creates an intent in the specified agent.
@@ -3539,11 +3138,8 @@ impl Intents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn create_intent(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::CreateIntent {
-        super::builder::intents::CreateIntent::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_intent(&self) -> super::builder::intents::CreateIntent {
+        super::builder::intents::CreateIntent::new(self.inner.clone())
     }
 
     /// Updates the specified intent.
@@ -3551,11 +3147,8 @@ impl Intents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn update_intent(
-        &self,
-        intent: impl Into<crate::model::Intent>,
-    ) -> super::builder::intents::UpdateIntent {
-        super::builder::intents::UpdateIntent::new(self.inner.clone()).set_intent(intent.into())
+    pub fn update_intent(&self) -> super::builder::intents::UpdateIntent {
+        super::builder::intents::UpdateIntent::new(self.inner.clone())
     }
 
     /// Deletes the specified intent and its direct or indirect followup intents.
@@ -3563,11 +3156,8 @@ impl Intents {
     /// Note: You should always train an agent prior to sending it queries. See the
     /// [training
     /// documentation](https://cloud.google.com/dialogflow/es/docs/training).
-    pub fn delete_intent(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::DeleteIntent {
-        super::builder::intents::DeleteIntent::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_intent(&self) -> super::builder::intents::DeleteIntent {
+        super::builder::intents::DeleteIntent::new(self.inner.clone())
     }
 
     /// Updates/Creates multiple intents in the specified agent.
@@ -3596,12 +3186,8 @@ impl Intents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_update_intents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::BatchUpdateIntents {
+    pub fn batch_update_intents(&self) -> super::builder::intents::BatchUpdateIntents {
         super::builder::intents::BatchUpdateIntents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes intents in the specified agent.
@@ -3628,58 +3214,39 @@ impl Intents {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_delete_intents(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::intents::BatchDeleteIntents {
+    pub fn batch_delete_intents(&self) -> super::builder::intents::BatchDeleteIntents {
         super::builder::intents::BatchDeleteIntents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::ListLocations {
-        super::builder::intents::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::intents::ListLocations {
+        super::builder::intents::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::GetLocation {
-        super::builder::intents::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::intents::GetLocation {
+        super::builder::intents::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::ListOperations {
-        super::builder::intents::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::intents::ListOperations {
+        super::builder::intents::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::GetOperation {
-        super::builder::intents::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::intents::GetOperation {
+        super::builder::intents::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::intents::CancelOperation {
-        super::builder::intents::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::intents::CancelOperation {
+        super::builder::intents::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -3691,7 +3258,7 @@ impl Intents {
 /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
 /// let client = KnowledgeBases::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -3725,13 +3292,16 @@ impl Intents {
 ///
 /// `KnowledgeBases` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `KnowledgeBases` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "knowledge-bases")]
+#[cfg_attr(docsrs, doc(cfg(feature = "knowledge-bases")))]
 #[derive(Clone, Debug)]
 pub struct KnowledgeBases {
-    inner: Arc<dyn super::stub::dynamic::KnowledgeBases>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::KnowledgeBases>,
 }
 
+#[cfg(feature = "knowledge-bases")]
 impl KnowledgeBases {
     /// Returns a builder for [KnowledgeBases].
     ///
@@ -3739,7 +3309,7 @@ impl KnowledgeBases {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::KnowledgeBases;
     /// let client = KnowledgeBases::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::knowledge_bases::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::knowledge_bases::client::Factory)
@@ -3754,130 +3324,94 @@ impl KnowledgeBases {
         T: super::stub::KnowledgeBases + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::KnowledgeBases>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::KnowledgeBases>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::KnowledgeBases> {
+    ) -> gax::client_builder::Result<impl super::stub::KnowledgeBases> {
         super::transport::KnowledgeBases::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::KnowledgeBases> {
+    ) -> gax::client_builder::Result<impl super::stub::KnowledgeBases> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::KnowledgeBases::new)
     }
 
     /// Returns the list of all knowledge bases of the specified agent.
-    pub fn list_knowledge_bases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::ListKnowledgeBases {
+    pub fn list_knowledge_bases(&self) -> super::builder::knowledge_bases::ListKnowledgeBases {
         super::builder::knowledge_bases::ListKnowledgeBases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified knowledge base.
-    pub fn get_knowledge_base(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::GetKnowledgeBase {
+    pub fn get_knowledge_base(&self) -> super::builder::knowledge_bases::GetKnowledgeBase {
         super::builder::knowledge_bases::GetKnowledgeBase::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a knowledge base.
-    pub fn create_knowledge_base(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::CreateKnowledgeBase {
+    pub fn create_knowledge_base(&self) -> super::builder::knowledge_bases::CreateKnowledgeBase {
         super::builder::knowledge_bases::CreateKnowledgeBase::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified knowledge base.
-    pub fn delete_knowledge_base(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::DeleteKnowledgeBase {
+    pub fn delete_knowledge_base(&self) -> super::builder::knowledge_bases::DeleteKnowledgeBase {
         super::builder::knowledge_bases::DeleteKnowledgeBase::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified knowledge base.
-    pub fn update_knowledge_base(
-        &self,
-        knowledge_base: impl Into<crate::model::KnowledgeBase>,
-    ) -> super::builder::knowledge_bases::UpdateKnowledgeBase {
+    pub fn update_knowledge_base(&self) -> super::builder::knowledge_bases::UpdateKnowledgeBase {
         super::builder::knowledge_bases::UpdateKnowledgeBase::new(self.inner.clone())
-            .set_knowledge_base(knowledge_base.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::ListLocations {
+    pub fn list_locations(&self) -> super::builder::knowledge_bases::ListLocations {
         super::builder::knowledge_bases::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::GetLocation {
-        super::builder::knowledge_bases::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::knowledge_bases::GetLocation {
+        super::builder::knowledge_bases::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::ListOperations {
+    pub fn list_operations(&self) -> super::builder::knowledge_bases::ListOperations {
         super::builder::knowledge_bases::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::GetOperation {
-        super::builder::knowledge_bases::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::knowledge_bases::GetOperation {
+        super::builder::knowledge_bases::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::knowledge_bases::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::knowledge_bases::CancelOperation {
         super::builder::knowledge_bases::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -3889,7 +3423,7 @@ impl KnowledgeBases {
 /// # use google_cloud_dialogflow_v2::client::Participants;
 /// let client = Participants::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -3922,13 +3456,16 @@ impl KnowledgeBases {
 ///
 /// `Participants` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Participants` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "participants")]
+#[cfg_attr(docsrs, doc(cfg(feature = "participants")))]
 #[derive(Clone, Debug)]
 pub struct Participants {
-    inner: Arc<dyn super::stub::dynamic::Participants>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Participants>,
 }
 
+#[cfg(feature = "participants")]
 impl Participants {
     /// Returns a builder for [Participants].
     ///
@@ -3936,7 +3473,7 @@ impl Participants {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Participants;
     /// let client = Participants::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::participants::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::participants::client::Factory)
@@ -3951,71 +3488,58 @@ impl Participants {
         T: super::stub::Participants + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Participants>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Participants>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Participants> {
+    ) -> gax::client_builder::Result<impl super::stub::Participants> {
         super::transport::Participants::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Participants> {
+    ) -> gax::client_builder::Result<impl super::stub::Participants> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Participants::new)
     }
 
     /// Creates a new participant in a conversation.
-    pub fn create_participant(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::participants::CreateParticipant {
+    pub fn create_participant(&self) -> super::builder::participants::CreateParticipant {
         super::builder::participants::CreateParticipant::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves a conversation participant.
-    pub fn get_participant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::participants::GetParticipant {
-        super::builder::participants::GetParticipant::new(self.inner.clone()).set_name(name.into())
+    pub fn get_participant(&self) -> super::builder::participants::GetParticipant {
+        super::builder::participants::GetParticipant::new(self.inner.clone())
     }
 
     /// Returns the list of all participants in the specified conversation.
-    pub fn list_participants(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::participants::ListParticipants {
+    pub fn list_participants(&self) -> super::builder::participants::ListParticipants {
         super::builder::participants::ListParticipants::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified participant.
-    pub fn update_participant(
-        &self,
-        participant: impl Into<crate::model::Participant>,
-    ) -> super::builder::participants::UpdateParticipant {
+    pub fn update_participant(&self) -> super::builder::participants::UpdateParticipant {
         super::builder::participants::UpdateParticipant::new(self.inner.clone())
-            .set_participant(participant.into())
     }
 
     /// Adds a text (chat, for example), or audio (phone recording, for example)
@@ -4024,97 +3548,62 @@ impl Participants {
     /// Note: Always use agent versions for production traffic
     /// sent to virtual agents. See [Versions and
     /// environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
-    pub fn analyze_content(
-        &self,
-        participant: impl Into<std::string::String>,
-    ) -> super::builder::participants::AnalyzeContent {
+    pub fn analyze_content(&self) -> super::builder::participants::AnalyzeContent {
         super::builder::participants::AnalyzeContent::new(self.inner.clone())
-            .set_participant(participant.into())
     }
 
     /// Gets suggested articles for a participant based on specific historical
     /// messages.
-    pub fn suggest_articles(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::participants::SuggestArticles {
+    pub fn suggest_articles(&self) -> super::builder::participants::SuggestArticles {
         super::builder::participants::SuggestArticles::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets suggested faq answers for a participant based on specific historical
     /// messages.
-    pub fn suggest_faq_answers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::participants::SuggestFaqAnswers {
+    pub fn suggest_faq_answers(&self) -> super::builder::participants::SuggestFaqAnswers {
         super::builder::participants::SuggestFaqAnswers::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets smart replies for a participant based on specific historical
     /// messages.
-    pub fn suggest_smart_replies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::participants::SuggestSmartReplies {
+    pub fn suggest_smart_replies(&self) -> super::builder::participants::SuggestSmartReplies {
         super::builder::participants::SuggestSmartReplies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets knowledge assist suggestions based on historical messages.
-    pub fn suggest_knowledge_assist(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::participants::SuggestKnowledgeAssist {
+    pub fn suggest_knowledge_assist(&self) -> super::builder::participants::SuggestKnowledgeAssist {
         super::builder::participants::SuggestKnowledgeAssist::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::participants::ListLocations {
-        super::builder::participants::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::participants::ListLocations {
+        super::builder::participants::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::participants::GetLocation {
-        super::builder::participants::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::participants::GetLocation {
+        super::builder::participants::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::participants::ListOperations {
-        super::builder::participants::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::participants::ListOperations {
+        super::builder::participants::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::participants::GetOperation {
-        super::builder::participants::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::participants::GetOperation {
+        super::builder::participants::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::participants::CancelOperation {
-        super::builder::participants::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::participants::CancelOperation {
+        super::builder::participants::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -4126,7 +3615,7 @@ impl Participants {
 /// # use google_cloud_dialogflow_v2::client::Sessions;
 /// let client = Sessions::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -4160,13 +3649,16 @@ impl Participants {
 ///
 /// `Sessions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Sessions` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "sessions")]
+#[cfg_attr(docsrs, doc(cfg(feature = "sessions")))]
 #[derive(Clone, Debug)]
 pub struct Sessions {
-    inner: Arc<dyn super::stub::dynamic::Sessions>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Sessions>,
 }
 
+#[cfg(feature = "sessions")]
 impl Sessions {
     /// Returns a builder for [Sessions].
     ///
@@ -4174,7 +3666,7 @@ impl Sessions {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Sessions;
     /// let client = Sessions::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sessions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::sessions::client::Factory)
@@ -4189,33 +3681,35 @@ impl Sessions {
         T: super::stub::Sessions + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Sessions>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Sessions>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Sessions> {
+    ) -> gax::client_builder::Result<impl super::stub::Sessions> {
         super::transport::Sessions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Sessions> {
+    ) -> gax::client_builder::Result<impl super::stub::Sessions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Sessions::new)
@@ -4238,57 +3732,39 @@ impl Sessions {
     /// environments](https://cloud.google.com/dialogflow/es/docs/agents-versions).
     ///
     /// [google.cloud.dialogflow.v2.Participants.AnalyzeContent]: crate::client::Participants::analyze_content
-    pub fn detect_intent(
-        &self,
-        session: impl Into<std::string::String>,
-    ) -> super::builder::sessions::DetectIntent {
-        super::builder::sessions::DetectIntent::new(self.inner.clone()).set_session(session.into())
+    pub fn detect_intent(&self) -> super::builder::sessions::DetectIntent {
+        super::builder::sessions::DetectIntent::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::ListLocations {
-        super::builder::sessions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::sessions::ListLocations {
+        super::builder::sessions::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::GetLocation {
-        super::builder::sessions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::sessions::GetLocation {
+        super::builder::sessions::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::ListOperations {
-        super::builder::sessions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::sessions::ListOperations {
+        super::builder::sessions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::GetOperation {
-        super::builder::sessions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::sessions::GetOperation {
+        super::builder::sessions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sessions::CancelOperation {
-        super::builder::sessions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::sessions::CancelOperation {
+        super::builder::sessions::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -4300,7 +3776,7 @@ impl Sessions {
 /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
 /// let client = SessionEntityTypes::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -4334,13 +3810,16 @@ impl Sessions {
 ///
 /// `SessionEntityTypes` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SessionEntityTypes` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "session-entity-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "session-entity-types")))]
 #[derive(Clone, Debug)]
 pub struct SessionEntityTypes {
-    inner: Arc<dyn super::stub::dynamic::SessionEntityTypes>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::SessionEntityTypes>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl SessionEntityTypes {
     /// Returns a builder for [SessionEntityTypes].
     ///
@@ -4348,7 +3827,7 @@ impl SessionEntityTypes {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::SessionEntityTypes;
     /// let client = SessionEntityTypes::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::session_entity_types::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -4365,33 +3844,36 @@ impl SessionEntityTypes {
         T: super::stub::SessionEntityTypes + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::SessionEntityTypes>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SessionEntityTypes>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SessionEntityTypes> {
+    ) -> gax::client_builder::Result<impl super::stub::SessionEntityTypes> {
         super::transport::SessionEntityTypes::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SessionEntityTypes> {
+    ) -> gax::client_builder::Result<impl super::stub::SessionEntityTypes> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SessionEntityTypes::new)
@@ -4404,10 +3886,8 @@ impl SessionEntityTypes {
     /// with Google Assistant integration.
     pub fn list_session_entity_types(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::ListSessionEntityTypes {
         super::builder::session_entity_types::ListSessionEntityTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified session entity type.
@@ -4417,10 +3897,8 @@ impl SessionEntityTypes {
     /// with Google Assistant integration.
     pub fn get_session_entity_type(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::GetSessionEntityType {
         super::builder::session_entity_types::GetSessionEntityType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a session entity type.
@@ -4433,10 +3911,8 @@ impl SessionEntityTypes {
     /// with Google Assistant integration.
     pub fn create_session_entity_type(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::CreateSessionEntityType {
         super::builder::session_entity_types::CreateSessionEntityType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified session entity type.
@@ -4446,10 +3922,8 @@ impl SessionEntityTypes {
     /// with Google Assistant integration.
     pub fn update_session_entity_type(
         &self,
-        session_entity_type: impl Into<crate::model::SessionEntityType>,
     ) -> super::builder::session_entity_types::UpdateSessionEntityType {
         super::builder::session_entity_types::UpdateSessionEntityType::new(self.inner.clone())
-            .set_session_entity_type(session_entity_type.into())
     }
 
     /// Deletes the specified session entity type.
@@ -4459,61 +3933,39 @@ impl SessionEntityTypes {
     /// with Google Assistant integration.
     pub fn delete_session_entity_type(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::session_entity_types::DeleteSessionEntityType {
         super::builder::session_entity_types::DeleteSessionEntityType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::ListLocations {
+    pub fn list_locations(&self) -> super::builder::session_entity_types::ListLocations {
         super::builder::session_entity_types::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::GetLocation {
+    pub fn get_location(&self) -> super::builder::session_entity_types::GetLocation {
         super::builder::session_entity_types::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::ListOperations {
+    pub fn list_operations(&self) -> super::builder::session_entity_types::ListOperations {
         super::builder::session_entity_types::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::GetOperation {
+    pub fn get_operation(&self) -> super::builder::session_entity_types::GetOperation {
         super::builder::session_entity_types::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::session_entity_types::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::session_entity_types::CancelOperation {
         super::builder::session_entity_types::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -4525,7 +3977,7 @@ impl SessionEntityTypes {
 /// # use google_cloud_dialogflow_v2::client::Versions;
 /// let client = Versions::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -4558,13 +4010,16 @@ impl SessionEntityTypes {
 ///
 /// `Versions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Versions` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "versions")]
+#[cfg_attr(docsrs, doc(cfg(feature = "versions")))]
 #[derive(Clone, Debug)]
 pub struct Versions {
-    inner: Arc<dyn super::stub::dynamic::Versions>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Versions>,
 }
 
+#[cfg(feature = "versions")]
 impl Versions {
     /// Returns a builder for [Versions].
     ///
@@ -4572,7 +4027,7 @@ impl Versions {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_dialogflow_v2::client::Versions;
     /// let client = Versions::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::versions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::versions::client::Factory)
@@ -4587,62 +4042,55 @@ impl Versions {
         T: super::stub::Versions + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Versions>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Versions>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Versions> {
+    ) -> gax::client_builder::Result<impl super::stub::Versions> {
         super::transport::Versions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Versions> {
+    ) -> gax::client_builder::Result<impl super::stub::Versions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Versions::new)
     }
 
     /// Returns the list of all versions of the specified agent.
-    pub fn list_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListVersions {
-        super::builder::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_versions(&self) -> super::builder::versions::ListVersions {
+        super::builder::versions::ListVersions::new(self.inner.clone())
     }
 
     /// Retrieves the specified agent version.
-    pub fn get_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetVersion {
-        super::builder::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_version(&self) -> super::builder::versions::GetVersion {
+        super::builder::versions::GetVersion::new(self.inner.clone())
     }
 
     /// Creates an agent version.
     ///
     /// The new version points to the agent instance in the "default" environment.
-    pub fn create_version(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::versions::CreateVersion {
-        super::builder::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_version(&self) -> super::builder::versions::CreateVersion {
+        super::builder::versions::CreateVersion::new(self.inner.clone())
     }
 
     /// Updates the specified agent version.
@@ -4650,64 +4098,43 @@ impl Versions {
     /// Note that this method does not allow you to update the state of the agent
     /// the given version points to. It allows you to update only mutable
     /// properties of the version resource.
-    pub fn update_version(
-        &self,
-        version: impl Into<crate::model::Version>,
-    ) -> super::builder::versions::UpdateVersion {
-        super::builder::versions::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+    pub fn update_version(&self) -> super::builder::versions::UpdateVersion {
+        super::builder::versions::UpdateVersion::new(self.inner.clone())
     }
 
     /// Delete the specified agent version.
-    pub fn delete_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::DeleteVersion {
-        super::builder::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_version(&self) -> super::builder::versions::DeleteVersion {
+        super::builder::versions::DeleteVersion::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListLocations {
-        super::builder::versions::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::versions::ListLocations {
+        super::builder::versions::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetLocation {
-        super::builder::versions::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::versions::GetLocation {
+        super::builder::versions::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListOperations {
-        super::builder::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::versions::ListOperations {
+        super::builder::versions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetOperation {
-        super::builder::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::versions::GetOperation {
+        super::builder::versions::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::CancelOperation {
-        super::builder::versions::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::versions::CancelOperation {
+        super::builder::versions::CancelOperation::new(self.inner.clone())
     }
 }

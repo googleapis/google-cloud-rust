@@ -13,11 +13,11 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
-    #[cfg(any(feature = "_internal_grpc_client", feature = "_internal_http_client"))]
+mod tests {
+    #[cfg(any(feature = "_internal-grpc-client", feature = "_internal-http-client"))]
     const DEFAULT_ENDPOINT: &str = "https://kms.googleapis.com";
 
-    #[cfg(feature = "_internal_grpc_client")]
+    #[cfg(feature = "_internal-grpc-client")]
     mod grpc {
         use auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
@@ -41,7 +41,7 @@ mod test {
                 gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
-            async fn new(config: gaxi::options::ClientConfig) -> gax::Result<Self> {
+            async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
                 let inner = gaxi::grpc::Client::new(config, super::DEFAULT_ENDPOINT).await?;
                 Ok(Self { inner })
             }
@@ -60,14 +60,14 @@ mod test {
                 async fn build(
                     self,
                     config: gaxi::options::ClientConfig,
-                ) -> gax::Result<Self::Client> {
+                ) -> gax::client_builder::Result<Self::Client> {
                     Self::Client::new(config).await
                 }
             }
         }
     }
 
-    #[cfg(feature = "_internal_http_client")]
+    #[cfg(feature = "_internal-http-client")]
     mod http {
         use auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
@@ -91,7 +91,7 @@ mod test {
                 gax::client_builder::internal::new_builder(fake_client::Factory)
             }
 
-            async fn new(config: gaxi::options::ClientConfig) -> gax::Result<Self> {
+            async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
                 let inner = gaxi::http::ReqwestClient::new(config, super::DEFAULT_ENDPOINT).await?;
                 Ok(Self { inner })
             }
@@ -110,7 +110,7 @@ mod test {
                 async fn build(
                     self,
                     config: gaxi::options::ClientConfig,
-                ) -> gax::Result<Self::Client> {
+                ) -> gax::client_builder::Result<Self::Client> {
                     Self::Client::new(config).await
                 }
             }

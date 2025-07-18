@@ -16,9 +16,8 @@
 
 pub mod reservation_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ReservationService][super::super::client::ReservationService].
+    /// A builder for [ReservationService][crate::client::ReservationService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod reservation_service {
     /// let client = builder
     ///     .with_endpoint("https://bigqueryreservation.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod reservation_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ReservationService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ReservationService] request builders.
+    /// Common implementation for [crate::client::ReservationService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ReservationService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod reservation_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::create_reservation][super::super::client::ReservationService::create_reservation] calls.
+    /// The request builder for [ReservationService::create_reservation][crate::client::ReservationService::create_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::CreateReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReservation(RequestBuilder<crate::model::CreateReservationRequest>);
 
     impl CreateReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -114,11 +136,20 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [reservation][crate::model::CreateReservationRequest::reservation].
-        pub fn set_reservation<T: Into<std::option::Option<crate::model::Reservation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reservation = v.into();
+        pub fn set_reservation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reservation][crate::model::CreateReservationRequest::reservation].
+        pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = v.map(|x| x.into());
             self
         }
     }
@@ -130,12 +161,34 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::list_reservations][super::super::client::ReservationService::list_reservations] calls.
+    /// The request builder for [ReservationService::list_reservations][crate::client::ReservationService::list_reservations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::ListReservations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReservations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReservations(RequestBuilder<crate::model::ListReservationsRequest>);
 
     impl ListReservations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -162,8 +215,8 @@ pub mod reservation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReservationsResponse, gax::error::Error>
         {
@@ -175,6 +228,15 @@ pub mod reservation_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReservationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReservationsRequest::parent].
@@ -205,12 +267,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::get_reservation][super::super::client::ReservationService::get_reservation] calls.
+    /// The request builder for [ReservationService::get_reservation][crate::client::ReservationService::get_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::GetReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReservation(RequestBuilder<crate::model::GetReservationRequest>);
 
     impl GetReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -250,12 +330,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::delete_reservation][super::super::client::ReservationService::delete_reservation] calls.
+    /// The request builder for [ReservationService::delete_reservation][crate::client::ReservationService::delete_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::DeleteReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteReservation(RequestBuilder<crate::model::DeleteReservationRequest>);
 
     impl DeleteReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -298,12 +396,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_reservation][super::super::client::ReservationService::update_reservation] calls.
+    /// The request builder for [ReservationService::update_reservation][crate::client::ReservationService::update_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateReservation(RequestBuilder<crate::model::UpdateReservationRequest>);
 
     impl UpdateReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -331,20 +447,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [reservation][crate::model::UpdateReservationRequest::reservation].
-        pub fn set_reservation<T: Into<std::option::Option<crate::model::Reservation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reservation = v.into();
+        pub fn set_reservation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reservation][crate::model::UpdateReservationRequest::reservation].
+        pub fn set_or_clear_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Reservation>,
+        {
+            self.0.request.reservation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReservationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -356,12 +490,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::failover_reservation][super::super::client::ReservationService::failover_reservation] calls.
+    /// The request builder for [ReservationService::failover_reservation][crate::client::ReservationService::failover_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::FailoverReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FailoverReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FailoverReservation(RequestBuilder<crate::model::FailoverReservationRequest>);
 
     impl FailoverReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,14 +556,32 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::create_capacity_commitment][super::super::client::ReservationService::create_capacity_commitment] calls.
+    /// The request builder for [ReservationService::create_capacity_commitment][crate::client::ReservationService::create_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::CreateCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCapacityCommitment(
         RequestBuilder<crate::model::CreateCapacityCommitmentRequest>,
     );
 
     impl CreateCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -447,13 +617,20 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
-        pub fn set_capacity_commitment<
-            T: Into<std::option::Option<crate::model::CapacityCommitment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.capacity_commitment = v.into();
+        pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [capacity_commitment][crate::model::CreateCapacityCommitmentRequest::capacity_commitment].
+        pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = v.map(|x| x.into());
             self
         }
 
@@ -477,14 +654,36 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::list_capacity_commitments][super::super::client::ReservationService::list_capacity_commitments] calls.
+    /// The request builder for [ReservationService::list_capacity_commitments][crate::client::ReservationService::list_capacity_commitments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::ListCapacityCommitments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCapacityCommitments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCapacityCommitments(
         RequestBuilder<crate::model::ListCapacityCommitmentsRequest>,
     );
 
     impl ListCapacityCommitments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -511,8 +710,8 @@ pub mod reservation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListCapacityCommitmentsResponse,
@@ -526,6 +725,17 @@ pub mod reservation_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCapacityCommitmentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCapacityCommitmentsRequest::parent].
@@ -556,12 +766,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::get_capacity_commitment][super::super::client::ReservationService::get_capacity_commitment] calls.
+    /// The request builder for [ReservationService::get_capacity_commitment][crate::client::ReservationService::get_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::GetCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCapacityCommitment(RequestBuilder<crate::model::GetCapacityCommitmentRequest>);
 
     impl GetCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -604,14 +832,32 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::delete_capacity_commitment][super::super::client::ReservationService::delete_capacity_commitment] calls.
+    /// The request builder for [ReservationService::delete_capacity_commitment][crate::client::ReservationService::delete_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::DeleteCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCapacityCommitment(
         RequestBuilder<crate::model::DeleteCapacityCommitmentRequest>,
     );
 
     impl DeleteCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -660,14 +906,32 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_capacity_commitment][super::super::client::ReservationService::update_capacity_commitment] calls.
+    /// The request builder for [ReservationService::update_capacity_commitment][crate::client::ReservationService::update_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCapacityCommitment(
         RequestBuilder<crate::model::UpdateCapacityCommitmentRequest>,
     );
 
     impl UpdateCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -695,22 +959,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
-        pub fn set_capacity_commitment<
-            T: Into<std::option::Option<crate::model::CapacityCommitment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.capacity_commitment = v.into();
+        pub fn set_capacity_commitment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [capacity_commitment][crate::model::UpdateCapacityCommitmentRequest::capacity_commitment].
+        pub fn set_or_clear_capacity_commitment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CapacityCommitment>,
+        {
+            self.0.request.capacity_commitment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCapacityCommitmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -722,14 +1002,32 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::split_capacity_commitment][super::super::client::ReservationService::split_capacity_commitment] calls.
+    /// The request builder for [ReservationService::split_capacity_commitment][crate::client::ReservationService::split_capacity_commitment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::SplitCapacityCommitment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SplitCapacityCommitment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SplitCapacityCommitment(
         RequestBuilder<crate::model::SplitCapacityCommitmentRequest>,
     );
 
     impl SplitCapacityCommitment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -778,14 +1076,32 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::merge_capacity_commitments][super::super::client::ReservationService::merge_capacity_commitments] calls.
+    /// The request builder for [ReservationService::merge_capacity_commitments][crate::client::ReservationService::merge_capacity_commitments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::MergeCapacityCommitments;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MergeCapacityCommitments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MergeCapacityCommitments(
         RequestBuilder<crate::model::MergeCapacityCommitmentsRequest>,
     );
 
     impl MergeCapacityCommitments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -837,12 +1153,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::create_assignment][super::super::client::ReservationService::create_assignment] calls.
+    /// The request builder for [ReservationService::create_assignment][crate::client::ReservationService::create_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::CreateAssignment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAssignment(RequestBuilder<crate::model::CreateAssignmentRequest>);
 
     impl CreateAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -878,11 +1212,20 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
-        pub fn set_assignment<T: Into<std::option::Option<crate::model::Assignment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assignment = v.into();
+        pub fn set_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assignment][crate::model::CreateAssignmentRequest::assignment].
+        pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = v.map(|x| x.into());
             self
         }
 
@@ -900,12 +1243,34 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::list_assignments][super::super::client::ReservationService::list_assignments] calls.
+    /// The request builder for [ReservationService::list_assignments][crate::client::ReservationService::list_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::ListAssignments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAssignments(RequestBuilder<crate::model::ListAssignmentsRequest>);
 
     impl ListAssignments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -929,8 +1294,8 @@ pub mod reservation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAssignmentsResponse, gax::error::Error>
         {
@@ -942,6 +1307,15 @@ pub mod reservation_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAssignmentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAssignmentsRequest::parent].
@@ -972,12 +1346,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::delete_assignment][super::super::client::ReservationService::delete_assignment] calls.
+    /// The request builder for [ReservationService::delete_assignment][crate::client::ReservationService::delete_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::DeleteAssignment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAssignment(RequestBuilder<crate::model::DeleteAssignmentRequest>);
 
     impl DeleteAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1020,12 +1412,34 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::search_assignments][super::super::client::ReservationService::search_assignments] calls.
+    /// The request builder for [ReservationService::search_assignments][crate::client::ReservationService::search_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::SearchAssignments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAssignments(RequestBuilder<crate::model::SearchAssignmentsRequest>);
 
     impl SearchAssignments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1052,8 +1466,8 @@ pub mod reservation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
         {
@@ -1065,6 +1479,15 @@ pub mod reservation_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchAssignmentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchAssignmentsRequest::parent].
@@ -1101,12 +1524,34 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::search_all_assignments][super::super::client::ReservationService::search_all_assignments] calls.
+    /// The request builder for [ReservationService::search_all_assignments][crate::client::ReservationService::search_all_assignments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::SearchAllAssignments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchAllAssignments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchAllAssignments(RequestBuilder<crate::model::SearchAllAssignmentsRequest>);
 
     impl SearchAllAssignments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1133,8 +1578,8 @@ pub mod reservation_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchAllAssignmentsResponse, gax::error::Error>
         {
@@ -1146,6 +1591,17 @@ pub mod reservation_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchAllAssignmentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchAllAssignmentsRequest::parent].
@@ -1182,12 +1638,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::move_assignment][super::super::client::ReservationService::move_assignment] calls.
+    /// The request builder for [ReservationService::move_assignment][crate::client::ReservationService::move_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::MoveAssignment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveAssignment(RequestBuilder<crate::model::MoveAssignmentRequest>);
 
     impl MoveAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1239,12 +1713,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_assignment][super::super::client::ReservationService::update_assignment] calls.
+    /// The request builder for [ReservationService::update_assignment][crate::client::ReservationService::update_assignment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateAssignment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAssignment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAssignment(RequestBuilder<crate::model::UpdateAssignmentRequest>);
 
     impl UpdateAssignment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1272,20 +1764,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
-        pub fn set_assignment<T: Into<std::option::Option<crate::model::Assignment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.assignment = v.into();
+        pub fn set_assignment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [assignment][crate::model::UpdateAssignmentRequest::assignment].
+        pub fn set_or_clear_assignment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Assignment>,
+        {
+            self.0.request.assignment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAssignmentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1297,12 +1807,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::get_bi_reservation][super::super::client::ReservationService::get_bi_reservation] calls.
+    /// The request builder for [ReservationService::get_bi_reservation][crate::client::ReservationService::get_bi_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::GetBiReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBiReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBiReservation(RequestBuilder<crate::model::GetBiReservationRequest>);
 
     impl GetBiReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1345,12 +1873,30 @@ pub mod reservation_service {
         }
     }
 
-    /// The request builder for [ReservationService::update_bi_reservation][super::super::client::ReservationService::update_bi_reservation] calls.
+    /// The request builder for [ReservationService::update_bi_reservation][crate::client::ReservationService::update_bi_reservation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_reservation_v1::builder;
+    /// use builder::reservation_service::UpdateBiReservation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBiReservation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBiReservation(RequestBuilder<crate::model::UpdateBiReservationRequest>);
 
     impl UpdateBiReservation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReservationService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReservationService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1378,20 +1924,38 @@ pub mod reservation_service {
         }
 
         /// Sets the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
-        pub fn set_bi_reservation<T: Into<std::option::Option<crate::model::BiReservation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bi_reservation = v.into();
+        pub fn set_bi_reservation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BiReservation>,
+        {
+            self.0.request.bi_reservation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bi_reservation][crate::model::UpdateBiReservationRequest::bi_reservation].
+        pub fn set_or_clear_bi_reservation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BiReservation>,
+        {
+            self.0.request.bi_reservation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBiReservationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }

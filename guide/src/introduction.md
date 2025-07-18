@@ -22,8 +22,8 @@ interact with Google Cloud Services.
 This guide is organized as a series of small tutorials showing how to perform
 specific actions with the client libraries. Most Google Cloud services follow a
 series of guidelines, collectively known as the [AIPs](https://google.aip.dev).
-This makes the client libraries more consistent from one service to the next. The functions
-to delete or list resources almost always have the same interface.
+This makes the client libraries more consistent from one service to the next.
+The functions to delete or list resources almost always have the same interface.
 
 ## Audience
 
@@ -33,19 +33,19 @@ supporting toolchain.
 
 At the risk of being repetitive, most of the guides do not assume you have used
 any Google Service or client library before (in Rust or other language).
-However, the guides will refer you to service specific tutorials to
-initialize their projects and services.
+However, the guides will refer you to service specific tutorials to initialize
+their projects and services.
 
 ## Service specific documentation
 
-These guides are not intended as tutorials for each service or as extended guides
-on how to design Rust applications to work on Google Cloud. They are starting
-points to get you productive with the client libraries for Rust.
+These guides are not intended as tutorials for each service or as extended
+guides on how to design Rust applications to work on Google Cloud. They are
+starting points to get you productive with the client libraries for Rust.
 
 We recommend you read the service documentation at <https://cloud.google.com> to
-learn more about each service. If you need guidance on how to design your application
-for Google Cloud, the [Cloud Architecture Center] may have what you are looking
-for.
+learn more about each service. If you need guidance on how to design your
+application for Google Cloud, the [Cloud Architecture Center] may have what you
+are looking for.
 
 ## Reporting bugs
 

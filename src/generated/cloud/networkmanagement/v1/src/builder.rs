@@ -16,9 +16,8 @@
 
 pub mod reachability_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ReachabilityService][super::super::client::ReachabilityService].
+    /// A builder for [ReachabilityService][crate::client::ReachabilityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod reachability_service {
     /// let client = builder
     ///     .with_endpoint("https://networkmanagement.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod reachability_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ReachabilityService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ReachabilityService] request builders.
+    /// Common implementation for [crate::client::ReachabilityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod reachability_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::list_connectivity_tests][super::super::client::ReachabilityService::list_connectivity_tests] calls.
+    /// The request builder for [ReachabilityService::list_connectivity_tests][crate::client::ReachabilityService::list_connectivity_tests] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::ListConnectivityTests;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectivityTests {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectivityTests(RequestBuilder<crate::model::ListConnectivityTestsRequest>);
 
     impl ListConnectivityTests {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod reachability_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectivityTestsResponse, gax::error::Error>
         {
@@ -112,6 +138,17 @@ pub mod reachability_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListConnectivityTestsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectivityTestsRequest::parent].
@@ -154,12 +191,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_connectivity_test][super::super::client::ReachabilityService::get_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::get_connectivity_test][crate::client::ReachabilityService::get_connectivity_test] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::GetConnectivityTest;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnectivityTest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnectivityTest(RequestBuilder<crate::model::GetConnectivityTestRequest>);
 
     impl GetConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -202,12 +257,31 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::create_connectivity_test][super::super::client::ReachabilityService::create_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::create_connectivity_test][crate::client::ReachabilityService::create_connectivity_test] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::CreateConnectivityTest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnectivityTest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnectivityTest(RequestBuilder<crate::model::CreateConnectivityTestRequest>);
 
     impl CreateConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -231,7 +305,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connectivity_test][super::super::client::ReachabilityService::create_connectivity_test].
+        /// on [create_connectivity_test][crate::client::ReachabilityService::create_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connectivity_test(self.0.request, self.0.options)
@@ -244,8 +318,10 @@ pub mod reachability_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectivityTest, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectivityTest, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectivityTest,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -270,7 +346,7 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectivityTestRequest::parent].
@@ -292,11 +368,22 @@ pub mod reachability_service {
         /// Sets the value of [resource][crate::model::CreateConnectivityTestRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::ConnectivityTest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::CreateConnectivityTestRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
     }
@@ -308,12 +395,31 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::update_connectivity_test][super::super::client::ReachabilityService::update_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::update_connectivity_test][crate::client::ReachabilityService::update_connectivity_test] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::UpdateConnectivityTest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnectivityTest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnectivityTest(RequestBuilder<crate::model::UpdateConnectivityTestRequest>);
 
     impl UpdateConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -337,7 +443,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connectivity_test][super::super::client::ReachabilityService::update_connectivity_test].
+        /// on [update_connectivity_test][crate::client::ReachabilityService::update_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connectivity_test(self.0.request, self.0.options)
@@ -350,8 +456,10 @@ pub mod reachability_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectivityTest, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectivityTest, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectivityTest,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -376,28 +484,50 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectivityTestRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource][crate::model::UpdateConnectivityTestRequest::resource].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource<T: Into<std::option::Option<crate::model::ConnectivityTest>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource][crate::model::UpdateConnectivityTestRequest::resource].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConnectivityTest>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
     }
@@ -409,12 +539,31 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::rerun_connectivity_test][super::super::client::ReachabilityService::rerun_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::rerun_connectivity_test][crate::client::ReachabilityService::rerun_connectivity_test] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::RerunConnectivityTest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RerunConnectivityTest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RerunConnectivityTest(RequestBuilder<crate::model::RerunConnectivityTestRequest>);
 
     impl RerunConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -438,7 +587,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [rerun_connectivity_test][super::super::client::ReachabilityService::rerun_connectivity_test].
+        /// on [rerun_connectivity_test][crate::client::ReachabilityService::rerun_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .rerun_connectivity_test(self.0.request, self.0.options)
@@ -451,8 +600,10 @@ pub mod reachability_service {
             self,
         ) -> impl lro::Poller<crate::model::ConnectivityTest, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ConnectivityTest, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ConnectivityTest,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -477,7 +628,7 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RerunConnectivityTestRequest::name].
@@ -496,12 +647,31 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::delete_connectivity_test][super::super::client::ReachabilityService::delete_connectivity_test] calls.
+    /// The request builder for [ReachabilityService::delete_connectivity_test][crate::client::ReachabilityService::delete_connectivity_test] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::DeleteConnectivityTest;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnectivityTest {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnectivityTest(RequestBuilder<crate::model::DeleteConnectivityTestRequest>);
 
     impl DeleteConnectivityTest {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -525,7 +695,7 @@ pub mod reachability_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connectivity_test][super::super::client::ReachabilityService::delete_connectivity_test].
+        /// on [delete_connectivity_test][crate::client::ReachabilityService::delete_connectivity_test].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connectivity_test(self.0.request, self.0.options)
@@ -534,8 +704,8 @@ pub mod reachability_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connectivity_test`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -560,7 +730,12 @@ pub mod reachability_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectivityTestRequest::name].
@@ -579,12 +754,34 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::list_locations][super::super::client::ReachabilityService::list_locations] calls.
+    /// The request builder for [ReachabilityService::list_locations][crate::client::ReachabilityService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -611,8 +808,8 @@ pub mod reachability_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -624,6 +821,15 @@ pub mod reachability_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -658,12 +864,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_location][super::super::client::ReachabilityService::get_location] calls.
+    /// The request builder for [ReachabilityService::get_location][crate::client::ReachabilityService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,12 +925,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::set_iam_policy][super::super::client::ReachabilityService::set_iam_policy] calls.
+    /// The request builder for [ReachabilityService::set_iam_policy][crate::client::ReachabilityService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -741,20 +983,40 @@ pub mod reachability_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -766,12 +1028,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_iam_policy][super::super::client::ReachabilityService::get_iam_policy] calls.
+    /// The request builder for [ReachabilityService::get_iam_policy][crate::client::ReachabilityService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,11 +1084,20 @@ pub mod reachability_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -820,12 +1109,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::test_iam_permissions][super::super::client::ReachabilityService::test_iam_permissions] calls.
+    /// The request builder for [ReachabilityService::test_iam_permissions][crate::client::ReachabilityService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -881,12 +1188,34 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::list_operations][super::super::client::ReachabilityService::list_operations] calls.
+    /// The request builder for [ReachabilityService::list_operations][crate::client::ReachabilityService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -913,8 +1242,8 @@ pub mod reachability_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -926,6 +1255,17 @@ pub mod reachability_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -960,12 +1300,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::get_operation][super::super::client::ReachabilityService::get_operation] calls.
+    /// The request builder for [ReachabilityService::get_operation][crate::client::ReachabilityService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1006,12 +1364,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::delete_operation][super::super::client::ReachabilityService::delete_operation] calls.
+    /// The request builder for [ReachabilityService::delete_operation][crate::client::ReachabilityService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1052,12 +1428,30 @@ pub mod reachability_service {
         }
     }
 
-    /// The request builder for [ReachabilityService::cancel_operation][super::super::client::ReachabilityService::cancel_operation] calls.
+    /// The request builder for [ReachabilityService::cancel_operation][crate::client::ReachabilityService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::reachability_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ReachabilityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReachabilityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1101,9 +1495,8 @@ pub mod reachability_service {
 
 pub mod vpc_flow_logs_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [VpcFlowLogsService][super::super::client::VpcFlowLogsService].
+    /// A builder for [VpcFlowLogsService][crate::client::VpcFlowLogsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1114,7 +1507,7 @@ pub mod vpc_flow_logs_service {
     /// let client = builder
     ///     .with_endpoint("https://networkmanagement.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1125,16 +1518,19 @@ pub mod vpc_flow_logs_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VpcFlowLogsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::VpcFlowLogsService] request builders.
+    /// Common implementation for [crate::client::VpcFlowLogsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1143,7 +1539,9 @@ pub mod vpc_flow_logs_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1152,12 +1550,34 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::list_vpc_flow_logs_configs][super::super::client::VpcFlowLogsService::list_vpc_flow_logs_configs] calls.
+    /// The request builder for [VpcFlowLogsService::list_vpc_flow_logs_configs][crate::client::VpcFlowLogsService::list_vpc_flow_logs_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVpcFlowLogsConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVpcFlowLogsConfigs(RequestBuilder<crate::model::ListVpcFlowLogsConfigsRequest>);
 
     impl ListVpcFlowLogsConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1184,8 +1604,8 @@ pub mod vpc_flow_logs_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListVpcFlowLogsConfigsResponse,
@@ -1199,6 +1619,17 @@ pub mod vpc_flow_logs_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVpcFlowLogsConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVpcFlowLogsConfigsRequest::parent].
@@ -1241,12 +1672,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::get_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::get_vpc_flow_logs_config][crate::client::VpcFlowLogsService::get_vpc_flow_logs_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::GetVpcFlowLogsConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVpcFlowLogsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVpcFlowLogsConfig(RequestBuilder<crate::model::GetVpcFlowLogsConfigRequest>);
 
     impl GetVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1289,14 +1738,33 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::create_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::create_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::create_vpc_flow_logs_config][crate::client::VpcFlowLogsService::create_vpc_flow_logs_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVpcFlowLogsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVpcFlowLogsConfig(
         RequestBuilder<crate::model::CreateVpcFlowLogsConfigRequest>,
     );
 
     impl CreateVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1320,7 +1788,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::create_vpc_flow_logs_config].
+        /// on [create_vpc_flow_logs_config][crate::client::VpcFlowLogsService::create_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1333,8 +1801,10 @@ pub mod vpc_flow_logs_service {
             self,
         ) -> impl lro::Poller<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VpcFlowLogsConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1359,7 +1829,7 @@ pub mod vpc_flow_logs_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVpcFlowLogsConfigRequest::parent].
@@ -1381,13 +1851,22 @@ pub mod vpc_flow_logs_service {
         /// Sets the value of [vpc_flow_logs_config][crate::model::CreateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vpc_flow_logs_config<
-            T: Into<std::option::Option<crate::model::VpcFlowLogsConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpc_flow_logs_config = v.into();
+        pub fn set_vpc_flow_logs_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vpc_flow_logs_config][crate::model::CreateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = v.map(|x| x.into());
             self
         }
     }
@@ -1399,14 +1878,33 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::update_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::update_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::update_vpc_flow_logs_config][crate::client::VpcFlowLogsService::update_vpc_flow_logs_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVpcFlowLogsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVpcFlowLogsConfig(
         RequestBuilder<crate::model::UpdateVpcFlowLogsConfigRequest>,
     );
 
     impl UpdateVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1430,7 +1928,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::update_vpc_flow_logs_config].
+        /// on [update_vpc_flow_logs_config][crate::client::VpcFlowLogsService::update_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1443,8 +1941,10 @@ pub mod vpc_flow_logs_service {
             self,
         ) -> impl lro::Poller<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VpcFlowLogsConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VpcFlowLogsConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1469,30 +1969,50 @@ pub mod vpc_flow_logs_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVpcFlowLogsConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [vpc_flow_logs_config][crate::model::UpdateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vpc_flow_logs_config<
-            T: Into<std::option::Option<crate::model::VpcFlowLogsConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpc_flow_logs_config = v.into();
+        pub fn set_vpc_flow_logs_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vpc_flow_logs_config][crate::model::UpdateVpcFlowLogsConfigRequest::vpc_flow_logs_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vpc_flow_logs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VpcFlowLogsConfig>,
+        {
+            self.0.request.vpc_flow_logs_config = v.map(|x| x.into());
             self
         }
     }
@@ -1504,14 +2024,33 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::delete_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::delete_vpc_flow_logs_config] calls.
+    /// The request builder for [VpcFlowLogsService::delete_vpc_flow_logs_config][crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVpcFlowLogsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVpcFlowLogsConfig(
         RequestBuilder<crate::model::DeleteVpcFlowLogsConfigRequest>,
     );
 
     impl DeleteVpcFlowLogsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1535,7 +2074,7 @@ pub mod vpc_flow_logs_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vpc_flow_logs_config][super::super::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
+        /// on [delete_vpc_flow_logs_config][crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vpc_flow_logs_config(self.0.request, self.0.options)
@@ -1544,8 +2083,8 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vpc_flow_logs_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1570,7 +2109,12 @@ pub mod vpc_flow_logs_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVpcFlowLogsConfigRequest::name].
@@ -1589,12 +2133,34 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::list_locations][super::super::client::VpcFlowLogsService::list_locations] calls.
+    /// The request builder for [VpcFlowLogsService::list_locations][crate::client::VpcFlowLogsService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1621,8 +2187,8 @@ pub mod vpc_flow_logs_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1634,6 +2200,15 @@ pub mod vpc_flow_logs_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1668,12 +2243,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_location][super::super::client::VpcFlowLogsService::get_location] calls.
+    /// The request builder for [VpcFlowLogsService::get_location][crate::client::VpcFlowLogsService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1711,12 +2304,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::set_iam_policy][super::super::client::VpcFlowLogsService::set_iam_policy] calls.
+    /// The request builder for [VpcFlowLogsService::set_iam_policy][crate::client::VpcFlowLogsService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1751,20 +2362,40 @@ pub mod vpc_flow_logs_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1776,12 +2407,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_iam_policy][super::super::client::VpcFlowLogsService::get_iam_policy] calls.
+    /// The request builder for [VpcFlowLogsService::get_iam_policy][crate::client::VpcFlowLogsService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1814,11 +2463,20 @@ pub mod vpc_flow_logs_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1830,12 +2488,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::test_iam_permissions][super::super::client::VpcFlowLogsService::test_iam_permissions] calls.
+    /// The request builder for [VpcFlowLogsService::test_iam_permissions][crate::client::VpcFlowLogsService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1891,12 +2567,34 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::list_operations][super::super::client::VpcFlowLogsService::list_operations] calls.
+    /// The request builder for [VpcFlowLogsService::list_operations][crate::client::VpcFlowLogsService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1923,8 +2621,8 @@ pub mod vpc_flow_logs_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1936,6 +2634,17 @@ pub mod vpc_flow_logs_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1970,12 +2679,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::get_operation][super::super::client::VpcFlowLogsService::get_operation] calls.
+    /// The request builder for [VpcFlowLogsService::get_operation][crate::client::VpcFlowLogsService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2016,12 +2743,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::delete_operation][super::super::client::VpcFlowLogsService::delete_operation] calls.
+    /// The request builder for [VpcFlowLogsService::delete_operation][crate::client::VpcFlowLogsService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2062,12 +2807,30 @@ pub mod vpc_flow_logs_service {
         }
     }
 
-    /// The request builder for [VpcFlowLogsService::cancel_operation][super::super::client::VpcFlowLogsService::cancel_operation] calls.
+    /// The request builder for [VpcFlowLogsService::cancel_operation][crate::client::VpcFlowLogsService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkmanagement_v1::builder;
+    /// use builder::vpc_flow_logs_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcFlowLogsService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

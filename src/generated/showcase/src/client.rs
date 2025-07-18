@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Client Libraries Showcase API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_showcase_v1beta1::client::Compliance;
 /// let client = Compliance::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `Compliance` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Compliance` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Compliance {
-    inner: Arc<dyn super::stub::dynamic::Compliance>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Compliance>,
 }
 
 impl Compliance {
@@ -74,7 +71,7 @@ impl Compliance {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_showcase_v1beta1::client::Compliance;
     /// let client = Compliance::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::compliance::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::compliance::client::Factory)
@@ -89,33 +86,35 @@ impl Compliance {
         T: super::stub::Compliance + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Compliance>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Compliance>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Compliance> {
+    ) -> gax::client_builder::Result<impl super::stub::Compliance> {
         super::transport::Compliance::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Compliance> {
+    ) -> gax::client_builder::Result<impl super::stub::Compliance> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Compliance::new)
@@ -143,30 +142,20 @@ impl Compliance {
     /// This method echoes the ComplianceData request. This method exercises
     /// sending some parameters as "simple" path variables (i.e., of the form
     /// "/bar/{foo}" rather than "/{foo=bar/*}"), and the rest as query parameters.
-    pub fn repeat_data_simple_path(
-        &self,
-        info: impl Into<crate::model::ComplianceData>,
-    ) -> super::builder::compliance::RepeatDataSimplePath {
+    pub fn repeat_data_simple_path(&self) -> super::builder::compliance::RepeatDataSimplePath {
         super::builder::compliance::RepeatDataSimplePath::new(self.inner.clone())
-            .set_info(info.into())
     }
 
     /// Same as RepeatDataSimplePath, but with a path resource.
-    pub fn repeat_data_path_resource(
-        &self,
-        info: impl Into<crate::model::ComplianceData>,
-    ) -> super::builder::compliance::RepeatDataPathResource {
+    pub fn repeat_data_path_resource(&self) -> super::builder::compliance::RepeatDataPathResource {
         super::builder::compliance::RepeatDataPathResource::new(self.inner.clone())
-            .set_info(info.into())
     }
 
     /// Same as RepeatDataSimplePath, but with a trailing resource.
     pub fn repeat_data_path_trailing_resource(
         &self,
-        info: impl Into<crate::model::ComplianceData>,
     ) -> super::builder::compliance::RepeatDataPathTrailingResource {
         super::builder::compliance::RepeatDataPathTrailingResource::new(self.inner.clone())
-            .set_info(info.into())
     }
 
     /// This method echoes the ComplianceData request, using the HTTP PUT method.
@@ -202,54 +191,36 @@ impl Compliance {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::compliance::ListLocations {
-        super::builder::compliance::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::compliance::ListLocations {
+        super::builder::compliance::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::compliance::GetLocation {
-        super::builder::compliance::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::compliance::GetLocation {
+        super::builder::compliance::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::compliance::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::compliance::SetIamPolicy {
         super::builder::compliance::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::compliance::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::compliance::GetIamPolicy {
         super::builder::compliance::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::compliance::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::compliance::TestIamPermissions {
         super::builder::compliance::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -262,31 +233,22 @@ impl Compliance {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::compliance::GetOperation {
-        super::builder::compliance::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::compliance::GetOperation {
+        super::builder::compliance::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::compliance::DeleteOperation {
-        super::builder::compliance::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::compliance::DeleteOperation {
+        super::builder::compliance::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::compliance::CancelOperation {
-        super::builder::compliance::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::compliance::CancelOperation {
+        super::builder::compliance::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -298,7 +260,7 @@ impl Compliance {
 /// # use google_cloud_showcase_v1beta1::client::Echo;
 /// let client = Echo::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -335,11 +297,11 @@ impl Compliance {
 ///
 /// `Echo` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Echo` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Echo {
-    inner: Arc<dyn super::stub::dynamic::Echo>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Echo>,
 }
 
 impl Echo {
@@ -349,7 +311,7 @@ impl Echo {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_showcase_v1beta1::client::Echo;
     /// let client = Echo::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::echo::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::echo::client::Factory)
@@ -364,31 +326,35 @@ impl Echo {
         T: super::stub::Echo + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Echo>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Echo>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::Echo> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Echo> {
         super::transport::Echo::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Echo> {
+    ) -> gax::client_builder::Result<impl super::stub::Echo> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Echo::new)
@@ -468,52 +434,36 @@ impl Echo {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::echo::ListLocations {
-        super::builder::echo::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::echo::ListLocations {
+        super::builder::echo::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::echo::GetLocation {
-        super::builder::echo::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::echo::GetLocation {
+        super::builder::echo::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::echo::SetIamPolicy {
-        super::builder::echo::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::echo::SetIamPolicy {
+        super::builder::echo::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::echo::GetIamPolicy {
-        super::builder::echo::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::echo::GetIamPolicy {
+        super::builder::echo::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::echo::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::echo::TestIamPermissions {
         super::builder::echo::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -526,31 +476,22 @@ impl Echo {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::echo::GetOperation {
-        super::builder::echo::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::echo::GetOperation {
+        super::builder::echo::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::echo::DeleteOperation {
-        super::builder::echo::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::echo::DeleteOperation {
+        super::builder::echo::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::echo::CancelOperation {
-        super::builder::echo::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::echo::CancelOperation {
+        super::builder::echo::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -562,7 +503,7 @@ impl Echo {
 /// # use google_cloud_showcase_v1beta1::client::Identity;
 /// let client = Identity::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -593,11 +534,11 @@ impl Echo {
 ///
 /// `Identity` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Identity` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Identity {
-    inner: Arc<dyn super::stub::dynamic::Identity>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Identity>,
 }
 
 impl Identity {
@@ -607,7 +548,7 @@ impl Identity {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// let client = Identity::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::identity::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::identity::client::Factory)
@@ -622,33 +563,35 @@ impl Identity {
         T: super::stub::Identity + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Identity>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Identity>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Identity> {
+    ) -> gax::client_builder::Result<impl super::stub::Identity> {
         super::transport::Identity::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Identity> {
+    ) -> gax::client_builder::Result<impl super::stub::Identity> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Identity::new)
@@ -660,27 +603,18 @@ impl Identity {
     }
 
     /// Retrieves the User with the given uri.
-    pub fn get_user(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::GetUser {
-        super::builder::identity::GetUser::new(self.inner.clone()).set_name(name.into())
+    pub fn get_user(&self) -> super::builder::identity::GetUser {
+        super::builder::identity::GetUser::new(self.inner.clone())
     }
 
     /// Updates a user.
-    pub fn update_user(
-        &self,
-        user: impl Into<crate::model::User>,
-    ) -> super::builder::identity::UpdateUser {
-        super::builder::identity::UpdateUser::new(self.inner.clone()).set_user(user.into())
+    pub fn update_user(&self) -> super::builder::identity::UpdateUser {
+        super::builder::identity::UpdateUser::new(self.inner.clone())
     }
 
     /// Deletes a user, their profile, and all of their authored messages.
-    pub fn delete_user(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::DeleteUser {
-        super::builder::identity::DeleteUser::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_user(&self) -> super::builder::identity::DeleteUser {
+        super::builder::identity::DeleteUser::new(self.inner.clone())
     }
 
     /// Lists all users.
@@ -691,54 +625,36 @@ impl Identity {
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::ListLocations {
-        super::builder::identity::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::identity::ListLocations {
+        super::builder::identity::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::GetLocation {
-        super::builder::identity::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::identity::GetLocation {
+        super::builder::identity::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::identity::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::identity::SetIamPolicy {
         super::builder::identity::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::identity::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::identity::GetIamPolicy {
         super::builder::identity::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::identity::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::identity::TestIamPermissions {
         super::builder::identity::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -751,31 +667,22 @@ impl Identity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::GetOperation {
-        super::builder::identity::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::identity::GetOperation {
+        super::builder::identity::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::DeleteOperation {
-        super::builder::identity::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::identity::DeleteOperation {
+        super::builder::identity::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::identity::CancelOperation {
-        super::builder::identity::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::identity::CancelOperation {
+        super::builder::identity::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -787,7 +694,7 @@ impl Identity {
 /// # use google_cloud_showcase_v1beta1::client::Messaging;
 /// let client = Messaging::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -821,11 +728,11 @@ impl Identity {
 ///
 /// `Messaging` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Messaging` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Messaging {
-    inner: Arc<dyn super::stub::dynamic::Messaging>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Messaging>,
 }
 
 impl Messaging {
@@ -835,7 +742,7 @@ impl Messaging {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// let client = Messaging::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::messaging::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::messaging::client::Factory)
@@ -850,33 +757,35 @@ impl Messaging {
         T: super::stub::Messaging + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Messaging>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Messaging>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Messaging> {
+    ) -> gax::client_builder::Result<impl super::stub::Messaging> {
         super::transport::Messaging::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Messaging> {
+    ) -> gax::client_builder::Result<impl super::stub::Messaging> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Messaging::new)
@@ -888,27 +797,18 @@ impl Messaging {
     }
 
     /// Retrieves the Room with the given resource name.
-    pub fn get_room(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::GetRoom {
-        super::builder::messaging::GetRoom::new(self.inner.clone()).set_name(name.into())
+    pub fn get_room(&self) -> super::builder::messaging::GetRoom {
+        super::builder::messaging::GetRoom::new(self.inner.clone())
     }
 
     /// Updates a room.
-    pub fn update_room(
-        &self,
-        room: impl Into<crate::model::Room>,
-    ) -> super::builder::messaging::UpdateRoom {
-        super::builder::messaging::UpdateRoom::new(self.inner.clone()).set_room(room.into())
+    pub fn update_room(&self) -> super::builder::messaging::UpdateRoom {
+        super::builder::messaging::UpdateRoom::new(self.inner.clone())
     }
 
     /// Deletes a room and all of its blurbs.
-    pub fn delete_room(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::DeleteRoom {
-        super::builder::messaging::DeleteRoom::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_room(&self) -> super::builder::messaging::DeleteRoom {
+        super::builder::messaging::DeleteRoom::new(self.inner.clone())
     }
 
     /// Lists all chat rooms.
@@ -919,44 +819,29 @@ impl Messaging {
     /// Creates a blurb. If the parent is a room, the blurb is understood to be a
     /// message in that room. If the parent is a profile, the blurb is understood
     /// to be a post on the profile.
-    pub fn create_blurb(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::messaging::CreateBlurb {
-        super::builder::messaging::CreateBlurb::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_blurb(&self) -> super::builder::messaging::CreateBlurb {
+        super::builder::messaging::CreateBlurb::new(self.inner.clone())
     }
 
     /// Retrieves the Blurb with the given resource name.
-    pub fn get_blurb(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::GetBlurb {
-        super::builder::messaging::GetBlurb::new(self.inner.clone()).set_name(name.into())
+    pub fn get_blurb(&self) -> super::builder::messaging::GetBlurb {
+        super::builder::messaging::GetBlurb::new(self.inner.clone())
     }
 
     /// Updates a blurb.
-    pub fn update_blurb(
-        &self,
-        blurb: impl Into<crate::model::Blurb>,
-    ) -> super::builder::messaging::UpdateBlurb {
-        super::builder::messaging::UpdateBlurb::new(self.inner.clone()).set_blurb(blurb.into())
+    pub fn update_blurb(&self) -> super::builder::messaging::UpdateBlurb {
+        super::builder::messaging::UpdateBlurb::new(self.inner.clone())
     }
 
     /// Deletes a blurb.
-    pub fn delete_blurb(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::DeleteBlurb {
-        super::builder::messaging::DeleteBlurb::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_blurb(&self) -> super::builder::messaging::DeleteBlurb {
+        super::builder::messaging::DeleteBlurb::new(self.inner.clone())
     }
 
     /// Lists blurbs for a specific chat room or user profile depending on the
     /// parent resource name.
-    pub fn list_blurbs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::messaging::ListBlurbs {
-        super::builder::messaging::ListBlurbs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_blurbs(&self) -> super::builder::messaging::ListBlurbs {
+        super::builder::messaging::ListBlurbs::new(self.inner.clone())
     }
 
     /// This method searches through all blurbs across all rooms and profiles
@@ -972,64 +857,43 @@ impl Messaging {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn search_blurbs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::messaging::SearchBlurbs {
-        super::builder::messaging::SearchBlurbs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn search_blurbs(&self) -> super::builder::messaging::SearchBlurbs {
+        super::builder::messaging::SearchBlurbs::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::ListLocations {
-        super::builder::messaging::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::messaging::ListLocations {
+        super::builder::messaging::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::GetLocation {
-        super::builder::messaging::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::messaging::GetLocation {
+        super::builder::messaging::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::messaging::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::messaging::SetIamPolicy {
         super::builder::messaging::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::messaging::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::messaging::GetIamPolicy {
         super::builder::messaging::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::messaging::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::messaging::TestIamPermissions {
         super::builder::messaging::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1042,31 +906,22 @@ impl Messaging {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::GetOperation {
-        super::builder::messaging::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::messaging::GetOperation {
+        super::builder::messaging::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::DeleteOperation {
-        super::builder::messaging::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::messaging::DeleteOperation {
+        super::builder::messaging::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::messaging::CancelOperation {
-        super::builder::messaging::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::messaging::CancelOperation {
+        super::builder::messaging::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1078,7 +933,7 @@ impl Messaging {
 /// # use google_cloud_showcase_v1beta1::client::SequenceService;
 /// let client = SequenceService::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1108,11 +963,11 @@ impl Messaging {
 ///
 /// `SequenceService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `SequenceService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct SequenceService {
-    inner: Arc<dyn super::stub::dynamic::SequenceService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::SequenceService>,
 }
 
 impl SequenceService {
@@ -1122,7 +977,7 @@ impl SequenceService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// let client = SequenceService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::sequence_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1139,33 +994,36 @@ impl SequenceService {
         T: super::stub::SequenceService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::SequenceService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SequenceService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SequenceService> {
+    ) -> gax::client_builder::Result<impl super::stub::SequenceService> {
         super::transport::SequenceService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::SequenceService> {
+    ) -> gax::client_builder::Result<impl super::stub::SequenceService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::SequenceService::new)
@@ -1184,84 +1042,55 @@ impl SequenceService {
     }
 
     /// Retrieves a sequence.
-    pub fn get_sequence_report(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::GetSequenceReport {
+    pub fn get_sequence_report(&self) -> super::builder::sequence_service::GetSequenceReport {
         super::builder::sequence_service::GetSequenceReport::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves a sequence.
     pub fn get_streaming_sequence_report(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::sequence_service::GetStreamingSequenceReport {
         super::builder::sequence_service::GetStreamingSequenceReport::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Attempts a sequence.
-    pub fn attempt_sequence(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::AttemptSequence {
+    pub fn attempt_sequence(&self) -> super::builder::sequence_service::AttemptSequence {
         super::builder::sequence_service::AttemptSequence::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::sequence_service::ListLocations {
         super::builder::sequence_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::GetLocation {
-        super::builder::sequence_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::sequence_service::GetLocation {
+        super::builder::sequence_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::sequence_service::SetIamPolicy {
         super::builder::sequence_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::sequence_service::GetIamPolicy {
         super::builder::sequence_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::sequence_service::TestIamPermissions {
         super::builder::sequence_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1274,34 +1103,22 @@ impl SequenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::sequence_service::GetOperation {
         super::builder::sequence_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::sequence_service::DeleteOperation {
         super::builder::sequence_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::sequence_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::sequence_service::CancelOperation {
         super::builder::sequence_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1313,7 +1130,7 @@ impl SequenceService {
 /// # use google_cloud_showcase_v1beta1::client::Testing;
 /// let client = Testing::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1322,9 +1139,9 @@ impl SequenceService {
 /// against Showcase.
 /// Adding this comment with special characters for comment formatting tests:
 ///
-/// . (abra->kadabra->alakazam)
+/// 1. (abra->kadabra->alakazam)
 ///
-/// ) [Nonsense][]: `pokemon/*/psychic/*`
+/// 1. [Nonsense][]: `pokemon/*/psychic/*`
 ///
 /// # Configuration
 ///
@@ -1350,11 +1167,11 @@ impl SequenceService {
 ///
 /// `Testing` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Testing` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Testing {
-    inner: Arc<dyn super::stub::dynamic::Testing>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Testing>,
 }
 
 impl Testing {
@@ -1364,7 +1181,7 @@ impl Testing {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// let client = Testing::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::testing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::testing::client::Factory)
@@ -1379,33 +1196,35 @@ impl Testing {
         T: super::stub::Testing + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Testing>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Testing>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Testing> {
+    ) -> gax::client_builder::Result<impl super::stub::Testing> {
         super::transport::Testing::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Testing> {
+    ) -> gax::client_builder::Result<impl super::stub::Testing> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Testing::new)
@@ -1414,19 +1233,16 @@ impl Testing {
     /// Creates a new testing session.
     /// Adding this comment with special characters for comment formatting tests:
     ///
-    /// . (abra->kadabra->alakazam)
+    /// 1. (abra->kadabra->alakazam)
     ///
-    /// ) [Nonsense][]: `pokemon/*/psychic/*`
+    /// 1. [Nonsense][]: `pokemon/*/psychic/*`
     pub fn create_session(&self) -> super::builder::testing::CreateSession {
         super::builder::testing::CreateSession::new(self.inner.clone())
     }
 
     /// Gets a testing session.
-    pub fn get_session(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::GetSession {
-        super::builder::testing::GetSession::new(self.inner.clone()).set_name(name.into())
+    pub fn get_session(&self) -> super::builder::testing::GetSession {
+        super::builder::testing::GetSession::new(self.inner.clone())
     }
 
     /// Lists the current test sessions.
@@ -1435,29 +1251,20 @@ impl Testing {
     }
 
     /// Delete a test session.
-    pub fn delete_session(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::DeleteSession {
-        super::builder::testing::DeleteSession::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_session(&self) -> super::builder::testing::DeleteSession {
+        super::builder::testing::DeleteSession::new(self.inner.clone())
     }
 
     /// Report on the status of a session.
     /// This generates a report detailing which tests have been completed,
     /// and an overall rollup.
-    pub fn report_session(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::ReportSession {
-        super::builder::testing::ReportSession::new(self.inner.clone()).set_name(name.into())
+    pub fn report_session(&self) -> super::builder::testing::ReportSession {
+        super::builder::testing::ReportSession::new(self.inner.clone())
     }
 
     /// List the tests of a sessesion.
-    pub fn list_tests(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::testing::ListTests {
-        super::builder::testing::ListTests::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_tests(&self) -> super::builder::testing::ListTests {
+        super::builder::testing::ListTests::new(self.inner.clone())
     }
 
     /// Explicitly decline to implement a test.
@@ -1466,73 +1273,51 @@ impl Testing {
     /// attempting to do the test will error.
     ///
     /// This method will error if attempting to delete a required test.
-    pub fn delete_test(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::DeleteTest {
-        super::builder::testing::DeleteTest::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_test(&self) -> super::builder::testing::DeleteTest {
+        super::builder::testing::DeleteTest::new(self.inner.clone())
     }
 
     /// Register a response to a test.
     ///
     /// In cases where a test involves registering a final answer at the
     /// end of the test, this method provides the means to do so.
-    pub fn verify_test(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::VerifyTest {
-        super::builder::testing::VerifyTest::new(self.inner.clone()).set_name(name.into())
+    pub fn verify_test(&self) -> super::builder::testing::VerifyTest {
+        super::builder::testing::VerifyTest::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::ListLocations {
-        super::builder::testing::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::testing::ListLocations {
+        super::builder::testing::ListLocations::new(self.inner.clone())
     }
 
     /// Provides the [Locations][google.cloud.location.Locations] service functionality in this service.
     ///
     /// [google.cloud.location.Locations]: location::client::Locations
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::GetLocation {
-        super::builder::testing::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::testing::GetLocation {
+        super::builder::testing::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::testing::SetIamPolicy {
-        super::builder::testing::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::testing::SetIamPolicy {
+        super::builder::testing::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::testing::GetIamPolicy {
-        super::builder::testing::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::testing::GetIamPolicy {
+        super::builder::testing::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Provides the [IAMPolicy][google.iam.v1.IAMPolicy] service functionality in this service.
     ///
     /// [google.iam.v1.IAMPolicy]: iam_v1::client::IAMPolicy
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::testing::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::testing::TestIamPermissions {
         super::builder::testing::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1545,30 +1330,21 @@ impl Testing {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::GetOperation {
-        super::builder::testing::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::testing::GetOperation {
+        super::builder::testing::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::DeleteOperation {
-        super::builder::testing::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::testing::DeleteOperation {
+        super::builder::testing::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::testing::CancelOperation {
-        super::builder::testing::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::testing::CancelOperation {
+        super::builder::testing::CancelOperation::new(self.inner.clone())
     }
 }

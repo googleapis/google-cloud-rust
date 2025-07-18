@@ -33,9 +33,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// The top-level message sent by the client for the `ListVoices` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVoicesRequest {
     /// Optional. Recommended.
@@ -46,10 +44,8 @@ pub struct ListVoicesRequest {
     /// all `"en-NZ"` voices will be returned. If you specify `"no"`, both
     /// `"no-\*"` (Norwegian) and `"nb-\*"` (Norwegian Bokmal) voices will be
     /// returned.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -71,17 +67,116 @@ impl wkt::message::Message for ListVoicesRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListVoicesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __language_code,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListVoicesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "languageCode" => Ok(__FieldTag::__language_code),
+                            "language_code" => Ok(__FieldTag::__language_code),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListVoicesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListVoicesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__language_code => {
+                            if !fields.insert(__FieldTag::__language_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_code",
+                                ));
+                            }
+                            result.language_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListVoicesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.language_code.is_empty() {
+            state.serialize_entry("languageCode", &self.language_code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The message returned to the client by the `ListVoices` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListVoicesResponse {
     /// The list of voices.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub voices: std::vec::Vec<crate::model::Voice>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -108,36 +203,141 @@ impl wkt::message::Message for ListVoicesResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListVoicesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __voices,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListVoicesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "voices" => Ok(__FieldTag::__voices),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListVoicesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListVoicesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__voices => {
+                            if !fields.insert(__FieldTag::__voices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for voices",
+                                ));
+                            }
+                            result.voices = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Voice>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListVoicesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.voices.is_empty() {
+            state.serialize_entry("voices", &self.voices)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Description of a voice supported by the TTS service.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Voice {
     /// The languages that this voice supports, expressed as
     /// [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tags (e.g.
     /// "en-US", "es-419", "cmn-tw").
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// The name of this voice.  Each distinct voice has a unique name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// The gender of this voice.
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     /// The natural sample rate (in hertz) for this voice.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub natural_sample_rate_hertz: i32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Voice {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [language_codes][crate::model::Voice::language_codes].
+    pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.language_codes = v.into_iter().map(|i| i.into()).collect();
+        self
     }
 
     /// Sets the value of [name][crate::model::Voice::name].
@@ -160,17 +360,6 @@ impl Voice {
         self.natural_sample_rate_hertz = v.into();
         self
     }
-
-    /// Sets the value of [language_codes][crate::model::Voice::language_codes].
-    pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.language_codes = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
 }
 
 impl wkt::message::Message for Voice {
@@ -179,18 +368,186 @@ impl wkt::message::Message for Voice {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Voice {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __language_codes,
+            __name,
+            __ssml_gender,
+            __natural_sample_rate_hertz,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Voice")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "languageCodes" => Ok(__FieldTag::__language_codes),
+                            "language_codes" => Ok(__FieldTag::__language_codes),
+                            "name" => Ok(__FieldTag::__name),
+                            "ssmlGender" => Ok(__FieldTag::__ssml_gender),
+                            "ssml_gender" => Ok(__FieldTag::__ssml_gender),
+                            "naturalSampleRateHertz" => Ok(__FieldTag::__natural_sample_rate_hertz),
+                            "natural_sample_rate_hertz" => {
+                                Ok(__FieldTag::__natural_sample_rate_hertz)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Voice;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Voice")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__language_codes => {
+                            if !fields.insert(__FieldTag::__language_codes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_codes",
+                                ));
+                            }
+                            result.language_codes = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssml_gender => {
+                            if !fields.insert(__FieldTag::__ssml_gender) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssml_gender",
+                                ));
+                            }
+                            result.ssml_gender = map
+                                .next_value::<std::option::Option<crate::model::SsmlVoiceGender>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__natural_sample_rate_hertz => {
+                            if !fields.insert(__FieldTag::__natural_sample_rate_hertz) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for natural_sample_rate_hertz",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.natural_sample_rate_hertz =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Voice {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.language_codes.is_empty() {
+            state.serialize_entry("languageCodes", &self.language_codes)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.ssml_gender) {
+            state.serialize_entry("ssmlGender", &self.ssml_gender)?;
+        }
+        if !wkt::internal::is_default(&self.natural_sample_rate_hertz) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "naturalSampleRateHertz",
+                &__With(&self.natural_sample_rate_hertz),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Used for advanced voice options.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AdvancedVoiceOptions {
     /// Only for Journey voices. If false, the synthesis is context aware
     /// and has a higher latency.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub low_latency_journey_synthesis: std::option::Option<bool>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -200,11 +557,23 @@ impl AdvancedVoiceOptions {
     }
 
     /// Sets the value of [low_latency_journey_synthesis][crate::model::AdvancedVoiceOptions::low_latency_journey_synthesis].
-    pub fn set_low_latency_journey_synthesis<T: std::convert::Into<std::option::Option<bool>>>(
+    pub fn set_low_latency_journey_synthesis<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.low_latency_journey_synthesis = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [low_latency_journey_synthesis][crate::model::AdvancedVoiceOptions::low_latency_journey_synthesis].
+    pub fn set_or_clear_low_latency_journey_synthesis<T>(
         mut self,
-        v: T,
-    ) -> Self {
-        self.low_latency_journey_synthesis = v.into();
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.low_latency_journey_synthesis = v.map(|x| x.into());
         self
     }
 }
@@ -215,29 +584,131 @@ impl wkt::message::Message for AdvancedVoiceOptions {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AdvancedVoiceOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __low_latency_journey_synthesis,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AdvancedVoiceOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "lowLatencyJourneySynthesis" => {
+                                Ok(__FieldTag::__low_latency_journey_synthesis)
+                            }
+                            "low_latency_journey_synthesis" => {
+                                Ok(__FieldTag::__low_latency_journey_synthesis)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AdvancedVoiceOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AdvancedVoiceOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__low_latency_journey_synthesis => {
+                            if !fields.insert(__FieldTag::__low_latency_journey_synthesis) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for low_latency_journey_synthesis",
+                                ));
+                            }
+                            result.low_latency_journey_synthesis =
+                                map.next_value::<std::option::Option<bool>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AdvancedVoiceOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.low_latency_journey_synthesis.is_some() {
+            state.serialize_entry(
+                "lowLatencyJourneySynthesis",
+                &self.low_latency_journey_synthesis,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The top-level message sent by the client for the `SynthesizeSpeech` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechRequest {
     /// Required. The Synthesizer requires either plain text or SSML as input.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub input: std::option::Option<crate::model::SynthesisInput>,
 
     /// Required. The desired voice of the synthesized audio.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice: std::option::Option<crate::model::VoiceSelectionParams>,
 
     /// Required. The configuration of the synthesized audio.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub audio_config: std::option::Option<crate::model::AudioConfig>,
 
     /// Advanced voice options.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub advanced_voice_options: std::option::Option<crate::model::AdvancedVoiceOptions>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -247,44 +718,74 @@ impl SynthesizeSpeechRequest {
     }
 
     /// Sets the value of [input][crate::model::SynthesizeSpeechRequest::input].
-    pub fn set_input<T: std::convert::Into<std::option::Option<crate::model::SynthesisInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = v.into();
+    pub fn set_input<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SynthesisInput>,
+    {
+        self.input = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input][crate::model::SynthesizeSpeechRequest::input].
+    pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SynthesisInput>,
+    {
+        self.input = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
-    pub fn set_voice<
-        T: std::convert::Into<std::option::Option<crate::model::VoiceSelectionParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.voice = v.into();
+    pub fn set_voice<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    {
+        self.voice = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [voice][crate::model::SynthesizeSpeechRequest::voice].
+    pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    {
+        self.voice = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
-    pub fn set_audio_config<
-        T: std::convert::Into<std::option::Option<crate::model::AudioConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audio_config = v.into();
+    pub fn set_audio_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AudioConfig>,
+    {
+        self.audio_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [audio_config][crate::model::SynthesizeSpeechRequest::audio_config].
+    pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AudioConfig>,
+    {
+        self.audio_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
-    pub fn set_advanced_voice_options<
-        T: std::convert::Into<std::option::Option<crate::model::AdvancedVoiceOptions>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.advanced_voice_options = v.into();
+    pub fn set_advanced_voice_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+    {
+        self.advanced_voice_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [advanced_voice_options][crate::model::SynthesizeSpeechRequest::advanced_voice_options].
+    pub fn set_or_clear_advanced_voice_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AdvancedVoiceOptions>,
+    {
+        self.advanced_voice_options = v.map(|x| x.into());
         self
     }
 }
@@ -295,29 +796,169 @@ impl wkt::message::Message for SynthesizeSpeechRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SynthesizeSpeechRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __input,
+            __voice,
+            __audio_config,
+            __advanced_voice_options,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SynthesizeSpeechRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "input" => Ok(__FieldTag::__input),
+                            "voice" => Ok(__FieldTag::__voice),
+                            "audioConfig" => Ok(__FieldTag::__audio_config),
+                            "audio_config" => Ok(__FieldTag::__audio_config),
+                            "advancedVoiceOptions" => Ok(__FieldTag::__advanced_voice_options),
+                            "advanced_voice_options" => Ok(__FieldTag::__advanced_voice_options),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SynthesizeSpeechRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SynthesizeSpeechRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__input => {
+                            if !fields.insert(__FieldTag::__input) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input",
+                                ));
+                            }
+                            result.input = map
+                                .next_value::<std::option::Option<crate::model::SynthesisInput>>(
+                                )?;
+                        }
+                        __FieldTag::__voice => {
+                            if !fields.insert(__FieldTag::__voice) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for voice",
+                                ));
+                            }
+                            result.voice = map.next_value::<std::option::Option<crate::model::VoiceSelectionParams>>()?
+                                ;
+                        }
+                        __FieldTag::__audio_config => {
+                            if !fields.insert(__FieldTag::__audio_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_config",
+                                ));
+                            }
+                            result.audio_config =
+                                map.next_value::<std::option::Option<crate::model::AudioConfig>>()?;
+                        }
+                        __FieldTag::__advanced_voice_options => {
+                            if !fields.insert(__FieldTag::__advanced_voice_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for advanced_voice_options",
+                                ));
+                            }
+                            result.advanced_voice_options = map.next_value::<std::option::Option<crate::model::AdvancedVoiceOptions>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SynthesizeSpeechRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.input.is_some() {
+            state.serialize_entry("input", &self.input)?;
+        }
+        if self.voice.is_some() {
+            state.serialize_entry("voice", &self.voice)?;
+        }
+        if self.audio_config.is_some() {
+            state.serialize_entry("audioConfig", &self.audio_config)?;
+        }
+        if self.advanced_voice_options.is_some() {
+            state.serialize_entry("advancedVoiceOptions", &self.advanced_voice_options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Pronunciation customization for a phrase.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomPronunciationParams {
     /// The phrase to which the customization is applied.
     /// The phrase can be multiple words, such as proper nouns, but shouldn't span
     /// the length of the sentence.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub phrase: std::option::Option<std::string::String>,
 
     /// The phonetic encoding of the phrase.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub phonetic_encoding:
         std::option::Option<crate::model::custom_pronunciation_params::PhoneticEncoding>,
 
     /// The pronunciation of the phrase. This must be in the phonetic encoding
     /// specified above.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub pronunciation: std::option::Option<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -327,33 +968,56 @@ impl CustomPronunciationParams {
     }
 
     /// Sets the value of [phrase][crate::model::CustomPronunciationParams::phrase].
-    pub fn set_phrase<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.phrase = v.into();
+    pub fn set_phrase<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.phrase = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [phrase][crate::model::CustomPronunciationParams::phrase].
+    pub fn set_or_clear_phrase<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.phrase = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
-    pub fn set_phonetic_encoding<
-        T: std::convert::Into<
-                std::option::Option<crate::model::custom_pronunciation_params::PhoneticEncoding>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.phonetic_encoding = v.into();
+    pub fn set_phonetic_encoding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+    {
+        self.phonetic_encoding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [phonetic_encoding][crate::model::CustomPronunciationParams::phonetic_encoding].
+    pub fn set_or_clear_phonetic_encoding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::custom_pronunciation_params::PhoneticEncoding>,
+    {
+        self.phonetic_encoding = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [pronunciation][crate::model::CustomPronunciationParams::pronunciation].
-    pub fn set_pronunciation<T: std::convert::Into<std::option::Option<std::string::String>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.pronunciation = v.into();
+    pub fn set_pronunciation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.pronunciation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pronunciation][crate::model::CustomPronunciationParams::pronunciation].
+    pub fn set_or_clear_pronunciation<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.pronunciation = v.map(|x| x.into());
         self
     }
 }
@@ -361,6 +1025,137 @@ impl CustomPronunciationParams {
 impl wkt::message::Message for CustomPronunciationParams {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.texttospeech.v1.CustomPronunciationParams"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CustomPronunciationParams {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __phrase,
+            __phonetic_encoding,
+            __pronunciation,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomPronunciationParams")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "phrase" => Ok(__FieldTag::__phrase),
+                            "phoneticEncoding" => Ok(__FieldTag::__phonetic_encoding),
+                            "phonetic_encoding" => Ok(__FieldTag::__phonetic_encoding),
+                            "pronunciation" => Ok(__FieldTag::__pronunciation),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CustomPronunciationParams;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomPronunciationParams")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__phrase => {
+                            if !fields.insert(__FieldTag::__phrase) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for phrase",
+                                ));
+                            }
+                            result.phrase =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::__phonetic_encoding => {
+                            if !fields.insert(__FieldTag::__phonetic_encoding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for phonetic_encoding",
+                                ));
+                            }
+                            result.phonetic_encoding = map.next_value::<std::option::Option<
+                                crate::model::custom_pronunciation_params::PhoneticEncoding,
+                            >>()?;
+                        }
+                        __FieldTag::__pronunciation => {
+                            if !fields.insert(__FieldTag::__pronunciation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pronunciation",
+                                ));
+                            }
+                            result.pronunciation =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CustomPronunciationParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.phrase.is_some() {
+            state.serialize_entry("phrase", &self.phrase)?;
+        }
+        if self.phonetic_encoding.is_some() {
+            state.serialize_entry("phoneticEncoding", &self.phonetic_encoding)?;
+        }
+        if self.pronunciation.is_some() {
+            state.serialize_entry("pronunciation", &self.pronunciation)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -395,6 +1190,29 @@ pub mod custom_pronunciation_params {
         /// X-SAMPA, such as apple -> "{p@l".
         /// <https://en.wikipedia.org/wiki/X-SAMPA>
         XSampa,
+        /// For reading-to-pron conversion to work well, the `pronunciation` field
+        /// should only contain Kanji, Hiragana, and Katakana.
+        ///
+        /// The pronunciation can also contain pitch accents.
+        /// The start of a pitch phrase is specified with `^` and the down-pitch
+        /// position is specified with `!`, for example:
+        ///
+        /// ```norust
+        /// phrase:端  pronunciation:^はし
+        /// phrase:箸  pronunciation:^は!し
+        /// phrase:橋  pronunciation:^はし!
+        /// ```
+        ///
+        /// We currently only support the Tokyo dialect, which allows at most one
+        /// down-pitch per phrase (i.e. at most one `!` between `^`).
+        JapaneseYomigana,
+        /// Used to specify pronunciations for Mandarin words. See
+        /// <https://en.wikipedia.org/wiki/Pinyin>.
+        ///
+        /// For example: 朝阳, the pronunciation is "chao2 yang2". The number
+        /// represents the tone, and there is a space between syllables. Neutral
+        /// tones are represented by 5, for example 孩子 "hai2 zi5".
+        Pinyin,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [PhoneticEncoding::value] or
@@ -420,6 +1238,8 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Ipa => std::option::Option::Some(1),
                 Self::XSampa => std::option::Option::Some(2),
+                Self::JapaneseYomigana => std::option::Option::Some(3),
+                Self::Pinyin => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -433,6 +1253,10 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => std::option::Option::Some("PHONETIC_ENCODING_UNSPECIFIED"),
                 Self::Ipa => std::option::Option::Some("PHONETIC_ENCODING_IPA"),
                 Self::XSampa => std::option::Option::Some("PHONETIC_ENCODING_X_SAMPA"),
+                Self::JapaneseYomigana => {
+                    std::option::Option::Some("PHONETIC_ENCODING_JAPANESE_YOMIGANA")
+                }
+                Self::Pinyin => std::option::Option::Some("PHONETIC_ENCODING_PINYIN"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -457,6 +1281,8 @@ pub mod custom_pronunciation_params {
                 0 => Self::Unspecified,
                 1 => Self::Ipa,
                 2 => Self::XSampa,
+                3 => Self::JapaneseYomigana,
+                4 => Self::Pinyin,
                 _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -471,6 +1297,8 @@ pub mod custom_pronunciation_params {
                 "PHONETIC_ENCODING_UNSPECIFIED" => Self::Unspecified,
                 "PHONETIC_ENCODING_IPA" => Self::Ipa,
                 "PHONETIC_ENCODING_X_SAMPA" => Self::XSampa,
+                "PHONETIC_ENCODING_JAPANESE_YOMIGANA" => Self::JapaneseYomigana,
+                "PHONETIC_ENCODING_PINYIN" => Self::Pinyin,
                 _ => Self::UnknownValue(phonetic_encoding::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -487,6 +1315,8 @@ pub mod custom_pronunciation_params {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Ipa => serializer.serialize_i32(1),
                 Self::XSampa => serializer.serialize_i32(2),
+                Self::JapaneseYomigana => serializer.serialize_i32(3),
+                Self::Pinyin => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -505,16 +1335,12 @@ pub mod custom_pronunciation_params {
 }
 
 /// A collection of pronunciation customizations.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomPronunciations {
     /// The pronunciation customizations are applied.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub pronunciations: std::vec::Vec<crate::model::CustomPronunciationParams>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -541,17 +1367,117 @@ impl wkt::message::Message for CustomPronunciations {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CustomPronunciations {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __pronunciations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomPronunciations")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "pronunciations" => Ok(__FieldTag::__pronunciations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CustomPronunciations;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomPronunciations")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__pronunciations => {
+                            if !fields.insert(__FieldTag::__pronunciations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pronunciations",
+                                ));
+                            }
+                            result.pronunciations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::CustomPronunciationParams>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CustomPronunciations {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.pronunciations.is_empty() {
+            state.serialize_entry("pronunciations", &self.pronunciations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A collection of turns for multi-speaker synthesis.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MultiSpeakerMarkup {
     /// Required. Speaker turns.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub turns: std::vec::Vec<crate::model::multi_speaker_markup::Turn>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -578,27 +1504,126 @@ impl wkt::message::Message for MultiSpeakerMarkup {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MultiSpeakerMarkup {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __turns,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MultiSpeakerMarkup")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "turns" => Ok(__FieldTag::__turns),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MultiSpeakerMarkup;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MultiSpeakerMarkup")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__turns => {
+                            if !fields.insert(__FieldTag::__turns) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for turns",
+                                ));
+                            }
+                            result.turns = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::multi_speaker_markup::Turn>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MultiSpeakerMarkup {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.turns.is_empty() {
+            state.serialize_entry("turns", &self.turns)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [MultiSpeakerMarkup].
 pub mod multi_speaker_markup {
     #[allow(unused_imports)]
     use super::*;
 
     /// A multi-speaker turn.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Turn {
         /// Required. The speaker of the turn, for example, 'O' or 'Q'. Please refer
         /// to documentation for available speakers.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub speaker: std::string::String,
 
         /// Required. The text to speak.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub text: std::string::String,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -625,15 +1650,133 @@ pub mod multi_speaker_markup {
             "type.googleapis.com/google.cloud.texttospeech.v1.MultiSpeakerMarkup.Turn"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Turn {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __speaker,
+                __text,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Turn")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "speaker" => Ok(__FieldTag::__speaker),
+                                "text" => Ok(__FieldTag::__text),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Turn;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Turn")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__speaker => {
+                                if !fields.insert(__FieldTag::__speaker) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for speaker",
+                                    ));
+                                }
+                                result.speaker = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__text => {
+                                if !fields.insert(__FieldTag::__text) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for text",
+                                    ));
+                                }
+                                result.text = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Turn {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.speaker.is_empty() {
+                state.serialize_entry("speaker", &self.speaker)?;
+            }
+            if !self.text.is_empty() {
+                state.serialize_entry("text", &self.text)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Contains text input to be synthesized. Either `text` or `ssml` must be
 /// supplied. Supplying both or neither returns
 /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]. The
 /// input size is limited to 5000 bytes.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesisInput {
     /// Optional. The pronunciation customizations are applied to the input. If
@@ -646,14 +1789,11 @@ pub struct SynthesisInput {
     /// In order to customize the pronunciation of a phrase, there must be an exact
     /// match of the phrase in the input types. If using SSML, the phrase must not
     /// be inside a phoneme tag.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_pronunciations: std::option::Option<crate::model::CustomPronunciations>,
 
     /// The input source, which is either plain text or SSML.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub input_source: std::option::Option<crate::model::synthesis_input::InputSource>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -663,13 +1803,20 @@ impl SynthesisInput {
     }
 
     /// Sets the value of [custom_pronunciations][crate::model::SynthesisInput::custom_pronunciations].
-    pub fn set_custom_pronunciations<
-        T: std::convert::Into<std::option::Option<crate::model::CustomPronunciations>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_pronunciations = v.into();
+    pub fn set_custom_pronunciations<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomPronunciations>,
+    {
+        self.custom_pronunciations = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_pronunciations][crate::model::SynthesisInput::custom_pronunciations].
+    pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomPronunciations>,
+    {
+        self.custom_pronunciations = v.map(|x| x.into());
         self
     }
 
@@ -698,6 +1845,39 @@ impl SynthesisInput {
         })
     }
 
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
+    /// to hold a `Text`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source =
+            std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
+        self
+    }
+
+    /// The value of [input_source][crate::model::SynthesisInput::input_source]
+    /// if it holds a `Markup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn markup(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.input_source.as_ref().and_then(|v| match v {
+            crate::model::synthesis_input::InputSource::Markup(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
+    /// to hold a `Markup`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source =
+            std::option::Option::Some(crate::model::synthesis_input::InputSource::Markup(v.into()));
+        self
+    }
+
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
     /// if it holds a `Ssml`, `None` if the field is not set or
     /// holds a different branch.
@@ -707,6 +1887,17 @@ impl SynthesisInput {
             crate::model::synthesis_input::InputSource::Ssml(v) => std::option::Option::Some(v),
             _ => std::option::Option::None,
         })
+    }
+
+    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
+    /// to hold a `Ssml`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source =
+            std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
+        self
     }
 
     /// The value of [input_source][crate::model::SynthesisInput::input_source]
@@ -722,28 +1913,6 @@ impl SynthesisInput {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Text`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Text(v.into()));
-        self
-    }
-
-    /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
-    /// to hold a `Ssml`.
-    ///
-    /// Note that all the setters affecting `input_source` are
-    /// mutually exclusive.
-    pub fn set_ssml<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.input_source =
-            std::option::Option::Some(crate::model::synthesis_input::InputSource::Ssml(v.into()));
-        self
     }
 
     /// Sets the value of [input_source][crate::model::SynthesisInput::input_source]
@@ -770,18 +1939,217 @@ impl wkt::message::Message for SynthesisInput {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SynthesisInput {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text,
+            __markup,
+            __ssml,
+            __multi_speaker_markup,
+            __custom_pronunciations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SynthesisInput")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "text" => Ok(__FieldTag::__text),
+                            "markup" => Ok(__FieldTag::__markup),
+                            "ssml" => Ok(__FieldTag::__ssml),
+                            "multiSpeakerMarkup" => Ok(__FieldTag::__multi_speaker_markup),
+                            "multi_speaker_markup" => Ok(__FieldTag::__multi_speaker_markup),
+                            "customPronunciations" => Ok(__FieldTag::__custom_pronunciations),
+                            "custom_pronunciations" => Ok(__FieldTag::__custom_pronunciations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SynthesisInput;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SynthesisInput")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text => {
+                            if !fields.insert(__FieldTag::__text) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.SynthesisInput.text, latest field was text",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::synthesis_input::InputSource::Text(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__markup => {
+                            if !fields.insert(__FieldTag::__markup) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for markup",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.SynthesisInput.markup, latest field was markup",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::synthesis_input::InputSource::Markup(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__ssml => {
+                            if !fields.insert(__FieldTag::__ssml) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssml",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.SynthesisInput.ssml, latest field was ssml",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::synthesis_input::InputSource::Ssml(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__multi_speaker_markup => {
+                            if !fields.insert(__FieldTag::__multi_speaker_markup) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for multi_speaker_markup",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.SynthesisInput.multi_speaker_markup, latest field was multiSpeakerMarkup",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::synthesis_input::InputSource::MultiSpeakerMarkup(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::MultiSpeakerMarkup>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__custom_pronunciations => {
+                            if !fields.insert(__FieldTag::__custom_pronunciations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_pronunciations",
+                                ));
+                            }
+                            result.custom_pronunciations = map.next_value::<std::option::Option<crate::model::CustomPronunciations>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SynthesisInput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.text() {
+            state.serialize_entry("text", value)?;
+        }
+        if let Some(value) = self.markup() {
+            state.serialize_entry("markup", value)?;
+        }
+        if let Some(value) = self.ssml() {
+            state.serialize_entry("ssml", value)?;
+        }
+        if let Some(value) = self.multi_speaker_markup() {
+            state.serialize_entry("multiSpeakerMarkup", value)?;
+        }
+        if self.custom_pronunciations.is_some() {
+            state.serialize_entry("customPronunciations", &self.custom_pronunciations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [SynthesisInput].
 pub mod synthesis_input {
     #[allow(unused_imports)]
     use super::*;
 
     /// The input source, which is either plain text or SSML.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InputSource {
         /// The raw text to be synthesized.
         Text(std::string::String),
+        /// Markup for HD voices specifically. This field may not be used with any
+        /// other voices.
+        Markup(std::string::String),
         /// The SSML document to be synthesized. The SSML document must be valid
         /// and well-formed. Otherwise the RPC will fail and return
         /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]. For
@@ -795,9 +2163,7 @@ pub mod synthesis_input {
 }
 
 /// Description of which voice to use for a synthesis request.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceSelectionParams {
     /// Required. The language (and potentially also the region) of the voice
@@ -811,13 +2177,11 @@ pub struct VoiceSelectionParams {
     /// (e.g. using en-US rather than en-CA if there isn't a Canadian voice
     /// available), or even a different language, e.g. using "nb" (Norwegian
     /// Bokmal) instead of "no" (Norwegian)".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub language_code: std::string::String,
 
     /// The name of the voice. If both the name and the gender are not set,
     /// the service will choose a voice based on the other parameters such as
     /// language_code.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// The preferred gender of the voice. If not set, the service will
@@ -830,16 +2194,13 @@ pub struct VoiceSelectionParams {
     /// The configuration for a custom voice. If [CustomVoiceParams.model] is set,
     /// the service will choose the custom voice matching the specified
     /// configuration.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_voice: std::option::Option<crate::model::CustomVoiceParams>,
 
     /// Optional. The configuration for a voice clone. If
     /// [VoiceCloneParams.voice_clone_key] is set, the service chooses the voice
     /// clone matching the specified configuration.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice_clone: std::option::Option<crate::model::VoiceCloneParams>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -870,24 +2231,38 @@ impl VoiceSelectionParams {
     }
 
     /// Sets the value of [custom_voice][crate::model::VoiceSelectionParams::custom_voice].
-    pub fn set_custom_voice<
-        T: std::convert::Into<std::option::Option<crate::model::CustomVoiceParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_voice = v.into();
+    pub fn set_custom_voice<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomVoiceParams>,
+    {
+        self.custom_voice = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_voice][crate::model::VoiceSelectionParams::custom_voice].
+    pub fn set_or_clear_custom_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomVoiceParams>,
+    {
+        self.custom_voice = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [voice_clone][crate::model::VoiceSelectionParams::voice_clone].
-    pub fn set_voice_clone<
-        T: std::convert::Into<std::option::Option<crate::model::VoiceCloneParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.voice_clone = v.into();
+    pub fn set_voice_clone<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceCloneParams>,
+    {
+        self.voice_clone = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [voice_clone][crate::model::VoiceSelectionParams::voice_clone].
+    pub fn set_or_clear_voice_clone<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceCloneParams>,
+    {
+        self.voice_clone = v.map(|x| x.into());
         self
     }
 }
@@ -898,10 +2273,174 @@ impl wkt::message::Message for VoiceSelectionParams {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VoiceSelectionParams {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __language_code,
+            __name,
+            __ssml_gender,
+            __custom_voice,
+            __voice_clone,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VoiceSelectionParams")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "languageCode" => Ok(__FieldTag::__language_code),
+                            "language_code" => Ok(__FieldTag::__language_code),
+                            "name" => Ok(__FieldTag::__name),
+                            "ssmlGender" => Ok(__FieldTag::__ssml_gender),
+                            "ssml_gender" => Ok(__FieldTag::__ssml_gender),
+                            "customVoice" => Ok(__FieldTag::__custom_voice),
+                            "custom_voice" => Ok(__FieldTag::__custom_voice),
+                            "voiceClone" => Ok(__FieldTag::__voice_clone),
+                            "voice_clone" => Ok(__FieldTag::__voice_clone),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VoiceSelectionParams;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VoiceSelectionParams")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__language_code => {
+                            if !fields.insert(__FieldTag::__language_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_code",
+                                ));
+                            }
+                            result.language_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ssml_gender => {
+                            if !fields.insert(__FieldTag::__ssml_gender) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ssml_gender",
+                                ));
+                            }
+                            result.ssml_gender = map
+                                .next_value::<std::option::Option<crate::model::SsmlVoiceGender>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__custom_voice => {
+                            if !fields.insert(__FieldTag::__custom_voice) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_voice",
+                                ));
+                            }
+                            result.custom_voice = map
+                                .next_value::<std::option::Option<crate::model::CustomVoiceParams>>(
+                                )?;
+                        }
+                        __FieldTag::__voice_clone => {
+                            if !fields.insert(__FieldTag::__voice_clone) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for voice_clone",
+                                ));
+                            }
+                            result.voice_clone = map
+                                .next_value::<std::option::Option<crate::model::VoiceCloneParams>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VoiceSelectionParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.language_code.is_empty() {
+            state.serialize_entry("languageCode", &self.language_code)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.ssml_gender) {
+            state.serialize_entry("ssmlGender", &self.ssml_gender)?;
+        }
+        if self.custom_voice.is_some() {
+            state.serialize_entry("customVoice", &self.custom_voice)?;
+        }
+        if self.voice_clone.is_some() {
+            state.serialize_entry("voiceClone", &self.voice_clone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Description of audio data to be synthesized.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AudioConfig {
     /// Required. The format of the audio byte stream.
@@ -911,13 +2450,11 @@ pub struct AudioConfig {
     /// the normal native speed supported by the specific voice. 2.0 is twice as
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaking_rate: f64,
 
     /// Optional. Input only. Speaking pitch, in the range [-20.0, 20.0]. 20 means
     /// increase 20 semitones from the original pitch. -20 means decrease 20
     /// semitones from the original pitch.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub pitch: f64,
 
     /// Optional. Input only. Volume gain (in dB) of the normal native volume
@@ -928,7 +2465,6 @@ pub struct AudioConfig {
     /// approximately twice the amplitude of the normal native signal amplitude.
     /// Strongly recommend not to exceed +10 (dB) as there's usually no effective
     /// increase in loudness for any value greater than that.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub volume_gain_db: f64,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. When this is
@@ -938,7 +2474,6 @@ pub struct AudioConfig {
     /// quality), unless the specified sample rate is not supported for the
     /// encoding chosen, in which case it will fail the request and return
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT].
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. An identifier which selects 'audio effects' profiles
@@ -947,10 +2482,8 @@ pub struct AudioConfig {
     /// [audio
     /// profiles](https://cloud.google.com/text-to-speech/docs/audio-profiles) for
     /// current supported profile ids.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub effects_profile_id: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1010,21 +2543,272 @@ impl wkt::message::Message for AudioConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AudioConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __audio_encoding,
+            __speaking_rate,
+            __pitch,
+            __volume_gain_db,
+            __sample_rate_hertz,
+            __effects_profile_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AudioConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "audioEncoding" => Ok(__FieldTag::__audio_encoding),
+                            "audio_encoding" => Ok(__FieldTag::__audio_encoding),
+                            "speakingRate" => Ok(__FieldTag::__speaking_rate),
+                            "speaking_rate" => Ok(__FieldTag::__speaking_rate),
+                            "pitch" => Ok(__FieldTag::__pitch),
+                            "volumeGainDb" => Ok(__FieldTag::__volume_gain_db),
+                            "volume_gain_db" => Ok(__FieldTag::__volume_gain_db),
+                            "sampleRateHertz" => Ok(__FieldTag::__sample_rate_hertz),
+                            "sample_rate_hertz" => Ok(__FieldTag::__sample_rate_hertz),
+                            "effectsProfileId" => Ok(__FieldTag::__effects_profile_id),
+                            "effects_profile_id" => Ok(__FieldTag::__effects_profile_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AudioConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AudioConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__audio_encoding => {
+                            if !fields.insert(__FieldTag::__audio_encoding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_encoding",
+                                ));
+                            }
+                            result.audio_encoding = map
+                                .next_value::<std::option::Option<crate::model::AudioEncoding>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__speaking_rate => {
+                            if !fields.insert(__FieldTag::__speaking_rate) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speaking_rate",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.speaking_rate =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__pitch => {
+                            if !fields.insert(__FieldTag::__pitch) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pitch",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.pitch = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__volume_gain_db => {
+                            if !fields.insert(__FieldTag::__volume_gain_db) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for volume_gain_db",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.volume_gain_db =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__sample_rate_hertz => {
+                            if !fields.insert(__FieldTag::__sample_rate_hertz) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for sample_rate_hertz",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.sample_rate_hertz =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__effects_profile_id => {
+                            if !fields.insert(__FieldTag::__effects_profile_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for effects_profile_id",
+                                ));
+                            }
+                            result.effects_profile_id = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AudioConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.audio_encoding) {
+            state.serialize_entry("audioEncoding", &self.audio_encoding)?;
+        }
+        if !wkt::internal::is_default(&self.speaking_rate) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("speakingRate", &__With(&self.speaking_rate))?;
+        }
+        if !wkt::internal::is_default(&self.pitch) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pitch", &__With(&self.pitch))?;
+        }
+        if !wkt::internal::is_default(&self.volume_gain_db) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("volumeGainDb", &__With(&self.volume_gain_db))?;
+        }
+        if !wkt::internal::is_default(&self.sample_rate_hertz) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sampleRateHertz", &__With(&self.sample_rate_hertz))?;
+        }
+        if !self.effects_profile_id.is_empty() {
+            state.serialize_entry("effectsProfileId", &self.effects_profile_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Description of the custom voice to be synthesized.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomVoiceParams {
     /// Required. The name of the AutoML model that synthesizes the custom voice.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub model: std::string::String,
 
     /// Optional. Deprecated. The usage of the synthesized audio to be reported.
     #[deprecated]
     pub reported_usage: crate::model::custom_voice_params::ReportedUsage,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1055,6 +2839,126 @@ impl CustomVoiceParams {
 impl wkt::message::Message for CustomVoiceParams {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.texttospeech.v1.CustomVoiceParams"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CustomVoiceParams {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __model,
+            __reported_usage,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomVoiceParams")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "model" => Ok(__FieldTag::__model),
+                            "reportedUsage" => Ok(__FieldTag::__reported_usage),
+                            "reported_usage" => Ok(__FieldTag::__reported_usage),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CustomVoiceParams;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomVoiceParams")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__reported_usage => {
+                            if !fields.insert(__FieldTag::__reported_usage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reported_usage",
+                                ));
+                            }
+                            result.reported_usage = map
+                                .next_value::<std::option::Option<
+                                    crate::model::custom_voice_params::ReportedUsage,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CustomVoiceParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !wkt::internal::is_default(&self.reported_usage) {
+            state.serialize_entry("reportedUsage", &self.reported_usage)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -1201,16 +3105,12 @@ pub mod custom_voice_params {
 }
 
 /// The configuration of Voice Clone feature.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VoiceCloneParams {
     /// Required. Created by GenerateVoiceCloningKey.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub voice_cloning_key: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1235,10 +3135,111 @@ impl wkt::message::Message for VoiceCloneParams {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VoiceCloneParams {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __voice_cloning_key,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VoiceCloneParams")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "voiceCloningKey" => Ok(__FieldTag::__voice_cloning_key),
+                            "voice_cloning_key" => Ok(__FieldTag::__voice_cloning_key),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VoiceCloneParams;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VoiceCloneParams")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__voice_cloning_key => {
+                            if !fields.insert(__FieldTag::__voice_cloning_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for voice_cloning_key",
+                                ));
+                            }
+                            result.voice_cloning_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VoiceCloneParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.voice_cloning_key.is_empty() {
+            state.serialize_entry("voiceCloningKey", &self.voice_cloning_key)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The message returned to the client by the `SynthesizeSpeech` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeSpeechResponse {
     /// The audio data bytes encoded as specified in the request, including the
@@ -1246,11 +3247,8 @@ pub struct SynthesizeSpeechResponse {
     /// For LINEAR16 audio, we include the WAV header. Note: as
     /// with all bytes fields, protobuffers use a pure binary representation,
     /// whereas JSON representations use base64.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
     pub audio_content: ::bytes::Bytes,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1272,10 +3270,130 @@ impl wkt::message::Message for SynthesizeSpeechResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SynthesizeSpeechResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __audio_content,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SynthesizeSpeechResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "audioContent" => Ok(__FieldTag::__audio_content),
+                            "audio_content" => Ok(__FieldTag::__audio_content),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SynthesizeSpeechResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SynthesizeSpeechResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__audio_content => {
+                            if !fields.insert(__FieldTag::__audio_content) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_content",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.audio_content =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SynthesizeSpeechResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.audio_content.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("audioContent", &__With(&self.audio_content))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Description of the desired output audio data.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingAudioConfig {
     /// Required. The format of the audio byte stream.
@@ -1284,17 +3402,14 @@ pub struct StreamingAudioConfig {
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Input only. Speaking rate/speed, in the range [0.25, 2.0]. 1.0 is
     /// the normal native speed supported by the specific voice. 2.0 is twice as
     /// fast, and 0.5 is half as fast. If unset(0.0), defaults to the native 1.0
     /// speed. Any other values < 0.25 or > 2.0 will return an error.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub speaking_rate: f64,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1331,18 +3446,187 @@ impl wkt::message::Message for StreamingAudioConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StreamingAudioConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __audio_encoding,
+            __sample_rate_hertz,
+            __speaking_rate,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingAudioConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "audioEncoding" => Ok(__FieldTag::__audio_encoding),
+                            "audio_encoding" => Ok(__FieldTag::__audio_encoding),
+                            "sampleRateHertz" => Ok(__FieldTag::__sample_rate_hertz),
+                            "sample_rate_hertz" => Ok(__FieldTag::__sample_rate_hertz),
+                            "speakingRate" => Ok(__FieldTag::__speaking_rate),
+                            "speaking_rate" => Ok(__FieldTag::__speaking_rate),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StreamingAudioConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingAudioConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__audio_encoding => {
+                            if !fields.insert(__FieldTag::__audio_encoding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_encoding",
+                                ));
+                            }
+                            result.audio_encoding = map
+                                .next_value::<std::option::Option<crate::model::AudioEncoding>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__sample_rate_hertz => {
+                            if !fields.insert(__FieldTag::__sample_rate_hertz) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for sample_rate_hertz",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.sample_rate_hertz =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__speaking_rate => {
+                            if !fields.insert(__FieldTag::__speaking_rate) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speaking_rate",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.speaking_rate =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StreamingAudioConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.audio_encoding) {
+            state.serialize_entry("audioEncoding", &self.audio_encoding)?;
+        }
+        if !wkt::internal::is_default(&self.sample_rate_hertz) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("sampleRateHertz", &__With(&self.sample_rate_hertz))?;
+        }
+        if !wkt::internal::is_default(&self.speaking_rate) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("speakingRate", &__With(&self.speaking_rate))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Provides configuration information for the StreamingSynthesize request.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeConfig {
     /// Required. The desired voice of the synthesized audio.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice: std::option::Option<crate::model::VoiceSelectionParams>,
 
     /// Optional. The configuration of the synthesized audio.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub streaming_audio_config: std::option::Option<crate::model::StreamingAudioConfig>,
 
     /// Optional. The pronunciation customizations are applied to the input. If
@@ -1355,10 +3639,8 @@ pub struct StreamingSynthesizeConfig {
     /// In order to customize the pronunciation of a phrase, there must be an exact
     /// match of the phrase in the input types. If using SSML, the phrase must not
     /// be inside a phoneme tag.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub custom_pronunciations: std::option::Option<crate::model::CustomPronunciations>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1368,35 +3650,56 @@ impl StreamingSynthesizeConfig {
     }
 
     /// Sets the value of [voice][crate::model::StreamingSynthesizeConfig::voice].
-    pub fn set_voice<
-        T: std::convert::Into<std::option::Option<crate::model::VoiceSelectionParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.voice = v.into();
+    pub fn set_voice<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    {
+        self.voice = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [voice][crate::model::StreamingSynthesizeConfig::voice].
+    pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    {
+        self.voice = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [streaming_audio_config][crate::model::StreamingSynthesizeConfig::streaming_audio_config].
-    pub fn set_streaming_audio_config<
-        T: std::convert::Into<std::option::Option<crate::model::StreamingAudioConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.streaming_audio_config = v.into();
+    pub fn set_streaming_audio_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingAudioConfig>,
+    {
+        self.streaming_audio_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [streaming_audio_config][crate::model::StreamingSynthesizeConfig::streaming_audio_config].
+    pub fn set_or_clear_streaming_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StreamingAudioConfig>,
+    {
+        self.streaming_audio_config = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [custom_pronunciations][crate::model::StreamingSynthesizeConfig::custom_pronunciations].
-    pub fn set_custom_pronunciations<
-        T: std::convert::Into<std::option::Option<crate::model::CustomPronunciations>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.custom_pronunciations = v.into();
+    pub fn set_custom_pronunciations<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomPronunciations>,
+    {
+        self.custom_pronunciations = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_pronunciations][crate::model::StreamingSynthesizeConfig::custom_pronunciations].
+    pub fn set_or_clear_custom_pronunciations<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomPronunciations>,
+    {
+        self.custom_pronunciations = v.map(|x| x.into());
         self
     }
 }
@@ -1407,16 +3710,143 @@ impl wkt::message::Message for StreamingSynthesizeConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StreamingSynthesizeConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __voice,
+            __streaming_audio_config,
+            __custom_pronunciations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingSynthesizeConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "voice" => Ok(__FieldTag::__voice),
+                            "streamingAudioConfig" => Ok(__FieldTag::__streaming_audio_config),
+                            "streaming_audio_config" => Ok(__FieldTag::__streaming_audio_config),
+                            "customPronunciations" => Ok(__FieldTag::__custom_pronunciations),
+                            "custom_pronunciations" => Ok(__FieldTag::__custom_pronunciations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StreamingSynthesizeConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingSynthesizeConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__voice => {
+                            if !fields.insert(__FieldTag::__voice) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for voice",
+                                ));
+                            }
+                            result.voice = map.next_value::<std::option::Option<crate::model::VoiceSelectionParams>>()?
+                                ;
+                        }
+                        __FieldTag::__streaming_audio_config => {
+                            if !fields.insert(__FieldTag::__streaming_audio_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for streaming_audio_config",
+                                ));
+                            }
+                            result.streaming_audio_config = map.next_value::<std::option::Option<crate::model::StreamingAudioConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__custom_pronunciations => {
+                            if !fields.insert(__FieldTag::__custom_pronunciations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_pronunciations",
+                                ));
+                            }
+                            result.custom_pronunciations = map.next_value::<std::option::Option<crate::model::CustomPronunciations>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StreamingSynthesizeConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.voice.is_some() {
+            state.serialize_entry("voice", &self.voice)?;
+        }
+        if self.streaming_audio_config.is_some() {
+            state.serialize_entry("streamingAudioConfig", &self.streaming_audio_config)?;
+        }
+        if self.custom_pronunciations.is_some() {
+            state.serialize_entry("customPronunciations", &self.custom_pronunciations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Input to be synthesized.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesisInput {
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub input_source: std::option::Option<crate::model::streaming_synthesis_input::InputSource>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1465,6 +3895,31 @@ impl StreamingSynthesisInput {
         );
         self
     }
+
+    /// The value of [input_source][crate::model::StreamingSynthesisInput::input_source]
+    /// if it holds a `Markup`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn markup(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.input_source.as_ref().and_then(|v| match v {
+            crate::model::streaming_synthesis_input::InputSource::Markup(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input_source][crate::model::StreamingSynthesisInput::input_source]
+    /// to hold a `Markup`.
+    ///
+    /// Note that all the setters affecting `input_source` are
+    /// mutually exclusive.
+    pub fn set_markup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.input_source = std::option::Option::Some(
+            crate::model::streaming_synthesis_input::InputSource::Markup(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for StreamingSynthesisInput {
@@ -1473,19 +3928,154 @@ impl wkt::message::Message for StreamingSynthesisInput {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StreamingSynthesisInput {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text,
+            __markup,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingSynthesisInput")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "text" => Ok(__FieldTag::__text),
+                            "markup" => Ok(__FieldTag::__markup),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StreamingSynthesisInput;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingSynthesisInput")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text => {
+                            if !fields.insert(__FieldTag::__text) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.StreamingSynthesisInput.text, latest field was text",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::streaming_synthesis_input::InputSource::Text(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__markup => {
+                            if !fields.insert(__FieldTag::__markup) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for markup",
+                                ));
+                            }
+                            if result.input_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `input_source`, a oneof with full ID .google.cloud.texttospeech.v1.StreamingSynthesisInput.markup, latest field was markup",
+                                ));
+                            }
+                            result.input_source = std::option::Option::Some(
+                                crate::model::streaming_synthesis_input::InputSource::Markup(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StreamingSynthesisInput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.text() {
+            state.serialize_entry("text", value)?;
+        }
+        if let Some(value) = self.markup() {
+            state.serialize_entry("markup", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [StreamingSynthesisInput].
 pub mod streaming_synthesis_input {
     #[allow(unused_imports)]
     use super::*;
 
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum InputSource {
         /// The raw text to be synthesized. It is recommended that each input
         /// contains complete, terminating sentences, which results in better prosody
         /// in the output audio.
         Text(std::string::String),
+        /// Markup for HD voices specifically. This field may not be used with any
+        /// other voices.
+        Markup(std::string::String),
     }
 }
 
@@ -1494,18 +4084,14 @@ pub mod streaming_synthesis_input {
 /// The first message must contain a `streaming_config` that
 /// fully specifies the request configuration and must not contain `input`. All
 /// subsequent messages must only have `input` set.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeRequest {
     /// The request to be sent, either a StreamingSynthesizeConfig or
     /// StreamingSynthesisInput.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub streaming_request:
         std::option::Option<crate::model::streaming_synthesize_request::StreamingRequest>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1545,21 +4131,6 @@ impl StreamingSynthesizeRequest {
         })
     }
 
-    /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
-    /// if it holds a `Input`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn input(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
-        #[allow(unreachable_patterns)]
-        self.streaming_request.as_ref().and_then(|v| match v {
-            crate::model::streaming_synthesize_request::StreamingRequest::Input(v) => {
-                std::option::Option::Some(v)
-            }
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
     /// to hold a `StreamingConfig`.
     ///
@@ -1575,6 +4146,21 @@ impl StreamingSynthesizeRequest {
             crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(v.into()),
         );
         self
+    }
+
+    /// The value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
+    /// if it holds a `Input`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn input(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::StreamingSynthesisInput>> {
+        #[allow(unreachable_patterns)]
+        self.streaming_request.as_ref().and_then(|v| match v {
+            crate::model::streaming_synthesize_request::StreamingRequest::Input(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [streaming_request][crate::model::StreamingSynthesizeRequest::streaming_request]
@@ -1601,6 +4187,141 @@ impl wkt::message::Message for StreamingSynthesizeRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StreamingSynthesizeRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __streaming_config,
+            __input,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingSynthesizeRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "streamingConfig" => Ok(__FieldTag::__streaming_config),
+                            "streaming_config" => Ok(__FieldTag::__streaming_config),
+                            "input" => Ok(__FieldTag::__input),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StreamingSynthesizeRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingSynthesizeRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__streaming_config => {
+                            if !fields.insert(__FieldTag::__streaming_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for streaming_config",
+                                ));
+                            }
+                            if result.streaming_request.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `streaming_request`, a oneof with full ID .google.cloud.texttospeech.v1.StreamingSynthesizeRequest.streaming_config, latest field was streamingConfig",
+                                ));
+                            }
+                            result.streaming_request = std::option::Option::Some(
+                                crate::model::streaming_synthesize_request::StreamingRequest::StreamingConfig(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::StreamingSynthesizeConfig>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__input => {
+                            if !fields.insert(__FieldTag::__input) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input",
+                                ));
+                            }
+                            if result.streaming_request.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `streaming_request`, a oneof with full ID .google.cloud.texttospeech.v1.StreamingSynthesizeRequest.input, latest field was input",
+                                ));
+                            }
+                            result.streaming_request = std::option::Option::Some(
+                                crate::model::streaming_synthesize_request::StreamingRequest::Input(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::StreamingSynthesisInput>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StreamingSynthesizeRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.streaming_config() {
+            state.serialize_entry("streamingConfig", value)?;
+        }
+        if let Some(value) = self.input() {
+            state.serialize_entry("input", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [StreamingSynthesizeRequest].
 pub mod streaming_synthesize_request {
     #[allow(unused_imports)]
@@ -1608,8 +4329,7 @@ pub mod streaming_synthesize_request {
 
     /// The request to be sent, either a StreamingSynthesizeConfig or
     /// StreamingSynthesisInput.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum StreamingRequest {
         /// StreamingSynthesizeConfig to be used in this streaming attempt. Only
@@ -1624,18 +4344,13 @@ pub mod streaming_synthesize_request {
 /// `StreamingSynthesizeResponse` is the only message returned to the
 /// client by `StreamingSynthesize` method. A series of zero or more
 /// `StreamingSynthesizeResponse` messages are streamed back to the client.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct StreamingSynthesizeResponse {
     /// The audio data bytes encoded as specified in the request. This is
     /// headerless LINEAR16 audio with a sample rate of 24000.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
     pub audio_content: ::bytes::Bytes,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1657,37 +4372,151 @@ impl wkt::message::Message for StreamingSynthesizeResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StreamingSynthesizeResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __audio_content,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StreamingSynthesizeResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "audioContent" => Ok(__FieldTag::__audio_content),
+                            "audio_content" => Ok(__FieldTag::__audio_content),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StreamingSynthesizeResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StreamingSynthesizeResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__audio_content => {
+                            if !fields.insert(__FieldTag::__audio_content) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_content",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.audio_content =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StreamingSynthesizeResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.audio_content.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("audioContent", &__With(&self.audio_content))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The top-level message sent by the client for the
 /// `SynthesizeLongAudio` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioRequest {
     /// The resource states of the request in the form of
     /// `projects/*/locations/*`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The Synthesizer requires either plain text or SSML as input.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub input: std::option::Option<crate::model::SynthesisInput>,
 
     /// Required. The configuration of the synthesized audio.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub audio_config: std::option::Option<crate::model::AudioConfig>,
 
     /// Required. Specifies a Cloud Storage URI for the synthesis results. Must be
     /// specified in the format: `gs://bucket_name/object_name`, and the bucket
     /// must already exist.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub output_gcs_uri: std::string::String,
 
     /// Required. The desired voice of the synthesized audio.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub voice: std::option::Option<crate::model::VoiceSelectionParams>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1703,22 +4532,38 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets the value of [input][crate::model::SynthesizeLongAudioRequest::input].
-    pub fn set_input<T: std::convert::Into<std::option::Option<crate::model::SynthesisInput>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.input = v.into();
+    pub fn set_input<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SynthesisInput>,
+    {
+        self.input = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input][crate::model::SynthesizeLongAudioRequest::input].
+    pub fn set_or_clear_input<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SynthesisInput>,
+    {
+        self.input = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
-    pub fn set_audio_config<
-        T: std::convert::Into<std::option::Option<crate::model::AudioConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.audio_config = v.into();
+    pub fn set_audio_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AudioConfig>,
+    {
+        self.audio_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [audio_config][crate::model::SynthesizeLongAudioRequest::audio_config].
+    pub fn set_or_clear_audio_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AudioConfig>,
+    {
+        self.audio_config = v.map(|x| x.into());
         self
     }
 
@@ -1729,13 +4574,20 @@ impl SynthesizeLongAudioRequest {
     }
 
     /// Sets the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
-    pub fn set_voice<
-        T: std::convert::Into<std::option::Option<crate::model::VoiceSelectionParams>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.voice = v.into();
+    pub fn set_voice<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    {
+        self.voice = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [voice][crate::model::SynthesizeLongAudioRequest::voice].
+    pub fn set_or_clear_voice<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VoiceSelectionParams>,
+    {
+        self.voice = v.map(|x| x.into());
         self
     }
 }
@@ -1746,13 +4598,172 @@ impl wkt::message::Message for SynthesizeLongAudioRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SynthesizeLongAudioRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __input,
+            __audio_config,
+            __output_gcs_uri,
+            __voice,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SynthesizeLongAudioRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "input" => Ok(__FieldTag::__input),
+                            "audioConfig" => Ok(__FieldTag::__audio_config),
+                            "audio_config" => Ok(__FieldTag::__audio_config),
+                            "outputGcsUri" => Ok(__FieldTag::__output_gcs_uri),
+                            "output_gcs_uri" => Ok(__FieldTag::__output_gcs_uri),
+                            "voice" => Ok(__FieldTag::__voice),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SynthesizeLongAudioRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SynthesizeLongAudioRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__input => {
+                            if !fields.insert(__FieldTag::__input) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input",
+                                ));
+                            }
+                            result.input = map
+                                .next_value::<std::option::Option<crate::model::SynthesisInput>>(
+                                )?;
+                        }
+                        __FieldTag::__audio_config => {
+                            if !fields.insert(__FieldTag::__audio_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_config",
+                                ));
+                            }
+                            result.audio_config =
+                                map.next_value::<std::option::Option<crate::model::AudioConfig>>()?;
+                        }
+                        __FieldTag::__output_gcs_uri => {
+                            if !fields.insert(__FieldTag::__output_gcs_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_gcs_uri",
+                                ));
+                            }
+                            result.output_gcs_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__voice => {
+                            if !fields.insert(__FieldTag::__voice) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for voice",
+                                ));
+                            }
+                            result.voice = map.next_value::<std::option::Option<crate::model::VoiceSelectionParams>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SynthesizeLongAudioRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.input.is_some() {
+            state.serialize_entry("input", &self.input)?;
+        }
+        if self.audio_config.is_some() {
+            state.serialize_entry("audioConfig", &self.audio_config)?;
+        }
+        if !self.output_gcs_uri.is_empty() {
+            state.serialize_entry("outputGcsUri", &self.output_gcs_uri)?;
+        }
+        if self.voice.is_some() {
+            state.serialize_entry("voice", &self.voice)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The message returned to the client by the `SynthesizeLongAudio` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioResponse {
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1768,26 +4779,104 @@ impl wkt::message::Message for SynthesizeLongAudioResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SynthesizeLongAudioResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SynthesizeLongAudioResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SynthesizeLongAudioResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SynthesizeLongAudioResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SynthesizeLongAudioResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Metadata for response returned by the `SynthesizeLongAudio` method.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SynthesizeLongAudioMetadata {
     /// Time when the request was received.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
     /// Deprecated. Do not use.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[deprecated]
     pub last_update_time: std::option::Option<wkt::Timestamp>,
 
     /// The progress of the most recent processing update in percentage, ie. 70.0%.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub progress_percentage: f64,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1797,21 +4886,40 @@ impl SynthesizeLongAudioMetadata {
     }
 
     /// Sets the value of [start_time][crate::model::SynthesizeLongAudioMetadata::start_time].
-    pub fn set_start_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.start_time = v.into();
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::SynthesizeLongAudioMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
     #[deprecated]
-    pub fn set_last_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.last_update_time = v.into();
+    pub fn set_last_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_update_time][crate::model::SynthesizeLongAudioMetadata::last_update_time].
+    #[deprecated]
+    pub fn set_or_clear_last_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_update_time = v.map(|x| x.into());
         self
     }
 
@@ -1825,6 +4933,158 @@ impl SynthesizeLongAudioMetadata {
 impl wkt::message::Message for SynthesizeLongAudioMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.texttospeech.v1.SynthesizeLongAudioMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SynthesizeLongAudioMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_time,
+            __last_update_time,
+            __progress_percentage,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SynthesizeLongAudioMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "lastUpdateTime" => Ok(__FieldTag::__last_update_time),
+                            "last_update_time" => Ok(__FieldTag::__last_update_time),
+                            "progressPercentage" => Ok(__FieldTag::__progress_percentage),
+                            "progress_percentage" => Ok(__FieldTag::__progress_percentage),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SynthesizeLongAudioMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SynthesizeLongAudioMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__last_update_time => {
+                            if !fields.insert(__FieldTag::__last_update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_update_time",
+                                ));
+                            }
+                            result.last_update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__progress_percentage => {
+                            if !fields.insert(__FieldTag::__progress_percentage) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for progress_percentage",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.progress_percentage =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SynthesizeLongAudioMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.last_update_time.is_some() {
+            state.serialize_entry("lastUpdateTime", &self.last_update_time)?;
+        }
+        if !wkt::internal::is_default(&self.progress_percentage) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("progressPercentage", &__With(&self.progress_percentage))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

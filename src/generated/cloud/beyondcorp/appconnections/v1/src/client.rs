@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the BeyondCorp API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
 /// let client = AppConnectionsService::builder().build().await?;
 /// // use `client` to make requests to the BeyondCorp API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -71,11 +68,11 @@ use std::sync::Arc;
 ///
 /// `AppConnectionsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AppConnectionsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AppConnectionsService {
-    inner: Arc<dyn super::stub::dynamic::AppConnectionsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AppConnectionsService>,
 }
 
 impl AppConnectionsService {
@@ -85,7 +82,7 @@ impl AppConnectionsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_beyondcorp_appconnections_v1::client::AppConnectionsService;
     /// let client = AppConnectionsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::app_connections_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -102,33 +99,36 @@ impl AppConnectionsService {
         T: super::stub::AppConnectionsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AppConnectionsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AppConnectionsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AppConnectionsService> {
+    ) -> gax::client_builder::Result<impl super::stub::AppConnectionsService> {
         super::transport::AppConnectionsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AppConnectionsService> {
+    ) -> gax::client_builder::Result<impl super::stub::AppConnectionsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AppConnectionsService::new)
@@ -137,19 +137,13 @@ impl AppConnectionsService {
     /// Lists AppConnections in a given project and location.
     pub fn list_app_connections(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::app_connections_service::ListAppConnections {
         super::builder::app_connections_service::ListAppConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single AppConnection.
-    pub fn get_app_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::GetAppConnection {
+    pub fn get_app_connection(&self) -> super::builder::app_connections_service::GetAppConnection {
         super::builder::app_connections_service::GetAppConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new AppConnection in a given project and location.
@@ -165,10 +159,8 @@ impl AppConnectionsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_app_connection(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::app_connections_service::CreateAppConnection {
         super::builder::app_connections_service::CreateAppConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single AppConnection.
@@ -184,10 +176,8 @@ impl AppConnectionsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_app_connection(
         &self,
-        app_connection: impl Into<crate::model::AppConnection>,
     ) -> super::builder::app_connections_service::UpdateAppConnection {
         super::builder::app_connections_service::UpdateAppConnection::new(self.inner.clone())
-            .set_app_connection(app_connection.into())
     }
 
     /// Deletes a single AppConnection.
@@ -203,10 +193,8 @@ impl AppConnectionsService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_app_connection(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::app_connections_service::DeleteAppConnection {
         super::builder::app_connections_service::DeleteAppConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Resolves AppConnections details for a given AppConnector.
@@ -214,28 +202,18 @@ impl AppConnectionsService {
     /// to.
     pub fn resolve_app_connections(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::app_connections_service::ResolveAppConnections {
         super::builder::app_connections_service::ResolveAppConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::app_connections_service::ListLocations {
         super::builder::app_connections_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::app_connections_service::GetLocation {
         super::builder::app_connections_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -243,22 +221,14 @@ impl AppConnectionsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::app_connections_service::SetIamPolicy {
         super::builder::app_connections_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::app_connections_service::GetIamPolicy {
         super::builder::app_connections_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -270,53 +240,35 @@ impl AppConnectionsService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::app_connections_service::TestIamPermissions {
         super::builder::app_connections_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::app_connections_service::ListOperations {
         super::builder::app_connections_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::app_connections_service::GetOperation {
         super::builder::app_connections_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::app_connections_service::DeleteOperation {
         super::builder::app_connections_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::app_connections_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::app_connections_service::CancelOperation {
         super::builder::app_connections_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

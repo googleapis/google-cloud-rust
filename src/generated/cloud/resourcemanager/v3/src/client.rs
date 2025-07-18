@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Resource Manager API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_resourcemanager_v3::client::Folders;
 /// let client = Folders::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `Folders` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Folders` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Folders {
-    inner: Arc<dyn super::stub::dynamic::Folders>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Folders>,
 }
 
 impl Folders {
@@ -74,7 +71,7 @@ impl Folders {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// let client = Folders::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::folders::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::folders::client::Factory)
@@ -89,33 +86,35 @@ impl Folders {
         T: super::stub::Folders + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Folders>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Folders>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Folders> {
+    ) -> gax::client_builder::Result<impl super::stub::Folders> {
         super::transport::Folders::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Folders> {
+    ) -> gax::client_builder::Result<impl super::stub::Folders> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Folders::new)
@@ -126,11 +125,8 @@ impl Folders {
     /// (for example, `folders/1234`).
     /// The caller must have `resourcemanager.folders.get` permission on the
     /// identified folder.
-    pub fn get_folder(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::folders::GetFolder {
-        super::builder::folders::GetFolder::new(self.inner.clone()).set_name(name.into())
+    pub fn get_folder(&self) -> super::builder::folders::GetFolder {
+        super::builder::folders::GetFolder::new(self.inner.clone())
     }
 
     /// Lists the folders that are direct descendants of supplied parent resource.
@@ -224,11 +220,8 @@ impl Folders {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_folder(
-        &self,
-        folder: impl Into<crate::model::Folder>,
-    ) -> super::builder::folders::UpdateFolder {
-        super::builder::folders::UpdateFolder::new(self.inner.clone()).set_folder(folder.into())
+    pub fn update_folder(&self) -> super::builder::folders::UpdateFolder {
+        super::builder::folders::UpdateFolder::new(self.inner.clone())
     }
 
     /// Moves a folder under a new resource parent.
@@ -260,11 +253,8 @@ impl Folders {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn move_folder(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::folders::MoveFolder {
-        super::builder::folders::MoveFolder::new(self.inner.clone()).set_name(name.into())
+    pub fn move_folder(&self) -> super::builder::folders::MoveFolder {
+        super::builder::folders::MoveFolder::new(self.inner.clone())
     }
 
     /// Requests deletion of a folder. The folder is moved into the
@@ -291,11 +281,8 @@ impl Folders {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_folder(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::folders::DeleteFolder {
-        super::builder::folders::DeleteFolder::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_folder(&self) -> super::builder::folders::DeleteFolder {
+        super::builder::folders::DeleteFolder::new(self.inner.clone())
     }
 
     /// Cancels the deletion request for a folder. This method may be called on a
@@ -322,11 +309,8 @@ impl Folders {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_folder(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::folders::UndeleteFolder {
-        super::builder::folders::UndeleteFolder::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_folder(&self) -> super::builder::folders::UndeleteFolder {
+        super::builder::folders::UndeleteFolder::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a folder. The returned policy may be
@@ -334,11 +318,8 @@ impl Folders {
     /// be the folder's resource name, for example: "folders/1234".
     /// The caller must have `resourcemanager.folders.getIamPolicy` permission
     /// on the identified folder.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::folders::GetIamPolicy {
-        super::builder::folders::GetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn get_iam_policy(&self) -> super::builder::folders::GetIamPolicy {
+        super::builder::folders::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the access control policy on a folder, replacing any existing policy.
@@ -346,11 +327,8 @@ impl Folders {
     /// "folders/1234".
     /// The caller must have `resourcemanager.folders.setIamPolicy` permission
     /// on the identified folder.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::folders::SetIamPolicy {
-        super::builder::folders::SetIamPolicy::new(self.inner.clone()).set_resource(resource.into())
+    pub fn set_iam_policy(&self) -> super::builder::folders::SetIamPolicy {
+        super::builder::folders::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified folder.
@@ -358,22 +336,15 @@ impl Folders {
     /// for example: "folders/1234".
     ///
     /// There are no permissions required for making this API call.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::folders::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::folders::TestIamPermissions {
         super::builder::folders::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::folders::GetOperation {
-        super::builder::folders::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::folders::GetOperation {
+        super::builder::folders::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -385,7 +356,7 @@ impl Folders {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// let client = Organizations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -416,11 +387,11 @@ impl Folders {
 ///
 /// `Organizations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Organizations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Organizations {
-    inner: Arc<dyn super::stub::dynamic::Organizations>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Organizations>,
 }
 
 impl Organizations {
@@ -430,7 +401,7 @@ impl Organizations {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// let client = Organizations::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::organizations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::organizations::client::Factory)
@@ -445,45 +416,43 @@ impl Organizations {
         T: super::stub::Organizations + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Organizations>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Organizations>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Organizations> {
+    ) -> gax::client_builder::Result<impl super::stub::Organizations> {
         super::transport::Organizations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Organizations> {
+    ) -> gax::client_builder::Result<impl super::stub::Organizations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Organizations::new)
     }
 
     /// Fetches an organization resource identified by the specified resource name.
-    pub fn get_organization(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::organizations::GetOrganization {
+    pub fn get_organization(&self) -> super::builder::organizations::GetOrganization {
         super::builder::organizations::GetOrganization::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Searches organization resources that are visible to the user and satisfy
@@ -503,12 +472,8 @@ impl Organizations {
     ///
     /// Authorization requires the IAM permission
     /// `resourcemanager.organizations.getIamPolicy` on the specified organization.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::organizations::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::organizations::GetIamPolicy {
         super::builder::organizations::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy on an organization resource. Replaces any
@@ -517,12 +482,8 @@ impl Organizations {
     ///
     /// Authorization requires the IAM permission
     /// `resourcemanager.organizations.setIamPolicy` on the specified organization.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::organizations::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::organizations::SetIamPolicy {
         super::builder::organizations::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the permissions that a caller has on the specified organization.
@@ -530,22 +491,15 @@ impl Organizations {
     /// for example: "organizations/123".
     ///
     /// There are no permissions required for making this API call.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::organizations::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::organizations::TestIamPermissions {
         super::builder::organizations::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::organizations::GetOperation {
-        super::builder::organizations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::organizations::GetOperation {
+        super::builder::organizations::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -557,7 +511,7 @@ impl Organizations {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -588,11 +542,11 @@ impl Organizations {
 ///
 /// `Projects` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Projects` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Projects {
-    inner: Arc<dyn super::stub::dynamic::Projects>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Projects>,
 }
 
 impl Projects {
@@ -602,7 +556,7 @@ impl Projects {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// let client = Projects::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::projects::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
@@ -617,33 +571,35 @@ impl Projects {
         T: super::stub::Projects + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Projects>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Projects>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Projects> {
+    ) -> gax::client_builder::Result<impl super::stub::Projects> {
         super::transport::Projects::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Projects> {
+    ) -> gax::client_builder::Result<impl super::stub::Projects> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Projects::new)
@@ -654,11 +610,8 @@ impl Projects {
     ///
     /// The caller must have `resourcemanager.projects.get` permission
     /// for this project.
-    pub fn get_project(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::projects::GetProject {
-        super::builder::projects::GetProject::new(self.inner.clone()).set_name(name.into())
+    pub fn get_project(&self) -> super::builder::projects::GetProject {
+        super::builder::projects::GetProject::new(self.inner.clone())
     }
 
     /// Lists projects that are direct children of the specified folder or
@@ -722,11 +675,8 @@ impl Projects {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_project(
-        &self,
-        project: impl Into<crate::model::Project>,
-    ) -> super::builder::projects::UpdateProject {
-        super::builder::projects::UpdateProject::new(self.inner.clone()).set_project(project.into())
+    pub fn update_project(&self) -> super::builder::projects::UpdateProject {
+        super::builder::projects::UpdateProject::new(self.inner.clone())
     }
 
     /// Move a project to another place in your resource hierarchy, under a new
@@ -753,11 +703,8 @@ impl Projects {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn move_project(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::projects::MoveProject {
-        super::builder::projects::MoveProject::new(self.inner.clone()).set_name(name.into())
+    pub fn move_project(&self) -> super::builder::projects::MoveProject {
+        super::builder::projects::MoveProject::new(self.inner.clone())
     }
 
     /// Marks the project identified by the specified
@@ -807,11 +754,8 @@ impl Projects {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_project(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::projects::DeleteProject {
-        super::builder::projects::DeleteProject::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_project(&self) -> super::builder::projects::DeleteProject {
+        super::builder::projects::DeleteProject::new(self.inner.clone())
     }
 
     /// Restores the project identified by the specified
@@ -833,22 +777,15 @@ impl Projects {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn undelete_project(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::projects::UndeleteProject {
-        super::builder::projects::UndeleteProject::new(self.inner.clone()).set_name(name.into())
+    pub fn undelete_project(&self) -> super::builder::projects::UndeleteProject {
+        super::builder::projects::UndeleteProject::new(self.inner.clone())
     }
 
     /// Returns the IAM access control policy for the specified project, in the
     /// format `projects/{ProjectIdOrNumber}` e.g. projects/123.
     /// Permission is denied if the policy or the resource do not exist.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::projects::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::projects::GetIamPolicy {
         super::builder::projects::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the IAM access control policy for the specified project, in the
@@ -893,32 +830,21 @@ impl Projects {
     ///   rectified. If the project is part of an organization, you can remove all
     ///   owners, potentially making the organization inaccessible.
     ///
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::projects::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::projects::SetIamPolicy {
         super::builder::projects::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified project, in the
     /// format `projects/{ProjectIdOrNumber}` e.g. projects/123..
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::projects::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::projects::TestIamPermissions {
         super::builder::projects::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::projects::GetOperation {
-        super::builder::projects::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::projects::GetOperation {
+        super::builder::projects::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -930,7 +856,7 @@ impl Projects {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
 /// let client = TagBindings::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -962,11 +888,11 @@ impl Projects {
 ///
 /// `TagBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagBindings` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagBindings {
-    inner: Arc<dyn super::stub::dynamic::TagBindings>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagBindings>,
 }
 
 impl TagBindings {
@@ -976,7 +902,7 @@ impl TagBindings {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
     /// let client = TagBindings::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_bindings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_bindings::client::Factory)
@@ -991,33 +917,35 @@ impl TagBindings {
         T: super::stub::TagBindings + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagBindings>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagBindings> {
+    ) -> gax::client_builder::Result<impl super::stub::TagBindings> {
         super::transport::TagBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagBindings> {
+    ) -> gax::client_builder::Result<impl super::stub::TagBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagBindings::new)
@@ -1058,12 +986,8 @@ impl TagBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tag_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_bindings::DeleteTagBinding {
+    pub fn delete_tag_binding(&self) -> super::builder::tag_bindings::DeleteTagBinding {
         super::builder::tag_bindings::DeleteTagBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Return a list of effective tags for the given Google Cloud resource, as
@@ -1075,11 +999,8 @@ impl TagBindings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_bindings::GetOperation {
-        super::builder::tag_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tag_bindings::GetOperation {
+        super::builder::tag_bindings::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1091,7 +1012,7 @@ impl TagBindings {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
 /// let client = TagHolds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1126,11 +1047,11 @@ impl TagBindings {
 ///
 /// `TagHolds` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagHolds` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagHolds {
-    inner: Arc<dyn super::stub::dynamic::TagHolds>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagHolds>,
 }
 
 impl TagHolds {
@@ -1140,7 +1061,7 @@ impl TagHolds {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
     /// let client = TagHolds::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_holds::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_holds::client::Factory)
@@ -1155,33 +1076,35 @@ impl TagHolds {
         T: super::stub::TagHolds + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagHolds>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagHolds>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagHolds> {
+    ) -> gax::client_builder::Result<impl super::stub::TagHolds> {
         super::transport::TagHolds::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagHolds> {
+    ) -> gax::client_builder::Result<impl super::stub::TagHolds> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagHolds::new)
@@ -1199,11 +1122,8 @@ impl TagHolds {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_tag_hold(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tag_holds::CreateTagHold {
-        super::builder::tag_holds::CreateTagHold::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_tag_hold(&self) -> super::builder::tag_holds::CreateTagHold {
+        super::builder::tag_holds::CreateTagHold::new(self.inner.clone())
     }
 
     /// Deletes a TagHold.
@@ -1217,29 +1137,20 @@ impl TagHolds {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tag_hold(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_holds::DeleteTagHold {
-        super::builder::tag_holds::DeleteTagHold::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tag_hold(&self) -> super::builder::tag_holds::DeleteTagHold {
+        super::builder::tag_holds::DeleteTagHold::new(self.inner.clone())
     }
 
     /// Lists TagHolds under a TagValue.
-    pub fn list_tag_holds(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tag_holds::ListTagHolds {
-        super::builder::tag_holds::ListTagHolds::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_tag_holds(&self) -> super::builder::tag_holds::ListTagHolds {
+        super::builder::tag_holds::ListTagHolds::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_holds::GetOperation {
-        super::builder::tag_holds::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tag_holds::GetOperation {
+        super::builder::tag_holds::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1251,7 +1162,7 @@ impl TagHolds {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
 /// let client = TagKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1282,11 +1193,11 @@ impl TagHolds {
 ///
 /// `TagKeys` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagKeys` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagKeys {
-    inner: Arc<dyn super::stub::dynamic::TagKeys>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagKeys>,
 }
 
 impl TagKeys {
@@ -1296,7 +1207,7 @@ impl TagKeys {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// let client = TagKeys::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_keys::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_keys::client::Factory)
@@ -1311,33 +1222,35 @@ impl TagKeys {
         T: super::stub::TagKeys + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagKeys>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagKeys>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagKeys> {
+    ) -> gax::client_builder::Result<impl super::stub::TagKeys> {
         super::transport::TagKeys::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagKeys> {
+    ) -> gax::client_builder::Result<impl super::stub::TagKeys> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagKeys::new)
@@ -1350,11 +1263,8 @@ impl TagKeys {
 
     /// Retrieves a TagKey. This method will return `PERMISSION_DENIED` if the
     /// key does not exist or the user does not have permission to view it.
-    pub fn get_tag_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_keys::GetTagKey {
-        super::builder::tag_keys::GetTagKey::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tag_key(&self) -> super::builder::tag_keys::GetTagKey {
+        super::builder::tag_keys::GetTagKey::new(self.inner.clone())
     }
 
     /// Retrieves a TagKey by its namespaced name.
@@ -1393,11 +1303,8 @@ impl TagKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_tag_key(
-        &self,
-        tag_key: impl Into<crate::model::TagKey>,
-    ) -> super::builder::tag_keys::UpdateTagKey {
-        super::builder::tag_keys::UpdateTagKey::new(self.inner.clone()).set_tag_key(tag_key.into())
+    pub fn update_tag_key(&self) -> super::builder::tag_keys::UpdateTagKey {
+        super::builder::tag_keys::UpdateTagKey::new(self.inner.clone())
     }
 
     /// Deletes a TagKey. The TagKey cannot be deleted if it has any child
@@ -1412,11 +1319,8 @@ impl TagKeys {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tag_key(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_keys::DeleteTagKey {
-        super::builder::tag_keys::DeleteTagKey::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tag_key(&self) -> super::builder::tag_keys::DeleteTagKey {
+        super::builder::tag_keys::DeleteTagKey::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a TagKey. The returned policy may be
@@ -1425,12 +1329,8 @@ impl TagKeys {
     /// The caller must have
     /// `cloudresourcemanager.googleapis.com/tagKeys.getIamPolicy` permission on
     /// the specified TagKey.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::tag_keys::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::tag_keys::GetIamPolicy {
         super::builder::tag_keys::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy on a TagKey, replacing any existing
@@ -1438,12 +1338,8 @@ impl TagKeys {
     /// For example, "tagKeys/1234".
     /// The caller must have `resourcemanager.tagKeys.setIamPolicy` permission
     /// on the identified tagValue.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::tag_keys::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::tag_keys::SetIamPolicy {
         super::builder::tag_keys::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified TagKey.
@@ -1451,22 +1347,15 @@ impl TagKeys {
     /// For example, "tagKeys/1234".
     ///
     /// There are no permissions required for making this API call.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::tag_keys::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::tag_keys::TestIamPermissions {
         super::builder::tag_keys::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_keys::GetOperation {
-        super::builder::tag_keys::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tag_keys::GetOperation {
+        super::builder::tag_keys::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1478,7 +1367,7 @@ impl TagKeys {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
 /// let client = TagValues::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1509,11 +1398,11 @@ impl TagKeys {
 ///
 /// `TagValues` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TagValues` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TagValues {
-    inner: Arc<dyn super::stub::dynamic::TagValues>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TagValues>,
 }
 
 impl TagValues {
@@ -1523,7 +1412,7 @@ impl TagValues {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// let client = TagValues::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tag_values::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_values::client::Factory)
@@ -1538,33 +1427,35 @@ impl TagValues {
         T: super::stub::TagValues + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TagValues>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TagValues>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagValues> {
+    ) -> gax::client_builder::Result<impl super::stub::TagValues> {
         super::transport::TagValues::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TagValues> {
+    ) -> gax::client_builder::Result<impl super::stub::TagValues> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TagValues::new)
@@ -1577,11 +1468,8 @@ impl TagValues {
 
     /// Retrieves a TagValue. This method will return `PERMISSION_DENIED` if the
     /// value does not exist or the user does not have permission to view it.
-    pub fn get_tag_value(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_values::GetTagValue {
-        super::builder::tag_values::GetTagValue::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tag_value(&self) -> super::builder::tag_values::GetTagValue {
+        super::builder::tag_values::GetTagValue::new(self.inner.clone())
     }
 
     /// Retrieves a TagValue by its namespaced name.
@@ -1620,12 +1508,8 @@ impl TagValues {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_tag_value(
-        &self,
-        tag_value: impl Into<crate::model::TagValue>,
-    ) -> super::builder::tag_values::UpdateTagValue {
+    pub fn update_tag_value(&self) -> super::builder::tag_values::UpdateTagValue {
         super::builder::tag_values::UpdateTagValue::new(self.inner.clone())
-            .set_tag_value(tag_value.into())
     }
 
     /// Deletes a TagValue. The TagValue cannot have any bindings when it is
@@ -1640,11 +1524,8 @@ impl TagValues {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_tag_value(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_values::DeleteTagValue {
-        super::builder::tag_values::DeleteTagValue::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tag_value(&self) -> super::builder::tag_values::DeleteTagValue {
+        super::builder::tag_values::DeleteTagValue::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a TagValue. The returned policy may be
@@ -1653,12 +1534,8 @@ impl TagValues {
     /// The caller must have the
     /// `cloudresourcemanager.googleapis.com/tagValues.getIamPolicy` permission on
     /// the identified TagValue to get the access control policy.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::tag_values::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::tag_values::GetIamPolicy {
         super::builder::tag_values::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy on a TagValue, replacing any existing
@@ -1666,12 +1543,8 @@ impl TagValues {
     /// For example: `tagValues/1234`.
     /// The caller must have `resourcemanager.tagValues.setIamPolicy` permission
     /// on the identified tagValue.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::tag_values::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::tag_values::SetIamPolicy {
         super::builder::tag_values::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified TagValue.
@@ -1679,21 +1552,14 @@ impl TagValues {
     /// `tagValues/1234`.
     ///
     /// There are no permissions required for making this API call.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::tag_values::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::tag_values::TestIamPermissions {
         super::builder::tag_values::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tag_values::GetOperation {
-        super::builder::tag_values::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tag_values::GetOperation {
+        super::builder::tag_values::GetOperation::new(self.inner.clone())
     }
 }

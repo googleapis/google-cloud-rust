@@ -16,10 +16,14 @@
 
 //! Google Cloud Client Libraries for Rust - Cloud Bigtable Admin API
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
+//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
+//! do not anticipate any breaking changes are needed. We are looking for
+//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
+//! are still possible, but not expected.
+//!
+//! We also believe the implementation is ready for production, bugs are
+//! still possible, but not expected.
+//!
 //!
 //! This crate contains traits, types, and functions to interact with Cloud Bigtable Admin API
 //! Most applications will use the structs defined in the [client] module.
@@ -66,10 +70,7 @@ pub(crate) mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.rest_header_value()
         };
     }
 }
-
-pub use lro::Poller;
-pub use lro::PollingResult;

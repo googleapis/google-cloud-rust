@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Talent Solution API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_talent_v4::client::CompanyService;
 /// let client = CompanyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `CompanyService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CompanyService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CompanyService {
-    inner: Arc<dyn super::stub::dynamic::CompanyService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CompanyService>,
 }
 
 impl CompanyService {
@@ -72,7 +69,7 @@ impl CompanyService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// let client = CompanyService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::company_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::company_service::client::Factory)
@@ -87,91 +84,71 @@ impl CompanyService {
         T: super::stub::CompanyService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CompanyService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CompanyService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CompanyService> {
+    ) -> gax::client_builder::Result<impl super::stub::CompanyService> {
         super::transport::CompanyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CompanyService> {
+    ) -> gax::client_builder::Result<impl super::stub::CompanyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CompanyService::new)
     }
 
     /// Creates a new company entity.
-    pub fn create_company(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::company_service::CreateCompany {
+    pub fn create_company(&self) -> super::builder::company_service::CreateCompany {
         super::builder::company_service::CreateCompany::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves specified company.
-    pub fn get_company(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::company_service::GetCompany {
-        super::builder::company_service::GetCompany::new(self.inner.clone()).set_name(name.into())
+    pub fn get_company(&self) -> super::builder::company_service::GetCompany {
+        super::builder::company_service::GetCompany::new(self.inner.clone())
     }
 
     /// Updates specified company.
-    pub fn update_company(
-        &self,
-        company: impl Into<crate::model::Company>,
-    ) -> super::builder::company_service::UpdateCompany {
+    pub fn update_company(&self) -> super::builder::company_service::UpdateCompany {
         super::builder::company_service::UpdateCompany::new(self.inner.clone())
-            .set_company(company.into())
     }
 
     /// Deletes specified company.
     /// Prerequisite: The company has no jobs associated with it.
-    pub fn delete_company(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::company_service::DeleteCompany {
+    pub fn delete_company(&self) -> super::builder::company_service::DeleteCompany {
         super::builder::company_service::DeleteCompany::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all companies associated with the project.
-    pub fn list_companies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::company_service::ListCompanies {
+    pub fn list_companies(&self) -> super::builder::company_service::ListCompanies {
         super::builder::company_service::ListCompanies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::company_service::GetOperation {
-        super::builder::company_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::company_service::GetOperation {
+        super::builder::company_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -183,7 +160,7 @@ impl CompanyService {
 /// # use google_cloud_talent_v4::client::Completion;
 /// let client = Completion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -214,11 +191,11 @@ impl CompanyService {
 ///
 /// `Completion` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Completion` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Completion {
-    inner: Arc<dyn super::stub::dynamic::Completion>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Completion>,
 }
 
 impl Completion {
@@ -228,7 +205,7 @@ impl Completion {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_talent_v4::client::Completion;
     /// let client = Completion::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::completion::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::completion::client::Factory)
@@ -243,33 +220,35 @@ impl Completion {
         T: super::stub::Completion + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Completion>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Completion>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Completion> {
+    ) -> gax::client_builder::Result<impl super::stub::Completion> {
         super::transport::Completion::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Completion> {
+    ) -> gax::client_builder::Result<impl super::stub::Completion> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Completion::new)
@@ -277,21 +256,15 @@ impl Completion {
 
     /// Completes the specified prefix with keyword suggestions.
     /// Intended for use by a job search auto-complete search box.
-    pub fn complete_query(
-        &self,
-        tenant: impl Into<std::string::String>,
-    ) -> super::builder::completion::CompleteQuery {
-        super::builder::completion::CompleteQuery::new(self.inner.clone()).set_tenant(tenant.into())
+    pub fn complete_query(&self) -> super::builder::completion::CompleteQuery {
+        super::builder::completion::CompleteQuery::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::completion::GetOperation {
-        super::builder::completion::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::completion::GetOperation {
+        super::builder::completion::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -303,7 +276,7 @@ impl Completion {
 /// # use google_cloud_talent_v4::client::EventService;
 /// let client = EventService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -334,11 +307,11 @@ impl Completion {
 ///
 /// `EventService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EventService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct EventService {
-    inner: Arc<dyn super::stub::dynamic::EventService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EventService>,
 }
 
 impl EventService {
@@ -348,7 +321,7 @@ impl EventService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_talent_v4::client::EventService;
     /// let client = EventService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::event_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::event_service::client::Factory)
@@ -363,33 +336,35 @@ impl EventService {
         T: super::stub::EventService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EventService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::EventService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EventService> {
+    ) -> gax::client_builder::Result<impl super::stub::EventService> {
         super::transport::EventService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EventService> {
+    ) -> gax::client_builder::Result<impl super::stub::EventService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EventService::new)
@@ -402,22 +377,15 @@ impl EventService {
     /// [Learn
     /// more](https://cloud.google.com/talent-solution/docs/management-tools)
     /// about self service tools.
-    pub fn create_client_event(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::event_service::CreateClientEvent {
+    pub fn create_client_event(&self) -> super::builder::event_service::CreateClientEvent {
         super::builder::event_service::CreateClientEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::event_service::GetOperation {
-        super::builder::event_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::event_service::GetOperation {
+        super::builder::event_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -429,7 +397,7 @@ impl EventService {
 /// # use google_cloud_talent_v4::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -460,11 +428,11 @@ impl EventService {
 ///
 /// `JobService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `JobService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct JobService {
-    inner: Arc<dyn super::stub::dynamic::JobService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::JobService>,
 }
 
 impl JobService {
@@ -474,7 +442,7 @@ impl JobService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_talent_v4::client::JobService;
     /// let client = JobService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::job_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::job_service::client::Factory)
@@ -489,33 +457,35 @@ impl JobService {
         T: super::stub::JobService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::JobService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::JobService> {
+    ) -> gax::client_builder::Result<impl super::stub::JobService> {
         super::transport::JobService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::JobService> {
+    ) -> gax::client_builder::Result<impl super::stub::JobService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::JobService::new)
@@ -525,11 +495,8 @@ impl JobService {
     ///
     /// Typically, the job becomes searchable within 10 seconds, but it may take
     /// up to 5 minutes.
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::CreateJob {
-        super::builder::job_service::CreateJob::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_job(&self) -> super::builder::job_service::CreateJob {
+        super::builder::job_service::CreateJob::new(self.inner.clone())
     }
 
     /// Begins executing a batch create jobs operation.
@@ -543,32 +510,22 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_create_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::BatchCreateJobs {
+    pub fn batch_create_jobs(&self) -> super::builder::job_service::BatchCreateJobs {
         super::builder::job_service::BatchCreateJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves the specified job, whose status is OPEN or recently EXPIRED
     /// within the last 90 days.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::job_service::GetJob {
-        super::builder::job_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::job_service::GetJob {
+        super::builder::job_service::GetJob::new(self.inner.clone())
     }
 
     /// Updates specified job.
     ///
     /// Typically, updated contents become visible in search results within 10
     /// seconds, but it may take up to 5 minutes.
-    pub fn update_job(
-        &self,
-        job: impl Into<crate::model::Job>,
-    ) -> super::builder::job_service::UpdateJob {
-        super::builder::job_service::UpdateJob::new(self.inner.clone()).set_job(job.into())
+    pub fn update_job(&self) -> super::builder::job_service::UpdateJob {
+        super::builder::job_service::UpdateJob::new(self.inner.clone())
     }
 
     /// Begins executing a batch update jobs operation.
@@ -582,23 +539,16 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_update_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::BatchUpdateJobs {
+    pub fn batch_update_jobs(&self) -> super::builder::job_service::BatchUpdateJobs {
         super::builder::job_service::BatchUpdateJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified job.
     ///
     /// Typically, the job becomes unsearchable within 10 seconds, but it may take
     /// up to 5 minutes.
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::job_service::DeleteJob {
-        super::builder::job_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_job(&self) -> super::builder::job_service::DeleteJob {
+        super::builder::job_service::DeleteJob::new(self.inner.clone())
     }
 
     /// Begins executing a batch delete jobs operation.
@@ -612,20 +562,13 @@ impl JobService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_delete_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::BatchDeleteJobs {
+    pub fn batch_delete_jobs(&self) -> super::builder::job_service::BatchDeleteJobs {
         super::builder::job_service::BatchDeleteJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists jobs by filter.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::ListJobs {
-        super::builder::job_service::ListJobs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_jobs(&self) -> super::builder::job_service::ListJobs {
+        super::builder::job_service::ListJobs::new(self.inner.clone())
     }
 
     /// Searches for jobs using the provided
@@ -638,11 +581,8 @@ impl JobService {
     ///
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
-    pub fn search_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::SearchJobs {
-        super::builder::job_service::SearchJobs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn search_jobs(&self) -> super::builder::job_service::SearchJobs {
+        super::builder::job_service::SearchJobs::new(self.inner.clone())
     }
 
     /// Searches for jobs using the provided
@@ -660,22 +600,15 @@ impl JobService {
     ///
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
-    pub fn search_jobs_for_alert(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::job_service::SearchJobsForAlert {
+    pub fn search_jobs_for_alert(&self) -> super::builder::job_service::SearchJobsForAlert {
         super::builder::job_service::SearchJobsForAlert::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::job_service::GetOperation {
-        super::builder::job_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::job_service::GetOperation {
+        super::builder::job_service::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -687,7 +620,7 @@ impl JobService {
 /// # use google_cloud_talent_v4::client::TenantService;
 /// let client = TenantService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -718,11 +651,11 @@ impl JobService {
 ///
 /// `TenantService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TenantService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TenantService {
-    inner: Arc<dyn super::stub::dynamic::TenantService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TenantService>,
 }
 
 impl TenantService {
@@ -732,7 +665,7 @@ impl TenantService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// let client = TenantService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::tenant_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tenant_service::client::Factory)
@@ -747,88 +680,69 @@ impl TenantService {
         T: super::stub::TenantService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TenantService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TenantService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TenantService> {
+    ) -> gax::client_builder::Result<impl super::stub::TenantService> {
         super::transport::TenantService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TenantService> {
+    ) -> gax::client_builder::Result<impl super::stub::TenantService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TenantService::new)
     }
 
     /// Creates a new tenant entity.
-    pub fn create_tenant(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::CreateTenant {
+    pub fn create_tenant(&self) -> super::builder::tenant_service::CreateTenant {
         super::builder::tenant_service::CreateTenant::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Retrieves specified tenant.
-    pub fn get_tenant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::GetTenant {
-        super::builder::tenant_service::GetTenant::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tenant(&self) -> super::builder::tenant_service::GetTenant {
+        super::builder::tenant_service::GetTenant::new(self.inner.clone())
     }
 
     /// Updates specified tenant.
-    pub fn update_tenant(
-        &self,
-        tenant: impl Into<crate::model::Tenant>,
-    ) -> super::builder::tenant_service::UpdateTenant {
+    pub fn update_tenant(&self) -> super::builder::tenant_service::UpdateTenant {
         super::builder::tenant_service::UpdateTenant::new(self.inner.clone())
-            .set_tenant(tenant.into())
     }
 
     /// Deletes specified tenant.
-    pub fn delete_tenant(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::DeleteTenant {
-        super::builder::tenant_service::DeleteTenant::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tenant(&self) -> super::builder::tenant_service::DeleteTenant {
+        super::builder::tenant_service::DeleteTenant::new(self.inner.clone())
     }
 
     /// Lists all tenants associated with the project.
-    pub fn list_tenants(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::ListTenants {
+    pub fn list_tenants(&self) -> super::builder::tenant_service::ListTenants {
         super::builder::tenant_service::ListTenants::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::tenant_service::GetOperation {
-        super::builder::tenant_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::tenant_service::GetOperation {
+        super::builder::tenant_service::GetOperation::new(self.inner.clone())
     }
 }

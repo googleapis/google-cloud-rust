@@ -12,9 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Types and functions to work with auth [Tokens].
+//!
+//! [Tokens]: https://cloud.google.com/docs/authentication#token
+
 use crate::Result;
+use crate::credentials::CacheableResource;
+use http::Extensions;
 use std::collections::HashMap;
-use std::time::Instant;
+use tokio::time::Instant;
 
 /// Represents an auth token.
 #[derive(Clone, PartialEq)]
@@ -68,8 +74,13 @@ pub(crate) trait TokenProvider: std::fmt::Debug + Send + Sync {
     async fn token(&self) -> Result<Token>;
 }
 
+#[async_trait::async_trait]
+pub(crate) trait CachedTokenProvider: std::fmt::Debug + Send + Sync {
+    async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>>;
+}
+
 #[cfg(test)]
-pub(crate) mod test {
+pub(crate) mod tests {
     use super::*;
     use std::time::Duration;
 

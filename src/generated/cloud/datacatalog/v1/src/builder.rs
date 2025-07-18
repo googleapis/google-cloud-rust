@@ -16,9 +16,8 @@
 
 pub mod data_catalog {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DataCatalog][super::super::client::DataCatalog].
+    /// A builder for [DataCatalog][crate::client::DataCatalog].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod data_catalog {
     /// let client = builder
     ///     .with_endpoint("https://datacatalog.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod data_catalog {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataCatalog;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DataCatalog] request builders.
+    /// Common implementation for [crate::client::DataCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod data_catalog {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::search_catalog][super::super::client::DataCatalog::search_catalog] calls.
+    /// The request builder for [DataCatalog::search_catalog][crate::client::DataCatalog::search_catalog] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::SearchCatalog;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchCatalog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCatalog(RequestBuilder<crate::model::SearchCatalogRequest>);
 
     impl SearchCatalog {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchCatalogResponse, gax::error::Error>
         {
@@ -111,16 +137,34 @@ pub mod data_catalog {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchCatalogResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [scope][crate::model::SearchCatalogRequest::scope].
         ///
         /// This is a **required** field for requests.
-        pub fn set_scope<
-            T: Into<std::option::Option<crate::model::search_catalog_request::Scope>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.scope = v.into();
+        pub fn set_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_catalog_request::Scope>,
+        {
+            self.0.request.scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [scope][crate::model::SearchCatalogRequest::scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_catalog_request::Scope>,
+        {
+            self.0.request.scope = v.map(|x| x.into());
             self
         }
 
@@ -162,12 +206,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_entry_group][super::super::client::DataCatalog::create_entry_group] calls.
+    /// The request builder for [DataCatalog::create_entry_group][crate::client::DataCatalog::create_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateEntryGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntryGroup(RequestBuilder<crate::model::CreateEntryGroupRequest>);
 
     impl CreateEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -211,11 +273,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
-        pub fn set_entry_group<T: Into<std::option::Option<crate::model::EntryGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_group = v.into();
+        pub fn set_entry_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_group][crate::model::CreateEntryGroupRequest::entry_group].
+        pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = v.map(|x| x.into());
             self
         }
     }
@@ -227,12 +298,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_entry_group][super::super::client::DataCatalog::get_entry_group] calls.
+    /// The request builder for [DataCatalog::get_entry_group][crate::client::DataCatalog::get_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetEntryGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntryGroup(RequestBuilder<crate::model::GetEntryGroupRequest>);
 
     impl GetEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,8 +354,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::GetEntryGroupRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -278,12 +379,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_entry_group][super::super::client::DataCatalog::update_entry_group] calls.
+    /// The request builder for [DataCatalog::update_entry_group][crate::client::DataCatalog::update_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateEntryGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntryGroup(RequestBuilder<crate::model::UpdateEntryGroupRequest>);
 
     impl UpdateEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -313,20 +432,40 @@ pub mod data_catalog {
         /// Sets the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_group<T: Into<std::option::Option<crate::model::EntryGroup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_group = v.into();
+        pub fn set_entry_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_group][crate::model::UpdateEntryGroupRequest::entry_group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryGroup>,
+        {
+            self.0.request.entry_group = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -338,12 +477,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_entry_group][super::super::client::DataCatalog::delete_entry_group] calls.
+    /// The request builder for [DataCatalog::delete_entry_group][crate::client::DataCatalog::delete_entry_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteEntryGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntryGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntryGroup(RequestBuilder<crate::model::DeleteEntryGroupRequest>);
 
     impl DeleteEntryGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -392,12 +549,34 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_entry_groups][super::super::client::DataCatalog::list_entry_groups] calls.
+    /// The request builder for [DataCatalog::list_entry_groups][crate::client::DataCatalog::list_entry_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListEntryGroups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntryGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntryGroups(RequestBuilder<crate::model::ListEntryGroupsRequest>);
 
     impl ListEntryGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -421,8 +600,8 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
         {
@@ -434,6 +613,15 @@ pub mod data_catalog {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntryGroupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEntryGroupsRequest::parent].
@@ -464,12 +652,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_entry][super::super::client::DataCatalog::create_entry] calls.
+    /// The request builder for [DataCatalog::create_entry][crate::client::DataCatalog::create_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntry(RequestBuilder<crate::model::CreateEntryRequest>);
 
     impl CreateEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -512,11 +718,22 @@ pub mod data_catalog {
         /// Sets the value of [entry][crate::model::CreateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::option::Option<crate::model::Entry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry = v.into();
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::CreateEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
             self
         }
     }
@@ -528,12 +745,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_entry][super::super::client::DataCatalog::update_entry] calls.
+    /// The request builder for [DataCatalog::update_entry][crate::client::DataCatalog::update_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntry(RequestBuilder<crate::model::UpdateEntryRequest>);
 
     impl UpdateEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -560,20 +795,40 @@ pub mod data_catalog {
         /// Sets the value of [entry][crate::model::UpdateEntryRequest::entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry<T: Into<std::option::Option<crate::model::Entry>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry = v.into();
+        pub fn set_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry][crate::model::UpdateEntryRequest::entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entry>,
+        {
+            self.0.request.entry = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -585,12 +840,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_entry][super::super::client::DataCatalog::delete_entry] calls.
+    /// The request builder for [DataCatalog::delete_entry][crate::client::DataCatalog::delete_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntry(RequestBuilder<crate::model::DeleteEntryRequest>);
 
     impl DeleteEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -630,12 +903,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_entry][super::super::client::DataCatalog::get_entry] calls.
+    /// The request builder for [DataCatalog::get_entry][crate::client::DataCatalog::get_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntry(RequestBuilder<crate::model::GetEntryRequest>);
 
     impl GetEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -675,12 +966,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::lookup_entry][super::super::client::DataCatalog::lookup_entry] calls.
+    /// The request builder for [DataCatalog::lookup_entry][crate::client::DataCatalog::lookup_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::LookupEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupEntry(RequestBuilder<crate::model::LookupEntryRequest>);
 
     impl LookupEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -775,12 +1084,34 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_entries][super::super::client::DataCatalog::list_entries] calls.
+    /// The request builder for [DataCatalog::list_entries][crate::client::DataCatalog::list_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListEntries;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntries(RequestBuilder<crate::model::ListEntriesRequest>);
 
     impl ListEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,8 +1135,8 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEntriesResponse, gax::error::Error>
         {
@@ -817,6 +1148,15 @@ pub mod data_catalog {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntriesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEntriesRequest::parent].
@@ -840,8 +1180,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
-        pub fn set_read_mask<T: Into<std::option::Option<wkt::FieldMask>>>(mut self, v: T) -> Self {
-            self.0.request.read_mask = v.into();
+        pub fn set_read_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [read_mask][crate::model::ListEntriesRequest::read_mask].
+        pub fn set_or_clear_read_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.read_mask = v.map(|x| x.into());
             self
         }
     }
@@ -853,12 +1205,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::modify_entry_overview][super::super::client::DataCatalog::modify_entry_overview] calls.
+    /// The request builder for [DataCatalog::modify_entry_overview][crate::client::DataCatalog::modify_entry_overview] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ModifyEntryOverview;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyEntryOverview {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyEntryOverview(RequestBuilder<crate::model::ModifyEntryOverviewRequest>);
 
     impl ModifyEntryOverview {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -896,11 +1266,22 @@ pub mod data_catalog {
         /// Sets the value of [entry_overview][crate::model::ModifyEntryOverviewRequest::entry_overview].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entry_overview<T: Into<std::option::Option<crate::model::EntryOverview>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entry_overview = v.into();
+        pub fn set_entry_overview<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryOverview>,
+        {
+            self.0.request.entry_overview = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entry_overview][crate::model::ModifyEntryOverviewRequest::entry_overview].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entry_overview<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EntryOverview>,
+        {
+            self.0.request.entry_overview = v.map(|x| x.into());
             self
         }
     }
@@ -912,12 +1293,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::modify_entry_contacts][super::super::client::DataCatalog::modify_entry_contacts] calls.
+    /// The request builder for [DataCatalog::modify_entry_contacts][crate::client::DataCatalog::modify_entry_contacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ModifyEntryContacts;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyEntryContacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyEntryContacts(RequestBuilder<crate::model::ModifyEntryContactsRequest>);
 
     impl ModifyEntryContacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -955,11 +1354,22 @@ pub mod data_catalog {
         /// Sets the value of [contacts][crate::model::ModifyEntryContactsRequest::contacts].
         ///
         /// This is a **required** field for requests.
-        pub fn set_contacts<T: Into<std::option::Option<crate::model::Contacts>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contacts = v.into();
+        pub fn set_contacts<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Contacts>,
+        {
+            self.0.request.contacts = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contacts][crate::model::ModifyEntryContactsRequest::contacts].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_contacts<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Contacts>,
+        {
+            self.0.request.contacts = v.map(|x| x.into());
             self
         }
     }
@@ -971,12 +1381,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_tag_template][super::super::client::DataCatalog::create_tag_template] calls.
+    /// The request builder for [DataCatalog::create_tag_template][crate::client::DataCatalog::create_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateTagTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagTemplate(RequestBuilder<crate::model::CreateTagTemplateRequest>);
 
     impl CreateTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1022,11 +1450,22 @@ pub mod data_catalog {
         /// Sets the value of [tag_template][crate::model::CreateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template<T: Into<std::option::Option<crate::model::TagTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template = v.into();
+        pub fn set_tag_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template][crate::model::CreateTagTemplateRequest::tag_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = v.map(|x| x.into());
             self
         }
     }
@@ -1038,12 +1477,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_tag_template][super::super::client::DataCatalog::get_tag_template] calls.
+    /// The request builder for [DataCatalog::get_tag_template][crate::client::DataCatalog::get_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetTagTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTagTemplate(RequestBuilder<crate::model::GetTagTemplateRequest>);
 
     impl GetTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1083,12 +1540,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_tag_template][super::super::client::DataCatalog::update_tag_template] calls.
+    /// The request builder for [DataCatalog::update_tag_template][crate::client::DataCatalog::update_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateTagTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagTemplate(RequestBuilder<crate::model::UpdateTagTemplateRequest>);
 
     impl UpdateTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1118,20 +1593,40 @@ pub mod data_catalog {
         /// Sets the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template<T: Into<std::option::Option<crate::model::TagTemplate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template = v.into();
+        pub fn set_tag_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template][crate::model::UpdateTagTemplateRequest::tag_template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplate>,
+        {
+            self.0.request.tag_template = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1143,12 +1638,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_tag_template][super::super::client::DataCatalog::delete_tag_template] calls.
+    /// The request builder for [DataCatalog::delete_tag_template][crate::client::DataCatalog::delete_tag_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteTagTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagTemplate(RequestBuilder<crate::model::DeleteTagTemplateRequest>);
 
     impl DeleteTagTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1199,12 +1712,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_tag_template_field][super::super::client::DataCatalog::create_tag_template_field] calls.
+    /// The request builder for [DataCatalog::create_tag_template_field][crate::client::DataCatalog::create_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateTagTemplateField;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTagTemplateField(RequestBuilder<crate::model::CreateTagTemplateFieldRequest>);
 
     impl CreateTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1250,13 +1781,22 @@ pub mod data_catalog {
         /// Sets the value of [tag_template_field][crate::model::CreateTagTemplateFieldRequest::tag_template_field].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template_field<
-            T: Into<std::option::Option<crate::model::TagTemplateField>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template_field = v.into();
+        pub fn set_tag_template_field<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template_field][crate::model::CreateTagTemplateFieldRequest::tag_template_field].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = v.map(|x| x.into());
             self
         }
     }
@@ -1268,12 +1808,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_tag_template_field][super::super::client::DataCatalog::update_tag_template_field] calls.
+    /// The request builder for [DataCatalog::update_tag_template_field][crate::client::DataCatalog::update_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateTagTemplateField;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTagTemplateField(RequestBuilder<crate::model::UpdateTagTemplateFieldRequest>);
 
     impl UpdateTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1311,22 +1869,40 @@ pub mod data_catalog {
         /// Sets the value of [tag_template_field][crate::model::UpdateTagTemplateFieldRequest::tag_template_field].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag_template_field<
-            T: Into<std::option::Option<crate::model::TagTemplateField>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tag_template_field = v.into();
+        pub fn set_tag_template_field<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag_template_field][crate::model::UpdateTagTemplateFieldRequest::tag_template_field].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag_template_field<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TagTemplateField>,
+        {
+            self.0.request.tag_template_field = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagTemplateFieldRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1338,12 +1914,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::rename_tag_template_field][super::super::client::DataCatalog::rename_tag_template_field] calls.
+    /// The request builder for [DataCatalog::rename_tag_template_field][crate::client::DataCatalog::rename_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RenameTagTemplateField;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateField(RequestBuilder<crate::model::RenameTagTemplateFieldRequest>);
 
     impl RenameTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1394,14 +1988,32 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::rename_tag_template_field_enum_value][super::super::client::DataCatalog::rename_tag_template_field_enum_value] calls.
+    /// The request builder for [DataCatalog::rename_tag_template_field_enum_value][crate::client::DataCatalog::rename_tag_template_field_enum_value] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RenameTagTemplateFieldEnumValue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameTagTemplateFieldEnumValue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameTagTemplateFieldEnumValue(
         RequestBuilder<crate::model::RenameTagTemplateFieldEnumValueRequest>,
     );
 
     impl RenameTagTemplateFieldEnumValue {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1455,12 +2067,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_tag_template_field][super::super::client::DataCatalog::delete_tag_template_field] calls.
+    /// The request builder for [DataCatalog::delete_tag_template_field][crate::client::DataCatalog::delete_tag_template_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteTagTemplateField;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTagTemplateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTagTemplateField(RequestBuilder<crate::model::DeleteTagTemplateFieldRequest>);
 
     impl DeleteTagTemplateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1511,12 +2141,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::create_tag][super::super::client::DataCatalog::create_tag] calls.
+    /// The request builder for [DataCatalog::create_tag][crate::client::DataCatalog::create_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CreateTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1551,8 +2199,22 @@ pub mod data_catalog {
         /// Sets the value of [tag][crate::model::CreateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag][crate::model::CreateTagRequest::tag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
     }
@@ -1564,12 +2226,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::update_tag][super::super::client::DataCatalog::update_tag] calls.
+    /// The request builder for [DataCatalog::update_tag][crate::client::DataCatalog::update_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UpdateTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1596,17 +2276,40 @@ pub mod data_catalog {
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag][crate::model::UpdateTagRequest::tag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1618,12 +2321,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_tag][super::super::client::DataCatalog::delete_tag] calls.
+    /// The request builder for [DataCatalog::delete_tag][crate::client::DataCatalog::delete_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1663,12 +2384,34 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_tags][super::super::client::DataCatalog::list_tags] calls.
+    /// The request builder for [DataCatalog::list_tags][crate::client::DataCatalog::list_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListTags;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1692,8 +2435,8 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error>
         {
@@ -1705,6 +2448,15 @@ pub mod data_catalog {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTagsRequest::parent].
@@ -1735,12 +2487,31 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::reconcile_tags][super::super::client::DataCatalog::reconcile_tags] calls.
+    /// The request builder for [DataCatalog::reconcile_tags][crate::client::DataCatalog::reconcile_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ReconcileTags;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReconcileTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReconcileTags(RequestBuilder<crate::model::ReconcileTagsRequest>);
 
     impl ReconcileTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1761,7 +2532,7 @@ pub mod data_catalog {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reconcile_tags][super::super::client::DataCatalog::reconcile_tags].
+        /// on [reconcile_tags][crate::client::DataCatalog::reconcile_tags].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reconcile_tags(self.0.request, self.0.options)
@@ -1774,7 +2545,7 @@ pub mod data_catalog {
             self,
         ) -> impl lro::Poller<crate::model::ReconcileTagsResponse, crate::model::ReconcileTagsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReconcileTagsResponse,
                 crate::model::ReconcileTagsMetadata,
             >;
@@ -1802,7 +2573,7 @@ pub mod data_catalog {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ReconcileTagsRequest::parent].
@@ -1846,12 +2617,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::star_entry][super::super::client::DataCatalog::star_entry] calls.
+    /// The request builder for [DataCatalog::star_entry][crate::client::DataCatalog::star_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::StarEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StarEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StarEntry(RequestBuilder<crate::model::StarEntryRequest>);
 
     impl StarEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1891,12 +2680,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::unstar_entry][super::super::client::DataCatalog::unstar_entry] calls.
+    /// The request builder for [DataCatalog::unstar_entry][crate::client::DataCatalog::unstar_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::UnstarEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UnstarEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UnstarEntry(RequestBuilder<crate::model::UnstarEntryRequest>);
 
     impl UnstarEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1936,12 +2743,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::set_iam_policy][super::super::client::DataCatalog::set_iam_policy] calls.
+    /// The request builder for [DataCatalog::set_iam_policy][crate::client::DataCatalog::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1976,20 +2801,40 @@ pub mod data_catalog {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2001,12 +2846,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_iam_policy][super::super::client::DataCatalog::get_iam_policy] calls.
+    /// The request builder for [DataCatalog::get_iam_policy][crate::client::DataCatalog::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2039,11 +2902,20 @@ pub mod data_catalog {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2055,12 +2927,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::test_iam_permissions][super::super::client::DataCatalog::test_iam_permissions] calls.
+    /// The request builder for [DataCatalog::test_iam_permissions][crate::client::DataCatalog::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2116,12 +3006,31 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::import_entries][super::super::client::DataCatalog::import_entries] calls.
+    /// The request builder for [DataCatalog::import_entries][crate::client::DataCatalog::import_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ImportEntries;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportEntries(RequestBuilder<crate::model::ImportEntriesRequest>);
 
     impl ImportEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2142,7 +3051,7 @@ pub mod data_catalog {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_entries][super::super::client::DataCatalog::import_entries].
+        /// on [import_entries][crate::client::DataCatalog::import_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_entries(self.0.request, self.0.options)
@@ -2155,7 +3064,7 @@ pub mod data_catalog {
             self,
         ) -> impl lro::Poller<crate::model::ImportEntriesResponse, crate::model::ImportEntriesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportEntriesResponse,
                 crate::model::ImportEntriesMetadata,
             >;
@@ -2183,7 +3092,7 @@ pub mod data_catalog {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportEntriesRequest::parent].
@@ -2233,12 +3142,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::set_config][super::super::client::DataCatalog::set_config] calls.
+    /// The request builder for [DataCatalog::set_config][crate::client::DataCatalog::set_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::SetConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetConfig(RequestBuilder<crate::model::SetConfigRequest>);
 
     impl SetConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2322,12 +3249,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::retrieve_config][super::super::client::DataCatalog::retrieve_config] calls.
+    /// The request builder for [DataCatalog::retrieve_config][crate::client::DataCatalog::retrieve_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RetrieveConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveConfig(RequestBuilder<crate::model::RetrieveConfigRequest>);
 
     impl RetrieveConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2367,14 +3312,32 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::retrieve_effective_config][super::super::client::DataCatalog::retrieve_effective_config] calls.
+    /// The request builder for [DataCatalog::retrieve_effective_config][crate::client::DataCatalog::retrieve_effective_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::RetrieveEffectiveConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveEffectiveConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveEffectiveConfig(
         RequestBuilder<crate::model::RetrieveEffectiveConfigRequest>,
     );
 
     impl RetrieveEffectiveConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2417,12 +3380,34 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::list_operations][super::super::client::DataCatalog::list_operations] calls.
+    /// The request builder for [DataCatalog::list_operations][crate::client::DataCatalog::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2449,8 +3434,8 @@ pub mod data_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2462,6 +3447,17 @@ pub mod data_catalog {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2496,12 +3492,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::get_operation][super::super::client::DataCatalog::get_operation] calls.
+    /// The request builder for [DataCatalog::get_operation][crate::client::DataCatalog::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2542,12 +3556,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::delete_operation][super::super::client::DataCatalog::delete_operation] calls.
+    /// The request builder for [DataCatalog::delete_operation][crate::client::DataCatalog::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2588,12 +3620,30 @@ pub mod data_catalog {
         }
     }
 
-    /// The request builder for [DataCatalog::cancel_operation][super::super::client::DataCatalog::cancel_operation] calls.
+    /// The request builder for [DataCatalog::cancel_operation][crate::client::DataCatalog::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::data_catalog::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2637,9 +3687,8 @@ pub mod data_catalog {
 
 pub mod policy_tag_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [PolicyTagManager][super::super::client::PolicyTagManager].
+    /// A builder for [PolicyTagManager][crate::client::PolicyTagManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2650,7 +3699,7 @@ pub mod policy_tag_manager {
     /// let client = builder
     ///     .with_endpoint("https://datacatalog.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2661,16 +3710,19 @@ pub mod policy_tag_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTagManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyTagManager] request builders.
+    /// Common implementation for [crate::client::PolicyTagManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2679,7 +3731,9 @@ pub mod policy_tag_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2688,12 +3742,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::create_taxonomy][super::super::client::PolicyTagManager::create_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::create_taxonomy][crate::client::PolicyTagManager::create_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::CreateTaxonomy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTaxonomy(RequestBuilder<crate::model::CreateTaxonomyRequest>);
 
     impl CreateTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2726,11 +3798,20 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
-        pub fn set_taxonomy<T: Into<std::option::Option<crate::model::Taxonomy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.taxonomy = v.into();
+        pub fn set_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taxonomy][crate::model::CreateTaxonomyRequest::taxonomy].
+        pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = v.map(|x| x.into());
             self
         }
     }
@@ -2742,12 +3823,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::delete_taxonomy][super::super::client::PolicyTagManager::delete_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::delete_taxonomy][crate::client::PolicyTagManager::delete_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::DeleteTaxonomy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTaxonomy(RequestBuilder<crate::model::DeleteTaxonomyRequest>);
 
     impl DeleteTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2787,12 +3886,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::update_taxonomy][super::super::client::PolicyTagManager::update_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::update_taxonomy][crate::client::PolicyTagManager::update_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::UpdateTaxonomy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTaxonomy(RequestBuilder<crate::model::UpdateTaxonomyRequest>);
 
     impl UpdateTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2817,20 +3934,38 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
-        pub fn set_taxonomy<T: Into<std::option::Option<crate::model::Taxonomy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.taxonomy = v.into();
+        pub fn set_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taxonomy][crate::model::UpdateTaxonomyRequest::taxonomy].
+        pub fn set_or_clear_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Taxonomy>,
+        {
+            self.0.request.taxonomy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTaxonomyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2842,12 +3977,34 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::list_taxonomies][super::super::client::PolicyTagManager::list_taxonomies] calls.
+    /// The request builder for [PolicyTagManager::list_taxonomies][crate::client::PolicyTagManager::list_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::ListTaxonomies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTaxonomies(RequestBuilder<crate::model::ListTaxonomiesRequest>);
 
     impl ListTaxonomies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2871,8 +4028,8 @@ pub mod policy_tag_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
         {
@@ -2884,6 +4041,15 @@ pub mod policy_tag_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTaxonomiesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTaxonomiesRequest::parent].
@@ -2920,12 +4086,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_taxonomy][super::super::client::PolicyTagManager::get_taxonomy] calls.
+    /// The request builder for [PolicyTagManager::get_taxonomy][crate::client::PolicyTagManager::get_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetTaxonomy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTaxonomy(RequestBuilder<crate::model::GetTaxonomyRequest>);
 
     impl GetTaxonomy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2965,12 +4149,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::create_policy_tag][super::super::client::PolicyTagManager::create_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::create_policy_tag][crate::client::PolicyTagManager::create_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::CreatePolicyTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicyTag(RequestBuilder<crate::model::CreatePolicyTagRequest>);
 
     impl CreatePolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3003,11 +4205,20 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
-        pub fn set_policy_tag<T: Into<std::option::Option<crate::model::PolicyTag>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_tag = v.into();
+        pub fn set_policy_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_tag][crate::model::CreatePolicyTagRequest::policy_tag].
+        pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = v.map(|x| x.into());
             self
         }
     }
@@ -3019,12 +4230,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::delete_policy_tag][super::super::client::PolicyTagManager::delete_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::delete_policy_tag][crate::client::PolicyTagManager::delete_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::DeletePolicyTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicyTag(RequestBuilder<crate::model::DeletePolicyTagRequest>);
 
     impl DeletePolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3064,12 +4293,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::update_policy_tag][super::super::client::PolicyTagManager::update_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::update_policy_tag][crate::client::PolicyTagManager::update_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::UpdatePolicyTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicyTag(RequestBuilder<crate::model::UpdatePolicyTagRequest>);
 
     impl UpdatePolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3094,20 +4341,38 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
-        pub fn set_policy_tag<T: Into<std::option::Option<crate::model::PolicyTag>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_tag = v.into();
+        pub fn set_policy_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_tag][crate::model::UpdatePolicyTagRequest::policy_tag].
+        pub fn set_or_clear_policy_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyTag>,
+        {
+            self.0.request.policy_tag = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyTagRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3119,12 +4384,34 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::list_policy_tags][super::super::client::PolicyTagManager::list_policy_tags] calls.
+    /// The request builder for [PolicyTagManager::list_policy_tags][crate::client::PolicyTagManager::list_policy_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::ListPolicyTags;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicyTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicyTags(RequestBuilder<crate::model::ListPolicyTagsRequest>);
 
     impl ListPolicyTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3148,8 +4435,8 @@ pub mod policy_tag_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
         {
@@ -3161,6 +4448,15 @@ pub mod policy_tag_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPolicyTagsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPolicyTagsRequest::parent].
@@ -3191,12 +4487,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_policy_tag][super::super::client::PolicyTagManager::get_policy_tag] calls.
+    /// The request builder for [PolicyTagManager::get_policy_tag][crate::client::PolicyTagManager::get_policy_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetPolicyTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicyTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicyTag(RequestBuilder<crate::model::GetPolicyTagRequest>);
 
     impl GetPolicyTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3236,12 +4550,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_iam_policy][super::super::client::PolicyTagManager::get_iam_policy] calls.
+    /// The request builder for [PolicyTagManager::get_iam_policy][crate::client::PolicyTagManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3274,11 +4606,20 @@ pub mod policy_tag_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -3290,12 +4631,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::set_iam_policy][super::super::client::PolicyTagManager::set_iam_policy] calls.
+    /// The request builder for [PolicyTagManager::set_iam_policy][crate::client::PolicyTagManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3330,20 +4689,40 @@ pub mod policy_tag_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3355,12 +4734,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::test_iam_permissions][super::super::client::PolicyTagManager::test_iam_permissions] calls.
+    /// The request builder for [PolicyTagManager::test_iam_permissions][crate::client::PolicyTagManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3416,12 +4813,34 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::list_operations][super::super::client::PolicyTagManager::list_operations] calls.
+    /// The request builder for [PolicyTagManager::list_operations][crate::client::PolicyTagManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3448,8 +4867,8 @@ pub mod policy_tag_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3461,6 +4880,17 @@ pub mod policy_tag_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3495,12 +4925,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::get_operation][super::super::client::PolicyTagManager::get_operation] calls.
+    /// The request builder for [PolicyTagManager::get_operation][crate::client::PolicyTagManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3541,12 +4989,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::delete_operation][super::super::client::PolicyTagManager::delete_operation] calls.
+    /// The request builder for [PolicyTagManager::delete_operation][crate::client::PolicyTagManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3587,12 +5053,30 @@ pub mod policy_tag_manager {
         }
     }
 
-    /// The request builder for [PolicyTagManager::cancel_operation][super::super::client::PolicyTagManager::cancel_operation] calls.
+    /// The request builder for [PolicyTagManager::cancel_operation][crate::client::PolicyTagManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyTagManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3636,9 +5120,8 @@ pub mod policy_tag_manager {
 
 pub mod policy_tag_manager_serialization {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [PolicyTagManagerSerialization][super::super::client::PolicyTagManagerSerialization].
+    /// A builder for [PolicyTagManagerSerialization][crate::client::PolicyTagManagerSerialization].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -3649,7 +5132,7 @@ pub mod policy_tag_manager_serialization {
     /// let client = builder
     ///     .with_endpoint("https://datacatalog.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3660,16 +5143,19 @@ pub mod policy_tag_manager_serialization {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyTagManagerSerialization;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyTagManagerSerialization] request builders.
+    /// Common implementation for [crate::client::PolicyTagManagerSerialization] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -3679,7 +5165,7 @@ pub mod policy_tag_manager_serialization {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self {
                 stub,
@@ -3689,13 +5175,29 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::replace_taxonomy][super::super::client::PolicyTagManagerSerialization::replace_taxonomy] calls.
+    /// The request builder for [PolicyTagManagerSerialization::replace_taxonomy][crate::client::PolicyTagManagerSerialization::replace_taxonomy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ReplaceTaxonomy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceTaxonomy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceTaxonomy(RequestBuilder<crate::model::ReplaceTaxonomyRequest>);
 
     impl ReplaceTaxonomy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3731,13 +5233,22 @@ pub mod policy_tag_manager_serialization {
         /// Sets the value of [serialized_taxonomy][crate::model::ReplaceTaxonomyRequest::serialized_taxonomy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_serialized_taxonomy<
-            T: Into<std::option::Option<crate::model::SerializedTaxonomy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.serialized_taxonomy = v.into();
+        pub fn set_serialized_taxonomy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SerializedTaxonomy>,
+        {
+            self.0.request.serialized_taxonomy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [serialized_taxonomy][crate::model::ReplaceTaxonomyRequest::serialized_taxonomy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_serialized_taxonomy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SerializedTaxonomy>,
+        {
+            self.0.request.serialized_taxonomy = v.map(|x| x.into());
             self
         }
     }
@@ -3749,13 +5260,29 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::import_taxonomies][super::super::client::PolicyTagManagerSerialization::import_taxonomies] calls.
+    /// The request builder for [PolicyTagManagerSerialization::import_taxonomies][crate::client::PolicyTagManagerSerialization::import_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ImportTaxonomies;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportTaxonomies(RequestBuilder<crate::model::ImportTaxonomiesRequest>);
 
     impl ImportTaxonomies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3841,13 +5368,29 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::export_taxonomies][super::super::client::PolicyTagManagerSerialization::export_taxonomies] calls.
+    /// The request builder for [PolicyTagManagerSerialization::export_taxonomies][crate::client::PolicyTagManagerSerialization::export_taxonomies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ExportTaxonomies;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportTaxonomies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportTaxonomies(RequestBuilder<crate::model::ExportTaxonomiesRequest>);
 
     impl ExportTaxonomies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3928,13 +5471,33 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::list_operations][super::super::client::PolicyTagManagerSerialization::list_operations] calls.
+    /// The request builder for [PolicyTagManagerSerialization::list_operations][crate::client::PolicyTagManagerSerialization::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3962,8 +5525,8 @@ pub mod policy_tag_manager_serialization {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3975,6 +5538,17 @@ pub mod policy_tag_manager_serialization {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4009,13 +5583,29 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::get_operation][super::super::client::PolicyTagManagerSerialization::get_operation] calls.
+    /// The request builder for [PolicyTagManagerSerialization::get_operation][crate::client::PolicyTagManagerSerialization::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4057,13 +5647,29 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::delete_operation][super::super::client::PolicyTagManagerSerialization::delete_operation] calls.
+    /// The request builder for [PolicyTagManagerSerialization::delete_operation][crate::client::PolicyTagManagerSerialization::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4105,13 +5711,29 @@ pub mod policy_tag_manager_serialization {
         }
     }
 
-    /// The request builder for [PolicyTagManagerSerialization::cancel_operation][super::super::client::PolicyTagManagerSerialization::cancel_operation] calls.
+    /// The request builder for [PolicyTagManagerSerialization::cancel_operation][crate::client::PolicyTagManagerSerialization::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_v1::builder;
+    /// use builder::policy_tag_manager_serialization::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyTagManagerSerialization>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

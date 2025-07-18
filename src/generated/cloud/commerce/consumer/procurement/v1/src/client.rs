@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Commerce Consumer Procurement API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
 /// let client = LicenseManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `LicenseManagementService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LicenseManagementService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LicenseManagementService {
-    inner: Arc<dyn super::stub::dynamic::LicenseManagementService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::LicenseManagementService>,
 }
 
 impl LicenseManagementService {
@@ -72,7 +69,7 @@ impl LicenseManagementService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
     /// let client = LicenseManagementService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::license_management_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,92 +86,76 @@ impl LicenseManagementService {
         T: super::stub::LicenseManagementService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::LicenseManagementService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::LicenseManagementService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LicenseManagementService> {
+    ) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
         super::transport::LicenseManagementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LicenseManagementService> {
+    ) -> gax::client_builder::Result<impl super::stub::LicenseManagementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LicenseManagementService::new)
     }
 
     /// Gets the license pool.
-    pub fn get_license_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::GetLicensePool {
+    pub fn get_license_pool(&self) -> super::builder::license_management_service::GetLicensePool {
         super::builder::license_management_service::GetLicensePool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the license pool if one exists for this Order.
     pub fn update_license_pool(
         &self,
-        license_pool: impl Into<crate::model::LicensePool>,
     ) -> super::builder::license_management_service::UpdateLicensePool {
         super::builder::license_management_service::UpdateLicensePool::new(self.inner.clone())
-            .set_license_pool(license_pool.into())
     }
 
     /// Assigns a license to a user.
-    pub fn assign(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::Assign {
+    pub fn assign(&self) -> super::builder::license_management_service::Assign {
         super::builder::license_management_service::Assign::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Unassigns a license from a user.
-    pub fn unassign(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::Unassign {
+    pub fn unassign(&self) -> super::builder::license_management_service::Unassign {
         super::builder::license_management_service::Unassign::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Enumerates all users assigned a license.
     pub fn enumerate_licensed_users(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::license_management_service::EnumerateLicensedUsers {
         super::builder::license_management_service::EnumerateLicensedUsers::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::license_management_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation {
         super::builder::license_management_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -186,7 +167,7 @@ impl LicenseManagementService {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
 /// let client = ConsumerProcurementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -226,11 +207,11 @@ impl LicenseManagementService {
 ///
 /// `ConsumerProcurementService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ConsumerProcurementService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ConsumerProcurementService {
-    inner: Arc<dyn super::stub::dynamic::ConsumerProcurementService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ConsumerProcurementService>,
 }
 
 impl ConsumerProcurementService {
@@ -240,7 +221,7 @@ impl ConsumerProcurementService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
     /// let client = ConsumerProcurementService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::consumer_procurement_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -257,33 +238,37 @@ impl ConsumerProcurementService {
         T: super::stub::ConsumerProcurementService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ConsumerProcurementService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::ConsumerProcurementService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConsumerProcurementService> {
+    ) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
         super::transport::ConsumerProcurementService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ConsumerProcurementService> {
+    ) -> gax::client_builder::Result<impl super::stub::ConsumerProcurementService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ConsumerProcurementService::new)
@@ -311,24 +296,16 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn place_order(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::PlaceOrder {
+    pub fn place_order(&self) -> super::builder::consumer_procurement_service::PlaceOrder {
         super::builder::consumer_procurement_service::PlaceOrder::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the requested
     /// [Order][google.cloud.commerce.consumer.procurement.v1.Order] resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
-    pub fn get_order(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::GetOrder {
+    pub fn get_order(&self) -> super::builder::consumer_procurement_service::GetOrder {
         super::builder::consumer_procurement_service::GetOrder::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists [Order][google.cloud.commerce.consumer.procurement.v1.Order]
@@ -336,12 +313,8 @@ impl ConsumerProcurementService {
     /// resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
-    pub fn list_orders(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::ListOrders {
+    pub fn list_orders(&self) -> super::builder::consumer_procurement_service::ListOrders {
         super::builder::consumer_procurement_service::ListOrders::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Modifies an existing
@@ -358,12 +331,8 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn modify_order(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::ModifyOrder {
+    pub fn modify_order(&self) -> super::builder::consumer_procurement_service::ModifyOrder {
         super::builder::consumer_procurement_service::ModifyOrder::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Cancels an existing
@@ -381,22 +350,14 @@ impl ConsumerProcurementService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn cancel_order(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::CancelOrder {
+    pub fn cancel_order(&self) -> super::builder::consumer_procurement_service::CancelOrder {
         super::builder::consumer_procurement_service::CancelOrder::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::consumer_procurement_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation {
         super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

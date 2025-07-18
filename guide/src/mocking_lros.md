@@ -69,7 +69,8 @@ that the operation has completed, thus ending the polling loop.
 
 Now we are ready to write our test.
 
-First we define our mock class, which implements the [`speech::stub::Speech`][speech-stub] trait.
+First we define our mock class, which implements the
+[`speech::stub::Speech`][speech-stub] trait.
 
 ```rust,ignore
 {{#rustdoc_include ../samples/tests/mocking_lros_auto.rs:mockall-macro}}
@@ -164,8 +165,8 @@ Errors can arise in an LRO from a few places.
 If your application uses automatic polling, the following cases are all
 equivalent: `until_done()` returns the error in the `Result`, regardless of
 where it originated.
-[Simulating an error starting an LRO](#simulating-an-error-starting-an-lro)
-will yield the simplest test.
+[Simulating an error starting an LRO](#simulating-an-error-starting-an-lro) will
+yield the simplest test.
 
 Note that the stubbed out client does not have a retry or polling policy. In all
 cases, the polling loop will terminate on the first error, even if the error is

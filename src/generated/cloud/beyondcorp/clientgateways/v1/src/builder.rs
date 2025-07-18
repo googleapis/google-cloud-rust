@@ -16,9 +16,8 @@
 
 pub mod client_gateways_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ClientGatewaysService][super::super::client::ClientGatewaysService].
+    /// A builder for [ClientGatewaysService][crate::client::ClientGatewaysService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod client_gateways_service {
     /// let client = builder
     ///     .with_endpoint("https://beyondcorp.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod client_gateways_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ClientGatewaysService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ClientGatewaysService] request builders.
+    /// Common implementation for [crate::client::ClientGatewaysService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod client_gateways_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::list_client_gateways][super::super::client::ClientGatewaysService::list_client_gateways] calls.
+    /// The request builder for [ClientGatewaysService::list_client_gateways][crate::client::ClientGatewaysService::list_client_gateways] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::ListClientGateways;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClientGateways {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClientGateways(RequestBuilder<crate::model::ListClientGatewaysRequest>);
 
     impl ListClientGateways {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -103,8 +125,8 @@ pub mod client_gateways_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListClientGatewaysResponse, gax::error::Error>
         {
@@ -116,6 +138,17 @@ pub mod client_gateways_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListClientGatewaysResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListClientGatewaysRequest::parent].
@@ -158,13 +191,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_client_gateway][super::super::client::ClientGatewaysService::get_client_gateway] calls.
+    /// The request builder for [ClientGatewaysService::get_client_gateway][crate::client::ClientGatewaysService::get_client_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::GetClientGateway;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetClientGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetClientGateway(RequestBuilder<crate::model::GetClientGatewayRequest>);
 
     impl GetClientGateway {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -208,13 +257,30 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::create_client_gateway][super::super::client::ClientGatewaysService::create_client_gateway] calls.
+    /// The request builder for [ClientGatewaysService::create_client_gateway][crate::client::ClientGatewaysService::create_client_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::CreateClientGateway;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateClientGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateClientGateway(RequestBuilder<crate::model::CreateClientGatewayRequest>);
 
     impl CreateClientGateway {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -239,7 +305,7 @@ pub mod client_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_client_gateway][super::super::client::ClientGatewaysService::create_client_gateway].
+        /// on [create_client_gateway][crate::client::ClientGatewaysService::create_client_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_client_gateway(self.0.request, self.0.options)
@@ -252,7 +318,7 @@ pub mod client_gateways_service {
             self,
         ) -> impl lro::Poller<crate::model::ClientGateway, crate::model::ClientGatewayOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ClientGateway,
                 crate::model::ClientGatewayOperationMetadata,
             >;
@@ -280,7 +346,7 @@ pub mod client_gateways_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClientGatewayRequest::parent].
@@ -300,11 +366,22 @@ pub mod client_gateways_service {
         /// Sets the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_client_gateway<T: Into<std::option::Option<crate::model::ClientGateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.client_gateway = v.into();
+        pub fn set_client_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientGateway>,
+        {
+            self.0.request.client_gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_gateway][crate::model::CreateClientGatewayRequest::client_gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_client_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientGateway>,
+        {
+            self.0.request.client_gateway = v.map(|x| x.into());
             self
         }
 
@@ -328,13 +405,30 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::delete_client_gateway][super::super::client::ClientGatewaysService::delete_client_gateway] calls.
+    /// The request builder for [ClientGatewaysService::delete_client_gateway][crate::client::ClientGatewaysService::delete_client_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::DeleteClientGateway;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteClientGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteClientGateway(RequestBuilder<crate::model::DeleteClientGatewayRequest>);
 
     impl DeleteClientGateway {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -359,7 +453,7 @@ pub mod client_gateways_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_client_gateway][super::super::client::ClientGatewaysService::delete_client_gateway].
+        /// on [delete_client_gateway][crate::client::ClientGatewaysService::delete_client_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_client_gateway(self.0.request, self.0.options)
@@ -368,11 +462,9 @@ pub mod client_gateways_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_client_gateway`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::ClientGatewayOperationMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ClientGatewayOperationMetadata> {
             type Operation =
-                lro::Operation<wkt::Empty, crate::model::ClientGatewayOperationMetadata>;
+                lro::internal::Operation<wkt::Empty, crate::model::ClientGatewayOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -397,7 +489,12 @@ pub mod client_gateways_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClientGatewayRequest::name].
@@ -428,13 +525,33 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::list_locations][super::super::client::ClientGatewaysService::list_locations] calls.
+    /// The request builder for [ClientGatewaysService::list_locations][crate::client::ClientGatewaysService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -462,8 +579,8 @@ pub mod client_gateways_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -475,6 +592,15 @@ pub mod client_gateways_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -509,13 +635,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_location][super::super::client::ClientGatewaysService::get_location] calls.
+    /// The request builder for [ClientGatewaysService::get_location][crate::client::ClientGatewaysService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -554,13 +696,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::set_iam_policy][super::super::client::ClientGatewaysService::set_iam_policy] calls.
+    /// The request builder for [ClientGatewaysService::set_iam_policy][crate::client::ClientGatewaysService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -596,20 +754,40 @@ pub mod client_gateways_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -621,13 +799,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_iam_policy][super::super::client::ClientGatewaysService::get_iam_policy] calls.
+    /// The request builder for [ClientGatewaysService::get_iam_policy][crate::client::ClientGatewaysService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -661,11 +855,20 @@ pub mod client_gateways_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -677,13 +880,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::test_iam_permissions][super::super::client::ClientGatewaysService::test_iam_permissions] calls.
+    /// The request builder for [ClientGatewaysService::test_iam_permissions][crate::client::ClientGatewaysService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -740,13 +959,33 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::list_operations][super::super::client::ClientGatewaysService::list_operations] calls.
+    /// The request builder for [ClientGatewaysService::list_operations][crate::client::ClientGatewaysService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -774,8 +1013,8 @@ pub mod client_gateways_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -787,6 +1026,17 @@ pub mod client_gateways_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -821,13 +1071,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::get_operation][super::super::client::ClientGatewaysService::get_operation] calls.
+    /// The request builder for [ClientGatewaysService::get_operation][crate::client::ClientGatewaysService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -869,13 +1135,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::delete_operation][super::super::client::ClientGatewaysService::delete_operation] calls.
+    /// The request builder for [ClientGatewaysService::delete_operation][crate::client::ClientGatewaysService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -917,13 +1199,29 @@ pub mod client_gateways_service {
         }
     }
 
-    /// The request builder for [ClientGatewaysService::cancel_operation][super::super::client::ClientGatewaysService::cancel_operation] calls.
+    /// The request builder for [ClientGatewaysService::cancel_operation][crate::client::ClientGatewaysService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
+    /// use builder::client_gateways_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClientGatewaysService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

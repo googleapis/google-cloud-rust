@@ -40,16 +40,14 @@ pub async fn examine_error_details() -> crate::Result<()> {
     // ANCHOR_END: examine-error-details-print
 
     // ANCHOR: examine-error-details-service-error
-    if let Some(svc) = err.as_inner::<google_cloud_gax::error::ServiceError>() {
+    if let Some(status) = err.status() {
         println!(
-            "  status.code={}, status.message={}, status.status={:?}",
-            svc.status().code,
-            svc.status().message,
-            svc.status().status
+            "  status.code={}, status.message={}",
+            status.code, status.message,
         );
         // ANCHOR_END: examine-error-details-service-error
         // ANCHOR: examine-error-details-iterate
-        for detail in svc.status().details.iter() {
+        for detail in status.details.iter() {
             use google_cloud_gax::error::rpc::StatusDetails;
             match detail {
                 // ANCHOR_END: examine-error-details-iterate

@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::Result;
-use gax::error::Error;
 use gax::paginator::{ItemPaginator, Paginator};
 use rand::{Rng, distr::Alphanumeric};
 
@@ -45,7 +44,8 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     println!("\nTesting create_secret()");
     use gax::options::RequestOptionsBuilder;
     let create = client
-        .create_secret(format!("projects/{project_id}"))
+        .create_secret()
+        .set_parent(format!("projects/{project_id}"))
         .with_user_agent("test/1.2.3")
         .set_secret_id(&secret_id)
         .set_secret(
@@ -66,7 +66,7 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     assert!(project_name.is_some());
 
     println!("\nTesting get_secret()");
-    let get = client.get_secret(&create.name).send().await?;
+    let get = client.get_secret().set_name(&create.name).send().await?;
     println!("GET = {get:?}");
     assert_eq!(get, create);
 
@@ -83,7 +83,8 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     };
     use gax::retry_policy::RetryPolicyExt;
     let update = client
-        .update_secret(
+        .update_secret()
+        .set_secret(
             sm::model::Secret::new()
                 .set_name(&get.name)
                 .set_etag(get.etag)
@@ -107,7 +108,8 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
 
     println!("\nTesting update_secret() [2]");
     let update = client
-        .update_secret(
+        .update_secret()
+        .set_secret(
             sm::model::Secret::new()
                 .set_name(&get.name)
                 .set_etag(update.etag.clone())
@@ -144,7 +146,7 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     run_locations(&client, &project_id).await?;
 
     println!("\nTesting delete_secret()");
-    client.delete_secret(get.name).send().await?;
+    client.delete_secret().set_name(get.name).send().await?;
     println!("DELETE finished");
 
     Ok(())
@@ -153,7 +155,8 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
 async fn run_locations(client: &sm::client::SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
     let locations = client
-        .list_locations(format!("projects/{project_id}"))
+        .list_locations()
+        .set_name(format!("projects/{project_id}"))
         .send()
         .await?;
     println!("LOCATIONS = {locations:?}");
@@ -170,7 +173,8 @@ async fn run_locations(client: &sm::client::SecretManagerService, project_id: &s
 
     println!("\nTesting get_location()");
     let get = client
-        .get_location(format!(
+        .get_location()
+        .set_name(format!(
             "projects/{project_id}/locations/{}",
             first.location_id
         ))
@@ -187,12 +191,17 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
     let service_account = crate::service_account_for_iam_tests()?;
 
     println!("\nTesting get_iam_policy()");
-    let policy = client.get_iam_policy(secret_name).send().await?;
+    let policy = client
+        .get_iam_policy()
+        .set_resource(secret_name)
+        .send()
+        .await?;
     println!("POLICY = {policy:?}");
 
     println!("\nTesting test_iam_permissions()");
     let response = client
-        .test_iam_permissions(secret_name)
+        .test_iam_permissions()
+        .set_resource(secret_name)
         .set_permissions(["secretmanager.versions.access"])
         .send()
         .await?;
@@ -220,7 +229,8 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
         );
     }
     let response = client
-        .set_iam_policy(secret_name)
+        .set_iam_policy()
+        .set_resource(secret_name)
         .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
@@ -238,7 +248,8 @@ async fn run_secret_versions(
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
     let create_secret_version = client
-        .add_secret_version(secret_name)
+        .add_secret_version()
+        .set_parent(secret_name)
         .set_payload(
             sm::model::SecretPayload::new()
                 .set_data(bytes::Bytes::from(data))
@@ -250,7 +261,8 @@ async fn run_secret_versions(
 
     println!("\nTesting get_secret_version()");
     let get_secret_version = client
-        .get_secret_version(&create_secret_version.name)
+        .get_secret_version()
+        .set_name(&create_secret_version.name)
         .send()
         .await?;
     println!("GET_SECRET_VERSION = {create_secret_version:?}");
@@ -268,7 +280,8 @@ async fn run_secret_versions(
 
     println!("\nTesting access_secret_version()");
     let access_secret_version = client
-        .access_secret_version(&create_secret_version.name)
+        .access_secret_version()
+        .set_name(&create_secret_version.name)
         .send()
         .await?;
     println!("ACCESS_SECRET_VERSION = {access_secret_version:?}");
@@ -279,21 +292,24 @@ async fn run_secret_versions(
 
     println!("\nTesting disable_secret_version()");
     let disable = client
-        .disable_secret_version(&create_secret_version.name)
+        .disable_secret_version()
+        .set_name(&create_secret_version.name)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
 
     println!("\nTesting enable_secret_version()");
     let enable = client
-        .enable_secret_version(&create_secret_version.name)
+        .enable_secret_version()
+        .set_name(&create_secret_version.name)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
 
     println!("\nTesting destroy_secret_version()");
     let delete = client
-        .destroy_secret_version(&get_secret_version.name)
+        .destroy_secret_version()
+        .set_name(&get_secret_version.name)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -314,7 +330,8 @@ async fn run_many_secret_versions(
         let data = "The quick brown fox jumps over the lazy dog".as_bytes();
         let checksum = crc32c::crc32c(data);
         let create_secret_version = client
-            .add_secret_version(secret_name)
+            .add_secret_version()
+            .set_parent(secret_name)
             .set_payload(
                 sm::model::SecretPayload::new()
                     .set_data(bytes::Bytes::from(data))
@@ -328,10 +345,10 @@ async fn run_many_secret_versions(
 
     const PAGE_SIZE: i32 = 2;
     let mut paginator = client
-        .list_secret_versions(secret_name)
+        .list_secret_versions()
+        .set_parent(secret_name)
         .set_page_size(PAGE_SIZE)
-        .paginator()
-        .await;
+        .by_page();
     let mut got = BTreeSet::new();
     while let Some(page) = paginator.next().await {
         let page = page?;
@@ -346,7 +363,7 @@ async fn run_many_secret_versions(
 
     let pending: Vec<_> = want
         .iter()
-        .map(|name| client.destroy_secret_version(name).send())
+        .map(|name| client.destroy_secret_version().set_name(name).send())
         .collect();
     // Print the errors, but otherwise ignore them.
     futures::future::join_all(pending)
@@ -366,7 +383,8 @@ async fn get_all_secret_version_names(
     let mut page_token = String::new();
     loop {
         let response = client
-            .list_secret_versions(secret_name)
+            .list_secret_versions()
+            .set_parent(secret_name)
             .set_page_token(&page_token)
             .send()
             .await?;
@@ -388,10 +406,9 @@ async fn get_all_secret_names(
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
     let mut paginator = client
-        .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
     while let Some(response) = paginator.next().await {
         let item = response?;
         names.push(item.name);
@@ -405,25 +422,22 @@ async fn cleanup_stale_secrets(
     secret_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut stale_secrets = Vec::new();
     let mut paginator = client
-        .list_secrets(format!("projects/{project_id}"))
-        .paginator()
-        .await
-        .items();
+        .list_secrets()
+        .set_parent(format!("projects/{project_id}"))
+        .by_item();
     while let Some(secret) = paginator.next().await {
         let secret = secret?;
         if secret
             .name
             .ends_with(format!("/secrets/{secret_id}").as_str())
         {
-            return Err(Error::other(
+            return Err(anyhow::Error::msg(
                 "randomly generated secret id already exists {secret_id}",
             ));
         }
@@ -437,7 +451,7 @@ async fn cleanup_stale_secrets(
 
     let pending = stale_secrets
         .iter()
-        .map(|v| client.delete_secret(v).send())
+        .map(|v| client.delete_secret().set_name(v).send())
         .collect::<Vec<_>>();
 
     // Print the errors, but otherwise ignore them.

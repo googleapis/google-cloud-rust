@@ -15,8 +15,11 @@
 use google_cloud_auth::credentials::*;
 
 #[cfg(test)]
-mod test {
+mod tests {
+    use std::error::Error;
+
     use super::*;
+    use http::Extensions;
     use rustls::crypto::{CryptoProvider, KeyProvider};
     use scoped_env::ScopedEnv;
 
@@ -39,7 +42,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let creds = Builder::default().build().unwrap();
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
 
         creds
@@ -85,7 +88,12 @@ mod test {
         // Try to use the service account credentials. This calls into the
         // custom crypto provider.
         let creds = test_service_account_credentials().await;
-        let e = creds.token().await.err().unwrap();
-        assert!(e.to_string().contains(CUSTOM_ERROR), "{e}");
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(!err.is_transient(), "{err:?}");
+        let source = err.source().and_then(|e| e.downcast_ref::<rustls::Error>());
+        assert!(
+            matches!(source, Some(rustls::Error::General(m)) if m == CUSTOM_ERROR),
+            "display={err}, debug={err:?}"
+        );
     }
 }

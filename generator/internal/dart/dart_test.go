@@ -306,9 +306,13 @@ func TestFieldType(t *testing.T) {
 	}{
 		{api.BOOL_TYPE, "bool"},
 		{api.INT32_TYPE, "int"},
-		{api.INT64_TYPE, "int"},
 		{api.UINT32_TYPE, "int"},
+		{api.FIXED32_TYPE, "int"},
+		{api.SFIXED32_TYPE, "int"},
+		{api.INT64_TYPE, "int"},
 		{api.UINT64_TYPE, "int"},
+		{api.FIXED64_TYPE, "int"},
+		{api.SFIXED64_TYPE, "int"},
 		{api.FLOAT_TYPE, "double"},
 		{api.DOUBLE_TYPE, "double"},
 		{api.STRING_TYPE, "String"},
@@ -447,9 +451,13 @@ func TestFieldType_Repeated(t *testing.T) {
 	}{
 		{api.BOOL_TYPE, "List<bool>"},
 		{api.INT32_TYPE, "List<int>"},
-		{api.INT64_TYPE, "List<int>"},
 		{api.UINT32_TYPE, "List<int>"},
+		{api.FIXED32_TYPE, "List<int>"},
+		{api.SFIXED32_TYPE, "List<int>"},
+		{api.INT64_TYPE, "List<int>"},
 		{api.UINT64_TYPE, "List<int>"},
+		{api.FIXED64_TYPE, "List<int>"},
+		{api.SFIXED64_TYPE, "List<int>"},
 		{api.FLOAT_TYPE, "List<double>"},
 		{api.DOUBLE_TYPE, "List<double>"},
 		{api.STRING_TYPE, "List<String>"},
@@ -652,7 +660,7 @@ func TestHttpPathFmt(t *testing.T) {
 		method *api.Method
 		want   string
 	}{
-		{method: sample.MethodCreate(), want: "/v1/${request.parent}/secrets/${request.secretId}"},
+		{method: sample.MethodCreate(), want: "/v1/projects/${request.project}/secrets"},
 		{method: sample.MethodUpdate(), want: "/v1/${request.secret.name}"},
 		{method: sample.MethodAddSecretVersion(), want: "/v1/projects/${request.project}/secrets/${request.secret}:addVersion"},
 		{method: sample.MethodListSecretVersions(), want: "/v1/projects/${request.parent}/secrets/${request.secret}:listSecretVersions"},

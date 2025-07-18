@@ -16,9 +16,8 @@
 
 pub mod document_processor_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DocumentProcessorService][super::super::client::DocumentProcessorService].
+    /// A builder for [DocumentProcessorService][crate::client::DocumentProcessorService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod document_processor_service {
     /// let client = builder
     ///     .with_endpoint("https://documentai.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod document_processor_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DocumentProcessorService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DocumentProcessorService] request builders.
+    /// Common implementation for [crate::client::DocumentProcessorService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod document_processor_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::process_document][super::super::client::DocumentProcessorService::process_document] calls.
+    /// The request builder for [DocumentProcessorService::process_document][crate::client::DocumentProcessorService::process_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ProcessDocument;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ProcessDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ProcessDocument(RequestBuilder<crate::model::ProcessRequest>);
 
     impl ProcessDocument {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -115,26 +133,38 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [field_mask][crate::model::ProcessRequest::field_mask].
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::ProcessRequest::field_mask].
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [process_options][crate::model::ProcessRequest::process_options].
-        pub fn set_process_options<T: Into<std::option::Option<crate::model::ProcessOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process_options = v.into();
+        pub fn set_process_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
-        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.imageless_mode = v.into();
+        /// Sets or clears the value of [process_options][crate::model::ProcessRequest::process_options].
+        pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = v.map(|x| x.into());
             self
         }
 
@@ -146,6 +176,12 @@ pub mod document_processor_service {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [imageless_mode][crate::model::ProcessRequest::imageless_mode].
+        pub fn set_imageless_mode<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.imageless_mode = v.into();
             self
         }
 
@@ -214,13 +250,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents] calls.
+    /// The request builder for [DocumentProcessorService::batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::BatchProcessDocuments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchProcessDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchProcessDocuments(RequestBuilder<crate::model::BatchProcessRequest>);
 
     impl BatchProcessDocuments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -242,7 +295,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_process_documents][super::super::client::DocumentProcessorService::batch_process_documents].
+        /// on [batch_process_documents][crate::client::DocumentProcessorService::batch_process_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_process_documents(self.0.request, self.0.options)
@@ -255,7 +308,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchProcessResponse, crate::model::BatchProcessMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchProcessResponse,
                 crate::model::BatchProcessMetadata,
             >;
@@ -283,7 +336,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::BatchProcessRequest::name].
@@ -295,24 +348,38 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
-        pub fn set_input_documents<
-            T: Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_documents = v.into();
+        pub fn set_input_documents<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.input_documents = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input_documents][crate::model::BatchProcessRequest::input_documents].
+        pub fn set_or_clear_input_documents<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.input_documents = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
-        pub fn set_document_output_config<
-            T: Into<std::option::Option<crate::model::DocumentOutputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_output_config = v.into();
+        pub fn set_document_output_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        {
+            self.0.request.document_output_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document_output_config][crate::model::BatchProcessRequest::document_output_config].
+        pub fn set_or_clear_document_output_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentOutputConfig>,
+        {
+            self.0.request.document_output_config = v.map(|x| x.into());
             self
         }
 
@@ -323,11 +390,20 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [process_options][crate::model::BatchProcessRequest::process_options].
-        pub fn set_process_options<T: Into<std::option::Option<crate::model::ProcessOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process_options = v.into();
+        pub fn set_process_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [process_options][crate::model::BatchProcessRequest::process_options].
+        pub fn set_or_clear_process_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessOptions>,
+        {
+            self.0.request.process_options = v.map(|x| x.into());
             self
         }
 
@@ -350,13 +426,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::fetch_processor_types][super::super::client::DocumentProcessorService::fetch_processor_types] calls.
+    /// The request builder for [DocumentProcessorService::fetch_processor_types][crate::client::DocumentProcessorService::fetch_processor_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::FetchProcessorTypes;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchProcessorTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchProcessorTypes(RequestBuilder<crate::model::FetchProcessorTypesRequest>);
 
     impl FetchProcessorTypes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -400,13 +492,33 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_processor_types][super::super::client::DocumentProcessorService::list_processor_types] calls.
+    /// The request builder for [DocumentProcessorService::list_processor_types][crate::client::DocumentProcessorService::list_processor_types] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListProcessorTypes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcessorTypes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcessorTypes(RequestBuilder<crate::model::ListProcessorTypesRequest>);
 
     impl ListProcessorTypes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -434,8 +546,8 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProcessorTypesResponse, gax::error::Error>
         {
@@ -447,6 +559,17 @@ pub mod document_processor_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProcessorTypesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProcessorTypesRequest::parent].
@@ -477,13 +600,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_processor_type][super::super::client::DocumentProcessorService::get_processor_type] calls.
+    /// The request builder for [DocumentProcessorService::get_processor_type][crate::client::DocumentProcessorService::get_processor_type] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetProcessorType;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcessorType {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcessorType(RequestBuilder<crate::model::GetProcessorTypeRequest>);
 
     impl GetProcessorType {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -527,13 +666,33 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_processors][super::super::client::DocumentProcessorService::list_processors] calls.
+    /// The request builder for [DocumentProcessorService::list_processors][crate::client::DocumentProcessorService::list_processors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListProcessors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcessors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcessors(RequestBuilder<crate::model::ListProcessorsRequest>);
 
     impl ListProcessors {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -558,8 +717,8 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProcessorsResponse, gax::error::Error>
         {
@@ -571,6 +730,15 @@ pub mod document_processor_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessorsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProcessorsRequest::parent].
@@ -601,13 +769,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_processor][super::super::client::DocumentProcessorService::get_processor] calls.
+    /// The request builder for [DocumentProcessorService::get_processor][crate::client::DocumentProcessorService::get_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetProcessor;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcessor(RequestBuilder<crate::model::GetProcessorRequest>);
 
     impl GetProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -648,13 +832,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::train_processor_version][super::super::client::DocumentProcessorService::train_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::train_processor_version][crate::client::DocumentProcessorService::train_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::TrainProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TrainProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TrainProcessorVersion(RequestBuilder<crate::model::TrainProcessorVersionRequest>);
 
     impl TrainProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -679,7 +880,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [train_processor_version][super::super::client::DocumentProcessorService::train_processor_version].
+        /// on [train_processor_version][crate::client::DocumentProcessorService::train_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .train_processor_version(self.0.request, self.0.options)
@@ -694,7 +895,7 @@ pub mod document_processor_service {
             crate::model::TrainProcessorVersionResponse,
             crate::model::TrainProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TrainProcessorVersionResponse,
                 crate::model::TrainProcessorVersionMetadata,
             >;
@@ -722,7 +923,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TrainProcessorVersionRequest::parent].
@@ -736,33 +937,58 @@ pub mod document_processor_service {
         /// Sets the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_processor_version<
-            T: Into<std::option::Option<crate::model::ProcessorVersion>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.processor_version = v.into();
+        pub fn set_processor_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessorVersion>,
+        {
+            self.0.request.processor_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [processor_version][crate::model::TrainProcessorVersionRequest::processor_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_processor_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProcessorVersion>,
+        {
+            self.0.request.processor_version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
-        pub fn set_document_schema<T: Into<std::option::Option<crate::model::DocumentSchema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_schema = v.into();
+        pub fn set_document_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document_schema][crate::model::TrainProcessorVersionRequest::document_schema].
+        pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
-        pub fn set_input_data<
-            T: Into<std::option::Option<crate::model::train_processor_version_request::InputData>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.input_data = v.into();
+        pub fn set_input_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+        {
+            self.0.request.input_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input_data][crate::model::TrainProcessorVersionRequest::input_data].
+        pub fn set_or_clear_input_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::train_processor_version_request::InputData>,
+        {
+            self.0.request.input_data = v.map(|x| x.into());
             self
         }
 
@@ -823,13 +1049,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_processor_version][super::super::client::DocumentProcessorService::get_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::get_processor_version][crate::client::DocumentProcessorService::get_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetProcessorVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcessorVersion(RequestBuilder<crate::model::GetProcessorVersionRequest>);
 
     impl GetProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -873,13 +1115,33 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_processor_versions][super::super::client::DocumentProcessorService::list_processor_versions] calls.
+    /// The request builder for [DocumentProcessorService::list_processor_versions][crate::client::DocumentProcessorService::list_processor_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListProcessorVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcessorVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcessorVersions(RequestBuilder<crate::model::ListProcessorVersionsRequest>);
 
     impl ListProcessorVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -907,8 +1169,8 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProcessorVersionsResponse, gax::error::Error>
         {
@@ -920,6 +1182,17 @@ pub mod document_processor_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProcessorVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProcessorVersionsRequest::parent].
@@ -950,13 +1223,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DeleteProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProcessorVersion(RequestBuilder<crate::model::DeleteProcessorVersionRequest>);
 
     impl DeleteProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -981,7 +1271,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_processor_version][super::super::client::DocumentProcessorService::delete_processor_version].
+        /// on [delete_processor_version][crate::client::DocumentProcessorService::delete_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor_version(self.0.request, self.0.options)
@@ -990,11 +1280,9 @@ pub mod document_processor_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor_version`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorVersionMetadata> {
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorVersionMetadata> {
             type Operation =
-                lro::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorVersionMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1019,7 +1307,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorVersionRequest::name].
@@ -1038,13 +1331,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DeployProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployProcessorVersion(RequestBuilder<crate::model::DeployProcessorVersionRequest>);
 
     impl DeployProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1069,7 +1379,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_processor_version][super::super::client::DocumentProcessorService::deploy_processor_version].
+        /// on [deploy_processor_version][crate::client::DocumentProcessorService::deploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_processor_version(self.0.request, self.0.options)
@@ -1084,7 +1394,7 @@ pub mod document_processor_service {
             crate::model::DeployProcessorVersionResponse,
             crate::model::DeployProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeployProcessorVersionResponse,
                 crate::model::DeployProcessorVersionMetadata,
             >;
@@ -1112,7 +1422,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeployProcessorVersionRequest::name].
@@ -1131,7 +1441,24 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::UndeployProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeployProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployProcessorVersion(
         RequestBuilder<crate::model::UndeployProcessorVersionRequest>,
@@ -1139,7 +1466,7 @@ pub mod document_processor_service {
 
     impl UndeployProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1164,7 +1491,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undeploy_processor_version][super::super::client::DocumentProcessorService::undeploy_processor_version].
+        /// on [undeploy_processor_version][crate::client::DocumentProcessorService::undeploy_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_processor_version(self.0.request, self.0.options)
@@ -1179,7 +1506,7 @@ pub mod document_processor_service {
             crate::model::UndeployProcessorVersionResponse,
             crate::model::UndeployProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeployProcessorVersionResponse,
                 crate::model::UndeployProcessorVersionMetadata,
             >;
@@ -1207,7 +1534,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeployProcessorVersionRequest::name].
@@ -1226,13 +1553,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::create_processor][super::super::client::DocumentProcessorService::create_processor] calls.
+    /// The request builder for [DocumentProcessorService::create_processor][crate::client::DocumentProcessorService::create_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::CreateProcessor;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProcessor(RequestBuilder<crate::model::CreateProcessorRequest>);
 
     impl CreateProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1268,11 +1611,22 @@ pub mod document_processor_service {
         /// Sets the value of [processor][crate::model::CreateProcessorRequest::processor].
         ///
         /// This is a **required** field for requests.
-        pub fn set_processor<T: Into<std::option::Option<crate::model::Processor>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.processor = v.into();
+        pub fn set_processor<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Processor>,
+        {
+            self.0.request.processor = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [processor][crate::model::CreateProcessorRequest::processor].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_processor<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Processor>,
+        {
+            self.0.request.processor = v.map(|x| x.into());
             self
         }
     }
@@ -1284,13 +1638,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::delete_processor][super::super::client::DocumentProcessorService::delete_processor] calls.
+    /// The request builder for [DocumentProcessorService::delete_processor][crate::client::DocumentProcessorService::delete_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DeleteProcessor;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProcessor(RequestBuilder<crate::model::DeleteProcessorRequest>);
 
     impl DeleteProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1312,7 +1683,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_processor][super::super::client::DocumentProcessorService::delete_processor].
+        /// on [delete_processor][crate::client::DocumentProcessorService::delete_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_processor(self.0.request, self.0.options)
@@ -1321,8 +1692,9 @@ pub mod document_processor_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_processor`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::DeleteProcessorMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteProcessorMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteProcessorMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1347,7 +1719,12 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessorRequest::name].
@@ -1366,13 +1743,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::enable_processor][super::super::client::DocumentProcessorService::enable_processor] calls.
+    /// The request builder for [DocumentProcessorService::enable_processor][crate::client::DocumentProcessorService::enable_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::EnableProcessor;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableProcessor(RequestBuilder<crate::model::EnableProcessorRequest>);
 
     impl EnableProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1394,7 +1788,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_processor][super::super::client::DocumentProcessorService::enable_processor].
+        /// on [enable_processor][crate::client::DocumentProcessorService::enable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_processor(self.0.request, self.0.options)
@@ -1407,7 +1801,7 @@ pub mod document_processor_service {
             self,
         ) -> impl lro::Poller<crate::model::EnableProcessorResponse, crate::model::EnableProcessorMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableProcessorResponse,
                 crate::model::EnableProcessorMetadata,
             >;
@@ -1435,7 +1829,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableProcessorRequest::name].
@@ -1454,13 +1848,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::disable_processor][super::super::client::DocumentProcessorService::disable_processor] calls.
+    /// The request builder for [DocumentProcessorService::disable_processor][crate::client::DocumentProcessorService::disable_processor] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::DisableProcessor;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableProcessor {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableProcessor(RequestBuilder<crate::model::DisableProcessorRequest>);
 
     impl DisableProcessor {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1485,7 +1896,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_processor][super::super::client::DocumentProcessorService::disable_processor].
+        /// on [disable_processor][crate::client::DocumentProcessorService::disable_processor].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_processor(self.0.request, self.0.options)
@@ -1500,7 +1911,7 @@ pub mod document_processor_service {
             crate::model::DisableProcessorResponse,
             crate::model::DisableProcessorMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableProcessorResponse,
                 crate::model::DisableProcessorMetadata,
             >;
@@ -1528,7 +1939,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableProcessorRequest::name].
@@ -1547,7 +1958,24 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::SetDefaultProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetDefaultProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetDefaultProcessorVersion(
         RequestBuilder<crate::model::SetDefaultProcessorVersionRequest>,
@@ -1555,7 +1983,7 @@ pub mod document_processor_service {
 
     impl SetDefaultProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1580,7 +2008,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [set_default_processor_version][super::super::client::DocumentProcessorService::set_default_processor_version].
+        /// on [set_default_processor_version][crate::client::DocumentProcessorService::set_default_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .set_default_processor_version(self.0.request, self.0.options)
@@ -1595,7 +2023,7 @@ pub mod document_processor_service {
             crate::model::SetDefaultProcessorVersionResponse,
             crate::model::SetDefaultProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SetDefaultProcessorVersionResponse,
                 crate::model::SetDefaultProcessorVersionMetadata,
             >;
@@ -1623,7 +2051,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [processor][crate::model::SetDefaultProcessorVersionRequest::processor].
@@ -1650,13 +2078,30 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::review_document][super::super::client::DocumentProcessorService::review_document] calls.
+    /// The request builder for [DocumentProcessorService::review_document][crate::client::DocumentProcessorService::review_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ReviewDocument;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReviewDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReviewDocument(RequestBuilder<crate::model::ReviewDocumentRequest>);
 
     impl ReviewDocument {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1678,7 +2123,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [review_document][super::super::client::DocumentProcessorService::review_document].
+        /// on [review_document][crate::client::DocumentProcessorService::review_document].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .review_document(self.0.request, self.0.options)
@@ -1693,7 +2138,7 @@ pub mod document_processor_service {
             crate::model::ReviewDocumentResponse,
             crate::model::ReviewDocumentOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReviewDocumentResponse,
                 crate::model::ReviewDocumentOperationMetadata,
             >;
@@ -1721,7 +2166,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [human_review_config][crate::model::ReviewDocumentRequest::human_review_config].
@@ -1748,11 +2193,20 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
-        pub fn set_document_schema<T: Into<std::option::Option<crate::model::DocumentSchema>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document_schema = v.into();
+        pub fn set_document_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document_schema][crate::model::ReviewDocumentRequest::document_schema].
+        pub fn set_or_clear_document_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentSchema>,
+        {
+            self.0.request.document_schema = v.map(|x| x.into());
             self
         }
 
@@ -1791,7 +2245,24 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version] calls.
+    /// The request builder for [DocumentProcessorService::evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::EvaluateProcessorVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvaluateProcessorVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvaluateProcessorVersion(
         RequestBuilder<crate::model::EvaluateProcessorVersionRequest>,
@@ -1799,7 +2270,7 @@ pub mod document_processor_service {
 
     impl EvaluateProcessorVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1824,7 +2295,7 @@ pub mod document_processor_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evaluate_processor_version][super::super::client::DocumentProcessorService::evaluate_processor_version].
+        /// on [evaluate_processor_version][crate::client::DocumentProcessorService::evaluate_processor_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evaluate_processor_version(self.0.request, self.0.options)
@@ -1839,7 +2310,7 @@ pub mod document_processor_service {
             crate::model::EvaluateProcessorVersionResponse,
             crate::model::EvaluateProcessorVersionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EvaluateProcessorVersionResponse,
                 crate::model::EvaluateProcessorVersionMetadata,
             >;
@@ -1867,7 +2338,7 @@ pub mod document_processor_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [processor_version][crate::model::EvaluateProcessorVersionRequest::processor_version].
@@ -1879,13 +2350,20 @@ pub mod document_processor_service {
         }
 
         /// Sets the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
-        pub fn set_evaluation_documents<
-            T: Into<std::option::Option<crate::model::BatchDocumentsInputConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.evaluation_documents = v.into();
+        pub fn set_evaluation_documents<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.evaluation_documents = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [evaluation_documents][crate::model::EvaluateProcessorVersionRequest::evaluation_documents].
+        pub fn set_or_clear_evaluation_documents<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BatchDocumentsInputConfig>,
+        {
+            self.0.request.evaluation_documents = v.map(|x| x.into());
             self
         }
     }
@@ -1897,13 +2375,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_evaluation][super::super::client::DocumentProcessorService::get_evaluation] calls.
+    /// The request builder for [DocumentProcessorService::get_evaluation][crate::client::DocumentProcessorService::get_evaluation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetEvaluation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEvaluation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEvaluation(RequestBuilder<crate::model::GetEvaluationRequest>);
 
     impl GetEvaluation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1944,13 +2438,33 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_evaluations][super::super::client::DocumentProcessorService::list_evaluations] calls.
+    /// The request builder for [DocumentProcessorService::list_evaluations][crate::client::DocumentProcessorService::list_evaluations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListEvaluations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEvaluations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEvaluations(RequestBuilder<crate::model::ListEvaluationsRequest>);
 
     impl ListEvaluations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1975,8 +2489,8 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEvaluationsResponse, gax::error::Error>
         {
@@ -1988,6 +2502,15 @@ pub mod document_processor_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEvaluationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEvaluationsRequest::parent].
@@ -2018,13 +2541,33 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_locations][super::super::client::DocumentProcessorService::list_locations] calls.
+    /// The request builder for [DocumentProcessorService::list_locations][crate::client::DocumentProcessorService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2052,8 +2595,8 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2065,6 +2608,15 @@ pub mod document_processor_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2099,13 +2651,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_location][super::super::client::DocumentProcessorService::get_location] calls.
+    /// The request builder for [DocumentProcessorService::get_location][crate::client::DocumentProcessorService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2144,13 +2712,33 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::list_operations][super::super::client::DocumentProcessorService::list_operations] calls.
+    /// The request builder for [DocumentProcessorService::list_operations][crate::client::DocumentProcessorService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2178,8 +2766,8 @@ pub mod document_processor_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2191,6 +2779,17 @@ pub mod document_processor_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2225,13 +2824,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::get_operation][super::super::client::DocumentProcessorService::get_operation] calls.
+    /// The request builder for [DocumentProcessorService::get_operation][crate::client::DocumentProcessorService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2273,13 +2888,29 @@ pub mod document_processor_service {
         }
     }
 
-    /// The request builder for [DocumentProcessorService::cancel_operation][super::super::client::DocumentProcessorService::cancel_operation] calls.
+    /// The request builder for [DocumentProcessorService::cancel_operation][crate::client::DocumentProcessorService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_documentai_v1::builder;
+    /// use builder::document_processor_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DocumentProcessorService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

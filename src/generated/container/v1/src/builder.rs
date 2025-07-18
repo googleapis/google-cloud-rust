@@ -16,9 +16,8 @@
 
 pub mod cluster_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ClusterManager][super::super::client::ClusterManager].
+    /// A builder for [ClusterManager][crate::client::ClusterManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cluster_manager {
     /// let client = builder
     ///     .with_endpoint("https://container.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cluster_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ClusterManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ClusterManager] request builders.
+    /// Common implementation for [crate::client::ClusterManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod cluster_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_clusters][super::super::client::ClusterManager::list_clusters] calls.
+    /// The request builder for [ClusterManager::list_clusters][crate::client::ClusterManager::list_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::ListClusters;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -124,12 +146,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_cluster][super::super::client::ClusterManager::get_cluster] calls.
+    /// The request builder for [ClusterManager::get_cluster][crate::client::ClusterManager::get_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::GetCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -188,12 +228,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::create_cluster][super::super::client::ClusterManager::create_cluster] calls.
+    /// The request builder for [ClusterManager::create_cluster][crate::client::ClusterManager::create_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::CreateCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -234,11 +292,22 @@ pub mod cluster_manager {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -256,12 +325,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::update_cluster][super::super::client::ClusterManager::update_cluster] calls.
+    /// The request builder for [ClusterManager::update_cluster][crate::client::ClusterManager::update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::UpdateCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -309,11 +396,22 @@ pub mod cluster_manager {
         /// Sets the value of [update][crate::model::UpdateClusterRequest::update].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update<T: Into<std::option::Option<crate::model::ClusterUpdate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update = v.into();
+        pub fn set_update<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClusterUpdate>,
+        {
+            self.0.request.update = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update][crate::model::UpdateClusterRequest::update].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClusterUpdate>,
+        {
+            self.0.request.update = v.map(|x| x.into());
             self
         }
 
@@ -331,12 +429,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::update_node_pool][super::super::client::ClusterManager::update_node_pool] calls.
+    /// The request builder for [ClusterManager::update_node_pool][crate::client::ClusterManager::update_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::UpdateNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,112 +526,212 @@ pub mod cluster_manager {
             self
         }
 
+        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
+        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
-        pub fn set_workload_metadata_config<
-            T: Into<std::option::Option<crate::model::WorkloadMetadataConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workload_metadata_config = v.into();
+        pub fn set_workload_metadata_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+        {
+            self.0.request.workload_metadata_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workload_metadata_config][crate::model::UpdateNodePoolRequest::workload_metadata_config].
+        pub fn set_or_clear_workload_metadata_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkloadMetadataConfig>,
+        {
+            self.0.request.workload_metadata_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
-        pub fn set_upgrade_settings<
-            T: Into<std::option::Option<crate::model::node_pool::UpgradeSettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.upgrade_settings = v.into();
+        pub fn set_upgrade_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+        {
+            self.0.request.upgrade_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [upgrade_settings][crate::model::UpdateNodePoolRequest::upgrade_settings].
+        pub fn set_or_clear_upgrade_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::UpgradeSettings>,
+        {
+            self.0.request.upgrade_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [tags][crate::model::UpdateNodePoolRequest::tags].
-        pub fn set_tags<T: Into<std::option::Option<crate::model::NetworkTags>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tags = v.into();
+        pub fn set_tags<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkTags>,
+        {
+            self.0.request.tags = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tags][crate::model::UpdateNodePoolRequest::tags].
+        pub fn set_or_clear_tags<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkTags>,
+        {
+            self.0.request.tags = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [taints][crate::model::UpdateNodePoolRequest::taints].
-        pub fn set_taints<T: Into<std::option::Option<crate::model::NodeTaints>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.taints = v.into();
+        pub fn set_taints<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeTaints>,
+        {
+            self.0.request.taints = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [taints][crate::model::UpdateNodePoolRequest::taints].
+        pub fn set_or_clear_taints<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeTaints>,
+        {
+            self.0.request.taints = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [labels][crate::model::UpdateNodePoolRequest::labels].
-        pub fn set_labels<T: Into<std::option::Option<crate::model::NodeLabels>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.labels = v.into();
+        pub fn set_labels<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeLabels>,
+        {
+            self.0.request.labels = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [labels][crate::model::UpdateNodePoolRequest::labels].
+        pub fn set_or_clear_labels<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeLabels>,
+        {
+            self.0.request.labels = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
-        pub fn set_linux_node_config<
-            T: Into<std::option::Option<crate::model::LinuxNodeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.linux_node_config = v.into();
+        pub fn set_linux_node_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LinuxNodeConfig>,
+        {
+            self.0.request.linux_node_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [linux_node_config][crate::model::UpdateNodePoolRequest::linux_node_config].
+        pub fn set_or_clear_linux_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LinuxNodeConfig>,
+        {
+            self.0.request.linux_node_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
-        pub fn set_kubelet_config<T: Into<std::option::Option<crate::model::NodeKubeletConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.kubelet_config = v.into();
+        pub fn set_kubelet_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeKubeletConfig>,
+        {
+            self.0.request.kubelet_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kubelet_config][crate::model::UpdateNodePoolRequest::kubelet_config].
+        pub fn set_or_clear_kubelet_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeKubeletConfig>,
+        {
+            self.0.request.kubelet_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
-        pub fn set_node_network_config<
-            T: Into<std::option::Option<crate::model::NodeNetworkConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_network_config = v.into();
+        pub fn set_node_network_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeNetworkConfig>,
+        {
+            self.0.request.node_network_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_network_config][crate::model::UpdateNodePoolRequest::node_network_config].
+        pub fn set_or_clear_node_network_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeNetworkConfig>,
+        {
+            self.0.request.node_network_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
-        pub fn set_gcfs_config<T: Into<std::option::Option<crate::model::GcfsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcfs_config = v.into();
+        pub fn set_gcfs_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcfsConfig>,
+        {
+            self.0.request.gcfs_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gcfs_config][crate::model::UpdateNodePoolRequest::gcfs_config].
+        pub fn set_or_clear_gcfs_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcfsConfig>,
+        {
+            self.0.request.gcfs_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
-        pub fn set_confidential_nodes<
-            T: Into<std::option::Option<crate::model::ConfidentialNodes>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.confidential_nodes = v.into();
+        pub fn set_confidential_nodes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialNodes>,
+        {
+            self.0.request.confidential_nodes = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [confidential_nodes][crate::model::UpdateNodePoolRequest::confidential_nodes].
+        pub fn set_or_clear_confidential_nodes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfidentialNodes>,
+        {
+            self.0.request.confidential_nodes = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
-        pub fn set_gvnic<T: Into<std::option::Option<crate::model::VirtualNIC>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gvnic = v.into();
+        pub fn set_gvnic<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VirtualNIC>,
+        {
+            self.0.request.gvnic = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gvnic][crate::model::UpdateNodePoolRequest::gvnic].
+        pub fn set_or_clear_gvnic<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VirtualNIC>,
+        {
+            self.0.request.gvnic = v.map(|x| x.into());
             self
         }
 
@@ -526,42 +742,85 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
-        pub fn set_fast_socket<T: Into<std::option::Option<crate::model::FastSocket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.fast_socket = v.into();
+        pub fn set_fast_socket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FastSocket>,
+        {
+            self.0.request.fast_socket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fast_socket][crate::model::UpdateNodePoolRequest::fast_socket].
+        pub fn set_or_clear_fast_socket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FastSocket>,
+        {
+            self.0.request.fast_socket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
-        pub fn set_logging_config<
-            T: Into<std::option::Option<crate::model::NodePoolLoggingConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logging_config = v.into();
+        pub fn set_logging_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+        {
+            self.0.request.logging_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [logging_config][crate::model::UpdateNodePoolRequest::logging_config].
+        pub fn set_or_clear_logging_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolLoggingConfig>,
+        {
+            self.0.request.logging_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
-        pub fn set_resource_labels<T: Into<std::option::Option<crate::model::ResourceLabels>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource_labels = v.into();
+        pub fn set_resource_labels<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceLabels>,
+        {
+            self.0.request.resource_labels = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource_labels][crate::model::UpdateNodePoolRequest::resource_labels].
+        pub fn set_or_clear_resource_labels<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceLabels>,
+        {
+            self.0.request.resource_labels = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
-        pub fn set_windows_node_config<
-            T: Into<std::option::Option<crate::model::WindowsNodeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.windows_node_config = v.into();
+        pub fn set_windows_node_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WindowsNodeConfig>,
+        {
+            self.0.request.windows_node_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [windows_node_config][crate::model::UpdateNodePoolRequest::windows_node_config].
+        pub fn set_or_clear_windows_node_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WindowsNodeConfig>,
+        {
+            self.0.request.windows_node_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
+        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::AcceleratorConfig>,
+        {
+            use std::iter::Iterator;
+            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -584,57 +843,56 @@ pub mod cluster_manager {
         }
 
         /// Sets the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
-        pub fn set_resource_manager_tags<
-            T: Into<std::option::Option<crate::model::ResourceManagerTags>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource_manager_tags = v.into();
+        pub fn set_resource_manager_tags<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceManagerTags>,
+        {
+            self.0.request.resource_manager_tags = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource_manager_tags][crate::model::UpdateNodePoolRequest::resource_manager_tags].
+        pub fn set_or_clear_resource_manager_tags<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceManagerTags>,
+        {
+            self.0.request.resource_manager_tags = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
-        pub fn set_containerd_config<
-            T: Into<std::option::Option<crate::model::ContainerdConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.containerd_config = v.into();
+        pub fn set_containerd_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContainerdConfig>,
+        {
+            self.0.request.containerd_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [containerd_config][crate::model::UpdateNodePoolRequest::containerd_config].
+        pub fn set_or_clear_containerd_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContainerdConfig>,
+        {
+            self.0.request.containerd_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
-        pub fn set_queued_provisioning<
-            T: Into<std::option::Option<crate::model::node_pool::QueuedProvisioning>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.queued_provisioning = v.into();
+        pub fn set_queued_provisioning<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
+        {
+            self.0.request.queued_provisioning = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [locations][crate::model::UpdateNodePoolRequest::locations].
-        pub fn set_locations<T, V>(mut self, v: T) -> Self
+        /// Sets or clears the value of [queued_provisioning][crate::model::UpdateNodePoolRequest::queued_provisioning].
+        pub fn set_or_clear_queued_provisioning<T>(mut self, v: std::option::Option<T>) -> Self
         where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
+            T: std::convert::Into<crate::model::node_pool::QueuedProvisioning>,
         {
-            use std::iter::Iterator;
-            self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [accelerators][crate::model::UpdateNodePoolRequest::accelerators].
-        pub fn set_accelerators<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::AcceleratorConfig>,
-        {
-            use std::iter::Iterator;
-            self.0.request.accelerators = v.into_iter().map(|i| i.into()).collect();
+            self.0.request.queued_provisioning = v.map(|x| x.into());
             self
         }
 
@@ -648,6 +906,42 @@ pub mod cluster_manager {
             self.0.request.storage_pools = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+        pub fn set_max_run_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.max_run_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+        pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.max_run_duration = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+        pub fn set_flex_start<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.flex_start = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+        pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.flex_start = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -657,12 +951,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_node_pool_autoscaling][super::super::client::ClusterManager::set_node_pool_autoscaling] calls.
+    /// The request builder for [ClusterManager::set_node_pool_autoscaling][crate::client::ClusterManager::set_node_pool_autoscaling] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetNodePoolAutoscaling;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetNodePoolAutoscaling {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetNodePoolAutoscaling(RequestBuilder<crate::model::SetNodePoolAutoscalingRequest>);
 
     impl SetNodePoolAutoscaling {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -720,11 +1032,22 @@ pub mod cluster_manager {
         /// Sets the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
         ///
         /// This is a **required** field for requests.
-        pub fn set_autoscaling<T: Into<std::option::Option<crate::model::NodePoolAutoscaling>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.autoscaling = v.into();
+        pub fn set_autoscaling<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+        {
+            self.0.request.autoscaling = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [autoscaling][crate::model::SetNodePoolAutoscalingRequest::autoscaling].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePoolAutoscaling>,
+        {
+            self.0.request.autoscaling = v.map(|x| x.into());
             self
         }
 
@@ -742,12 +1065,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_logging_service][super::super::client::ClusterManager::set_logging_service] calls.
+    /// The request builder for [ClusterManager::set_logging_service][crate::client::ClusterManager::set_logging_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetLoggingService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetLoggingService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetLoggingService(RequestBuilder<crate::model::SetLoggingServiceRequest>);
 
     impl SetLoggingService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -817,12 +1158,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_monitoring_service][super::super::client::ClusterManager::set_monitoring_service] calls.
+    /// The request builder for [ClusterManager::set_monitoring_service][crate::client::ClusterManager::set_monitoring_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetMonitoringService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetMonitoringService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetMonitoringService(RequestBuilder<crate::model::SetMonitoringServiceRequest>);
 
     impl SetMonitoringService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -892,12 +1251,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_addons_config][super::super::client::ClusterManager::set_addons_config] calls.
+    /// The request builder for [ClusterManager::set_addons_config][crate::client::ClusterManager::set_addons_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetAddonsConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetAddonsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetAddonsConfig(RequestBuilder<crate::model::SetAddonsConfigRequest>);
 
     impl SetAddonsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -945,11 +1322,22 @@ pub mod cluster_manager {
         /// Sets the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_addons_config<T: Into<std::option::Option<crate::model::AddonsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.addons_config = v.into();
+        pub fn set_addons_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AddonsConfig>,
+        {
+            self.0.request.addons_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [addons_config][crate::model::SetAddonsConfigRequest::addons_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_addons_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AddonsConfig>,
+        {
+            self.0.request.addons_config = v.map(|x| x.into());
             self
         }
 
@@ -967,12 +1355,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_locations][super::super::client::ClusterManager::set_locations] calls.
+    /// The request builder for [ClusterManager::set_locations][crate::client::ClusterManager::set_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetLocations;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetLocations(RequestBuilder<crate::model::SetLocationsRequest>);
 
     impl SetLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1017,12 +1423,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [locations][crate::model::SetLocationsRequest::locations].
         ///
         /// This is a **required** field for requests.
@@ -1035,6 +1435,12 @@ pub mod cluster_manager {
             self.0.request.locations = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [name][crate::model::SetLocationsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1044,12 +1450,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::update_master][super::super::client::ClusterManager::update_master] calls.
+    /// The request builder for [ClusterManager::update_master][crate::client::ClusterManager::update_master] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::UpdateMaster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMaster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMaster(RequestBuilder<crate::model::UpdateMasterRequest>);
 
     impl UpdateMaster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1116,12 +1540,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_master_auth][super::super::client::ClusterManager::set_master_auth] calls.
+    /// The request builder for [ClusterManager::set_master_auth][crate::client::ClusterManager::set_master_auth] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetMasterAuth;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetMasterAuth {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetMasterAuth(RequestBuilder<crate::model::SetMasterAuthRequest>);
 
     impl SetMasterAuth {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1180,11 +1622,22 @@ pub mod cluster_manager {
         /// Sets the value of [update][crate::model::SetMasterAuthRequest::update].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update<T: Into<std::option::Option<crate::model::MasterAuth>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update = v.into();
+        pub fn set_update<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MasterAuth>,
+        {
+            self.0.request.update = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update][crate::model::SetMasterAuthRequest::update].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MasterAuth>,
+        {
+            self.0.request.update = v.map(|x| x.into());
             self
         }
 
@@ -1202,12 +1655,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::delete_cluster][super::super::client::ClusterManager::delete_cluster] calls.
+    /// The request builder for [ClusterManager::delete_cluster][crate::client::ClusterManager::delete_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::DeleteCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1266,12 +1737,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_operations][super::super::client::ClusterManager::list_operations] calls.
+    /// The request builder for [ClusterManager::list_operations][crate::client::ClusterManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<crate::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1323,12 +1812,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_operation][super::super::client::ClusterManager::get_operation] calls.
+    /// The request builder for [ClusterManager::get_operation][crate::client::ClusterManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<crate::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1387,12 +1894,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::cancel_operation][super::super::client::ClusterManager::cancel_operation] calls.
+    /// The request builder for [ClusterManager::cancel_operation][crate::client::ClusterManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<crate::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1451,12 +1976,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_server_config][super::super::client::ClusterManager::get_server_config] calls.
+    /// The request builder for [ClusterManager::get_server_config][crate::client::ClusterManager::get_server_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::GetServerConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServerConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1508,12 +2051,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_json_web_keys][super::super::client::ClusterManager::get_json_web_keys] calls.
+    /// The request builder for [ClusterManager::get_json_web_keys][crate::client::ClusterManager::get_json_web_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::GetJSONWebKeys;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJSONWebKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJSONWebKeys(RequestBuilder<crate::model::GetJSONWebKeysRequest>);
 
     impl GetJSONWebKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1551,12 +2112,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_node_pools][super::super::client::ClusterManager::list_node_pools] calls.
+    /// The request builder for [ClusterManager::list_node_pools][crate::client::ClusterManager::list_node_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::ListNodePools;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNodePools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1615,12 +2194,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::get_node_pool][super::super::client::ClusterManager::get_node_pool] calls.
+    /// The request builder for [ClusterManager::get_node_pool][crate::client::ClusterManager::get_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::GetNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1686,12 +2283,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::create_node_pool][super::super::client::ClusterManager::create_node_pool] calls.
+    /// The request builder for [ClusterManager::create_node_pool][crate::client::ClusterManager::create_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::CreateNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1739,11 +2354,22 @@ pub mod cluster_manager {
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_pool = v.into();
+        pub fn set_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = v.map(|x| x.into());
             self
         }
 
@@ -1761,12 +2387,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::delete_node_pool][super::super::client::ClusterManager::delete_node_pool] calls.
+    /// The request builder for [ClusterManager::delete_node_pool][crate::client::ClusterManager::delete_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::DeleteNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1832,14 +2476,32 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::complete_node_pool_upgrade][super::super::client::ClusterManager::complete_node_pool_upgrade] calls.
+    /// The request builder for [ClusterManager::complete_node_pool_upgrade][crate::client::ClusterManager::complete_node_pool_upgrade] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::CompleteNodePoolUpgrade;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CompleteNodePoolUpgrade {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CompleteNodePoolUpgrade(
         RequestBuilder<crate::model::CompleteNodePoolUpgradeRequest>,
     );
 
     impl CompleteNodePoolUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1880,14 +2542,32 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::rollback_node_pool_upgrade][super::super::client::ClusterManager::rollback_node_pool_upgrade] calls.
+    /// The request builder for [ClusterManager::rollback_node_pool_upgrade][crate::client::ClusterManager::rollback_node_pool_upgrade] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::RollbackNodePoolUpgrade;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RollbackNodePoolUpgrade {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RollbackNodePoolUpgrade(
         RequestBuilder<crate::model::RollbackNodePoolUpgradeRequest>,
     );
 
     impl RollbackNodePoolUpgrade {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1962,12 +2642,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_node_pool_management][super::super::client::ClusterManager::set_node_pool_management] calls.
+    /// The request builder for [ClusterManager::set_node_pool_management][crate::client::ClusterManager::set_node_pool_management] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetNodePoolManagement;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetNodePoolManagement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetNodePoolManagement(RequestBuilder<crate::model::SetNodePoolManagementRequest>);
 
     impl SetNodePoolManagement {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2025,11 +2723,22 @@ pub mod cluster_manager {
         /// Sets the value of [management][crate::model::SetNodePoolManagementRequest::management].
         ///
         /// This is a **required** field for requests.
-        pub fn set_management<T: Into<std::option::Option<crate::model::NodeManagement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management = v.into();
+        pub fn set_management<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeManagement>,
+        {
+            self.0.request.management = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [management][crate::model::SetNodePoolManagementRequest::management].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_management<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodeManagement>,
+        {
+            self.0.request.management = v.map(|x| x.into());
             self
         }
 
@@ -2047,12 +2756,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_labels][super::super::client::ClusterManager::set_labels] calls.
+    /// The request builder for [ClusterManager::set_labels][crate::client::ClusterManager::set_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetLabels;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetLabels(RequestBuilder<crate::model::SetLabelsRequest>);
 
     impl SetLabels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2097,20 +2824,6 @@ pub mod cluster_manager {
             self
         }
 
-        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.label_fingerprint = v.into();
-            self
-        }
-
-        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
-        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.name = v.into();
-            self
-        }
-
         /// Sets the value of [resource_labels][crate::model::SetLabelsRequest::resource_labels].
         ///
         /// This is a **required** field for requests.
@@ -2124,6 +2837,20 @@ pub mod cluster_manager {
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
+
+        /// Sets the value of [label_fingerprint][crate::model::SetLabelsRequest::label_fingerprint].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_label_fingerprint<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.label_fingerprint = v.into();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::SetLabelsRequest::name].
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -2133,12 +2860,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_legacy_abac][super::super::client::ClusterManager::set_legacy_abac] calls.
+    /// The request builder for [ClusterManager::set_legacy_abac][crate::client::ClusterManager::set_legacy_abac] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetLegacyAbac;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetLegacyAbac {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetLegacyAbac(RequestBuilder<crate::model::SetLegacyAbacRequest>);
 
     impl SetLegacyAbac {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2205,12 +2950,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::start_ip_rotation][super::super::client::ClusterManager::start_ip_rotation] calls.
+    /// The request builder for [ClusterManager::start_ip_rotation][crate::client::ClusterManager::start_ip_rotation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::StartIPRotation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartIPRotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartIPRotation(RequestBuilder<crate::model::StartIPRotationRequest>);
 
     impl StartIPRotation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2275,12 +3038,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::complete_ip_rotation][super::super::client::ClusterManager::complete_ip_rotation] calls.
+    /// The request builder for [ClusterManager::complete_ip_rotation][crate::client::ClusterManager::complete_ip_rotation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::CompleteIPRotation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CompleteIPRotation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CompleteIPRotation(RequestBuilder<crate::model::CompleteIPRotationRequest>);
 
     impl CompleteIPRotation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2342,12 +3123,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_node_pool_size][super::super::client::ClusterManager::set_node_pool_size] calls.
+    /// The request builder for [ClusterManager::set_node_pool_size][crate::client::ClusterManager::set_node_pool_size] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetNodePoolSize;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetNodePoolSize {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetNodePoolSize(RequestBuilder<crate::model::SetNodePoolSizeRequest>);
 
     impl SetNodePoolSize {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2421,12 +3220,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_network_policy][super::super::client::ClusterManager::set_network_policy] calls.
+    /// The request builder for [ClusterManager::set_network_policy][crate::client::ClusterManager::set_network_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetNetworkPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetNetworkPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetNetworkPolicy(RequestBuilder<crate::model::SetNetworkPolicyRequest>);
 
     impl SetNetworkPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2477,11 +3294,22 @@ pub mod cluster_manager {
         /// Sets the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network_policy<T: Into<std::option::Option<crate::model::NetworkPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network_policy = v.into();
+        pub fn set_network_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [network_policy][crate::model::SetNetworkPolicyRequest::network_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_network_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NetworkPolicy>,
+        {
+            self.0.request.network_policy = v.map(|x| x.into());
             self
         }
 
@@ -2499,12 +3327,30 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::set_maintenance_policy][super::super::client::ClusterManager::set_maintenance_policy] calls.
+    /// The request builder for [ClusterManager::set_maintenance_policy][crate::client::ClusterManager::set_maintenance_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::SetMaintenancePolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetMaintenancePolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetMaintenancePolicy(RequestBuilder<crate::model::SetMaintenancePolicyRequest>);
 
     impl SetMaintenancePolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2558,13 +3404,22 @@ pub mod cluster_manager {
         /// Sets the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_maintenance_policy<
-            T: Into<std::option::Option<crate::model::MaintenancePolicy>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.maintenance_policy = v.into();
+        pub fn set_maintenance_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaintenancePolicy>,
+        {
+            self.0.request.maintenance_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [maintenance_policy][crate::model::SetMaintenancePolicyRequest::maintenance_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_maintenance_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaintenancePolicy>,
+        {
+            self.0.request.maintenance_policy = v.map(|x| x.into());
             self
         }
 
@@ -2582,12 +3437,34 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::list_usable_subnetworks][super::super::client::ClusterManager::list_usable_subnetworks] calls.
+    /// The request builder for [ClusterManager::list_usable_subnetworks][crate::client::ClusterManager::list_usable_subnetworks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::ListUsableSubnetworks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUsableSubnetworks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUsableSubnetworks(RequestBuilder<crate::model::ListUsableSubnetworksRequest>);
 
     impl ListUsableSubnetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2614,8 +3491,8 @@ pub mod cluster_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListUsableSubnetworksResponse, gax::error::Error>
         {
@@ -2627,6 +3504,17 @@ pub mod cluster_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUsableSubnetworksResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListUsableSubnetworksRequest::parent].
@@ -2661,14 +3549,32 @@ pub mod cluster_manager {
         }
     }
 
-    /// The request builder for [ClusterManager::check_autopilot_compatibility][super::super::client::ClusterManager::check_autopilot_compatibility] calls.
+    /// The request builder for [ClusterManager::check_autopilot_compatibility][crate::client::ClusterManager::check_autopilot_compatibility] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::CheckAutopilotCompatibility;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckAutopilotCompatibility {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckAutopilotCompatibility(
         RequestBuilder<crate::model::CheckAutopilotCompatibilityRequest>,
     );
 
     impl CheckAutopilotCompatibility {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ClusterManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2704,6 +3610,154 @@ pub mod cluster_manager {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for CheckAutopilotCompatibility {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ClusterManager::fetch_cluster_upgrade_info][crate::client::ClusterManager::fetch_cluster_upgrade_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::FetchClusterUpgradeInfo;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchClusterUpgradeInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchClusterUpgradeInfo(
+        RequestBuilder<crate::model::FetchClusterUpgradeInfoRequest>,
+    );
+
+    impl FetchClusterUpgradeInfo {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchClusterUpgradeInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ClusterUpgradeInfo> {
+            (*self.0.stub)
+                .fetch_cluster_upgrade_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchClusterUpgradeInfoRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::FetchClusterUpgradeInfoRequest::version].
+        pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.version = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchClusterUpgradeInfo {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ClusterManager::fetch_node_pool_upgrade_info][crate::client::ClusterManager::fetch_node_pool_upgrade_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::FetchNodePoolUpgradeInfo;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchNodePoolUpgradeInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchNodePoolUpgradeInfo(
+        RequestBuilder<crate::model::FetchNodePoolUpgradeInfoRequest>,
+    );
+
+    impl FetchNodePoolUpgradeInfo {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchNodePoolUpgradeInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::NodePoolUpgradeInfo> {
+            (*self.0.stub)
+                .fetch_node_pool_upgrade_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchNodePoolUpgradeInfoRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::FetchNodePoolUpgradeInfoRequest::version].
+        pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.version = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchNodePoolUpgradeInfo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

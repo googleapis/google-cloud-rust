@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Datastore API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
 /// let client = DatastoreAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Datastore API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -104,11 +101,11 @@ use std::sync::Arc;
 ///
 /// `DatastoreAdmin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DatastoreAdmin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DatastoreAdmin {
-    inner: Arc<dyn super::stub::dynamic::DatastoreAdmin>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DatastoreAdmin>,
 }
 
 impl DatastoreAdmin {
@@ -118,7 +115,7 @@ impl DatastoreAdmin {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
     /// let client = DatastoreAdmin::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::datastore_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::datastore_admin::client::Factory)
@@ -133,33 +130,35 @@ impl DatastoreAdmin {
         T: super::stub::DatastoreAdmin + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DatastoreAdmin>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DatastoreAdmin> {
+    ) -> gax::client_builder::Result<impl super::stub::DatastoreAdmin> {
         super::transport::DatastoreAdmin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DatastoreAdmin> {
+    ) -> gax::client_builder::Result<impl super::stub::DatastoreAdmin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatastoreAdmin::new)
@@ -183,12 +182,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_entities(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ExportEntities {
+    pub fn export_entities(&self) -> super::builder::datastore_admin::ExportEntities {
         super::builder::datastore_admin::ExportEntities::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Imports entities into Google Cloud Datastore. Existing entities with the
@@ -206,12 +201,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_entities(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ImportEntities {
+    pub fn import_entities(&self) -> super::builder::datastore_admin::ImportEntities {
         super::builder::datastore_admin::ImportEntities::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Creates the specified index.
@@ -241,12 +232,8 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_index(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::CreateIndex {
+    pub fn create_index(&self) -> super::builder::datastore_admin::CreateIndex {
         super::builder::datastore_admin::CreateIndex::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Deletes an existing index.
@@ -274,78 +261,47 @@ impl DatastoreAdmin {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_index(
-        &self,
-        project_id: impl Into<std::string::String>,
-        index_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::DeleteIndex {
+    pub fn delete_index(&self) -> super::builder::datastore_admin::DeleteIndex {
         super::builder::datastore_admin::DeleteIndex::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_index_id(index_id.into())
     }
 
     /// Gets an index.
-    pub fn get_index(
-        &self,
-        project_id: impl Into<std::string::String>,
-        index_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::GetIndex {
+    pub fn get_index(&self) -> super::builder::datastore_admin::GetIndex {
         super::builder::datastore_admin::GetIndex::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_index_id(index_id.into())
     }
 
     /// Lists the indexes that match the specified filters.  Datastore uses an
     /// eventually consistent query to fetch the list of indexes and may
     /// occasionally return stale results.
-    pub fn list_indexes(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ListIndexes {
+    pub fn list_indexes(&self) -> super::builder::datastore_admin::ListIndexes {
         super::builder::datastore_admin::ListIndexes::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::datastore_admin::ListOperations {
         super::builder::datastore_admin::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::GetOperation {
-        super::builder::datastore_admin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::datastore_admin::GetOperation {
+        super::builder::datastore_admin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::datastore_admin::DeleteOperation {
         super::builder::datastore_admin::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::datastore_admin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::datastore_admin::CancelOperation {
         super::builder::datastore_admin::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

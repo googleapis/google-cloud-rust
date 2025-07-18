@@ -25,16 +25,12 @@ extern crate std;
 extern crate wkt;
 
 /// The widget subset used by an add-on.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AddOnWidgetSet {
     /// The list of widgets used in an add-on.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub used_widgets: std::vec::Vec<crate::model::add_on_widget_set::WidgetType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -58,6 +54,111 @@ impl AddOnWidgetSet {
 impl wkt::message::Message for AddOnWidgetSet {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.script.type.AddOnWidgetSet"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AddOnWidgetSet {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __used_widgets,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AddOnWidgetSet")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "usedWidgets" => Ok(__FieldTag::__used_widgets),
+                            "used_widgets" => Ok(__FieldTag::__used_widgets),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AddOnWidgetSet;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AddOnWidgetSet")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__used_widgets => {
+                            if !fields.insert(__FieldTag::__used_widgets) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for used_widgets",
+                                ));
+                            }
+                            result.used_widgets = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::add_on_widget_set::WidgetType>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AddOnWidgetSet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.used_widgets.is_empty() {
+            state.serialize_entry("usedWidgets", &self.used_widgets)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -238,28 +339,22 @@ pub mod add_on_widget_set {
 
 /// Common format for declaring a  menu item, or button, that appears within a
 /// host app.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MenuItemExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub run_function: std::string::String,
 
     /// Required. User-visible text describing the action taken by activating this
     /// extension point. For example, "Insert invoice".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub label: std::string::String,
 
     /// The URL for the logo image shown in the add-on toolbar.
     ///
     /// If not set, defaults to the add-on's primary logo URL.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub logo_url: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -293,15 +388,146 @@ impl wkt::message::Message for MenuItemExtensionPoint {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MenuItemExtensionPoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __run_function,
+            __label,
+            __logo_url,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MenuItemExtensionPoint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "runFunction" => Ok(__FieldTag::__run_function),
+                            "run_function" => Ok(__FieldTag::__run_function),
+                            "label" => Ok(__FieldTag::__label),
+                            "logoUrl" => Ok(__FieldTag::__logo_url),
+                            "logo_url" => Ok(__FieldTag::__logo_url),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MenuItemExtensionPoint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MenuItemExtensionPoint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__run_function => {
+                            if !fields.insert(__FieldTag::__run_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for run_function",
+                                ));
+                            }
+                            result.run_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__logo_url => {
+                            if !fields.insert(__FieldTag::__logo_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for logo_url",
+                                ));
+                            }
+                            result.logo_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MenuItemExtensionPoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.run_function.is_empty() {
+            state.serialize_entry("runFunction", &self.run_function)?;
+        }
+        if !self.label.is_empty() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if !self.logo_url.is_empty() {
+            state.serialize_entry("logoUrl", &self.logo_url)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Common format for declaring an add-on's home-page view.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HomepageExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub run_function: std::string::String,
 
     /// Optional. If set to `false`, disable the home-page view in this context.
@@ -310,10 +536,8 @@ pub struct HomepageExtensionPoint {
     ///
     /// If an add-ons custom home-page view is disabled, an autogenerated overview
     /// card will be provided for users instead.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enabled: std::option::Option<wkt::BoolValue>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -329,11 +553,20 @@ impl HomepageExtensionPoint {
     }
 
     /// Sets the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
-    pub fn set_enabled<T: std::convert::Into<std::option::Option<wkt::BoolValue>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.enabled = v.into();
+    pub fn set_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enabled][crate::model::HomepageExtensionPoint::enabled].
+    pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.enabled = v.map(|x| x.into());
         self
     }
 }
@@ -344,24 +577,136 @@ impl wkt::message::Message for HomepageExtensionPoint {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for HomepageExtensionPoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __run_function,
+            __enabled,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for HomepageExtensionPoint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "runFunction" => Ok(__FieldTag::__run_function),
+                            "run_function" => Ok(__FieldTag::__run_function),
+                            "enabled" => Ok(__FieldTag::__enabled),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = HomepageExtensionPoint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct HomepageExtensionPoint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__run_function => {
+                            if !fields.insert(__FieldTag::__run_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for run_function",
+                                ));
+                            }
+                            result.run_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enabled => {
+                            if !fields.insert(__FieldTag::__enabled) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enabled",
+                                ));
+                            }
+                            result.enabled =
+                                map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for HomepageExtensionPoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.run_function.is_empty() {
+            state.serialize_entry("runFunction", &self.run_function)?;
+        }
+        if self.enabled.is_some() {
+            state.serialize_entry("enabled", &self.enabled)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Format for declaring a universal action menu item extension point.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UniversalActionExtensionPoint {
     /// Required. User-visible text describing the action taken by activating this
     /// extension point, for example, "Add a new contact".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub label: std::string::String,
 
     /// Required. The action type supported on a universal action menu item. It
     /// could be either a link to open or an endpoint to execute.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub action_type:
         std::option::Option<crate::model::universal_action_extension_point::ActionType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -405,6 +750,18 @@ impl UniversalActionExtensionPoint {
         })
     }
 
+    /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
+    /// to hold a `OpenLink`.
+    ///
+    /// Note that all the setters affecting `action_type` are
+    /// mutually exclusive.
+    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action_type = std::option::Option::Some(
+            crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
+        );
+        self
+    }
+
     /// The value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
     /// if it holds a `RunFunction`, `None` if the field is not set or
     /// holds a different branch.
@@ -416,18 +773,6 @@ impl UniversalActionExtensionPoint {
             }
             _ => std::option::Option::None,
         })
-    }
-
-    /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
-    /// to hold a `OpenLink`.
-    ///
-    /// Note that all the setters affecting `action_type` are
-    /// mutually exclusive.
-    pub fn set_open_link<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.action_type = std::option::Option::Some(
-            crate::model::universal_action_extension_point::ActionType::OpenLink(v.into()),
-        );
-        self
     }
 
     /// Sets the value of [action_type][crate::model::UniversalActionExtensionPoint::action_type]
@@ -449,6 +794,154 @@ impl wkt::message::Message for UniversalActionExtensionPoint {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UniversalActionExtensionPoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __label,
+            __open_link,
+            __run_function,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UniversalActionExtensionPoint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "label" => Ok(__FieldTag::__label),
+                            "openLink" => Ok(__FieldTag::__open_link),
+                            "open_link" => Ok(__FieldTag::__open_link),
+                            "runFunction" => Ok(__FieldTag::__run_function),
+                            "run_function" => Ok(__FieldTag::__run_function),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UniversalActionExtensionPoint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UniversalActionExtensionPoint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__open_link => {
+                            if !fields.insert(__FieldTag::__open_link) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for open_link",
+                                ));
+                            }
+                            if result.action_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `action_type`, a oneof with full ID .google.apps.script.type.UniversalActionExtensionPoint.open_link, latest field was openLink",
+                                ));
+                            }
+                            result.action_type = std::option::Option::Some(
+                                crate::model::universal_action_extension_point::ActionType::OpenLink(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__run_function => {
+                            if !fields.insert(__FieldTag::__run_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for run_function",
+                                ));
+                            }
+                            if result.action_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `action_type`, a oneof with full ID .google.apps.script.type.UniversalActionExtensionPoint.run_function, latest field was runFunction",
+                                ));
+                            }
+                            result.action_type = std::option::Option::Some(
+                                crate::model::universal_action_extension_point::ActionType::RunFunction(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UniversalActionExtensionPoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.label.is_empty() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if let Some(value) = self.open_link() {
+            state.serialize_entry("openLink", value)?;
+        }
+        if let Some(value) = self.run_function() {
+            state.serialize_entry("runFunction", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [UniversalActionExtensionPoint].
 pub mod universal_action_extension_point {
     #[allow(unused_imports)]
@@ -456,8 +949,7 @@ pub mod universal_action_extension_point {
 
     /// Required. The action type supported on a universal action menu item. It
     /// could be either a link to open or an endpoint to execute.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ActionType {
         /// URL to be opened by the UniversalAction.
@@ -468,44 +960,35 @@ pub mod universal_action_extension_point {
 }
 
 /// Add-on configuration that is shared across all add-on host applications.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommonAddOnManifest {
     /// Required. The display name of the add-on.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Required. The URL for the logo image shown in the add-on toolbar.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub logo_url: std::string::String,
 
     /// Common layout properties for the add-on cards.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub layout_properties: std::option::Option<crate::model::LayoutProperties>,
 
     /// The widgets used in the add-on. If this field is not specified,
     /// it indicates that default set is used.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub add_on_widget_set: std::option::Option<crate::model::AddOnWidgetSet>,
 
     /// Whether to pass locale information from host app.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_locale_from_app: bool,
 
     /// Defines an endpoint that will be executed in any context, in
     /// any host. Any cards generated by this function will always be available to
     /// the user, but may be eclipsed by contextual content when this add-on
     /// declares more targeted triggers.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub homepage_trigger: std::option::Option<crate::model::HomepageExtensionPoint>,
 
     /// Defines a list of extension points in the universal action menu which
     /// serves as a setting menu for the add-on. The extension point can be
     /// link URL to open or an endpoint to execute as a form
     /// submission.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub universal_actions: std::vec::Vec<crate::model::UniversalActionExtensionPoint>,
 
     /// An OpenLink action
@@ -515,10 +998,8 @@ pub struct CommonAddOnManifest {
     /// prefixes specified in this whitelist. If the prefix omits the scheme, HTTPS
     /// is assumed.  Notice that HTTP links are automatically rewritten to HTTPS
     /// links.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub open_link_url_prefixes: std::option::Option<wkt::ListValue>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -540,24 +1021,38 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
-    pub fn set_layout_properties<
-        T: std::convert::Into<std::option::Option<crate::model::LayoutProperties>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.layout_properties = v.into();
+    pub fn set_layout_properties<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LayoutProperties>,
+    {
+        self.layout_properties = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [layout_properties][crate::model::CommonAddOnManifest::layout_properties].
+    pub fn set_or_clear_layout_properties<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LayoutProperties>,
+    {
+        self.layout_properties = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
-    pub fn set_add_on_widget_set<
-        T: std::convert::Into<std::option::Option<crate::model::AddOnWidgetSet>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.add_on_widget_set = v.into();
+    pub fn set_add_on_widget_set<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AddOnWidgetSet>,
+    {
+        self.add_on_widget_set = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [add_on_widget_set][crate::model::CommonAddOnManifest::add_on_widget_set].
+    pub fn set_or_clear_add_on_widget_set<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AddOnWidgetSet>,
+    {
+        self.add_on_widget_set = v.map(|x| x.into());
         self
     }
 
@@ -568,24 +1063,20 @@ impl CommonAddOnManifest {
     }
 
     /// Sets the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
-    pub fn set_homepage_trigger<
-        T: std::convert::Into<std::option::Option<crate::model::HomepageExtensionPoint>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.homepage_trigger = v.into();
+    pub fn set_homepage_trigger<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = std::option::Option::Some(v.into());
         self
     }
 
-    /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
-    pub fn set_open_link_url_prefixes<
-        T: std::convert::Into<std::option::Option<wkt::ListValue>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.open_link_url_prefixes = v.into();
+    /// Sets or clears the value of [homepage_trigger][crate::model::CommonAddOnManifest::homepage_trigger].
+    pub fn set_or_clear_homepage_trigger<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HomepageExtensionPoint>,
+    {
+        self.homepage_trigger = v.map(|x| x.into());
         self
     }
 
@@ -599,6 +1090,24 @@ impl CommonAddOnManifest {
         self.universal_actions = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    pub fn set_open_link_url_prefixes<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::ListValue>,
+    {
+        self.open_link_url_prefixes = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [open_link_url_prefixes][crate::model::CommonAddOnManifest::open_link_url_prefixes].
+    pub fn set_or_clear_open_link_url_prefixes<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::ListValue>,
+    {
+        self.open_link_url_prefixes = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for CommonAddOnManifest {
@@ -607,16 +1116,227 @@ impl wkt::message::Message for CommonAddOnManifest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CommonAddOnManifest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __logo_url,
+            __layout_properties,
+            __add_on_widget_set,
+            __use_locale_from_app,
+            __homepage_trigger,
+            __universal_actions,
+            __open_link_url_prefixes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CommonAddOnManifest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "logoUrl" => Ok(__FieldTag::__logo_url),
+                            "logo_url" => Ok(__FieldTag::__logo_url),
+                            "layoutProperties" => Ok(__FieldTag::__layout_properties),
+                            "layout_properties" => Ok(__FieldTag::__layout_properties),
+                            "addOnWidgetSet" => Ok(__FieldTag::__add_on_widget_set),
+                            "add_on_widget_set" => Ok(__FieldTag::__add_on_widget_set),
+                            "useLocaleFromApp" => Ok(__FieldTag::__use_locale_from_app),
+                            "use_locale_from_app" => Ok(__FieldTag::__use_locale_from_app),
+                            "homepageTrigger" => Ok(__FieldTag::__homepage_trigger),
+                            "homepage_trigger" => Ok(__FieldTag::__homepage_trigger),
+                            "universalActions" => Ok(__FieldTag::__universal_actions),
+                            "universal_actions" => Ok(__FieldTag::__universal_actions),
+                            "openLinkUrlPrefixes" => Ok(__FieldTag::__open_link_url_prefixes),
+                            "open_link_url_prefixes" => Ok(__FieldTag::__open_link_url_prefixes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CommonAddOnManifest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CommonAddOnManifest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__logo_url => {
+                            if !fields.insert(__FieldTag::__logo_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for logo_url",
+                                ));
+                            }
+                            result.logo_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__layout_properties => {
+                            if !fields.insert(__FieldTag::__layout_properties) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for layout_properties",
+                                ));
+                            }
+                            result.layout_properties = map
+                                .next_value::<std::option::Option<crate::model::LayoutProperties>>(
+                                )?;
+                        }
+                        __FieldTag::__add_on_widget_set => {
+                            if !fields.insert(__FieldTag::__add_on_widget_set) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for add_on_widget_set",
+                                ));
+                            }
+                            result.add_on_widget_set = map
+                                .next_value::<std::option::Option<crate::model::AddOnWidgetSet>>(
+                                )?;
+                        }
+                        __FieldTag::__use_locale_from_app => {
+                            if !fields.insert(__FieldTag::__use_locale_from_app) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_locale_from_app",
+                                ));
+                            }
+                            result.use_locale_from_app = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__homepage_trigger => {
+                            if !fields.insert(__FieldTag::__homepage_trigger) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for homepage_trigger",
+                                ));
+                            }
+                            result.homepage_trigger = map.next_value::<std::option::Option<crate::model::HomepageExtensionPoint>>()?
+                                ;
+                        }
+                        __FieldTag::__universal_actions => {
+                            if !fields.insert(__FieldTag::__universal_actions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for universal_actions",
+                                ));
+                            }
+                            result.universal_actions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::UniversalActionExtensionPoint>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__open_link_url_prefixes => {
+                            if !fields.insert(__FieldTag::__open_link_url_prefixes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for open_link_url_prefixes",
+                                ));
+                            }
+                            result.open_link_url_prefixes =
+                                map.next_value::<std::option::Option<wkt::ListValue>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CommonAddOnManifest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.logo_url.is_empty() {
+            state.serialize_entry("logoUrl", &self.logo_url)?;
+        }
+        if self.layout_properties.is_some() {
+            state.serialize_entry("layoutProperties", &self.layout_properties)?;
+        }
+        if self.add_on_widget_set.is_some() {
+            state.serialize_entry("addOnWidgetSet", &self.add_on_widget_set)?;
+        }
+        if !wkt::internal::is_default(&self.use_locale_from_app) {
+            state.serialize_entry("useLocaleFromApp", &self.use_locale_from_app)?;
+        }
+        if self.homepage_trigger.is_some() {
+            state.serialize_entry("homepageTrigger", &self.homepage_trigger)?;
+        }
+        if !self.universal_actions.is_empty() {
+            state.serialize_entry("universalActions", &self.universal_actions)?;
+        }
+        if self.open_link_url_prefixes.is_some() {
+            state.serialize_entry("openLinkUrlPrefixes", &self.open_link_url_prefixes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Card layout properties shared across all add-on host applications.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LayoutProperties {
     /// The primary color of the add-on. It sets the color of toolbar. If no
     /// primary color is set explicitly, the default value provided by the
     /// framework is used.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub primary_color: std::string::String,
 
     /// The secondary color of the add-on. It sets the color of buttons.
@@ -624,10 +1344,8 @@ pub struct LayoutProperties {
     /// secondary color is the same as the primary color. If neither primary
     /// color nor secondary color is set, the default value provided by the
     /// framework is used.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub secondary_color: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -655,16 +1373,132 @@ impl wkt::message::Message for LayoutProperties {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LayoutProperties {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __primary_color,
+            __secondary_color,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LayoutProperties")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "primaryColor" => Ok(__FieldTag::__primary_color),
+                            "primary_color" => Ok(__FieldTag::__primary_color),
+                            "secondaryColor" => Ok(__FieldTag::__secondary_color),
+                            "secondary_color" => Ok(__FieldTag::__secondary_color),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LayoutProperties;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LayoutProperties")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__primary_color => {
+                            if !fields.insert(__FieldTag::__primary_color) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for primary_color",
+                                ));
+                            }
+                            result.primary_color = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__secondary_color => {
+                            if !fields.insert(__FieldTag::__secondary_color) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for secondary_color",
+                                ));
+                            }
+                            result.secondary_color = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LayoutProperties {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.primary_color.is_empty() {
+            state.serialize_entry("primaryColor", &self.primary_color)?;
+        }
+        if !self.secondary_color.is_empty() {
+            state.serialize_entry("secondaryColor", &self.secondary_color)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Options for sending requests to add-on HTTP endpoints
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpOptions {
     /// Configuration for the token sent in the HTTP Authorization header
     pub authorization_header: crate::model::HttpAuthorizationHeader,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -688,6 +1522,107 @@ impl HttpOptions {
 impl wkt::message::Message for HttpOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.script.type.HttpOptions"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for HttpOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __authorization_header,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for HttpOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "authorizationHeader" => Ok(__FieldTag::__authorization_header),
+                            "authorization_header" => Ok(__FieldTag::__authorization_header),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = HttpOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct HttpOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__authorization_header => {
+                            if !fields.insert(__FieldTag::__authorization_header) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authorization_header",
+                                ));
+                            }
+                            result.authorization_header = map.next_value::<std::option::Option<crate::model::HttpAuthorizationHeader>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for HttpOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.authorization_header) {
+            state.serialize_entry("authorizationHeader", &self.authorization_header)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

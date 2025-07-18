@@ -16,10 +16,22 @@
 
 //! Google Cloud Client Libraries for Rust - Vertex AI API
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
+//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
+//! do not anticipate any breaking changes are needed. We are looking for
+//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
+//! are still possible, but not expected.
+//!
+//! We also believe the implementation is ready for production, bugs are
+//! still possible, but not expected.
+//!
+//!
+//! **WARNING:** some RPCs have no corresponding Rust function to call them.
+//! Typically these are streaming RPCs. We expect adding these RPCs in a
+//! way that does not break the existing APIs or changes their behavior in a
+//! significant way. We do anticipate a number of new crate dependencies
+//! will be required. If you need these RPCs please open an issue in our
+//! GitHub repository.
+//!
 //!
 //! This crate contains traits, types, and functions to interact with Vertex AI API
 //! Most applications will use the structs defined in the [client] module.
@@ -86,74 +98,74 @@ pub(crate) mod transport;
 
 /// The default host used by the service.
 #[cfg(any(
-    feature = "dataset_service",
-    feature = "deployment_resource_pool_service",
-    feature = "endpoint_service",
-    feature = "evaluation_service",
-    feature = "feature_online_store_admin_service",
-    feature = "feature_online_store_service",
-    feature = "feature_registry_service",
-    feature = "featurestore_online_serving_service",
-    feature = "featurestore_service",
-    feature = "gen_ai_cache_service",
-    feature = "gen_ai_tuning_service",
-    feature = "index_endpoint_service",
-    feature = "index_service",
-    feature = "job_service",
-    feature = "llm_utility_service",
-    feature = "match_service",
-    feature = "metadata_service",
-    feature = "migration_service",
-    feature = "model_garden_service",
-    feature = "model_service",
-    feature = "notebook_service",
-    feature = "persistent_resource_service",
-    feature = "pipeline_service",
-    feature = "prediction_service",
-    feature = "reasoning_engine_execution_service",
-    feature = "reasoning_engine_service",
-    feature = "schedule_service",
-    feature = "specialist_pool_service",
-    feature = "tensorboard_service",
-    feature = "vertex_rag_data_service",
-    feature = "vertex_rag_service",
-    feature = "vizier_service",
+    feature = "dataset-service",
+    feature = "deployment-resource-pool-service",
+    feature = "endpoint-service",
+    feature = "evaluation-service",
+    feature = "feature-online-store-admin-service",
+    feature = "feature-online-store-service",
+    feature = "feature-registry-service",
+    feature = "featurestore-online-serving-service",
+    feature = "featurestore-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "index-endpoint-service",
+    feature = "index-service",
+    feature = "job-service",
+    feature = "llm-utility-service",
+    feature = "match-service",
+    feature = "metadata-service",
+    feature = "migration-service",
+    feature = "model-garden-service",
+    feature = "model-service",
+    feature = "notebook-service",
+    feature = "persistent-resource-service",
+    feature = "pipeline-service",
+    feature = "prediction-service",
+    feature = "reasoning-engine-execution-service",
+    feature = "reasoning-engine-service",
+    feature = "schedule-service",
+    feature = "specialist-pool-service",
+    feature = "tensorboard-service",
+    feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
+    feature = "vizier-service",
 ))]
 const DEFAULT_HOST: &str = "https://aiplatform.googleapis.com/";
 
 #[cfg(any(
-    feature = "dataset_service",
-    feature = "deployment_resource_pool_service",
-    feature = "endpoint_service",
-    feature = "evaluation_service",
-    feature = "feature_online_store_admin_service",
-    feature = "feature_online_store_service",
-    feature = "feature_registry_service",
-    feature = "featurestore_online_serving_service",
-    feature = "featurestore_service",
-    feature = "gen_ai_cache_service",
-    feature = "gen_ai_tuning_service",
-    feature = "index_endpoint_service",
-    feature = "index_service",
-    feature = "job_service",
-    feature = "llm_utility_service",
-    feature = "match_service",
-    feature = "metadata_service",
-    feature = "migration_service",
-    feature = "model_garden_service",
-    feature = "model_service",
-    feature = "notebook_service",
-    feature = "persistent_resource_service",
-    feature = "pipeline_service",
-    feature = "prediction_service",
-    feature = "reasoning_engine_execution_service",
-    feature = "reasoning_engine_service",
-    feature = "schedule_service",
-    feature = "specialist_pool_service",
-    feature = "tensorboard_service",
-    feature = "vertex_rag_data_service",
-    feature = "vertex_rag_service",
-    feature = "vizier_service",
+    feature = "dataset-service",
+    feature = "deployment-resource-pool-service",
+    feature = "endpoint-service",
+    feature = "evaluation-service",
+    feature = "feature-online-store-admin-service",
+    feature = "feature-online-store-service",
+    feature = "feature-registry-service",
+    feature = "featurestore-online-serving-service",
+    feature = "featurestore-service",
+    feature = "gen-ai-cache-service",
+    feature = "gen-ai-tuning-service",
+    feature = "index-endpoint-service",
+    feature = "index-service",
+    feature = "job-service",
+    feature = "llm-utility-service",
+    feature = "match-service",
+    feature = "metadata-service",
+    feature = "migration-service",
+    feature = "model-garden-service",
+    feature = "model-service",
+    feature = "notebook-service",
+    feature = "persistent-resource-service",
+    feature = "pipeline-service",
+    feature = "prediction-service",
+    feature = "reasoning-engine-execution-service",
+    feature = "reasoning-engine-service",
+    feature = "schedule-service",
+    feature = "specialist-pool-service",
+    feature = "tensorboard-service",
+    feature = "vertex-rag-data-service",
+    feature = "vertex-rag-service",
+    feature = "vizier-service",
 ))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
@@ -165,10 +177,7 @@ pub(crate) mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.rest_header_value()
         };
     }
 }
-
-pub use lro::Poller;
-pub use lro::PollingResult;

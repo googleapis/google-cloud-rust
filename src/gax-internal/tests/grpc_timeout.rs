@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_grpc_client"))]
-mod test {
+#[cfg(all(test, feature = "_internal-grpc-client"))]
+mod tests {
     use anyhow::Result;
     use auth::credentials::testing::test_credentials;
     use gax::options::*;
@@ -101,16 +101,11 @@ mod test {
                 r = &mut response => {
                     assert!(
                         r.is_err(),
-                        "expected an error when timeout={}, got={:?}",
-                        timeout.as_millis(),
-                        r
+                        "expected an error when timeout={}, got={r:?}",
+                        timeout.as_millis()
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-                    let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-                    let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled as i32);
-                    assert_eq!(status.status.as_deref(), Some("CANCELLED"));
+                    let err = r.unwrap_err();
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -175,15 +170,10 @@ mod test {
                 r = &mut response => {
                     assert!(
                         r.is_err(),
-                        "expected a timeout error, got={:?}",
-                        r
+                        "expected a timeout error, got={r:?}"
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-                    let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-                    let status = svc.status().clone();
-                    assert_eq!(status.code, gax::error::rpc::Code::Cancelled as i32);
-                    assert_eq!(status.status.as_deref(), Some("CANCELLED"));
+                    let err = r.unwrap_err();
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -204,7 +194,7 @@ mod test {
         Ok(())
     }
 
-    async fn test_client(endpoint: String) -> gax::Result<grpc::Client> {
+    async fn test_client(endpoint: String) -> gax::client_builder::Result<grpc::Client> {
         builder(endpoint)
             .with_credentials(test_credentials())
             .build()

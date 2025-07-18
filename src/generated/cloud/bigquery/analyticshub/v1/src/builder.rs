@@ -16,9 +16,8 @@
 
 pub mod analytics_hub_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AnalyticsHubService][super::super::client::AnalyticsHubService].
+    /// A builder for [AnalyticsHubService][crate::client::AnalyticsHubService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod analytics_hub_service {
     /// let client = builder
     ///     .with_endpoint("https://analyticshub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod analytics_hub_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AnalyticsHubService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AnalyticsHubService] request builders.
+    /// Common implementation for [crate::client::AnalyticsHubService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod analytics_hub_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_data_exchanges][super::super::client::AnalyticsHubService::list_data_exchanges] calls.
+    /// The request builder for [AnalyticsHubService::list_data_exchanges][crate::client::AnalyticsHubService::list_data_exchanges] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListDataExchanges;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataExchanges {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataExchanges(RequestBuilder<crate::model::ListDataExchangesRequest>);
 
     impl ListDataExchanges {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataExchangesResponse, gax::error::Error>
         {
@@ -112,6 +138,15 @@ pub mod analytics_hub_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataExchangesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataExchangesRequest::parent].
@@ -142,12 +177,34 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_org_data_exchanges][super::super::client::AnalyticsHubService::list_org_data_exchanges] calls.
+    /// The request builder for [AnalyticsHubService::list_org_data_exchanges][crate::client::AnalyticsHubService::list_org_data_exchanges] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListOrgDataExchanges;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrgDataExchanges {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrgDataExchanges(RequestBuilder<crate::model::ListOrgDataExchangesRequest>);
 
     impl ListOrgDataExchanges {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -174,8 +231,8 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListOrgDataExchangesResponse, gax::error::Error>
         {
@@ -187,6 +244,17 @@ pub mod analytics_hub_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrgDataExchangesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [organization][crate::model::ListOrgDataExchangesRequest::organization].
@@ -217,12 +285,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_data_exchange][super::super::client::AnalyticsHubService::get_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::get_data_exchange][crate::client::AnalyticsHubService::get_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetDataExchange;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataExchange(RequestBuilder<crate::model::GetDataExchangeRequest>);
 
     impl GetDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -262,12 +348,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::create_data_exchange][super::super::client::AnalyticsHubService::create_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::create_data_exchange][crate::client::AnalyticsHubService::create_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::CreateDataExchange;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataExchange(RequestBuilder<crate::model::CreateDataExchangeRequest>);
 
     impl CreateDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -313,11 +417,22 @@ pub mod analytics_hub_service {
         /// Sets the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_exchange<T: Into<std::option::Option<crate::model::DataExchange>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_exchange = v.into();
+        pub fn set_data_exchange<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_exchange][crate::model::CreateDataExchangeRequest::data_exchange].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = v.map(|x| x.into());
             self
         }
     }
@@ -329,12 +444,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::update_data_exchange][super::super::client::AnalyticsHubService::update_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::update_data_exchange][crate::client::AnalyticsHubService::update_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::UpdateDataExchange;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataExchange(RequestBuilder<crate::model::UpdateDataExchangeRequest>);
 
     impl UpdateDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -364,22 +497,44 @@ pub mod analytics_hub_service {
         /// Sets the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataExchangeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_exchange<T: Into<std::option::Option<crate::model::DataExchange>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_exchange = v.into();
+        pub fn set_data_exchange<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_exchange][crate::model::UpdateDataExchangeRequest::data_exchange].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_exchange<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataExchange>,
+        {
+            self.0.request.data_exchange = v.map(|x| x.into());
             self
         }
     }
@@ -391,12 +546,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::delete_data_exchange][super::super::client::AnalyticsHubService::delete_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::delete_data_exchange][crate::client::AnalyticsHubService::delete_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::DeleteDataExchange;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataExchange(RequestBuilder<crate::model::DeleteDataExchangeRequest>);
 
     impl DeleteDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -439,12 +612,34 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_listings][super::super::client::AnalyticsHubService::list_listings] calls.
+    /// The request builder for [AnalyticsHubService::list_listings][crate::client::AnalyticsHubService::list_listings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListListings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListListings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListListings(RequestBuilder<crate::model::ListListingsRequest>);
 
     impl ListListings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -468,8 +663,8 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListListingsResponse, gax::error::Error>
         {
@@ -481,6 +676,15 @@ pub mod analytics_hub_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListListingsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListListingsRequest::parent].
@@ -511,12 +715,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_listing][super::super::client::AnalyticsHubService::get_listing] calls.
+    /// The request builder for [AnalyticsHubService::get_listing][crate::client::AnalyticsHubService::get_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetListing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetListing(RequestBuilder<crate::model::GetListingRequest>);
 
     impl GetListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -556,12 +778,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::create_listing][super::super::client::AnalyticsHubService::create_listing] calls.
+    /// The request builder for [AnalyticsHubService::create_listing][crate::client::AnalyticsHubService::create_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::CreateListing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateListing(RequestBuilder<crate::model::CreateListingRequest>);
 
     impl CreateListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -604,11 +844,22 @@ pub mod analytics_hub_service {
         /// Sets the value of [listing][crate::model::CreateListingRequest::listing].
         ///
         /// This is a **required** field for requests.
-        pub fn set_listing<T: Into<std::option::Option<crate::model::Listing>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.listing = v.into();
+        pub fn set_listing<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [listing][crate::model::CreateListingRequest::listing].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = v.map(|x| x.into());
             self
         }
     }
@@ -620,12 +871,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::update_listing][super::super::client::AnalyticsHubService::update_listing] calls.
+    /// The request builder for [AnalyticsHubService::update_listing][crate::client::AnalyticsHubService::update_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::UpdateListing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateListing(RequestBuilder<crate::model::UpdateListingRequest>);
 
     impl UpdateListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -652,22 +921,44 @@ pub mod analytics_hub_service {
         /// Sets the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateListingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [listing][crate::model::UpdateListingRequest::listing].
         ///
         /// This is a **required** field for requests.
-        pub fn set_listing<T: Into<std::option::Option<crate::model::Listing>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.listing = v.into();
+        pub fn set_listing<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [listing][crate::model::UpdateListingRequest::listing].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_listing<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Listing>,
+        {
+            self.0.request.listing = v.map(|x| x.into());
             self
         }
     }
@@ -679,12 +970,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::delete_listing][super::super::client::AnalyticsHubService::delete_listing] calls.
+    /// The request builder for [AnalyticsHubService::delete_listing][crate::client::AnalyticsHubService::delete_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::DeleteListing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteListing(RequestBuilder<crate::model::DeleteListingRequest>);
 
     impl DeleteListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -715,6 +1024,12 @@ pub mod analytics_hub_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [delete_commercial][crate::model::DeleteListingRequest::delete_commercial].
+        pub fn set_delete_commercial<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.delete_commercial = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -724,12 +1039,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::subscribe_listing][super::super::client::AnalyticsHubService::subscribe_listing] calls.
+    /// The request builder for [AnalyticsHubService::subscribe_listing][crate::client::AnalyticsHubService::subscribe_listing] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::SubscribeListing;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubscribeListing {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubscribeListing(RequestBuilder<crate::model::SubscribeListingRequest>);
 
     impl SubscribeListing {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -816,12 +1149,31 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::subscribe_data_exchange][super::super::client::AnalyticsHubService::subscribe_data_exchange] calls.
+    /// The request builder for [AnalyticsHubService::subscribe_data_exchange][crate::client::AnalyticsHubService::subscribe_data_exchange] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::SubscribeDataExchange;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubscribeDataExchange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubscribeDataExchange(RequestBuilder<crate::model::SubscribeDataExchangeRequest>);
 
     impl SubscribeDataExchange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,7 +1197,7 @@ pub mod analytics_hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [subscribe_data_exchange][super::super::client::AnalyticsHubService::subscribe_data_exchange].
+        /// on [subscribe_data_exchange][crate::client::AnalyticsHubService::subscribe_data_exchange].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .subscribe_data_exchange(self.0.request, self.0.options)
@@ -858,7 +1210,7 @@ pub mod analytics_hub_service {
             self,
         ) -> impl lro::Poller<crate::model::SubscribeDataExchangeResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SubscribeDataExchangeResponse,
                 crate::model::OperationMetadata,
             >;
@@ -886,7 +1238,7 @@ pub mod analytics_hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SubscribeDataExchangeRequest::name].
@@ -906,13 +1258,20 @@ pub mod analytics_hub_service {
         }
 
         /// Sets the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
-        pub fn set_destination_dataset<
-            T: Into<std::option::Option<crate::model::DestinationDataset>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.destination_dataset = v.into();
+        pub fn set_destination_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DestinationDataset>,
+        {
+            self.0.request.destination_dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [destination_dataset][crate::model::SubscribeDataExchangeRequest::destination_dataset].
+        pub fn set_or_clear_destination_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DestinationDataset>,
+        {
+            self.0.request.destination_dataset = v.map(|x| x.into());
             self
         }
 
@@ -938,12 +1297,31 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::refresh_subscription][super::super::client::AnalyticsHubService::refresh_subscription] calls.
+    /// The request builder for [AnalyticsHubService::refresh_subscription][crate::client::AnalyticsHubService::refresh_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::RefreshSubscription;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RefreshSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RefreshSubscription(RequestBuilder<crate::model::RefreshSubscriptionRequest>);
 
     impl RefreshSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -967,7 +1345,7 @@ pub mod analytics_hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [refresh_subscription][super::super::client::AnalyticsHubService::refresh_subscription].
+        /// on [refresh_subscription][crate::client::AnalyticsHubService::refresh_subscription].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .refresh_subscription(self.0.request, self.0.options)
@@ -980,7 +1358,7 @@ pub mod analytics_hub_service {
             self,
         ) -> impl lro::Poller<crate::model::RefreshSubscriptionResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RefreshSubscriptionResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1008,7 +1386,7 @@ pub mod analytics_hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RefreshSubscriptionRequest::name].
@@ -1027,12 +1405,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_subscription][super::super::client::AnalyticsHubService::get_subscription] calls.
+    /// The request builder for [AnalyticsHubService::get_subscription][crate::client::AnalyticsHubService::get_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetSubscription;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSubscription(RequestBuilder<crate::model::GetSubscriptionRequest>);
 
     impl GetSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1072,12 +1468,34 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_subscriptions][super::super::client::AnalyticsHubService::list_subscriptions] calls.
+    /// The request builder for [AnalyticsHubService::list_subscriptions][crate::client::AnalyticsHubService::list_subscriptions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListSubscriptions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSubscriptions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSubscriptions(RequestBuilder<crate::model::ListSubscriptionsRequest>);
 
     impl ListSubscriptions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1104,8 +1522,8 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
         {
@@ -1117,6 +1535,15 @@ pub mod analytics_hub_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSubscriptionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSubscriptionsRequest::parent].
@@ -1153,14 +1580,36 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::list_shared_resource_subscriptions][super::super::client::AnalyticsHubService::list_shared_resource_subscriptions] calls.
+    /// The request builder for [AnalyticsHubService::list_shared_resource_subscriptions][crate::client::AnalyticsHubService::list_shared_resource_subscriptions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::ListSharedResourceSubscriptions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSharedResourceSubscriptions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSharedResourceSubscriptions(
         RequestBuilder<crate::model::ListSharedResourceSubscriptionsRequest>,
     );
 
     impl ListSharedResourceSubscriptions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1187,8 +1636,8 @@ pub mod analytics_hub_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListSharedResourceSubscriptionsResponse,
@@ -1202,6 +1651,17 @@ pub mod analytics_hub_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSharedResourceSubscriptionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [resource][crate::model::ListSharedResourceSubscriptionsRequest::resource].
@@ -1238,12 +1698,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::revoke_subscription][super::super::client::AnalyticsHubService::revoke_subscription] calls.
+    /// The request builder for [AnalyticsHubService::revoke_subscription][crate::client::AnalyticsHubService::revoke_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::RevokeSubscription;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevokeSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeSubscription(RequestBuilder<crate::model::RevokeSubscriptionRequest>);
 
     impl RevokeSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1277,6 +1755,12 @@ pub mod analytics_hub_service {
             self.0.request.name = v.into();
             self
         }
+
+        /// Sets the value of [revoke_commercial][crate::model::RevokeSubscriptionRequest::revoke_commercial].
+        pub fn set_revoke_commercial<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.revoke_commercial = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1286,12 +1770,31 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::delete_subscription][super::super::client::AnalyticsHubService::delete_subscription] calls.
+    /// The request builder for [AnalyticsHubService::delete_subscription][crate::client::AnalyticsHubService::delete_subscription] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::DeleteSubscription;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSubscription {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSubscription(RequestBuilder<crate::model::DeleteSubscriptionRequest>);
 
     impl DeleteSubscription {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1315,7 +1818,7 @@ pub mod analytics_hub_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_subscription][super::super::client::AnalyticsHubService::delete_subscription].
+        /// on [delete_subscription][crate::client::AnalyticsHubService::delete_subscription].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_subscription(self.0.request, self.0.options)
@@ -1324,8 +1827,8 @@ pub mod analytics_hub_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_subscription`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1350,7 +1853,12 @@ pub mod analytics_hub_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSubscriptionRequest::name].
@@ -1369,12 +1877,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_iam_policy][super::super::client::AnalyticsHubService::get_iam_policy] calls.
+    /// The request builder for [AnalyticsHubService::get_iam_policy][crate::client::AnalyticsHubService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1407,11 +1933,20 @@ pub mod analytics_hub_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1423,12 +1958,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::set_iam_policy][super::super::client::AnalyticsHubService::set_iam_policy] calls.
+    /// The request builder for [AnalyticsHubService::set_iam_policy][crate::client::AnalyticsHubService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1463,20 +2016,40 @@ pub mod analytics_hub_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1488,12 +2061,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::test_iam_permissions][super::super::client::AnalyticsHubService::test_iam_permissions] calls.
+    /// The request builder for [AnalyticsHubService::test_iam_permissions][crate::client::AnalyticsHubService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1549,12 +2140,30 @@ pub mod analytics_hub_service {
         }
     }
 
-    /// The request builder for [AnalyticsHubService::get_operation][super::super::client::AnalyticsHubService::get_operation] calls.
+    /// The request builder for [AnalyticsHubService::get_operation][crate::client::AnalyticsHubService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_analyticshub_v1::builder;
+    /// use builder::analytics_hub_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AnalyticsHubService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AnalyticsHubService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

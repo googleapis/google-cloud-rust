@@ -16,9 +16,8 @@
 
 pub mod license_management_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [LicenseManagementService][super::super::client::LicenseManagementService].
+    /// A builder for [LicenseManagementService][crate::client::LicenseManagementService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod license_management_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudcommerceconsumerprocurement.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod license_management_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LicenseManagementService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::LicenseManagementService] request builders.
+    /// Common implementation for [crate::client::LicenseManagementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod license_management_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::get_license_pool][super::super::client::LicenseManagementService::get_license_pool] calls.
+    /// The request builder for [LicenseManagementService::get_license_pool][crate::client::LicenseManagementService::get_license_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::GetLicensePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLicensePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLicensePool(RequestBuilder<crate::model::GetLicensePoolRequest>);
 
     impl GetLicensePool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,13 +134,29 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::update_license_pool][super::super::client::LicenseManagementService::update_license_pool] calls.
+    /// The request builder for [LicenseManagementService::update_license_pool][crate::client::LicenseManagementService::update_license_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::UpdateLicensePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateLicensePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateLicensePool(RequestBuilder<crate::model::UpdateLicensePoolRequest>);
 
     impl UpdateLicensePool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -153,22 +187,44 @@ pub mod license_management_service {
         /// Sets the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_license_pool<T: Into<std::option::Option<crate::model::LicensePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.license_pool = v.into();
+        pub fn set_license_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LicensePool>,
+        {
+            self.0.request.license_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [license_pool][crate::model::UpdateLicensePoolRequest::license_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_license_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LicensePool>,
+        {
+            self.0.request.license_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLicensePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -180,13 +236,29 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::assign][super::super::client::LicenseManagementService::assign] calls.
+    /// The request builder for [LicenseManagementService::assign][crate::client::LicenseManagementService::assign] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::Assign;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Assign {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Assign(RequestBuilder<crate::model::AssignRequest>);
 
     impl Assign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -240,13 +312,29 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::unassign][super::super::client::LicenseManagementService::unassign] calls.
+    /// The request builder for [LicenseManagementService::unassign][crate::client::LicenseManagementService::unassign] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::Unassign;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Unassign {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Unassign(RequestBuilder<crate::model::UnassignRequest>);
 
     impl Unassign {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -300,13 +388,33 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::enumerate_licensed_users][super::super::client::LicenseManagementService::enumerate_licensed_users] calls.
+    /// The request builder for [LicenseManagementService::enumerate_licensed_users][crate::client::LicenseManagementService::enumerate_licensed_users] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::EnumerateLicensedUsers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnumerateLicensedUsers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnumerateLicensedUsers(RequestBuilder<crate::model::EnumerateLicensedUsersRequest>);
 
     impl EnumerateLicensedUsers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -334,8 +442,8 @@ pub mod license_management_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::EnumerateLicensedUsersResponse,
@@ -349,6 +457,17 @@ pub mod license_management_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::EnumerateLicensedUsersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::EnumerateLicensedUsersRequest::parent].
@@ -379,13 +498,29 @@ pub mod license_management_service {
         }
     }
 
-    /// The request builder for [LicenseManagementService::get_operation][super::super::client::LicenseManagementService::get_operation] calls.
+    /// The request builder for [LicenseManagementService::get_operation][crate::client::LicenseManagementService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::license_management_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LicenseManagementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -430,9 +565,8 @@ pub mod license_management_service {
 
 pub mod consumer_procurement_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ConsumerProcurementService][super::super::client::ConsumerProcurementService].
+    /// A builder for [ConsumerProcurementService][crate::client::ConsumerProcurementService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -443,7 +577,7 @@ pub mod consumer_procurement_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudcommerceconsumerprocurement.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -454,16 +588,19 @@ pub mod consumer_procurement_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ConsumerProcurementService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ConsumerProcurementService] request builders.
+    /// Common implementation for [crate::client::ConsumerProcurementService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -473,7 +610,7 @@ pub mod consumer_procurement_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self {
                 stub,
@@ -483,13 +620,30 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::place_order][super::super::client::ConsumerProcurementService::place_order] calls.
+    /// The request builder for [ConsumerProcurementService::place_order][crate::client::ConsumerProcurementService::place_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::PlaceOrder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PlaceOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PlaceOrder(RequestBuilder<crate::model::PlaceOrderRequest>);
 
     impl PlaceOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -511,7 +665,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [place_order][super::super::client::ConsumerProcurementService::place_order].
+        /// on [place_order][crate::client::ConsumerProcurementService::place_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .place_order(self.0.request, self.0.options)
@@ -523,7 +677,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::PlaceOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::PlaceOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -548,7 +703,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::PlaceOrderRequest::parent].
@@ -567,12 +722,6 @@ pub mod consumer_procurement_service {
             self
         }
 
-        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
-        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.request_id = v.into();
-            self
-        }
-
         /// Sets the value of [line_item_info][crate::model::PlaceOrderRequest::line_item_info].
         pub fn set_line_item_info<T, V>(mut self, v: T) -> Self
         where
@@ -581,6 +730,12 @@ pub mod consumer_procurement_service {
         {
             use std::iter::Iterator;
             self.0.request.line_item_info = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::PlaceOrderRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
             self
         }
     }
@@ -592,13 +747,29 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::get_order][super::super::client::ConsumerProcurementService::get_order] calls.
+    /// The request builder for [ConsumerProcurementService::get_order][crate::client::ConsumerProcurementService::get_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::GetOrder;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrder(RequestBuilder<crate::model::GetOrderRequest>);
 
     impl GetOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -639,13 +810,33 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::list_orders][super::super::client::ConsumerProcurementService::list_orders] calls.
+    /// The request builder for [ConsumerProcurementService::list_orders][crate::client::ConsumerProcurementService::list_orders] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::ListOrders;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrders {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrders(RequestBuilder<crate::model::ListOrdersRequest>);
 
     impl ListOrders {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -670,8 +861,8 @@ pub mod consumer_procurement_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListOrdersResponse, gax::error::Error>
         {
@@ -683,6 +874,15 @@ pub mod consumer_procurement_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOrdersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOrdersRequest::parent].
@@ -719,13 +919,30 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::modify_order][super::super::client::ConsumerProcurementService::modify_order] calls.
+    /// The request builder for [ConsumerProcurementService::modify_order][crate::client::ConsumerProcurementService::modify_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::ModifyOrder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyOrder(RequestBuilder<crate::model::ModifyOrderRequest>);
 
     impl ModifyOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -747,7 +964,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [modify_order][super::super::client::ConsumerProcurementService::modify_order].
+        /// on [modify_order][crate::client::ConsumerProcurementService::modify_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .modify_order(self.0.request, self.0.options)
@@ -759,7 +976,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::ModifyOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::ModifyOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -784,7 +1002,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ModifyOrderRequest::name].
@@ -792,6 +1010,17 @@ pub mod consumer_procurement_service {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
+        pub fn set_modifications<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::modify_order_request::Modification>,
+        {
+            use std::iter::Iterator;
+            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -806,17 +1035,6 @@ pub mod consumer_procurement_service {
             self.0.request.etag = v.into();
             self
         }
-
-        /// Sets the value of [modifications][crate::model::ModifyOrderRequest::modifications].
-        pub fn set_modifications<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::modify_order_request::Modification>,
-        {
-            use std::iter::Iterator;
-            self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -826,13 +1044,30 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::cancel_order][super::super::client::ConsumerProcurementService::cancel_order] calls.
+    /// The request builder for [ConsumerProcurementService::cancel_order][crate::client::ConsumerProcurementService::cancel_order] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::CancelOrder;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOrder {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOrder(RequestBuilder<crate::model::CancelOrderRequest>);
 
     impl CancelOrder {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -854,7 +1089,7 @@ pub mod consumer_procurement_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_order][super::super::client::ConsumerProcurementService::cancel_order].
+        /// on [cancel_order][crate::client::ConsumerProcurementService::cancel_order].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_order(self.0.request, self.0.options)
@@ -866,7 +1101,8 @@ pub mod consumer_procurement_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Order, crate::model::CancelOrderMetadata> {
-            type Operation = lro::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Order, crate::model::CancelOrderMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -891,7 +1127,7 @@ pub mod consumer_procurement_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelOrderRequest::name].
@@ -927,13 +1163,29 @@ pub mod consumer_procurement_service {
         }
     }
 
-    /// The request builder for [ConsumerProcurementService::get_operation][super::super::client::ConsumerProcurementService::get_operation] calls.
+    /// The request builder for [ConsumerProcurementService::get_operation][crate::client::ConsumerProcurementService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_commerce_consumer_procurement_v1::builder;
+    /// use builder::consumer_procurement_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConsumerProcurementService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

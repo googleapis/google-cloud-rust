@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Essential Contacts API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
 /// let client = EssentialContactsService::builder().build().await?;
 /// // use `client` to make requests to the Essential Contacts API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `EssentialContactsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `EssentialContactsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct EssentialContactsService {
-    inner: Arc<dyn super::stub::dynamic::EssentialContactsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::EssentialContactsService>,
 }
 
 impl EssentialContactsService {
@@ -72,7 +69,7 @@ impl EssentialContactsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// let client = EssentialContactsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::essential_contacts_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,102 +86,78 @@ impl EssentialContactsService {
         T: super::stub::EssentialContactsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::EssentialContactsService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::EssentialContactsService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EssentialContactsService> {
+    ) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
         super::transport::EssentialContactsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::EssentialContactsService> {
+    ) -> gax::client_builder::Result<impl super::stub::EssentialContactsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::EssentialContactsService::new)
     }
 
     /// Adds a new contact for a resource.
-    pub fn create_contact(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::CreateContact {
+    pub fn create_contact(&self) -> super::builder::essential_contacts_service::CreateContact {
         super::builder::essential_contacts_service::CreateContact::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a contact.
     /// Note: A contact's email address cannot be changed.
-    pub fn update_contact(
-        &self,
-        contact: impl Into<crate::model::Contact>,
-    ) -> super::builder::essential_contacts_service::UpdateContact {
+    pub fn update_contact(&self) -> super::builder::essential_contacts_service::UpdateContact {
         super::builder::essential_contacts_service::UpdateContact::new(self.inner.clone())
-            .set_contact(contact.into())
     }
 
     /// Lists the contacts that have been set on a resource.
-    pub fn list_contacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::ListContacts {
+    pub fn list_contacts(&self) -> super::builder::essential_contacts_service::ListContacts {
         super::builder::essential_contacts_service::ListContacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a single contact.
-    pub fn get_contact(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::GetContact {
+    pub fn get_contact(&self) -> super::builder::essential_contacts_service::GetContact {
         super::builder::essential_contacts_service::GetContact::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a contact.
-    pub fn delete_contact(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::DeleteContact {
+    pub fn delete_contact(&self) -> super::builder::essential_contacts_service::DeleteContact {
         super::builder::essential_contacts_service::DeleteContact::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists all contacts for the resource that are subscribed to the
     /// specified notification categories, including contacts inherited from
     /// any parent resources.
-    pub fn compute_contacts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::ComputeContacts {
+    pub fn compute_contacts(&self) -> super::builder::essential_contacts_service::ComputeContacts {
         super::builder::essential_contacts_service::ComputeContacts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Allows a contact admin to send a test message to contact to verify that it
     /// has been configured correctly.
-    pub fn send_test_message(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::essential_contacts_service::SendTestMessage {
+    pub fn send_test_message(&self) -> super::builder::essential_contacts_service::SendTestMessage {
         super::builder::essential_contacts_service::SendTestMessage::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 }

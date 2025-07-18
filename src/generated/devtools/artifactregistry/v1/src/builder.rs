@@ -16,9 +16,8 @@
 
 pub mod artifact_registry {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ArtifactRegistry][super::super::client::ArtifactRegistry].
+    /// A builder for [ArtifactRegistry][crate::client::ArtifactRegistry].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod artifact_registry {
     /// let client = builder
     ///     .with_endpoint("https://artifactregistry.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod artifact_registry {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ArtifactRegistry;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ArtifactRegistry] request builders.
+    /// Common implementation for [crate::client::ArtifactRegistry] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod artifact_registry {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_docker_images][super::super::client::ArtifactRegistry::list_docker_images] calls.
+    /// The request builder for [ArtifactRegistry::list_docker_images][crate::client::ArtifactRegistry::list_docker_images] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListDockerImages;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDockerImages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDockerImages(RequestBuilder<crate::model::ListDockerImagesRequest>);
 
     impl ListDockerImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDockerImagesResponse, gax::error::Error>
         {
@@ -112,6 +138,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDockerImagesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDockerImagesRequest::parent].
@@ -148,12 +183,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_docker_image][super::super::client::ArtifactRegistry::get_docker_image] calls.
+    /// The request builder for [ArtifactRegistry::get_docker_image][crate::client::ArtifactRegistry::get_docker_image] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetDockerImage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDockerImage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDockerImage(RequestBuilder<crate::model::GetDockerImageRequest>);
 
     impl GetDockerImage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -193,12 +246,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_maven_artifacts][super::super::client::ArtifactRegistry::list_maven_artifacts] calls.
+    /// The request builder for [ArtifactRegistry::list_maven_artifacts][crate::client::ArtifactRegistry::list_maven_artifacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListMavenArtifacts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMavenArtifacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMavenArtifacts(RequestBuilder<crate::model::ListMavenArtifactsRequest>);
 
     impl ListMavenArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -225,8 +300,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMavenArtifactsResponse, gax::error::Error>
         {
@@ -238,6 +313,17 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListMavenArtifactsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMavenArtifactsRequest::parent].
@@ -268,12 +354,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_maven_artifact][super::super::client::ArtifactRegistry::get_maven_artifact] calls.
+    /// The request builder for [ArtifactRegistry::get_maven_artifact][crate::client::ArtifactRegistry::get_maven_artifact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetMavenArtifact;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMavenArtifact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMavenArtifact(RequestBuilder<crate::model::GetMavenArtifactRequest>);
 
     impl GetMavenArtifact {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -316,12 +420,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_npm_packages][super::super::client::ArtifactRegistry::list_npm_packages] calls.
+    /// The request builder for [ArtifactRegistry::list_npm_packages][crate::client::ArtifactRegistry::list_npm_packages] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListNpmPackages;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNpmPackages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNpmPackages(RequestBuilder<crate::model::ListNpmPackagesRequest>);
 
     impl ListNpmPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -345,8 +471,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNpmPackagesResponse, gax::error::Error>
         {
@@ -358,6 +484,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNpmPackagesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNpmPackagesRequest::parent].
@@ -388,12 +523,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_npm_package][super::super::client::ArtifactRegistry::get_npm_package] calls.
+    /// The request builder for [ArtifactRegistry::get_npm_package][crate::client::ArtifactRegistry::get_npm_package] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetNpmPackage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNpmPackage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNpmPackage(RequestBuilder<crate::model::GetNpmPackageRequest>);
 
     impl GetNpmPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,12 +586,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_python_packages][super::super::client::ArtifactRegistry::list_python_packages] calls.
+    /// The request builder for [ArtifactRegistry::list_python_packages][crate::client::ArtifactRegistry::list_python_packages] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListPythonPackages;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPythonPackages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPythonPackages(RequestBuilder<crate::model::ListPythonPackagesRequest>);
 
     impl ListPythonPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -465,8 +640,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPythonPackagesResponse, gax::error::Error>
         {
@@ -478,6 +653,17 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPythonPackagesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPythonPackagesRequest::parent].
@@ -508,12 +694,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_python_package][super::super::client::ArtifactRegistry::get_python_package] calls.
+    /// The request builder for [ArtifactRegistry::get_python_package][crate::client::ArtifactRegistry::get_python_package] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetPythonPackage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPythonPackage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPythonPackage(RequestBuilder<crate::model::GetPythonPackageRequest>);
 
     impl GetPythonPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -556,12 +760,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::import_apt_artifacts][super::super::client::ArtifactRegistry::import_apt_artifacts] calls.
+    /// The request builder for [ArtifactRegistry::import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ImportAptArtifacts;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportAptArtifacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportAptArtifacts(RequestBuilder<crate::model::ImportAptArtifactsRequest>);
 
     impl ImportAptArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -585,7 +808,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_apt_artifacts][super::super::client::ArtifactRegistry::import_apt_artifacts].
+        /// on [import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_apt_artifacts(self.0.request, self.0.options)
@@ -600,7 +823,7 @@ pub mod artifact_registry {
             crate::model::ImportAptArtifactsResponse,
             crate::model::ImportAptArtifactsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportAptArtifactsResponse,
                 crate::model::ImportAptArtifactsMetadata,
             >;
@@ -628,7 +851,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportAptArtifactsRequest::parent].
@@ -672,12 +895,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::import_yum_artifacts][super::super::client::ArtifactRegistry::import_yum_artifacts] calls.
+    /// The request builder for [ArtifactRegistry::import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ImportYumArtifacts;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportYumArtifacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportYumArtifacts(RequestBuilder<crate::model::ImportYumArtifactsRequest>);
 
     impl ImportYumArtifacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,7 +943,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_yum_artifacts][super::super::client::ArtifactRegistry::import_yum_artifacts].
+        /// on [import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_yum_artifacts(self.0.request, self.0.options)
@@ -716,7 +958,7 @@ pub mod artifact_registry {
             crate::model::ImportYumArtifactsResponse,
             crate::model::ImportYumArtifactsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportYumArtifactsResponse,
                 crate::model::ImportYumArtifactsMetadata,
             >;
@@ -744,7 +986,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportYumArtifactsRequest::parent].
@@ -788,12 +1030,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_repositories][super::super::client::ArtifactRegistry::list_repositories] calls.
+    /// The request builder for [ArtifactRegistry::list_repositories][crate::client::ArtifactRegistry::list_repositories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListRepositories;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRepositories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -820,8 +1084,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
         {
@@ -833,6 +1097,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
@@ -875,12 +1148,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_repository][super::super::client::ArtifactRegistry::get_repository] calls.
+    /// The request builder for [ArtifactRegistry::get_repository][crate::client::ArtifactRegistry::get_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetRepository;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -920,12 +1211,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_repository][super::super::client::ArtifactRegistry::create_repository] calls.
+    /// The request builder for [ArtifactRegistry::create_repository][crate::client::ArtifactRegistry::create_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::CreateRepository;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -949,7 +1259,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][super::super::client::ArtifactRegistry::create_repository].
+        /// on [create_repository][crate::client::ArtifactRegistry::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -962,7 +1272,7 @@ pub mod artifact_registry {
             self,
         ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -987,7 +1297,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -1009,11 +1319,22 @@ pub mod artifact_registry {
         /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
         ///
         /// This is a **required** field for requests.
-        pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.repository = v.into();
+        pub fn set_repository<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = v.map(|x| x.into());
             self
         }
     }
@@ -1025,12 +1346,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_repository][super::super::client::ArtifactRegistry::update_repository] calls.
+    /// The request builder for [ArtifactRegistry::update_repository][crate::client::ArtifactRegistry::update_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateRepository;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRepository(RequestBuilder<crate::model::UpdateRepositoryRequest>);
 
     impl UpdateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1058,20 +1397,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [repository][crate::model::UpdateRepositoryRequest::repository].
-        pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.repository = v.into();
+        pub fn set_repository<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [repository][crate::model::UpdateRepositoryRequest::repository].
+        pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRepositoryRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1083,12 +1440,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_repository][super::super::client::ArtifactRegistry::delete_repository] calls.
+    /// The request builder for [ArtifactRegistry::delete_repository][crate::client::ArtifactRegistry::delete_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeleteRepository;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1112,7 +1488,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][super::super::client::ArtifactRegistry::delete_repository].
+        /// on [delete_repository][crate::client::ArtifactRegistry::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -1121,8 +1497,8 @@ pub mod artifact_registry {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1147,7 +1523,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -1166,12 +1547,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_packages][super::super::client::ArtifactRegistry::list_packages] calls.
+    /// The request builder for [ArtifactRegistry::list_packages][crate::client::ArtifactRegistry::list_packages] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListPackages;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPackages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPackages(RequestBuilder<crate::model::ListPackagesRequest>);
 
     impl ListPackages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1195,8 +1598,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPackagesResponse, gax::error::Error>
         {
@@ -1208,6 +1611,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPackagesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPackagesRequest::parent].
@@ -1250,12 +1662,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_package][super::super::client::ArtifactRegistry::get_package] calls.
+    /// The request builder for [ArtifactRegistry::get_package][crate::client::ArtifactRegistry::get_package] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetPackage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPackage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPackage(RequestBuilder<crate::model::GetPackageRequest>);
 
     impl GetPackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1295,12 +1725,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_package][super::super::client::ArtifactRegistry::delete_package] calls.
+    /// The request builder for [ArtifactRegistry::delete_package][crate::client::ArtifactRegistry::delete_package] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeletePackage;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePackage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePackage(RequestBuilder<crate::model::DeletePackageRequest>);
 
     impl DeletePackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1321,7 +1770,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_package][super::super::client::ArtifactRegistry::delete_package].
+        /// on [delete_package][crate::client::ArtifactRegistry::delete_package].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_package(self.0.request, self.0.options)
@@ -1330,8 +1779,8 @@ pub mod artifact_registry {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_package`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1356,7 +1805,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePackageRequest::name].
@@ -1375,12 +1829,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_versions][super::super::client::ArtifactRegistry::list_versions] calls.
+    /// The request builder for [ArtifactRegistry::list_versions][crate::client::ArtifactRegistry::list_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVersions(RequestBuilder<crate::model::ListVersionsRequest>);
 
     impl ListVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1404,8 +1880,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVersionsResponse, gax::error::Error>
         {
@@ -1417,6 +1893,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVersionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVersionsRequest::parent].
@@ -1463,12 +1948,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_version][super::super::client::ArtifactRegistry::get_version] calls.
+    /// The request builder for [ArtifactRegistry::get_version][crate::client::ArtifactRegistry::get_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVersion(RequestBuilder<crate::model::GetVersionRequest>);
 
     impl GetVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1512,12 +2015,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_version][super::super::client::ArtifactRegistry::delete_version] calls.
+    /// The request builder for [ArtifactRegistry::delete_version][crate::client::ArtifactRegistry::delete_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeleteVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVersion(RequestBuilder<crate::model::DeleteVersionRequest>);
 
     impl DeleteVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1538,7 +2060,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_version][super::super::client::ArtifactRegistry::delete_version].
+        /// on [delete_version][crate::client::ArtifactRegistry::delete_version].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_version(self.0.request, self.0.options)
@@ -1547,8 +2069,8 @@ pub mod artifact_registry {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_version`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1573,7 +2095,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVersionRequest::name].
@@ -1596,12 +2123,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::batch_delete_versions][super::super::client::ArtifactRegistry::batch_delete_versions] calls.
+    /// The request builder for [ArtifactRegistry::batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::BatchDeleteVersions;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchDeleteVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteVersions(RequestBuilder<crate::model::BatchDeleteVersionsRequest>);
 
     impl BatchDeleteVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1625,7 +2171,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_delete_versions][super::super::client::ArtifactRegistry::batch_delete_versions].
+        /// on [batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_delete_versions(self.0.request, self.0.options)
@@ -1634,10 +2180,9 @@ pub mod artifact_registry {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `batch_delete_versions`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::BatchDeleteVersionsMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::BatchDeleteVersionsMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::BatchDeleteVersionsMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::BatchDeleteVersionsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1662,18 +2207,17 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteVersionsRequest::parent].
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
             self
         }
 
@@ -1689,6 +2233,12 @@ pub mod artifact_registry {
             self.0.request.names = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [validate_only][crate::model::BatchDeleteVersionsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1698,12 +2248,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_version][super::super::client::ArtifactRegistry::update_version] calls.
+    /// The request builder for [ArtifactRegistry::update_version][crate::client::ArtifactRegistry::update_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVersion(RequestBuilder<crate::model::UpdateVersionRequest>);
 
     impl UpdateVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1730,20 +2298,40 @@ pub mod artifact_registry {
         /// Sets the value of [version][crate::model::UpdateVersionRequest::version].
         ///
         /// This is a **required** field for requests.
-        pub fn set_version<T: Into<std::option::Option<crate::model::Version>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.version = v.into();
+        pub fn set_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [version][crate::model::UpdateVersionRequest::version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Version>,
+        {
+            self.0.request.version = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVersionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1755,12 +2343,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_files][super::super::client::ArtifactRegistry::list_files] calls.
+    /// The request builder for [ArtifactRegistry::list_files][crate::client::ArtifactRegistry::list_files] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListFiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFiles(RequestBuilder<crate::model::ListFilesRequest>);
 
     impl ListFiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1784,8 +2394,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFilesResponse, gax::error::Error>
         {
@@ -1797,6 +2407,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFilesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFilesRequest::parent].
@@ -1839,12 +2458,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_file][super::super::client::ArtifactRegistry::get_file] calls.
+    /// The request builder for [ArtifactRegistry::get_file][crate::client::ArtifactRegistry::get_file] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetFile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFile(RequestBuilder<crate::model::GetFileRequest>);
 
     impl GetFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1884,12 +2521,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_file][super::super::client::ArtifactRegistry::delete_file] calls.
+    /// The request builder for [ArtifactRegistry::delete_file][crate::client::ArtifactRegistry::delete_file] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeleteFile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFile(RequestBuilder<crate::model::DeleteFileRequest>);
 
     impl DeleteFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1910,7 +2566,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_file][super::super::client::ArtifactRegistry::delete_file].
+        /// on [delete_file][crate::client::ArtifactRegistry::delete_file].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_file(self.0.request, self.0.options)
@@ -1919,8 +2575,8 @@ pub mod artifact_registry {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_file`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1945,7 +2601,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFileRequest::name].
@@ -1964,12 +2625,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_file][super::super::client::ArtifactRegistry::update_file] calls.
+    /// The request builder for [ArtifactRegistry::update_file][crate::client::ArtifactRegistry::update_file] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateFile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFile(RequestBuilder<crate::model::UpdateFileRequest>);
 
     impl UpdateFile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1996,19 +2675,44 @@ pub mod artifact_registry {
         /// Sets the value of [file][crate::model::UpdateFileRequest::file].
         ///
         /// This is a **required** field for requests.
-        pub fn set_file<T: Into<std::option::Option<crate::model::File>>>(mut self, v: T) -> Self {
-            self.0.request.file = v.into();
+        pub fn set_file<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::File>,
+        {
+            self.0.request.file = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [file][crate::model::UpdateFileRequest::file].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_file<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::File>,
+        {
+            self.0.request.file = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2020,12 +2724,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_tags][super::super::client::ArtifactRegistry::list_tags] calls.
+    /// The request builder for [ArtifactRegistry::list_tags][crate::client::ArtifactRegistry::list_tags] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListTags;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTags {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTags(RequestBuilder<crate::model::ListTagsRequest>);
 
     impl ListTags {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2049,8 +2775,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTagsResponse, gax::error::Error>
         {
@@ -2062,6 +2788,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTagsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTagsRequest::parent].
@@ -2096,12 +2831,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_tag][super::super::client::ArtifactRegistry::get_tag] calls.
+    /// The request builder for [ArtifactRegistry::get_tag][crate::client::ArtifactRegistry::get_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTag(RequestBuilder<crate::model::GetTagRequest>);
 
     impl GetTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2139,12 +2892,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_tag][super::super::client::ArtifactRegistry::create_tag] calls.
+    /// The request builder for [ArtifactRegistry::create_tag][crate::client::ArtifactRegistry::create_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::CreateTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTag(RequestBuilder<crate::model::CreateTagRequest>);
 
     impl CreateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2181,8 +2952,20 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [tag][crate::model::CreateTagRequest::tag].
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag][crate::model::CreateTagRequest::tag].
+        pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
     }
@@ -2194,12 +2977,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_tag][super::super::client::ArtifactRegistry::update_tag] calls.
+    /// The request builder for [ArtifactRegistry::update_tag][crate::client::ArtifactRegistry::update_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTag(RequestBuilder<crate::model::UpdateTagRequest>);
 
     impl UpdateTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2224,17 +3025,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [tag][crate::model::UpdateTagRequest::tag].
-        pub fn set_tag<T: Into<std::option::Option<crate::model::Tag>>>(mut self, v: T) -> Self {
-            self.0.request.tag = v.into();
+        pub fn set_tag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tag][crate::model::UpdateTagRequest::tag].
+        pub fn set_or_clear_tag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tag>,
+        {
+            self.0.request.tag = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTagRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2246,12 +3068,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_tag][super::super::client::ArtifactRegistry::delete_tag] calls.
+    /// The request builder for [ArtifactRegistry::delete_tag][crate::client::ArtifactRegistry::delete_tag] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeleteTag;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTag {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTag(RequestBuilder<crate::model::DeleteTagRequest>);
 
     impl DeleteTag {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2289,12 +3129,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_rule][super::super::client::ArtifactRegistry::create_rule] calls.
+    /// The request builder for [ArtifactRegistry::create_rule][crate::client::ArtifactRegistry::create_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::CreateRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
 
     impl CreateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2333,8 +3191,20 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::CreateRuleRequest::rule].
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
     }
@@ -2346,12 +3216,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_rules][super::super::client::ArtifactRegistry::list_rules] calls.
+    /// The request builder for [ArtifactRegistry::list_rules][crate::client::ArtifactRegistry::list_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListRules;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
 
     impl ListRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2375,8 +3267,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRulesResponse, gax::error::Error>
         {
@@ -2388,6 +3280,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRulesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRulesRequest::parent].
@@ -2418,12 +3319,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_rule][super::super::client::ArtifactRegistry::get_rule] calls.
+    /// The request builder for [ArtifactRegistry::get_rule][crate::client::ArtifactRegistry::get_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
 
     impl GetRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2463,12 +3382,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_rule][super::super::client::ArtifactRegistry::update_rule] calls.
+    /// The request builder for [ArtifactRegistry::update_rule][crate::client::ArtifactRegistry::update_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
 
     impl UpdateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2493,17 +3430,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::UpdateRuleRequest::rule].
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2515,12 +3473,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_rule][super::super::client::ArtifactRegistry::delete_rule] calls.
+    /// The request builder for [ArtifactRegistry::delete_rule][crate::client::ArtifactRegistry::delete_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeleteRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
 
     impl DeleteRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2560,12 +3536,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::set_iam_policy][super::super::client::ArtifactRegistry::set_iam_policy] calls.
+    /// The request builder for [ArtifactRegistry::set_iam_policy][crate::client::ArtifactRegistry::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2600,20 +3594,40 @@ pub mod artifact_registry {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2625,12 +3639,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_iam_policy][super::super::client::ArtifactRegistry::get_iam_policy] calls.
+    /// The request builder for [ArtifactRegistry::get_iam_policy][crate::client::ArtifactRegistry::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2663,11 +3695,20 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2679,12 +3720,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::test_iam_permissions][super::super::client::ArtifactRegistry::test_iam_permissions] calls.
+    /// The request builder for [ArtifactRegistry::test_iam_permissions][crate::client::ArtifactRegistry::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2740,12 +3799,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_project_settings][super::super::client::ArtifactRegistry::get_project_settings] calls.
+    /// The request builder for [ArtifactRegistry::get_project_settings][crate::client::ArtifactRegistry::get_project_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetProjectSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProjectSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProjectSettings(RequestBuilder<crate::model::GetProjectSettingsRequest>);
 
     impl GetProjectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2788,12 +3865,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_project_settings][super::super::client::ArtifactRegistry::update_project_settings] calls.
+    /// The request builder for [ArtifactRegistry::update_project_settings][crate::client::ArtifactRegistry::update_project_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateProjectSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProjectSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProjectSettings(RequestBuilder<crate::model::UpdateProjectSettingsRequest>);
 
     impl UpdateProjectSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2821,20 +3916,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
-        pub fn set_project_settings<T: Into<std::option::Option<crate::model::ProjectSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project_settings = v.into();
+        pub fn set_project_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectSettings>,
+        {
+            self.0.request.project_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project_settings][crate::model::UpdateProjectSettingsRequest::project_settings].
+        pub fn set_or_clear_project_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectSettings>,
+        {
+            self.0.request.project_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProjectSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2846,12 +3959,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_vpcsc_config][super::super::client::ArtifactRegistry::get_vpcsc_config] calls.
+    /// The request builder for [ArtifactRegistry::get_vpcsc_config][crate::client::ArtifactRegistry::get_vpcsc_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetVPCSCConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVPCSCConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVPCSCConfig(RequestBuilder<crate::model::GetVPCSCConfigRequest>);
 
     impl GetVPCSCConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2891,12 +4022,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_vpcsc_config][super::super::client::ArtifactRegistry::update_vpcsc_config] calls.
+    /// The request builder for [ArtifactRegistry::update_vpcsc_config][crate::client::ArtifactRegistry::update_vpcsc_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdateVPCSCConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVPCSCConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVPCSCConfig(RequestBuilder<crate::model::UpdateVPCSCConfigRequest>);
 
     impl UpdateVPCSCConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2924,20 +4073,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
-        pub fn set_vpcsc_config<T: Into<std::option::Option<crate::model::VPCSCConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpcsc_config = v.into();
+        pub fn set_vpcsc_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VPCSCConfig>,
+        {
+            self.0.request.vpcsc_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vpcsc_config][crate::model::UpdateVPCSCConfigRequest::vpcsc_config].
+        pub fn set_or_clear_vpcsc_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VPCSCConfig>,
+        {
+            self.0.request.vpcsc_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVPCSCConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2949,12 +4116,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::update_package][super::super::client::ArtifactRegistry::update_package] calls.
+    /// The request builder for [ArtifactRegistry::update_package][crate::client::ArtifactRegistry::update_package] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::UpdatePackage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePackage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePackage(RequestBuilder<crate::model::UpdatePackageRequest>);
 
     impl UpdatePackage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2979,20 +4164,38 @@ pub mod artifact_registry {
         }
 
         /// Sets the value of [package][crate::model::UpdatePackageRequest::package].
-        pub fn set_package<T: Into<std::option::Option<crate::model::Package>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.package = v.into();
+        pub fn set_package<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Package>,
+        {
+            self.0.request.package = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [package][crate::model::UpdatePackageRequest::package].
+        pub fn set_or_clear_package<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Package>,
+        {
+            self.0.request.package = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePackageRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3004,12 +4207,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_attachments][super::super::client::ArtifactRegistry::list_attachments] calls.
+    /// The request builder for [ArtifactRegistry::list_attachments][crate::client::ArtifactRegistry::list_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListAttachments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3033,8 +4258,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
         {
@@ -3046,6 +4271,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttachmentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
@@ -3082,12 +4316,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_attachment][super::super::client::ArtifactRegistry::get_attachment] calls.
+    /// The request builder for [ArtifactRegistry::get_attachment][crate::client::ArtifactRegistry::get_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAttachment(RequestBuilder<crate::model::GetAttachmentRequest>);
 
     impl GetAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3127,12 +4379,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::create_attachment][super::super::client::ArtifactRegistry::create_attachment] calls.
+    /// The request builder for [ArtifactRegistry::create_attachment][crate::client::ArtifactRegistry::create_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::CreateAttachment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAttachment(RequestBuilder<crate::model::CreateAttachmentRequest>);
 
     impl CreateAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3156,7 +4427,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_attachment][super::super::client::ArtifactRegistry::create_attachment].
+        /// on [create_attachment][crate::client::ArtifactRegistry::create_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_attachment(self.0.request, self.0.options)
@@ -3169,7 +4440,7 @@ pub mod artifact_registry {
             self,
         ) -> impl lro::Poller<crate::model::Attachment, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Attachment, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Attachment, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3194,7 +4465,7 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAttachmentRequest::parent].
@@ -3216,11 +4487,22 @@ pub mod artifact_registry {
         /// Sets the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_attachment<T: Into<std::option::Option<crate::model::Attachment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attachment = v.into();
+        pub fn set_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Attachment>,
+        {
+            self.0.request.attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [attachment][crate::model::CreateAttachmentRequest::attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_attachment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Attachment>,
+        {
+            self.0.request.attachment = v.map(|x| x.into());
             self
         }
     }
@@ -3232,12 +4514,31 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::delete_attachment][super::super::client::ArtifactRegistry::delete_attachment] calls.
+    /// The request builder for [ArtifactRegistry::delete_attachment][crate::client::ArtifactRegistry::delete_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::DeleteAttachment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAttachment(RequestBuilder<crate::model::DeleteAttachmentRequest>);
 
     impl DeleteAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3261,7 +4562,7 @@ pub mod artifact_registry {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_attachment][super::super::client::ArtifactRegistry::delete_attachment].
+        /// on [delete_attachment][crate::client::ArtifactRegistry::delete_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_attachment(self.0.request, self.0.options)
@@ -3270,8 +4571,8 @@ pub mod artifact_registry {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_attachment`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3296,7 +4597,12 @@ pub mod artifact_registry {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAttachmentRequest::name].
@@ -3315,12 +4621,34 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::list_locations][super::super::client::ArtifactRegistry::list_locations] calls.
+    /// The request builder for [ArtifactRegistry::list_locations][crate::client::ArtifactRegistry::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3347,8 +4675,8 @@ pub mod artifact_registry {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3360,6 +4688,15 @@ pub mod artifact_registry {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -3394,12 +4731,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_location][super::super::client::ArtifactRegistry::get_location] calls.
+    /// The request builder for [ArtifactRegistry::get_location][crate::client::ArtifactRegistry::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3437,12 +4792,30 @@ pub mod artifact_registry {
         }
     }
 
-    /// The request builder for [ArtifactRegistry::get_operation][super::super::client::ArtifactRegistry::get_operation] calls.
+    /// The request builder for [ArtifactRegistry::get_operation][crate::client::ArtifactRegistry::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_artifactregistry_v1::builder;
+    /// use builder::artifact_registry::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ArtifactRegistry>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ArtifactRegistry>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

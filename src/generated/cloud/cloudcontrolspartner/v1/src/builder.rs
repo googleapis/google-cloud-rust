@@ -16,9 +16,8 @@
 
 pub mod cloud_controls_partner_core {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudControlsPartnerCore][super::super::client::CloudControlsPartnerCore].
+    /// A builder for [CloudControlsPartnerCore][crate::client::CloudControlsPartnerCore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cloud_controls_partner_core {
     /// let client = builder
     ///     .with_endpoint("https://cloudcontrolspartner.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cloud_controls_partner_core {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudControlsPartnerCore;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudControlsPartnerCore] request builders.
+    /// Common implementation for [crate::client::CloudControlsPartnerCore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod cloud_controls_partner_core {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_workload][super::super::client::CloudControlsPartnerCore::get_workload] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_workload][crate::client::CloudControlsPartnerCore::get_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,13 +134,33 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::list_workloads][super::super::client::CloudControlsPartnerCore::list_workloads] calls.
+    /// The request builder for [CloudControlsPartnerCore::list_workloads][crate::client::CloudControlsPartnerCore::list_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::ListWorkloads;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -147,8 +185,8 @@ pub mod cloud_controls_partner_core {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
@@ -160,6 +198,15 @@ pub mod cloud_controls_partner_core {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
@@ -202,13 +249,29 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_customer][super::super::client::CloudControlsPartnerCore::get_customer] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_customer][crate::client::CloudControlsPartnerCore::get_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetCustomer;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCustomer(RequestBuilder<crate::model::GetCustomerRequest>);
 
     impl GetCustomer {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -249,13 +312,33 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::list_customers][super::super::client::CloudControlsPartnerCore::list_customers] calls.
+    /// The request builder for [CloudControlsPartnerCore::list_customers][crate::client::CloudControlsPartnerCore::list_customers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::ListCustomers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCustomers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCustomers(RequestBuilder<crate::model::ListCustomersRequest>);
 
     impl ListCustomers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -280,8 +363,8 @@ pub mod cloud_controls_partner_core {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCustomersResponse, gax::error::Error>
         {
@@ -293,6 +376,15 @@ pub mod cloud_controls_partner_core {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCustomersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCustomersRequest::parent].
@@ -335,13 +427,29 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][super::super::client::CloudControlsPartnerCore::get_ekm_connections] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][crate::client::CloudControlsPartnerCore::get_ekm_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetEkmConnections;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEkmConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEkmConnections(RequestBuilder<crate::model::GetEkmConnectionsRequest>);
 
     impl GetEkmConnections {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -385,13 +493,29 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][super::super::client::CloudControlsPartnerCore::get_partner_permissions] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][crate::client::CloudControlsPartnerCore::get_partner_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetPartnerPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPartnerPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPartnerPermissions(RequestBuilder<crate::model::GetPartnerPermissionsRequest>);
 
     impl GetPartnerPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -435,7 +559,27 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][super::super::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
+    /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][crate::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::ListAccessApprovalRequests;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAccessApprovalRequests {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessApprovalRequests(
         RequestBuilder<crate::model::ListAccessApprovalRequestsRequest>,
@@ -443,7 +587,7 @@ pub mod cloud_controls_partner_core {
 
     impl ListAccessApprovalRequests {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -471,8 +615,8 @@ pub mod cloud_controls_partner_core {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListAccessApprovalRequestsResponse,
@@ -486,6 +630,17 @@ pub mod cloud_controls_partner_core {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAccessApprovalRequestsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAccessApprovalRequestsRequest::parent].
@@ -528,13 +683,29 @@ pub mod cloud_controls_partner_core {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerCore::get_partner][super::super::client::CloudControlsPartnerCore::get_partner] calls.
+    /// The request builder for [CloudControlsPartnerCore::get_partner][crate::client::CloudControlsPartnerCore::get_partner] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::GetPartner;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPartner {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPartner(RequestBuilder<crate::model::GetPartnerRequest>);
 
     impl GetPartner {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -574,13 +745,263 @@ pub mod cloud_controls_partner_core {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [CloudControlsPartnerCore::create_customer][crate::client::CloudControlsPartnerCore::create_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::CreateCustomer;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateCustomer(RequestBuilder<crate::model::CreateCustomerRequest>);
+
+    impl CreateCustomer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateCustomerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Customer> {
+            (*self.0.stub)
+                .create_customer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateCustomerRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [customer][crate::model::CreateCustomerRequest::customer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_customer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Customer>,
+        {
+            self.0.request.customer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [customer][crate::model::CreateCustomerRequest::customer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Customer>,
+        {
+            self.0.request.customer = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [customer_id][crate::model::CreateCustomerRequest::customer_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_customer_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.customer_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateCustomer {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CloudControlsPartnerCore::update_customer][crate::client::CloudControlsPartnerCore::update_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::UpdateCustomer;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateCustomer(RequestBuilder<crate::model::UpdateCustomerRequest>);
+
+    impl UpdateCustomer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateCustomerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Customer> {
+            (*self.0.stub)
+                .update_customer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [customer][crate::model::UpdateCustomerRequest::customer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_customer<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Customer>,
+        {
+            self.0.request.customer = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [customer][crate::model::UpdateCustomerRequest::customer].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_customer<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Customer>,
+        {
+            self.0.request.customer = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCustomerRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateCustomer {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [CloudControlsPartnerCore::delete_customer][crate::client::CloudControlsPartnerCore::delete_customer] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_core::DeleteCustomer;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCustomer {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteCustomer(RequestBuilder<crate::model::DeleteCustomerRequest>);
+
+    impl DeleteCustomer {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerCore>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteCustomerRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_customer(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteCustomerRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteCustomer {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }
 
 pub mod cloud_controls_partner_monitoring {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudControlsPartnerMonitoring][super::super::client::CloudControlsPartnerMonitoring].
+    /// A builder for [CloudControlsPartnerMonitoring][crate::client::CloudControlsPartnerMonitoring].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -591,7 +1012,7 @@ pub mod cloud_controls_partner_monitoring {
     /// let client = builder
     ///     .with_endpoint("https://cloudcontrolspartner.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -602,16 +1023,19 @@ pub mod cloud_controls_partner_monitoring {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudControlsPartnerMonitoring;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudControlsPartnerMonitoring] request builders.
+    /// Common implementation for [crate::client::CloudControlsPartnerMonitoring] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -621,7 +1045,7 @@ pub mod cloud_controls_partner_monitoring {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self {
                 stub,
@@ -631,13 +1055,33 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerMonitoring::list_violations][super::super::client::CloudControlsPartnerMonitoring::list_violations] calls.
+    /// The request builder for [CloudControlsPartnerMonitoring::list_violations][crate::client::CloudControlsPartnerMonitoring::list_violations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_monitoring::ListViolations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListViolations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListViolations(RequestBuilder<crate::model::ListViolationsRequest>);
 
     impl ListViolations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -662,8 +1106,8 @@ pub mod cloud_controls_partner_monitoring {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListViolationsResponse, gax::error::Error>
         {
@@ -675,6 +1119,15 @@ pub mod cloud_controls_partner_monitoring {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViolationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListViolationsRequest::parent].
@@ -710,11 +1163,20 @@ pub mod cloud_controls_partner_monitoring {
         }
 
         /// Sets the value of [interval][crate::model::ListViolationsRequest::interval].
-        pub fn set_interval<T: Into<std::option::Option<gtype::model::Interval>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.interval = v.into();
+        pub fn set_interval<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Interval>,
+        {
+            self.0.request.interval = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [interval][crate::model::ListViolationsRequest::interval].
+        pub fn set_or_clear_interval<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Interval>,
+        {
+            self.0.request.interval = v.map(|x| x.into());
             self
         }
     }
@@ -726,13 +1188,29 @@ pub mod cloud_controls_partner_monitoring {
         }
     }
 
-    /// The request builder for [CloudControlsPartnerMonitoring::get_violation][super::super::client::CloudControlsPartnerMonitoring::get_violation] calls.
+    /// The request builder for [CloudControlsPartnerMonitoring::get_violation][crate::client::CloudControlsPartnerMonitoring::get_violation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_cloudcontrolspartner_v1::builder;
+    /// use builder::cloud_controls_partner_monitoring::GetViolation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetViolation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetViolation(RequestBuilder<crate::model::GetViolationRequest>);
 
     impl GetViolation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudControlsPartnerMonitoring>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

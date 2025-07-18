@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-discoveryengine-v1"
-version                = "0.3.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Discovery Engine API"
 edition.workspace      = true
 authors.workspace      = true
@@ -26,12 +26,73 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[features]
+default = [
+    "cmek-config-service",
+    "completion-service",
+    "control-service",
+    "conversational-search-service",
+    "data-store-service",
+    "document-service",
+    "engine-service",
+    "grounded-generation-service",
+    "identity-mapping-store-service",
+    "project-service",
+    "rank-service",
+    "recommendation-service",
+    "schema-service",
+    "search-service",
+    "search-tuning-service",
+    "serving-config-service",
+    "site-search-engine-service",
+    "user-event-service",
+    "user-license-service",
+]
+# Enables `client::CmekConfigService` and all the types it depends on.
+cmek-config-service = []
+# Enables `client::CompletionService` and all the types it depends on.
+completion-service = []
+# Enables `client::ControlService` and all the types it depends on.
+control-service = []
+# Enables `client::ConversationalSearchService` and all the types it depends on.
+conversational-search-service = []
+# Enables `client::DataStoreService` and all the types it depends on.
+data-store-service = []
+# Enables `client::DocumentService` and all the types it depends on.
+document-service = []
+# Enables `client::EngineService` and all the types it depends on.
+engine-service = []
+# Enables `client::GroundedGenerationService` and all the types it depends on.
+grounded-generation-service = []
+# Enables `client::IdentityMappingStoreService` and all the types it depends on.
+identity-mapping-store-service = []
+# Enables `client::ProjectService` and all the types it depends on.
+project-service = []
+# Enables `client::RankService` and all the types it depends on.
+rank-service = []
+# Enables `client::RecommendationService` and all the types it depends on.
+recommendation-service = []
+# Enables `client::SchemaService` and all the types it depends on.
+schema-service = []
+# Enables `client::SearchService` and all the types it depends on.
+search-service = []
+# Enables `client::SearchTuningService` and all the types it depends on.
+search-tuning-service = []
+# Enables `client::ServingConfigService` and all the types it depends on.
+serving-config-service = []
+# Enables `client::SiteSearchEngineService` and all the types it depends on.
+site-search-engine-service = []
+# Enables `client::UserEventService` and all the types it depends on.
+user-event-service = []
+# Enables `client::UserLicenseService` and all the types it depends on.
+user-license-service = []
+
 [dependencies]
 api.workspace        = true
 async-trait.workspace = true
 bytes.workspace      = true
-gax                  = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi                 = { workspace = true, features = ["_internal_http_client"] }
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 gtype.workspace      = true
 lazy_static.workspace = true
 longrunning.workspace = true

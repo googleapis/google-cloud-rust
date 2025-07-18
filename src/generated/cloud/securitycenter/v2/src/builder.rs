@@ -16,9 +16,8 @@
 
 pub mod security_center {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SecurityCenter][super::super::client::SecurityCenter].
+    /// A builder for [SecurityCenter][crate::client::SecurityCenter].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod security_center {
     /// let client = builder
     ///     .with_endpoint("https://securitycenter.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod security_center {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SecurityCenter;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SecurityCenter] request builders.
+    /// Common implementation for [crate::client::SecurityCenter] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod security_center {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,14 +71,32 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::batch_create_resource_value_configs][super::super::client::SecurityCenter::batch_create_resource_value_configs] calls.
+    /// The request builder for [SecurityCenter::batch_create_resource_value_configs][crate::client::SecurityCenter::batch_create_resource_value_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::BatchCreateResourceValueConfigs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreateResourceValueConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateResourceValueConfigs(
         RequestBuilder<crate::model::BatchCreateResourceValueConfigsRequest>,
     );
 
     impl BatchCreateResourceValueConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -130,12 +152,31 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings] calls.
+    /// The request builder for [SecurityCenter::bulk_mute_findings][crate::client::SecurityCenter::bulk_mute_findings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::BulkMuteFindings;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkMuteFindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkMuteFindings(RequestBuilder<crate::model::BulkMuteFindingsRequest>);
 
     impl BulkMuteFindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -159,7 +200,7 @@ pub mod security_center {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_mute_findings][super::super::client::SecurityCenter::bulk_mute_findings].
+        /// on [bulk_mute_findings][crate::client::SecurityCenter::bulk_mute_findings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_mute_findings(self.0.request, self.0.options)
@@ -168,10 +209,9 @@ pub mod security_center {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `bulk_mute_findings`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, wkt::Empty> {
-            type Operation = lro::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
+        pub fn poller(self) -> impl lro::Poller<crate::model::BulkMuteFindingsResponse, ()> {
+            type Operation =
+                lro::internal::Operation<crate::model::BulkMuteFindingsResponse, wkt::Empty>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -196,7 +236,12 @@ pub mod security_center {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_metadata_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [parent][crate::model::BulkMuteFindingsRequest::parent].
@@ -230,12 +275,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_big_query_export][super::super::client::SecurityCenter::create_big_query_export] calls.
+    /// The request builder for [SecurityCenter::create_big_query_export][crate::client::SecurityCenter::create_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateBigQueryExport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBigQueryExport(RequestBuilder<crate::model::CreateBigQueryExportRequest>);
 
     impl CreateBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -273,11 +336,22 @@ pub mod security_center {
         /// Sets the value of [big_query_export][crate::model::CreateBigQueryExportRequest::big_query_export].
         ///
         /// This is a **required** field for requests.
-        pub fn set_big_query_export<T: Into<std::option::Option<crate::model::BigQueryExport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.big_query_export = v.into();
+        pub fn set_big_query_export<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryExport>,
+        {
+            self.0.request.big_query_export = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [big_query_export][crate::model::CreateBigQueryExportRequest::big_query_export].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryExport>,
+        {
+            self.0.request.big_query_export = v.map(|x| x.into());
             self
         }
 
@@ -297,12 +371,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_finding][super::super::client::SecurityCenter::create_finding] calls.
+    /// The request builder for [SecurityCenter::create_finding][crate::client::SecurityCenter::create_finding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateFinding;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFinding(RequestBuilder<crate::model::CreateFindingRequest>);
 
     impl CreateFinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -345,11 +437,22 @@ pub mod security_center {
         /// Sets the value of [finding][crate::model::CreateFindingRequest::finding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_finding<T: Into<std::option::Option<crate::model::Finding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.finding = v.into();
+        pub fn set_finding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Finding>,
+        {
+            self.0.request.finding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [finding][crate::model::CreateFindingRequest::finding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Finding>,
+        {
+            self.0.request.finding = v.map(|x| x.into());
             self
         }
     }
@@ -361,12 +464,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_mute_config][super::super::client::SecurityCenter::create_mute_config] calls.
+    /// The request builder for [SecurityCenter::create_mute_config][crate::client::SecurityCenter::create_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateMuteConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMuteConfig(RequestBuilder<crate::model::CreateMuteConfigRequest>);
 
     impl CreateMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -404,11 +525,22 @@ pub mod security_center {
         /// Sets the value of [mute_config][crate::model::CreateMuteConfigRequest::mute_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_mute_config<T: Into<std::option::Option<crate::model::MuteConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mute_config = v.into();
+        pub fn set_mute_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MuteConfig>,
+        {
+            self.0.request.mute_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mute_config][crate::model::CreateMuteConfigRequest::mute_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mute_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MuteConfig>,
+        {
+            self.0.request.mute_config = v.map(|x| x.into());
             self
         }
 
@@ -428,14 +560,32 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_notification_config][super::super::client::SecurityCenter::create_notification_config] calls.
+    /// The request builder for [SecurityCenter::create_notification_config][crate::client::SecurityCenter::create_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateNotificationConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNotificationConfig(
         RequestBuilder<crate::model::CreateNotificationConfigRequest>,
     );
 
     impl CreateNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -481,13 +631,22 @@ pub mod security_center {
         /// Sets the value of [notification_config][crate::model::CreateNotificationConfigRequest::notification_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notification_config<
-            T: Into<std::option::Option<crate::model::NotificationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notification_config = v.into();
+        pub fn set_notification_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationConfig>,
+        {
+            self.0.request.notification_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [notification_config][crate::model::CreateNotificationConfigRequest::notification_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationConfig>,
+        {
+            self.0.request.notification_config = v.map(|x| x.into());
             self
         }
     }
@@ -499,12 +658,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::create_source][super::super::client::SecurityCenter::create_source] calls.
+    /// The request builder for [SecurityCenter::create_source][crate::client::SecurityCenter::create_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CreateSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -539,11 +716,22 @@ pub mod security_center {
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
     }
@@ -555,12 +743,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_big_query_export][super::super::client::SecurityCenter::delete_big_query_export] calls.
+    /// The request builder for [SecurityCenter::delete_big_query_export][crate::client::SecurityCenter::delete_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteBigQueryExport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBigQueryExport(RequestBuilder<crate::model::DeleteBigQueryExportRequest>);
 
     impl DeleteBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -603,12 +809,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_mute_config][super::super::client::SecurityCenter::delete_mute_config] calls.
+    /// The request builder for [SecurityCenter::delete_mute_config][crate::client::SecurityCenter::delete_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteMuteConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMuteConfig(RequestBuilder<crate::model::DeleteMuteConfigRequest>);
 
     impl DeleteMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -651,14 +875,32 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_notification_config][super::super::client::SecurityCenter::delete_notification_config] calls.
+    /// The request builder for [SecurityCenter::delete_notification_config][crate::client::SecurityCenter::delete_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteNotificationConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNotificationConfig(
         RequestBuilder<crate::model::DeleteNotificationConfigRequest>,
     );
 
     impl DeleteNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,14 +943,32 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_resource_value_config][super::super::client::SecurityCenter::delete_resource_value_config] calls.
+    /// The request builder for [SecurityCenter::delete_resource_value_config][crate::client::SecurityCenter::delete_resource_value_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteResourceValueConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteResourceValueConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteResourceValueConfig(
         RequestBuilder<crate::model::DeleteResourceValueConfigRequest>,
     );
 
     impl DeleteResourceValueConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -751,12 +1011,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_big_query_export][super::super::client::SecurityCenter::get_big_query_export] calls.
+    /// The request builder for [SecurityCenter::get_big_query_export][crate::client::SecurityCenter::get_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetBigQueryExport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBigQueryExport(RequestBuilder<crate::model::GetBigQueryExportRequest>);
 
     impl GetBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -799,12 +1077,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_simulation][super::super::client::SecurityCenter::get_simulation] calls.
+    /// The request builder for [SecurityCenter::get_simulation][crate::client::SecurityCenter::get_simulation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetSimulation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSimulation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSimulation(RequestBuilder<crate::model::GetSimulationRequest>);
 
     impl GetSimulation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -844,12 +1140,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_valued_resource][super::super::client::SecurityCenter::get_valued_resource] calls.
+    /// The request builder for [SecurityCenter::get_valued_resource][crate::client::SecurityCenter::get_valued_resource] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetValuedResource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetValuedResource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetValuedResource(RequestBuilder<crate::model::GetValuedResourceRequest>);
 
     impl GetValuedResource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -892,12 +1206,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_iam_policy][super::super::client::SecurityCenter::get_iam_policy] calls.
+    /// The request builder for [SecurityCenter::get_iam_policy][crate::client::SecurityCenter::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -930,11 +1262,20 @@ pub mod security_center {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -946,12 +1287,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_mute_config][super::super::client::SecurityCenter::get_mute_config] calls.
+    /// The request builder for [SecurityCenter::get_mute_config][crate::client::SecurityCenter::get_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetMuteConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMuteConfig(RequestBuilder<crate::model::GetMuteConfigRequest>);
 
     impl GetMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -991,12 +1350,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_notification_config][super::super::client::SecurityCenter::get_notification_config] calls.
+    /// The request builder for [SecurityCenter::get_notification_config][crate::client::SecurityCenter::get_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetNotificationConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotificationConfig(RequestBuilder<crate::model::GetNotificationConfigRequest>);
 
     impl GetNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1039,12 +1416,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_resource_value_config][super::super::client::SecurityCenter::get_resource_value_config] calls.
+    /// The request builder for [SecurityCenter::get_resource_value_config][crate::client::SecurityCenter::get_resource_value_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetResourceValueConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetResourceValueConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetResourceValueConfig(RequestBuilder<crate::model::GetResourceValueConfigRequest>);
 
     impl GetResourceValueConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1087,12 +1482,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_source][super::super::client::SecurityCenter::get_source] calls.
+    /// The request builder for [SecurityCenter::get_source][crate::client::SecurityCenter::get_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1132,12 +1545,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::group_findings][super::super::client::SecurityCenter::group_findings] calls.
+    /// The request builder for [SecurityCenter::group_findings][crate::client::SecurityCenter::group_findings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GroupFindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GroupFindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GroupFindings(RequestBuilder<crate::model::GroupFindingsRequest>);
 
     impl GroupFindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1161,8 +1596,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::GroupFindingsResponse, gax::error::Error>
         {
@@ -1174,6 +1609,15 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::GroupFindingsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::GroupFindingsRequest::parent].
@@ -1218,12 +1662,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_attack_paths][super::super::client::SecurityCenter::list_attack_paths] calls.
+    /// The request builder for [SecurityCenter::list_attack_paths][crate::client::SecurityCenter::list_attack_paths] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListAttackPaths;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttackPaths {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttackPaths(RequestBuilder<crate::model::ListAttackPathsRequest>);
 
     impl ListAttackPaths {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1247,8 +1713,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAttackPathsResponse, gax::error::Error>
         {
@@ -1260,6 +1726,15 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttackPathsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAttackPathsRequest::parent].
@@ -1296,12 +1771,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_big_query_exports][super::super::client::SecurityCenter::list_big_query_exports] calls.
+    /// The request builder for [SecurityCenter::list_big_query_exports][crate::client::SecurityCenter::list_big_query_exports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListBigQueryExports;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBigQueryExports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBigQueryExports(RequestBuilder<crate::model::ListBigQueryExportsRequest>);
 
     impl ListBigQueryExports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1328,8 +1825,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBigQueryExportsResponse, gax::error::Error>
         {
@@ -1341,6 +1838,17 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBigQueryExportsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBigQueryExportsRequest::parent].
@@ -1371,12 +1879,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_findings][super::super::client::SecurityCenter::list_findings] calls.
+    /// The request builder for [SecurityCenter::list_findings][crate::client::SecurityCenter::list_findings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListFindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFindings(RequestBuilder<crate::model::ListFindingsRequest>);
 
     impl ListFindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1400,8 +1930,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFindingsResponse, gax::error::Error>
         {
@@ -1413,6 +1943,15 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFindingsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFindingsRequest::parent].
@@ -1436,11 +1975,20 @@ pub mod security_center {
         }
 
         /// Sets the value of [field_mask][crate::model::ListFindingsRequest::field_mask].
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::ListFindingsRequest::field_mask].
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
 
@@ -1464,12 +2012,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_mute_configs][super::super::client::SecurityCenter::list_mute_configs] calls.
+    /// The request builder for [SecurityCenter::list_mute_configs][crate::client::SecurityCenter::list_mute_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListMuteConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMuteConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMuteConfigs(RequestBuilder<crate::model::ListMuteConfigsRequest>);
 
     impl ListMuteConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1493,8 +2063,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
         {
@@ -1506,6 +2076,15 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMuteConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMuteConfigsRequest::parent].
@@ -1536,14 +2115,36 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_notification_configs][super::super::client::SecurityCenter::list_notification_configs] calls.
+    /// The request builder for [SecurityCenter::list_notification_configs][crate::client::SecurityCenter::list_notification_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListNotificationConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNotificationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotificationConfigs(
         RequestBuilder<crate::model::ListNotificationConfigsRequest>,
     );
 
     impl ListNotificationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1570,8 +2171,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListNotificationConfigsResponse,
@@ -1585,6 +2186,17 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListNotificationConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNotificationConfigsRequest::parent].
@@ -1615,14 +2227,36 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_resource_value_configs][super::super::client::SecurityCenter::list_resource_value_configs] calls.
+    /// The request builder for [SecurityCenter::list_resource_value_configs][crate::client::SecurityCenter::list_resource_value_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListResourceValueConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListResourceValueConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListResourceValueConfigs(
         RequestBuilder<crate::model::ListResourceValueConfigsRequest>,
     );
 
     impl ListResourceValueConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1649,8 +2283,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListResourceValueConfigsResponse,
@@ -1664,6 +2298,17 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListResourceValueConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListResourceValueConfigsRequest::parent].
@@ -1694,12 +2339,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_sources][super::super::client::SecurityCenter::list_sources] calls.
+    /// The request builder for [SecurityCenter::list_sources][crate::client::SecurityCenter::list_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListSources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1723,8 +2390,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
@@ -1736,6 +2403,15 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
@@ -1766,12 +2442,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_valued_resources][super::super::client::SecurityCenter::list_valued_resources] calls.
+    /// The request builder for [SecurityCenter::list_valued_resources][crate::client::SecurityCenter::list_valued_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListValuedResources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListValuedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListValuedResources(RequestBuilder<crate::model::ListValuedResourcesRequest>);
 
     impl ListValuedResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1798,8 +2496,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListValuedResourcesResponse, gax::error::Error>
         {
@@ -1811,6 +2509,17 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListValuedResourcesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListValuedResourcesRequest::parent].
@@ -1853,12 +2562,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::set_finding_state][super::super::client::SecurityCenter::set_finding_state] calls.
+    /// The request builder for [SecurityCenter::set_finding_state][crate::client::SecurityCenter::set_finding_state] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::SetFindingState;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetFindingState {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetFindingState(RequestBuilder<crate::model::SetFindingStateRequest>);
 
     impl SetFindingState {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1906,12 +2633,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::set_iam_policy][super::super::client::SecurityCenter::set_iam_policy] calls.
+    /// The request builder for [SecurityCenter::set_iam_policy][crate::client::SecurityCenter::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1946,20 +2691,40 @@ pub mod security_center {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1971,12 +2736,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::set_mute][super::super::client::SecurityCenter::set_mute] calls.
+    /// The request builder for [SecurityCenter::set_mute][crate::client::SecurityCenter::set_mute] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::SetMute;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetMute {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetMute(RequestBuilder<crate::model::SetMuteRequest>);
 
     impl SetMute {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2024,12 +2807,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::test_iam_permissions][super::super::client::SecurityCenter::test_iam_permissions] calls.
+    /// The request builder for [SecurityCenter::test_iam_permissions][crate::client::SecurityCenter::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2085,12 +2886,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_big_query_export][super::super::client::SecurityCenter::update_big_query_export] calls.
+    /// The request builder for [SecurityCenter::update_big_query_export][crate::client::SecurityCenter::update_big_query_export] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateBigQueryExport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBigQueryExport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBigQueryExport(RequestBuilder<crate::model::UpdateBigQueryExportRequest>);
 
     impl UpdateBigQueryExport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2120,20 +2939,40 @@ pub mod security_center {
         /// Sets the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
         ///
         /// This is a **required** field for requests.
-        pub fn set_big_query_export<T: Into<std::option::Option<crate::model::BigQueryExport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.big_query_export = v.into();
+        pub fn set_big_query_export<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryExport>,
+        {
+            self.0.request.big_query_export = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [big_query_export][crate::model::UpdateBigQueryExportRequest::big_query_export].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_big_query_export<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryExport>,
+        {
+            self.0.request.big_query_export = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBigQueryExportRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2145,12 +2984,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_external_system][super::super::client::SecurityCenter::update_external_system] calls.
+    /// The request builder for [SecurityCenter::update_external_system][crate::client::SecurityCenter::update_external_system] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateExternalSystem;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateExternalSystem {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExternalSystem(RequestBuilder<crate::model::UpdateExternalSystemRequest>);
 
     impl UpdateExternalSystem {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2180,20 +3037,40 @@ pub mod security_center {
         /// Sets the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_system<T: Into<std::option::Option<crate::model::ExternalSystem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_system = v.into();
+        pub fn set_external_system<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalSystem>,
+        {
+            self.0.request.external_system = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_system][crate::model::UpdateExternalSystemRequest::external_system].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_system<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalSystem>,
+        {
+            self.0.request.external_system = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExternalSystemRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExternalSystemRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2205,12 +3082,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_finding][super::super::client::SecurityCenter::update_finding] calls.
+    /// The request builder for [SecurityCenter::update_finding][crate::client::SecurityCenter::update_finding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateFinding;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFinding(RequestBuilder<crate::model::UpdateFindingRequest>);
 
     impl UpdateFinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2237,20 +3132,40 @@ pub mod security_center {
         /// Sets the value of [finding][crate::model::UpdateFindingRequest::finding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_finding<T: Into<std::option::Option<crate::model::Finding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.finding = v.into();
+        pub fn set_finding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Finding>,
+        {
+            self.0.request.finding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [finding][crate::model::UpdateFindingRequest::finding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_finding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Finding>,
+        {
+            self.0.request.finding = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFindingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFindingRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2262,12 +3177,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_mute_config][super::super::client::SecurityCenter::update_mute_config] calls.
+    /// The request builder for [SecurityCenter::update_mute_config][crate::client::SecurityCenter::update_mute_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateMuteConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMuteConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMuteConfig(RequestBuilder<crate::model::UpdateMuteConfigRequest>);
 
     impl UpdateMuteConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2297,20 +3230,40 @@ pub mod security_center {
         /// Sets the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_mute_config<T: Into<std::option::Option<crate::model::MuteConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mute_config = v.into();
+        pub fn set_mute_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MuteConfig>,
+        {
+            self.0.request.mute_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mute_config][crate::model::UpdateMuteConfigRequest::mute_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_mute_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MuteConfig>,
+        {
+            self.0.request.mute_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMuteConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMuteConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2322,14 +3275,32 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_notification_config][super::super::client::SecurityCenter::update_notification_config] calls.
+    /// The request builder for [SecurityCenter::update_notification_config][crate::client::SecurityCenter::update_notification_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateNotificationConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNotificationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNotificationConfig(
         RequestBuilder<crate::model::UpdateNotificationConfigRequest>,
     );
 
     impl UpdateNotificationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2359,22 +3330,40 @@ pub mod security_center {
         /// Sets the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_notification_config<
-            T: Into<std::option::Option<crate::model::NotificationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.notification_config = v.into();
+        pub fn set_notification_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationConfig>,
+        {
+            self.0.request.notification_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [notification_config][crate::model::UpdateNotificationConfigRequest::notification_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_notification_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NotificationConfig>,
+        {
+            self.0.request.notification_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNotificationConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNotificationConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2386,14 +3375,32 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_resource_value_config][super::super::client::SecurityCenter::update_resource_value_config] calls.
+    /// The request builder for [SecurityCenter::update_resource_value_config][crate::client::SecurityCenter::update_resource_value_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateResourceValueConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateResourceValueConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateResourceValueConfig(
         RequestBuilder<crate::model::UpdateResourceValueConfigRequest>,
     );
 
     impl UpdateResourceValueConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2423,22 +3430,40 @@ pub mod security_center {
         /// Sets the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_resource_value_config<
-            T: Into<std::option::Option<crate::model::ResourceValueConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource_value_config = v.into();
+        pub fn set_resource_value_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceValueConfig>,
+        {
+            self.0.request.resource_value_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [resource_value_config][crate::model::UpdateResourceValueConfigRequest::resource_value_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_resource_value_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ResourceValueConfig>,
+        {
+            self.0.request.resource_value_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateResourceValueConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateResourceValueConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2450,12 +3475,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_security_marks][super::super::client::SecurityCenter::update_security_marks] calls.
+    /// The request builder for [SecurityCenter::update_security_marks][crate::client::SecurityCenter::update_security_marks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateSecurityMarks;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecurityMarks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecurityMarks(RequestBuilder<crate::model::UpdateSecurityMarksRequest>);
 
     impl UpdateSecurityMarks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2485,20 +3528,40 @@ pub mod security_center {
         /// Sets the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
         ///
         /// This is a **required** field for requests.
-        pub fn set_security_marks<T: Into<std::option::Option<crate::model::SecurityMarks>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.security_marks = v.into();
+        pub fn set_security_marks<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityMarks>,
+        {
+            self.0.request.security_marks = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [security_marks][crate::model::UpdateSecurityMarksRequest::security_marks].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_security_marks<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecurityMarks>,
+        {
+            self.0.request.security_marks = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSecurityMarksRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSecurityMarksRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2510,12 +3573,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::update_source][super::super::client::SecurityCenter::update_source] calls.
+    /// The request builder for [SecurityCenter::update_source][crate::client::SecurityCenter::update_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::UpdateSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2542,20 +3623,40 @@ pub mod security_center {
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2567,12 +3668,34 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::list_operations][super::super::client::SecurityCenter::list_operations] calls.
+    /// The request builder for [SecurityCenter::list_operations][crate::client::SecurityCenter::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2599,8 +3722,8 @@ pub mod security_center {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2612,6 +3735,17 @@ pub mod security_center {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2646,12 +3780,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::get_operation][super::super::client::SecurityCenter::get_operation] calls.
+    /// The request builder for [SecurityCenter::get_operation][crate::client::SecurityCenter::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2692,12 +3844,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::delete_operation][super::super::client::SecurityCenter::delete_operation] calls.
+    /// The request builder for [SecurityCenter::delete_operation][crate::client::SecurityCenter::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2738,12 +3908,30 @@ pub mod security_center {
         }
     }
 
-    /// The request builder for [SecurityCenter::cancel_operation][super::super::client::SecurityCenter::cancel_operation] calls.
+    /// The request builder for [SecurityCenter::cancel_operation][crate::client::SecurityCenter::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securitycenter_v2::builder;
+    /// use builder::security_center::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityCenter>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityCenter>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

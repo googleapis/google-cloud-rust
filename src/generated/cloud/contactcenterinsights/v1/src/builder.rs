@@ -16,9 +16,8 @@
 
 pub mod contact_center_insights {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ContactCenterInsights][super::super::client::ContactCenterInsights].
+    /// A builder for [ContactCenterInsights][crate::client::ContactCenterInsights].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod contact_center_insights {
     /// let client = builder
     ///     .with_endpoint("https://contactcenterinsights.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod contact_center_insights {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ContactCenterInsights;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ContactCenterInsights] request builders.
+    /// Common implementation for [crate::client::ContactCenterInsights] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod contact_center_insights {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_conversation][super::super::client::ContactCenterInsights::create_conversation] calls.
+    /// The request builder for [ContactCenterInsights::create_conversation][crate::client::ContactCenterInsights::create_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateConversation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConversation(RequestBuilder<crate::model::CreateConversationRequest>);
 
     impl CreateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -114,11 +132,22 @@ pub mod contact_center_insights {
         /// Sets the value of [conversation][crate::model::CreateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::CreateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
@@ -136,13 +165,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::upload_conversation][super::super::client::ContactCenterInsights::upload_conversation] calls.
+    /// The request builder for [ContactCenterInsights::upload_conversation][crate::client::ContactCenterInsights::upload_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UploadConversation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UploadConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UploadConversation(RequestBuilder<crate::model::UploadConversationRequest>);
 
     impl UploadConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -167,7 +213,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upload_conversation][super::super::client::ContactCenterInsights::upload_conversation].
+        /// on [upload_conversation][crate::client::ContactCenterInsights::upload_conversation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upload_conversation(self.0.request, self.0.options)
@@ -180,7 +226,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::Conversation, crate::model::UploadConversationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Conversation,
                 crate::model::UploadConversationMetadata,
             >;
@@ -208,7 +254,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::UploadConversationRequest::parent].
@@ -222,11 +268,22 @@ pub mod contact_center_insights {
         /// Sets the value of [conversation][crate::model::UploadConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::UploadConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
@@ -237,20 +294,38 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
-        pub fn set_redaction_config<T: Into<std::option::Option<crate::model::RedactionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.redaction_config = v.into();
+        pub fn set_redaction_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [redaction_config][crate::model::UploadConversationRequest::redaction_config].
+        pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
-        pub fn set_speech_config<T: Into<std::option::Option<crate::model::SpeechConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.speech_config = v.into();
+        pub fn set_speech_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [speech_config][crate::model::UploadConversationRequest::speech_config].
+        pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = v.map(|x| x.into());
             self
         }
     }
@@ -262,13 +337,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_conversation][super::super::client::ContactCenterInsights::update_conversation] calls.
+    /// The request builder for [ContactCenterInsights::update_conversation][crate::client::ContactCenterInsights::update_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateConversation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConversation(RequestBuilder<crate::model::UpdateConversationRequest>);
 
     impl UpdateConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -299,20 +390,40 @@ pub mod contact_center_insights {
         /// Sets the value of [conversation][crate::model::UpdateConversationRequest::conversation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_conversation<T: Into<std::option::Option<crate::model::Conversation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation = v.into();
+        pub fn set_conversation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation][crate::model::UpdateConversationRequest::conversation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_conversation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Conversation>,
+        {
+            self.0.request.conversation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConversationRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -324,13 +435,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_conversation][super::super::client::ContactCenterInsights::get_conversation] calls.
+    /// The request builder for [ContactCenterInsights::get_conversation][crate::client::ContactCenterInsights::get_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetConversation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConversation(RequestBuilder<crate::model::GetConversationRequest>);
 
     impl GetConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -377,13 +504,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_conversations][super::super::client::ContactCenterInsights::list_conversations] calls.
+    /// The request builder for [ContactCenterInsights::list_conversations][crate::client::ContactCenterInsights::list_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListConversations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConversations(RequestBuilder<crate::model::ListConversationsRequest>);
 
     impl ListConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -411,8 +558,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConversationsResponse, gax::error::Error>
         {
@@ -424,6 +571,15 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConversationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConversationsRequest::parent].
@@ -472,13 +628,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_conversation][super::super::client::ContactCenterInsights::delete_conversation] calls.
+    /// The request builder for [ContactCenterInsights::delete_conversation][crate::client::ContactCenterInsights::delete_conversation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteConversation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConversation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConversation(RequestBuilder<crate::model::DeleteConversationRequest>);
 
     impl DeleteConversation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -528,13 +700,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_analysis][super::super::client::ContactCenterInsights::create_analysis] calls.
+    /// The request builder for [ContactCenterInsights::create_analysis][crate::client::ContactCenterInsights::create_analysis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateAnalysis;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnalysis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnalysis(RequestBuilder<crate::model::CreateAnalysisRequest>);
 
     impl CreateAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -556,7 +745,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_analysis][super::super::client::ContactCenterInsights::create_analysis].
+        /// on [create_analysis][crate::client::ContactCenterInsights::create_analysis].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_analysis(self.0.request, self.0.options)
@@ -569,7 +758,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::Analysis, crate::model::CreateAnalysisOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::Analysis,
                 crate::model::CreateAnalysisOperationMetadata,
             >;
@@ -597,7 +786,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAnalysisRequest::parent].
@@ -611,11 +800,22 @@ pub mod contact_center_insights {
         /// Sets the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis<T: Into<std::option::Option<crate::model::Analysis>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis = v.into();
+        pub fn set_analysis<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Analysis>,
+        {
+            self.0.request.analysis = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis][crate::model::CreateAnalysisRequest::analysis].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Analysis>,
+        {
+            self.0.request.analysis = v.map(|x| x.into());
             self
         }
     }
@@ -627,13 +827,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_analysis][super::super::client::ContactCenterInsights::get_analysis] calls.
+    /// The request builder for [ContactCenterInsights::get_analysis][crate::client::ContactCenterInsights::get_analysis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetAnalysis;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnalysis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnalysis(RequestBuilder<crate::model::GetAnalysisRequest>);
 
     impl GetAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -674,13 +890,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_analyses][super::super::client::ContactCenterInsights::list_analyses] calls.
+    /// The request builder for [ContactCenterInsights::list_analyses][crate::client::ContactCenterInsights::list_analyses] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListAnalyses;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAnalyses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAnalyses(RequestBuilder<crate::model::ListAnalysesRequest>);
 
     impl ListAnalyses {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -705,8 +941,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAnalysesResponse, gax::error::Error>
         {
@@ -718,6 +954,15 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAnalysesRequest::parent].
@@ -754,13 +999,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_analysis][super::super::client::ContactCenterInsights::delete_analysis] calls.
+    /// The request builder for [ContactCenterInsights::delete_analysis][crate::client::ContactCenterInsights::delete_analysis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteAnalysis;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAnalysis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAnalysis(RequestBuilder<crate::model::DeleteAnalysisRequest>);
 
     impl DeleteAnalysis {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -801,7 +1062,24 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_analyze_conversations][super::super::client::ContactCenterInsights::bulk_analyze_conversations] calls.
+    /// The request builder for [ContactCenterInsights::bulk_analyze_conversations][crate::client::ContactCenterInsights::bulk_analyze_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkAnalyzeConversations;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkAnalyzeConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkAnalyzeConversations(
         RequestBuilder<crate::model::BulkAnalyzeConversationsRequest>,
@@ -809,7 +1087,7 @@ pub mod contact_center_insights {
 
     impl BulkAnalyzeConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -834,7 +1112,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_analyze_conversations][super::super::client::ContactCenterInsights::bulk_analyze_conversations].
+        /// on [bulk_analyze_conversations][crate::client::ContactCenterInsights::bulk_analyze_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_analyze_conversations(self.0.request, self.0.options)
@@ -849,7 +1127,7 @@ pub mod contact_center_insights {
             crate::model::BulkAnalyzeConversationsResponse,
             crate::model::BulkAnalyzeConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkAnalyzeConversationsResponse,
                 crate::model::BulkAnalyzeConversationsMetadata,
             >;
@@ -877,7 +1155,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkAnalyzeConversationsRequest::parent].
@@ -905,13 +1183,20 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
-        pub fn set_annotator_selector<
-            T: Into<std::option::Option<crate::model::AnnotatorSelector>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.annotator_selector = v.into();
+        pub fn set_annotator_selector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnnotatorSelector>,
+        {
+            self.0.request.annotator_selector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [annotator_selector][crate::model::BulkAnalyzeConversationsRequest::annotator_selector].
+        pub fn set_or_clear_annotator_selector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnnotatorSelector>,
+        {
+            self.0.request.annotator_selector = v.map(|x| x.into());
             self
         }
     }
@@ -923,7 +1208,24 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_delete_conversations][super::super::client::ContactCenterInsights::bulk_delete_conversations] calls.
+    /// The request builder for [ContactCenterInsights::bulk_delete_conversations][crate::client::ContactCenterInsights::bulk_delete_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkDeleteConversations;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkDeleteConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDeleteConversations(
         RequestBuilder<crate::model::BulkDeleteConversationsRequest>,
@@ -931,7 +1233,7 @@ pub mod contact_center_insights {
 
     impl BulkDeleteConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -956,7 +1258,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_delete_conversations][super::super::client::ContactCenterInsights::bulk_delete_conversations].
+        /// on [bulk_delete_conversations][crate::client::ContactCenterInsights::bulk_delete_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_delete_conversations(self.0.request, self.0.options)
@@ -971,7 +1273,7 @@ pub mod contact_center_insights {
             crate::model::BulkDeleteConversationsResponse,
             crate::model::BulkDeleteConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDeleteConversationsResponse,
                 crate::model::BulkDeleteConversationsMetadata,
             >;
@@ -999,7 +1301,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDeleteConversationsRequest::parent].
@@ -1036,13 +1338,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::ingest_conversations][super::super::client::ContactCenterInsights::ingest_conversations] calls.
+    /// The request builder for [ContactCenterInsights::ingest_conversations][crate::client::ContactCenterInsights::ingest_conversations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::IngestConversations;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> IngestConversations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct IngestConversations(RequestBuilder<crate::model::IngestConversationsRequest>);
 
     impl IngestConversations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1067,7 +1386,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [ingest_conversations][super::super::client::ContactCenterInsights::ingest_conversations].
+        /// on [ingest_conversations][crate::client::ContactCenterInsights::ingest_conversations].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .ingest_conversations(self.0.request, self.0.options)
@@ -1082,7 +1401,7 @@ pub mod contact_center_insights {
             crate::model::IngestConversationsResponse,
             crate::model::IngestConversationsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::IngestConversationsResponse,
                 crate::model::IngestConversationsMetadata,
             >;
@@ -1110,7 +1429,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::IngestConversationsRequest::parent].
@@ -1122,39 +1441,74 @@ pub mod contact_center_insights {
         }
 
         /// Sets the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
-        pub fn set_conversation_config<
-            T: Into<
-                std::option::Option<crate::model::ingest_conversations_request::ConversationConfig>,
-            >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.conversation_config = v.into();
+        pub fn set_conversation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
+        {
+            self.0.request.conversation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [conversation_config][crate::model::IngestConversationsRequest::conversation_config].
+        pub fn set_or_clear_conversation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ingest_conversations_request::ConversationConfig>,
+        {
+            self.0.request.conversation_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
-        pub fn set_redaction_config<T: Into<std::option::Option<crate::model::RedactionConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.redaction_config = v.into();
+        pub fn set_redaction_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [redaction_config][crate::model::IngestConversationsRequest::redaction_config].
+        pub fn set_or_clear_redaction_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RedactionConfig>,
+        {
+            self.0.request.redaction_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
-        pub fn set_speech_config<T: Into<std::option::Option<crate::model::SpeechConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.speech_config = v.into();
+        pub fn set_speech_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [speech_config][crate::model::IngestConversationsRequest::speech_config].
+        pub fn set_or_clear_speech_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SpeechConfig>,
+        {
+            self.0.request.speech_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
-        pub fn set_sample_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.sample_size = v.into();
+        pub fn set_sample_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.sample_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sample_size][crate::model::IngestConversationsRequest::sample_size].
+        pub fn set_or_clear_sample_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.sample_size = v.map(|x| x.into());
             self
         }
 
@@ -1228,13 +1582,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::export_insights_data][super::super::client::ContactCenterInsights::export_insights_data] calls.
+    /// The request builder for [ContactCenterInsights::export_insights_data][crate::client::ContactCenterInsights::export_insights_data] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ExportInsightsData;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportInsightsData {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportInsightsData(RequestBuilder<crate::model::ExportInsightsDataRequest>);
 
     impl ExportInsightsData {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1259,7 +1630,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_insights_data][super::super::client::ContactCenterInsights::export_insights_data].
+        /// on [export_insights_data][crate::client::ContactCenterInsights::export_insights_data].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_insights_data(self.0.request, self.0.options)
@@ -1274,7 +1645,7 @@ pub mod contact_center_insights {
             crate::model::ExportInsightsDataResponse,
             crate::model::ExportInsightsDataMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportInsightsDataResponse,
                 crate::model::ExportInsightsDataMetadata,
             >;
@@ -1302,7 +1673,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExportInsightsDataRequest::parent].
@@ -1377,13 +1748,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_issue_model][super::super::client::ContactCenterInsights::create_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::create_issue_model][crate::client::ContactCenterInsights::create_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateIssueModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateIssueModel(RequestBuilder<crate::model::CreateIssueModelRequest>);
 
     impl CreateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1408,7 +1796,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_issue_model][super::super::client::ContactCenterInsights::create_issue_model].
+        /// on [create_issue_model][crate::client::ContactCenterInsights::create_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_issue_model(self.0.request, self.0.options)
@@ -1421,8 +1809,10 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::IssueModel, crate::model::CreateIssueModelMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::IssueModel,
+                crate::model::CreateIssueModelMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1447,7 +1837,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIssueModelRequest::parent].
@@ -1461,11 +1851,22 @@ pub mod contact_center_insights {
         /// Sets the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_issue_model<T: Into<std::option::Option<crate::model::IssueModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.issue_model = v.into();
+        pub fn set_issue_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue_model][crate::model::CreateIssueModelRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = v.map(|x| x.into());
             self
         }
     }
@@ -1477,13 +1878,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_issue_model][super::super::client::ContactCenterInsights::update_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::update_issue_model][crate::client::ContactCenterInsights::update_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateIssueModel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateIssueModel(RequestBuilder<crate::model::UpdateIssueModelRequest>);
 
     impl UpdateIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1514,20 +1931,40 @@ pub mod contact_center_insights {
         /// Sets the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_issue_model<T: Into<std::option::Option<crate::model::IssueModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.issue_model = v.into();
+        pub fn set_issue_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue_model][crate::model::UpdateIssueModelRequest::issue_model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::IssueModel>,
+        {
+            self.0.request.issue_model = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIssueModelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1539,13 +1976,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_issue_model][super::super::client::ContactCenterInsights::get_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::get_issue_model][crate::client::ContactCenterInsights::get_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetIssueModel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIssueModel(RequestBuilder<crate::model::GetIssueModelRequest>);
 
     impl GetIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1586,13 +2039,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_issue_models][super::super::client::ContactCenterInsights::list_issue_models] calls.
+    /// The request builder for [ContactCenterInsights::list_issue_models][crate::client::ContactCenterInsights::list_issue_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListIssueModels;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIssueModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIssueModels(RequestBuilder<crate::model::ListIssueModelsRequest>);
 
     impl ListIssueModels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1633,13 +2102,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_issue_model][super::super::client::ContactCenterInsights::delete_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::delete_issue_model][crate::client::ContactCenterInsights::delete_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteIssueModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIssueModel(RequestBuilder<crate::model::DeleteIssueModelRequest>);
 
     impl DeleteIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1664,7 +2150,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_issue_model][super::super::client::ContactCenterInsights::delete_issue_model].
+        /// on [delete_issue_model][crate::client::ContactCenterInsights::delete_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_issue_model(self.0.request, self.0.options)
@@ -1673,10 +2159,9 @@ pub mod contact_center_insights {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_issue_model`.
-        pub fn poller(
-            self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::DeleteIssueModelMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::DeleteIssueModelMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::DeleteIssueModelMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1701,7 +2186,12 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteIssueModelRequest::name].
@@ -1720,13 +2210,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::deploy_issue_model][super::super::client::ContactCenterInsights::deploy_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::deploy_issue_model][crate::client::ContactCenterInsights::deploy_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeployIssueModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployIssueModel(RequestBuilder<crate::model::DeployIssueModelRequest>);
 
     impl DeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1751,7 +2258,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [deploy_issue_model][super::super::client::ContactCenterInsights::deploy_issue_model].
+        /// on [deploy_issue_model][crate::client::ContactCenterInsights::deploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .deploy_issue_model(self.0.request, self.0.options)
@@ -1766,7 +2273,7 @@ pub mod contact_center_insights {
             crate::model::DeployIssueModelResponse,
             crate::model::DeployIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DeployIssueModelResponse,
                 crate::model::DeployIssueModelMetadata,
             >;
@@ -1794,7 +2301,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeployIssueModelRequest::name].
@@ -1813,13 +2320,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::undeploy_issue_model][super::super::client::ContactCenterInsights::undeploy_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::undeploy_issue_model][crate::client::ContactCenterInsights::undeploy_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UndeployIssueModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeployIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployIssueModel(RequestBuilder<crate::model::UndeployIssueModelRequest>);
 
     impl UndeployIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1844,7 +2368,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undeploy_issue_model][super::super::client::ContactCenterInsights::undeploy_issue_model].
+        /// on [undeploy_issue_model][crate::client::ContactCenterInsights::undeploy_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undeploy_issue_model(self.0.request, self.0.options)
@@ -1859,7 +2383,7 @@ pub mod contact_center_insights {
             crate::model::UndeployIssueModelResponse,
             crate::model::UndeployIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeployIssueModelResponse,
                 crate::model::UndeployIssueModelMetadata,
             >;
@@ -1887,7 +2411,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeployIssueModelRequest::name].
@@ -1906,13 +2430,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::export_issue_model][super::super::client::ContactCenterInsights::export_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::export_issue_model][crate::client::ContactCenterInsights::export_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ExportIssueModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportIssueModel(RequestBuilder<crate::model::ExportIssueModelRequest>);
 
     impl ExportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1937,7 +2478,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_issue_model][super::super::client::ContactCenterInsights::export_issue_model].
+        /// on [export_issue_model][crate::client::ContactCenterInsights::export_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_issue_model(self.0.request, self.0.options)
@@ -1952,7 +2493,7 @@ pub mod contact_center_insights {
             crate::model::ExportIssueModelResponse,
             crate::model::ExportIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportIssueModelResponse,
                 crate::model::ExportIssueModelMetadata,
             >;
@@ -1980,7 +2521,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportIssueModelRequest::name].
@@ -2030,13 +2571,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::import_issue_model][super::super::client::ContactCenterInsights::import_issue_model] calls.
+    /// The request builder for [ContactCenterInsights::import_issue_model][crate::client::ContactCenterInsights::import_issue_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ImportIssueModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportIssueModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportIssueModel(RequestBuilder<crate::model::ImportIssueModelRequest>);
 
     impl ImportIssueModel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2061,7 +2619,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_issue_model][super::super::client::ContactCenterInsights::import_issue_model].
+        /// on [import_issue_model][crate::client::ContactCenterInsights::import_issue_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_issue_model(self.0.request, self.0.options)
@@ -2076,7 +2634,7 @@ pub mod contact_center_insights {
             crate::model::ImportIssueModelResponse,
             crate::model::ImportIssueModelMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportIssueModelResponse,
                 crate::model::ImportIssueModelMetadata,
             >;
@@ -2104,7 +2662,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ImportIssueModelRequest::parent].
@@ -2158,13 +2716,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_issue][super::super::client::ContactCenterInsights::get_issue] calls.
+    /// The request builder for [ContactCenterInsights::get_issue][crate::client::ContactCenterInsights::get_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetIssue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIssue(RequestBuilder<crate::model::GetIssueRequest>);
 
     impl GetIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2205,13 +2779,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_issues][super::super::client::ContactCenterInsights::list_issues] calls.
+    /// The request builder for [ContactCenterInsights::list_issues][crate::client::ContactCenterInsights::list_issues] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListIssues;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIssues {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIssues(RequestBuilder<crate::model::ListIssuesRequest>);
 
     impl ListIssues {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2252,13 +2842,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_issue][super::super::client::ContactCenterInsights::update_issue] calls.
+    /// The request builder for [ContactCenterInsights::update_issue][crate::client::ContactCenterInsights::update_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateIssue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateIssue(RequestBuilder<crate::model::UpdateIssueRequest>);
 
     impl UpdateIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2286,20 +2892,40 @@ pub mod contact_center_insights {
         /// Sets the value of [issue][crate::model::UpdateIssueRequest::issue].
         ///
         /// This is a **required** field for requests.
-        pub fn set_issue<T: Into<std::option::Option<crate::model::Issue>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.issue = v.into();
+        pub fn set_issue<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [issue][crate::model::UpdateIssueRequest::issue].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_issue<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Issue>,
+        {
+            self.0.request.issue = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateIssueRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2311,13 +2937,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_issue][super::super::client::ContactCenterInsights::delete_issue] calls.
+    /// The request builder for [ContactCenterInsights::delete_issue][crate::client::ContactCenterInsights::delete_issue] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteIssue;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIssue {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIssue(RequestBuilder<crate::model::DeleteIssueRequest>);
 
     impl DeleteIssue {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2358,7 +3000,23 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::calculate_issue_model_stats][super::super::client::ContactCenterInsights::calculate_issue_model_stats] calls.
+    /// The request builder for [ContactCenterInsights::calculate_issue_model_stats][crate::client::ContactCenterInsights::calculate_issue_model_stats] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CalculateIssueModelStats;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CalculateIssueModelStats {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CalculateIssueModelStats(
         RequestBuilder<crate::model::CalculateIssueModelStatsRequest>,
@@ -2366,7 +3024,7 @@ pub mod contact_center_insights {
 
     impl CalculateIssueModelStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2410,13 +3068,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_phrase_matcher][super::super::client::ContactCenterInsights::create_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::create_phrase_matcher][crate::client::ContactCenterInsights::create_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreatePhraseMatcher;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePhraseMatcher(RequestBuilder<crate::model::CreatePhraseMatcherRequest>);
 
     impl CreatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2455,11 +3129,22 @@ pub mod contact_center_insights {
         /// Sets the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_matcher<T: Into<std::option::Option<crate::model::PhraseMatcher>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_matcher = v.into();
+        pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_matcher][crate::model::CreatePhraseMatcherRequest::phrase_matcher].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = v.map(|x| x.into());
             self
         }
     }
@@ -2471,13 +3156,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_phrase_matcher][super::super::client::ContactCenterInsights::get_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::get_phrase_matcher][crate::client::ContactCenterInsights::get_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetPhraseMatcher;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPhraseMatcher(RequestBuilder<crate::model::GetPhraseMatcherRequest>);
 
     impl GetPhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2521,13 +3222,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_phrase_matchers][super::super::client::ContactCenterInsights::list_phrase_matchers] calls.
+    /// The request builder for [ContactCenterInsights::list_phrase_matchers][crate::client::ContactCenterInsights::list_phrase_matchers] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListPhraseMatchers;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPhraseMatchers {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPhraseMatchers(RequestBuilder<crate::model::ListPhraseMatchersRequest>);
 
     impl ListPhraseMatchers {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2555,8 +3276,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPhraseMatchersResponse, gax::error::Error>
         {
@@ -2568,6 +3289,17 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPhraseMatchersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPhraseMatchersRequest::parent].
@@ -2604,13 +3336,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_phrase_matcher][super::super::client::ContactCenterInsights::delete_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::delete_phrase_matcher][crate::client::ContactCenterInsights::delete_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeletePhraseMatcher;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePhraseMatcher(RequestBuilder<crate::model::DeletePhraseMatcherRequest>);
 
     impl DeletePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2654,13 +3402,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_phrase_matcher][super::super::client::ContactCenterInsights::update_phrase_matcher] calls.
+    /// The request builder for [ContactCenterInsights::update_phrase_matcher][crate::client::ContactCenterInsights::update_phrase_matcher] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdatePhraseMatcher;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePhraseMatcher {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePhraseMatcher(RequestBuilder<crate::model::UpdatePhraseMatcherRequest>);
 
     impl UpdatePhraseMatcher {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2691,20 +3455,40 @@ pub mod contact_center_insights {
         /// Sets the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
         ///
         /// This is a **required** field for requests.
-        pub fn set_phrase_matcher<T: Into<std::option::Option<crate::model::PhraseMatcher>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.phrase_matcher = v.into();
+        pub fn set_phrase_matcher<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [phrase_matcher][crate::model::UpdatePhraseMatcherRequest::phrase_matcher].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_phrase_matcher<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PhraseMatcher>,
+        {
+            self.0.request.phrase_matcher = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePhraseMatcherRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2716,13 +3500,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::calculate_stats][super::super::client::ContactCenterInsights::calculate_stats] calls.
+    /// The request builder for [ContactCenterInsights::calculate_stats][crate::client::ContactCenterInsights::calculate_stats] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CalculateStats;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CalculateStats {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CalculateStats(RequestBuilder<crate::model::CalculateStatsRequest>);
 
     impl CalculateStats {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2769,13 +3569,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_settings][super::super::client::ContactCenterInsights::get_settings] calls.
+    /// The request builder for [ContactCenterInsights::get_settings][crate::client::ContactCenterInsights::get_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2816,13 +3632,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_settings][super::super::client::ContactCenterInsights::update_settings] calls.
+    /// The request builder for [ContactCenterInsights::update_settings][crate::client::ContactCenterInsights::update_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2850,22 +3682,44 @@ pub mod contact_center_insights {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2877,13 +3731,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_analysis_rule][super::super::client::ContactCenterInsights::create_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::create_analysis_rule][crate::client::ContactCenterInsights::create_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateAnalysisRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAnalysisRule(RequestBuilder<crate::model::CreateAnalysisRuleRequest>);
 
     impl CreateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2922,11 +3792,22 @@ pub mod contact_center_insights {
         /// Sets the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis_rule<T: Into<std::option::Option<crate::model::AnalysisRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis_rule = v.into();
+        pub fn set_analysis_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis_rule][crate::model::CreateAnalysisRuleRequest::analysis_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = v.map(|x| x.into());
             self
         }
     }
@@ -2938,13 +3819,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_analysis_rule][super::super::client::ContactCenterInsights::get_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::get_analysis_rule][crate::client::ContactCenterInsights::get_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetAnalysisRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAnalysisRule(RequestBuilder<crate::model::GetAnalysisRuleRequest>);
 
     impl GetAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2985,13 +3882,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_analysis_rules][super::super::client::ContactCenterInsights::list_analysis_rules] calls.
+    /// The request builder for [ContactCenterInsights::list_analysis_rules][crate::client::ContactCenterInsights::list_analysis_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListAnalysisRules;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAnalysisRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAnalysisRules(RequestBuilder<crate::model::ListAnalysisRulesRequest>);
 
     impl ListAnalysisRules {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3019,8 +3936,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
         {
@@ -3032,6 +3949,15 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAnalysisRulesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAnalysisRulesRequest::parent].
@@ -3062,13 +3988,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_analysis_rule][super::super::client::ContactCenterInsights::update_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::update_analysis_rule][crate::client::ContactCenterInsights::update_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateAnalysisRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAnalysisRule(RequestBuilder<crate::model::UpdateAnalysisRuleRequest>);
 
     impl UpdateAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3099,20 +4041,40 @@ pub mod contact_center_insights {
         /// Sets the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_analysis_rule<T: Into<std::option::Option<crate::model::AnalysisRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.analysis_rule = v.into();
+        pub fn set_analysis_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [analysis_rule][crate::model::UpdateAnalysisRuleRequest::analysis_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_analysis_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AnalysisRule>,
+        {
+            self.0.request.analysis_rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAnalysisRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3124,13 +4086,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_analysis_rule][super::super::client::ContactCenterInsights::delete_analysis_rule] calls.
+    /// The request builder for [ContactCenterInsights::delete_analysis_rule][crate::client::ContactCenterInsights::delete_analysis_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteAnalysisRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAnalysisRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAnalysisRule(RequestBuilder<crate::model::DeleteAnalysisRuleRequest>);
 
     impl DeleteAnalysisRule {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3174,13 +4152,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_encryption_spec][super::super::client::ContactCenterInsights::get_encryption_spec] calls.
+    /// The request builder for [ContactCenterInsights::get_encryption_spec][crate::client::ContactCenterInsights::get_encryption_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetEncryptionSpec;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEncryptionSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEncryptionSpec(RequestBuilder<crate::model::GetEncryptionSpecRequest>);
 
     impl GetEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3224,7 +4218,24 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::initialize_encryption_spec][super::super::client::ContactCenterInsights::initialize_encryption_spec] calls.
+    /// The request builder for [ContactCenterInsights::initialize_encryption_spec][crate::client::ContactCenterInsights::initialize_encryption_spec] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::InitializeEncryptionSpec;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> InitializeEncryptionSpec {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct InitializeEncryptionSpec(
         RequestBuilder<crate::model::InitializeEncryptionSpecRequest>,
@@ -3232,7 +4243,7 @@ pub mod contact_center_insights {
 
     impl InitializeEncryptionSpec {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3257,7 +4268,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [initialize_encryption_spec][super::super::client::ContactCenterInsights::initialize_encryption_spec].
+        /// on [initialize_encryption_spec][crate::client::ContactCenterInsights::initialize_encryption_spec].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .initialize_encryption_spec(self.0.request, self.0.options)
@@ -3272,7 +4283,7 @@ pub mod contact_center_insights {
             crate::model::InitializeEncryptionSpecResponse,
             crate::model::InitializeEncryptionSpecMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InitializeEncryptionSpecResponse,
                 crate::model::InitializeEncryptionSpecMetadata,
             >;
@@ -3300,17 +4311,28 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
         ///
         /// This is a **required** field for requests.
-        pub fn set_encryption_spec<T: Into<std::option::Option<crate::model::EncryptionSpec>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_spec = v.into();
+        pub fn set_encryption_spec<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionSpec>,
+        {
+            self.0.request.encryption_spec = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_spec][crate::model::InitializeEncryptionSpecRequest::encryption_spec].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_encryption_spec<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EncryptionSpec>,
+        {
+            self.0.request.encryption_spec = v.map(|x| x.into());
             self
         }
     }
@@ -3322,13 +4344,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_view][super::super::client::ContactCenterInsights::create_view] calls.
+    /// The request builder for [ContactCenterInsights::create_view][crate::client::ContactCenterInsights::create_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
 
     impl CreateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3364,8 +4402,22 @@ pub mod contact_center_insights {
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::View>>>(mut self, v: T) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
     }
@@ -3377,13 +4429,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_view][super::super::client::ContactCenterInsights::get_view] calls.
+    /// The request builder for [ContactCenterInsights::get_view][crate::client::ContactCenterInsights::get_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
 
     impl GetView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3424,13 +4492,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_views][super::super::client::ContactCenterInsights::list_views] calls.
+    /// The request builder for [ContactCenterInsights::list_views][crate::client::ContactCenterInsights::list_views] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListViews;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListViews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
 
     impl ListViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3455,8 +4543,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error>
         {
@@ -3468,6 +4556,15 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViewsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
@@ -3498,13 +4595,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_view][super::super::client::ContactCenterInsights::update_view] calls.
+    /// The request builder for [ContactCenterInsights::update_view][crate::client::ContactCenterInsights::update_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
 
     impl UpdateView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3532,17 +4645,40 @@ pub mod contact_center_insights {
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::View>>>(mut self, v: T) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::View>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3554,13 +4690,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_view][super::super::client::ContactCenterInsights::delete_view] calls.
+    /// The request builder for [ContactCenterInsights::delete_view][crate::client::ContactCenterInsights::delete_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
 
     impl DeleteView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3601,13 +4753,30 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::query_metrics][super::super::client::ContactCenterInsights::query_metrics] calls.
+    /// The request builder for [ContactCenterInsights::query_metrics][crate::client::ContactCenterInsights::query_metrics] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::QueryMetrics;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryMetrics(RequestBuilder<crate::model::QueryMetricsRequest>);
 
     impl QueryMetrics {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3629,7 +4798,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [query_metrics][super::super::client::ContactCenterInsights::query_metrics].
+        /// on [query_metrics][crate::client::ContactCenterInsights::query_metrics].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .query_metrics(self.0.request, self.0.options)
@@ -3642,7 +4811,7 @@ pub mod contact_center_insights {
             self,
         ) -> impl lro::Poller<crate::model::QueryMetricsResponse, crate::model::QueryMetricsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::QueryMetricsResponse,
                 crate::model::QueryMetricsMetadata,
             >;
@@ -3670,7 +4839,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [location][crate::model::QueryMetricsRequest::location].
@@ -3700,15 +4869,6 @@ pub mod contact_center_insights {
             self
         }
 
-        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
-        pub fn set_measure_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.measure_mask = v.into();
-            self
-        }
-
         /// Sets the value of [dimensions][crate::model::QueryMetricsRequest::dimensions].
         pub fn set_dimensions<T, V>(mut self, v: T) -> Self
         where
@@ -3717,6 +4877,24 @@ pub mod contact_center_insights {
         {
             use std::iter::Iterator;
             self.0.request.dimensions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_measure_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.measure_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [measure_mask][crate::model::QueryMetricsRequest::measure_mask].
+        pub fn set_or_clear_measure_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.measure_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3728,13 +4906,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_qa_question][super::super::client::ContactCenterInsights::create_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::create_qa_question][crate::client::ContactCenterInsights::create_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateQaQuestion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaQuestion(RequestBuilder<crate::model::CreateQaQuestionRequest>);
 
     impl CreateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3773,11 +4967,22 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_question<T: Into<std::option::Option<crate::model::QaQuestion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_question = v.into();
+        pub fn set_qa_question<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_question][crate::model::CreateQaQuestionRequest::qa_question].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = v.map(|x| x.into());
             self
         }
 
@@ -3795,13 +5000,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_qa_question][super::super::client::ContactCenterInsights::get_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::get_qa_question][crate::client::ContactCenterInsights::get_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetQaQuestion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQaQuestion(RequestBuilder<crate::model::GetQaQuestionRequest>);
 
     impl GetQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3842,13 +5063,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_qa_question][super::super::client::ContactCenterInsights::update_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::update_qa_question][crate::client::ContactCenterInsights::update_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateQaQuestion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQaQuestion(RequestBuilder<crate::model::UpdateQaQuestionRequest>);
 
     impl UpdateQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3879,22 +5116,44 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_question<T: Into<std::option::Option<crate::model::QaQuestion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_question = v.into();
+        pub fn set_qa_question<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_question][crate::model::UpdateQaQuestionRequest::qa_question].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_question<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaQuestion>,
+        {
+            self.0.request.qa_question = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQaQuestionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3906,13 +5165,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_qa_question][super::super::client::ContactCenterInsights::delete_qa_question] calls.
+    /// The request builder for [ContactCenterInsights::delete_qa_question][crate::client::ContactCenterInsights::delete_qa_question] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteQaQuestion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQaQuestion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaQuestion(RequestBuilder<crate::model::DeleteQaQuestionRequest>);
 
     impl DeleteQaQuestion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3956,13 +5231,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_qa_questions][super::super::client::ContactCenterInsights::list_qa_questions] calls.
+    /// The request builder for [ContactCenterInsights::list_qa_questions][crate::client::ContactCenterInsights::list_qa_questions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListQaQuestions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQaQuestions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaQuestions(RequestBuilder<crate::model::ListQaQuestionsRequest>);
 
     impl ListQaQuestions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3987,8 +5282,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
         {
@@ -4000,6 +5295,15 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQaQuestionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListQaQuestionsRequest::parent].
@@ -4030,13 +5334,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_qa_scorecard][super::super::client::ContactCenterInsights::create_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::create_qa_scorecard][crate::client::ContactCenterInsights::create_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateQaScorecard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaScorecard(RequestBuilder<crate::model::CreateQaScorecardRequest>);
 
     impl CreateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4075,11 +5395,22 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_scorecard<T: Into<std::option::Option<crate::model::QaScorecard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_scorecard = v.into();
+        pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_scorecard][crate::model::CreateQaScorecardRequest::qa_scorecard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = v.map(|x| x.into());
             self
         }
 
@@ -4097,13 +5428,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_qa_scorecard][super::super::client::ContactCenterInsights::get_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::get_qa_scorecard][crate::client::ContactCenterInsights::get_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetQaScorecard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQaScorecard(RequestBuilder<crate::model::GetQaScorecardRequest>);
 
     impl GetQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4144,13 +5491,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_qa_scorecard][super::super::client::ContactCenterInsights::update_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::update_qa_scorecard][crate::client::ContactCenterInsights::update_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateQaScorecard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQaScorecard(RequestBuilder<crate::model::UpdateQaScorecardRequest>);
 
     impl UpdateQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4181,22 +5544,44 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_scorecard<T: Into<std::option::Option<crate::model::QaScorecard>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_scorecard = v.into();
+        pub fn set_qa_scorecard<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_scorecard][crate::model::UpdateQaScorecardRequest::qa_scorecard].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_scorecard<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecard>,
+        {
+            self.0.request.qa_scorecard = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQaScorecardRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4208,13 +5593,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_qa_scorecard][super::super::client::ContactCenterInsights::delete_qa_scorecard] calls.
+    /// The request builder for [ContactCenterInsights::delete_qa_scorecard][crate::client::ContactCenterInsights::delete_qa_scorecard] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteQaScorecard;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQaScorecard {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaScorecard(RequestBuilder<crate::model::DeleteQaScorecardRequest>);
 
     impl DeleteQaScorecard {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4264,13 +5665,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_qa_scorecards][super::super::client::ContactCenterInsights::list_qa_scorecards] calls.
+    /// The request builder for [ContactCenterInsights::list_qa_scorecards][crate::client::ContactCenterInsights::list_qa_scorecards] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListQaScorecards;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQaScorecards {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaScorecards(RequestBuilder<crate::model::ListQaScorecardsRequest>);
 
     impl ListQaScorecards {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4298,8 +5719,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
         {
@@ -4311,6 +5732,15 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQaScorecardsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListQaScorecardsRequest::parent].
@@ -4341,7 +5771,23 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_qa_scorecard_revision][super::super::client::ContactCenterInsights::create_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::create_qa_scorecard_revision][crate::client::ContactCenterInsights::create_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQaScorecardRevision(
         RequestBuilder<crate::model::CreateQaScorecardRevisionRequest>,
@@ -4349,7 +5795,7 @@ pub mod contact_center_insights {
 
     impl CreateQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4388,13 +5834,22 @@ pub mod contact_center_insights {
         /// Sets the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
         ///
         /// This is a **required** field for requests.
-        pub fn set_qa_scorecard_revision<
-            T: Into<std::option::Option<crate::model::QaScorecardRevision>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.qa_scorecard_revision = v.into();
+        pub fn set_qa_scorecard_revision<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecardRevision>,
+        {
+            self.0.request.qa_scorecard_revision = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [qa_scorecard_revision][crate::model::CreateQaScorecardRevisionRequest::qa_scorecard_revision].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_qa_scorecard_revision<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QaScorecardRevision>,
+        {
+            self.0.request.qa_scorecard_revision = v.map(|x| x.into());
             self
         }
 
@@ -4412,13 +5867,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_qa_scorecard_revision][super::super::client::ContactCenterInsights::get_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::get_qa_scorecard_revision][crate::client::ContactCenterInsights::get_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQaScorecardRevision(RequestBuilder<crate::model::GetQaScorecardRevisionRequest>);
 
     impl GetQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4462,7 +5933,24 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::tune_qa_scorecard_revision][super::super::client::ContactCenterInsights::tune_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::tune_qa_scorecard_revision][crate::client::ContactCenterInsights::tune_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::TuneQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TuneQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TuneQaScorecardRevision(
         RequestBuilder<crate::model::TuneQaScorecardRevisionRequest>,
@@ -4470,7 +5958,7 @@ pub mod contact_center_insights {
 
     impl TuneQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4495,7 +5983,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [tune_qa_scorecard_revision][super::super::client::ContactCenterInsights::tune_qa_scorecard_revision].
+        /// on [tune_qa_scorecard_revision][crate::client::ContactCenterInsights::tune_qa_scorecard_revision].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .tune_qa_scorecard_revision(self.0.request, self.0.options)
@@ -4510,7 +5998,7 @@ pub mod contact_center_insights {
             crate::model::TuneQaScorecardRevisionResponse,
             crate::model::TuneQaScorecardRevisionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::TuneQaScorecardRevisionResponse,
                 crate::model::TuneQaScorecardRevisionMetadata,
             >;
@@ -4538,7 +6026,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TuneQaScorecardRevisionRequest::parent].
@@ -4571,7 +6059,23 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::deploy_qa_scorecard_revision][super::super::client::ContactCenterInsights::deploy_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::deploy_qa_scorecard_revision][crate::client::ContactCenterInsights::deploy_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeployQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeployQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeployQaScorecardRevision(
         RequestBuilder<crate::model::DeployQaScorecardRevisionRequest>,
@@ -4579,7 +6083,7 @@ pub mod contact_center_insights {
 
     impl DeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4623,7 +6127,23 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::undeploy_qa_scorecard_revision][super::super::client::ContactCenterInsights::undeploy_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::undeploy_qa_scorecard_revision][crate::client::ContactCenterInsights::undeploy_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UndeployQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeployQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeployQaScorecardRevision(
         RequestBuilder<crate::model::UndeployQaScorecardRevisionRequest>,
@@ -4631,7 +6151,7 @@ pub mod contact_center_insights {
 
     impl UndeployQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4675,7 +6195,23 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_qa_scorecard_revision][super::super::client::ContactCenterInsights::delete_qa_scorecard_revision] calls.
+    /// The request builder for [ContactCenterInsights::delete_qa_scorecard_revision][crate::client::ContactCenterInsights::delete_qa_scorecard_revision] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteQaScorecardRevision;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQaScorecardRevision {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQaScorecardRevision(
         RequestBuilder<crate::model::DeleteQaScorecardRevisionRequest>,
@@ -4683,7 +6219,7 @@ pub mod contact_center_insights {
 
     impl DeleteQaScorecardRevision {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4733,7 +6269,27 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_qa_scorecard_revisions][super::super::client::ContactCenterInsights::list_qa_scorecard_revisions] calls.
+    /// The request builder for [ContactCenterInsights::list_qa_scorecard_revisions][crate::client::ContactCenterInsights::list_qa_scorecard_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListQaScorecardRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQaScorecardRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQaScorecardRevisions(
         RequestBuilder<crate::model::ListQaScorecardRevisionsRequest>,
@@ -4741,7 +6297,7 @@ pub mod contact_center_insights {
 
     impl ListQaScorecardRevisions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4769,8 +6325,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListQaScorecardRevisionsResponse,
@@ -4784,6 +6340,17 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListQaScorecardRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListQaScorecardRevisionsRequest::parent].
@@ -4820,13 +6387,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::create_feedback_label][super::super::client::ContactCenterInsights::create_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::create_feedback_label][crate::client::ContactCenterInsights::create_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CreateFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFeedbackLabel(RequestBuilder<crate::model::CreateFeedbackLabelRequest>);
 
     impl CreateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4871,11 +6454,22 @@ pub mod contact_center_insights {
         /// Sets the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feedback_label<T: Into<std::option::Option<crate::model::FeedbackLabel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feedback_label = v.into();
+        pub fn set_feedback_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feedback_label][crate::model::CreateFeedbackLabelRequest::feedback_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = v.map(|x| x.into());
             self
         }
     }
@@ -4887,13 +6481,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_feedback_labels][super::super::client::ContactCenterInsights::list_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::list_feedback_labels][crate::client::ContactCenterInsights::list_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFeedbackLabels(RequestBuilder<crate::model::ListFeedbackLabelsRequest>);
 
     impl ListFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -4921,8 +6535,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFeedbackLabelsResponse, gax::error::Error>
         {
@@ -4934,6 +6548,17 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListFeedbackLabelsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFeedbackLabelsRequest::parent].
@@ -4970,13 +6595,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_feedback_label][super::super::client::ContactCenterInsights::get_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::get_feedback_label][crate::client::ContactCenterInsights::get_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFeedbackLabel(RequestBuilder<crate::model::GetFeedbackLabelRequest>);
 
     impl GetFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5020,13 +6661,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::update_feedback_label][super::super::client::ContactCenterInsights::update_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::update_feedback_label][crate::client::ContactCenterInsights::update_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::UpdateFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFeedbackLabel(RequestBuilder<crate::model::UpdateFeedbackLabelRequest>);
 
     impl UpdateFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5057,22 +6714,44 @@ pub mod contact_center_insights {
         /// Sets the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_feedback_label<T: Into<std::option::Option<crate::model::FeedbackLabel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.feedback_label = v.into();
+        pub fn set_feedback_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [feedback_label][crate::model::UpdateFeedbackLabelRequest::feedback_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_feedback_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FeedbackLabel>,
+        {
+            self.0.request.feedback_label = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFeedbackLabelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -5084,13 +6763,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::delete_feedback_label][super::super::client::ContactCenterInsights::delete_feedback_label] calls.
+    /// The request builder for [ContactCenterInsights::delete_feedback_label][crate::client::ContactCenterInsights::delete_feedback_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::DeleteFeedbackLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFeedbackLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFeedbackLabel(RequestBuilder<crate::model::DeleteFeedbackLabelRequest>);
 
     impl DeleteFeedbackLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5134,13 +6829,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_all_feedback_labels][super::super::client::ContactCenterInsights::list_all_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::list_all_feedback_labels][crate::client::ContactCenterInsights::list_all_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListAllFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAllFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAllFeedbackLabels(RequestBuilder<crate::model::ListAllFeedbackLabelsRequest>);
 
     impl ListAllFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5168,8 +6883,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAllFeedbackLabelsResponse, gax::error::Error>
         {
@@ -5181,6 +6896,17 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAllFeedbackLabelsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAllFeedbackLabelsRequest::parent].
@@ -5217,7 +6943,24 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_upload_feedback_labels][super::super::client::ContactCenterInsights::bulk_upload_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::bulk_upload_feedback_labels][crate::client::ContactCenterInsights::bulk_upload_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkUploadFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkUploadFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkUploadFeedbackLabels(
         RequestBuilder<crate::model::BulkUploadFeedbackLabelsRequest>,
@@ -5225,7 +6968,7 @@ pub mod contact_center_insights {
 
     impl BulkUploadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5250,7 +6993,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_upload_feedback_labels][super::super::client::ContactCenterInsights::bulk_upload_feedback_labels].
+        /// on [bulk_upload_feedback_labels][crate::client::ContactCenterInsights::bulk_upload_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_upload_feedback_labels(self.0.request, self.0.options)
@@ -5265,7 +7008,7 @@ pub mod contact_center_insights {
             crate::model::BulkUploadFeedbackLabelsResponse,
             crate::model::BulkUploadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkUploadFeedbackLabelsResponse,
                 crate::model::BulkUploadFeedbackLabelsMetadata,
             >;
@@ -5293,7 +7036,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkUploadFeedbackLabelsRequest::parent].
@@ -5349,7 +7092,24 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::bulk_download_feedback_labels][super::super::client::ContactCenterInsights::bulk_download_feedback_labels] calls.
+    /// The request builder for [ContactCenterInsights::bulk_download_feedback_labels][crate::client::ContactCenterInsights::bulk_download_feedback_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::BulkDownloadFeedbackLabels;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkDownloadFeedbackLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDownloadFeedbackLabels(
         RequestBuilder<crate::model::BulkDownloadFeedbackLabelsRequest>,
@@ -5357,7 +7117,7 @@ pub mod contact_center_insights {
 
     impl BulkDownloadFeedbackLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5382,7 +7142,7 @@ pub mod contact_center_insights {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_download_feedback_labels][super::super::client::ContactCenterInsights::bulk_download_feedback_labels].
+        /// on [bulk_download_feedback_labels][crate::client::ContactCenterInsights::bulk_download_feedback_labels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_download_feedback_labels(self.0.request, self.0.options)
@@ -5397,7 +7157,7 @@ pub mod contact_center_insights {
             crate::model::BulkDownloadFeedbackLabelsResponse,
             crate::model::BulkDownloadFeedbackLabelsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDownloadFeedbackLabelsResponse,
                 crate::model::BulkDownloadFeedbackLabelsMetadata,
             >;
@@ -5425,7 +7185,7 @@ pub mod contact_center_insights {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BulkDownloadFeedbackLabelsRequest::parent].
@@ -5517,13 +7277,33 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::list_operations][super::super::client::ContactCenterInsights::list_operations] calls.
+    /// The request builder for [ContactCenterInsights::list_operations][crate::client::ContactCenterInsights::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5551,8 +7331,8 @@ pub mod contact_center_insights {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -5564,6 +7344,17 @@ pub mod contact_center_insights {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -5598,13 +7389,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::get_operation][super::super::client::ContactCenterInsights::get_operation] calls.
+    /// The request builder for [ContactCenterInsights::get_operation][crate::client::ContactCenterInsights::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -5646,13 +7453,29 @@ pub mod contact_center_insights {
         }
     }
 
-    /// The request builder for [ContactCenterInsights::cancel_operation][super::super::client::ContactCenterInsights::cancel_operation] calls.
+    /// The request builder for [ContactCenterInsights::cancel_operation][crate::client::ContactCenterInsights::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_contactcenterinsights_v1::builder;
+    /// use builder::contact_center_insights::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContactCenterInsights>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

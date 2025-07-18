@@ -16,9 +16,8 @@
 
 pub mod instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [InstanceAdmin][super::super::client::InstanceAdmin].
+    /// A builder for [InstanceAdmin][crate::client::InstanceAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod instance_admin {
     /// let client = builder
     ///     .with_endpoint("https://spanner.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod instance_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = InstanceAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::InstanceAdmin] request builders.
+    /// Common implementation for [crate::client::InstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod instance_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_configs][super::super::client::InstanceAdmin::list_instance_configs] calls.
+    /// The request builder for [InstanceAdmin::list_instance_configs][crate::client::InstanceAdmin::list_instance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstanceConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigs(RequestBuilder<crate::model::ListInstanceConfigsRequest>);
 
     impl ListInstanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInstanceConfigsResponse, gax::error::Error>
         {
@@ -112,6 +138,17 @@ pub mod instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListInstanceConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstanceConfigsRequest::parent].
@@ -142,12 +179,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_instance_config][super::super::client::InstanceAdmin::get_instance_config] calls.
+    /// The request builder for [InstanceAdmin::get_instance_config][crate::client::InstanceAdmin::get_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetInstanceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstanceConfig(RequestBuilder<crate::model::GetInstanceConfigRequest>);
 
     impl GetInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,12 +245,31 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::create_instance_config][super::super::client::InstanceAdmin::create_instance_config] calls.
+    /// The request builder for [InstanceAdmin::create_instance_config][crate::client::InstanceAdmin::create_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CreateInstanceConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstanceConfig(RequestBuilder<crate::model::CreateInstanceConfigRequest>);
 
     impl CreateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -219,7 +293,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance_config][super::super::client::InstanceAdmin::create_instance_config].
+        /// on [create_instance_config][crate::client::InstanceAdmin::create_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance_config(self.0.request, self.0.options)
@@ -232,7 +306,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::CreateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::CreateInstanceConfigMetadata,
             >;
@@ -260,7 +334,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceConfigRequest::parent].
@@ -282,11 +356,22 @@ pub mod instance_admin {
         /// Sets the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_config = v.into();
+        pub fn set_instance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_config][crate::model::CreateInstanceConfigRequest::instance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = v.map(|x| x.into());
             self
         }
 
@@ -304,12 +389,31 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::update_instance_config][super::super::client::InstanceAdmin::update_instance_config] calls.
+    /// The request builder for [InstanceAdmin::update_instance_config][crate::client::InstanceAdmin::update_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::UpdateInstanceConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstanceConfig(RequestBuilder<crate::model::UpdateInstanceConfigRequest>);
 
     impl UpdateInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -333,7 +437,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance_config][super::super::client::InstanceAdmin::update_instance_config].
+        /// on [update_instance_config][crate::client::InstanceAdmin::update_instance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance_config(self.0.request, self.0.options)
@@ -346,7 +450,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::InstanceConfig, crate::model::UpdateInstanceConfigMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstanceConfig,
                 crate::model::UpdateInstanceConfigMetadata,
             >;
@@ -374,28 +478,50 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_config<T: Into<std::option::Option<crate::model::InstanceConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_config = v.into();
+        pub fn set_instance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_config][crate::model::UpdateInstanceConfigRequest::instance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstanceConfig>,
+        {
+            self.0.request.instance_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -413,12 +539,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_instance_config][super::super::client::InstanceAdmin::delete_instance_config] calls.
+    /// The request builder for [InstanceAdmin::delete_instance_config][crate::client::InstanceAdmin::delete_instance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteInstanceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstanceConfig(RequestBuilder<crate::model::DeleteInstanceConfigRequest>);
 
     impl DeleteInstanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -473,14 +617,36 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_config_operations][super::super::client::InstanceAdmin::list_instance_config_operations] calls.
+    /// The request builder for [InstanceAdmin::list_instance_config_operations][crate::client::InstanceAdmin::list_instance_config_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstanceConfigOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstanceConfigOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstanceConfigOperations(
         RequestBuilder<crate::model::ListInstanceConfigOperationsRequest>,
     );
 
     impl ListInstanceConfigOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -507,8 +673,8 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListInstanceConfigOperationsResponse,
@@ -522,6 +688,17 @@ pub mod instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListInstanceConfigOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstanceConfigOperationsRequest::parent].
@@ -558,12 +735,34 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instances][super::super::client::InstanceAdmin::list_instances] calls.
+    /// The request builder for [InstanceAdmin::list_instances][crate::client::InstanceAdmin::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -587,8 +786,8 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -600,6 +799,15 @@ pub mod instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -629,11 +837,20 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
-        pub fn set_instance_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_deadline = v.into();
+        pub fn set_instance_deadline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_deadline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_deadline][crate::model::ListInstancesRequest::instance_deadline].
+        pub fn set_or_clear_instance_deadline<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_deadline = v.map(|x| x.into());
             self
         }
     }
@@ -645,12 +862,34 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_partitions][super::super::client::InstanceAdmin::list_instance_partitions] calls.
+    /// The request builder for [InstanceAdmin::list_instance_partitions][crate::client::InstanceAdmin::list_instance_partitions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstancePartitions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstancePartitions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitions(RequestBuilder<crate::model::ListInstancePartitionsRequest>);
 
     impl ListInstancePartitions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -677,8 +916,8 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListInstancePartitionsResponse,
@@ -692,6 +931,17 @@ pub mod instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListInstancePartitionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancePartitionsRequest::parent].
@@ -715,11 +965,23 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
-        pub fn set_instance_partition_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
+        pub fn set_instance_partition_deadline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionsRequest::instance_partition_deadline].
+        pub fn set_or_clear_instance_partition_deadline<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition_deadline = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = v.map(|x| x.into());
             self
         }
     }
@@ -731,12 +993,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_instance][super::super::client::InstanceAdmin::get_instance] calls.
+    /// The request builder for [InstanceAdmin::get_instance][crate::client::InstanceAdmin::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -769,11 +1049,20 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::GetInstanceRequest::field_mask].
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -785,12 +1074,31 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::create_instance][super::super::client::InstanceAdmin::create_instance] calls.
+    /// The request builder for [InstanceAdmin::create_instance][crate::client::InstanceAdmin::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -811,7 +1119,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::InstanceAdmin::create_instance].
+        /// on [create_instance][crate::client::InstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -824,8 +1132,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -850,7 +1160,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -872,11 +1182,22 @@ pub mod instance_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
     }
@@ -888,12 +1209,31 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::update_instance][super::super::client::InstanceAdmin::update_instance] calls.
+    /// The request builder for [InstanceAdmin::update_instance][crate::client::InstanceAdmin::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -914,7 +1254,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::InstanceAdmin::update_instance].
+        /// on [update_instance][crate::client::InstanceAdmin::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -927,8 +1267,10 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -953,28 +1295,50 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::UpdateInstanceRequest::field_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -986,12 +1350,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_instance][super::super::client::InstanceAdmin::delete_instance] calls.
+    /// The request builder for [InstanceAdmin::delete_instance][crate::client::InstanceAdmin::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1031,12 +1413,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::set_iam_policy][super::super::client::InstanceAdmin::set_iam_policy] calls.
+    /// The request builder for [InstanceAdmin::set_iam_policy][crate::client::InstanceAdmin::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1071,20 +1471,40 @@ pub mod instance_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1096,12 +1516,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_iam_policy][super::super::client::InstanceAdmin::get_iam_policy] calls.
+    /// The request builder for [InstanceAdmin::get_iam_policy][crate::client::InstanceAdmin::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1134,11 +1572,20 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1150,12 +1597,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::test_iam_permissions][super::super::client::InstanceAdmin::test_iam_permissions] calls.
+    /// The request builder for [InstanceAdmin::test_iam_permissions][crate::client::InstanceAdmin::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1211,12 +1676,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_instance_partition][super::super::client::InstanceAdmin::get_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::get_instance_partition][crate::client::InstanceAdmin::get_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetInstancePartition;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstancePartition(RequestBuilder<crate::model::GetInstancePartitionRequest>);
 
     impl GetInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1259,14 +1742,33 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::create_instance_partition][crate::client::InstanceAdmin::create_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CreateInstancePartition;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstancePartition(
         RequestBuilder<crate::model::CreateInstancePartitionRequest>,
     );
 
     impl CreateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1290,7 +1792,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance_partition][super::super::client::InstanceAdmin::create_instance_partition].
+        /// on [create_instance_partition][crate::client::InstanceAdmin::create_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance_partition(self.0.request, self.0.options)
@@ -1305,7 +1807,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::CreateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::CreateInstancePartitionMetadata,
             >;
@@ -1333,7 +1835,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstancePartitionRequest::parent].
@@ -1355,13 +1857,22 @@ pub mod instance_admin {
         /// Sets the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_partition<
-            T: Into<std::option::Option<crate::model::InstancePartition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition = v.into();
+        pub fn set_instance_partition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition][crate::model::CreateInstancePartitionRequest::instance_partition].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = v.map(|x| x.into());
             self
         }
     }
@@ -1373,14 +1884,32 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_instance_partition][super::super::client::InstanceAdmin::delete_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::delete_instance_partition][crate::client::InstanceAdmin::delete_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteInstancePartition;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstancePartition(
         RequestBuilder<crate::model::DeleteInstancePartitionRequest>,
     );
 
     impl DeleteInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1429,14 +1958,33 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition] calls.
+    /// The request builder for [InstanceAdmin::update_instance_partition][crate::client::InstanceAdmin::update_instance_partition] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::UpdateInstancePartition;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstancePartition {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstancePartition(
         RequestBuilder<crate::model::UpdateInstancePartitionRequest>,
     );
 
     impl UpdateInstancePartition {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1460,7 +2008,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance_partition][super::super::client::InstanceAdmin::update_instance_partition].
+        /// on [update_instance_partition][crate::client::InstanceAdmin::update_instance_partition].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance_partition(self.0.request, self.0.options)
@@ -1475,7 +2023,7 @@ pub mod instance_admin {
             crate::model::InstancePartition,
             crate::model::UpdateInstancePartitionMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::InstancePartition,
                 crate::model::UpdateInstancePartitionMetadata,
             >;
@@ -1503,30 +2051,50 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance_partition<
-            T: Into<std::option::Option<crate::model::InstancePartition>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition = v.into();
+        pub fn set_instance_partition<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition][crate::model::UpdateInstancePartitionRequest::instance_partition].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance_partition<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancePartition>,
+        {
+            self.0.request.instance_partition = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field_mask = v.into();
+        pub fn set_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field_mask][crate::model::UpdateInstancePartitionRequest::field_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_field_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1538,14 +2106,36 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_instance_partition_operations][super::super::client::InstanceAdmin::list_instance_partition_operations] calls.
+    /// The request builder for [InstanceAdmin::list_instance_partition_operations][crate::client::InstanceAdmin::list_instance_partition_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListInstancePartitionOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstancePartitionOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstancePartitionOperations(
         RequestBuilder<crate::model::ListInstancePartitionOperationsRequest>,
     );
 
     impl ListInstancePartitionOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1572,8 +2162,8 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListInstancePartitionOperationsResponse,
@@ -1587,6 +2177,17 @@ pub mod instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListInstancePartitionOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancePartitionOperationsRequest::parent].
@@ -1616,11 +2217,23 @@ pub mod instance_admin {
         }
 
         /// Sets the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
-        pub fn set_instance_partition_deadline<T: Into<std::option::Option<wkt::Timestamp>>>(
+        pub fn set_instance_partition_deadline<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance_partition_deadline][crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline].
+        pub fn set_or_clear_instance_partition_deadline<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance_partition_deadline = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.instance_partition_deadline = v.map(|x| x.into());
             self
         }
     }
@@ -1632,12 +2245,31 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::move_instance][super::super::client::InstanceAdmin::move_instance] calls.
+    /// The request builder for [InstanceAdmin::move_instance][crate::client::InstanceAdmin::move_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::MoveInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveInstance(RequestBuilder<crate::model::MoveInstanceRequest>);
 
     impl MoveInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1658,7 +2290,7 @@ pub mod instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_instance][super::super::client::InstanceAdmin::move_instance].
+        /// on [move_instance][crate::client::InstanceAdmin::move_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_instance(self.0.request, self.0.options)
@@ -1671,7 +2303,7 @@ pub mod instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MoveInstanceResponse, crate::model::MoveInstanceMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MoveInstanceResponse,
                 crate::model::MoveInstanceMetadata,
             >;
@@ -1699,7 +2331,7 @@ pub mod instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::MoveInstanceRequest::name].
@@ -1726,12 +2358,34 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::list_operations][super::super::client::InstanceAdmin::list_operations] calls.
+    /// The request builder for [InstanceAdmin::list_operations][crate::client::InstanceAdmin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1758,8 +2412,8 @@ pub mod instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1771,6 +2425,17 @@ pub mod instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1805,12 +2470,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::get_operation][super::super::client::InstanceAdmin::get_operation] calls.
+    /// The request builder for [InstanceAdmin::get_operation][crate::client::InstanceAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1851,12 +2534,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::delete_operation][super::super::client::InstanceAdmin::delete_operation] calls.
+    /// The request builder for [InstanceAdmin::delete_operation][crate::client::InstanceAdmin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1897,12 +2598,30 @@ pub mod instance_admin {
         }
     }
 
-    /// The request builder for [InstanceAdmin::cancel_operation][super::super::client::InstanceAdmin::cancel_operation] calls.
+    /// The request builder for [InstanceAdmin::cancel_operation][crate::client::InstanceAdmin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_spanner_admin_instance_v1::builder;
+    /// use builder::instance_admin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

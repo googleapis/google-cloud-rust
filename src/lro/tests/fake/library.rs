@@ -14,8 +14,6 @@
 
 //! Implement a fake library to test LROs.
 
-pub use gax::Result;
-
 pub mod builders;
 pub mod client;
 pub mod model;

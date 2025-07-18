@@ -20,22 +20,22 @@ limitations under the License.
 {{#Codec.HasServices}}
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 const DEFAULT_HOST: &str = "https://{{Codec.DefaultHost}}";
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
@@ -47,7 +47,7 @@ mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.grpc_header_value()
         };
     }
 }
@@ -56,7 +56,7 @@ mod info {
 {{#Codec.Services}}
 /// Implements [{{Codec.Name}}](super::stub::{{Codec.Name}}) using a Tonic-generated client.
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone)]
 pub struct {{Codec.Name}} {
@@ -64,7 +64,7 @@ pub struct {{Codec.Name}} {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 impl std::fmt::Debug for {{Codec.Name}} {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
@@ -75,17 +75,17 @@ impl std::fmt::Debug for {{Codec.Name}} {
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
-    pub async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = gaxi::grpc::Client::new(config, DEFAULT_HOST).await?;
         Ok(Self { inner })
     }
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
+#[cfg(any({{#Codec.Services}}feature = "{{Codec.FeatureName}}",{{/Codec.Services}}))]
 {{/Codec.PerServiceFeatures}}
 impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
     {{#Codec.Methods}}
@@ -97,7 +97,13 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(
             options,
+            {{! TODO(#2588) - resolve this in the model }}
+            {{#HasAutoPopulatedFields}}
+            true,
+            {{/HasAutoPopulatedFields}}
+            {{^HasAutoPopulatedFields}}
             {{PathInfo.Codec.IsIdempotent}},
+            {{/HasAutoPopulatedFields}}
         );
         let extensions = {
             let mut e = tonic::Extensions::new();
@@ -122,36 +128,87 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{/HasRouting}}
         {{^HasRouting}}
         let x_goog_request_params = [
-            {{#PathInfo.Codec.PathArgs}}
-            format!("{{Name}}={}", req{{{Accessor}}}),
-            {{/PathInfo.Codec.PathArgs}}
-            {{^PathInfo.Codec.PathArgs}}
+            {{#PathInfo.Codec.UniqueParameters}}
+                {{{FieldAccessor}}}.map(|v| format!("{{FieldName}}={v}")),
+            {{/PathInfo.Codec.UniqueParameters}}
+            {{^PathInfo.Codec.UniqueParameters}}
             ""; 0
-            {{/PathInfo.Codec.PathArgs}}
-        ].into_iter().fold(String::new(), |b, p| b + "&" + &p);
+            {{/PathInfo.Codec.UniqueParameters}}
+        ]
+        .into_iter()
+        .flatten()
+        {{! TODO(#2548) - skip empty strings, and don't lead with a '&' }}
+        .fold(String::new(), |b, p| b + "&" + &p);
         {{/HasRouting}}
 
+        {{#ReturnsEmpty}}
+        type TR = ();
+        {{/ReturnsEmpty}}
+        {{^ReturnsEmpty}}
+        type TR = crate::{{OutputType.Codec.PackageModuleName}}::{{OutputType.Codec.Name}};
+        {{/ReturnsEmpty}}
         self.inner
-          .execute(
-              extensions,
-              path,
-              req.to_proto().map_err(Error::other)?,
-              options,
-              &info::X_GOOG_API_CLIENT_HEADER,
-              &x_goog_request_params,
-          )
-          .await
-          .map(gaxi::grpc::to_gax_response::<
-          {{#ReturnsEmpty}}
-          (),
-          {{/ReturnsEmpty}}
-          {{^ReturnsEmpty}}
-          crate::{{OutputType.Codec.PackageModuleName}}::{{OutputType.Codec.Name}},
-          {{/ReturnsEmpty}}
-          {{Codec.ReturnType}}>)
+            .execute(
+                extensions,
+                path,
+                req.to_proto().map_err(Error::deser)?,
+                options,
+                &info::X_GOOG_API_CLIENT_HEADER,
+                &x_goog_request_params,
+            )
+            .await
+            .and_then(gaxi::grpc::to_gax_response::<TR, {{Codec.ReturnType}}>)
     }
 
     {{/Codec.Methods}}
 }
 
 {{/Codec.Services}}
+{{#Codec.HasLROs}}
+use gaxi::prost::{ConvertError, FromProto, ToProto};
+/// Convert from our `wkt::Any` to a `prost_types::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_to_prost(
+    value: wkt::Any,
+) -> std::result::Result<prost_types::Any, ConvertError> {
+    match value.type_url().unwrap_or_default() {
+        "" => Ok(prost_types::Any::default()),
+{{#Codec.Services}}
+{{#Codec.LROTypes}}
+        "type.googleapis.com/{{Codec.SourceFQN}}" => value
+            .to_msg::<{{Codec.QualifiedName}}>()
+            .map_err(ConvertError::other)?
+            .to_proto()
+            .and_then(|prost_msg| {
+                prost_types::Any::from_msg(&prost_msg).map_err(ConvertError::other)
+            }),
+{{/Codec.LROTypes}}
+{{/Codec.Services}}
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}
+
+/// Convert from a `prost_types::Any` to our `wkt::Any`
+///
+/// The encoded types considered for conversion are either metadata or result
+/// types for LROs in this service.
+pub(crate) fn lro_any_from_prost(
+    value: prost_types::Any,
+) -> std::result::Result<wkt::Any, ConvertError> {
+    match value.type_url.as_str() {
+        "" => Ok(wkt::Any::default()),
+{{#Codec.Services}}
+{{#Codec.LROTypes}}
+        "type.googleapis.com/{{Codec.SourceFQN}}" => value
+            .to_msg::<crate::{{Codec.PackageModuleName}}::{{Codec.Name}}>()
+            .map_err(ConvertError::other)?
+            .cnv()
+            .and_then(|our_msg| wkt::Any::from_msg(&our_msg).map_err(ConvertError::other)),
+{{/Codec.LROTypes}}
+{{/Codec.Services}}
+        type_url => Err(ConvertError::UnexpectedTypeUrl(type_url.to_string())),
+    }
+}
+{{/Codec.HasLROs}}

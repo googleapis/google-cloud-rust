@@ -16,9 +16,8 @@
 
 pub mod vm_migration {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [VmMigration][super::super::client::VmMigration].
+    /// A builder for [VmMigration][crate::client::VmMigration].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod vm_migration {
     /// let client = builder
     ///     .with_endpoint("https://vmmigration.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod vm_migration {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VmMigration;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::VmMigration] request builders.
+    /// Common implementation for [crate::client::VmMigration] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VmMigration>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod vm_migration {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_sources][super::super::client::VmMigration::list_sources] calls.
+    /// The request builder for [VmMigration::list_sources][crate::client::VmMigration::list_sources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListSources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSources(RequestBuilder<crate::model::ListSourcesRequest>);
 
     impl ListSources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSourcesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSourcesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSourcesRequest::parent].
@@ -153,12 +188,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_source][super::super::client::VmMigration::get_source] calls.
+    /// The request builder for [VmMigration::get_source][crate::client::VmMigration::get_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetSource;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSource(RequestBuilder<crate::model::GetSourceRequest>);
 
     impl GetSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -198,12 +251,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_source][super::super::client::VmMigration::create_source] calls.
+    /// The request builder for [VmMigration::create_source][crate::client::VmMigration::create_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSource(RequestBuilder<crate::model::CreateSourceRequest>);
 
     impl CreateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -224,7 +296,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_source][super::super::client::VmMigration::create_source].
+        /// on [create_source][crate::client::VmMigration::create_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_source(self.0.request, self.0.options)
@@ -236,7 +308,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -261,7 +334,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSourceRequest::parent].
@@ -283,11 +356,22 @@ pub mod vm_migration {
         /// Sets the value of [source][crate::model::CreateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::CreateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -305,12 +389,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_source][super::super::client::VmMigration::update_source] calls.
+    /// The request builder for [VmMigration::update_source][crate::client::VmMigration::update_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::UpdateSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSource(RequestBuilder<crate::model::UpdateSourceRequest>);
 
     impl UpdateSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -331,7 +434,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_source][super::super::client::VmMigration::update_source].
+        /// on [update_source][crate::client::VmMigration::update_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_source(self.0.request, self.0.options)
@@ -343,7 +446,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Source, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Source, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Source, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,26 +472,46 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSourceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [source][crate::model::UpdateSourceRequest::source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_source<T: Into<std::option::Option<crate::model::Source>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.source = v.into();
+        pub fn set_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source][crate::model::UpdateSourceRequest::source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Source>,
+        {
+            self.0.request.source = v.map(|x| x.into());
             self
         }
 
@@ -405,12 +529,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_source][super::super::client::VmMigration::delete_source] calls.
+    /// The request builder for [VmMigration::delete_source][crate::client::VmMigration::delete_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSource(RequestBuilder<crate::model::DeleteSourceRequest>);
 
     impl DeleteSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -431,7 +574,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_source][super::super::client::VmMigration::delete_source].
+        /// on [delete_source][crate::client::VmMigration::delete_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_source(self.0.request, self.0.options)
@@ -440,8 +583,8 @@ pub mod vm_migration {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_source`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +609,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSourceRequest::name].
@@ -491,12 +639,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::fetch_inventory][super::super::client::VmMigration::fetch_inventory] calls.
+    /// The request builder for [VmMigration::fetch_inventory][crate::client::VmMigration::fetch_inventory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::FetchInventory;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchInventory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchInventory(RequestBuilder<crate::model::FetchInventoryRequest>);
 
     impl FetchInventory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -542,12 +708,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_utilization_reports][super::super::client::VmMigration::list_utilization_reports] calls.
+    /// The request builder for [VmMigration::list_utilization_reports][crate::client::VmMigration::list_utilization_reports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListUtilizationReports;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUtilizationReports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUtilizationReports(RequestBuilder<crate::model::ListUtilizationReportsRequest>);
 
     impl ListUtilizationReports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -574,8 +762,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListUtilizationReportsResponse,
@@ -589,6 +777,17 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUtilizationReportsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListUtilizationReportsRequest::parent].
@@ -639,12 +838,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_utilization_report][super::super::client::VmMigration::get_utilization_report] calls.
+    /// The request builder for [VmMigration::get_utilization_report][crate::client::VmMigration::get_utilization_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetUtilizationReport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetUtilizationReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetUtilizationReport(RequestBuilder<crate::model::GetUtilizationReportRequest>);
 
     impl GetUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,14 +910,33 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_utilization_report][super::super::client::VmMigration::create_utilization_report] calls.
+    /// The request builder for [VmMigration::create_utilization_report][crate::client::VmMigration::create_utilization_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateUtilizationReport;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateUtilizationReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUtilizationReport(
         RequestBuilder<crate::model::CreateUtilizationReportRequest>,
     );
 
     impl CreateUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -724,7 +960,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_utilization_report][super::super::client::VmMigration::create_utilization_report].
+        /// on [create_utilization_report][crate::client::VmMigration::create_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_utilization_report(self.0.request, self.0.options)
@@ -737,8 +973,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::UtilizationReport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::UtilizationReport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::UtilizationReport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -763,7 +1001,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateUtilizationReportRequest::parent].
@@ -777,13 +1015,22 @@ pub mod vm_migration {
         /// Sets the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
         ///
         /// This is a **required** field for requests.
-        pub fn set_utilization_report<
-            T: Into<std::option::Option<crate::model::UtilizationReport>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.utilization_report = v.into();
+        pub fn set_utilization_report<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UtilizationReport>,
+        {
+            self.0.request.utilization_report = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [utilization_report][crate::model::CreateUtilizationReportRequest::utilization_report].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_utilization_report<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UtilizationReport>,
+        {
+            self.0.request.utilization_report = v.map(|x| x.into());
             self
         }
 
@@ -809,14 +1056,33 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_utilization_report][super::super::client::VmMigration::delete_utilization_report] calls.
+    /// The request builder for [VmMigration::delete_utilization_report][crate::client::VmMigration::delete_utilization_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteUtilizationReport;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteUtilizationReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteUtilizationReport(
         RequestBuilder<crate::model::DeleteUtilizationReportRequest>,
     );
 
     impl DeleteUtilizationReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -840,7 +1106,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_utilization_report][super::super::client::VmMigration::delete_utilization_report].
+        /// on [delete_utilization_report][crate::client::VmMigration::delete_utilization_report].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_utilization_report(self.0.request, self.0.options)
@@ -849,8 +1115,8 @@ pub mod vm_migration {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_utilization_report`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -875,7 +1141,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteUtilizationReportRequest::name].
@@ -900,14 +1171,36 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_datacenter_connectors][super::super::client::VmMigration::list_datacenter_connectors] calls.
+    /// The request builder for [VmMigration::list_datacenter_connectors][crate::client::VmMigration::list_datacenter_connectors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListDatacenterConnectors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatacenterConnectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatacenterConnectors(
         RequestBuilder<crate::model::ListDatacenterConnectorsRequest>,
     );
 
     impl ListDatacenterConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -934,8 +1227,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListDatacenterConnectorsResponse,
@@ -949,6 +1242,17 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDatacenterConnectorsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDatacenterConnectorsRequest::parent].
@@ -993,12 +1297,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_datacenter_connector][super::super::client::VmMigration::get_datacenter_connector] calls.
+    /// The request builder for [VmMigration::get_datacenter_connector][crate::client::VmMigration::get_datacenter_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetDatacenterConnector;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDatacenterConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDatacenterConnector(RequestBuilder<crate::model::GetDatacenterConnectorRequest>);
 
     impl GetDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1041,14 +1363,33 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_datacenter_connector][super::super::client::VmMigration::create_datacenter_connector] calls.
+    /// The request builder for [VmMigration::create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateDatacenterConnector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDatacenterConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDatacenterConnector(
         RequestBuilder<crate::model::CreateDatacenterConnectorRequest>,
     );
 
     impl CreateDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1072,7 +1413,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_datacenter_connector][super::super::client::VmMigration::create_datacenter_connector].
+        /// on [create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_datacenter_connector(self.0.request, self.0.options)
@@ -1085,8 +1426,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::DatacenterConnector, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DatacenterConnector, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DatacenterConnector,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1111,7 +1454,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatacenterConnectorRequest::parent].
@@ -1133,13 +1476,22 @@ pub mod vm_migration {
         /// Sets the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_datacenter_connector<
-            T: Into<std::option::Option<crate::model::DatacenterConnector>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.datacenter_connector = v.into();
+        pub fn set_datacenter_connector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DatacenterConnector>,
+        {
+            self.0.request.datacenter_connector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [datacenter_connector][crate::model::CreateDatacenterConnectorRequest::datacenter_connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_datacenter_connector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DatacenterConnector>,
+        {
+            self.0.request.datacenter_connector = v.map(|x| x.into());
             self
         }
 
@@ -1157,14 +1509,33 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_datacenter_connector][super::super::client::VmMigration::delete_datacenter_connector] calls.
+    /// The request builder for [VmMigration::delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteDatacenterConnector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDatacenterConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDatacenterConnector(
         RequestBuilder<crate::model::DeleteDatacenterConnectorRequest>,
     );
 
     impl DeleteDatacenterConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1188,7 +1559,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_datacenter_connector][super::super::client::VmMigration::delete_datacenter_connector].
+        /// on [delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_datacenter_connector(self.0.request, self.0.options)
@@ -1197,8 +1568,8 @@ pub mod vm_migration {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_datacenter_connector`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1223,7 +1594,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatacenterConnectorRequest::name].
@@ -1248,12 +1624,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::upgrade_appliance][super::super::client::VmMigration::upgrade_appliance] calls.
+    /// The request builder for [VmMigration::upgrade_appliance][crate::client::VmMigration::upgrade_appliance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::UpgradeAppliance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpgradeAppliance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpgradeAppliance(RequestBuilder<crate::model::UpgradeApplianceRequest>);
 
     impl UpgradeAppliance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1277,7 +1672,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_appliance][super::super::client::VmMigration::upgrade_appliance].
+        /// on [upgrade_appliance][crate::client::VmMigration::upgrade_appliance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_appliance(self.0.request, self.0.options)
@@ -1290,7 +1685,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::UpgradeApplianceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UpgradeApplianceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1318,7 +1713,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [datacenter_connector][crate::model::UpgradeApplianceRequest::datacenter_connector].
@@ -1343,12 +1738,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_migrating_vm][super::super::client::VmMigration::create_migrating_vm] calls.
+    /// The request builder for [VmMigration::create_migrating_vm][crate::client::VmMigration::create_migrating_vm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateMigratingVm;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMigratingVm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMigratingVm(RequestBuilder<crate::model::CreateMigratingVmRequest>);
 
     impl CreateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1372,7 +1786,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_migrating_vm][super::super::client::VmMigration::create_migrating_vm].
+        /// on [create_migrating_vm][crate::client::VmMigration::create_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_migrating_vm(self.0.request, self.0.options)
@@ -1384,8 +1798,10 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigratingVm, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigratingVm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1410,7 +1826,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMigratingVmRequest::parent].
@@ -1432,11 +1848,22 @@ pub mod vm_migration {
         /// Sets the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migrating_vm<T: Into<std::option::Option<crate::model::MigratingVm>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migrating_vm = v.into();
+        pub fn set_migrating_vm<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migrating_vm][crate::model::CreateMigratingVmRequest::migrating_vm].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = v.map(|x| x.into());
             self
         }
 
@@ -1454,12 +1881,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_migrating_vms][super::super::client::VmMigration::list_migrating_vms] calls.
+    /// The request builder for [VmMigration::list_migrating_vms][crate::client::VmMigration::list_migrating_vms] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListMigratingVms;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMigratingVms {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMigratingVms(RequestBuilder<crate::model::ListMigratingVmsRequest>);
 
     impl ListMigratingVms {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1486,8 +1935,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMigratingVmsResponse, gax::error::Error>
         {
@@ -1499,6 +1948,15 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMigratingVmsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMigratingVmsRequest::parent].
@@ -1549,12 +2007,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_migrating_vm][super::super::client::VmMigration::get_migrating_vm] calls.
+    /// The request builder for [VmMigration::get_migrating_vm][crate::client::VmMigration::get_migrating_vm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetMigratingVm;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMigratingVm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMigratingVm(RequestBuilder<crate::model::GetMigratingVmRequest>);
 
     impl GetMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1600,12 +2076,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_migrating_vm][super::super::client::VmMigration::update_migrating_vm] calls.
+    /// The request builder for [VmMigration::update_migrating_vm][crate::client::VmMigration::update_migrating_vm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::UpdateMigratingVm;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMigratingVm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMigratingVm(RequestBuilder<crate::model::UpdateMigratingVmRequest>);
 
     impl UpdateMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1629,7 +2124,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_migrating_vm][super::super::client::VmMigration::update_migrating_vm].
+        /// on [update_migrating_vm][crate::client::VmMigration::update_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_migrating_vm(self.0.request, self.0.options)
@@ -1641,8 +2136,10 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::MigratingVm, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::MigratingVm, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MigratingVm,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1667,26 +2164,46 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMigratingVmRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
         ///
         /// This is a **required** field for requests.
-        pub fn set_migrating_vm<T: Into<std::option::Option<crate::model::MigratingVm>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.migrating_vm = v.into();
+        pub fn set_migrating_vm<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [migrating_vm][crate::model::UpdateMigratingVmRequest::migrating_vm].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_migrating_vm<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MigratingVm>,
+        {
+            self.0.request.migrating_vm = v.map(|x| x.into());
             self
         }
 
@@ -1704,12 +2221,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_migrating_vm][super::super::client::VmMigration::delete_migrating_vm] calls.
+    /// The request builder for [VmMigration::delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteMigratingVm;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMigratingVm {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMigratingVm(RequestBuilder<crate::model::DeleteMigratingVmRequest>);
 
     impl DeleteMigratingVm {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1733,7 +2269,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_migrating_vm][super::super::client::VmMigration::delete_migrating_vm].
+        /// on [delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_migrating_vm(self.0.request, self.0.options)
@@ -1742,8 +2278,8 @@ pub mod vm_migration {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_migrating_vm`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1768,7 +2304,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteMigratingVmRequest::name].
@@ -1787,12 +2328,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::start_migration][super::super::client::VmMigration::start_migration] calls.
+    /// The request builder for [VmMigration::start_migration][crate::client::VmMigration::start_migration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::StartMigration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartMigration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartMigration(RequestBuilder<crate::model::StartMigrationRequest>);
 
     impl StartMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1813,7 +2373,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_migration][super::super::client::VmMigration::start_migration].
+        /// on [start_migration][crate::client::VmMigration::start_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_migration(self.0.request, self.0.options)
@@ -1826,7 +2386,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::StartMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::StartMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1854,7 +2414,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::StartMigrationRequest::migrating_vm].
@@ -1873,12 +2433,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::resume_migration][super::super::client::VmMigration::resume_migration] calls.
+    /// The request builder for [VmMigration::resume_migration][crate::client::VmMigration::resume_migration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ResumeMigration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeMigration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeMigration(RequestBuilder<crate::model::ResumeMigrationRequest>);
 
     impl ResumeMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1899,7 +2478,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_migration][super::super::client::VmMigration::resume_migration].
+        /// on [resume_migration][crate::client::VmMigration::resume_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_migration(self.0.request, self.0.options)
@@ -1912,7 +2491,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::ResumeMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ResumeMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1940,7 +2519,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::ResumeMigrationRequest::migrating_vm].
@@ -1959,12 +2538,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::pause_migration][super::super::client::VmMigration::pause_migration] calls.
+    /// The request builder for [VmMigration::pause_migration][crate::client::VmMigration::pause_migration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::PauseMigration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseMigration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseMigration(RequestBuilder<crate::model::PauseMigrationRequest>);
 
     impl PauseMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1985,7 +2583,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [pause_migration][super::super::client::VmMigration::pause_migration].
+        /// on [pause_migration][crate::client::VmMigration::pause_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .pause_migration(self.0.request, self.0.options)
@@ -1998,7 +2596,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::PauseMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PauseMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2026,7 +2624,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::PauseMigrationRequest::migrating_vm].
@@ -2045,12 +2643,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::finalize_migration][super::super::client::VmMigration::finalize_migration] calls.
+    /// The request builder for [VmMigration::finalize_migration][crate::client::VmMigration::finalize_migration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::FinalizeMigration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FinalizeMigration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FinalizeMigration(RequestBuilder<crate::model::FinalizeMigrationRequest>);
 
     impl FinalizeMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2074,7 +2691,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [finalize_migration][super::super::client::VmMigration::finalize_migration].
+        /// on [finalize_migration][crate::client::VmMigration::finalize_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .finalize_migration(self.0.request, self.0.options)
@@ -2087,7 +2704,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::FinalizeMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::FinalizeMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2115,7 +2732,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [migrating_vm][crate::model::FinalizeMigrationRequest::migrating_vm].
@@ -2134,12 +2751,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_clone_job][super::super::client::VmMigration::create_clone_job] calls.
+    /// The request builder for [VmMigration::create_clone_job][crate::client::VmMigration::create_clone_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateCloneJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCloneJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCloneJob(RequestBuilder<crate::model::CreateCloneJobRequest>);
 
     impl CreateCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2160,7 +2796,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_clone_job][super::super::client::VmMigration::create_clone_job].
+        /// on [create_clone_job][crate::client::VmMigration::create_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_clone_job(self.0.request, self.0.options)
@@ -2173,7 +2809,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CloneJob, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::CloneJob, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::CloneJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2198,7 +2834,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCloneJobRequest::parent].
@@ -2220,11 +2856,22 @@ pub mod vm_migration {
         /// Sets the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_clone_job<T: Into<std::option::Option<crate::model::CloneJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.clone_job = v.into();
+        pub fn set_clone_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CloneJob>,
+        {
+            self.0.request.clone_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [clone_job][crate::model::CreateCloneJobRequest::clone_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_clone_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CloneJob>,
+        {
+            self.0.request.clone_job = v.map(|x| x.into());
             self
         }
 
@@ -2242,12 +2889,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::cancel_clone_job][super::super::client::VmMigration::cancel_clone_job] calls.
+    /// The request builder for [VmMigration::cancel_clone_job][crate::client::VmMigration::cancel_clone_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CancelCloneJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelCloneJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelCloneJob(RequestBuilder<crate::model::CancelCloneJobRequest>);
 
     impl CancelCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2268,7 +2934,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_clone_job][super::super::client::VmMigration::cancel_clone_job].
+        /// on [cancel_clone_job][crate::client::VmMigration::cancel_clone_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_clone_job(self.0.request, self.0.options)
@@ -2281,7 +2947,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CancelCloneJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CancelCloneJobResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2309,7 +2975,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelCloneJobRequest::name].
@@ -2328,12 +2994,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_clone_jobs][super::super::client::VmMigration::list_clone_jobs] calls.
+    /// The request builder for [VmMigration::list_clone_jobs][crate::client::VmMigration::list_clone_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListCloneJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCloneJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCloneJobs(RequestBuilder<crate::model::ListCloneJobsRequest>);
 
     impl ListCloneJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2357,8 +3045,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCloneJobsResponse, gax::error::Error>
         {
@@ -2370,6 +3058,15 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCloneJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCloneJobsRequest::parent].
@@ -2414,12 +3111,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_clone_job][super::super::client::VmMigration::get_clone_job] calls.
+    /// The request builder for [VmMigration::get_clone_job][crate::client::VmMigration::get_clone_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetCloneJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCloneJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCloneJob(RequestBuilder<crate::model::GetCloneJobRequest>);
 
     impl GetCloneJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2459,12 +3174,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_cutover_job][super::super::client::VmMigration::create_cutover_job] calls.
+    /// The request builder for [VmMigration::create_cutover_job][crate::client::VmMigration::create_cutover_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateCutoverJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCutoverJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCutoverJob(RequestBuilder<crate::model::CreateCutoverJobRequest>);
 
     impl CreateCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2488,7 +3222,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cutover_job][super::super::client::VmMigration::create_cutover_job].
+        /// on [create_cutover_job][crate::client::VmMigration::create_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cutover_job(self.0.request, self.0.options)
@@ -2501,7 +3235,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CutoverJob, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::CutoverJob, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::CutoverJob, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2526,7 +3260,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCutoverJobRequest::parent].
@@ -2548,11 +3282,22 @@ pub mod vm_migration {
         /// Sets the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cutover_job<T: Into<std::option::Option<crate::model::CutoverJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cutover_job = v.into();
+        pub fn set_cutover_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CutoverJob>,
+        {
+            self.0.request.cutover_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cutover_job][crate::model::CreateCutoverJobRequest::cutover_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cutover_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CutoverJob>,
+        {
+            self.0.request.cutover_job = v.map(|x| x.into());
             self
         }
 
@@ -2570,12 +3315,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::cancel_cutover_job][super::super::client::VmMigration::cancel_cutover_job] calls.
+    /// The request builder for [VmMigration::cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CancelCutoverJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelCutoverJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelCutoverJob(RequestBuilder<crate::model::CancelCutoverJobRequest>);
 
     impl CancelCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2599,7 +3363,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [cancel_cutover_job][super::super::client::VmMigration::cancel_cutover_job].
+        /// on [cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .cancel_cutover_job(self.0.request, self.0.options)
@@ -2612,7 +3376,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::CancelCutoverJobResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CancelCutoverJobResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2640,7 +3404,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CancelCutoverJobRequest::name].
@@ -2659,12 +3423,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_cutover_jobs][super::super::client::VmMigration::list_cutover_jobs] calls.
+    /// The request builder for [VmMigration::list_cutover_jobs][crate::client::VmMigration::list_cutover_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListCutoverJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCutoverJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCutoverJobs(RequestBuilder<crate::model::ListCutoverJobsRequest>);
 
     impl ListCutoverJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2688,8 +3474,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCutoverJobsResponse, gax::error::Error>
         {
@@ -2701,6 +3487,15 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCutoverJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCutoverJobsRequest::parent].
@@ -2745,12 +3540,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_cutover_job][super::super::client::VmMigration::get_cutover_job] calls.
+    /// The request builder for [VmMigration::get_cutover_job][crate::client::VmMigration::get_cutover_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetCutoverJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCutoverJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCutoverJob(RequestBuilder<crate::model::GetCutoverJobRequest>);
 
     impl GetCutoverJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2790,12 +3603,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_groups][super::super::client::VmMigration::list_groups] calls.
+    /// The request builder for [VmMigration::list_groups][crate::client::VmMigration::list_groups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListGroups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGroups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGroups(RequestBuilder<crate::model::ListGroupsRequest>);
 
     impl ListGroups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2819,8 +3654,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListGroupsResponse, gax::error::Error>
         {
@@ -2832,6 +3667,15 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGroupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListGroupsRequest::parent].
@@ -2876,12 +3720,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_group][super::super::client::VmMigration::get_group] calls.
+    /// The request builder for [VmMigration::get_group][crate::client::VmMigration::get_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetGroup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGroup(RequestBuilder<crate::model::GetGroupRequest>);
 
     impl GetGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2921,12 +3783,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_group][super::super::client::VmMigration::create_group] calls.
+    /// The request builder for [VmMigration::create_group][crate::client::VmMigration::create_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGroup(RequestBuilder<crate::model::CreateGroupRequest>);
 
     impl CreateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2947,7 +3828,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_group][super::super::client::VmMigration::create_group].
+        /// on [create_group][crate::client::VmMigration::create_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_group(self.0.request, self.0.options)
@@ -2959,7 +3840,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2984,7 +3866,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGroupRequest::parent].
@@ -3006,11 +3888,22 @@ pub mod vm_migration {
         /// Sets the value of [group][crate::model::CreateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::CreateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -3028,12 +3921,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_group][super::super::client::VmMigration::update_group] calls.
+    /// The request builder for [VmMigration::update_group][crate::client::VmMigration::update_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::UpdateGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGroup(RequestBuilder<crate::model::UpdateGroupRequest>);
 
     impl UpdateGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3054,7 +3966,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_group][super::super::client::VmMigration::update_group].
+        /// on [update_group][crate::client::VmMigration::update_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_group(self.0.request, self.0.options)
@@ -3066,7 +3978,8 @@ pub mod vm_migration {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Group, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Group, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Group, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3091,26 +4004,46 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGroupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [group][crate::model::UpdateGroupRequest::group].
         ///
         /// This is a **required** field for requests.
-        pub fn set_group<T: Into<std::option::Option<crate::model::Group>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.group = v.into();
+        pub fn set_group<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [group][crate::model::UpdateGroupRequest::group].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_group<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Group>,
+        {
+            self.0.request.group = v.map(|x| x.into());
             self
         }
 
@@ -3128,12 +4061,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_group][super::super::client::VmMigration::delete_group] calls.
+    /// The request builder for [VmMigration::delete_group][crate::client::VmMigration::delete_group] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteGroup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGroup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGroup(RequestBuilder<crate::model::DeleteGroupRequest>);
 
     impl DeleteGroup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3154,7 +4106,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_group][super::super::client::VmMigration::delete_group].
+        /// on [delete_group][crate::client::VmMigration::delete_group].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_group(self.0.request, self.0.options)
@@ -3163,8 +4115,8 @@ pub mod vm_migration {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_group`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3189,7 +4141,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGroupRequest::name].
@@ -3214,12 +4171,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::add_group_migration][super::super::client::VmMigration::add_group_migration] calls.
+    /// The request builder for [VmMigration::add_group_migration][crate::client::VmMigration::add_group_migration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::AddGroupMigration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddGroupMigration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddGroupMigration(RequestBuilder<crate::model::AddGroupMigrationRequest>);
 
     impl AddGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3243,7 +4219,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [add_group_migration][super::super::client::VmMigration::add_group_migration].
+        /// on [add_group_migration][crate::client::VmMigration::add_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .add_group_migration(self.0.request, self.0.options)
@@ -3256,7 +4232,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::AddGroupMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AddGroupMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -3284,7 +4260,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [group][crate::model::AddGroupMigrationRequest::group].
@@ -3309,12 +4285,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::remove_group_migration][super::super::client::VmMigration::remove_group_migration] calls.
+    /// The request builder for [VmMigration::remove_group_migration][crate::client::VmMigration::remove_group_migration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::RemoveGroupMigration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RemoveGroupMigration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RemoveGroupMigration(RequestBuilder<crate::model::RemoveGroupMigrationRequest>);
 
     impl RemoveGroupMigration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3338,7 +4333,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [remove_group_migration][super::super::client::VmMigration::remove_group_migration].
+        /// on [remove_group_migration][crate::client::VmMigration::remove_group_migration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .remove_group_migration(self.0.request, self.0.options)
@@ -3351,7 +4346,7 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::RemoveGroupMigrationResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::RemoveGroupMigrationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -3379,7 +4374,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [group][crate::model::RemoveGroupMigrationRequest::group].
@@ -3404,12 +4399,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_target_projects][super::super::client::VmMigration::list_target_projects] calls.
+    /// The request builder for [VmMigration::list_target_projects][crate::client::VmMigration::list_target_projects] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListTargetProjects;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTargetProjects {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTargetProjects(RequestBuilder<crate::model::ListTargetProjectsRequest>);
 
     impl ListTargetProjects {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3436,8 +4453,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTargetProjectsResponse, gax::error::Error>
         {
@@ -3449,6 +4466,17 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListTargetProjectsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTargetProjectsRequest::parent].
@@ -3493,12 +4521,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_target_project][super::super::client::VmMigration::get_target_project] calls.
+    /// The request builder for [VmMigration::get_target_project][crate::client::VmMigration::get_target_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetTargetProject;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTargetProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTargetProject(RequestBuilder<crate::model::GetTargetProjectRequest>);
 
     impl GetTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3541,12 +4587,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::create_target_project][super::super::client::VmMigration::create_target_project] calls.
+    /// The request builder for [VmMigration::create_target_project][crate::client::VmMigration::create_target_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CreateTargetProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTargetProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTargetProject(RequestBuilder<crate::model::CreateTargetProjectRequest>);
 
     impl CreateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3570,7 +4635,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_target_project][super::super::client::VmMigration::create_target_project].
+        /// on [create_target_project][crate::client::VmMigration::create_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_target_project(self.0.request, self.0.options)
@@ -3583,8 +4648,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3609,7 +4676,7 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTargetProjectRequest::parent].
@@ -3631,11 +4698,22 @@ pub mod vm_migration {
         /// Sets the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target_project<T: Into<std::option::Option<crate::model::TargetProject>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_project = v.into();
+        pub fn set_target_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_project][crate::model::CreateTargetProjectRequest::target_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = v.map(|x| x.into());
             self
         }
 
@@ -3653,12 +4731,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::update_target_project][super::super::client::VmMigration::update_target_project] calls.
+    /// The request builder for [VmMigration::update_target_project][crate::client::VmMigration::update_target_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::UpdateTargetProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTargetProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTargetProject(RequestBuilder<crate::model::UpdateTargetProjectRequest>);
 
     impl UpdateTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3682,7 +4779,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_target_project][super::super::client::VmMigration::update_target_project].
+        /// on [update_target_project][crate::client::VmMigration::update_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_target_project(self.0.request, self.0.options)
@@ -3695,8 +4792,10 @@ pub mod vm_migration {
             self,
         ) -> impl lro::Poller<crate::model::TargetProject, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::TargetProject, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TargetProject,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3721,26 +4820,46 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTargetProjectRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
         ///
         /// This is a **required** field for requests.
-        pub fn set_target_project<T: Into<std::option::Option<crate::model::TargetProject>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.target_project = v.into();
+        pub fn set_target_project<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [target_project][crate::model::UpdateTargetProjectRequest::target_project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_target_project<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TargetProject>,
+        {
+            self.0.request.target_project = v.map(|x| x.into());
             self
         }
 
@@ -3758,12 +4877,31 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_target_project][super::super::client::VmMigration::delete_target_project] calls.
+    /// The request builder for [VmMigration::delete_target_project][crate::client::VmMigration::delete_target_project] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteTargetProject;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTargetProject {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTargetProject(RequestBuilder<crate::model::DeleteTargetProjectRequest>);
 
     impl DeleteTargetProject {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3787,7 +4925,7 @@ pub mod vm_migration {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_target_project][super::super::client::VmMigration::delete_target_project].
+        /// on [delete_target_project][crate::client::VmMigration::delete_target_project].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_target_project(self.0.request, self.0.options)
@@ -3796,8 +4934,8 @@ pub mod vm_migration {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_target_project`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3822,7 +4960,12 @@ pub mod vm_migration {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTargetProjectRequest::name].
@@ -3847,12 +4990,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_replication_cycles][super::super::client::VmMigration::list_replication_cycles] calls.
+    /// The request builder for [VmMigration::list_replication_cycles][crate::client::VmMigration::list_replication_cycles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListReplicationCycles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReplicationCycles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReplicationCycles(RequestBuilder<crate::model::ListReplicationCyclesRequest>);
 
     impl ListReplicationCycles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3879,8 +5044,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReplicationCyclesResponse, gax::error::Error>
         {
@@ -3892,6 +5057,17 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListReplicationCyclesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReplicationCyclesRequest::parent].
@@ -3936,12 +5112,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_replication_cycle][super::super::client::VmMigration::get_replication_cycle] calls.
+    /// The request builder for [VmMigration::get_replication_cycle][crate::client::VmMigration::get_replication_cycle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetReplicationCycle;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReplicationCycle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReplicationCycle(RequestBuilder<crate::model::GetReplicationCycleRequest>);
 
     impl GetReplicationCycle {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3984,12 +5178,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_locations][super::super::client::VmMigration::list_locations] calls.
+    /// The request builder for [VmMigration::list_locations][crate::client::VmMigration::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4016,8 +5232,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -4029,6 +5245,15 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -4063,12 +5288,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_location][super::super::client::VmMigration::get_location] calls.
+    /// The request builder for [VmMigration::get_location][crate::client::VmMigration::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4106,12 +5349,34 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::list_operations][super::super::client::VmMigration::list_operations] calls.
+    /// The request builder for [VmMigration::list_operations][crate::client::VmMigration::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4138,8 +5403,8 @@ pub mod vm_migration {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -4151,6 +5416,17 @@ pub mod vm_migration {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -4185,12 +5461,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::get_operation][super::super::client::VmMigration::get_operation] calls.
+    /// The request builder for [VmMigration::get_operation][crate::client::VmMigration::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4231,12 +5525,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::delete_operation][super::super::client::VmMigration::delete_operation] calls.
+    /// The request builder for [VmMigration::delete_operation][crate::client::VmMigration::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4277,12 +5589,30 @@ pub mod vm_migration {
         }
     }
 
-    /// The request builder for [VmMigration::cancel_operation][super::super::client::VmMigration::cancel_operation] calls.
+    /// The request builder for [VmMigration::cancel_operation][crate::client::VmMigration::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vmmigration_v1::builder;
+    /// use builder::vm_migration::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VmMigration>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VmMigration>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

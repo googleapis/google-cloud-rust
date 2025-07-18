@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Billing API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_billing_v1::client::CloudBilling;
 /// let client = CloudBilling::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `CloudBilling` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudBilling` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudBilling {
-    inner: Arc<dyn super::stub::dynamic::CloudBilling>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudBilling>,
 }
 
 impl CloudBilling {
@@ -73,7 +70,7 @@ impl CloudBilling {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_billing_v1::client::CloudBilling;
     /// let client = CloudBilling::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_billing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_billing::client::Factory)
@@ -88,33 +85,35 @@ impl CloudBilling {
         T: super::stub::CloudBilling + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudBilling>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudBilling>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudBilling> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
         super::transport::CloudBilling::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudBilling> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudBilling> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudBilling::new)
@@ -123,12 +122,8 @@ impl CloudBilling {
     /// Gets information about a billing account. The current authenticated user
     /// must be a [viewer of the billing
     /// account](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn get_billing_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::GetBillingAccount {
+    pub fn get_billing_account(&self) -> super::builder::cloud_billing::GetBillingAccount {
         super::builder::cloud_billing::GetBillingAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists the billing accounts that the current authenticated user has
@@ -144,12 +139,8 @@ impl CloudBilling {
     /// IAM permission, which is typically given to the
     /// [administrator](https://cloud.google.com/billing/docs/how-to/billing-access)
     /// of the billing account.
-    pub fn update_billing_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::UpdateBillingAccount {
+    pub fn update_billing_account(&self) -> super::builder::cloud_billing::UpdateBillingAccount {
         super::builder::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// This method creates [billing
@@ -177,10 +168,8 @@ impl CloudBilling {
     /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
     pub fn list_project_billing_info(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_billing::ListProjectBillingInfo {
         super::builder::cloud_billing::ListProjectBillingInfo::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the billing information for a project. The current authenticated user
@@ -188,12 +177,8 @@ impl CloudBilling {
     /// which can be granted by assigning the [Project
     /// Viewer](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles)
     /// role.
-    pub fn get_project_billing_info(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::GetProjectBillingInfo {
+    pub fn get_project_billing_info(&self) -> super::builder::cloud_billing::GetProjectBillingInfo {
         super::builder::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets or updates the billing account associated with a project. You specify
@@ -230,22 +215,16 @@ impl CloudBilling {
     /// *open* billing account.
     pub fn update_project_billing_info(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_billing::UpdateProjectBillingInfo {
         super::builder::cloud_billing::UpdateProjectBillingInfo::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the access control policy for a billing account.
     /// The caller must have the `billing.accounts.getIamPolicy` permission on the
     /// account, which is often given to billing account
     /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::cloud_billing::GetIamPolicy {
         super::builder::cloud_billing::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the access control policy for a billing account. Replaces any existing
@@ -253,32 +232,20 @@ impl CloudBilling {
     /// The caller must have the `billing.accounts.setIamPolicy` permission on the
     /// account, which is often given to billing account
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::cloud_billing::SetIamPolicy {
         super::builder::cloud_billing::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Tests the access control policy for a billing account. This method takes
     /// the resource and a set of permissions as input and returns the subset of
     /// the input permissions that the caller is allowed for that resource.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_billing::TestIamPermissions {
         super::builder::cloud_billing::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Changes which parent organization a billing account belongs to.
-    pub fn move_billing_account(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_billing::MoveBillingAccount {
+    pub fn move_billing_account(&self) -> super::builder::cloud_billing::MoveBillingAccount {
         super::builder::cloud_billing::MoveBillingAccount::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -290,7 +257,7 @@ impl CloudBilling {
 /// # use google_cloud_billing_v1::client::CloudCatalog;
 /// let client = CloudCatalog::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -323,11 +290,11 @@ impl CloudBilling {
 ///
 /// `CloudCatalog` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudCatalog` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudCatalog {
-    inner: Arc<dyn super::stub::dynamic::CloudCatalog>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>,
 }
 
 impl CloudCatalog {
@@ -337,7 +304,7 @@ impl CloudCatalog {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_billing_v1::client::CloudCatalog;
     /// let client = CloudCatalog::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_catalog::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_catalog::client::Factory)
@@ -352,33 +319,35 @@ impl CloudCatalog {
         T: super::stub::CloudCatalog + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudCatalog>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
         super::transport::CloudCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudCatalog> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudCatalog::new)
@@ -390,10 +359,7 @@ impl CloudCatalog {
     }
 
     /// Lists all publicly available SKUs for a given cloud service.
-    pub fn list_skus(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_catalog::ListSkus {
-        super::builder::cloud_catalog::ListSkus::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_skus(&self) -> super::builder::cloud_catalog::ListSkus {
+        super::builder::cloud_catalog::ListSkus::new(self.inner.clone())
     }
 }

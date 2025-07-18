@@ -16,9 +16,8 @@
 
 pub mod aml {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Aml][super::super::client::Aml].
+    /// A builder for [Aml][crate::client::Aml].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod aml {
     /// let client = builder
     ///     .with_endpoint("https://financialservices.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod aml {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Aml;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Aml] request builders.
+    /// Common implementation for [crate::client::Aml] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Aml>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod aml {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_instances][super::super::client::Aml::list_instances] calls.
+    /// The request builder for [Aml::list_instances][crate::client::Aml::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +118,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -109,6 +131,15 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -151,12 +182,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_instance][super::super::client::Aml::get_instance] calls.
+    /// The request builder for [Aml::get_instance][crate::client::Aml::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +243,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_instance][super::super::client::Aml::create_instance] calls.
+    /// The request builder for [Aml::create_instance][crate::client::Aml::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +286,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::Aml::create_instance].
+        /// on [create_instance][crate::client::Aml::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -235,7 +299,7 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -260,7 +324,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -282,11 +346,22 @@ pub mod aml {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -304,12 +379,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_instance][super::super::client::Aml::update_instance] calls.
+    /// The request builder for [Aml::update_instance][crate::client::Aml::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -330,7 +422,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::Aml::update_instance].
+        /// on [update_instance][crate::client::Aml::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -343,7 +435,7 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -368,26 +460,46 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -405,12 +517,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_instance][super::super::client::Aml::delete_instance] calls.
+    /// The request builder for [Aml::delete_instance][crate::client::Aml::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -431,7 +560,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_instance][super::super::client::Aml::delete_instance].
+        /// on [delete_instance][crate::client::Aml::delete_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_instance(self.0.request, self.0.options)
@@ -440,8 +569,8 @@ pub mod aml {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_instance`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +595,12 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
@@ -491,14 +625,31 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::import_registered_parties][super::super::client::Aml::import_registered_parties] calls.
+    /// The request builder for [Aml::import_registered_parties][crate::client::Aml::import_registered_parties] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ImportRegisteredParties;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportRegisteredParties {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportRegisteredParties(
         RequestBuilder<crate::model::ImportRegisteredPartiesRequest>,
     );
 
     impl ImportRegisteredParties {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -522,7 +673,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_registered_parties][super::super::client::Aml::import_registered_parties].
+        /// on [import_registered_parties][crate::client::Aml::import_registered_parties].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_registered_parties(self.0.request, self.0.options)
@@ -537,7 +688,7 @@ pub mod aml {
             crate::model::ImportRegisteredPartiesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ImportRegisteredPartiesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -565,7 +716,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ImportRegisteredPartiesRequest::name].
@@ -573,6 +724,17 @@ pub mod aml {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
+        pub fn set_party_tables<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.party_tables = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -600,17 +762,6 @@ pub mod aml {
             self.0.request.line_of_business = v.into();
             self
         }
-
-        /// Sets the value of [party_tables][crate::model::ImportRegisteredPartiesRequest::party_tables].
-        pub fn set_party_tables<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.party_tables = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -620,14 +771,31 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_registered_parties][super::super::client::Aml::export_registered_parties] calls.
+    /// The request builder for [Aml::export_registered_parties][crate::client::Aml::export_registered_parties] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportRegisteredParties;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportRegisteredParties {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRegisteredParties(
         RequestBuilder<crate::model::ExportRegisteredPartiesRequest>,
     );
 
     impl ExportRegisteredParties {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -651,7 +819,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_registered_parties][super::super::client::Aml::export_registered_parties].
+        /// on [export_registered_parties][crate::client::Aml::export_registered_parties].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_registered_parties(self.0.request, self.0.options)
@@ -666,7 +834,7 @@ pub mod aml {
             crate::model::ExportRegisteredPartiesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportRegisteredPartiesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -694,7 +862,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportRegisteredPartiesRequest::name].
@@ -708,11 +876,22 @@ pub mod aml {
         /// Sets the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::BigQueryDestination>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::ExportRegisteredPartiesRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -732,12 +911,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_datasets][super::super::client::Aml::list_datasets] calls.
+    /// The request builder for [Aml::list_datasets][crate::client::Aml::list_datasets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListDatasets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatasets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatasets(RequestBuilder<crate::model::ListDatasetsRequest>);
 
     impl ListDatasets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -761,8 +960,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDatasetsResponse, gax::error::Error>
         {
@@ -774,6 +973,15 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDatasetsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDatasetsRequest::parent].
@@ -816,12 +1024,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_dataset][super::super::client::Aml::get_dataset] calls.
+    /// The request builder for [Aml::get_dataset][crate::client::Aml::get_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetDataset;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataset(RequestBuilder<crate::model::GetDatasetRequest>);
 
     impl GetDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -861,12 +1085,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_dataset][super::super::client::Aml::create_dataset] calls.
+    /// The request builder for [Aml::create_dataset][crate::client::Aml::create_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateDataset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataset(RequestBuilder<crate::model::CreateDatasetRequest>);
 
     impl CreateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -887,7 +1128,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dataset][super::super::client::Aml::create_dataset].
+        /// on [create_dataset][crate::client::Aml::create_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dataset(self.0.request, self.0.options)
@@ -899,7 +1140,8 @@ pub mod aml {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Dataset, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Dataset, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Dataset, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -924,7 +1166,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatasetRequest::parent].
@@ -946,11 +1188,22 @@ pub mod aml {
         /// Sets the value of [dataset][crate::model::CreateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::CreateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -968,12 +1221,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_dataset][super::super::client::Aml::update_dataset] calls.
+    /// The request builder for [Aml::update_dataset][crate::client::Aml::update_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateDataset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataset(RequestBuilder<crate::model::UpdateDatasetRequest>);
 
     impl UpdateDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -994,7 +1264,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dataset][super::super::client::Aml::update_dataset].
+        /// on [update_dataset][crate::client::Aml::update_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dataset(self.0.request, self.0.options)
@@ -1006,7 +1276,8 @@ pub mod aml {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Dataset, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Dataset, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Dataset, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1031,26 +1302,46 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDatasetRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dataset<T: Into<std::option::Option<crate::model::Dataset>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dataset = v.into();
+        pub fn set_dataset<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dataset][crate::model::UpdateDatasetRequest::dataset].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dataset<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Dataset>,
+        {
+            self.0.request.dataset = v.map(|x| x.into());
             self
         }
 
@@ -1068,12 +1359,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_dataset][super::super::client::Aml::delete_dataset] calls.
+    /// The request builder for [Aml::delete_dataset][crate::client::Aml::delete_dataset] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteDataset;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataset {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataset(RequestBuilder<crate::model::DeleteDatasetRequest>);
 
     impl DeleteDataset {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1094,7 +1402,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dataset][super::super::client::Aml::delete_dataset].
+        /// on [delete_dataset][crate::client::Aml::delete_dataset].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dataset(self.0.request, self.0.options)
@@ -1103,8 +1411,8 @@ pub mod aml {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dataset`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1129,7 +1437,12 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDatasetRequest::name].
@@ -1154,12 +1467,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_models][super::super::client::Aml::list_models] calls.
+    /// The request builder for [Aml::list_models][crate::client::Aml::list_models] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListModels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListModels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListModels(RequestBuilder<crate::model::ListModelsRequest>);
 
     impl ListModels {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1183,8 +1516,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListModelsResponse, gax::error::Error>
         {
@@ -1196,6 +1529,15 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListModelsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListModelsRequest::parent].
@@ -1238,12 +1580,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_model][super::super::client::Aml::get_model] calls.
+    /// The request builder for [Aml::get_model][crate::client::Aml::get_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetModel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetModel(RequestBuilder<crate::model::GetModelRequest>);
 
     impl GetModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1283,12 +1641,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_model][super::super::client::Aml::create_model] calls.
+    /// The request builder for [Aml::create_model][crate::client::Aml::create_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateModel(RequestBuilder<crate::model::CreateModelRequest>);
 
     impl CreateModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1309,7 +1684,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_model][super::super::client::Aml::create_model].
+        /// on [create_model][crate::client::Aml::create_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_model(self.0.request, self.0.options)
@@ -1321,7 +1696,8 @@ pub mod aml {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Model, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Model, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1346,7 +1722,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateModelRequest::parent].
@@ -1368,11 +1744,22 @@ pub mod aml {
         /// Sets the value of [model][crate::model::CreateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::CreateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -1390,12 +1777,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_model][super::super::client::Aml::update_model] calls.
+    /// The request builder for [Aml::update_model][crate::client::Aml::update_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateModel(RequestBuilder<crate::model::UpdateModelRequest>);
 
     impl UpdateModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1416,7 +1820,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_model][super::super::client::Aml::update_model].
+        /// on [update_model][crate::client::Aml::update_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_model(self.0.request, self.0.options)
@@ -1428,7 +1832,8 @@ pub mod aml {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Model, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Model, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Model, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1453,26 +1858,46 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateModelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [model][crate::model::UpdateModelRequest::model].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model<T: Into<std::option::Option<crate::model::Model>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::UpdateModelRequest::model].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Model>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -1490,12 +1915,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_model_metadata][super::super::client::Aml::export_model_metadata] calls.
+    /// The request builder for [Aml::export_model_metadata][crate::client::Aml::export_model_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportModelMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportModelMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportModelMetadata(RequestBuilder<crate::model::ExportModelMetadataRequest>);
 
     impl ExportModelMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1519,7 +1961,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_model_metadata][super::super::client::Aml::export_model_metadata].
+        /// on [export_model_metadata][crate::client::Aml::export_model_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_model_metadata(self.0.request, self.0.options)
@@ -1532,7 +1974,7 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::ExportModelMetadataResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportModelMetadataResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1560,7 +2002,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [model][crate::model::ExportModelMetadataRequest::model].
@@ -1574,13 +2016,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportModelMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -1592,12 +2046,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_model][super::super::client::Aml::delete_model] calls.
+    /// The request builder for [Aml::delete_model][crate::client::Aml::delete_model] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteModel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteModel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteModel(RequestBuilder<crate::model::DeleteModelRequest>);
 
     impl DeleteModel {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1618,7 +2089,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_model][super::super::client::Aml::delete_model].
+        /// on [delete_model][crate::client::Aml::delete_model].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_model(self.0.request, self.0.options)
@@ -1627,8 +2098,8 @@ pub mod aml {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_model`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1653,7 +2124,12 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteModelRequest::name].
@@ -1678,12 +2154,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_engine_configs][super::super::client::Aml::list_engine_configs] calls.
+    /// The request builder for [Aml::list_engine_configs][crate::client::Aml::list_engine_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListEngineConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEngineConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEngineConfigs(RequestBuilder<crate::model::ListEngineConfigsRequest>);
 
     impl ListEngineConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1710,8 +2206,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEngineConfigsResponse, gax::error::Error>
         {
@@ -1723,6 +2219,15 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEngineConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEngineConfigsRequest::parent].
@@ -1765,12 +2270,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_engine_config][super::super::client::Aml::get_engine_config] calls.
+    /// The request builder for [Aml::get_engine_config][crate::client::Aml::get_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetEngineConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEngineConfig(RequestBuilder<crate::model::GetEngineConfigRequest>);
 
     impl GetEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1810,12 +2331,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_engine_config][super::super::client::Aml::create_engine_config] calls.
+    /// The request builder for [Aml::create_engine_config][crate::client::Aml::create_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEngineConfig(RequestBuilder<crate::model::CreateEngineConfigRequest>);
 
     impl CreateEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1839,7 +2377,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_engine_config][super::super::client::Aml::create_engine_config].
+        /// on [create_engine_config][crate::client::Aml::create_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_engine_config(self.0.request, self.0.options)
@@ -1851,8 +2389,10 @@ pub mod aml {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::EngineConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::EngineConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::EngineConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1877,7 +2417,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEngineConfigRequest::parent].
@@ -1899,11 +2439,22 @@ pub mod aml {
         /// Sets the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_engine_config<T: Into<std::option::Option<crate::model::EngineConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.engine_config = v.into();
+        pub fn set_engine_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine_config][crate::model::CreateEngineConfigRequest::engine_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = v.map(|x| x.into());
             self
         }
 
@@ -1921,12 +2472,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_engine_config][super::super::client::Aml::update_engine_config] calls.
+    /// The request builder for [Aml::update_engine_config][crate::client::Aml::update_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEngineConfig(RequestBuilder<crate::model::UpdateEngineConfigRequest>);
 
     impl UpdateEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1950,7 +2518,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_engine_config][super::super::client::Aml::update_engine_config].
+        /// on [update_engine_config][crate::client::Aml::update_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_engine_config(self.0.request, self.0.options)
@@ -1962,8 +2530,10 @@ pub mod aml {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::EngineConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::EngineConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::EngineConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1988,26 +2558,46 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEngineConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_engine_config<T: Into<std::option::Option<crate::model::EngineConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.engine_config = v.into();
+        pub fn set_engine_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine_config][crate::model::UpdateEngineConfigRequest::engine_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::EngineConfig>,
+        {
+            self.0.request.engine_config = v.map(|x| x.into());
             self
         }
 
@@ -2025,14 +2615,31 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata] calls.
+    /// The request builder for [Aml::export_engine_config_metadata][crate::client::Aml::export_engine_config_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportEngineConfigMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportEngineConfigMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportEngineConfigMetadata(
         RequestBuilder<crate::model::ExportEngineConfigMetadataRequest>,
     );
 
     impl ExportEngineConfigMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2056,7 +2663,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_engine_config_metadata][super::super::client::Aml::export_engine_config_metadata].
+        /// on [export_engine_config_metadata][crate::client::Aml::export_engine_config_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_engine_config_metadata(self.0.request, self.0.options)
@@ -2071,7 +2678,7 @@ pub mod aml {
             crate::model::ExportEngineConfigMetadataResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportEngineConfigMetadataResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2099,7 +2706,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [engine_config][crate::model::ExportEngineConfigMetadataRequest::engine_config].
@@ -2113,13 +2720,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportEngineConfigMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -2131,12 +2750,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_engine_config][super::super::client::Aml::delete_engine_config] calls.
+    /// The request builder for [Aml::delete_engine_config][crate::client::Aml::delete_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEngineConfig(RequestBuilder<crate::model::DeleteEngineConfigRequest>);
 
     impl DeleteEngineConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2160,7 +2796,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_engine_config][super::super::client::Aml::delete_engine_config].
+        /// on [delete_engine_config][crate::client::Aml::delete_engine_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_engine_config(self.0.request, self.0.options)
@@ -2169,8 +2805,8 @@ pub mod aml {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_engine_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2195,7 +2831,12 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteEngineConfigRequest::name].
@@ -2220,12 +2861,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_engine_version][super::super::client::Aml::get_engine_version] calls.
+    /// The request builder for [Aml::get_engine_version][crate::client::Aml::get_engine_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetEngineVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEngineVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEngineVersion(RequestBuilder<crate::model::GetEngineVersionRequest>);
 
     impl GetEngineVersion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2268,12 +2925,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_engine_versions][super::super::client::Aml::list_engine_versions] calls.
+    /// The request builder for [Aml::list_engine_versions][crate::client::Aml::list_engine_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListEngineVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEngineVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEngineVersions(RequestBuilder<crate::model::ListEngineVersionsRequest>);
 
     impl ListEngineVersions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2300,8 +2977,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEngineVersionsResponse, gax::error::Error>
         {
@@ -2313,6 +2990,17 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListEngineVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEngineVersionsRequest::parent].
@@ -2355,12 +3043,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_prediction_results][super::super::client::Aml::list_prediction_results] calls.
+    /// The request builder for [Aml::list_prediction_results][crate::client::Aml::list_prediction_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListPredictionResults;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPredictionResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPredictionResults(RequestBuilder<crate::model::ListPredictionResultsRequest>);
 
     impl ListPredictionResults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2387,8 +3095,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPredictionResultsResponse, gax::error::Error>
         {
@@ -2400,6 +3108,17 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPredictionResultsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPredictionResultsRequest::parent].
@@ -2442,12 +3161,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_prediction_result][super::super::client::Aml::get_prediction_result] calls.
+    /// The request builder for [Aml::get_prediction_result][crate::client::Aml::get_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetPredictionResult;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPredictionResult(RequestBuilder<crate::model::GetPredictionResultRequest>);
 
     impl GetPredictionResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2490,12 +3225,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_prediction_result][super::super::client::Aml::create_prediction_result] calls.
+    /// The request builder for [Aml::create_prediction_result][crate::client::Aml::create_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreatePredictionResult;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePredictionResult(RequestBuilder<crate::model::CreatePredictionResultRequest>);
 
     impl CreatePredictionResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2519,7 +3271,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_prediction_result][super::super::client::Aml::create_prediction_result].
+        /// on [create_prediction_result][crate::client::Aml::create_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_prediction_result(self.0.request, self.0.options)
@@ -2532,8 +3284,10 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::PredictionResult, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PredictionResult, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PredictionResult,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2558,7 +3312,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePredictionResultRequest::parent].
@@ -2580,13 +3334,22 @@ pub mod aml {
         /// Sets the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_prediction_result<
-            T: Into<std::option::Option<crate::model::PredictionResult>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.prediction_result = v.into();
+        pub fn set_prediction_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [prediction_result][crate::model::CreatePredictionResultRequest::prediction_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = v.map(|x| x.into());
             self
         }
 
@@ -2604,12 +3367,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_prediction_result][super::super::client::Aml::update_prediction_result] calls.
+    /// The request builder for [Aml::update_prediction_result][crate::client::Aml::update_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdatePredictionResult;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePredictionResult(RequestBuilder<crate::model::UpdatePredictionResultRequest>);
 
     impl UpdatePredictionResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2633,7 +3413,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_prediction_result][super::super::client::Aml::update_prediction_result].
+        /// on [update_prediction_result][crate::client::Aml::update_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_prediction_result(self.0.request, self.0.options)
@@ -2646,8 +3426,10 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::PredictionResult, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PredictionResult, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PredictionResult,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2672,28 +3454,46 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePredictionResultRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_prediction_result<
-            T: Into<std::option::Option<crate::model::PredictionResult>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.prediction_result = v.into();
+        pub fn set_prediction_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [prediction_result][crate::model::UpdatePredictionResultRequest::prediction_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_prediction_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PredictionResult>,
+        {
+            self.0.request.prediction_result = v.map(|x| x.into());
             self
         }
 
@@ -2711,14 +3511,31 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata] calls.
+    /// The request builder for [Aml::export_prediction_result_metadata][crate::client::Aml::export_prediction_result_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportPredictionResultMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportPredictionResultMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportPredictionResultMetadata(
         RequestBuilder<crate::model::ExportPredictionResultMetadataRequest>,
     );
 
     impl ExportPredictionResultMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2742,7 +3559,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_prediction_result_metadata][super::super::client::Aml::export_prediction_result_metadata].
+        /// on [export_prediction_result_metadata][crate::client::Aml::export_prediction_result_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_prediction_result_metadata(self.0.request, self.0.options)
@@ -2757,7 +3574,7 @@ pub mod aml {
             crate::model::ExportPredictionResultMetadataResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportPredictionResultMetadataResponse,
                 crate::model::OperationMetadata,
             >;
@@ -2785,7 +3602,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [prediction_result][crate::model::ExportPredictionResultMetadataRequest::prediction_result].
@@ -2799,13 +3616,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportPredictionResultMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -2817,12 +3646,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_prediction_result][super::super::client::Aml::delete_prediction_result] calls.
+    /// The request builder for [Aml::delete_prediction_result][crate::client::Aml::delete_prediction_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeletePredictionResult;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePredictionResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePredictionResult(RequestBuilder<crate::model::DeletePredictionResultRequest>);
 
     impl DeletePredictionResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2846,7 +3692,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_prediction_result][super::super::client::Aml::delete_prediction_result].
+        /// on [delete_prediction_result][crate::client::Aml::delete_prediction_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_prediction_result(self.0.request, self.0.options)
@@ -2855,8 +3701,8 @@ pub mod aml {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_prediction_result`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2881,7 +3727,12 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePredictionResultRequest::name].
@@ -2906,12 +3757,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_backtest_results][super::super::client::Aml::list_backtest_results] calls.
+    /// The request builder for [Aml::list_backtest_results][crate::client::Aml::list_backtest_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListBacktestResults;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBacktestResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBacktestResults(RequestBuilder<crate::model::ListBacktestResultsRequest>);
 
     impl ListBacktestResults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2938,8 +3809,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBacktestResultsResponse, gax::error::Error>
         {
@@ -2951,6 +3822,17 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBacktestResultsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBacktestResultsRequest::parent].
@@ -2993,12 +3875,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_backtest_result][super::super::client::Aml::get_backtest_result] calls.
+    /// The request builder for [Aml::get_backtest_result][crate::client::Aml::get_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetBacktestResult;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBacktestResult(RequestBuilder<crate::model::GetBacktestResultRequest>);
 
     impl GetBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3041,12 +3939,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::create_backtest_result][super::super::client::Aml::create_backtest_result] calls.
+    /// The request builder for [Aml::create_backtest_result][crate::client::Aml::create_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CreateBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBacktestResult(RequestBuilder<crate::model::CreateBacktestResultRequest>);
 
     impl CreateBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3070,7 +3985,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backtest_result][super::super::client::Aml::create_backtest_result].
+        /// on [create_backtest_result][crate::client::Aml::create_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backtest_result(self.0.request, self.0.options)
@@ -3083,8 +3998,10 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::BacktestResult, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::BacktestResult, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BacktestResult,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3109,7 +4026,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBacktestResultRequest::parent].
@@ -3131,11 +4048,22 @@ pub mod aml {
         /// Sets the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backtest_result<T: Into<std::option::Option<crate::model::BacktestResult>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backtest_result = v.into();
+        pub fn set_backtest_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backtest_result][crate::model::CreateBacktestResultRequest::backtest_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = v.map(|x| x.into());
             self
         }
 
@@ -3153,12 +4081,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::update_backtest_result][super::super::client::Aml::update_backtest_result] calls.
+    /// The request builder for [Aml::update_backtest_result][crate::client::Aml::update_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::UpdateBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBacktestResult(RequestBuilder<crate::model::UpdateBacktestResultRequest>);
 
     impl UpdateBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3182,7 +4127,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backtest_result][super::super::client::Aml::update_backtest_result].
+        /// on [update_backtest_result][crate::client::Aml::update_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backtest_result(self.0.request, self.0.options)
@@ -3195,8 +4140,10 @@ pub mod aml {
             self,
         ) -> impl lro::Poller<crate::model::BacktestResult, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::BacktestResult, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BacktestResult,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3221,26 +4168,46 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBacktestResultRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backtest_result<T: Into<std::option::Option<crate::model::BacktestResult>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backtest_result = v.into();
+        pub fn set_backtest_result<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backtest_result][crate::model::UpdateBacktestResultRequest::backtest_result].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backtest_result<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BacktestResult>,
+        {
+            self.0.request.backtest_result = v.map(|x| x.into());
             self
         }
 
@@ -3258,14 +4225,31 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata] calls.
+    /// The request builder for [Aml::export_backtest_result_metadata][crate::client::Aml::export_backtest_result_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ExportBacktestResultMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportBacktestResultMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportBacktestResultMetadata(
         RequestBuilder<crate::model::ExportBacktestResultMetadataRequest>,
     );
 
     impl ExportBacktestResultMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3289,7 +4273,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_backtest_result_metadata][super::super::client::Aml::export_backtest_result_metadata].
+        /// on [export_backtest_result_metadata][crate::client::Aml::export_backtest_result_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_backtest_result_metadata(self.0.request, self.0.options)
@@ -3304,7 +4288,7 @@ pub mod aml {
             crate::model::ExportBacktestResultMetadataResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportBacktestResultMetadataResponse,
                 crate::model::OperationMetadata,
             >;
@@ -3332,7 +4316,7 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [backtest_result][crate::model::ExportBacktestResultMetadataRequest::backtest_result].
@@ -3346,13 +4330,25 @@ pub mod aml {
         /// Sets the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
         ///
         /// This is a **required** field for requests.
-        pub fn set_structured_metadata_destination<
-            T: Into<std::option::Option<crate::model::BigQueryDestination>>,
-        >(
+        pub fn set_structured_metadata_destination<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_metadata_destination][crate::model::ExportBacktestResultMetadataRequest::structured_metadata_destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_structured_metadata_destination<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.structured_metadata_destination = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::BigQueryDestination>,
+        {
+            self.0.request.structured_metadata_destination = v.map(|x| x.into());
             self
         }
     }
@@ -3364,12 +4360,29 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_backtest_result][super::super::client::Aml::delete_backtest_result] calls.
+    /// The request builder for [Aml::delete_backtest_result][crate::client::Aml::delete_backtest_result] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteBacktestResult;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBacktestResult {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBacktestResult(RequestBuilder<crate::model::DeleteBacktestResultRequest>);
 
     impl DeleteBacktestResult {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3393,7 +4406,7 @@ pub mod aml {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backtest_result][super::super::client::Aml::delete_backtest_result].
+        /// on [delete_backtest_result][crate::client::Aml::delete_backtest_result].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backtest_result(self.0.request, self.0.options)
@@ -3402,8 +4415,8 @@ pub mod aml {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backtest_result`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3428,7 +4441,12 @@ pub mod aml {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBacktestResultRequest::name].
@@ -3453,12 +4471,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_locations][super::super::client::Aml::list_locations] calls.
+    /// The request builder for [Aml::list_locations][crate::client::Aml::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3485,8 +4523,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3498,6 +4536,15 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -3532,12 +4579,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_location][super::super::client::Aml::get_location] calls.
+    /// The request builder for [Aml::get_location][crate::client::Aml::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3575,12 +4638,32 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::list_operations][super::super::client::Aml::list_operations] calls.
+    /// The request builder for [Aml::list_operations][crate::client::Aml::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3607,8 +4690,8 @@ pub mod aml {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3620,6 +4703,17 @@ pub mod aml {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3654,12 +4748,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::get_operation][super::super::client::Aml::get_operation] calls.
+    /// The request builder for [Aml::get_operation][crate::client::Aml::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3700,12 +4810,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::delete_operation][super::super::client::Aml::delete_operation] calls.
+    /// The request builder for [Aml::delete_operation][crate::client::Aml::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3746,12 +4872,28 @@ pub mod aml {
         }
     }
 
-    /// The request builder for [Aml::cancel_operation][super::super::client::Aml::cancel_operation] calls.
+    /// The request builder for [Aml::cancel_operation][crate::client::Aml::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_financialservices_v1::builder;
+    /// use builder::aml::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Aml>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

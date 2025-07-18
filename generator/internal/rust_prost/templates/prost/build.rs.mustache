@@ -21,8 +21,10 @@ limitations under the License.
 fn main() {
     #[cfg(feature = "_generate-protos")]
     {
-        let root = std::env::var("GOOGLEAPIS_ROOT")
-            .expect("GOOGLEAPIS_ROOT must be set");
+        let root = std::env::var("SOURCE_ROOT")
+            .expect("SOURCE_ROOT must be set");
+        let destination = std::env::var("DEST")
+            .expect("DEST must be set");
         let files = &[
             {{#Codec.Files}}
             "{{{.}}}",
@@ -36,7 +38,10 @@ fn main() {
         config.disable_comments(&["."]);
         config.enable_type_names();
         config.type_name_domain(&["."], "type.googleapis.com");
-        config.out_dir(".");
+        config.out_dir(&destination);
         config.compile_protos(files, includes).expect("error compiling protos");
+        {{#Codec.PostProcessProtos}}
+        {{{.}}}
+        {{/Codec.PostProcessProtos}}
     }
 }

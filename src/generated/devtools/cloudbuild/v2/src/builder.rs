@@ -16,9 +16,8 @@
 
 pub mod repository_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RepositoryManager][super::super::client::RepositoryManager].
+    /// A builder for [RepositoryManager][crate::client::RepositoryManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod repository_manager {
     /// let client = builder
     ///     .with_endpoint("https://cloudbuild.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod repository_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RepositoryManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RepositoryManager] request builders.
+    /// Common implementation for [crate::client::RepositoryManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod repository_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::create_connection][super::super::client::RepositoryManager::create_connection] calls.
+    /// The request builder for [RepositoryManager::create_connection][crate::client::RepositoryManager::create_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::CreateConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnection(RequestBuilder<crate::model::CreateConnectionRequest>);
 
     impl CreateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,7 +119,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connection][super::super::client::RepositoryManager::create_connection].
+        /// on [create_connection][crate::client::RepositoryManager::create_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connection(self.0.request, self.0.options)
@@ -109,7 +132,7 @@ pub mod repository_manager {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -134,7 +157,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectionRequest::parent].
@@ -148,11 +171,22 @@ pub mod repository_manager {
         /// Sets the value of [connection][crate::model::CreateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::CreateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
@@ -172,12 +206,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_connection][super::super::client::RepositoryManager::get_connection] calls.
+    /// The request builder for [RepositoryManager::get_connection][crate::client::RepositoryManager::get_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::GetConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnection(RequestBuilder<crate::model::GetConnectionRequest>);
 
     impl GetConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -217,12 +269,34 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::list_connections][super::super::client::RepositoryManager::list_connections] calls.
+    /// The request builder for [RepositoryManager::list_connections][crate::client::RepositoryManager::list_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::ListConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnections(RequestBuilder<crate::model::ListConnectionsRequest>);
 
     impl ListConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -246,8 +320,8 @@ pub mod repository_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectionsResponse, gax::error::Error>
         {
@@ -259,6 +333,15 @@ pub mod repository_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectionsRequest::parent].
@@ -289,12 +372,31 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::update_connection][super::super::client::RepositoryManager::update_connection] calls.
+    /// The request builder for [RepositoryManager::update_connection][crate::client::RepositoryManager::update_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::UpdateConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateConnection(RequestBuilder<crate::model::UpdateConnectionRequest>);
 
     impl UpdateConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -318,7 +420,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_connection][super::super::client::RepositoryManager::update_connection].
+        /// on [update_connection][crate::client::RepositoryManager::update_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_connection(self.0.request, self.0.options)
@@ -331,7 +433,7 @@ pub mod repository_manager {
             self,
         ) -> impl lro::Poller<crate::model::Connection, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connection, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connection, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -356,26 +458,46 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [connection][crate::model::UpdateConnectionRequest::connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connection<T: Into<std::option::Option<crate::model::Connection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connection = v.into();
+        pub fn set_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connection][crate::model::UpdateConnectionRequest::connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connection>,
+        {
+            self.0.request.connection = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateConnectionRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -399,12 +521,31 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::delete_connection][super::super::client::RepositoryManager::delete_connection] calls.
+    /// The request builder for [RepositoryManager::delete_connection][crate::client::RepositoryManager::delete_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::DeleteConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnection(RequestBuilder<crate::model::DeleteConnectionRequest>);
 
     impl DeleteConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -428,7 +569,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connection][super::super::client::RepositoryManager::delete_connection].
+        /// on [delete_connection][crate::client::RepositoryManager::delete_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connection(self.0.request, self.0.options)
@@ -437,8 +578,8 @@ pub mod repository_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connection`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -463,7 +604,12 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectionRequest::name].
@@ -494,12 +640,31 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::create_repository][super::super::client::RepositoryManager::create_repository] calls.
+    /// The request builder for [RepositoryManager::create_repository][crate::client::RepositoryManager::create_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::CreateRepository;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRepository(RequestBuilder<crate::model::CreateRepositoryRequest>);
 
     impl CreateRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -523,7 +688,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_repository][super::super::client::RepositoryManager::create_repository].
+        /// on [create_repository][crate::client::RepositoryManager::create_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_repository(self.0.request, self.0.options)
@@ -536,7 +701,7 @@ pub mod repository_manager {
             self,
         ) -> impl lro::Poller<crate::model::Repository, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Repository, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Repository, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -561,7 +726,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRepositoryRequest::parent].
@@ -575,11 +740,22 @@ pub mod repository_manager {
         /// Sets the value of [repository][crate::model::CreateRepositoryRequest::repository].
         ///
         /// This is a **required** field for requests.
-        pub fn set_repository<T: Into<std::option::Option<crate::model::Repository>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.repository = v.into();
+        pub fn set_repository<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [repository][crate::model::CreateRepositoryRequest::repository].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_repository<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Repository>,
+        {
+            self.0.request.repository = v.map(|x| x.into());
             self
         }
 
@@ -599,14 +775,33 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::batch_create_repositories][super::super::client::RepositoryManager::batch_create_repositories] calls.
+    /// The request builder for [RepositoryManager::batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::BatchCreateRepositories;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreateRepositories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateRepositories(
         RequestBuilder<crate::model::BatchCreateRepositoriesRequest>,
     );
 
     impl BatchCreateRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -630,7 +825,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_repositories][super::super::client::RepositoryManager::batch_create_repositories].
+        /// on [batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_repositories(self.0.request, self.0.options)
@@ -645,7 +840,7 @@ pub mod repository_manager {
             crate::model::BatchCreateRepositoriesResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateRepositoriesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -673,7 +868,7 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateRepositoriesRequest::parent].
@@ -705,12 +900,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_repository][super::super::client::RepositoryManager::get_repository] calls.
+    /// The request builder for [RepositoryManager::get_repository][crate::client::RepositoryManager::get_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::GetRepository;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRepository(RequestBuilder<crate::model::GetRepositoryRequest>);
 
     impl GetRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -750,12 +963,34 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::list_repositories][super::super::client::RepositoryManager::list_repositories] calls.
+    /// The request builder for [RepositoryManager::list_repositories][crate::client::RepositoryManager::list_repositories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::ListRepositories;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRepositories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRepositories(RequestBuilder<crate::model::ListRepositoriesRequest>);
 
     impl ListRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -782,8 +1017,8 @@ pub mod repository_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRepositoriesResponse, gax::error::Error>
         {
@@ -795,6 +1030,15 @@ pub mod repository_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRepositoriesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRepositoriesRequest::parent].
@@ -831,12 +1075,31 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::delete_repository][super::super::client::RepositoryManager::delete_repository] calls.
+    /// The request builder for [RepositoryManager::delete_repository][crate::client::RepositoryManager::delete_repository] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::DeleteRepository;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRepository {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRepository(RequestBuilder<crate::model::DeleteRepositoryRequest>);
 
     impl DeleteRepository {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -860,7 +1123,7 @@ pub mod repository_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_repository][super::super::client::RepositoryManager::delete_repository].
+        /// on [delete_repository][crate::client::RepositoryManager::delete_repository].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_repository(self.0.request, self.0.options)
@@ -869,8 +1132,8 @@ pub mod repository_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_repository`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -895,7 +1158,12 @@ pub mod repository_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRepositoryRequest::name].
@@ -926,12 +1194,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_read_write_token][super::super::client::RepositoryManager::fetch_read_write_token] calls.
+    /// The request builder for [RepositoryManager::fetch_read_write_token][crate::client::RepositoryManager::fetch_read_write_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::FetchReadWriteToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchReadWriteToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchReadWriteToken(RequestBuilder<crate::model::FetchReadWriteTokenRequest>);
 
     impl FetchReadWriteToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -974,12 +1260,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_read_token][super::super::client::RepositoryManager::fetch_read_token] calls.
+    /// The request builder for [RepositoryManager::fetch_read_token][crate::client::RepositoryManager::fetch_read_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::FetchReadToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchReadToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchReadToken(RequestBuilder<crate::model::FetchReadTokenRequest>);
 
     impl FetchReadToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1019,14 +1323,36 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_linkable_repositories][super::super::client::RepositoryManager::fetch_linkable_repositories] calls.
+    /// The request builder for [RepositoryManager::fetch_linkable_repositories][crate::client::RepositoryManager::fetch_linkable_repositories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::FetchLinkableRepositories;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchLinkableRepositories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchLinkableRepositories(
         RequestBuilder<crate::model::FetchLinkableRepositoriesRequest>,
     );
 
     impl FetchLinkableRepositories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1053,8 +1379,8 @@ pub mod repository_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::FetchLinkableRepositoriesResponse,
@@ -1068,6 +1394,17 @@ pub mod repository_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::FetchLinkableRepositoriesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [connection][crate::model::FetchLinkableRepositoriesRequest::connection].
@@ -1098,12 +1435,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::fetch_git_refs][super::super::client::RepositoryManager::fetch_git_refs] calls.
+    /// The request builder for [RepositoryManager::fetch_git_refs][crate::client::RepositoryManager::fetch_git_refs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::FetchGitRefs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchGitRefs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct FetchGitRefs(RequestBuilder<crate::model::FetchGitRefsRequest>);
 
     impl FetchGitRefs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1152,12 +1507,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::set_iam_policy][super::super::client::RepositoryManager::set_iam_policy] calls.
+    /// The request builder for [RepositoryManager::set_iam_policy][crate::client::RepositoryManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1192,20 +1565,40 @@ pub mod repository_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1217,12 +1610,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_iam_policy][super::super::client::RepositoryManager::get_iam_policy] calls.
+    /// The request builder for [RepositoryManager::get_iam_policy][crate::client::RepositoryManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1255,11 +1666,20 @@ pub mod repository_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1271,12 +1691,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::test_iam_permissions][super::super::client::RepositoryManager::test_iam_permissions] calls.
+    /// The request builder for [RepositoryManager::test_iam_permissions][crate::client::RepositoryManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1332,12 +1770,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::get_operation][super::super::client::RepositoryManager::get_operation] calls.
+    /// The request builder for [RepositoryManager::get_operation][crate::client::RepositoryManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1378,12 +1834,30 @@ pub mod repository_manager {
         }
     }
 
-    /// The request builder for [RepositoryManager::cancel_operation][super::super::client::RepositoryManager::cancel_operation] calls.
+    /// The request builder for [RepositoryManager::cancel_operation][crate::client::RepositoryManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_build_v2::builder;
+    /// use builder::repository_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RepositoryManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RepositoryManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

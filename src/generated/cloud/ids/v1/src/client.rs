@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud IDS API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_ids_v1::client::Ids;
 /// let client = Ids::builder().build().await?;
 /// // use `client` to make requests to the Cloud IDS API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Ids` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Ids` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Ids {
-    inner: Arc<dyn super::stub::dynamic::Ids>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Ids>,
 }
 
 impl Ids {
@@ -72,7 +69,7 @@ impl Ids {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_ids_v1::client::Ids;
     /// let client = Ids::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::ids::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::ids::client::Factory)
@@ -87,50 +84,48 @@ impl Ids {
         T: super::stub::Ids + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Ids>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Ids>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::Ids> {
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Ids> {
         super::transport::Ids::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Ids> {
+    ) -> gax::client_builder::Result<impl super::stub::Ids> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Ids::new)
     }
 
     /// Lists Endpoints in a given project and location.
-    pub fn list_endpoints(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::ids::ListEndpoints {
-        super::builder::ids::ListEndpoints::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_endpoints(&self) -> super::builder::ids::ListEndpoints {
+        super::builder::ids::ListEndpoints::new(self.inner.clone())
     }
 
     /// Gets details of a single Endpoint.
-    pub fn get_endpoint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::GetEndpoint {
-        super::builder::ids::GetEndpoint::new(self.inner.clone()).set_name(name.into())
+    pub fn get_endpoint(&self) -> super::builder::ids::GetEndpoint {
+        super::builder::ids::GetEndpoint::new(self.inner.clone())
     }
 
     /// Creates a new Endpoint in a given project and location.
@@ -144,11 +139,8 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_endpoint(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::ids::CreateEndpoint {
-        super::builder::ids::CreateEndpoint::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_endpoint(&self) -> super::builder::ids::CreateEndpoint {
+        super::builder::ids::CreateEndpoint::new(self.inner.clone())
     }
 
     /// Deletes a single Endpoint.
@@ -162,50 +154,35 @@ impl Ids {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_endpoint(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::DeleteEndpoint {
-        super::builder::ids::DeleteEndpoint::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_endpoint(&self) -> super::builder::ids::DeleteEndpoint {
+        super::builder::ids::DeleteEndpoint::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::ListOperations {
-        super::builder::ids::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::ids::ListOperations {
+        super::builder::ids::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::GetOperation {
-        super::builder::ids::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::ids::GetOperation {
+        super::builder::ids::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::DeleteOperation {
-        super::builder::ids::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::ids::DeleteOperation {
+        super::builder::ids::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::ids::CancelOperation {
-        super::builder::ids::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::ids::CancelOperation {
+        super::builder::ids::CancelOperation::new(self.inner.clone())
     }
 }

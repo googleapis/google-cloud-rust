@@ -16,9 +16,8 @@
 
 pub mod video_intelligence_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [VideoIntelligenceService][super::super::client::VideoIntelligenceService].
+    /// A builder for [VideoIntelligenceService][crate::client::VideoIntelligenceService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod video_intelligence_service {
     /// let client = builder
     ///     .with_endpoint("https://videointelligence.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod video_intelligence_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VideoIntelligenceService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::VideoIntelligenceService] request builders.
+    /// Common implementation for [crate::client::VideoIntelligenceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod video_intelligence_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,30 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::annotate_video][super::super::client::VideoIntelligenceService::annotate_video] calls.
+    /// The request builder for [VideoIntelligenceService::annotate_video][crate::client::VideoIntelligenceService::annotate_video] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::AnnotateVideo;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AnnotateVideo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AnnotateVideo(RequestBuilder<crate::model::AnnotateVideoRequest>);
 
     impl AnnotateVideo {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -97,7 +116,7 @@ pub mod video_intelligence_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [annotate_video][super::super::client::VideoIntelligenceService::annotate_video].
+        /// on [annotate_video][crate::client::VideoIntelligenceService::annotate_video].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .annotate_video(self.0.request, self.0.options)
@@ -110,7 +129,7 @@ pub mod video_intelligence_service {
             self,
         ) -> impl lro::Poller<crate::model::AnnotateVideoResponse, crate::model::AnnotateVideoProgress>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AnnotateVideoResponse,
                 crate::model::AnnotateVideoProgress,
             >;
@@ -138,7 +157,7 @@ pub mod video_intelligence_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [input_uri][crate::model::AnnotateVideoRequest::input_uri].
@@ -150,27 +169,6 @@ pub mod video_intelligence_service {
         /// Sets the value of [input_content][crate::model::AnnotateVideoRequest::input_content].
         pub fn set_input_content<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
             self.0.request.input_content = v.into();
-            self
-        }
-
-        /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
-        pub fn set_video_context<T: Into<std::option::Option<crate::model::VideoContext>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.video_context = v.into();
-            self
-        }
-
-        /// Sets the value of [output_uri][crate::model::AnnotateVideoRequest::output_uri].
-        pub fn set_output_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.output_uri = v.into();
-            self
-        }
-
-        /// Sets the value of [location_id][crate::model::AnnotateVideoRequest::location_id].
-        pub fn set_location_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.location_id = v.into();
             self
         }
 
@@ -186,6 +184,36 @@ pub mod video_intelligence_service {
             self.0.request.features = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
+        pub fn set_video_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VideoContext>,
+        {
+            self.0.request.video_context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [video_context][crate::model::AnnotateVideoRequest::video_context].
+        pub fn set_or_clear_video_context<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VideoContext>,
+        {
+            self.0.request.video_context = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [output_uri][crate::model::AnnotateVideoRequest::output_uri].
+        pub fn set_output_uri<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.output_uri = v.into();
+            self
+        }
+
+        /// Sets the value of [location_id][crate::model::AnnotateVideoRequest::location_id].
+        pub fn set_location_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.location_id = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -195,13 +223,33 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::list_operations][super::super::client::VideoIntelligenceService::list_operations] calls.
+    /// The request builder for [VideoIntelligenceService::list_operations][crate::client::VideoIntelligenceService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -229,8 +277,8 @@ pub mod video_intelligence_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -242,6 +290,17 @@ pub mod video_intelligence_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -276,13 +335,29 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::get_operation][super::super::client::VideoIntelligenceService::get_operation] calls.
+    /// The request builder for [VideoIntelligenceService::get_operation][crate::client::VideoIntelligenceService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -324,13 +399,29 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::delete_operation][super::super::client::VideoIntelligenceService::delete_operation] calls.
+    /// The request builder for [VideoIntelligenceService::delete_operation][crate::client::VideoIntelligenceService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -372,13 +463,29 @@ pub mod video_intelligence_service {
         }
     }
 
-    /// The request builder for [VideoIntelligenceService::cancel_operation][super::super::client::VideoIntelligenceService::cancel_operation] calls.
+    /// The request builder for [VideoIntelligenceService::cancel_operation][crate::client::VideoIntelligenceService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_videointelligence_v1::builder;
+    /// use builder::video_intelligence_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VideoIntelligenceService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Container Analysis API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
 /// let client = ContainerAnalysis::builder().build().await?;
 /// // use `client` to make requests to the Container Analysis API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -70,11 +67,11 @@ use std::sync::Arc;
 ///
 /// `ContainerAnalysis` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ContainerAnalysis` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ContainerAnalysis {
-    inner: Arc<dyn super::stub::dynamic::ContainerAnalysis>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ContainerAnalysis>,
 }
 
 impl ContainerAnalysis {
@@ -84,7 +81,7 @@ impl ContainerAnalysis {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
     /// let client = ContainerAnalysis::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::container_analysis::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -101,33 +98,36 @@ impl ContainerAnalysis {
         T: super::stub::ContainerAnalysis + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ContainerAnalysis>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ContainerAnalysis>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ContainerAnalysis> {
+    ) -> gax::client_builder::Result<impl super::stub::ContainerAnalysis> {
         super::transport::ContainerAnalysis::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ContainerAnalysis> {
+    ) -> gax::client_builder::Result<impl super::stub::ContainerAnalysis> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ContainerAnalysis::new)
@@ -141,12 +141,8 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::container_analysis::SetIamPolicy {
         super::builder::container_analysis::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a note or an occurrence resource.
@@ -157,12 +153,8 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::container_analysis::GetIamPolicy {
         super::builder::container_analysis::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns the permissions that a caller has on the specified note or
@@ -172,31 +164,21 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::container_analysis::TestIamPermissions {
         super::builder::container_analysis::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets a summary of the number and severity of occurrences.
     pub fn get_vulnerability_occurrences_summary(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::container_analysis::GetVulnerabilityOccurrencesSummary {
         super::builder::container_analysis::GetVulnerabilityOccurrencesSummary::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Generates an SBOM for the given resource.
-    pub fn export_sbom(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::container_analysis::ExportSBOM {
+    pub fn export_sbom(&self) -> super::builder::container_analysis::ExportSBOM {
         super::builder::container_analysis::ExportSBOM::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

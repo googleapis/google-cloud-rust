@@ -17,20 +17,25 @@ language             = 'rust'
 specification-format = 'protobuf'
 
 [source]
-extra-protos-extracted-name = 'gapic-showcase-0.36.2'
-extra-protos-root           = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
-extra-protos-sha256         = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
-googleapis-root             = 'https://github.com/googleapis/googleapis/archive/3da50fda505b4d483dd85579962421fc8bc7d2b1.tar.gz'
-googleapis-sha256           = 'a2bd4a29fda6f003636b4e9b3623c85c2915c357fde734bd03eb8988123b731b'
-protobuf-extracted-name     = 'protobuf-29.3'
-protobuf-root               = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
-protobuf-sha256             = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
-protobuf-subdir             = "src"
+# By default only search in the `googleapis-root` directory.
+roots                       = 'googleapis'
+showcase-extracted-name     = 'gapic-showcase-0.36.2'
+showcase-root               = 'https://github.com/googleapis/gapic-showcase/archive/refs/tags/v0.36.2.tar.gz'
+showcase-sha256             = '0914bdbb088713aa087a53b355ff6631ad95e4769afd8bbd97d5d9e78d4cdf09'
+googleapis-root             = 'https://github.com/googleapis/googleapis/archive/e5b0e779491e106ddac0b72b79222673a846fdc9.tar.gz'
+googleapis-sha256           = '42f0b7b9b30f8ac42567d1285e0a1130492d8d0c267ab682674bdf5d27326c9b'
+protobuf-src-extracted-name = 'protobuf-29.3'
+protobuf-src-root           = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
+protobuf-src-sha256         = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
+protobuf-src-subdir         = 'src'
+conformance-extracted-name  = 'protobuf-29.3'
+conformance-root            = 'https://github.com/protocolbuffers/protobuf/releases/download/v29.3/protobuf-29.3.tar.gz'
+conformance-sha256          = '008a11cc56f9b96679b4c285fd05f46d317d685be3ab524b2a310be0fbad987e'
 
 [codec]
 # The default version for all crates. This can be overridden in the crate's
 # `.sidekick.toml` file.
-version = "0.3.0"
+version = "0.4.2"
 # The default release level for all crates.
 release-level = "preview"
 # Disable a number of warnings.
@@ -45,13 +50,15 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:serde_with' = 'force-used=true,package=serde_with'
 # These are used by crates with services.
 'package:async-trait' = 'used-if=services,package=async-trait'
-'package:gax'         = 'used-if=services,package=google-cloud-gax,feature=unstable-sdk-client'
-'package:gaxi'        = 'used-if=services,package=google-cloud-gax-internal,feature=_internal_http_client'
+'package:gax'         = 'used-if=services,package=google-cloud-gax'
+'package:gaxi'        = 'used-if=services,package=google-cloud-gax-internal,feature=_internal-http-client'
 'package:lazy_static' = 'used-if=services,package=lazy_static'
 'package:reqwest'     = 'used-if=services,package=reqwest'
 'package:tracing'     = 'used-if=services,package=tracing'
 # Only used if LROs are present
 'package:lro' = 'used-if=lro,package=google-cloud-lro'
+# Only used if a service has auto-populated fields
+'package:uuid' = 'used-if=autopopulated,package=uuid'
 # I (coryan@) got lazy, it is tedious to auto-detect if this is used in `sidekick`.
 # OTOH, the only case where this is not used is a crate without any messages, i.e., just enums.
 'package:wkt' = 'force-used=true,package=google-cloud-wkt,source=google.protobuf'

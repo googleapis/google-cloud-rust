@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Assured Workloads API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
 /// let client = AssuredWorkloadsService::builder().build().await?;
 /// // use `client` to make requests to the Assured Workloads API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `AssuredWorkloadsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AssuredWorkloadsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AssuredWorkloadsService {
-    inner: Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
 }
 
 impl AssuredWorkloadsService {
@@ -72,7 +69,7 @@ impl AssuredWorkloadsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// let client = AssuredWorkloadsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::assured_workloads_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,33 +86,37 @@ impl AssuredWorkloadsService {
         T: super::stub::AssuredWorkloadsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AssuredWorkloadsService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::AssuredWorkloadsService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AssuredWorkloadsService> {
+    ) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
         super::transport::AssuredWorkloadsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AssuredWorkloadsService> {
+    ) -> gax::client_builder::Result<impl super::stub::AssuredWorkloadsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AssuredWorkloadsService::new)
@@ -132,24 +133,16 @@ impl AssuredWorkloadsService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workload(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::CreateWorkload {
+    pub fn create_workload(&self) -> super::builder::assured_workloads_service::CreateWorkload {
         super::builder::assured_workloads_service::CreateWorkload::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing workload.
     /// Currently allows updating of workload display_name and labels.
     /// For force updates don't set etag field in the Workload.
     /// Only one update operation per workload can be in progress.
-    pub fn update_workload(
-        &self,
-        workload: impl Into<crate::model::Workload>,
-    ) -> super::builder::assured_workloads_service::UpdateWorkload {
+    pub fn update_workload(&self) -> super::builder::assured_workloads_service::UpdateWorkload {
         super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
-            .set_workload(workload.into())
     }
 
     /// Restrict the list of resources allowed in the Workload environment.
@@ -160,60 +153,38 @@ impl AssuredWorkloadsService {
     /// to use this functionality.
     pub fn restrict_allowed_resources(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
         super::builder::assured_workloads_service::RestrictAllowedResources::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the workload. Make sure that workload's direct children are already
     /// in a deleted state, otherwise the request will fail with a
     /// FAILED_PRECONDITION error.
-    pub fn delete_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::DeleteWorkload {
+    pub fn delete_workload(&self) -> super::builder::assured_workloads_service::DeleteWorkload {
         super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets Assured Workload associated with a CRM Node
-    pub fn get_workload(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::GetWorkload {
+    pub fn get_workload(&self) -> super::builder::assured_workloads_service::GetWorkload {
         super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Assured Workloads under a CRM Node.
-    pub fn list_workloads(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::ListWorkloads {
+    pub fn list_workloads(&self) -> super::builder::assured_workloads_service::ListWorkloads {
         super::builder::assured_workloads_service::ListWorkloads::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::assured_workloads_service::ListOperations {
         super::builder::assured_workloads_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::assured_workloads_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::assured_workloads_service::GetOperation {
         super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

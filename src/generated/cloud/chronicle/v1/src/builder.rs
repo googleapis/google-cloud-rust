@@ -16,9 +16,8 @@
 
 pub mod data_access_control_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DataAccessControlService][super::super::client::DataAccessControlService].
+    /// A builder for [DataAccessControlService][crate::client::DataAccessControlService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod data_access_control_service {
     /// let client = builder
     ///     .with_endpoint("https://chronicle.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod data_access_control_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataAccessControlService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DataAccessControlService] request builders.
+    /// Common implementation for [crate::client::DataAccessControlService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod data_access_control_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::create_data_access_label][super::super::client::DataAccessControlService::create_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::create_data_access_label][crate::client::DataAccessControlService::create_data_access_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::CreateDataAccessLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataAccessLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataAccessLabel(RequestBuilder<crate::model::CreateDataAccessLabelRequest>);
 
     impl CreateDataAccessLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -114,13 +132,22 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_label<
-            T: Into<std::option::Option<crate::model::DataAccessLabel>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_label = v.into();
+        pub fn set_data_access_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_label][crate::model::CreateDataAccessLabelRequest::data_access_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = v.map(|x| x.into());
             self
         }
 
@@ -140,13 +167,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::get_data_access_label][super::super::client::DataAccessControlService::get_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::get_data_access_label][crate::client::DataAccessControlService::get_data_access_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::GetDataAccessLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataAccessLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataAccessLabel(RequestBuilder<crate::model::GetDataAccessLabelRequest>);
 
     impl GetDataAccessLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -190,13 +233,33 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::list_data_access_labels][super::super::client::DataAccessControlService::list_data_access_labels] calls.
+    /// The request builder for [DataAccessControlService::list_data_access_labels][crate::client::DataAccessControlService::list_data_access_labels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::ListDataAccessLabels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataAccessLabels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataAccessLabels(RequestBuilder<crate::model::ListDataAccessLabelsRequest>);
 
     impl ListDataAccessLabels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -224,8 +287,8 @@ pub mod data_access_control_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataAccessLabelsResponse, gax::error::Error>
         {
@@ -237,6 +300,17 @@ pub mod data_access_control_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDataAccessLabelsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataAccessLabelsRequest::parent].
@@ -273,13 +347,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::update_data_access_label][super::super::client::DataAccessControlService::update_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::update_data_access_label][crate::client::DataAccessControlService::update_data_access_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::UpdateDataAccessLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataAccessLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataAccessLabel(RequestBuilder<crate::model::UpdateDataAccessLabelRequest>);
 
     impl UpdateDataAccessLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -310,22 +400,40 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_label<
-            T: Into<std::option::Option<crate::model::DataAccessLabel>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_label = v.into();
+        pub fn set_data_access_label<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_label][crate::model::UpdateDataAccessLabelRequest::data_access_label].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_label<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessLabel>,
+        {
+            self.0.request.data_access_label = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAccessLabelRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -337,13 +445,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::delete_data_access_label][super::super::client::DataAccessControlService::delete_data_access_label] calls.
+    /// The request builder for [DataAccessControlService::delete_data_access_label][crate::client::DataAccessControlService::delete_data_access_label] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::DeleteDataAccessLabel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataAccessLabel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataAccessLabel(RequestBuilder<crate::model::DeleteDataAccessLabelRequest>);
 
     impl DeleteDataAccessLabel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -387,13 +511,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::create_data_access_scope][super::super::client::DataAccessControlService::create_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::create_data_access_scope][crate::client::DataAccessControlService::create_data_access_scope] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::CreateDataAccessScope;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataAccessScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataAccessScope(RequestBuilder<crate::model::CreateDataAccessScopeRequest>);
 
     impl CreateDataAccessScope {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -432,13 +572,22 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_scope<
-            T: Into<std::option::Option<crate::model::DataAccessScope>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_scope = v.into();
+        pub fn set_data_access_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_scope][crate::model::CreateDataAccessScopeRequest::data_access_scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = v.map(|x| x.into());
             self
         }
 
@@ -458,13 +607,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::get_data_access_scope][super::super::client::DataAccessControlService::get_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::get_data_access_scope][crate::client::DataAccessControlService::get_data_access_scope] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::GetDataAccessScope;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataAccessScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataAccessScope(RequestBuilder<crate::model::GetDataAccessScopeRequest>);
 
     impl GetDataAccessScope {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -508,13 +673,33 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::list_data_access_scopes][super::super::client::DataAccessControlService::list_data_access_scopes] calls.
+    /// The request builder for [DataAccessControlService::list_data_access_scopes][crate::client::DataAccessControlService::list_data_access_scopes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::ListDataAccessScopes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataAccessScopes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataAccessScopes(RequestBuilder<crate::model::ListDataAccessScopesRequest>);
 
     impl ListDataAccessScopes {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -542,8 +727,8 @@ pub mod data_access_control_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataAccessScopesResponse, gax::error::Error>
         {
@@ -555,6 +740,17 @@ pub mod data_access_control_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDataAccessScopesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataAccessScopesRequest::parent].
@@ -591,13 +787,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::update_data_access_scope][super::super::client::DataAccessControlService::update_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::update_data_access_scope][crate::client::DataAccessControlService::update_data_access_scope] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::UpdateDataAccessScope;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataAccessScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataAccessScope(RequestBuilder<crate::model::UpdateDataAccessScopeRequest>);
 
     impl UpdateDataAccessScope {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -628,22 +840,40 @@ pub mod data_access_control_service {
         /// Sets the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_access_scope<
-            T: Into<std::option::Option<crate::model::DataAccessScope>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_access_scope = v.into();
+        pub fn set_data_access_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_access_scope][crate::model::UpdateDataAccessScopeRequest::data_access_scope].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_access_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataAccessScope>,
+        {
+            self.0.request.data_access_scope = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataAccessScopeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -655,13 +885,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::delete_data_access_scope][super::super::client::DataAccessControlService::delete_data_access_scope] calls.
+    /// The request builder for [DataAccessControlService::delete_data_access_scope][crate::client::DataAccessControlService::delete_data_access_scope] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::DeleteDataAccessScope;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataAccessScope {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataAccessScope(RequestBuilder<crate::model::DeleteDataAccessScopeRequest>);
 
     impl DeleteDataAccessScope {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -705,13 +951,33 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::list_operations][super::super::client::DataAccessControlService::list_operations] calls.
+    /// The request builder for [DataAccessControlService::list_operations][crate::client::DataAccessControlService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -739,8 +1005,8 @@ pub mod data_access_control_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -752,6 +1018,17 @@ pub mod data_access_control_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -786,13 +1063,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::get_operation][super::super::client::DataAccessControlService::get_operation] calls.
+    /// The request builder for [DataAccessControlService::get_operation][crate::client::DataAccessControlService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -834,13 +1127,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::delete_operation][super::super::client::DataAccessControlService::delete_operation] calls.
+    /// The request builder for [DataAccessControlService::delete_operation][crate::client::DataAccessControlService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -882,13 +1191,29 @@ pub mod data_access_control_service {
         }
     }
 
-    /// The request builder for [DataAccessControlService::cancel_operation][super::super::client::DataAccessControlService::cancel_operation] calls.
+    /// The request builder for [DataAccessControlService::cancel_operation][crate::client::DataAccessControlService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::data_access_control_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataAccessControlService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -933,9 +1258,8 @@ pub mod data_access_control_service {
 
 pub mod entity_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [EntityService][super::super::client::EntityService].
+    /// A builder for [EntityService][crate::client::EntityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -946,7 +1270,7 @@ pub mod entity_service {
     /// let client = builder
     ///     .with_endpoint("https://chronicle.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -957,16 +1281,19 @@ pub mod entity_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EntityService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::EntityService] request builders.
+    /// Common implementation for [crate::client::EntityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EntityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -975,7 +1302,9 @@ pub mod entity_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -984,12 +1313,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::get_watchlist][super::super::client::EntityService::get_watchlist] calls.
+    /// The request builder for [EntityService::get_watchlist][crate::client::EntityService::get_watchlist] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::GetWatchlist;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWatchlist {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWatchlist(RequestBuilder<crate::model::GetWatchlistRequest>);
 
     impl GetWatchlist {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1029,12 +1376,34 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::list_watchlists][super::super::client::EntityService::list_watchlists] calls.
+    /// The request builder for [EntityService::list_watchlists][crate::client::EntityService::list_watchlists] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::ListWatchlists;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWatchlists {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWatchlists(RequestBuilder<crate::model::ListWatchlistsRequest>);
 
     impl ListWatchlists {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1058,8 +1427,8 @@ pub mod entity_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWatchlistsResponse, gax::error::Error>
         {
@@ -1071,6 +1440,15 @@ pub mod entity_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWatchlistsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWatchlistsRequest::parent].
@@ -1107,12 +1485,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::create_watchlist][super::super::client::EntityService::create_watchlist] calls.
+    /// The request builder for [EntityService::create_watchlist][crate::client::EntityService::create_watchlist] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::CreateWatchlist;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWatchlist {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWatchlist(RequestBuilder<crate::model::CreateWatchlistRequest>);
 
     impl CreateWatchlist {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1153,11 +1549,22 @@ pub mod entity_service {
         /// Sets the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
         ///
         /// This is a **required** field for requests.
-        pub fn set_watchlist<T: Into<std::option::Option<crate::model::Watchlist>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.watchlist = v.into();
+        pub fn set_watchlist<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [watchlist][crate::model::CreateWatchlistRequest::watchlist].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = v.map(|x| x.into());
             self
         }
     }
@@ -1169,12 +1576,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::update_watchlist][super::super::client::EntityService::update_watchlist] calls.
+    /// The request builder for [EntityService::update_watchlist][crate::client::EntityService::update_watchlist] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::UpdateWatchlist;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWatchlist {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWatchlist(RequestBuilder<crate::model::UpdateWatchlistRequest>);
 
     impl UpdateWatchlist {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1201,20 +1626,40 @@ pub mod entity_service {
         /// Sets the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
         ///
         /// This is a **required** field for requests.
-        pub fn set_watchlist<T: Into<std::option::Option<crate::model::Watchlist>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.watchlist = v.into();
+        pub fn set_watchlist<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [watchlist][crate::model::UpdateWatchlistRequest::watchlist].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_watchlist<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Watchlist>,
+        {
+            self.0.request.watchlist = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWatchlistRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1226,12 +1671,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::delete_watchlist][super::super::client::EntityService::delete_watchlist] calls.
+    /// The request builder for [EntityService::delete_watchlist][crate::client::EntityService::delete_watchlist] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::DeleteWatchlist;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWatchlist {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWatchlist(RequestBuilder<crate::model::DeleteWatchlistRequest>);
 
     impl DeleteWatchlist {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1277,12 +1740,34 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::list_operations][super::super::client::EntityService::list_operations] calls.
+    /// The request builder for [EntityService::list_operations][crate::client::EntityService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1309,8 +1794,8 @@ pub mod entity_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1322,6 +1807,17 @@ pub mod entity_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1356,12 +1852,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::get_operation][super::super::client::EntityService::get_operation] calls.
+    /// The request builder for [EntityService::get_operation][crate::client::EntityService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1402,12 +1916,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::delete_operation][super::super::client::EntityService::delete_operation] calls.
+    /// The request builder for [EntityService::delete_operation][crate::client::EntityService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1448,12 +1980,30 @@ pub mod entity_service {
         }
     }
 
-    /// The request builder for [EntityService::cancel_operation][super::super::client::EntityService::cancel_operation] calls.
+    /// The request builder for [EntityService::cancel_operation][crate::client::EntityService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::entity_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EntityService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EntityService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1497,9 +2047,8 @@ pub mod entity_service {
 
 pub mod instance_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [InstanceService][super::super::client::InstanceService].
+    /// A builder for [InstanceService][crate::client::InstanceService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1510,7 +2059,7 @@ pub mod instance_service {
     /// let client = builder
     ///     .with_endpoint("https://chronicle.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1521,16 +2070,19 @@ pub mod instance_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = InstanceService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::InstanceService] request builders.
+    /// Common implementation for [crate::client::InstanceService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::InstanceService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1539,7 +2091,9 @@ pub mod instance_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1548,12 +2102,30 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::get_instance][super::super::client::InstanceService::get_instance] calls.
+    /// The request builder for [InstanceService::get_instance][crate::client::InstanceService::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::instance_service::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1593,12 +2165,34 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::list_operations][super::super::client::InstanceService::list_operations] calls.
+    /// The request builder for [InstanceService::list_operations][crate::client::InstanceService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::instance_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1625,8 +2219,8 @@ pub mod instance_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1638,6 +2232,17 @@ pub mod instance_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1672,12 +2277,30 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::get_operation][super::super::client::InstanceService::get_operation] calls.
+    /// The request builder for [InstanceService::get_operation][crate::client::InstanceService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::instance_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1718,12 +2341,30 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::delete_operation][super::super::client::InstanceService::delete_operation] calls.
+    /// The request builder for [InstanceService::delete_operation][crate::client::InstanceService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::instance_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1764,12 +2405,30 @@ pub mod instance_service {
         }
     }
 
-    /// The request builder for [InstanceService::cancel_operation][super::super::client::InstanceService::cancel_operation] calls.
+    /// The request builder for [InstanceService::cancel_operation][crate::client::InstanceService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::instance_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::InstanceService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::InstanceService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1813,9 +2472,8 @@ pub mod instance_service {
 
 pub mod reference_list_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ReferenceListService][super::super::client::ReferenceListService].
+    /// A builder for [ReferenceListService][crate::client::ReferenceListService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1826,7 +2484,7 @@ pub mod reference_list_service {
     /// let client = builder
     ///     .with_endpoint("https://chronicle.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1837,16 +2495,19 @@ pub mod reference_list_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ReferenceListService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ReferenceListService] request builders.
+    /// Common implementation for [crate::client::ReferenceListService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1856,7 +2517,7 @@ pub mod reference_list_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self {
                 stub,
@@ -1866,13 +2527,29 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::get_reference_list][super::super::client::ReferenceListService::get_reference_list] calls.
+    /// The request builder for [ReferenceListService::get_reference_list][crate::client::ReferenceListService::get_reference_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::GetReferenceList;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReferenceList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReferenceList(RequestBuilder<crate::model::GetReferenceListRequest>);
 
     impl GetReferenceList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1922,13 +2599,33 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::list_reference_lists][super::super::client::ReferenceListService::list_reference_lists] calls.
+    /// The request builder for [ReferenceListService::list_reference_lists][crate::client::ReferenceListService::list_reference_lists] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::ListReferenceLists;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReferenceLists {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReferenceLists(RequestBuilder<crate::model::ListReferenceListsRequest>);
 
     impl ListReferenceLists {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1956,8 +2653,8 @@ pub mod reference_list_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReferenceListsResponse, gax::error::Error>
         {
@@ -1969,6 +2666,17 @@ pub mod reference_list_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListReferenceListsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReferenceListsRequest::parent].
@@ -2005,13 +2713,29 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::create_reference_list][super::super::client::ReferenceListService::create_reference_list] calls.
+    /// The request builder for [ReferenceListService::create_reference_list][crate::client::ReferenceListService::create_reference_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::CreateReferenceList;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReferenceList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReferenceList(RequestBuilder<crate::model::CreateReferenceListRequest>);
 
     impl CreateReferenceList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2050,11 +2774,22 @@ pub mod reference_list_service {
         /// Sets the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reference_list<T: Into<std::option::Option<crate::model::ReferenceList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_list = v.into();
+        pub fn set_reference_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reference_list][crate::model::CreateReferenceListRequest::reference_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = v.map(|x| x.into());
             self
         }
 
@@ -2074,13 +2809,29 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::update_reference_list][super::super::client::ReferenceListService::update_reference_list] calls.
+    /// The request builder for [ReferenceListService::update_reference_list][crate::client::ReferenceListService::update_reference_list] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::UpdateReferenceList;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateReferenceList {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateReferenceList(RequestBuilder<crate::model::UpdateReferenceListRequest>);
 
     impl UpdateReferenceList {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2111,20 +2862,40 @@ pub mod reference_list_service {
         /// Sets the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
         ///
         /// This is a **required** field for requests.
-        pub fn set_reference_list<T: Into<std::option::Option<crate::model::ReferenceList>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.reference_list = v.into();
+        pub fn set_reference_list<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [reference_list][crate::model::UpdateReferenceListRequest::reference_list].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_reference_list<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ReferenceList>,
+        {
+            self.0.request.reference_list = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReferenceListRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2136,13 +2907,33 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::list_operations][super::super::client::ReferenceListService::list_operations] calls.
+    /// The request builder for [ReferenceListService::list_operations][crate::client::ReferenceListService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2170,8 +2961,8 @@ pub mod reference_list_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2183,6 +2974,17 @@ pub mod reference_list_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2217,13 +3019,29 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::get_operation][super::super::client::ReferenceListService::get_operation] calls.
+    /// The request builder for [ReferenceListService::get_operation][crate::client::ReferenceListService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2265,13 +3083,29 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::delete_operation][super::super::client::ReferenceListService::delete_operation] calls.
+    /// The request builder for [ReferenceListService::delete_operation][crate::client::ReferenceListService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2313,13 +3147,29 @@ pub mod reference_list_service {
         }
     }
 
-    /// The request builder for [ReferenceListService::cancel_operation][super::super::client::ReferenceListService::cancel_operation] calls.
+    /// The request builder for [ReferenceListService::cancel_operation][crate::client::ReferenceListService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::reference_list_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::ReferenceListService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ReferenceListService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2364,9 +3214,8 @@ pub mod reference_list_service {
 
 pub mod rule_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [RuleService][super::super::client::RuleService].
+    /// A builder for [RuleService][crate::client::RuleService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2377,7 +3226,7 @@ pub mod rule_service {
     /// let client = builder
     ///     .with_endpoint("https://chronicle.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2388,16 +3237,19 @@ pub mod rule_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = RuleService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::RuleService] request builders.
+    /// Common implementation for [crate::client::RuleService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::RuleService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2406,7 +3258,9 @@ pub mod rule_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2415,12 +3269,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::create_rule][super::super::client::RuleService::create_rule] calls.
+    /// The request builder for [RuleService::create_rule][crate::client::RuleService::create_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::CreateRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRule(RequestBuilder<crate::model::CreateRuleRequest>);
 
     impl CreateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2455,8 +3327,22 @@ pub mod rule_service {
         /// Sets the value of [rule][crate::model::CreateRuleRequest::rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::CreateRuleRequest::rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
     }
@@ -2468,12 +3354,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_rule][super::super::client::RuleService::get_rule] calls.
+    /// The request builder for [RuleService::get_rule][crate::client::RuleService::get_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::GetRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRule(RequestBuilder<crate::model::GetRuleRequest>);
 
     impl GetRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2519,12 +3423,34 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_rules][super::super::client::RuleService::list_rules] calls.
+    /// The request builder for [RuleService::list_rules][crate::client::RuleService::list_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::ListRules;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRules(RequestBuilder<crate::model::ListRulesRequest>);
 
     impl ListRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2548,8 +3474,8 @@ pub mod rule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRulesResponse, gax::error::Error>
         {
@@ -2561,6 +3487,15 @@ pub mod rule_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRulesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRulesRequest::parent].
@@ -2603,12 +3538,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::update_rule][super::super::client::RuleService::update_rule] calls.
+    /// The request builder for [RuleService::update_rule][crate::client::RuleService::update_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::UpdateRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRule(RequestBuilder<crate::model::UpdateRuleRequest>);
 
     impl UpdateRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2635,17 +3588,40 @@ pub mod rule_service {
         /// Sets the value of [rule][crate::model::UpdateRuleRequest::rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rule<T: Into<std::option::Option<crate::model::Rule>>>(mut self, v: T) -> Self {
-            self.0.request.rule = v.into();
+        pub fn set_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule][crate::model::UpdateRuleRequest::rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rule>,
+        {
+            self.0.request.rule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2657,12 +3633,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::delete_rule][super::super::client::RuleService::delete_rule] calls.
+    /// The request builder for [RuleService::delete_rule][crate::client::RuleService::delete_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::DeleteRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRule(RequestBuilder<crate::model::DeleteRuleRequest>);
 
     impl DeleteRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2708,12 +3702,34 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_rule_revisions][super::super::client::RuleService::list_rule_revisions] calls.
+    /// The request builder for [RuleService::list_rule_revisions][crate::client::RuleService::list_rule_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::ListRuleRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuleRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuleRevisions(RequestBuilder<crate::model::ListRuleRevisionsRequest>);
 
     impl ListRuleRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2740,8 +3756,8 @@ pub mod rule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRuleRevisionsResponse, gax::error::Error>
         {
@@ -2753,6 +3769,15 @@ pub mod rule_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRuleRevisionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListRuleRevisionsRequest::name].
@@ -2789,12 +3814,31 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::create_retrohunt][super::super::client::RuleService::create_retrohunt] calls.
+    /// The request builder for [RuleService::create_retrohunt][crate::client::RuleService::create_retrohunt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::CreateRetrohunt;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRetrohunt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRetrohunt(RequestBuilder<crate::model::CreateRetrohuntRequest>);
 
     impl CreateRetrohunt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2815,7 +3859,7 @@ pub mod rule_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_retrohunt][super::super::client::RuleService::create_retrohunt].
+        /// on [create_retrohunt][crate::client::RuleService::create_retrohunt].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_retrohunt(self.0.request, self.0.options)
@@ -2828,7 +3872,7 @@ pub mod rule_service {
             self,
         ) -> impl lro::Poller<crate::model::Retrohunt, crate::model::RetrohuntMetadata> {
             type Operation =
-                lro::Operation<crate::model::Retrohunt, crate::model::RetrohuntMetadata>;
+                lro::internal::Operation<crate::model::Retrohunt, crate::model::RetrohuntMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2853,7 +3897,7 @@ pub mod rule_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateRetrohuntRequest::parent].
@@ -2867,11 +3911,22 @@ pub mod rule_service {
         /// Sets the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
         ///
         /// This is a **required** field for requests.
-        pub fn set_retrohunt<T: Into<std::option::Option<crate::model::Retrohunt>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.retrohunt = v.into();
+        pub fn set_retrohunt<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Retrohunt>,
+        {
+            self.0.request.retrohunt = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [retrohunt][crate::model::CreateRetrohuntRequest::retrohunt].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_retrohunt<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Retrohunt>,
+        {
+            self.0.request.retrohunt = v.map(|x| x.into());
             self
         }
     }
@@ -2883,12 +3938,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_retrohunt][super::super::client::RuleService::get_retrohunt] calls.
+    /// The request builder for [RuleService::get_retrohunt][crate::client::RuleService::get_retrohunt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::GetRetrohunt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRetrohunt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRetrohunt(RequestBuilder<crate::model::GetRetrohuntRequest>);
 
     impl GetRetrohunt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2928,12 +4001,34 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_retrohunts][super::super::client::RuleService::list_retrohunts] calls.
+    /// The request builder for [RuleService::list_retrohunts][crate::client::RuleService::list_retrohunts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::ListRetrohunts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRetrohunts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRetrohunts(RequestBuilder<crate::model::ListRetrohuntsRequest>);
 
     impl ListRetrohunts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2957,8 +4052,8 @@ pub mod rule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRetrohuntsResponse, gax::error::Error>
         {
@@ -2970,6 +4065,15 @@ pub mod rule_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRetrohuntsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRetrohuntsRequest::parent].
@@ -3006,12 +4110,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_rule_deployment][super::super::client::RuleService::get_rule_deployment] calls.
+    /// The request builder for [RuleService::get_rule_deployment][crate::client::RuleService::get_rule_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::GetRuleDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRuleDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRuleDeployment(RequestBuilder<crate::model::GetRuleDeploymentRequest>);
 
     impl GetRuleDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3054,12 +4176,34 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_rule_deployments][super::super::client::RuleService::list_rule_deployments] calls.
+    /// The request builder for [RuleService::list_rule_deployments][crate::client::RuleService::list_rule_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::ListRuleDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuleDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuleDeployments(RequestBuilder<crate::model::ListRuleDeploymentsRequest>);
 
     impl ListRuleDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3086,8 +4230,8 @@ pub mod rule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRuleDeploymentsResponse, gax::error::Error>
         {
@@ -3099,6 +4243,17 @@ pub mod rule_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRuleDeploymentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRuleDeploymentsRequest::parent].
@@ -3135,12 +4290,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::update_rule_deployment][super::super::client::RuleService::update_rule_deployment] calls.
+    /// The request builder for [RuleService::update_rule_deployment][crate::client::RuleService::update_rule_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::UpdateRuleDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRuleDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRuleDeployment(RequestBuilder<crate::model::UpdateRuleDeploymentRequest>);
 
     impl UpdateRuleDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3170,22 +4343,44 @@ pub mod rule_service {
         /// Sets the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rule_deployment<T: Into<std::option::Option<crate::model::RuleDeployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rule_deployment = v.into();
+        pub fn set_rule_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RuleDeployment>,
+        {
+            self.0.request.rule_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rule_deployment][crate::model::UpdateRuleDeploymentRequest::rule_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rule_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RuleDeployment>,
+        {
+            self.0.request.rule_deployment = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRuleDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -3197,12 +4392,34 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::list_operations][super::super::client::RuleService::list_operations] calls.
+    /// The request builder for [RuleService::list_operations][crate::client::RuleService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3229,8 +4446,8 @@ pub mod rule_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3242,6 +4459,17 @@ pub mod rule_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3276,12 +4504,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::get_operation][super::super::client::RuleService::get_operation] calls.
+    /// The request builder for [RuleService::get_operation][crate::client::RuleService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3322,12 +4568,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::delete_operation][super::super::client::RuleService::delete_operation] calls.
+    /// The request builder for [RuleService::delete_operation][crate::client::RuleService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3368,12 +4632,30 @@ pub mod rule_service {
         }
     }
 
-    /// The request builder for [RuleService::cancel_operation][super::super::client::RuleService::cancel_operation] calls.
+    /// The request builder for [RuleService::cancel_operation][crate::client::RuleService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_chronicle_v1::builder;
+    /// use builder::rule_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::RuleService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::RuleService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

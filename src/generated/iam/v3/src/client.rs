@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Identity and Access Management (IAM) API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// let client = PolicyBindings::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `PolicyBindings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyBindings` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyBindings {
-    inner: Arc<dyn super::stub::dynamic::PolicyBindings>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>,
 }
 
 impl PolicyBindings {
@@ -73,7 +70,7 @@ impl PolicyBindings {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_iam_v3::client::PolicyBindings;
     /// let client = PolicyBindings::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_bindings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::policy_bindings::client::Factory)
@@ -88,33 +85,35 @@ impl PolicyBindings {
         T: super::stub::PolicyBindings + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyBindings>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyBindings>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyBindings> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
         super::transport::PolicyBindings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyBindings> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyBindings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyBindings::new)
@@ -133,21 +132,13 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_policy_binding(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::CreatePolicyBinding {
+    pub fn create_policy_binding(&self) -> super::builder::policy_bindings::CreatePolicyBinding {
         super::builder::policy_bindings::CreatePolicyBinding::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a policy binding.
-    pub fn get_policy_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::GetPolicyBinding {
+    pub fn get_policy_binding(&self) -> super::builder::policy_bindings::GetPolicyBinding {
         super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a policy binding and returns a long-running operation.
@@ -165,12 +156,8 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_policy_binding(
-        &self,
-        policy_binding: impl Into<crate::model::PolicyBinding>,
-    ) -> super::builder::policy_bindings::UpdatePolicyBinding {
+    pub fn update_policy_binding(&self) -> super::builder::policy_bindings::UpdatePolicyBinding {
         super::builder::policy_bindings::UpdatePolicyBinding::new(self.inner.clone())
-            .set_policy_binding(policy_binding.into())
     }
 
     /// Deletes a policy binding and returns a long-running operation.
@@ -186,41 +173,28 @@ impl PolicyBindings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_policy_binding(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::DeletePolicyBinding {
+    pub fn delete_policy_binding(&self) -> super::builder::policy_bindings::DeletePolicyBinding {
         super::builder::policy_bindings::DeletePolicyBinding::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists policy bindings.
-    pub fn list_policy_bindings(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::ListPolicyBindings {
+    pub fn list_policy_bindings(&self) -> super::builder::policy_bindings::ListPolicyBindings {
         super::builder::policy_bindings::ListPolicyBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Search policy bindings by target. Returns all policy binding objects bound
     /// directly to target.
     pub fn search_target_policy_bindings(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::policy_bindings::SearchTargetPolicyBindings {
         super::builder::policy_bindings::SearchTargetPolicyBindings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_bindings::GetOperation {
-        super::builder::policy_bindings::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation {
+        super::builder::policy_bindings::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -232,7 +206,7 @@ impl PolicyBindings {
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
 /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -264,11 +238,11 @@ impl PolicyBindings {
 ///
 /// `PrincipalAccessBoundaryPolicies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PrincipalAccessBoundaryPolicies` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PrincipalAccessBoundaryPolicies {
-    inner: Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
 }
 
 impl PrincipalAccessBoundaryPolicies {
@@ -278,7 +252,7 @@ impl PrincipalAccessBoundaryPolicies {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
     /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::principal_access_boundary_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -295,33 +269,37 @@ impl PrincipalAccessBoundaryPolicies {
         T: super::stub::PrincipalAccessBoundaryPolicies + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
+    ) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         super::transport::PrincipalAccessBoundaryPolicies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
+    ) -> gax::client_builder::Result<impl super::stub::PrincipalAccessBoundaryPolicies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PrincipalAccessBoundaryPolicies::new)
@@ -341,22 +319,20 @@ impl PrincipalAccessBoundaryPolicies {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_principal_access_boundary_policy(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
-            .set_parent ( parent.into() )
+        super::builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Gets a principal access boundary policy.
     pub fn get_principal_access_boundary_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
         super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Updates a principal access boundary policy.
@@ -372,11 +348,11 @@ impl PrincipalAccessBoundaryPolicies {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_principal_access_boundary_policy(
         &self,
-        principal_access_boundary_policy: impl Into<crate::model::PrincipalAccessBoundaryPolicy>,
     ) -> super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(self.inner.clone())
-            .set_principal_access_boundary_policy ( principal_access_boundary_policy.into() )
+        super::builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Deletes a principal access boundary policy.
@@ -392,32 +368,28 @@ impl PrincipalAccessBoundaryPolicies {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_principal_access_boundary_policy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy
     {
-        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(self.inner.clone())
-            .set_name ( name.into() )
+        super::builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy::new(
+            self.inner.clone(),
+        )
     }
 
     /// Lists principal access boundary policies.
     pub fn list_principal_access_boundary_policies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies
     {
-        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(self.inner.clone())
-            .set_parent ( parent.into() )
+        super::builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies::new(
+            self.inner.clone(),
+        )
     }
 
     /// Returns all policy bindings that bind a specific policy if a user has
     /// searchPolicyBindings permission on that policy.
-    pub fn search_principal_access_boundary_policy_bindings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
+    pub fn search_principal_access_boundary_policy_bindings(&self) -> super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings
     {
         super::builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings::new(self.inner.clone())
-            .set_name ( name.into() )
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -425,9 +397,7 @@ impl PrincipalAccessBoundaryPolicies {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::principal_access_boundary_policies::GetOperation {
         super::builder::principal_access_boundary_policies::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

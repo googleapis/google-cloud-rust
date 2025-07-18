@@ -15,9 +15,9 @@
 [general]
 specification-format = 'openapi'
 specification-source = 'testdata/secretmanager_openapi_v1.json'
-service-config = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'
+service-config       = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 
 [codec]
-copyright-year = '2024'
-not-for-publication = 'true'
+copyright-year        = '2024'
+not-for-publication   = 'true'
 package-name-override = 'secretmanager-openapi-v1'

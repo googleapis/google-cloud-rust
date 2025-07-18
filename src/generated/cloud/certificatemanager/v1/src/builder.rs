@@ -16,9 +16,8 @@
 
 pub mod certificate_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CertificateManager][super::super::client::CertificateManager].
+    /// A builder for [CertificateManager][crate::client::CertificateManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod certificate_manager {
     /// let client = builder
     ///     .with_endpoint("https://certificatemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod certificate_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CertificateManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CertificateManager] request builders.
+    /// Common implementation for [crate::client::CertificateManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod certificate_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificates][super::super::client::CertificateManager::list_certificates] calls.
+    /// The request builder for [CertificateManager::list_certificates][crate::client::CertificateManager::list_certificates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificates(RequestBuilder<crate::model::ListCertificatesRequest>);
 
     impl ListCertificates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +125,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCertificatesResponse, gax::error::Error>
         {
@@ -112,6 +138,15 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCertificatesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificatesRequest::parent].
@@ -154,12 +189,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate][super::super::client::CertificateManager::get_certificate] calls.
+    /// The request builder for [CertificateManager::get_certificate][crate::client::CertificateManager::get_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificate(RequestBuilder<crate::model::GetCertificateRequest>);
 
     impl GetCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -199,12 +252,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate][super::super::client::CertificateManager::create_certificate] calls.
+    /// The request builder for [CertificateManager::create_certificate][crate::client::CertificateManager::create_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificate(RequestBuilder<crate::model::CreateCertificateRequest>);
 
     impl CreateCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -228,7 +300,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate][super::super::client::CertificateManager::create_certificate].
+        /// on [create_certificate][crate::client::CertificateManager::create_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate(self.0.request, self.0.options)
@@ -240,8 +312,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Certificate, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Certificate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Certificate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -266,7 +340,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateRequest::parent].
@@ -288,11 +362,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate][crate::model::CreateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::CreateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
     }
@@ -304,12 +389,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_certificate][super::super::client::CertificateManager::update_certificate] calls.
+    /// The request builder for [CertificateManager::update_certificate][crate::client::CertificateManager::update_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateCertificate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificate(RequestBuilder<crate::model::UpdateCertificateRequest>);
 
     impl UpdateCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -333,7 +437,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate][super::super::client::CertificateManager::update_certificate].
+        /// on [update_certificate][crate::client::CertificateManager::update_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate(self.0.request, self.0.options)
@@ -345,8 +449,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Certificate, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Certificate, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Certificate,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -371,28 +477,50 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate<T: Into<std::option::Option<crate::model::Certificate>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate = v.into();
+        pub fn set_certificate<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate][crate::model::UpdateCertificateRequest::certificate].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Certificate>,
+        {
+            self.0.request.certificate = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -404,12 +532,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate][super::super::client::CertificateManager::delete_certificate] calls.
+    /// The request builder for [CertificateManager::delete_certificate][crate::client::CertificateManager::delete_certificate] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificate;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificate(RequestBuilder<crate::model::DeleteCertificateRequest>);
 
     impl DeleteCertificate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +580,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate][super::super::client::CertificateManager::delete_certificate].
+        /// on [delete_certificate][crate::client::CertificateManager::delete_certificate].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate(self.0.request, self.0.options)
@@ -442,8 +589,8 @@ pub mod certificate_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -468,7 +615,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateRequest::name].
@@ -487,12 +639,34 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificate_maps][super::super::client::CertificateManager::list_certificate_maps] calls.
+    /// The request builder for [CertificateManager::list_certificate_maps][crate::client::CertificateManager::list_certificate_maps] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificateMaps;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateMaps {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateMaps(RequestBuilder<crate::model::ListCertificateMapsRequest>);
 
     impl ListCertificateMaps {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,8 +693,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCertificateMapsResponse, gax::error::Error>
         {
@@ -532,6 +706,17 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCertificateMapsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapsRequest::parent].
@@ -574,12 +759,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate_map][super::super::client::CertificateManager::get_certificate_map] calls.
+    /// The request builder for [CertificateManager::get_certificate_map][crate::client::CertificateManager::get_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificateMap;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateMap(RequestBuilder<crate::model::GetCertificateMapRequest>);
 
     impl GetCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -622,12 +825,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate_map][super::super::client::CertificateManager::create_certificate_map] calls.
+    /// The request builder for [CertificateManager::create_certificate_map][crate::client::CertificateManager::create_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMap(RequestBuilder<crate::model::CreateCertificateMapRequest>);
 
     impl CreateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -651,7 +873,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_map][super::super::client::CertificateManager::create_certificate_map].
+        /// on [create_certificate_map][crate::client::CertificateManager::create_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_map(self.0.request, self.0.options)
@@ -664,8 +886,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMap, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMap,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -690,7 +914,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapRequest::parent].
@@ -712,11 +936,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map = v.into();
+        pub fn set_certificate_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map][crate::model::CreateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = v.map(|x| x.into());
             self
         }
     }
@@ -728,12 +963,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_certificate_map][super::super::client::CertificateManager::update_certificate_map] calls.
+    /// The request builder for [CertificateManager::update_certificate_map][crate::client::CertificateManager::update_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMap(RequestBuilder<crate::model::UpdateCertificateMapRequest>);
 
     impl UpdateCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -757,7 +1011,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_map][super::super::client::CertificateManager::update_certificate_map].
+        /// on [update_certificate_map][crate::client::CertificateManager::update_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_map(self.0.request, self.0.options)
@@ -770,8 +1024,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMap, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMap, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMap,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -796,28 +1052,50 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map<T: Into<std::option::Option<crate::model::CertificateMap>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map = v.into();
+        pub fn set_certificate_map<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map][crate::model::UpdateCertificateMapRequest::certificate_map].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMap>,
+        {
+            self.0.request.certificate_map = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -829,12 +1107,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map] calls.
+    /// The request builder for [CertificateManager::delete_certificate_map][crate::client::CertificateManager::delete_certificate_map] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificateMap;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateMap {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMap(RequestBuilder<crate::model::DeleteCertificateMapRequest>);
 
     impl DeleteCertificateMap {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -858,7 +1155,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_map][super::super::client::CertificateManager::delete_certificate_map].
+        /// on [delete_certificate_map][crate::client::CertificateManager::delete_certificate_map].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_map(self.0.request, self.0.options)
@@ -867,8 +1164,8 @@ pub mod certificate_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_map`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -893,7 +1190,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateMapRequest::name].
@@ -912,14 +1214,36 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificate_map_entries][super::super::client::CertificateManager::list_certificate_map_entries] calls.
+    /// The request builder for [CertificateManager::list_certificate_map_entries][crate::client::CertificateManager::list_certificate_map_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificateMapEntries;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateMapEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateMapEntries(
         RequestBuilder<crate::model::ListCertificateMapEntriesRequest>,
     );
 
     impl ListCertificateMapEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -946,8 +1270,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateMapEntriesResponse,
@@ -961,6 +1285,17 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCertificateMapEntriesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateMapEntriesRequest::parent].
@@ -1003,12 +1338,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate_map_entry][super::super::client::CertificateManager::get_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::get_certificate_map_entry][crate::client::CertificateManager::get_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateMapEntry(RequestBuilder<crate::model::GetCertificateMapEntryRequest>);
 
     impl GetCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1051,14 +1404,33 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::create_certificate_map_entry][crate::client::CertificateManager::create_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateMapEntry(
         RequestBuilder<crate::model::CreateCertificateMapEntryRequest>,
     );
 
     impl CreateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1082,7 +1454,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_map_entry][super::super::client::CertificateManager::create_certificate_map_entry].
+        /// on [create_certificate_map_entry][crate::client::CertificateManager::create_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_map_entry(self.0.request, self.0.options)
@@ -1095,8 +1467,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMapEntry, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMapEntry, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMapEntry,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1121,7 +1495,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateMapEntryRequest::parent].
@@ -1143,13 +1517,22 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map_entry<
-            T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map_entry = v.into();
+        pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map_entry][crate::model::CreateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = v.map(|x| x.into());
             self
         }
     }
@@ -1161,14 +1544,33 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::update_certificate_map_entry][crate::client::CertificateManager::update_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCertificateMapEntry(
         RequestBuilder<crate::model::UpdateCertificateMapEntryRequest>,
     );
 
     impl UpdateCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1192,7 +1594,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_certificate_map_entry][super::super::client::CertificateManager::update_certificate_map_entry].
+        /// on [update_certificate_map_entry][crate::client::CertificateManager::update_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_certificate_map_entry(self.0.request, self.0.options)
@@ -1205,8 +1607,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateMapEntry, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::CertificateMapEntry, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::CertificateMapEntry,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1231,30 +1635,50 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_map_entry<
-            T: Into<std::option::Option<crate::model::CertificateMapEntry>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_map_entry = v.into();
+        pub fn set_certificate_map_entry<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_map_entry][crate::model::UpdateCertificateMapEntryRequest::certificate_map_entry].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_map_entry<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateMapEntry>,
+        {
+            self.0.request.certificate_map_entry = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCertificateMapEntryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1266,14 +1690,33 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry] calls.
+    /// The request builder for [CertificateManager::delete_certificate_map_entry][crate::client::CertificateManager::delete_certificate_map_entry] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificateMapEntry;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateMapEntry {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateMapEntry(
         RequestBuilder<crate::model::DeleteCertificateMapEntryRequest>,
     );
 
     impl DeleteCertificateMapEntry {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1297,7 +1740,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_map_entry][super::super::client::CertificateManager::delete_certificate_map_entry].
+        /// on [delete_certificate_map_entry][crate::client::CertificateManager::delete_certificate_map_entry].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_map_entry(self.0.request, self.0.options)
@@ -1306,8 +1749,8 @@ pub mod certificate_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_map_entry`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1332,7 +1775,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateMapEntryRequest::name].
@@ -1351,12 +1799,34 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_dns_authorizations][super::super::client::CertificateManager::list_dns_authorizations] calls.
+    /// The request builder for [CertificateManager::list_dns_authorizations][crate::client::CertificateManager::list_dns_authorizations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListDnsAuthorizations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDnsAuthorizations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDnsAuthorizations(RequestBuilder<crate::model::ListDnsAuthorizationsRequest>);
 
     impl ListDnsAuthorizations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1383,8 +1853,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDnsAuthorizationsResponse, gax::error::Error>
         {
@@ -1396,6 +1866,17 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDnsAuthorizationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDnsAuthorizationsRequest::parent].
@@ -1438,12 +1919,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_dns_authorization][super::super::client::CertificateManager::get_dns_authorization] calls.
+    /// The request builder for [CertificateManager::get_dns_authorization][crate::client::CertificateManager::get_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDnsAuthorization(RequestBuilder<crate::model::GetDnsAuthorizationRequest>);
 
     impl GetDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1486,12 +1985,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization] calls.
+    /// The request builder for [CertificateManager::create_dns_authorization][crate::client::CertificateManager::create_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDnsAuthorization(RequestBuilder<crate::model::CreateDnsAuthorizationRequest>);
 
     impl CreateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1515,7 +2033,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_dns_authorization][super::super::client::CertificateManager::create_dns_authorization].
+        /// on [create_dns_authorization][crate::client::CertificateManager::create_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_dns_authorization(self.0.request, self.0.options)
@@ -1528,8 +2046,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsAuthorization, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsAuthorization,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1554,7 +2074,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDnsAuthorizationRequest::parent].
@@ -1576,13 +2096,22 @@ pub mod certificate_manager {
         /// Sets the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_authorization<
-            T: Into<std::option::Option<crate::model::DnsAuthorization>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_authorization = v.into();
+        pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_authorization][crate::model::CreateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = v.map(|x| x.into());
             self
         }
     }
@@ -1594,12 +2123,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization] calls.
+    /// The request builder for [CertificateManager::update_dns_authorization][crate::client::CertificateManager::update_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDnsAuthorization(RequestBuilder<crate::model::UpdateDnsAuthorizationRequest>);
 
     impl UpdateDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1623,7 +2171,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_dns_authorization][super::super::client::CertificateManager::update_dns_authorization].
+        /// on [update_dns_authorization][crate::client::CertificateManager::update_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_dns_authorization(self.0.request, self.0.options)
@@ -1636,8 +2184,10 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::DnsAuthorization, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::DnsAuthorization, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::DnsAuthorization,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1662,30 +2212,50 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
         ///
         /// This is a **required** field for requests.
-        pub fn set_dns_authorization<
-            T: Into<std::option::Option<crate::model::DnsAuthorization>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_authorization = v.into();
+        pub fn set_dns_authorization<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_authorization][crate::model::UpdateDnsAuthorizationRequest::dns_authorization].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_dns_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsAuthorization>,
+        {
+            self.0.request.dns_authorization = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDnsAuthorizationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1697,12 +2267,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization] calls.
+    /// The request builder for [CertificateManager::delete_dns_authorization][crate::client::CertificateManager::delete_dns_authorization] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteDnsAuthorization;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDnsAuthorization {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDnsAuthorization(RequestBuilder<crate::model::DeleteDnsAuthorizationRequest>);
 
     impl DeleteDnsAuthorization {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1726,7 +2315,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_dns_authorization][super::super::client::CertificateManager::delete_dns_authorization].
+        /// on [delete_dns_authorization][crate::client::CertificateManager::delete_dns_authorization].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_dns_authorization(self.0.request, self.0.options)
@@ -1735,8 +2324,8 @@ pub mod certificate_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_dns_authorization`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1761,7 +2350,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteDnsAuthorizationRequest::name].
@@ -1780,14 +2374,36 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_certificate_issuance_configs][super::super::client::CertificateManager::list_certificate_issuance_configs] calls.
+    /// The request builder for [CertificateManager::list_certificate_issuance_configs][crate::client::CertificateManager::list_certificate_issuance_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListCertificateIssuanceConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCertificateIssuanceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCertificateIssuanceConfigs(
         RequestBuilder<crate::model::ListCertificateIssuanceConfigsRequest>,
     );
 
     impl ListCertificateIssuanceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1814,8 +2430,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListCertificateIssuanceConfigsResponse,
@@ -1829,6 +2445,17 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListCertificateIssuanceConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCertificateIssuanceConfigsRequest::parent].
@@ -1871,14 +2498,32 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_certificate_issuance_config][super::super::client::CertificateManager::get_certificate_issuance_config] calls.
+    /// The request builder for [CertificateManager::get_certificate_issuance_config][crate::client::CertificateManager::get_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetCertificateIssuanceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCertificateIssuanceConfig(
         RequestBuilder<crate::model::GetCertificateIssuanceConfigRequest>,
     );
 
     impl GetCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1921,14 +2566,33 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config] calls.
+    /// The request builder for [CertificateManager::create_certificate_issuance_config][crate::client::CertificateManager::create_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateCertificateIssuanceConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCertificateIssuanceConfig(
         RequestBuilder<crate::model::CreateCertificateIssuanceConfigRequest>,
     );
 
     impl CreateCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1952,7 +2616,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_certificate_issuance_config][super::super::client::CertificateManager::create_certificate_issuance_config].
+        /// on [create_certificate_issuance_config][crate::client::CertificateManager::create_certificate_issuance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_certificate_issuance_config(self.0.request, self.0.options)
@@ -1965,7 +2629,7 @@ pub mod certificate_manager {
             self,
         ) -> impl lro::Poller<crate::model::CertificateIssuanceConfig, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CertificateIssuanceConfig,
                 crate::model::OperationMetadata,
             >;
@@ -1993,7 +2657,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateCertificateIssuanceConfigRequest::parent].
@@ -2018,13 +2682,25 @@ pub mod certificate_manager {
         /// Sets the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_certificate_issuance_config<
-            T: Into<std::option::Option<crate::model::CertificateIssuanceConfig>>,
-        >(
+        pub fn set_certificate_issuance_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [certificate_issuance_config][crate::model::CreateCertificateIssuanceConfigRequest::certificate_issuance_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_certificate_issuance_config<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.certificate_issuance_config = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::CertificateIssuanceConfig>,
+        {
+            self.0.request.certificate_issuance_config = v.map(|x| x.into());
             self
         }
     }
@@ -2036,14 +2712,33 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config] calls.
+    /// The request builder for [CertificateManager::delete_certificate_issuance_config][crate::client::CertificateManager::delete_certificate_issuance_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteCertificateIssuanceConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCertificateIssuanceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCertificateIssuanceConfig(
         RequestBuilder<crate::model::DeleteCertificateIssuanceConfigRequest>,
     );
 
     impl DeleteCertificateIssuanceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2067,7 +2762,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_certificate_issuance_config][super::super::client::CertificateManager::delete_certificate_issuance_config].
+        /// on [delete_certificate_issuance_config][crate::client::CertificateManager::delete_certificate_issuance_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_certificate_issuance_config(self.0.request, self.0.options)
@@ -2076,8 +2771,8 @@ pub mod certificate_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_certificate_issuance_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2102,7 +2797,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteCertificateIssuanceConfigRequest::name].
@@ -2121,12 +2821,34 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_trust_configs][super::super::client::CertificateManager::list_trust_configs] calls.
+    /// The request builder for [CertificateManager::list_trust_configs][crate::client::CertificateManager::list_trust_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListTrustConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTrustConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTrustConfigs(RequestBuilder<crate::model::ListTrustConfigsRequest>);
 
     impl ListTrustConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2153,8 +2875,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTrustConfigsResponse, gax::error::Error>
         {
@@ -2166,6 +2888,15 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTrustConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTrustConfigsRequest::parent].
@@ -2208,12 +2939,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_trust_config][super::super::client::CertificateManager::get_trust_config] calls.
+    /// The request builder for [CertificateManager::get_trust_config][crate::client::CertificateManager::get_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetTrustConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTrustConfig(RequestBuilder<crate::model::GetTrustConfigRequest>);
 
     impl GetTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2253,12 +3002,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::create_trust_config][super::super::client::CertificateManager::create_trust_config] calls.
+    /// The request builder for [CertificateManager::create_trust_config][crate::client::CertificateManager::create_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CreateTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTrustConfig(RequestBuilder<crate::model::CreateTrustConfigRequest>);
 
     impl CreateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2282,7 +3050,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_trust_config][super::super::client::CertificateManager::create_trust_config].
+        /// on [create_trust_config][crate::client::CertificateManager::create_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_trust_config(self.0.request, self.0.options)
@@ -2294,8 +3062,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::TrustConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TrustConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2320,7 +3090,7 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTrustConfigRequest::parent].
@@ -2342,11 +3112,22 @@ pub mod certificate_manager {
         /// Sets the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust_config = v.into();
+        pub fn set_trust_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust_config][crate::model::CreateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = v.map(|x| x.into());
             self
         }
     }
@@ -2358,12 +3139,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::update_trust_config][super::super::client::CertificateManager::update_trust_config] calls.
+    /// The request builder for [CertificateManager::update_trust_config][crate::client::CertificateManager::update_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::UpdateTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTrustConfig(RequestBuilder<crate::model::UpdateTrustConfigRequest>);
 
     impl UpdateTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2387,7 +3187,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_trust_config][super::super::client::CertificateManager::update_trust_config].
+        /// on [update_trust_config][crate::client::CertificateManager::update_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_trust_config(self.0.request, self.0.options)
@@ -2399,8 +3199,10 @@ pub mod certificate_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::TrustConfig, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::TrustConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::TrustConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2425,28 +3227,50 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_trust_config<T: Into<std::option::Option<crate::model::TrustConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.trust_config = v.into();
+        pub fn set_trust_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [trust_config][crate::model::UpdateTrustConfigRequest::trust_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_trust_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TrustConfig>,
+        {
+            self.0.request.trust_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTrustConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2458,12 +3282,31 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_trust_config][super::super::client::CertificateManager::delete_trust_config] calls.
+    /// The request builder for [CertificateManager::delete_trust_config][crate::client::CertificateManager::delete_trust_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteTrustConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTrustConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTrustConfig(RequestBuilder<crate::model::DeleteTrustConfigRequest>);
 
     impl DeleteTrustConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2487,7 +3330,7 @@ pub mod certificate_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_trust_config][super::super::client::CertificateManager::delete_trust_config].
+        /// on [delete_trust_config][crate::client::CertificateManager::delete_trust_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_trust_config(self.0.request, self.0.options)
@@ -2496,8 +3339,8 @@ pub mod certificate_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_trust_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2522,7 +3365,12 @@ pub mod certificate_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteTrustConfigRequest::name].
@@ -2547,12 +3395,34 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_locations][super::super::client::CertificateManager::list_locations] calls.
+    /// The request builder for [CertificateManager::list_locations][crate::client::CertificateManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2579,8 +3449,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2592,6 +3462,15 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2626,12 +3505,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_location][super::super::client::CertificateManager::get_location] calls.
+    /// The request builder for [CertificateManager::get_location][crate::client::CertificateManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2669,12 +3566,34 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::list_operations][super::super::client::CertificateManager::list_operations] calls.
+    /// The request builder for [CertificateManager::list_operations][crate::client::CertificateManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2701,8 +3620,8 @@ pub mod certificate_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2714,6 +3633,17 @@ pub mod certificate_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2748,12 +3678,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::get_operation][super::super::client::CertificateManager::get_operation] calls.
+    /// The request builder for [CertificateManager::get_operation][crate::client::CertificateManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2794,12 +3742,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::delete_operation][super::super::client::CertificateManager::delete_operation] calls.
+    /// The request builder for [CertificateManager::delete_operation][crate::client::CertificateManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2840,12 +3806,30 @@ pub mod certificate_manager {
         }
     }
 
-    /// The request builder for [CertificateManager::cancel_operation][super::super::client::CertificateManager::cancel_operation] calls.
+    /// The request builder for [CertificateManager::cancel_operation][crate::client::CertificateManager::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_certificatemanager_v1::builder;
+    /// use builder::certificate_manager::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CertificateManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CertificateManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

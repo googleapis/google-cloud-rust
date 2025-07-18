@@ -25,58 +25,43 @@ extern crate std;
 extern crate wkt;
 
 /// The POSIX account information associated with a Google account.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PosixAccount {
     /// Only one POSIX account can be marked as primary.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub primary: bool,
 
     /// The username of the POSIX account.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub username: std::string::String,
 
     /// The user ID.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     pub uid: i64,
 
     /// The default group ID.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     pub gid: i64,
 
     /// The path to the home directory for this account.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub home_directory: std::string::String,
 
     /// The path to the logic shell for this account.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub shell: std::string::String,
 
     /// The GECOS (user information) entry for this account.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub gecos: std::string::String,
 
     /// System identifier for which account the username or uid applies to.
     /// By default, the empty value is used.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub system_id: std::string::String,
 
     /// Output only. A POSIX account identifier.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub account_id: std::string::String,
 
     /// The operating system type where this account applies.
     pub operating_system_type: crate::model::OperatingSystemType,
 
     /// Output only. The canonical resource name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -161,31 +146,313 @@ impl wkt::message::Message for PosixAccount {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PosixAccount {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __primary,
+            __username,
+            __uid,
+            __gid,
+            __home_directory,
+            __shell,
+            __gecos,
+            __system_id,
+            __account_id,
+            __operating_system_type,
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PosixAccount")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "primary" => Ok(__FieldTag::__primary),
+                            "username" => Ok(__FieldTag::__username),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "gid" => Ok(__FieldTag::__gid),
+                            "homeDirectory" => Ok(__FieldTag::__home_directory),
+                            "home_directory" => Ok(__FieldTag::__home_directory),
+                            "shell" => Ok(__FieldTag::__shell),
+                            "gecos" => Ok(__FieldTag::__gecos),
+                            "systemId" => Ok(__FieldTag::__system_id),
+                            "system_id" => Ok(__FieldTag::__system_id),
+                            "accountId" => Ok(__FieldTag::__account_id),
+                            "account_id" => Ok(__FieldTag::__account_id),
+                            "operatingSystemType" => Ok(__FieldTag::__operating_system_type),
+                            "operating_system_type" => Ok(__FieldTag::__operating_system_type),
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PosixAccount;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PosixAccount")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__primary => {
+                            if !fields.insert(__FieldTag::__primary) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for primary",
+                                ));
+                            }
+                            result.primary = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__username => {
+                            if !fields.insert(__FieldTag::__username) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for username",
+                                ));
+                            }
+                            result.username = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.uid = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__gid => {
+                            if !fields.insert(__FieldTag::__gid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gid",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.gid = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__home_directory => {
+                            if !fields.insert(__FieldTag::__home_directory) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for home_directory",
+                                ));
+                            }
+                            result.home_directory = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shell => {
+                            if !fields.insert(__FieldTag::__shell) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shell",
+                                ));
+                            }
+                            result.shell = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__gecos => {
+                            if !fields.insert(__FieldTag::__gecos) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gecos",
+                                ));
+                            }
+                            result.gecos = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__system_id => {
+                            if !fields.insert(__FieldTag::__system_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for system_id",
+                                ));
+                            }
+                            result.system_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__account_id => {
+                            if !fields.insert(__FieldTag::__account_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for account_id",
+                                ));
+                            }
+                            result.account_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__operating_system_type => {
+                            if !fields.insert(__FieldTag::__operating_system_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for operating_system_type",
+                                ));
+                            }
+                            result.operating_system_type = map.next_value::<std::option::Option<crate::model::OperatingSystemType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PosixAccount {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.primary) {
+            state.serialize_entry("primary", &self.primary)?;
+        }
+        if !self.username.is_empty() {
+            state.serialize_entry("username", &self.username)?;
+        }
+        if !wkt::internal::is_default(&self.uid) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("uid", &__With(&self.uid))?;
+        }
+        if !wkt::internal::is_default(&self.gid) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("gid", &__With(&self.gid))?;
+        }
+        if !self.home_directory.is_empty() {
+            state.serialize_entry("homeDirectory", &self.home_directory)?;
+        }
+        if !self.shell.is_empty() {
+            state.serialize_entry("shell", &self.shell)?;
+        }
+        if !self.gecos.is_empty() {
+            state.serialize_entry("gecos", &self.gecos)?;
+        }
+        if !self.system_id.is_empty() {
+            state.serialize_entry("systemId", &self.system_id)?;
+        }
+        if !self.account_id.is_empty() {
+            state.serialize_entry("accountId", &self.account_id)?;
+        }
+        if !wkt::internal::is_default(&self.operating_system_type) {
+            state.serialize_entry("operatingSystemType", &self.operating_system_type)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The SSH public key information associated with a Google account.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SshPublicKey {
     /// Public key text in SSH format, defined by
     /// [RFC4253](https://www.ietf.org/rfc/rfc4253.txt) section 6.6.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub key: std::string::String,
 
     /// An expiration time in microseconds since epoch.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     pub expiration_time_usec: i64,
 
     /// Output only. The SHA-256 fingerprint of the SSH public key.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub fingerprint: std::string::String,
 
     /// Output only. The canonical resource name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -222,6 +489,173 @@ impl SshPublicKey {
 impl wkt::message::Message for SshPublicKey {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.oslogin.common.SshPublicKey"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SshPublicKey {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __key,
+            __expiration_time_usec,
+            __fingerprint,
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SshPublicKey")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "key" => Ok(__FieldTag::__key),
+                            "expirationTimeUsec" => Ok(__FieldTag::__expiration_time_usec),
+                            "expiration_time_usec" => Ok(__FieldTag::__expiration_time_usec),
+                            "fingerprint" => Ok(__FieldTag::__fingerprint),
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SshPublicKey;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SshPublicKey")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__key => {
+                            if !fields.insert(__FieldTag::__key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for key",
+                                ));
+                            }
+                            result.key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__expiration_time_usec => {
+                            if !fields.insert(__FieldTag::__expiration_time_usec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for expiration_time_usec",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.expiration_time_usec =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__fingerprint => {
+                            if !fields.insert(__FieldTag::__fingerprint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fingerprint",
+                                ));
+                            }
+                            result.fingerprint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SshPublicKey {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.key.is_empty() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if !wkt::internal::is_default(&self.expiration_time_usec) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("expirationTimeUsec", &__With(&self.expiration_time_usec))?;
+        }
+        if !self.fingerprint.is_empty() {
+            state.serialize_entry("fingerprint", &self.fingerprint)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

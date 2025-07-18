@@ -18,12 +18,81 @@
 //! and (2) that this serializes as we want.
 
 #[cfg(test)]
-mod test {
-    use serde_json::json;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+mod tests {
+    use common::MessageWithOneOf;
+    use common::message_with_one_of::{Message, Mixed, SingleString, TwoStrings};
+    use google_cloud_wkt::Duration;
+    use serde_json::{Value, json};
+    use test_case::test_case;
+    type Result = anyhow::Result<()>;
+
+    #[test_case(MessageWithOneOf::new(), json!({}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents(""), json!({"stringContents": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents("abc"), json!({"stringContents": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_one("abc"), json!({"stringContentsOne": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_two("abc"), json!({"stringContentsTwo": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_message_value(Message::new()), json!({"messageValue": {}}))]
+    #[test_case(MessageWithOneOf::new().set_another_message(Message::new()), json!({"anotherMessage": {}}))]
+    #[test_case(MessageWithOneOf::new().set_string(""), json!({"string": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string("abc"), json!({"string": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_duration(Duration::clamp(1, 500_000_000)), json!({"duration": "1.5s"}))]
+    fn test_ser(input: MessageWithOneOf, want: Value) -> Result {
+        let got = serde_json::to_value(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithOneOf::new(), json!({}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents(""), json!({"stringContents": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents("abc"), json!({"stringContents": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_one("abc"), json!({"stringContentsOne": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_string_contents_two("abc"), json!({"stringContentsTwo": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_message_value(Message::new()), json!({"messageValue": {}}))]
+    #[test_case(MessageWithOneOf::new().set_another_message(Message::new()), json!({"anotherMessage": {}}))]
+    #[test_case(MessageWithOneOf::new().set_string(""), json!({"string": ""}))]
+    #[test_case(MessageWithOneOf::new().set_string("abc"), json!({"string": "abc"}))]
+    #[test_case(MessageWithOneOf::new().set_duration(Duration::clamp(1, 500_000_000)), json!({"duration": "1.5s"}))]
+    fn test_de(want: MessageWithOneOf, input: Value) -> Result {
+        let got = serde_json::from_value::<MessageWithOneOf>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(r#"{"string_contents":      null}"#, MessageWithOneOf::new().set_string_contents(""))]
+    #[test_case(r#"{"string_contents_one":  null}"#, MessageWithOneOf::new().set_string_contents_one(""))]
+    #[test_case(r#"{"string_contents_two":  null}"#, MessageWithOneOf::new().set_string_contents_two(""))]
+    #[test_case(r#"{"message_value":        null}"#, MessageWithOneOf::new().set_message_value(Message::default()))]
+    #[test_case(r#"{"another_message":      null}"#, MessageWithOneOf::new().set_another_message(Message::default()))]
+    #[test_case(r#"{"string":               null}"#, MessageWithOneOf::new().set_string(""))]
+    #[test_case(r#"{"duration":             null}"#, MessageWithOneOf::new().set_duration(Duration::default()))]
+    fn test_null_is_default(input: &str, want: MessageWithOneOf) -> Result {
+        let got = serde_json::from_str::<MessageWithOneOf>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"stringContentsOne": "abc", "stringContentsTwo": "cde"}))]
+    #[test_case(json!({"stringContentsTwo": "abc", "stringContentsOne": "cde"}))]
+    #[test_case(json!({"anotherMessage": {}, "string": "cde"}))]
+    #[test_case(json!({"anotherMessage": {}, "duration": "1.5s"}))]
+    #[test_case(json!({"string": "", "duration": "1.5s"}))]
+    fn test_dup_field_errors(input: Value) -> Result {
+        let got = serde_json::from_value::<MessageWithOneOf>(input).unwrap_err();
+        assert!(got.is_data(), "{got:?}");
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<MessageWithOneOf>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test]
-    fn test_oneof_single_string() -> TestResult {
+    fn test_oneof_single_string() -> Result {
         let input = MessageWithOneOf::default()
             .set_single_string(SingleString::StringContents("test-only".to_string()));
         let got = serde_json::to_value(&input)?;
@@ -35,7 +104,7 @@ mod test {
     }
 
     #[test]
-    fn test_oneof_two_strings() -> TestResult {
+    fn test_oneof_two_strings() -> Result {
         let input = MessageWithOneOf::default()
             .set_two_strings(TwoStrings::StringContentsTwo("test-only".to_string()));
         let got = serde_json::to_value(&input)?;
@@ -47,10 +116,9 @@ mod test {
     }
 
     #[test]
-    fn test_oneof_one_message() -> TestResult {
-        let input = MessageWithOneOf::default().set_one_message(OneMessage::MessageValue(
-            Message::default().set_parent("parent-value"),
-        ));
+    fn test_oneof_one_message() -> Result {
+        let input = MessageWithOneOf::default()
+            .set_message_value(Message::default().set_parent("parent-value"));
         let got = serde_json::to_value(&input)?;
         let want = json!({
             "messageValue": { "parent": "parent-value" }
@@ -60,10 +128,9 @@ mod test {
     }
 
     #[test]
-    fn test_oneof_mixed() -> TestResult {
-        let input = MessageWithOneOf::default().set_mixed(Mixed::AnotherMessage(
-            Message::default().set_parent("parent-value"),
-        ));
+    fn test_oneof_mixed() -> Result {
+        let input = MessageWithOneOf::default()
+            .set_another_message(Message::default().set_parent("parent-value"));
         let got = serde_json::to_value(&input)?;
         let want = json!({
             "anotherMessage": { "parent": "parent-value" }
@@ -78,9 +145,7 @@ mod test {
         });
         assert_eq!(got, want);
 
-        let input = MessageWithOneOf::default().set_mixed(Mixed::Duration(
-            google_cloud_wkt::Duration::clamp(123, 456_000_000),
-        ));
+        let input = MessageWithOneOf::default().set_duration(Duration::clamp(123, 456_000_000));
         let got = serde_json::to_value(&input)?;
         let want = json!({
             "duration": "123.456s"
@@ -88,93 +153,5 @@ mod test {
         assert_eq!(got, want);
 
         Ok(())
-    }
-
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub struct MessageWithOneOf {
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub single_string: Option<SingleString>,
-
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub two_strings: Option<TwoStrings>,
-
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub one_message: Option<OneMessage>,
-
-        #[serde(flatten, skip_serializing_if = "Option::is_none")]
-        pub mixed: Option<Mixed>,
-    }
-
-    impl MessageWithOneOf {
-        pub fn set_single_string<T: Into<SingleString>>(mut self, v: T) -> Self {
-            self.single_string = Some(v.into());
-            self
-        }
-        pub fn set_two_strings<T: Into<TwoStrings>>(mut self, v: T) -> Self {
-            self.two_strings = Some(v.into());
-            self
-        }
-
-        pub fn set_one_message<T: Into<OneMessage>>(mut self, v: T) -> Self {
-            self.one_message = Some(v.into());
-            self
-        }
-
-        pub fn set_mixed<T: Into<Mixed>>(mut self, v: T) -> Self {
-            self.mixed = Some(v.into());
-            self
-        }
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum SingleString {
-        /// Use a long name so we can see they are renamed to camelCase.
-        StringContents(String),
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum TwoStrings {
-        /// Use a long name so we can see they are renamed to camelCase.
-        StringContentsOne(String),
-        StringContentsTwo(String),
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum OneMessage {
-        MessageValue(Message),
-    }
-
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub enum Mixed {
-        AnotherMessage(Message),
-        String(String),
-        Duration(google_cloud_wkt::Duration),
-    }
-
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
-    #[non_exhaustive]
-    pub struct Message {
-        #[serde(skip_serializing_if = "String::is_empty")]
-        pub parent: String,
-    }
-
-    impl Message {
-        pub fn set_parent<T: Into<String>>(mut self, v: T) -> Self {
-            self.parent = v.into();
-            self
-        }
     }
 }

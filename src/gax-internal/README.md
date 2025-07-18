@@ -1,9 +1,9 @@
 # Google Cloud Client Libraries for Rust - Implementation Details
 
-This crate contains implementation details shared by many client libraries.
-The types, traits, and functions defined in this crate are undocumented.
-This is intentional, as they are not intended for general use and will be
-changed without notice.
+This crate contains implementation details shared by many client libraries. The
+types, traits, and functions defined in this crate are undocumented. This is
+intentional, as they are not intended for general use and will be changed
+without notice.
 
 Maybe you were looking for [google-cloud-gax]? That crate contains public APIs
 intended for general use.

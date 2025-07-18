@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Parallelstore API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_parallelstore_v1::client::Parallelstore;
 /// let client = Parallelstore::builder().build().await?;
 /// // use `client` to make requests to the Parallelstore API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -74,11 +71,11 @@ use std::sync::Arc;
 ///
 /// `Parallelstore` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Parallelstore` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Parallelstore {
-    inner: Arc<dyn super::stub::dynamic::Parallelstore>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Parallelstore>,
 }
 
 impl Parallelstore {
@@ -88,7 +85,7 @@ impl Parallelstore {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_parallelstore_v1::client::Parallelstore;
     /// let client = Parallelstore::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::parallelstore::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::parallelstore::client::Factory)
@@ -103,53 +100,48 @@ impl Parallelstore {
         T: super::stub::Parallelstore + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Parallelstore>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Parallelstore>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Parallelstore> {
+    ) -> gax::client_builder::Result<impl super::stub::Parallelstore> {
         super::transport::Parallelstore::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Parallelstore> {
+    ) -> gax::client_builder::Result<impl super::stub::Parallelstore> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Parallelstore::new)
     }
 
     /// Lists all instances in a given project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::ListInstances {
+    pub fn list_instances(&self) -> super::builder::parallelstore::ListInstances {
         super::builder::parallelstore::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::GetInstance {
-        super::builder::parallelstore::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::parallelstore::GetInstance {
+        super::builder::parallelstore::GetInstance::new(self.inner.clone())
     }
 
     /// Creates a Parallelstore instance in a given project and location.
@@ -163,12 +155,8 @@ impl Parallelstore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::parallelstore::CreateInstance {
         super::builder::parallelstore::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single instance.
@@ -182,12 +170,8 @@ impl Parallelstore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::parallelstore::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::parallelstore::UpdateInstance {
         super::builder::parallelstore::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Deletes a single instance.
@@ -201,11 +185,8 @@ impl Parallelstore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::DeleteInstance {
-        super::builder::parallelstore::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::parallelstore::DeleteInstance {
+        super::builder::parallelstore::DeleteInstance::new(self.inner.clone())
     }
 
     /// Copies data from Cloud Storage to Parallelstore.
@@ -219,11 +200,8 @@ impl Parallelstore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn import_data(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::ImportData {
-        super::builder::parallelstore::ImportData::new(self.inner.clone()).set_name(name.into())
+    pub fn import_data(&self) -> super::builder::parallelstore::ImportData {
+        super::builder::parallelstore::ImportData::new(self.inner.clone())
     }
 
     /// Copies data from Parallelstore to Cloud Storage.
@@ -237,68 +215,45 @@ impl Parallelstore {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_data(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::ExportData {
-        super::builder::parallelstore::ExportData::new(self.inner.clone()).set_name(name.into())
+    pub fn export_data(&self) -> super::builder::parallelstore::ExportData {
+        super::builder::parallelstore::ExportData::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::ListLocations {
-        super::builder::parallelstore::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::parallelstore::ListLocations {
+        super::builder::parallelstore::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::GetLocation {
-        super::builder::parallelstore::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::parallelstore::GetLocation {
+        super::builder::parallelstore::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::ListOperations {
-        super::builder::parallelstore::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::parallelstore::ListOperations {
+        super::builder::parallelstore::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::GetOperation {
-        super::builder::parallelstore::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::parallelstore::GetOperation {
+        super::builder::parallelstore::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::parallelstore::DeleteOperation {
         super::builder::parallelstore::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::parallelstore::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::parallelstore::CancelOperation {
         super::builder::parallelstore::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

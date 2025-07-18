@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_http_client"))]
-mod test {
+#[cfg(all(test, feature = "_internal-http-client"))]
+mod tests {
     use gax::options::*;
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
@@ -125,15 +125,13 @@ mod test {
             tokio::select! {
                 _ = &mut server => {  },
                 r = &mut response => {
-                    use gax::error::ErrorKind;
                     assert!(
                         r.is_err(),
-                        "expected an error when timeout={}, got={:?}",
-                        timeout.as_millis(),
-                        r
+                        "expected an error when timeout={}, got={r:?}",
+                        timeout.as_millis()
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), ErrorKind::Io);
+                    let err = r.unwrap_err();
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },
@@ -205,14 +203,12 @@ mod test {
             tokio::select! {
                 _ = &mut server => {  },
                 r = &mut response => {
-                    use gax::error::ErrorKind;
                     assert!(
                         r.is_err(),
-                        "expected a timeout error, got={:?}",
-                        r
+                        "expected a timeout error, got={r:?}",
                     );
-                    let err = r.err().unwrap();
-                    assert_eq!(err.kind(), ErrorKind::Io);
+                    let err = r.unwrap_err();
+                    assert!(err.is_timeout(), "{err:?}");
                     break;
                 },
                 _ = interval.tick() => { },

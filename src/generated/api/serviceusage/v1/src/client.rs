@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Service Usage API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
 /// let client = ServiceUsage::builder().build().await?;
 /// // use `client` to make requests to the Service Usage API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -62,11 +59,11 @@ use std::sync::Arc;
 ///
 /// `ServiceUsage` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ServiceUsage` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ServiceUsage {
-    inner: Arc<dyn super::stub::dynamic::ServiceUsage>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ServiceUsage>,
 }
 
 impl ServiceUsage {
@@ -76,7 +73,7 @@ impl ServiceUsage {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
     /// let client = ServiceUsage::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::service_usage::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::service_usage::client::Factory)
@@ -91,33 +88,35 @@ impl ServiceUsage {
         T: super::stub::ServiceUsage + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ServiceUsage>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ServiceUsage>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ServiceUsage> {
+    ) -> gax::client_builder::Result<impl super::stub::ServiceUsage> {
         super::transport::ServiceUsage::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ServiceUsage> {
+    ) -> gax::client_builder::Result<impl super::stub::ServiceUsage> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ServiceUsage::new)
@@ -134,11 +133,8 @@ impl ServiceUsage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn enable_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::EnableService {
-        super::builder::service_usage::EnableService::new(self.inner.clone()).set_name(name.into())
+    pub fn enable_service(&self) -> super::builder::service_usage::EnableService {
+        super::builder::service_usage::EnableService::new(self.inner.clone())
     }
 
     /// Disable a service so that it can no longer be used with a project.
@@ -158,19 +154,13 @@ impl ServiceUsage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn disable_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::DisableService {
-        super::builder::service_usage::DisableService::new(self.inner.clone()).set_name(name.into())
+    pub fn disable_service(&self) -> super::builder::service_usage::DisableService {
+        super::builder::service_usage::DisableService::new(self.inner.clone())
     }
 
     /// Returns the service configuration and enabled state for a given service.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::GetService {
-        super::builder::service_usage::GetService::new(self.inner.clone()).set_name(name.into())
+    pub fn get_service(&self) -> super::builder::service_usage::GetService {
+        super::builder::service_usage::GetService::new(self.inner.clone())
     }
 
     /// List all services available to the specified project, and the current
@@ -186,12 +176,8 @@ impl ServiceUsage {
     /// [Cloud Asset Inventory
     /// API](https://cloud.google.com/asset-inventory/docs/apis), which provides
     /// higher throughput and richer filtering capability.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::ListServices {
+    pub fn list_services(&self) -> super::builder::service_usage::ListServices {
         super::builder::service_usage::ListServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Enable multiple services on a project. The operation is atomic: if enabling
@@ -207,22 +193,14 @@ impl ServiceUsage {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn batch_enable_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::BatchEnableServices {
+    pub fn batch_enable_services(&self) -> super::builder::service_usage::BatchEnableServices {
         super::builder::service_usage::BatchEnableServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the service configurations and enabled states for a given list of
     /// services.
-    pub fn batch_get_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::BatchGetServices {
+    pub fn batch_get_services(&self) -> super::builder::service_usage::BatchGetServices {
         super::builder::service_usage::BatchGetServices::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -235,10 +213,7 @@ impl ServiceUsage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::service_usage::GetOperation {
-        super::builder::service_usage::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::service_usage::GetOperation {
+        super::builder::service_usage::GetOperation::new(self.inner.clone())
     }
 }

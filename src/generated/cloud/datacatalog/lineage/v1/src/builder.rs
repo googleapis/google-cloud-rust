@@ -16,9 +16,8 @@
 
 pub mod lineage {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Lineage][super::super::client::Lineage].
+    /// A builder for [Lineage][crate::client::Lineage].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod lineage {
     /// let client = builder
     ///     .with_endpoint("https://datalineage.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod lineage {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Lineage;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Lineage] request builders.
+    /// Common implementation for [crate::client::Lineage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Lineage>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod lineage {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,14 +69,30 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::process_open_lineage_run_event][super::super::client::Lineage::process_open_lineage_run_event] calls.
+    /// The request builder for [Lineage::process_open_lineage_run_event][crate::client::Lineage::process_open_lineage_run_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ProcessOpenLineageRunEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ProcessOpenLineageRunEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ProcessOpenLineageRunEvent(
         RequestBuilder<crate::model::ProcessOpenLineageRunEventRequest>,
     );
 
     impl ProcessOpenLineageRunEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,8 +130,22 @@ pub mod lineage {
         /// Sets the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
         ///
         /// This is a **required** field for requests.
-        pub fn set_open_lineage<T: Into<std::option::Option<wkt::Struct>>>(mut self, v: T) -> Self {
-            self.0.request.open_lineage = v.into();
+        pub fn set_open_lineage<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.open_lineage = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [open_lineage][crate::model::ProcessOpenLineageRunEventRequest::open_lineage].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_open_lineage<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.0.request.open_lineage = v.map(|x| x.into());
             self
         }
 
@@ -131,12 +163,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::create_process][super::super::client::Lineage::create_process] calls.
+    /// The request builder for [Lineage::create_process][crate::client::Lineage::create_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CreateProcess;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProcess(RequestBuilder<crate::model::CreateProcessRequest>);
 
     impl CreateProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,11 +219,22 @@ pub mod lineage {
         /// Sets the value of [process][crate::model::CreateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
-        pub fn set_process<T: Into<std::option::Option<crate::model::Process>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process = v.into();
+        pub fn set_process<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [process][crate::model::CreateProcessRequest::process].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = v.map(|x| x.into());
             self
         }
 
@@ -193,12 +252,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::update_process][super::super::client::Lineage::update_process] calls.
+    /// The request builder for [Lineage::update_process][crate::client::Lineage::update_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::UpdateProcess;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProcess(RequestBuilder<crate::model::UpdateProcessRequest>);
 
     impl UpdateProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -225,20 +300,40 @@ pub mod lineage {
         /// Sets the value of [process][crate::model::UpdateProcessRequest::process].
         ///
         /// This is a **required** field for requests.
-        pub fn set_process<T: Into<std::option::Option<crate::model::Process>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.process = v.into();
+        pub fn set_process<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [process][crate::model::UpdateProcessRequest::process].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_process<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Process>,
+        {
+            self.0.request.process = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProcessRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -256,12 +351,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_process][super::super::client::Lineage::get_process] calls.
+    /// The request builder for [Lineage::get_process][crate::client::Lineage::get_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetProcess;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProcess(RequestBuilder<crate::model::GetProcessRequest>);
 
     impl GetProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -301,12 +412,32 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_processes][super::super::client::Lineage::list_processes] calls.
+    /// The request builder for [Lineage::list_processes][crate::client::Lineage::list_processes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListProcesses;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProcesses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProcesses(RequestBuilder<crate::model::ListProcessesRequest>);
 
     impl ListProcesses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -330,8 +461,8 @@ pub mod lineage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProcessesResponse, gax::error::Error>
         {
@@ -343,6 +474,15 @@ pub mod lineage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProcessesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProcessesRequest::parent].
@@ -373,12 +513,29 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_process][super::super::client::Lineage::delete_process] calls.
+    /// The request builder for [Lineage::delete_process][crate::client::Lineage::delete_process] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteProcess;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteProcess {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteProcess(RequestBuilder<crate::model::DeleteProcessRequest>);
 
     impl DeleteProcess {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -399,7 +556,7 @@ pub mod lineage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_process][super::super::client::Lineage::delete_process].
+        /// on [delete_process][crate::client::Lineage::delete_process].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_process(self.0.request, self.0.options)
@@ -408,8 +565,8 @@ pub mod lineage {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_process`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -434,7 +591,12 @@ pub mod lineage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteProcessRequest::name].
@@ -459,12 +621,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::create_run][super::super::client::Lineage::create_run] calls.
+    /// The request builder for [Lineage::create_run][crate::client::Lineage::create_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CreateRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateRun(RequestBuilder<crate::model::CreateRunRequest>);
 
     impl CreateRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -499,8 +677,22 @@ pub mod lineage {
         /// Sets the value of [run][crate::model::CreateRunRequest::run].
         ///
         /// This is a **required** field for requests.
-        pub fn set_run<T: Into<std::option::Option<crate::model::Run>>>(mut self, v: T) -> Self {
-            self.0.request.run = v.into();
+        pub fn set_run<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [run][crate::model::CreateRunRequest::run].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = v.map(|x| x.into());
             self
         }
 
@@ -518,12 +710,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::update_run][super::super::client::Lineage::update_run] calls.
+    /// The request builder for [Lineage::update_run][crate::client::Lineage::update_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::UpdateRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRun(RequestBuilder<crate::model::UpdateRunRequest>);
 
     impl UpdateRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -550,17 +758,40 @@ pub mod lineage {
         /// Sets the value of [run][crate::model::UpdateRunRequest::run].
         ///
         /// This is a **required** field for requests.
-        pub fn set_run<T: Into<std::option::Option<crate::model::Run>>>(mut self, v: T) -> Self {
-            self.0.request.run = v.into();
+        pub fn set_run<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [run][crate::model::UpdateRunRequest::run].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_run<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Run>,
+        {
+            self.0.request.run = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRunRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -578,12 +809,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_run][super::super::client::Lineage::get_run] calls.
+    /// The request builder for [Lineage::get_run][crate::client::Lineage::get_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetRun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRun(RequestBuilder<crate::model::GetRunRequest>);
 
     impl GetRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -623,12 +870,32 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_runs][super::super::client::Lineage::list_runs] calls.
+    /// The request builder for [Lineage::list_runs][crate::client::Lineage::list_runs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListRuns;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRuns(RequestBuilder<crate::model::ListRunsRequest>);
 
     impl ListRuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -652,8 +919,8 @@ pub mod lineage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRunsResponse, gax::error::Error>
         {
@@ -665,6 +932,15 @@ pub mod lineage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRunsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRunsRequest::parent].
@@ -695,12 +971,29 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_run][super::super::client::Lineage::delete_run] calls.
+    /// The request builder for [Lineage::delete_run][crate::client::Lineage::delete_run] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteRun;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRun(RequestBuilder<crate::model::DeleteRunRequest>);
 
     impl DeleteRun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -721,7 +1014,7 @@ pub mod lineage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_run][super::super::client::Lineage::delete_run].
+        /// on [delete_run][crate::client::Lineage::delete_run].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_run(self.0.request, self.0.options)
@@ -730,8 +1023,8 @@ pub mod lineage {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_run`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -756,7 +1049,12 @@ pub mod lineage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRunRequest::name].
@@ -781,12 +1079,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::create_lineage_event][super::super::client::Lineage::create_lineage_event] calls.
+    /// The request builder for [Lineage::create_lineage_event][crate::client::Lineage::create_lineage_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CreateLineageEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLineageEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLineageEvent(RequestBuilder<crate::model::CreateLineageEventRequest>);
 
     impl CreateLineageEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,11 +1138,22 @@ pub mod lineage {
         /// Sets the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_lineage_event<T: Into<std::option::Option<crate::model::LineageEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.lineage_event = v.into();
+        pub fn set_lineage_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LineageEvent>,
+        {
+            self.0.request.lineage_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [lineage_event][crate::model::CreateLineageEventRequest::lineage_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_lineage_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LineageEvent>,
+        {
+            self.0.request.lineage_event = v.map(|x| x.into());
             self
         }
 
@@ -846,12 +1171,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_lineage_event][super::super::client::Lineage::get_lineage_event] calls.
+    /// The request builder for [Lineage::get_lineage_event][crate::client::Lineage::get_lineage_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetLineageEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLineageEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLineageEvent(RequestBuilder<crate::model::GetLineageEventRequest>);
 
     impl GetLineageEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -891,12 +1232,32 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_lineage_events][super::super::client::Lineage::list_lineage_events] calls.
+    /// The request builder for [Lineage::list_lineage_events][crate::client::Lineage::list_lineage_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListLineageEvents;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLineageEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLineageEvents(RequestBuilder<crate::model::ListLineageEventsRequest>);
 
     impl ListLineageEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -923,8 +1284,8 @@ pub mod lineage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLineageEventsResponse, gax::error::Error>
         {
@@ -936,6 +1297,15 @@ pub mod lineage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLineageEventsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLineageEventsRequest::parent].
@@ -966,12 +1336,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_lineage_event][super::super::client::Lineage::delete_lineage_event] calls.
+    /// The request builder for [Lineage::delete_lineage_event][crate::client::Lineage::delete_lineage_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteLineageEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLineageEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLineageEvent(RequestBuilder<crate::model::DeleteLineageEventRequest>);
 
     impl DeleteLineageEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1020,12 +1406,32 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::search_links][super::super::client::Lineage::search_links] calls.
+    /// The request builder for [Lineage::search_links][crate::client::Lineage::search_links] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::SearchLinks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchLinks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchLinks(RequestBuilder<crate::model::SearchLinksRequest>);
 
     impl SearchLinks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1049,8 +1455,8 @@ pub mod lineage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchLinksResponse, gax::error::Error>
         {
@@ -1062,6 +1468,15 @@ pub mod lineage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchLinksResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchLinksRequest::parent].
@@ -1130,14 +1545,34 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::batch_search_link_processes][super::super::client::Lineage::batch_search_link_processes] calls.
+    /// The request builder for [Lineage::batch_search_link_processes][crate::client::Lineage::batch_search_link_processes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::BatchSearchLinkProcesses;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchSearchLinkProcesses {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchSearchLinkProcesses(
         RequestBuilder<crate::model::BatchSearchLinkProcessesRequest>,
     );
 
     impl BatchSearchLinkProcesses {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1164,8 +1599,8 @@ pub mod lineage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::BatchSearchLinkProcessesResponse,
@@ -1181,23 +1616,22 @@ pub mod lineage {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::BatchSearchLinkProcessesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::BatchSearchLinkProcessesRequest::parent].
         ///
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [page_size][crate::model::BatchSearchLinkProcessesRequest::page_size].
-        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
-            self
-        }
-
-        /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
-        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.page_token = v.into();
             self
         }
 
@@ -1213,6 +1647,18 @@ pub mod lineage {
             self.0.request.links = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [page_size][crate::model::BatchSearchLinkProcessesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::BatchSearchLinkProcessesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1222,12 +1668,32 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::list_operations][super::super::client::Lineage::list_operations] calls.
+    /// The request builder for [Lineage::list_operations][crate::client::Lineage::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1254,8 +1720,8 @@ pub mod lineage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1267,6 +1733,17 @@ pub mod lineage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1301,12 +1778,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::get_operation][super::super::client::Lineage::get_operation] calls.
+    /// The request builder for [Lineage::get_operation][crate::client::Lineage::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1347,12 +1840,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::delete_operation][super::super::client::Lineage::delete_operation] calls.
+    /// The request builder for [Lineage::delete_operation][crate::client::Lineage::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1393,12 +1902,28 @@ pub mod lineage {
         }
     }
 
-    /// The request builder for [Lineage::cancel_operation][super::super::client::Lineage::cancel_operation] calls.
+    /// The request builder for [Lineage::cancel_operation][crate::client::Lineage::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_datacatalog_lineage_v1::builder;
+    /// use builder::lineage::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Lineage>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

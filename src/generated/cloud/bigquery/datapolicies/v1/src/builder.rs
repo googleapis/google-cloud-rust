@@ -16,9 +16,8 @@
 
 pub mod data_policy_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DataPolicyService][super::super::client::DataPolicyService].
+    /// A builder for [DataPolicyService][crate::client::DataPolicyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod data_policy_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquerydatapolicy.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod data_policy_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataPolicyService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DataPolicyService] request builders.
+    /// Common implementation for [crate::client::DataPolicyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod data_policy_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::create_data_policy][super::super::client::DataPolicyService::create_data_policy] calls.
+    /// The request builder for [DataPolicyService::create_data_policy][crate::client::DataPolicyService::create_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::CreateDataPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDataPolicy(RequestBuilder<crate::model::CreateDataPolicyRequest>);
 
     impl CreateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -110,11 +132,22 @@ pub mod data_policy_service {
         /// Sets the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_policy<T: Into<std::option::Option<crate::model::DataPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_policy = v.into();
+        pub fn set_data_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataPolicy>,
+        {
+            self.0.request.data_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_policy][crate::model::CreateDataPolicyRequest::data_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataPolicy>,
+        {
+            self.0.request.data_policy = v.map(|x| x.into());
             self
         }
     }
@@ -126,12 +159,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::update_data_policy][super::super::client::DataPolicyService::update_data_policy] calls.
+    /// The request builder for [DataPolicyService::update_data_policy][crate::client::DataPolicyService::update_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::UpdateDataPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDataPolicy(RequestBuilder<crate::model::UpdateDataPolicyRequest>);
 
     impl UpdateDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -161,20 +212,40 @@ pub mod data_policy_service {
         /// Sets the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_data_policy<T: Into<std::option::Option<crate::model::DataPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.data_policy = v.into();
+        pub fn set_data_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataPolicy>,
+        {
+            self.0.request.data_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [data_policy][crate::model::UpdateDataPolicyRequest::data_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_data_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataPolicy>,
+        {
+            self.0.request.data_policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDataPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -186,12 +257,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::rename_data_policy][super::super::client::DataPolicyService::rename_data_policy] calls.
+    /// The request builder for [DataPolicyService::rename_data_policy][crate::client::DataPolicyService::rename_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::RenameDataPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameDataPolicy(RequestBuilder<crate::model::RenameDataPolicyRequest>);
 
     impl RenameDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -242,12 +331,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::delete_data_policy][super::super::client::DataPolicyService::delete_data_policy] calls.
+    /// The request builder for [DataPolicyService::delete_data_policy][crate::client::DataPolicyService::delete_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::DeleteDataPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDataPolicy(RequestBuilder<crate::model::DeleteDataPolicyRequest>);
 
     impl DeleteDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -290,12 +397,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::get_data_policy][super::super::client::DataPolicyService::get_data_policy] calls.
+    /// The request builder for [DataPolicyService::get_data_policy][crate::client::DataPolicyService::get_data_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::GetDataPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDataPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDataPolicy(RequestBuilder<crate::model::GetDataPolicyRequest>);
 
     impl GetDataPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -335,12 +460,34 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::list_data_policies][super::super::client::DataPolicyService::list_data_policies] calls.
+    /// The request builder for [DataPolicyService::list_data_policies][crate::client::DataPolicyService::list_data_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::ListDataPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDataPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDataPolicies(RequestBuilder<crate::model::ListDataPoliciesRequest>);
 
     impl ListDataPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -367,8 +514,8 @@ pub mod data_policy_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDataPoliciesResponse, gax::error::Error>
         {
@@ -380,6 +527,15 @@ pub mod data_policy_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDataPoliciesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDataPoliciesRequest::parent].
@@ -416,12 +572,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::get_iam_policy][super::super::client::DataPolicyService::get_iam_policy] calls.
+    /// The request builder for [DataPolicyService::get_iam_policy][crate::client::DataPolicyService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -454,11 +628,20 @@ pub mod data_policy_service {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -470,12 +653,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::set_iam_policy][super::super::client::DataPolicyService::set_iam_policy] calls.
+    /// The request builder for [DataPolicyService::set_iam_policy][crate::client::DataPolicyService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -510,20 +711,40 @@ pub mod data_policy_service {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -535,12 +756,30 @@ pub mod data_policy_service {
         }
     }
 
-    /// The request builder for [DataPolicyService::test_iam_permissions][super::super::client::DataPolicyService::test_iam_permissions] calls.
+    /// The request builder for [DataPolicyService::test_iam_permissions][crate::client::DataPolicyService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigquery_datapolicies_v1::builder;
+    /// use builder::data_policy_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataPolicyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataPolicyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

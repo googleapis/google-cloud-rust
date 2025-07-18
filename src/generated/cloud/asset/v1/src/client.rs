@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Asset API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_asset_v1::client::AssetService;
 /// let client = AssetService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Asset API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `AssetService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AssetService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AssetService {
-    inner: Arc<dyn super::stub::dynamic::AssetService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AssetService>,
 }
 
 impl AssetService {
@@ -72,7 +69,7 @@ impl AssetService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// let client = AssetService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::asset_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::asset_service::client::Factory)
@@ -87,33 +84,35 @@ impl AssetService {
         T: super::stub::AssetService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AssetService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AssetService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AssetService> {
+    ) -> gax::client_builder::Result<impl super::stub::AssetService> {
         super::transport::AssetService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AssetService> {
+    ) -> gax::client_builder::Result<impl super::stub::AssetService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AssetService::new)
@@ -143,21 +142,14 @@ impl AssetService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn export_assets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::ExportAssets {
+    pub fn export_assets(&self) -> super::builder::asset_service::ExportAssets {
         super::builder::asset_service::ExportAssets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists assets with time and resource types and returns paged results in
     /// response.
-    pub fn list_assets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::ListAssets {
-        super::builder::asset_service::ListAssets::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_assets(&self) -> super::builder::asset_service::ListAssets {
+        super::builder::asset_service::ListAssets::new(self.inner.clone())
     }
 
     /// Batch gets the update history of assets that overlap a time window.
@@ -167,87 +159,56 @@ impl AssetService {
     /// deleted status.
     /// If a specified asset does not exist, this API returns an INVALID_ARGUMENT
     /// error.
-    pub fn batch_get_assets_history(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::BatchGetAssetsHistory {
+    pub fn batch_get_assets_history(&self) -> super::builder::asset_service::BatchGetAssetsHistory {
         super::builder::asset_service::BatchGetAssetsHistory::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a feed in a parent project/folder/organization to listen to its
     /// asset updates.
-    pub fn create_feed(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::CreateFeed {
-        super::builder::asset_service::CreateFeed::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_feed(&self) -> super::builder::asset_service::CreateFeed {
+        super::builder::asset_service::CreateFeed::new(self.inner.clone())
     }
 
     /// Gets details about an asset feed.
-    pub fn get_feed(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::GetFeed {
-        super::builder::asset_service::GetFeed::new(self.inner.clone()).set_name(name.into())
+    pub fn get_feed(&self) -> super::builder::asset_service::GetFeed {
+        super::builder::asset_service::GetFeed::new(self.inner.clone())
     }
 
     /// Lists all asset feeds in a parent project/folder/organization.
-    pub fn list_feeds(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::ListFeeds {
-        super::builder::asset_service::ListFeeds::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_feeds(&self) -> super::builder::asset_service::ListFeeds {
+        super::builder::asset_service::ListFeeds::new(self.inner.clone())
     }
 
     /// Updates an asset feed configuration.
-    pub fn update_feed(
-        &self,
-        feed: impl Into<crate::model::Feed>,
-    ) -> super::builder::asset_service::UpdateFeed {
-        super::builder::asset_service::UpdateFeed::new(self.inner.clone()).set_feed(feed.into())
+    pub fn update_feed(&self) -> super::builder::asset_service::UpdateFeed {
+        super::builder::asset_service::UpdateFeed::new(self.inner.clone())
     }
 
     /// Deletes an asset feed.
-    pub fn delete_feed(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::DeleteFeed {
-        super::builder::asset_service::DeleteFeed::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_feed(&self) -> super::builder::asset_service::DeleteFeed {
+        super::builder::asset_service::DeleteFeed::new(self.inner.clone())
     }
 
     /// Searches all Google Cloud resources within the specified scope, such as a
     /// project, folder, or organization. The caller must be granted the
     /// `cloudasset.assets.searchAllResources` permission on the desired scope,
     /// otherwise the request will be rejected.
-    pub fn search_all_resources(
-        &self,
-        scope: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::SearchAllResources {
+    pub fn search_all_resources(&self) -> super::builder::asset_service::SearchAllResources {
         super::builder::asset_service::SearchAllResources::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 
     /// Searches all IAM policies within the specified scope, such as a project,
     /// folder, or organization. The caller must be granted the
     /// `cloudasset.assets.searchAllIamPolicies` permission on the desired scope,
     /// otherwise the request will be rejected.
-    pub fn search_all_iam_policies(
-        &self,
-        scope: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::SearchAllIamPolicies {
+    pub fn search_all_iam_policies(&self) -> super::builder::asset_service::SearchAllIamPolicies {
         super::builder::asset_service::SearchAllIamPolicies::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 
     /// Analyzes IAM policies to answer which identities have what accesses on
     /// which resources.
-    pub fn analyze_iam_policy(
-        &self,
-        analysis_query: impl Into<crate::model::IamPolicyAnalysisQuery>,
-    ) -> super::builder::asset_service::AnalyzeIamPolicy {
+    pub fn analyze_iam_policy(&self) -> super::builder::asset_service::AnalyzeIamPolicy {
         super::builder::asset_service::AnalyzeIamPolicy::new(self.inner.clone())
-            .set_analysis_query(analysis_query.into())
     }
 
     /// Analyzes IAM policies asynchronously to answer which identities have what
@@ -275,10 +236,8 @@ impl AssetService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn analyze_iam_policy_longrunning(
         &self,
-        analysis_query: impl Into<crate::model::IamPolicyAnalysisQuery>,
     ) -> super::builder::asset_service::AnalyzeIamPolicyLongrunning {
         super::builder::asset_service::AnalyzeIamPolicyLongrunning::new(self.inner.clone())
-            .set_analysis_query(analysis_query.into())
     }
 
     /// Analyze moving a resource to a specified destination without kicking off
@@ -286,12 +245,8 @@ impl AssetService {
     /// permissions of viewing different hierarchical policies and configurations.
     /// The policies and configuration are subject to change before the actual
     /// resource migration takes place.
-    pub fn analyze_move(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::AnalyzeMove {
+    pub fn analyze_move(&self) -> super::builder::asset_service::AnalyzeMove {
         super::builder::asset_service::AnalyzeMove::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Issue a job that queries assets using a SQL statement compatible with
@@ -306,84 +261,53 @@ impl AssetService {
     /// Note, the query result has approximately 10 GB limitation enforced by
     /// [BigQuery](https://cloud.google.com/bigquery/docs/best-practices-performance-output).
     /// Queries return larger results will result in errors.
-    pub fn query_assets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::QueryAssets {
+    pub fn query_assets(&self) -> super::builder::asset_service::QueryAssets {
         super::builder::asset_service::QueryAssets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a saved query in a parent project/folder/organization.
-    pub fn create_saved_query(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::CreateSavedQuery {
+    pub fn create_saved_query(&self) -> super::builder::asset_service::CreateSavedQuery {
         super::builder::asset_service::CreateSavedQuery::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details about a saved query.
-    pub fn get_saved_query(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::GetSavedQuery {
-        super::builder::asset_service::GetSavedQuery::new(self.inner.clone()).set_name(name.into())
+    pub fn get_saved_query(&self) -> super::builder::asset_service::GetSavedQuery {
+        super::builder::asset_service::GetSavedQuery::new(self.inner.clone())
     }
 
     /// Lists all saved queries in a parent project/folder/organization.
-    pub fn list_saved_queries(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::ListSavedQueries {
+    pub fn list_saved_queries(&self) -> super::builder::asset_service::ListSavedQueries {
         super::builder::asset_service::ListSavedQueries::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a saved query.
-    pub fn update_saved_query(
-        &self,
-        saved_query: impl Into<crate::model::SavedQuery>,
-    ) -> super::builder::asset_service::UpdateSavedQuery {
+    pub fn update_saved_query(&self) -> super::builder::asset_service::UpdateSavedQuery {
         super::builder::asset_service::UpdateSavedQuery::new(self.inner.clone())
-            .set_saved_query(saved_query.into())
     }
 
     /// Deletes a saved query.
-    pub fn delete_saved_query(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::DeleteSavedQuery {
+    pub fn delete_saved_query(&self) -> super::builder::asset_service::DeleteSavedQuery {
         super::builder::asset_service::DeleteSavedQuery::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets effective IAM policies for a batch of resources.
     pub fn batch_get_effective_iam_policies(
         &self,
-        scope: impl Into<std::string::String>,
     ) -> super::builder::asset_service::BatchGetEffectiveIamPolicies {
         super::builder::asset_service::BatchGetEffectiveIamPolicies::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 
     /// Analyzes organization policies under a scope.
-    pub fn analyze_org_policies(
-        &self,
-        scope: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::AnalyzeOrgPolicies {
+    pub fn analyze_org_policies(&self) -> super::builder::asset_service::AnalyzeOrgPolicies {
         super::builder::asset_service::AnalyzeOrgPolicies::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 
     /// Analyzes organization policies governed containers (projects, folders or
     /// organization) under a scope.
     pub fn analyze_org_policy_governed_containers(
         &self,
-        scope: impl Into<std::string::String>,
     ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers {
         super::builder::asset_service::AnalyzeOrgPolicyGovernedContainers::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 
     /// Analyzes organization policies governed assets (Google Cloud resources or
@@ -437,19 +361,14 @@ impl AssetService {
     /// or IAM policies.
     pub fn analyze_org_policy_governed_assets(
         &self,
-        scope: impl Into<std::string::String>,
     ) -> super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets {
         super::builder::asset_service::AnalyzeOrgPolicyGovernedAssets::new(self.inner.clone())
-            .set_scope(scope.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::asset_service::GetOperation {
-        super::builder::asset_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::asset_service::GetOperation {
+        super::builder::asset_service::GetOperation::new(self.inner.clone())
     }
 }

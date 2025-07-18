@@ -31,9 +31,9 @@ pub async fn initialize_client(project_id: &str) -> Result {
     // ANCHOR: make-rpc
     use google_cloud_gax::paginator::Paginator as _;
     let mut items = client
-        .list_locations(format!("projects/{project_id}"))
-        .paginator()
-        .await;
+        .list_locations()
+        .set_name(format!("projects/{project_id}"))
+        .by_page();
     while let Some(page) = items.next().await {
         let page = page?;
         for location in page.locations {
@@ -47,7 +47,7 @@ pub async fn initialize_client(project_id: &str) -> Result {
 // [END test_only_snippet] ANCHOR_END: all
 
 #[cfg(all(test, feature = "run-integration-tests"))]
-mod test {
+mod tests {
     use super::*;
 
     #[tokio::test(flavor = "multi_thread")]

@@ -14,13 +14,14 @@
 
 //! Defines traits for backoff policies and a common implementations.
 //!
-//! The client libraries automatically retry RPCs when (1) they fail due to
-//! transient errors **and** the RPC is [idempotent], (2) or failed before an
-//! RPC was started. That is, when it is safe to attempt the RPC more than once.
-//!
-//! Retry strategies should avoid immediately retrying an RPC, as the service
-//! may need time to recover. [Exponential backoff] is a well known algorithm to
-//! find an acceptable delay between retries.
+//! The client libraries automatically retry RPCs based on the [RetryPolicy]
+//! configured for the request or client. Even when the policy determines that
+//! an operation is safe to retry, the client library does not retry failed
+//! requests immediately, as the service may need time to recover.
+//! [Exponential backoff] is a well known algorithm to find an acceptable delay
+//! between retries, but some application may need slight variations on this
+//! algorithm. The client libraries use a [BackoffPolicy] to configure the
+//! delays between retry attempts.
 //!
 //! While exponential backoff improves the system behavior when there are small
 //! faults, something like a [RetryThrottler] may be needed to improve recovery
@@ -33,12 +34,12 @@
 //!
 //! [ClientBuilder::with_backoff_policy]: crate::client_builder::ClientBuilder::with_backoff_policy
 //! [RequestOptionsBuilder::with_backoff_policy]: crate::options::RequestOptionsBuilder::with_backoff_policy
+//! [RetryPolicy]: crate::retry_policy::RetryPolicy
 //!
 //! # Example
 //! ```
-//! # use google_cloud_gax::*;
-//! # use google_cloud_gax::backoff_policy::*;
-//! use exponential_backoff::ExponentialBackoffBuilder;
+//! # use google_cloud_gax::exponential_backoff::Error;
+//! # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
 //! use std::time::Duration;
 //!
 //! let policy = ExponentialBackoffBuilder::new()
@@ -46,7 +47,7 @@
 //!     .with_maximum_delay(Duration::from_secs(5))
 //!     .with_scaling(4.0)
 //!     .build()?;
-//! # Ok::<(), error::Error>(())
+//! # Ok::<(), Error>(())
 //! ```
 //!
 //! [RetryThrottler]: crate::retry_throttler::RetryThrottler
@@ -63,13 +64,14 @@ pub trait BackoffPolicy: Send + Sync + std::fmt::Debug {
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is always called
     ///   after the first attempt.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
     fn on_failure(&self, loop_start: std::time::Instant, attempt_count: u32)
     -> std::time::Duration;
 }
 
 /// A helper type to use [BackoffPolicy] in client and request options.
-#[derive(Clone)]
-pub struct BackoffPolicyArg(pub(crate) Arc<dyn BackoffPolicy>);
+#[derive(Clone, Debug)]
+pub struct BackoffPolicyArg(Arc<dyn BackoffPolicy>);
 
 impl<T: BackoffPolicy + 'static> From<T> for BackoffPolicyArg {
     fn from(value: T) -> Self {
@@ -80,6 +82,12 @@ impl<T: BackoffPolicy + 'static> From<T> for BackoffPolicyArg {
 impl From<Arc<dyn BackoffPolicy>> for BackoffPolicyArg {
     fn from(value: Arc<dyn BackoffPolicy>) -> Self {
         Self(value)
+    }
+}
+
+impl From<BackoffPolicyArg> for Arc<dyn BackoffPolicy> {
+    fn from(value: BackoffPolicyArg) -> Arc<dyn BackoffPolicy> {
+        value.0
     }
 }
 

@@ -36,9 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// A request to list all `AccessPolicies` for a container.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessPoliciesRequest {
     /// Required. Resource name for the container to list AccessPolicy instances
@@ -46,19 +44,15 @@ pub struct ListAccessPoliciesRequest {
     ///
     /// Format:
     /// `organizations/{org_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Number of AccessPolicy instances to include in the list. Default 100.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of AccessPolicy instances. Defaults to
     /// the first page of results.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -92,34 +86,175 @@ impl wkt::message::Message for ListAccessPoliciesRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListAccessPoliciesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAccessPoliciesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListAccessPoliciesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAccessPoliciesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListAccessPoliciesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A response to `ListAccessPoliciesRequest`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessPoliciesResponse {
     /// List of the AccessPolicy instances.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_policies: std::vec::Vec<crate::model::AccessPolicy>,
 
     /// The pagination token to retrieve the next page of results. If the value is
     /// empty, no further results remain.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAccessPoliciesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
     }
 
     /// Sets the value of [access_policies][crate::model::ListAccessPoliciesResponse::access_policies].
@@ -130,6 +265,12 @@ impl ListAccessPoliciesResponse {
     {
         use std::iter::Iterator;
         self.access_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -154,19 +295,132 @@ impl gax::paginator::internal::PageableResponse for ListAccessPoliciesResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListAccessPoliciesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __access_policies,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAccessPoliciesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "accessPolicies" => Ok(__FieldTag::__access_policies),
+                            "access_policies" => Ok(__FieldTag::__access_policies),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListAccessPoliciesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAccessPoliciesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__access_policies => {
+                            if !fields.insert(__FieldTag::__access_policies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_policies",
+                                ));
+                            }
+                            result.access_policies = map.next_value::<std::option::Option<std::vec::Vec<crate::model::AccessPolicy>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListAccessPoliciesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.access_policies.is_empty() {
+            state.serialize_entry("accessPolicies", &self.access_policies)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to get a particular `AccessPolicy`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessPolicyRequest {
     /// Required. Resource name for the access policy to get.
     ///
     /// Format `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -188,21 +442,118 @@ impl wkt::message::Message for GetAccessPolicyRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetAccessPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to update an `AccessPolicy`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessPolicyRequest {
     /// Required. The updated AccessPolicy.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub policy: std::option::Option<crate::model::AccessPolicy>,
 
     /// Required. Mask to control which fields get updated. Must be non-empty.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -212,20 +563,38 @@ impl UpdateAccessPolicyRequest {
     }
 
     /// Sets the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
-    pub fn set_policy<T: std::convert::Into<std::option::Option<crate::model::AccessPolicy>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.policy = v.into();
+    pub fn set_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        self.policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+    pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessPolicy>,
+    {
+        self.policy = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -236,19 +605,131 @@ impl wkt::message::Message for UpdateAccessPolicyRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __policy,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "policy" => Ok(__FieldTag::__policy),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__policy => {
+                            if !fields.insert(__FieldTag::__policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for policy",
+                                ));
+                            }
+                            result.policy = map
+                                .next_value::<std::option::Option<crate::model::AccessPolicy>>()?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateAccessPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.policy.is_some() {
+            state.serialize_entry("policy", &self.policy)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to delete an `AccessPolicy`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessPolicyRequest {
     /// Required. Resource name for the access policy to delete.
     ///
     /// Format `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -270,10 +751,110 @@ impl wkt::message::Message for DeleteAccessPolicyRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteAccessPolicyRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteAccessPolicyRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteAccessPolicyRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteAccessPolicyRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteAccessPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to list all `AccessLevels` in an `AccessPolicy`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessLevelsRequest {
     /// Required. Resource name for the access policy to list [Access Levels]
@@ -281,19 +862,16 @@ pub struct ListAccessLevelsRequest {
     ///
     /// Format:
     /// `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Number of [Access Levels]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] to include in
     /// the list. Default 100.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
     /// Defaults to the first page of results.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
     /// Whether to return `BasicLevels` in the Cloud Common Expression language, as
@@ -301,7 +879,6 @@ pub struct ListAccessLevelsRequest {
     /// `AccessLevels` in the format they were defined.
     pub access_level_format: crate::model::LevelFormat,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -344,35 +921,192 @@ impl wkt::message::Message for ListAccessLevelsRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListAccessLevelsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __access_level_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAccessLevelsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "accessLevelFormat" => Ok(__FieldTag::__access_level_format),
+                            "access_level_format" => Ok(__FieldTag::__access_level_format),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListAccessLevelsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAccessLevelsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_level_format => {
+                            if !fields.insert(__FieldTag::__access_level_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_level_format",
+                                ));
+                            }
+                            result.access_level_format = map
+                                .next_value::<std::option::Option<crate::model::LevelFormat>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListAccessLevelsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !wkt::internal::is_default(&self.access_level_format) {
+            state.serialize_entry("accessLevelFormat", &self.access_level_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A response to `ListAccessLevelsRequest`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListAccessLevelsResponse {
     /// List of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
 
     /// The pagination token to retrieve the next page of results. If the value is
     /// empty, no further results remain.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListAccessLevelsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
     }
 
     /// Sets the value of [access_levels][crate::model::ListAccessLevelsResponse::access_levels].
@@ -383,6 +1117,12 @@ impl ListAccessLevelsResponse {
     {
         use std::iter::Iterator;
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAccessLevelsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -407,10 +1147,125 @@ impl gax::paginator::internal::PageableResponse for ListAccessLevelsResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListAccessLevelsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __access_levels,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAccessLevelsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "accessLevels" => Ok(__FieldTag::__access_levels),
+                            "access_levels" => Ok(__FieldTag::__access_levels),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListAccessLevelsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAccessLevelsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__access_levels => {
+                            if !fields.insert(__FieldTag::__access_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_levels",
+                                ));
+                            }
+                            result.access_levels = map.next_value::<std::option::Option<std::vec::Vec<crate::model::AccessLevel>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListAccessLevelsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.access_levels.is_empty() {
+            state.serialize_entry("accessLevels", &self.access_levels)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to get a particular `AccessLevel`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetAccessLevelRequest {
     /// Required. Resource name for the [Access Level]
@@ -418,7 +1273,6 @@ pub struct GetAccessLevelRequest {
     ///
     /// Format:
     /// `accessPolicies/{policy_id}/accessLevels/{access_level_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Whether to return `BasicLevels` in the Cloud Common Expression
@@ -431,7 +1285,6 @@ pub struct GetAccessLevelRequest {
     /// `CustomLevels`.
     pub access_level_format: crate::model::LevelFormat,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -462,17 +1315,132 @@ impl wkt::message::Message for GetAccessLevelRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetAccessLevelRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __access_level_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetAccessLevelRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "accessLevelFormat" => Ok(__FieldTag::__access_level_format),
+                            "access_level_format" => Ok(__FieldTag::__access_level_format),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetAccessLevelRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetAccessLevelRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_level_format => {
+                            if !fields.insert(__FieldTag::__access_level_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_level_format",
+                                ));
+                            }
+                            result.access_level_format = map
+                                .next_value::<std::option::Option<crate::model::LevelFormat>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetAccessLevelRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.access_level_format) {
+            state.serialize_entry("accessLevelFormat", &self.access_level_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to create an `AccessLevel`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAccessLevelRequest {
     /// Required. Resource name for the access policy which owns this [Access
     /// Level] [google.identity.accesscontextmanager.v1.AccessLevel].
     ///
     /// Format: `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The [Access Level]
@@ -480,10 +1448,8 @@ pub struct CreateAccessLevelRequest {
     /// Syntactic correctness of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] is a
     /// precondition for creation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_level: std::option::Option<crate::model::AccessLevel>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -499,13 +1465,20 @@ impl CreateAccessLevelRequest {
     }
 
     /// Sets the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
-    pub fn set_access_level<
-        T: std::convert::Into<std::option::Option<crate::model::AccessLevel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_level = v.into();
+    pub fn set_access_level<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessLevel>,
+    {
+        self.access_level = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+    pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessLevel>,
+    {
+        self.access_level = v.map(|x| x.into());
         self
     }
 }
@@ -516,10 +1489,125 @@ impl wkt::message::Message for CreateAccessLevelRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateAccessLevelRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __access_level,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateAccessLevelRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "accessLevel" => Ok(__FieldTag::__access_level),
+                            "access_level" => Ok(__FieldTag::__access_level),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateAccessLevelRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateAccessLevelRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_level => {
+                            if !fields.insert(__FieldTag::__access_level) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_level",
+                                ));
+                            }
+                            result.access_level =
+                                map.next_value::<std::option::Option<crate::model::AccessLevel>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateAccessLevelRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.access_level.is_some() {
+            state.serialize_entry("accessLevel", &self.access_level)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to update an `AccessLevel`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateAccessLevelRequest {
     /// Required. The updated [Access Level]
@@ -527,14 +1615,11 @@ pub struct UpdateAccessLevelRequest {
     /// correctness of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] is a
     /// precondition for creation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub access_level: std::option::Option<crate::model::AccessLevel>,
 
     /// Required. Mask to control which fields get updated. Must be non-empty.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -544,22 +1629,38 @@ impl UpdateAccessLevelRequest {
     }
 
     /// Sets the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
-    pub fn set_access_level<
-        T: std::convert::Into<std::option::Option<crate::model::AccessLevel>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.access_level = v.into();
+    pub fn set_access_level<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessLevel>,
+    {
+        self.access_level = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+    pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AccessLevel>,
+    {
+        self.access_level = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -570,10 +1671,125 @@ impl wkt::message::Message for UpdateAccessLevelRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateAccessLevelRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __access_level,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateAccessLevelRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "accessLevel" => Ok(__FieldTag::__access_level),
+                            "access_level" => Ok(__FieldTag::__access_level),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateAccessLevelRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateAccessLevelRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__access_level => {
+                            if !fields.insert(__FieldTag::__access_level) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_level",
+                                ));
+                            }
+                            result.access_level =
+                                map.next_value::<std::option::Option<crate::model::AccessLevel>>()?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateAccessLevelRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.access_level.is_some() {
+            state.serialize_entry("accessLevel", &self.access_level)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to delete an `AccessLevel`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteAccessLevelRequest {
     /// Required. Resource name for the [Access Level]
@@ -581,10 +1797,8 @@ pub struct DeleteAccessLevelRequest {
     ///
     /// Format:
     /// `accessPolicies/{policy_id}/accessLevels/{access_level_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -606,11 +1820,111 @@ impl wkt::message::Message for DeleteAccessLevelRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteAccessLevelRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteAccessLevelRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteAccessLevelRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteAccessLevelRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteAccessLevelRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to replace all existing Access Levels in an Access Policy with
 /// the Access Levels provided. This is done atomically.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceAccessLevelsRequest {
     /// Required. Resource name for the access policy which owns these
@@ -618,7 +1932,6 @@ pub struct ReplaceAccessLevelsRequest {
     /// [google.identity.accesscontextmanager.v1.AccessLevel].
     ///
     /// Format: `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The desired [Access Levels]
@@ -627,7 +1940,6 @@ pub struct ReplaceAccessLevelsRequest {
     /// [google.identity.accesscontextmanager.v1.AccessLevel] in the
     /// [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
 
     /// Optional. The etag for the version of the [Access Policy]
@@ -637,10 +1949,8 @@ pub struct ReplaceAccessLevelsRequest {
     /// from the specified etag, then the replace operation will not be performed
     /// and the call will fail. This field is not required. If etag is not
     /// provided, the operation will be performed as if a valid etag is provided.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -655,12 +1965,6 @@ impl ReplaceAccessLevelsRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [access_levels][crate::model::ReplaceAccessLevelsRequest::access_levels].
     pub fn set_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -671,6 +1975,12 @@ impl ReplaceAccessLevelsRequest {
         self.access_levels = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ReplaceAccessLevelsRequest {
@@ -679,19 +1989,146 @@ impl wkt::message::Message for ReplaceAccessLevelsRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ReplaceAccessLevelsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __access_levels,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ReplaceAccessLevelsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "accessLevels" => Ok(__FieldTag::__access_levels),
+                            "access_levels" => Ok(__FieldTag::__access_levels),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ReplaceAccessLevelsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ReplaceAccessLevelsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_levels => {
+                            if !fields.insert(__FieldTag::__access_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_levels",
+                                ));
+                            }
+                            result.access_levels = map.next_value::<std::option::Option<std::vec::Vec<crate::model::AccessLevel>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ReplaceAccessLevelsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.access_levels.is_empty() {
+            state.serialize_entry("accessLevels", &self.access_levels)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A response to ReplaceAccessLevelsRequest. This will be put inside of
 /// Operation.response field.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceAccessLevelsResponse {
     /// List of the [Access Level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] instances.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<crate::model::AccessLevel>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -718,10 +2155,109 @@ impl wkt::message::Message for ReplaceAccessLevelsResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ReplaceAccessLevelsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __access_levels,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ReplaceAccessLevelsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "accessLevels" => Ok(__FieldTag::__access_levels),
+                            "access_levels" => Ok(__FieldTag::__access_levels),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ReplaceAccessLevelsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ReplaceAccessLevelsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__access_levels => {
+                            if !fields.insert(__FieldTag::__access_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_levels",
+                                ));
+                            }
+                            result.access_levels = map.next_value::<std::option::Option<std::vec::Vec<crate::model::AccessLevel>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ReplaceAccessLevelsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.access_levels.is_empty() {
+            state.serialize_entry("accessLevels", &self.access_levels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to list all `ServicePerimeters` in an `AccessPolicy`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicePerimetersRequest {
     /// Required. Resource name for the access policy to list [Service Perimeters]
@@ -729,22 +2265,18 @@ pub struct ListServicePerimetersRequest {
     ///
     /// Format:
     /// `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Number of [Service Perimeters]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] to include
     /// in the list. Default 100.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Next page token for the next batch of [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
     /// Defaults to the first page of results.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -778,35 +2310,176 @@ impl wkt::message::Message for ListServicePerimetersRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListServicePerimetersRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListServicePerimetersRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListServicePerimetersRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListServicePerimetersRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListServicePerimetersRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A response to `ListServicePerimetersRequest`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListServicePerimetersResponse {
     /// List of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
     /// The pagination token to retrieve the next page of results. If the value is
     /// empty, no further results remain.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListServicePerimetersResponse {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
     }
 
     /// Sets the value of [service_perimeters][crate::model::ListServicePerimetersResponse::service_perimeters].
@@ -817,6 +2490,12 @@ impl ListServicePerimetersResponse {
     {
         use std::iter::Iterator;
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServicePerimetersResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -841,10 +2520,129 @@ impl gax::paginator::internal::PageableResponse for ListServicePerimetersRespons
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListServicePerimetersResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __service_perimeters,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListServicePerimetersResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "servicePerimeters" => Ok(__FieldTag::__service_perimeters),
+                            "service_perimeters" => Ok(__FieldTag::__service_perimeters),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListServicePerimetersResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListServicePerimetersResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__service_perimeters => {
+                            if !fields.insert(__FieldTag::__service_perimeters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_perimeters",
+                                ));
+                            }
+                            result.service_perimeters =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ServicePerimeter>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListServicePerimetersResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.service_perimeters.is_empty() {
+            state.serialize_entry("servicePerimeters", &self.service_perimeters)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to get a particular `ServicePerimeter`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetServicePerimeterRequest {
     /// Required. Resource name for the [Service Perimeter]
@@ -852,10 +2650,8 @@ pub struct GetServicePerimeterRequest {
     ///
     /// Format:
     /// `accessPolicies/{policy_id}/servicePerimeters/{service_perimeters_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -877,17 +2673,116 @@ impl wkt::message::Message for GetServicePerimeterRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetServicePerimeterRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetServicePerimeterRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetServicePerimeterRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetServicePerimeterRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetServicePerimeterRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to create a `ServicePerimeter`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateServicePerimeterRequest {
     /// Required. Resource name for the access policy which owns this [Service
     /// Perimeter] [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
     /// Format: `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The [Service Perimeter]
@@ -895,10 +2790,8 @@ pub struct CreateServicePerimeterRequest {
     /// Syntactic correctness of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] is a
     /// precondition for creation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_perimeter: std::option::Option<crate::model::ServicePerimeter>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -914,13 +2807,20 @@ impl CreateServicePerimeterRequest {
     }
 
     /// Sets the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
-    pub fn set_service_perimeter<
-        T: std::convert::Into<std::option::Option<crate::model::ServicePerimeter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_perimeter = v.into();
+    pub fn set_service_perimeter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeter>,
+    {
+        self.service_perimeter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+    pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeter>,
+    {
+        self.service_perimeter = v.map(|x| x.into());
         self
     }
 }
@@ -931,22 +2831,135 @@ impl wkt::message::Message for CreateServicePerimeterRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateServicePerimeterRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __service_perimeter,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateServicePerimeterRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "servicePerimeter" => Ok(__FieldTag::__service_perimeter),
+                            "service_perimeter" => Ok(__FieldTag::__service_perimeter),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateServicePerimeterRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateServicePerimeterRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_perimeter => {
+                            if !fields.insert(__FieldTag::__service_perimeter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_perimeter",
+                                ));
+                            }
+                            result.service_perimeter = map
+                                .next_value::<std::option::Option<crate::model::ServicePerimeter>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateServicePerimeterRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.service_perimeter.is_some() {
+            state.serialize_entry("servicePerimeter", &self.service_perimeter)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to update a `ServicePerimeter`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateServicePerimeterRequest {
     /// Required. The updated `ServicePerimeter`. Syntactic correctness of the
     /// `ServicePerimeter` is a precondition for creation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub service_perimeter: std::option::Option<crate::model::ServicePerimeter>,
 
     /// Required. Mask to control which fields get updated. Must be non-empty.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -956,22 +2969,38 @@ impl UpdateServicePerimeterRequest {
     }
 
     /// Sets the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
-    pub fn set_service_perimeter<
-        T: std::convert::Into<std::option::Option<crate::model::ServicePerimeter>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.service_perimeter = v.into();
+    pub fn set_service_perimeter<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeter>,
+    {
+        self.service_perimeter = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+    pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeter>,
+    {
+        self.service_perimeter = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -982,10 +3011,126 @@ impl wkt::message::Message for UpdateServicePerimeterRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateServicePerimeterRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __service_perimeter,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateServicePerimeterRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "servicePerimeter" => Ok(__FieldTag::__service_perimeter),
+                            "service_perimeter" => Ok(__FieldTag::__service_perimeter),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateServicePerimeterRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateServicePerimeterRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__service_perimeter => {
+                            if !fields.insert(__FieldTag::__service_perimeter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_perimeter",
+                                ));
+                            }
+                            result.service_perimeter = map
+                                .next_value::<std::option::Option<crate::model::ServicePerimeter>>(
+                                )?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateServicePerimeterRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.service_perimeter.is_some() {
+            state.serialize_entry("servicePerimeter", &self.service_perimeter)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to delete a `ServicePerimeter`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteServicePerimeterRequest {
     /// Required. Resource name for the [Service Perimeter]
@@ -993,10 +3138,8 @@ pub struct DeleteServicePerimeterRequest {
     ///
     /// Format:
     /// `accessPolicies/{policy_id}/servicePerimeters/{service_perimeter_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1018,11 +3161,111 @@ impl wkt::message::Message for DeleteServicePerimeterRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteServicePerimeterRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteServicePerimeterRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteServicePerimeterRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteServicePerimeterRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteServicePerimeterRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to replace all existing Service Perimeters in an Access Policy
 /// with the Service Perimeters provided. This is done atomically.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceServicePerimetersRequest {
     /// Required. Resource name for the access policy which owns these
@@ -1030,7 +3273,6 @@ pub struct ReplaceServicePerimetersRequest {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
     /// Format: `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. The desired [Service Perimeters]
@@ -1039,7 +3281,6 @@ pub struct ReplaceServicePerimetersRequest {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] in the
     /// [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
     /// Optional. The etag for the version of the [Access Policy]
@@ -1049,10 +3290,8 @@ pub struct ReplaceServicePerimetersRequest {
     /// from the specified etag, then the replace operation will not be performed
     /// and the call will fail. This field is not required. If etag is not
     /// provided, the operation will be performed as if a valid etag is provided.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1067,12 +3306,6 @@ impl ReplaceServicePerimetersRequest {
         self
     }
 
-    /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [service_perimeters][crate::model::ReplaceServicePerimetersRequest::service_perimeters].
     pub fn set_service_perimeters<T, V>(mut self, v: T) -> Self
     where
@@ -1083,6 +3316,12 @@ impl ReplaceServicePerimetersRequest {
         self.service_perimeters = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ReplaceServicePerimetersRequest {
@@ -1091,19 +3330,150 @@ impl wkt::message::Message for ReplaceServicePerimetersRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ReplaceServicePerimetersRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __service_perimeters,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ReplaceServicePerimetersRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "servicePerimeters" => Ok(__FieldTag::__service_perimeters),
+                            "service_perimeters" => Ok(__FieldTag::__service_perimeters),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ReplaceServicePerimetersRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ReplaceServicePerimetersRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service_perimeters => {
+                            if !fields.insert(__FieldTag::__service_perimeters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_perimeters",
+                                ));
+                            }
+                            result.service_perimeters =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ServicePerimeter>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ReplaceServicePerimetersRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.service_perimeters.is_empty() {
+            state.serialize_entry("servicePerimeters", &self.service_perimeters)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A response to ReplaceServicePerimetersRequest. This will be put inside of
 /// Operation.response field.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ReplaceServicePerimetersResponse {
     /// List of the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1130,14 +3500,117 @@ impl wkt::message::Message for ReplaceServicePerimetersResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ReplaceServicePerimetersResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __service_perimeters,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ReplaceServicePerimetersResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "servicePerimeters" => Ok(__FieldTag::__service_perimeters),
+                            "service_perimeters" => Ok(__FieldTag::__service_perimeters),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ReplaceServicePerimetersResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ReplaceServicePerimetersResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__service_perimeters => {
+                            if !fields.insert(__FieldTag::__service_perimeters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_perimeters",
+                                ));
+                            }
+                            result.service_perimeters =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ServicePerimeter>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ReplaceServicePerimetersResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.service_perimeters.is_empty() {
+            state.serialize_entry("servicePerimeters", &self.service_perimeters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A request to commit dry-run specs in all [Service Perimeters]
 /// [google.identity.accesscontextmanager.v1.ServicePerimeter] belonging to
 /// an [Access Policy][google.identity.accesscontextmanager.v1.AccessPolicy].
 ///
 /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitServicePerimetersRequest {
     /// Required. Resource name for the parent [Access Policy]
@@ -1147,7 +3620,6 @@ pub struct CommitServicePerimetersRequest {
     /// the commit operation.
     ///
     /// Format: `accessPolicies/{policy_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Optional. The etag for the version of the [Access Policy]
@@ -1157,10 +3629,8 @@ pub struct CommitServicePerimetersRequest {
     /// from the specified etag, then the commit operation will not be performed
     /// and the call will fail. This field is not required. If etag is not
     /// provided, the operation will be performed as if a valid etag is provided.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1188,21 +3658,134 @@ impl wkt::message::Message for CommitServicePerimetersRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CommitServicePerimetersRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CommitServicePerimetersRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CommitServicePerimetersRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CommitServicePerimetersRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CommitServicePerimetersRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A response to CommitServicePerimetersRequest. This will be put inside of
 /// Operation.response field.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CommitServicePerimetersResponse {
     /// List of all the [Service Perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] instances in
     /// the [Access Policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy].
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub service_perimeters: std::vec::Vec<crate::model::ServicePerimeter>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1229,30 +3812,129 @@ impl wkt::message::Message for CommitServicePerimetersResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CommitServicePerimetersResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __service_perimeters,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CommitServicePerimetersResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "servicePerimeters" => Ok(__FieldTag::__service_perimeters),
+                            "service_perimeters" => Ok(__FieldTag::__service_perimeters),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CommitServicePerimetersResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CommitServicePerimetersResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__service_perimeters => {
+                            if !fields.insert(__FieldTag::__service_perimeters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_perimeters",
+                                ));
+                            }
+                            result.service_perimeters =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ServicePerimeter>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CommitServicePerimetersResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.service_perimeters.is_empty() {
+            state.serialize_entry("servicePerimeters", &self.service_perimeters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Request of [ListGcpUserAccessBindings]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.ListGcpUserAccessBindings].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGcpUserAccessBindingsRequest {
     /// Required. Example: "organizations/256"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return. The server may return fewer items.
     /// If left blank, the server may return any number of items.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub page_size: i32,
 
     /// Optional. If left blank, returns the first page. To enumerate all items, use the
     /// [next_page_token]
     /// [google.identity.accesscontextmanager.v1.ListGcpUserAccessBindingsResponse.next_page_token]
     /// from your previous list operation.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1286,35 +3968,176 @@ impl wkt::message::Message for ListGcpUserAccessBindingsRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGcpUserAccessBindingsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGcpUserAccessBindingsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGcpUserAccessBindingsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGcpUserAccessBindingsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGcpUserAccessBindingsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Response of [ListGcpUserAccessBindings]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.ListGcpUserAccessBindings].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListGcpUserAccessBindingsResponse {
     /// [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub gcp_user_access_bindings: std::vec::Vec<crate::model::GcpUserAccessBinding>,
 
     /// Token to get the next page of items. If blank, there are no more items.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub next_page_token: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ListGcpUserAccessBindingsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
-    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.next_page_token = v.into();
-        self
     }
 
     /// Sets the value of [gcp_user_access_bindings][crate::model::ListGcpUserAccessBindingsResponse::gcp_user_access_bindings].
@@ -1325,6 +4148,12 @@ impl ListGcpUserAccessBindingsResponse {
     {
         use std::iter::Iterator;
         self.gcp_user_access_bindings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGcpUserAccessBindingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
         self
     }
 }
@@ -1349,18 +4178,137 @@ impl gax::paginator::internal::PageableResponse for ListGcpUserAccessBindingsRes
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListGcpUserAccessBindingsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gcp_user_access_bindings,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListGcpUserAccessBindingsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gcpUserAccessBindings" => Ok(__FieldTag::__gcp_user_access_bindings),
+                            "gcp_user_access_bindings" => {
+                                Ok(__FieldTag::__gcp_user_access_bindings)
+                            }
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListGcpUserAccessBindingsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListGcpUserAccessBindingsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gcp_user_access_bindings => {
+                            if !fields.insert(__FieldTag::__gcp_user_access_bindings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_user_access_bindings",
+                                ));
+                            }
+                            result.gcp_user_access_bindings = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::GcpUserAccessBinding>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListGcpUserAccessBindingsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.gcp_user_access_bindings.is_empty() {
+            state.serialize_entry("gcpUserAccessBindings", &self.gcp_user_access_bindings)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Request of [GetGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.GetGcpUserAccessBinding].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1382,23 +4330,120 @@ impl wkt::message::Message for GetGcpUserAccessBindingRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetGcpUserAccessBindingRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetGcpUserAccessBindingRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetGcpUserAccessBindingRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetGcpUserAccessBindingRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetGcpUserAccessBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Request of [CreateGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.CreateGcpUserAccessBinding].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gcp_user_access_binding: std::option::Option<crate::model::GcpUserAccessBinding>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1414,13 +4459,20 @@ impl CreateGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
-    pub fn set_gcp_user_access_binding<
-        T: std::convert::Into<std::option::Option<crate::model::GcpUserAccessBinding>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcp_user_access_binding = v.into();
+    pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    {
+        self.gcp_user_access_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    {
+        self.gcp_user_access_binding = v.map(|x| x.into());
         self
     }
 }
@@ -1431,16 +4483,130 @@ impl wkt::message::Message for CreateGcpUserAccessBindingRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateGcpUserAccessBindingRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __gcp_user_access_binding,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateGcpUserAccessBindingRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "gcpUserAccessBinding" => Ok(__FieldTag::__gcp_user_access_binding),
+                            "gcp_user_access_binding" => Ok(__FieldTag::__gcp_user_access_binding),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateGcpUserAccessBindingRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateGcpUserAccessBindingRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__gcp_user_access_binding => {
+                            if !fields.insert(__FieldTag::__gcp_user_access_binding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_user_access_binding",
+                                ));
+                            }
+                            result.gcp_user_access_binding = map.next_value::<std::option::Option<crate::model::GcpUserAccessBinding>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateGcpUserAccessBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.gcp_user_access_binding.is_some() {
+            state.serialize_entry("gcpUserAccessBinding", &self.gcp_user_access_binding)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Request of [UpdateGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.UpdateGcpUserAccessBinding].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UpdateGcpUserAccessBindingRequest {
     /// Required. [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gcp_user_access_binding: std::option::Option<crate::model::GcpUserAccessBinding>,
 
     /// Required. Only the fields specified in this mask are updated. Because name and
@@ -1449,10 +4615,8 @@ pub struct UpdateGcpUserAccessBindingRequest {
     /// update_mask {
     /// paths: "access_levels"
     /// }
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_mask: std::option::Option<wkt::FieldMask>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1462,22 +4626,38 @@ impl UpdateGcpUserAccessBindingRequest {
     }
 
     /// Sets the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
-    pub fn set_gcp_user_access_binding<
-        T: std::convert::Into<std::option::Option<crate::model::GcpUserAccessBinding>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.gcp_user_access_binding = v.into();
+    pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    {
+        self.gcp_user_access_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+    pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+    {
+        self.gcp_user_access_binding = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
-    pub fn set_update_mask<T: std::convert::Into<std::option::Option<wkt::FieldMask>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_mask = v.into();
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
         self
     }
 }
@@ -1488,18 +4668,131 @@ impl wkt::message::Message for UpdateGcpUserAccessBindingRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateGcpUserAccessBindingRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gcp_user_access_binding,
+            __update_mask,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateGcpUserAccessBindingRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gcpUserAccessBinding" => Ok(__FieldTag::__gcp_user_access_binding),
+                            "gcp_user_access_binding" => Ok(__FieldTag::__gcp_user_access_binding),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateGcpUserAccessBindingRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateGcpUserAccessBindingRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gcp_user_access_binding => {
+                            if !fields.insert(__FieldTag::__gcp_user_access_binding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcp_user_access_binding",
+                                ));
+                            }
+                            result.gcp_user_access_binding = map.next_value::<std::option::Option<crate::model::GcpUserAccessBinding>>()?
+                                ;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateGcpUserAccessBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.gcp_user_access_binding.is_some() {
+            state.serialize_entry("gcpUserAccessBinding", &self.gcp_user_access_binding)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Request of [DeleteGcpUserAccessBinding]
 /// [google.identity.accesscontextmanager.v1.AccessContextManager.DeleteGcpUserAccessBinding].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteGcpUserAccessBindingRequest {
     /// Required. Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1521,15 +4814,114 @@ impl wkt::message::Message for DeleteGcpUserAccessBindingRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteGcpUserAccessBindingRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteGcpUserAccessBindingRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteGcpUserAccessBindingRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteGcpUserAccessBindingRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteGcpUserAccessBindingRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Currently, a completed operation means nothing. In the future, this metadata
 /// and a completed operation may indicate that the binding has taken effect and
 /// is affecting access decisions for all users.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpUserAccessBindingOperationMetadata {
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1545,13 +4937,95 @@ impl wkt::message::Message for GcpUserAccessBindingOperationMetadata {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GcpUserAccessBindingOperationMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for GcpUserAccessBindingOperationMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GcpUserAccessBindingOperationMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GcpUserAccessBindingOperationMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GcpUserAccessBindingOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Metadata of Access Context Manager's Long Running Operations.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessContextManagerOperationMetadata {
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1567,42 +5041,118 @@ impl wkt::message::Message for AccessContextManagerOperationMetadata {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AccessContextManagerOperationMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter
+                            .write_str("a field name for AccessContextManagerOperationMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AccessContextManagerOperationMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AccessContextManagerOperationMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AccessContextManagerOperationMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// An `AccessLevel` is a label that can be applied to requests to Google Cloud
 /// services, along with a list of requirements necessary for the label to be
 /// applied.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessLevel {
     /// Required. Resource name for the Access Level. The `short_name` component
     /// must begin with a letter and only include alphanumeric and '_'. Format:
     /// `accessPolicies/{access_policy}/accessLevels/{access_level}`. The maximum
     /// length of the `access_level` component is 50 characters.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Human readable title. Must be unique within the Policy.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub title: std::string::String,
 
     /// Description of the `AccessLevel` and its use. Does not affect behavior.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
     /// Output only. Time the `AccessLevel` was created in UTC.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Time the `AccessLevel` was updated in UTC.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Required. Describes the necessary conditions for the level to apply.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub level: std::option::Option<crate::model::access_level::Level>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1630,20 +5180,38 @@ impl AccessLevel {
     }
 
     /// Sets the value of [create_time][crate::model::AccessLevel::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AccessLevel::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::AccessLevel::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AccessLevel::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -1672,17 +5240,6 @@ impl AccessLevel {
         })
     }
 
-    /// The value of [level][crate::model::AccessLevel::level]
-    /// if it holds a `Custom`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
-        #[allow(unreachable_patterns)]
-        self.level.as_ref().and_then(|v| match v {
-            crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [level][crate::model::AccessLevel::level]
     /// to hold a `Basic`.
     ///
@@ -1694,6 +5251,17 @@ impl AccessLevel {
     ) -> Self {
         self.level = std::option::Option::Some(crate::model::access_level::Level::Basic(v.into()));
         self
+    }
+
+    /// The value of [level][crate::model::AccessLevel::level]
+    /// if it holds a `Custom`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn custom(&self) -> std::option::Option<&std::boxed::Box<crate::model::CustomLevel>> {
+        #[allow(unreachable_patterns)]
+        self.level.as_ref().and_then(|v| match v {
+            crate::model::access_level::Level::Custom(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [level][crate::model::AccessLevel::level]
@@ -1716,14 +5284,225 @@ impl wkt::message::Message for AccessLevel {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AccessLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __title,
+            __description,
+            __basic,
+            __custom,
+            __create_time,
+            __update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AccessLevel")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "title" => Ok(__FieldTag::__title),
+                            "description" => Ok(__FieldTag::__description),
+                            "basic" => Ok(__FieldTag::__basic),
+                            "custom" => Ok(__FieldTag::__custom),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AccessLevel;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AccessLevel")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__title => {
+                            if !fields.insert(__FieldTag::__title) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for title",
+                                ));
+                            }
+                            result.title = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__basic => {
+                            if !fields.insert(__FieldTag::__basic) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for basic",
+                                ));
+                            }
+                            if result.level.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `level`, a oneof with full ID .google.identity.accesscontextmanager.v1.AccessLevel.basic, latest field was basic",
+                                ));
+                            }
+                            result.level = std::option::Option::Some(
+                                crate::model::access_level::Level::Basic(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::BasicLevel>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__custom => {
+                            if !fields.insert(__FieldTag::__custom) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom",
+                                ));
+                            }
+                            if result.level.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `level`, a oneof with full ID .google.identity.accesscontextmanager.v1.AccessLevel.custom, latest field was custom",
+                                ));
+                            }
+                            result.level = std::option::Option::Some(
+                                crate::model::access_level::Level::Custom(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::CustomLevel>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AccessLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.title.is_empty() {
+            state.serialize_entry("title", &self.title)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if let Some(value) = self.basic() {
+            state.serialize_entry("basic", value)?;
+        }
+        if let Some(value) = self.custom() {
+            state.serialize_entry("custom", value)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [AccessLevel].
 pub mod access_level {
     #[allow(unused_imports)]
     use super::*;
 
     /// Required. Describes the necessary conditions for the level to apply.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Level {
         /// A `BasicLevel` composed of `Conditions`.
@@ -1734,13 +5513,10 @@ pub mod access_level {
 }
 
 /// `BasicLevel` is an `AccessLevel` using a set of recommended features.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BasicLevel {
     /// Required. A list of requirements for the `AccessLevel` to be granted.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub conditions: std::vec::Vec<crate::model::Condition>,
 
     /// How the `conditions` list should be combined to determine if a request is
@@ -1750,24 +5526,12 @@ pub struct BasicLevel {
     /// `AccessLevel` to be applied. Default behavior is AND.
     pub combining_function: crate::model::basic_level::ConditionCombiningFunction,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl BasicLevel {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
-    pub fn set_combining_function<
-        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.combining_function = v.into();
-        self
     }
 
     /// Sets the value of [conditions][crate::model::BasicLevel::conditions].
@@ -1780,11 +5544,140 @@ impl BasicLevel {
         self.conditions = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [combining_function][crate::model::BasicLevel::combining_function].
+    pub fn set_combining_function<
+        T: std::convert::Into<crate::model::basic_level::ConditionCombiningFunction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.combining_function = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for BasicLevel {
     fn typename() -> &'static str {
         "type.googleapis.com/google.identity.accesscontextmanager.v1.BasicLevel"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BasicLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __conditions,
+            __combining_function,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BasicLevel")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "conditions" => Ok(__FieldTag::__conditions),
+                            "combiningFunction" => Ok(__FieldTag::__combining_function),
+                            "combining_function" => Ok(__FieldTag::__combining_function),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BasicLevel;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BasicLevel")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__conditions => {
+                            if !fields.insert(__FieldTag::__conditions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conditions",
+                                ));
+                            }
+                            result.conditions = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Condition>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__combining_function => {
+                            if !fields.insert(__FieldTag::__combining_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for combining_function",
+                                ));
+                            }
+                            result.combining_function = map
+                                .next_value::<std::option::Option<
+                                    crate::model::basic_level::ConditionCombiningFunction,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BasicLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.conditions.is_empty() {
+            state.serialize_entry("conditions", &self.conditions)?;
+        }
+        if !wkt::internal::is_default(&self.combining_function) {
+            state.serialize_entry("combiningFunction", &self.combining_function)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -1924,9 +5817,7 @@ pub mod basic_level {
 /// of the listed subnetworks AND 2) the originating device complies with the
 /// listed device policy AND 3) all listed access levels are granted AND 4) the
 /// request was sent at a time allowed by the DateTimeRestriction.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Condition {
     /// CIDR block IP subnetwork specification. May be IPv4 or IPv6. Note that for
@@ -1937,12 +5828,10 @@ pub struct Condition {
     /// "2001:db8::1/32" is not. The originating IP of a request must be in one of
     /// the listed subnets in order for this Condition to be true. If empty, all IP
     /// addresses are allowed.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ip_subnetworks: std::vec::Vec<std::string::String>,
 
     /// Device specific restrictions, all restrictions must hold for the
     /// Condition to be true. If not specified, all devices are allowed.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub device_policy: std::option::Option<crate::model::DevicePolicy>,
 
     /// A list of other access levels defined in the same `Policy`, referenced by
@@ -1950,13 +5839,11 @@ pub struct Condition {
     /// error. All access levels listed must be granted for the Condition
     /// to be true. Example:
     /// "`accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub required_access_levels: std::vec::Vec<std::string::String>,
 
     /// Whether to negate the Condition. If true, the Condition becomes a NAND over
     /// its non-empty fields, each field must be false for the Condition overall to
     /// be satisfied. Defaults to false.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub negate: bool,
 
     /// The request must be made by one of the provided user or service
@@ -1965,38 +5852,18 @@ pub struct Condition {
     /// `user:{emailid}`
     /// `serviceAccount:{emailid}`
     /// If not specified, a request may come from any user.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub members: std::vec::Vec<std::string::String>,
 
     /// The request must originate from one of the provided countries/regions.
     /// Must be valid ISO 3166-1 alpha-2 codes.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub regions: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl Condition {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [device_policy][crate::model::Condition::device_policy].
-    pub fn set_device_policy<
-        T: std::convert::Into<std::option::Option<crate::model::DevicePolicy>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.device_policy = v.into();
-        self
-    }
-
-    /// Sets the value of [negate][crate::model::Condition::negate].
-    pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.negate = v.into();
-        self
     }
 
     /// Sets the value of [ip_subnetworks][crate::model::Condition::ip_subnetworks].
@@ -2010,6 +5877,24 @@ impl Condition {
         self
     }
 
+    /// Sets the value of [device_policy][crate::model::Condition::device_policy].
+    pub fn set_device_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DevicePolicy>,
+    {
+        self.device_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [device_policy][crate::model::Condition::device_policy].
+    pub fn set_or_clear_device_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DevicePolicy>,
+    {
+        self.device_policy = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [required_access_levels][crate::model::Condition::required_access_levels].
     pub fn set_required_access_levels<T, V>(mut self, v: T) -> Self
     where
@@ -2018,6 +5903,12 @@ impl Condition {
     {
         use std::iter::Iterator;
         self.required_access_levels = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [negate][crate::model::Condition::negate].
+    pub fn set_negate<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.negate = v.into();
         self
     }
 
@@ -2050,19 +5941,186 @@ impl wkt::message::Message for Condition {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Condition {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ip_subnetworks,
+            __device_policy,
+            __required_access_levels,
+            __negate,
+            __members,
+            __regions,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Condition")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ipSubnetworks" => Ok(__FieldTag::__ip_subnetworks),
+                            "ip_subnetworks" => Ok(__FieldTag::__ip_subnetworks),
+                            "devicePolicy" => Ok(__FieldTag::__device_policy),
+                            "device_policy" => Ok(__FieldTag::__device_policy),
+                            "requiredAccessLevels" => Ok(__FieldTag::__required_access_levels),
+                            "required_access_levels" => Ok(__FieldTag::__required_access_levels),
+                            "negate" => Ok(__FieldTag::__negate),
+                            "members" => Ok(__FieldTag::__members),
+                            "regions" => Ok(__FieldTag::__regions),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Condition;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Condition")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ip_subnetworks => {
+                            if !fields.insert(__FieldTag::__ip_subnetworks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_subnetworks",
+                                ));
+                            }
+                            result.ip_subnetworks = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__device_policy => {
+                            if !fields.insert(__FieldTag::__device_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for device_policy",
+                                ));
+                            }
+                            result.device_policy = map
+                                .next_value::<std::option::Option<crate::model::DevicePolicy>>()?;
+                        }
+                        __FieldTag::__required_access_levels => {
+                            if !fields.insert(__FieldTag::__required_access_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for required_access_levels",
+                                ));
+                            }
+                            result.required_access_levels = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__negate => {
+                            if !fields.insert(__FieldTag::__negate) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for negate",
+                                ));
+                            }
+                            result.negate = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__members => {
+                            if !fields.insert(__FieldTag::__members) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for members",
+                                ));
+                            }
+                            result.members = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__regions => {
+                            if !fields.insert(__FieldTag::__regions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for regions",
+                                ));
+                            }
+                            result.regions = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Condition {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.ip_subnetworks.is_empty() {
+            state.serialize_entry("ipSubnetworks", &self.ip_subnetworks)?;
+        }
+        if self.device_policy.is_some() {
+            state.serialize_entry("devicePolicy", &self.device_policy)?;
+        }
+        if !self.required_access_levels.is_empty() {
+            state.serialize_entry("requiredAccessLevels", &self.required_access_levels)?;
+        }
+        if !wkt::internal::is_default(&self.negate) {
+            state.serialize_entry("negate", &self.negate)?;
+        }
+        if !self.members.is_empty() {
+            state.serialize_entry("members", &self.members)?;
+        }
+        if !self.regions.is_empty() {
+            state.serialize_entry("regions", &self.regions)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// `CustomLevel` is an `AccessLevel` using the Cloud Common Expression Language
 /// to represent the necessary conditions for the level to apply to a request.
 /// See CEL spec at: <https://github.com/google/cel-spec>
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CustomLevel {
     /// Required. A Cloud CEL expression evaluating to a boolean.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub expr: std::option::Option<gtype::model::Expr>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2072,11 +6130,20 @@ impl CustomLevel {
     }
 
     /// Sets the value of [expr][crate::model::CustomLevel::expr].
-    pub fn set_expr<T: std::convert::Into<std::option::Option<gtype::model::Expr>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.expr = v.into();
+    pub fn set_expr<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.expr = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expr][crate::model::CustomLevel::expr].
+    pub fn set_or_clear_expr<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<gtype::model::Expr>,
+    {
+        self.expr = v.map(|x| x.into());
         self
     }
 }
@@ -2084,6 +6151,107 @@ impl CustomLevel {
 impl wkt::message::Message for CustomLevel {
     fn typename() -> &'static str {
         "type.googleapis.com/google.identity.accesscontextmanager.v1.CustomLevel"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CustomLevel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __expr,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomLevel")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "expr" => Ok(__FieldTag::__expr),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CustomLevel;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomLevel")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__expr => {
+                            if !fields.insert(__FieldTag::__expr) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for expr",
+                                ));
+                            }
+                            result.expr =
+                                map.next_value::<std::option::Option<gtype::model::Expr>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CustomLevel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.expr.is_some() {
+            state.serialize_entry("expr", &self.expr)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -2096,40 +6264,31 @@ impl wkt::message::Message for CustomLevel {
 /// DESKTOP_LINUX, encryption_status: ENCRYPTED}, then the DevicePolicy will be
 /// true for requests originating from encrypted Linux desktops and encrypted
 /// Windows desktops.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DevicePolicy {
     /// Whether or not screenlock is required for the DevicePolicy to be true.
     /// Defaults to `false`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_screenlock: bool,
 
     /// Allowed encryptions statuses, an empty list allows all statuses.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_encryption_statuses:
         std::vec::Vec<accesscontextmanager_type::model::DeviceEncryptionStatus>,
 
     /// Allowed OS versions, an empty list allows all types and all versions.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub os_constraints: std::vec::Vec<crate::model::OsConstraint>,
 
     /// Allowed device management levels, an empty list allows all management
     /// levels.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub allowed_device_management_levels:
         std::vec::Vec<accesscontextmanager_type::model::DeviceManagementLevel>,
 
     /// Whether the device needs to be approved by the customer admin.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_admin_approval: bool,
 
     /// Whether the device needs to be corp owned.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_corp_owned: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2141,18 +6300,6 @@ impl DevicePolicy {
     /// Sets the value of [require_screenlock][crate::model::DevicePolicy::require_screenlock].
     pub fn set_require_screenlock<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.require_screenlock = v.into();
-        self
-    }
-
-    /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
-    pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_admin_approval = v.into();
-        self
-    }
-
-    /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
-    pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
-        self.require_corp_owned = v.into();
         self
     }
 
@@ -2188,6 +6335,18 @@ impl DevicePolicy {
         self.allowed_device_management_levels = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [require_admin_approval][crate::model::DevicePolicy::require_admin_approval].
+    pub fn set_require_admin_approval<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_admin_approval = v.into();
+        self
+    }
+
+    /// Sets the value of [require_corp_owned][crate::model::DevicePolicy::require_corp_owned].
+    pub fn set_require_corp_owned<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.require_corp_owned = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for DevicePolicy {
@@ -2196,10 +6355,211 @@ impl wkt::message::Message for DevicePolicy {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DevicePolicy {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __require_screenlock,
+            __allowed_encryption_statuses,
+            __os_constraints,
+            __allowed_device_management_levels,
+            __require_admin_approval,
+            __require_corp_owned,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DevicePolicy")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requireScreenlock" => Ok(__FieldTag::__require_screenlock),
+                            "require_screenlock" => Ok(__FieldTag::__require_screenlock),
+                            "allowedEncryptionStatuses" => {
+                                Ok(__FieldTag::__allowed_encryption_statuses)
+                            }
+                            "allowed_encryption_statuses" => {
+                                Ok(__FieldTag::__allowed_encryption_statuses)
+                            }
+                            "osConstraints" => Ok(__FieldTag::__os_constraints),
+                            "os_constraints" => Ok(__FieldTag::__os_constraints),
+                            "allowedDeviceManagementLevels" => {
+                                Ok(__FieldTag::__allowed_device_management_levels)
+                            }
+                            "allowed_device_management_levels" => {
+                                Ok(__FieldTag::__allowed_device_management_levels)
+                            }
+                            "requireAdminApproval" => Ok(__FieldTag::__require_admin_approval),
+                            "require_admin_approval" => Ok(__FieldTag::__require_admin_approval),
+                            "requireCorpOwned" => Ok(__FieldTag::__require_corp_owned),
+                            "require_corp_owned" => Ok(__FieldTag::__require_corp_owned),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DevicePolicy;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DevicePolicy")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__require_screenlock => {
+                            if !fields.insert(__FieldTag::__require_screenlock) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for require_screenlock",
+                                ));
+                            }
+                            result.require_screenlock = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__allowed_encryption_statuses => {
+                            if !fields.insert(__FieldTag::__allowed_encryption_statuses) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_encryption_statuses",
+                                ));
+                            }
+                            result.allowed_encryption_statuses = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        accesscontextmanager_type::model::DeviceEncryptionStatus,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__os_constraints => {
+                            if !fields.insert(__FieldTag::__os_constraints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for os_constraints",
+                                ));
+                            }
+                            result.os_constraints = map.next_value::<std::option::Option<std::vec::Vec<crate::model::OsConstraint>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__allowed_device_management_levels => {
+                            if !fields.insert(__FieldTag::__allowed_device_management_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_device_management_levels",
+                                ));
+                            }
+                            result.allowed_device_management_levels = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        accesscontextmanager_type::model::DeviceManagementLevel,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__require_admin_approval => {
+                            if !fields.insert(__FieldTag::__require_admin_approval) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for require_admin_approval",
+                                ));
+                            }
+                            result.require_admin_approval = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__require_corp_owned => {
+                            if !fields.insert(__FieldTag::__require_corp_owned) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for require_corp_owned",
+                                ));
+                            }
+                            result.require_corp_owned = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DevicePolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.require_screenlock) {
+            state.serialize_entry("requireScreenlock", &self.require_screenlock)?;
+        }
+        if !self.allowed_encryption_statuses.is_empty() {
+            state.serialize_entry(
+                "allowedEncryptionStatuses",
+                &self.allowed_encryption_statuses,
+            )?;
+        }
+        if !self.os_constraints.is_empty() {
+            state.serialize_entry("osConstraints", &self.os_constraints)?;
+        }
+        if !self.allowed_device_management_levels.is_empty() {
+            state.serialize_entry(
+                "allowedDeviceManagementLevels",
+                &self.allowed_device_management_levels,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.require_admin_approval) {
+            state.serialize_entry("requireAdminApproval", &self.require_admin_approval)?;
+        }
+        if !wkt::internal::is_default(&self.require_corp_owned) {
+            state.serialize_entry("requireCorpOwned", &self.require_corp_owned)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A restriction on the OS type and version of devices making requests.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OsConstraint {
     /// Required. The allowed OS type.
@@ -2208,17 +6568,14 @@ pub struct OsConstraint {
     /// The minimum allowed OS version. If not set, any version of this OS
     /// satisfies the constraint. Format: `"major.minor.patch"`.
     /// Examples: `"10.5.301"`, `"9.2.1"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub minimum_version: std::string::String,
 
     /// Only allows requests from devices with a verified Chrome OS.
     /// Verifications includes requirements that the device is enterprise-managed,
     /// conformant to domain policies, and the caller has permission to call
     /// the API targeted by the request.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub require_verified_chrome_os: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2255,29 +6612,161 @@ impl wkt::message::Message for OsConstraint {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OsConstraint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __os_type,
+            __minimum_version,
+            __require_verified_chrome_os,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OsConstraint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "osType" => Ok(__FieldTag::__os_type),
+                            "os_type" => Ok(__FieldTag::__os_type),
+                            "minimumVersion" => Ok(__FieldTag::__minimum_version),
+                            "minimum_version" => Ok(__FieldTag::__minimum_version),
+                            "requireVerifiedChromeOs" => {
+                                Ok(__FieldTag::__require_verified_chrome_os)
+                            }
+                            "require_verified_chrome_os" => {
+                                Ok(__FieldTag::__require_verified_chrome_os)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OsConstraint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OsConstraint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__os_type => {
+                            if !fields.insert(__FieldTag::__os_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for os_type",
+                                ));
+                            }
+                            result.os_type = map.next_value::<std::option::Option<accesscontextmanager_type::model::OsType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__minimum_version => {
+                            if !fields.insert(__FieldTag::__minimum_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for minimum_version",
+                                ));
+                            }
+                            result.minimum_version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__require_verified_chrome_os => {
+                            if !fields.insert(__FieldTag::__require_verified_chrome_os) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for require_verified_chrome_os",
+                                ));
+                            }
+                            result.require_verified_chrome_os = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OsConstraint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.os_type) {
+            state.serialize_entry("osType", &self.os_type)?;
+        }
+        if !self.minimum_version.is_empty() {
+            state.serialize_entry("minimumVersion", &self.minimum_version)?;
+        }
+        if !wkt::internal::is_default(&self.require_verified_chrome_os) {
+            state.serialize_entry("requireVerifiedChromeOs", &self.require_verified_chrome_os)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// `AccessPolicy` is a container for `AccessLevels` (which define the necessary
 /// attributes to use Google Cloud services) and `ServicePerimeters` (which
 /// define regions of services able to freely pass data within a perimeter). An
 /// access policy is globally visible within an organization, and the
 /// restrictions it specifies apply to all projects within an organization.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AccessPolicy {
     /// Output only. Resource name of the `AccessPolicy`. Format:
     /// `accessPolicies/{access_policy}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Required. The parent of this `AccessPolicy` in the Cloud Resource
     /// Hierarchy. Currently immutable once created. Format:
     /// `organizations/{organization_id}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub parent: std::string::String,
 
     /// Required. Human readable title. Does not affect behavior.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub title: std::string::String,
 
     /// The scopes of a policy define which resources an ACM policy can restrict,
@@ -2295,25 +6784,20 @@ pub struct AccessPolicy {
     ///   Currently, scopes cannot be modified after a policy is created.
     ///   Currently, policies can only have a single scope.
     ///   Format: list of `folders/{folder_number}` or `projects/{project_number}`
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub scopes: std::vec::Vec<std::string::String>,
 
     /// Output only. Time the `AccessPolicy` was created in UTC.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Time the `AccessPolicy` was updated in UTC.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. An opaque identifier for the current version of the
     /// `AccessPolicy`. This will always be a strongly validated etag, meaning that
     /// two Access Polices will be identical if and only if their etags are
     /// identical. Clients should not expect this to be in any specific format.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub etag: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2340,30 +6824,6 @@ impl AccessPolicy {
         self
     }
 
-    /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
-        self
-    }
-
-    /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
-        self
-    }
-
-    /// Sets the value of [etag][crate::model::AccessPolicy::etag].
-    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.etag = v.into();
-        self
-    }
-
     /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
     pub fn set_scopes<T, V>(mut self, v: T) -> Self
     where
@@ -2374,6 +6834,48 @@ impl AccessPolicy {
         self.scopes = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AccessPolicy::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AccessPolicy::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::AccessPolicy::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for AccessPolicy {
@@ -2382,11 +6884,199 @@ impl wkt::message::Message for AccessPolicy {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AccessPolicy {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __parent,
+            __title,
+            __scopes,
+            __create_time,
+            __update_time,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AccessPolicy")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "parent" => Ok(__FieldTag::__parent),
+                            "title" => Ok(__FieldTag::__title),
+                            "scopes" => Ok(__FieldTag::__scopes),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AccessPolicy;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AccessPolicy")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__title => {
+                            if !fields.insert(__FieldTag::__title) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for title",
+                                ));
+                            }
+                            result.title = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__scopes => {
+                            if !fields.insert(__FieldTag::__scopes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for scopes",
+                                ));
+                            }
+                            result.scopes = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AccessPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.title.is_empty() {
+            state.serialize_entry("title", &self.title)?;
+        }
+        if !self.scopes.is_empty() {
+            state.serialize_entry("scopes", &self.scopes)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Restricts access to Cloud Console and Google Cloud APIs for a set of users
 /// using Context-Aware Access.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcpUserAccessBinding {
     /// Immutable. Assigned by the server during creation. The last segment has an arbitrary
@@ -2394,7 +7084,6 @@ pub struct GcpUserAccessBinding {
     /// [RFC 3986 Section 2.3](https://tools.ietf.org/html/rfc3986#section-2.3)).
     /// Should not be specified by the client during creation.
     /// Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Required. Immutable. Google Group id whose members are subject to this binding's restrictions.
@@ -2404,17 +7093,14 @@ pub struct GcpUserAccessBinding {
     /// to point at the changed group. This field does not accept group email
     /// addresses or aliases.
     /// Example: "01d520gv4vjcrht"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub group_key: std::string::String,
 
     /// Required. Access level that a user must have to be granted access. Only one access
     /// level is supported, not multiple. This repeated field must have exactly
     /// one element.
     /// Example: "accessPolicies/9522/accessLevels/device_trusted"
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2453,6 +7139,138 @@ impl wkt::message::Message for GcpUserAccessBinding {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GcpUserAccessBinding {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __group_key,
+            __access_levels,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GcpUserAccessBinding")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "groupKey" => Ok(__FieldTag::__group_key),
+                            "group_key" => Ok(__FieldTag::__group_key),
+                            "accessLevels" => Ok(__FieldTag::__access_levels),
+                            "access_levels" => Ok(__FieldTag::__access_levels),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GcpUserAccessBinding;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GcpUserAccessBinding")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__group_key => {
+                            if !fields.insert(__FieldTag::__group_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for group_key",
+                                ));
+                            }
+                            result.group_key = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__access_levels => {
+                            if !fields.insert(__FieldTag::__access_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_levels",
+                                ));
+                            }
+                            result.access_levels = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GcpUserAccessBinding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.group_key.is_empty() {
+            state.serialize_entry("groupKey", &self.group_key)?;
+        }
+        if !self.access_levels.is_empty() {
+            state.serialize_entry("accessLevels", &self.access_levels)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// `ServicePerimeter` describes a set of Google Cloud resources which can freely
 /// import and export data amongst themselves, but not export outside of the
 /// `ServicePerimeter`. If a request with a source within this `ServicePerimeter`
@@ -2463,33 +7281,26 @@ impl wkt::message::Message for GcpUserAccessBinding {
 /// Service Perimeter Bridges can contain only Google Cloud projects as members,
 /// a single Google Cloud project may belong to multiple Service Perimeter
 /// Bridges.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServicePerimeter {
     /// Required. Resource name for the ServicePerimeter.  The `short_name`
     /// component must begin with a letter and only include alphanumeric and '_'.
     /// Format:
     /// `accessPolicies/{access_policy}/servicePerimeters/{service_perimeter}`
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub name: std::string::String,
 
     /// Human readable title. Must be unique within the Policy.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub title: std::string::String,
 
     /// Description of the `ServicePerimeter` and its use. Does not affect
     /// behavior.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub description: std::string::String,
 
     /// Output only. Time the `ServicePerimeter` was created in UTC.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Time the `ServicePerimeter` was updated in UTC.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Perimeter type indicator. A single project is
@@ -2503,14 +7314,12 @@ pub struct ServicePerimeter {
     /// Current ServicePerimeter configuration. Specifies sets of resources,
     /// restricted services and access levels that determine perimeter
     /// content and boundaries.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub status: std::option::Option<crate::model::ServicePerimeterConfig>,
 
     /// Proposed (or dry run) ServicePerimeter configuration. This configuration
     /// allows to specify and test ServicePerimeter configuration without enforcing
     /// actual access restrictions. Only allowed to be set when the
     /// "use_explicit_dry_run_spec" flag is set.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub spec: std::option::Option<crate::model::ServicePerimeterConfig>,
 
     /// Use explicit dry run spec flag. Ordinarily, a dry-run spec implicitly
@@ -2523,10 +7332,8 @@ pub struct ServicePerimeter {
     /// analyzing the differences between currently enforced and suggested
     /// restrictions. use_explicit_dry_run_spec must bet set to True if any of the
     /// fields in the spec are set to non-default values.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub use_explicit_dry_run_spec: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2554,20 +7361,38 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [create_time][crate::model::ServicePerimeter::create_time].
-    pub fn set_create_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.create_time = v.into();
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ServicePerimeter::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [update_time][crate::model::ServicePerimeter::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ServicePerimeter::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -2583,24 +7408,38 @@ impl ServicePerimeter {
     }
 
     /// Sets the value of [status][crate::model::ServicePerimeter::status].
-    pub fn set_status<
-        T: std::convert::Into<std::option::Option<crate::model::ServicePerimeterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.status = v.into();
+    pub fn set_status<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    {
+        self.status = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [status][crate::model::ServicePerimeter::status].
+    pub fn set_or_clear_status<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    {
+        self.status = v.map(|x| x.into());
         self
     }
 
     /// Sets the value of [spec][crate::model::ServicePerimeter::spec].
-    pub fn set_spec<
-        T: std::convert::Into<std::option::Option<crate::model::ServicePerimeterConfig>>,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.spec = v.into();
+    pub fn set_spec<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    {
+        self.spec = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [spec][crate::model::ServicePerimeter::spec].
+    pub fn set_or_clear_spec<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServicePerimeterConfig>,
+    {
+        self.spec = v.map(|x| x.into());
         self
     }
 
@@ -2614,6 +7453,232 @@ impl ServicePerimeter {
 impl wkt::message::Message for ServicePerimeter {
     fn typename() -> &'static str {
         "type.googleapis.com/google.identity.accesscontextmanager.v1.ServicePerimeter"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ServicePerimeter {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __title,
+            __description,
+            __create_time,
+            __update_time,
+            __perimeter_type,
+            __status,
+            __spec,
+            __use_explicit_dry_run_spec,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ServicePerimeter")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "title" => Ok(__FieldTag::__title),
+                            "description" => Ok(__FieldTag::__description),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "perimeterType" => Ok(__FieldTag::__perimeter_type),
+                            "perimeter_type" => Ok(__FieldTag::__perimeter_type),
+                            "status" => Ok(__FieldTag::__status),
+                            "spec" => Ok(__FieldTag::__spec),
+                            "useExplicitDryRunSpec" => Ok(__FieldTag::__use_explicit_dry_run_spec),
+                            "use_explicit_dry_run_spec" => {
+                                Ok(__FieldTag::__use_explicit_dry_run_spec)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ServicePerimeter;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ServicePerimeter")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__title => {
+                            if !fields.insert(__FieldTag::__title) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for title",
+                                ));
+                            }
+                            result.title = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__perimeter_type => {
+                            if !fields.insert(__FieldTag::__perimeter_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for perimeter_type",
+                                ));
+                            }
+                            result.perimeter_type =
+                                map.next_value::<std::option::Option<
+                                    crate::model::service_perimeter::PerimeterType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__status => {
+                            if !fields.insert(__FieldTag::__status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for status",
+                                ));
+                            }
+                            result.status = map.next_value::<std::option::Option<crate::model::ServicePerimeterConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__spec => {
+                            if !fields.insert(__FieldTag::__spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for spec",
+                                ));
+                            }
+                            result.spec = map.next_value::<std::option::Option<crate::model::ServicePerimeterConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__use_explicit_dry_run_spec => {
+                            if !fields.insert(__FieldTag::__use_explicit_dry_run_spec) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_explicit_dry_run_spec",
+                                ));
+                            }
+                            result.use_explicit_dry_run_spec = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ServicePerimeter {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.title.is_empty() {
+            state.serialize_entry("title", &self.title)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !wkt::internal::is_default(&self.perimeter_type) {
+            state.serialize_entry("perimeterType", &self.perimeter_type)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if self.spec.is_some() {
+            state.serialize_entry("spec", &self.spec)?;
+        }
+        if !wkt::internal::is_default(&self.use_explicit_dry_run_spec) {
+            state.serialize_entry("useExplicitDryRunSpec", &self.use_explicit_dry_run_spec)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -2764,14 +7829,11 @@ pub mod service_perimeter {
 
 /// `ServicePerimeterConfig` specifies a set of Google Cloud resources that
 /// describe specific Service Perimeter configuration.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServicePerimeterConfig {
     /// A list of Google Cloud resources that are inside of the service perimeter.
     /// Currently only projects are allowed. Format: `projects/{project_number}`
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub resources: std::vec::Vec<std::string::String>,
 
     /// A list of `AccessLevel` resource names that allow resources within the
@@ -2782,18 +7844,15 @@ pub struct ServicePerimeterConfig {
     /// Cloud calls with request origins within the perimeter. Example:
     /// `"accessPolicies/MY_POLICY/accessLevels/MY_LEVEL"`.
     /// For Service Perimeter Bridge, must be empty.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub access_levels: std::vec::Vec<std::string::String>,
 
     /// Google Cloud services that are subject to the Service Perimeter
     /// restrictions. For example, if `storage.googleapis.com` is specified, access
     /// to the storage buckets inside the perimeter must meet the perimeter's
     /// access restrictions.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub restricted_services: std::vec::Vec<std::string::String>,
 
     /// Configuration for APIs allowed within Perimeter.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vpc_accessible_services:
         std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
 
@@ -2805,7 +7864,6 @@ pub struct ServicePerimeterConfig {
     /// Policy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// grants it. Must be empty for a perimeter bridge.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub ingress_policies: std::vec::Vec<crate::model::service_perimeter_config::IngressPolicy>,
 
     /// List of [EgressPolicies]
@@ -2816,29 +7874,14 @@ pub struct ServicePerimeterConfig {
     /// [EgressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
     /// grants it. Must be empty for a perimeter bridge.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     pub egress_policies: std::vec::Vec<crate::model::service_perimeter_config::EgressPolicy>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
 impl ServicePerimeterConfig {
     pub fn new() -> Self {
         std::default::Default::default()
-    }
-
-    /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
-    pub fn set_vpc_accessible_services<
-        T: std::convert::Into<
-                std::option::Option<crate::model::service_perimeter_config::VpcAccessibleServices>,
-            >,
-    >(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.vpc_accessible_services = v.into();
-        self
     }
 
     /// Sets the value of [resources][crate::model::ServicePerimeterConfig::resources].
@@ -2874,6 +7917,24 @@ impl ServicePerimeterConfig {
         self
     }
 
+    /// Sets the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    pub fn set_vpc_accessible_services<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
+    {
+        self.vpc_accessible_services = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vpc_accessible_services][crate::model::ServicePerimeterConfig::vpc_accessible_services].
+    pub fn set_or_clear_vpc_accessible_services<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::service_perimeter_config::VpcAccessibleServices>,
+    {
+        self.vpc_accessible_services = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [ingress_policies][crate::model::ServicePerimeterConfig::ingress_policies].
     pub fn set_ingress_policies<T, V>(mut self, v: T) -> Self
     where
@@ -2903,6 +7964,190 @@ impl wkt::message::Message for ServicePerimeterConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ServicePerimeterConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __resources,
+            __access_levels,
+            __restricted_services,
+            __vpc_accessible_services,
+            __ingress_policies,
+            __egress_policies,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ServicePerimeterConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "resources" => Ok(__FieldTag::__resources),
+                            "accessLevels" => Ok(__FieldTag::__access_levels),
+                            "access_levels" => Ok(__FieldTag::__access_levels),
+                            "restrictedServices" => Ok(__FieldTag::__restricted_services),
+                            "restricted_services" => Ok(__FieldTag::__restricted_services),
+                            "vpcAccessibleServices" => Ok(__FieldTag::__vpc_accessible_services),
+                            "vpc_accessible_services" => Ok(__FieldTag::__vpc_accessible_services),
+                            "ingressPolicies" => Ok(__FieldTag::__ingress_policies),
+                            "ingress_policies" => Ok(__FieldTag::__ingress_policies),
+                            "egressPolicies" => Ok(__FieldTag::__egress_policies),
+                            "egress_policies" => Ok(__FieldTag::__egress_policies),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ServicePerimeterConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ServicePerimeterConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__resources => {
+                            if !fields.insert(__FieldTag::__resources) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resources",
+                                ));
+                            }
+                            result.resources = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__access_levels => {
+                            if !fields.insert(__FieldTag::__access_levels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for access_levels",
+                                ));
+                            }
+                            result.access_levels = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__restricted_services => {
+                            if !fields.insert(__FieldTag::__restricted_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for restricted_services",
+                                ));
+                            }
+                            result.restricted_services = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__vpc_accessible_services => {
+                            if !fields.insert(__FieldTag::__vpc_accessible_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vpc_accessible_services",
+                                ));
+                            }
+                            result.vpc_accessible_services = map.next_value::<std::option::Option<
+                                crate::model::service_perimeter_config::VpcAccessibleServices,
+                            >>()?;
+                        }
+                        __FieldTag::__ingress_policies => {
+                            if !fields.insert(__FieldTag::__ingress_policies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ingress_policies",
+                                ));
+                            }
+                            result.ingress_policies = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::service_perimeter_config::IngressPolicy,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__egress_policies => {
+                            if !fields.insert(__FieldTag::__egress_policies) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for egress_policies",
+                                ));
+                            }
+                            result.egress_policies = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::service_perimeter_config::EgressPolicy,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ServicePerimeterConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resources.is_empty() {
+            state.serialize_entry("resources", &self.resources)?;
+        }
+        if !self.access_levels.is_empty() {
+            state.serialize_entry("accessLevels", &self.access_levels)?;
+        }
+        if !self.restricted_services.is_empty() {
+            state.serialize_entry("restrictedServices", &self.restricted_services)?;
+        }
+        if self.vpc_accessible_services.is_some() {
+            state.serialize_entry("vpcAccessibleServices", &self.vpc_accessible_services)?;
+        }
+        if !self.ingress_policies.is_empty() {
+            state.serialize_entry("ingressPolicies", &self.ingress_policies)?;
+        }
+        if !self.egress_policies.is_empty() {
+            state.serialize_entry("egressPolicies", &self.egress_policies)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ServicePerimeterConfig].
 pub mod service_perimeter_config {
     #[allow(unused_imports)]
@@ -2910,24 +8155,19 @@ pub mod service_perimeter_config {
 
     /// Specifies how APIs are allowed to communicate within the Service
     /// Perimeter.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VpcAccessibleServices {
         /// Whether to restrict API calls within the Service Perimeter to the list of
         /// APIs specified in 'allowed_services'.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enable_restriction: bool,
 
         /// The list of APIs usable within the Service Perimeter. Must be empty
         /// unless 'enable_restriction' is True. You can specify a list of individual
         /// services, as well as include the 'RESTRICTED-SERVICES' value, which
         /// automatically includes all of the services protected by the perimeter.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub allowed_services: std::vec::Vec<std::string::String>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2960,19 +8200,135 @@ pub mod service_perimeter_config {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for VpcAccessibleServices {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __enable_restriction,
+                __allowed_services,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for VpcAccessibleServices")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "enableRestriction" => Ok(__FieldTag::__enable_restriction),
+                                "enable_restriction" => Ok(__FieldTag::__enable_restriction),
+                                "allowedServices" => Ok(__FieldTag::__allowed_services),
+                                "allowed_services" => Ok(__FieldTag::__allowed_services),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VpcAccessibleServices;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct VpcAccessibleServices")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__enable_restriction => {
+                                if !fields.insert(__FieldTag::__enable_restriction) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enable_restriction",
+                                    ));
+                                }
+                                result.enable_restriction = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__allowed_services => {
+                                if !fields.insert(__FieldTag::__allowed_services) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for allowed_services",
+                                    ));
+                                }
+                                result.allowed_services = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for VpcAccessibleServices {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.enable_restriction) {
+                state.serialize_entry("enableRestriction", &self.enable_restriction)?;
+            }
+            if !self.allowed_services.is_empty() {
+                state.serialize_entry("allowedServices", &self.allowed_services)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// An allowed method or permission of a service specified in [ApiOperation]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.ApiOperation].
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct MethodSelector {
         /// The API method name or Cloud IAM permission name to allow.
-        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub kind:
             std::option::Option<crate::model::service_perimeter_config::method_selector::Kind>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3012,6 +8368,18 @@ pub mod service_perimeter_config {
             })
         }
 
+        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
+        /// to hold a `Method`.
+        ///
+        /// Note that all the setters affecting `kind` are
+        /// mutually exclusive.
+        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.kind = std::option::Option::Some(
+                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
+            );
+            self
+        }
+
         /// The value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
         /// if it holds a `Permission`, `None` if the field is not set or
         /// holds a different branch.
@@ -3023,18 +8391,6 @@ pub mod service_perimeter_config {
                 }
                 _ => std::option::Option::None,
             })
-        }
-
-        /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
-        /// to hold a `Method`.
-        ///
-        /// Note that all the setters affecting `kind` are
-        /// mutually exclusive.
-        pub fn set_method<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-            self.kind = std::option::Option::Some(
-                crate::model::service_perimeter_config::method_selector::Kind::Method(v.into()),
-            );
-            self
         }
 
         /// Sets the value of [kind][crate::model::service_perimeter_config::MethodSelector::kind]
@@ -3056,14 +8412,147 @@ pub mod service_perimeter_config {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for MethodSelector {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __method,
+                __permission,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for MethodSelector")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "method" => Ok(__FieldTag::__method),
+                                "permission" => Ok(__FieldTag::__permission),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = MethodSelector;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct MethodSelector")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__method => {
+                                if !fields.insert(__FieldTag::__method) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for method",
+                                    ));
+                                }
+                                if result.kind.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `kind`, a oneof with full ID .google.identity.accesscontextmanager.v1.ServicePerimeterConfig.MethodSelector.method, latest field was method",
+                                    ));
+                                }
+                                result.kind = std::option::Option::Some(
+                                    crate::model::service_perimeter_config::method_selector::Kind::Method(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__permission => {
+                                if !fields.insert(__FieldTag::__permission) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for permission",
+                                    ));
+                                }
+                                if result.kind.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `kind`, a oneof with full ID .google.identity.accesscontextmanager.v1.ServicePerimeterConfig.MethodSelector.permission, latest field was permission",
+                                    ));
+                                }
+                                result.kind = std::option::Option::Some(
+                                    crate::model::service_perimeter_config::method_selector::Kind::Permission(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for MethodSelector {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if let Some(value) = self.method() {
+                state.serialize_entry("method", value)?;
+            }
+            if let Some(value) = self.permission() {
+                state.serialize_entry("permission", value)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Defines additional types related to [MethodSelector].
     pub mod method_selector {
         #[allow(unused_imports)]
         use super::*;
 
         /// The API method name or Cloud IAM permission name to allow.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(rename_all = "camelCase")]
+        #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Kind {
             /// Value for `method` should be a valid method name for the corresponding
@@ -3080,9 +8569,7 @@ pub mod service_perimeter_config {
     }
 
     /// Identification for an API Operation.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ApiOperation {
         /// The name of the API whose methods or permissions the [IngressPolicy]
@@ -3093,7 +8580,6 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.ApiOperation]
         /// with `service_name` field set to `*` will allow all methods AND
         /// permissions for all services.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub service_name: std::string::String,
 
         /// API methods or permissions to allow. Method or permission must belong to
@@ -3101,10 +8587,8 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.MethodSelector]
         /// entry with `*` specified for the `method` field will allow all methods
         /// AND permissions for the service specified in `service_name`.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub method_selectors: std::vec::Vec<crate::model::service_perimeter_config::MethodSelector>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3140,22 +8624,144 @@ pub mod service_perimeter_config {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ApiOperation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __service_name,
+                __method_selectors,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ApiOperation")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "serviceName" => Ok(__FieldTag::__service_name),
+                                "service_name" => Ok(__FieldTag::__service_name),
+                                "methodSelectors" => Ok(__FieldTag::__method_selectors),
+                                "method_selectors" => Ok(__FieldTag::__method_selectors),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ApiOperation;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ApiOperation")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__service_name => {
+                                if !fields.insert(__FieldTag::__service_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for service_name",
+                                    ));
+                                }
+                                result.service_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__method_selectors => {
+                                if !fields.insert(__FieldTag::__method_selectors) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for method_selectors",
+                                    ));
+                                }
+                                result.method_selectors = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<
+                                            crate::model::service_perimeter_config::MethodSelector,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ApiOperation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.service_name.is_empty() {
+                state.serialize_entry("serviceName", &self.service_name)?;
+            }
+            if !self.method_selectors.is_empty() {
+                state.serialize_entry("methodSelectors", &self.method_selectors)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// The source that [IngressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// authorizes access from.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressSource {
         /// Allowed ingress source. It can be one of [AccessLevel]
         /// [google.identity.accesscontextmanager.v1.AccessLevel] or Google
         /// Cloud resource.
-        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub source:
             std::option::Option<crate::model::service_perimeter_config::ingress_source::Source>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3195,19 +8801,6 @@ pub mod service_perimeter_config {
             })
         }
 
-        /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
-        /// if it holds a `Resource`, `None` if the field is not set or
-        /// holds a different branch.
-        pub fn resource(&self) -> std::option::Option<&std::string::String> {
-            #[allow(unreachable_patterns)]
-            self.source.as_ref().and_then(|v| match v {
-                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
-                    std::option::Option::Some(v)
-                }
-                _ => std::option::Option::None,
-            })
-        }
-
         /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
         /// to hold a `AccessLevel`.
         ///
@@ -3223,6 +8816,19 @@ pub mod service_perimeter_config {
                 ),
             );
             self
+        }
+
+        /// The value of [source][crate::model::service_perimeter_config::IngressSource::source]
+        /// if it holds a `Resource`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn resource(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.source.as_ref().and_then(|v| match v {
+                crate::model::service_perimeter_config::ingress_source::Source::Resource(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
         }
 
         /// Sets the value of [source][crate::model::service_perimeter_config::IngressSource::source]
@@ -3244,6 +8850,141 @@ pub mod service_perimeter_config {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for IngressSource {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __access_level,
+                __resource,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for IngressSource")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "accessLevel" => Ok(__FieldTag::__access_level),
+                                "access_level" => Ok(__FieldTag::__access_level),
+                                "resource" => Ok(__FieldTag::__resource),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = IngressSource;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct IngressSource")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__access_level => {
+                                if !fields.insert(__FieldTag::__access_level) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for access_level",
+                                    ));
+                                }
+                                if result.source.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `source`, a oneof with full ID .google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressSource.access_level, latest field was accessLevel",
+                                    ));
+                                }
+                                result.source = std::option::Option::Some(
+                                    crate::model::service_perimeter_config::ingress_source::Source::AccessLevel(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__resource => {
+                                if !fields.insert(__FieldTag::__resource) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for resource",
+                                    ));
+                                }
+                                if result.source.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `source`, a oneof with full ID .google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressSource.resource, latest field was resource",
+                                    ));
+                                }
+                                result.source = std::option::Option::Some(
+                                    crate::model::service_perimeter_config::ingress_source::Source::Resource(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for IngressSource {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if let Some(value) = self.access_level() {
+                state.serialize_entry("accessLevel", value)?;
+            }
+            if let Some(value) = self.resource() {
+                state.serialize_entry("resource", value)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Defines additional types related to [IngressSource].
     pub mod ingress_source {
         #[allow(unused_imports)]
@@ -3252,8 +8993,7 @@ pub mod service_perimeter_config {
         /// Allowed ingress source. It can be one of [AccessLevel]
         /// [google.identity.accesscontextmanager.v1.AccessLevel] or Google
         /// Cloud resource.
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(rename_all = "camelCase")]
+        #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Source {
             /// An [AccessLevel]
@@ -3291,21 +9031,17 @@ pub mod service_perimeter_config {
     /// matches a request. Conditions are based on information about the source of
     /// the request. The request must satisfy what is defined in `sources` AND
     /// identity related fields in order to match.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressFrom {
         /// Sources that this [IngressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
         /// authorizes access from.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub sources: std::vec::Vec<crate::model::service_perimeter_config::IngressSource>,
 
         /// A list of identities that are allowed access through this ingress
         /// policy. Should be in the format of email address. The email address
         /// should represent individual user or service account only.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub identities: std::vec::Vec<std::string::String>,
 
         /// Specifies the type of identities that are allowed access from outside the
@@ -3313,24 +9049,12 @@ pub mod service_perimeter_config {
         /// be allowed access.
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl IngressFrom {
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.identity_type = v.into();
-            self
         }
 
         /// Sets the value of [sources][crate::model::service_perimeter_config::IngressFrom::sources].
@@ -3354,11 +9078,162 @@ pub mod service_perimeter_config {
             self.identities = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [identity_type][crate::model::service_perimeter_config::IngressFrom::identity_type].
+        pub fn set_identity_type<
+            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.identity_type = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for IngressFrom {
         fn typename() -> &'static str {
             "type.googleapis.com/google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressFrom"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for IngressFrom {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __sources,
+                __identities,
+                __identity_type,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for IngressFrom")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "sources" => Ok(__FieldTag::__sources),
+                                "identities" => Ok(__FieldTag::__identities),
+                                "identityType" => Ok(__FieldTag::__identity_type),
+                                "identity_type" => Ok(__FieldTag::__identity_type),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = IngressFrom;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct IngressFrom")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__sources => {
+                                if !fields.insert(__FieldTag::__sources) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sources",
+                                    ));
+                                }
+                                result.sources = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<
+                                            crate::model::service_perimeter_config::IngressSource,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__identities => {
+                                if !fields.insert(__FieldTag::__identities) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for identities",
+                                    ));
+                                }
+                                result.identities = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__identity_type => {
+                                if !fields.insert(__FieldTag::__identity_type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for identity_type",
+                                    ));
+                                }
+                                result.identity_type = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::service_perimeter_config::IdentityType,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for IngressFrom {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.sources.is_empty() {
+                state.serialize_entry("sources", &self.sources)?;
+            }
+            if !self.identities.is_empty() {
+                state.serialize_entry("identities", &self.identities)?;
+            }
+            if !wkt::internal::is_default(&self.identity_type) {
+                state.serialize_entry("identityType", &self.identity_type)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -3370,9 +9245,7 @@ pub mod service_perimeter_config {
     /// intended to be performed on the target resource of the request. The request
     /// must satisfy what is defined in `operations` AND `resources` in order to
     /// match.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressTo {
         /// A list of [ApiOperations]
@@ -3382,7 +9255,6 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressFrom]
         /// in this [ServicePerimeter]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub operations: std::vec::Vec<crate::model::service_perimeter_config::ApiOperation>,
 
         /// A list of resources, currently only projects in the form
@@ -3393,10 +9265,8 @@ pub mod service_perimeter_config {
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressFrom].
         /// If a single `*` is specified, then access to all resources inside the
         /// perimeter are allowed.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub resources: std::vec::Vec<std::string::String>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3434,6 +9304,128 @@ pub mod service_perimeter_config {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for IngressTo {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __operations,
+                __resources,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for IngressTo")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "operations" => Ok(__FieldTag::__operations),
+                                "resources" => Ok(__FieldTag::__resources),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = IngressTo;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct IngressTo")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__operations => {
+                                if !fields.insert(__FieldTag::__operations) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for operations",
+                                    ));
+                                }
+                                result.operations = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<
+                                            crate::model::service_perimeter_config::ApiOperation,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__resources => {
+                                if !fields.insert(__FieldTag::__resources) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for resources",
+                                    ));
+                                }
+                                result.resources = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for IngressTo {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.operations.is_empty() {
+                state.serialize_entry("operations", &self.operations)?;
+            }
+            if !self.resources.is_empty() {
+                state.serialize_entry("resources", &self.resources)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Policy for ingress into [ServicePerimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter].
     ///
@@ -3454,16 +9446,13 @@ pub mod service_perimeter_config {
     ///
     /// Individual ingress policies can be limited by restricting which
     /// services and/or actions they match using the `ingress_to` field.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct IngressPolicy {
         /// Defines the conditions on the source of a request causing this
         /// [IngressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
         /// to apply.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ingress_from: std::option::Option<crate::model::service_perimeter_config::IngressFrom>,
 
         /// Defines the conditions on the [ApiOperation]
@@ -3471,10 +9460,8 @@ pub mod service_perimeter_config {
         /// and request destination that cause this [IngressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
         /// to apply.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub ingress_to: std::option::Option<crate::model::service_perimeter_config::IngressTo>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3484,28 +9471,38 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
-        pub fn set_ingress_from<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::service_perimeter_config::IngressFrom>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ingress_from = v.into();
+        pub fn set_ingress_from<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
+        {
+            self.ingress_from = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ingress_from][crate::model::service_perimeter_config::IngressPolicy::ingress_from].
+        pub fn set_or_clear_ingress_from<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::IngressFrom>,
+        {
+            self.ingress_from = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
-        pub fn set_ingress_to<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::service_perimeter_config::IngressTo>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.ingress_to = v.into();
+        pub fn set_ingress_to<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
+        {
+            self.ingress_to = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ingress_to][crate::model::service_perimeter_config::IngressPolicy::ingress_to].
+        pub fn set_or_clear_ingress_to<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::IngressTo>,
+        {
+            self.ingress_to = v.map(|x| x.into());
             self
         }
     }
@@ -3513,6 +9510,128 @@ pub mod service_perimeter_config {
     impl wkt::message::Message for IngressPolicy {
         fn typename() -> &'static str {
             "type.googleapis.com/google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for IngressPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __ingress_from,
+                __ingress_to,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for IngressPolicy")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "ingressFrom" => Ok(__FieldTag::__ingress_from),
+                                "ingress_from" => Ok(__FieldTag::__ingress_from),
+                                "ingressTo" => Ok(__FieldTag::__ingress_to),
+                                "ingress_to" => Ok(__FieldTag::__ingress_to),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = IngressPolicy;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct IngressPolicy")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__ingress_from => {
+                                if !fields.insert(__FieldTag::__ingress_from) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for ingress_from",
+                                    ));
+                                }
+                                result.ingress_from = map.next_value::<std::option::Option<
+                                    crate::model::service_perimeter_config::IngressFrom,
+                                >>()?;
+                            }
+                            __FieldTag::__ingress_to => {
+                                if !fields.insert(__FieldTag::__ingress_to) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for ingress_to",
+                                    ));
+                                }
+                                result.ingress_to = map.next_value::<std::option::Option<
+                                    crate::model::service_perimeter_config::IngressTo,
+                                >>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for IngressPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.ingress_from.is_some() {
+                state.serialize_entry("ingressFrom", &self.ingress_from)?;
+            }
+            if self.ingress_to.is_some() {
+                state.serialize_entry("ingressTo", &self.ingress_to)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -3527,15 +9646,12 @@ pub mod service_perimeter_config {
     /// an [IngressPolicy]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.IngressPolicy]
     /// which allows access in order for this request to succeed.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressFrom {
         /// A list of identities that are allowed access through this [EgressPolicy].
         /// Should be in the format of email address. The email address should
         /// represent individual user or service account only.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub identities: std::vec::Vec<std::string::String>,
 
         /// Specifies the type of identities that are allowed access to outside the
@@ -3543,24 +9659,12 @@ pub mod service_perimeter_config {
         /// be allowed access.
         pub identity_type: crate::model::service_perimeter_config::IdentityType,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl EgressFrom {
         pub fn new() -> Self {
             std::default::Default::default()
-        }
-
-        /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
-        pub fn set_identity_type<
-            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.identity_type = v.into();
-            self
         }
 
         /// Sets the value of [identities][crate::model::service_perimeter_config::EgressFrom::identities].
@@ -3573,11 +9677,143 @@ pub mod service_perimeter_config {
             self.identities = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [identity_type][crate::model::service_perimeter_config::EgressFrom::identity_type].
+        pub fn set_identity_type<
+            T: std::convert::Into<crate::model::service_perimeter_config::IdentityType>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.identity_type = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for EgressFrom {
         fn typename() -> &'static str {
             "type.googleapis.com/google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EgressFrom {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __identities,
+                __identity_type,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EgressFrom")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "identities" => Ok(__FieldTag::__identities),
+                                "identityType" => Ok(__FieldTag::__identity_type),
+                                "identity_type" => Ok(__FieldTag::__identity_type),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EgressFrom;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EgressFrom")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__identities => {
+                                if !fields.insert(__FieldTag::__identities) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for identities",
+                                    ));
+                                }
+                                result.identities = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__identity_type => {
+                                if !fields.insert(__FieldTag::__identity_type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for identity_type",
+                                    ));
+                                }
+                                result.identity_type = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::service_perimeter_config::IdentityType,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EgressFrom {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.identities.is_empty() {
+                state.serialize_entry("identities", &self.identities)?;
+            }
+            if !wkt::internal::is_default(&self.identity_type) {
+                state.serialize_entry("identityType", &self.identity_type)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -3596,9 +9832,7 @@ pub mod service_perimeter_config {
     /// which allows access in order for this request to succeed. The request must
     /// match `operations` AND `resources` fields in order to be allowed egress out
     /// of the perimeter.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressTo {
         /// A list of resources, currently only projects in the form
@@ -3609,7 +9843,6 @@ pub mod service_perimeter_config {
         /// specified for `resources`, then this [EgressTo]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressTo]
         /// rule will authorize access to all resources outside the perimeter.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub resources: std::vec::Vec<std::string::String>,
 
         /// A list of [ApiOperations]
@@ -3618,7 +9851,6 @@ pub mod service_perimeter_config {
         /// [EgressFrom]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom].
         /// A request matches if it uses an operation/service in this list.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub operations: std::vec::Vec<crate::model::service_perimeter_config::ApiOperation>,
 
         /// A list of external resources that are allowed to be accessed. Only AWS
@@ -3627,10 +9859,8 @@ pub mod service_perimeter_config {
         /// azure://myaccount.blob.core.windows.net/CONTAINER_NAME. A request matches
         /// if it contains an external resource in this list (Example:
         /// s3://bucket/path). Currently '*' is not allowed.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub external_resources: std::vec::Vec<std::string::String>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3679,6 +9909,142 @@ pub mod service_perimeter_config {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EgressTo {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __resources,
+                __operations,
+                __external_resources,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EgressTo")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "resources" => Ok(__FieldTag::__resources),
+                                "operations" => Ok(__FieldTag::__operations),
+                                "externalResources" => Ok(__FieldTag::__external_resources),
+                                "external_resources" => Ok(__FieldTag::__external_resources),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EgressTo;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EgressTo")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__resources => {
+                                if !fields.insert(__FieldTag::__resources) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for resources",
+                                    ));
+                                }
+                                result.resources = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__operations => {
+                                if !fields.insert(__FieldTag::__operations) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for operations",
+                                    ));
+                                }
+                                result.operations = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<
+                                            crate::model::service_perimeter_config::ApiOperation,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__external_resources => {
+                                if !fields.insert(__FieldTag::__external_resources) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for external_resources",
+                                    ));
+                                }
+                                result.external_resources = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EgressTo {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.resources.is_empty() {
+                state.serialize_entry("resources", &self.resources)?;
+            }
+            if !self.operations.is_empty() {
+                state.serialize_entry("operations", &self.operations)?;
+            }
+            if !self.external_resources.is_empty() {
+                state.serialize_entry("externalResources", &self.external_resources)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Policy for egress from perimeter.
     ///
     /// [EgressPolicies]
@@ -3707,15 +10073,12 @@ pub mod service_perimeter_config {
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressFrom]
     /// and [EgressTo]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressTo].
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EgressPolicy {
         /// Defines conditions on the source of a request causing this [EgressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
         /// to apply.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub egress_from: std::option::Option<crate::model::service_perimeter_config::EgressFrom>,
 
         /// Defines the conditions on the [ApiOperation]
@@ -3723,10 +10086,8 @@ pub mod service_perimeter_config {
         /// and destination resources that cause this [EgressPolicy]
         /// [google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy]
         /// to apply.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub egress_to: std::option::Option<crate::model::service_perimeter_config::EgressTo>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3736,28 +10097,38 @@ pub mod service_perimeter_config {
         }
 
         /// Sets the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
-        pub fn set_egress_from<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::service_perimeter_config::EgressFrom>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.egress_from = v.into();
+        pub fn set_egress_from<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
+        {
+            self.egress_from = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [egress_from][crate::model::service_perimeter_config::EgressPolicy::egress_from].
+        pub fn set_or_clear_egress_from<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::EgressFrom>,
+        {
+            self.egress_from = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
-        pub fn set_egress_to<
-            T: std::convert::Into<
-                    std::option::Option<crate::model::service_perimeter_config::EgressTo>,
-                >,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.egress_to = v.into();
+        pub fn set_egress_to<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,
+        {
+            self.egress_to = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [egress_to][crate::model::service_perimeter_config::EgressPolicy::egress_to].
+        pub fn set_or_clear_egress_to<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::service_perimeter_config::EgressTo>,
+        {
+            self.egress_to = v.map(|x| x.into());
             self
         }
     }
@@ -3765,6 +10136,128 @@ pub mod service_perimeter_config {
     impl wkt::message::Message for EgressPolicy {
         fn typename() -> &'static str {
             "type.googleapis.com/google.identity.accesscontextmanager.v1.ServicePerimeterConfig.EgressPolicy"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EgressPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __egress_from,
+                __egress_to,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EgressPolicy")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "egressFrom" => Ok(__FieldTag::__egress_from),
+                                "egress_from" => Ok(__FieldTag::__egress_from),
+                                "egressTo" => Ok(__FieldTag::__egress_to),
+                                "egress_to" => Ok(__FieldTag::__egress_to),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EgressPolicy;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EgressPolicy")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__egress_from => {
+                                if !fields.insert(__FieldTag::__egress_from) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for egress_from",
+                                    ));
+                                }
+                                result.egress_from = map.next_value::<std::option::Option<
+                                    crate::model::service_perimeter_config::EgressFrom,
+                                >>()?;
+                            }
+                            __FieldTag::__egress_to => {
+                                if !fields.insert(__FieldTag::__egress_to) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for egress_to",
+                                    ));
+                                }
+                                result.egress_to = map.next_value::<std::option::Option<
+                                    crate::model::service_perimeter_config::EgressTo,
+                                >>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EgressPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.egress_from.is_some() {
+                state.serialize_entry("egressFrom", &self.egress_from)?;
+            }
+            if self.egress_to.is_some() {
+                state.serialize_entry("egressTo", &self.egress_to)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 

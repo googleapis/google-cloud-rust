@@ -16,9 +16,8 @@
 
 pub mod privileged_access_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [PrivilegedAccessManager][super::super::client::PrivilegedAccessManager].
+    /// A builder for [PrivilegedAccessManager][crate::client::PrivilegedAccessManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod privileged_access_manager {
     /// let client = builder
     ///     .with_endpoint("https://privilegedaccessmanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod privileged_access_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PrivilegedAccessManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::PrivilegedAccessManager] request builders.
+    /// Common implementation for [crate::client::PrivilegedAccessManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod privileged_access_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::check_onboarding_status][super::super::client::PrivilegedAccessManager::check_onboarding_status] calls.
+    /// The request builder for [PrivilegedAccessManager::check_onboarding_status][crate::client::PrivilegedAccessManager::check_onboarding_status] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::CheckOnboardingStatus;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckOnboardingStatus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckOnboardingStatus(RequestBuilder<crate::model::CheckOnboardingStatusRequest>);
 
     impl CheckOnboardingStatus {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -119,13 +137,33 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_entitlements][super::super::client::PrivilegedAccessManager::list_entitlements] calls.
+    /// The request builder for [PrivilegedAccessManager::list_entitlements][crate::client::PrivilegedAccessManager::list_entitlements] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListEntitlements;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEntitlements {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEntitlements(RequestBuilder<crate::model::ListEntitlementsRequest>);
 
     impl ListEntitlements {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -153,8 +191,8 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEntitlementsResponse, gax::error::Error>
         {
@@ -166,6 +204,15 @@ pub mod privileged_access_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEntitlementsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEntitlementsRequest::parent].
@@ -208,13 +255,33 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::search_entitlements][super::super::client::PrivilegedAccessManager::search_entitlements] calls.
+    /// The request builder for [PrivilegedAccessManager::search_entitlements][crate::client::PrivilegedAccessManager::search_entitlements] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::SearchEntitlements;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchEntitlements {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchEntitlements(RequestBuilder<crate::model::SearchEntitlementsRequest>);
 
     impl SearchEntitlements {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -242,8 +309,8 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchEntitlementsResponse, gax::error::Error>
         {
@@ -255,6 +322,17 @@ pub mod privileged_access_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchEntitlementsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchEntitlementsRequest::parent].
@@ -304,13 +382,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_entitlement][super::super::client::PrivilegedAccessManager::get_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::get_entitlement][crate::client::PrivilegedAccessManager::get_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetEntitlement;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEntitlement(RequestBuilder<crate::model::GetEntitlementRequest>);
 
     impl GetEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -351,13 +445,30 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::create_entitlement][crate::client::PrivilegedAccessManager::create_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::CreateEntitlement;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateEntitlement(RequestBuilder<crate::model::CreateEntitlementRequest>);
 
     impl CreateEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -382,7 +493,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_entitlement][super::super::client::PrivilegedAccessManager::create_entitlement].
+        /// on [create_entitlement][crate::client::PrivilegedAccessManager::create_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_entitlement(self.0.request, self.0.options)
@@ -394,8 +505,10 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -420,7 +533,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateEntitlementRequest::parent].
@@ -442,11 +555,22 @@ pub mod privileged_access_manager {
         /// Sets the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entitlement = v.into();
+        pub fn set_entitlement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entitlement][crate::model::CreateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = v.map(|x| x.into());
             self
         }
 
@@ -464,13 +588,30 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::delete_entitlement][crate::client::PrivilegedAccessManager::delete_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::DeleteEntitlement;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteEntitlement(RequestBuilder<crate::model::DeleteEntitlementRequest>);
 
     impl DeleteEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -495,7 +636,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_entitlement][super::super::client::PrivilegedAccessManager::delete_entitlement].
+        /// on [delete_entitlement][crate::client::PrivilegedAccessManager::delete_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_entitlement(self.0.request, self.0.options)
@@ -507,8 +648,10 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -533,7 +676,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteEntitlementRequest::name].
@@ -564,13 +707,30 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement] calls.
+    /// The request builder for [PrivilegedAccessManager::update_entitlement][crate::client::PrivilegedAccessManager::update_entitlement] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::UpdateEntitlement;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateEntitlement {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateEntitlement(RequestBuilder<crate::model::UpdateEntitlementRequest>);
 
     impl UpdateEntitlement {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -595,7 +755,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_entitlement][super::super::client::PrivilegedAccessManager::update_entitlement].
+        /// on [update_entitlement][crate::client::PrivilegedAccessManager::update_entitlement].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_entitlement(self.0.request, self.0.options)
@@ -607,8 +767,10 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Entitlement, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Entitlement, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Entitlement,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -633,28 +795,50 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
         ///
         /// This is a **required** field for requests.
-        pub fn set_entitlement<T: Into<std::option::Option<crate::model::Entitlement>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.entitlement = v.into();
+        pub fn set_entitlement<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [entitlement][crate::model::UpdateEntitlementRequest::entitlement].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_entitlement<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Entitlement>,
+        {
+            self.0.request.entitlement = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateEntitlementRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -666,13 +850,33 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_grants][super::super::client::PrivilegedAccessManager::list_grants] calls.
+    /// The request builder for [PrivilegedAccessManager::list_grants][crate::client::PrivilegedAccessManager::list_grants] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListGrants;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGrants {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGrants(RequestBuilder<crate::model::ListGrantsRequest>);
 
     impl ListGrants {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -697,8 +901,8 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListGrantsResponse, gax::error::Error>
         {
@@ -710,6 +914,15 @@ pub mod privileged_access_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGrantsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListGrantsRequest::parent].
@@ -752,13 +965,33 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::search_grants][super::super::client::PrivilegedAccessManager::search_grants] calls.
+    /// The request builder for [PrivilegedAccessManager::search_grants][crate::client::PrivilegedAccessManager::search_grants] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::SearchGrants;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchGrants {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchGrants(RequestBuilder<crate::model::SearchGrantsRequest>);
 
     impl SearchGrants {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -783,8 +1016,8 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchGrantsResponse, gax::error::Error>
         {
@@ -796,6 +1029,15 @@ pub mod privileged_access_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchGrantsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchGrantsRequest::parent].
@@ -845,13 +1087,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_grant][super::super::client::PrivilegedAccessManager::get_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::get_grant][crate::client::PrivilegedAccessManager::get_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetGrant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGrant(RequestBuilder<crate::model::GetGrantRequest>);
 
     impl GetGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -892,13 +1150,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::create_grant][super::super::client::PrivilegedAccessManager::create_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::create_grant][crate::client::PrivilegedAccessManager::create_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::CreateGrant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGrant(RequestBuilder<crate::model::CreateGrantRequest>);
 
     impl CreateGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -934,11 +1208,22 @@ pub mod privileged_access_manager {
         /// Sets the value of [grant][crate::model::CreateGrantRequest::grant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_grant<T: Into<std::option::Option<crate::model::Grant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.grant = v.into();
+        pub fn set_grant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Grant>,
+        {
+            self.0.request.grant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [grant][crate::model::CreateGrantRequest::grant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_grant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Grant>,
+        {
+            self.0.request.grant = v.map(|x| x.into());
             self
         }
 
@@ -956,13 +1241,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::approve_grant][super::super::client::PrivilegedAccessManager::approve_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::approve_grant][crate::client::PrivilegedAccessManager::approve_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ApproveGrant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ApproveGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ApproveGrant(RequestBuilder<crate::model::ApproveGrantRequest>);
 
     impl ApproveGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1009,13 +1310,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::deny_grant][super::super::client::PrivilegedAccessManager::deny_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::deny_grant][crate::client::PrivilegedAccessManager::deny_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::DenyGrant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DenyGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DenyGrant(RequestBuilder<crate::model::DenyGrantRequest>);
 
     impl DenyGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1062,13 +1379,30 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant] calls.
+    /// The request builder for [PrivilegedAccessManager::revoke_grant][crate::client::PrivilegedAccessManager::revoke_grant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::RevokeGrant;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevokeGrant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevokeGrant(RequestBuilder<crate::model::RevokeGrantRequest>);
 
     impl RevokeGrant {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1090,7 +1424,7 @@ pub mod privileged_access_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revoke_grant][super::super::client::PrivilegedAccessManager::revoke_grant].
+        /// on [revoke_grant][crate::client::PrivilegedAccessManager::revoke_grant].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revoke_grant(self.0.request, self.0.options)
@@ -1102,7 +1436,8 @@ pub mod privileged_access_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Grant, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Grant, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Grant, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1127,7 +1462,7 @@ pub mod privileged_access_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevokeGrantRequest::name].
@@ -1152,13 +1487,33 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_locations][super::super::client::PrivilegedAccessManager::list_locations] calls.
+    /// The request builder for [PrivilegedAccessManager::list_locations][crate::client::PrivilegedAccessManager::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1186,8 +1541,8 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1199,6 +1554,15 @@ pub mod privileged_access_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1233,13 +1597,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_location][super::super::client::PrivilegedAccessManager::get_location] calls.
+    /// The request builder for [PrivilegedAccessManager::get_location][crate::client::PrivilegedAccessManager::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1278,13 +1658,33 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::list_operations][super::super::client::PrivilegedAccessManager::list_operations] calls.
+    /// The request builder for [PrivilegedAccessManager::list_operations][crate::client::PrivilegedAccessManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1312,8 +1712,8 @@ pub mod privileged_access_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1325,6 +1725,17 @@ pub mod privileged_access_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1359,13 +1770,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::get_operation][super::super::client::PrivilegedAccessManager::get_operation] calls.
+    /// The request builder for [PrivilegedAccessManager::get_operation][crate::client::PrivilegedAccessManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1407,13 +1834,29 @@ pub mod privileged_access_manager {
         }
     }
 
-    /// The request builder for [PrivilegedAccessManager::delete_operation][super::super::client::PrivilegedAccessManager::delete_operation] calls.
+    /// The request builder for [PrivilegedAccessManager::delete_operation][crate::client::PrivilegedAccessManager::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_privilegedaccessmanager_v1::builder;
+    /// use builder::privileged_access_manager::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrivilegedAccessManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

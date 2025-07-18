@@ -16,9 +16,8 @@
 
 pub mod bigtable_instance_admin {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [BigtableInstanceAdmin][super::super::client::BigtableInstanceAdmin].
+    /// A builder for [BigtableInstanceAdmin][crate::client::BigtableInstanceAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod bigtable_instance_admin {
     /// let client = builder
     ///     .with_endpoint("https://bigtableadmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod bigtable_instance_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BigtableInstanceAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::BigtableInstanceAdmin] request builders.
+    /// Common implementation for [crate::client::BigtableInstanceAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod bigtable_instance_admin {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_instance][super::super::client::BigtableInstanceAdmin::create_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_instance][crate::client::BigtableInstanceAdmin::create_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::CreateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateInstance(RequestBuilder<crate::model::CreateInstanceRequest>);
 
     impl CreateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -97,7 +116,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_instance][super::super::client::BigtableInstanceAdmin::create_instance].
+        /// on [create_instance][crate::client::BigtableInstanceAdmin::create_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_instance(self.0.request, self.0.options)
@@ -110,8 +129,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::CreateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::CreateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::CreateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -136,7 +157,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
@@ -158,11 +179,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
@@ -187,13 +219,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_instance][super::super::client::BigtableInstanceAdmin::get_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_instance][crate::client::BigtableInstanceAdmin::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -234,13 +282,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_instances][super::super::client::BigtableInstanceAdmin::list_instances] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_instances][crate::client::BigtableInstanceAdmin::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListInstances;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -287,13 +351,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_instance][super::super::client::BigtableInstanceAdmin::update_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_instance][crate::client::BigtableInstanceAdmin::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::Instance>);
 
     impl UpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -344,27 +424,6 @@ pub mod bigtable_instance_admin {
             self
         }
 
-        /// Sets the value of [create_time][crate::model::Instance::create_time].
-        pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.create_time = v.into();
-            self
-        }
-
-        /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
-        pub fn set_satisfies_pzs<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.satisfies_pzs = v.into();
-            self
-        }
-
-        /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
-        pub fn set_satisfies_pzi<T: Into<std::option::Option<bool>>>(mut self, v: T) -> Self {
-            self.0.request.satisfies_pzi = v.into();
-            self
-        }
-
         /// Sets the value of [labels][crate::model::Instance::labels].
         pub fn set_labels<T, K, V>(mut self, v: T) -> Self
         where
@@ -373,6 +432,60 @@ pub mod bigtable_instance_admin {
             V: std::convert::Into<std::string::String>,
         {
             self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [create_time][crate::model::Instance::create_time].
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+        pub fn set_satisfies_pzs<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzs = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+        pub fn set_or_clear_satisfies_pzs<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzs = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+        pub fn set_satisfies_pzi<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzi = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [satisfies_pzi][crate::model::Instance::satisfies_pzi].
+        pub fn set_or_clear_satisfies_pzi<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.satisfies_pzi = v.map(|x| x.into());
             self
         }
     }
@@ -384,13 +497,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::partial_update_instance][super::super::client::BigtableInstanceAdmin::partial_update_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::PartialUpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PartialUpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PartialUpdateInstance(RequestBuilder<crate::model::PartialUpdateInstanceRequest>);
 
     impl PartialUpdateInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -415,7 +545,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [partial_update_instance][super::super::client::BigtableInstanceAdmin::partial_update_instance].
+        /// on [partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_instance(self.0.request, self.0.options)
@@ -428,8 +558,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::UpdateInstanceMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Instance, crate::model::UpdateInstanceMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Instance,
+                crate::model::UpdateInstanceMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -454,28 +586,50 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::PartialUpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::PartialUpdateInstanceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -487,13 +641,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_instance][super::super::client::BigtableInstanceAdmin::delete_instance] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_instance][crate::client::BigtableInstanceAdmin::delete_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::DeleteInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteInstance(RequestBuilder<crate::model::DeleteInstanceRequest>);
 
     impl DeleteInstance {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -534,13 +704,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_cluster][super::super::client::BigtableInstanceAdmin::create_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_cluster][crate::client::BigtableInstanceAdmin::create_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::CreateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -562,7 +749,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::BigtableInstanceAdmin::create_cluster].
+        /// on [create_cluster][crate::client::BigtableInstanceAdmin::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -574,8 +761,10 @@ pub mod bigtable_instance_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::CreateClusterMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::CreateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::CreateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -600,7 +789,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -622,11 +811,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
     }
@@ -638,13 +838,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_cluster][super::super::client::BigtableInstanceAdmin::get_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_cluster][crate::client::BigtableInstanceAdmin::get_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -685,13 +901,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_clusters][super::super::client::BigtableInstanceAdmin::list_clusters] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_clusters][crate::client::BigtableInstanceAdmin::list_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListClusters;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -738,13 +970,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_cluster][super::super::client::BigtableInstanceAdmin::update_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_cluster][crate::client::BigtableInstanceAdmin::update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::UpdateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::Cluster>);
 
     impl UpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -766,7 +1015,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::BigtableInstanceAdmin::update_cluster].
+        /// on [update_cluster][crate::client::BigtableInstanceAdmin::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -778,8 +1027,10 @@ pub mod bigtable_instance_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::UpdateClusterMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::UpdateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::UpdateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -804,7 +1055,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::Cluster::name].
@@ -850,13 +1101,20 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::Cluster::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::cluster::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::Cluster::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::cluster::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
 
@@ -892,13 +1150,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::partial_update_cluster][super::super::client::BigtableInstanceAdmin::partial_update_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::PartialUpdateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PartialUpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PartialUpdateCluster(RequestBuilder<crate::model::PartialUpdateClusterRequest>);
 
     impl PartialUpdateCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -923,7 +1198,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [partial_update_cluster][super::super::client::BigtableInstanceAdmin::partial_update_cluster].
+        /// on [partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .partial_update_cluster(self.0.request, self.0.options)
@@ -936,8 +1211,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Cluster, crate::model::PartialUpdateClusterMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Cluster,
+                crate::model::PartialUpdateClusterMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -962,28 +1239,50 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::PartialUpdateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::PartialUpdateClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -995,13 +1294,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_cluster][super::super::client::BigtableInstanceAdmin::delete_cluster] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_cluster][crate::client::BigtableInstanceAdmin::delete_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::DeleteCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1042,13 +1357,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_app_profile][super::super::client::BigtableInstanceAdmin::create_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_app_profile][crate::client::BigtableInstanceAdmin::create_app_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::CreateAppProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAppProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAppProfile(RequestBuilder<crate::model::CreateAppProfileRequest>);
 
     impl CreateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1095,11 +1426,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.app_profile = v.into();
+        pub fn set_app_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [app_profile][crate::model::CreateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = v.map(|x| x.into());
             self
         }
 
@@ -1117,13 +1459,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_app_profile][super::super::client::BigtableInstanceAdmin::get_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_app_profile][crate::client::BigtableInstanceAdmin::get_app_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetAppProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAppProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAppProfile(RequestBuilder<crate::model::GetAppProfileRequest>);
 
     impl GetAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1164,13 +1522,33 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_app_profiles][super::super::client::BigtableInstanceAdmin::list_app_profiles] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_app_profiles][crate::client::BigtableInstanceAdmin::list_app_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListAppProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAppProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAppProfiles(RequestBuilder<crate::model::ListAppProfilesRequest>);
 
     impl ListAppProfiles {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1195,8 +1573,8 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAppProfilesResponse, gax::error::Error>
         {
@@ -1208,6 +1586,15 @@ pub mod bigtable_instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAppProfilesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAppProfilesRequest::parent].
@@ -1238,13 +1625,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_app_profile][super::super::client::BigtableInstanceAdmin::update_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::UpdateAppProfile;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAppProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAppProfile(RequestBuilder<crate::model::UpdateAppProfileRequest>);
 
     impl UpdateAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1269,7 +1673,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_app_profile][super::super::client::BigtableInstanceAdmin::update_app_profile].
+        /// on [update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_app_profile(self.0.request, self.0.options)
@@ -1282,8 +1686,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::AppProfile, crate::model::UpdateAppProfileMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::AppProfile,
+                crate::model::UpdateAppProfileMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1308,28 +1714,50 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
         ///
         /// This is a **required** field for requests.
-        pub fn set_app_profile<T: Into<std::option::Option<crate::model::AppProfile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.app_profile = v.into();
+        pub fn set_app_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [app_profile][crate::model::UpdateAppProfileRequest::app_profile].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_app_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AppProfile>,
+        {
+            self.0.request.app_profile = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAppProfileRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1347,13 +1775,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_app_profile][super::super::client::BigtableInstanceAdmin::delete_app_profile] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_app_profile][crate::client::BigtableInstanceAdmin::delete_app_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::DeleteAppProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAppProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAppProfile(RequestBuilder<crate::model::DeleteAppProfileRequest>);
 
     impl DeleteAppProfile {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1405,13 +1849,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_iam_policy][super::super::client::BigtableInstanceAdmin::get_iam_policy] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_iam_policy][crate::client::BigtableInstanceAdmin::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1445,11 +1905,20 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1461,13 +1930,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::set_iam_policy][super::super::client::BigtableInstanceAdmin::set_iam_policy] calls.
+    /// The request builder for [BigtableInstanceAdmin::set_iam_policy][crate::client::BigtableInstanceAdmin::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1503,20 +1988,40 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1528,13 +2033,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::test_iam_permissions][super::super::client::BigtableInstanceAdmin::test_iam_permissions] calls.
+    /// The request builder for [BigtableInstanceAdmin::test_iam_permissions][crate::client::BigtableInstanceAdmin::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1591,13 +2112,33 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_hot_tablets][super::super::client::BigtableInstanceAdmin::list_hot_tablets] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_hot_tablets][crate::client::BigtableInstanceAdmin::list_hot_tablets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListHotTablets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListHotTablets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListHotTablets(RequestBuilder<crate::model::ListHotTabletsRequest>);
 
     impl ListHotTablets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1622,8 +2163,8 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListHotTabletsResponse, gax::error::Error>
         {
@@ -1637,6 +2178,15 @@ pub mod bigtable_instance_admin {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListHotTabletsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ListHotTabletsRequest::parent].
         ///
         /// This is a **required** field for requests.
@@ -1646,17 +2196,38 @@ pub mod bigtable_instance_admin {
         }
 
         /// Sets the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::ListHotTabletsRequest::start_time].
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::ListHotTabletsRequest::end_time].
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
 
@@ -1680,13 +2251,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_logical_view][crate::client::BigtableInstanceAdmin::create_logical_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::CreateLogicalView;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLogicalView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLogicalView(RequestBuilder<crate::model::CreateLogicalViewRequest>);
 
     impl CreateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1711,7 +2299,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_logical_view][super::super::client::BigtableInstanceAdmin::create_logical_view].
+        /// on [create_logical_view][crate::client::BigtableInstanceAdmin::create_logical_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_logical_view(self.0.request, self.0.options)
@@ -1724,8 +2312,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LogicalView, crate::model::CreateLogicalViewMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LogicalView,
+                crate::model::CreateLogicalViewMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1750,7 +2340,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLogicalViewRequest::parent].
@@ -1772,11 +2362,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logical_view = v.into();
+        pub fn set_logical_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [logical_view][crate::model::CreateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = v.map(|x| x.into());
             self
         }
     }
@@ -1788,13 +2389,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_logical_view][super::super::client::BigtableInstanceAdmin::get_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_logical_view][crate::client::BigtableInstanceAdmin::get_logical_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetLogicalView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLogicalView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLogicalView(RequestBuilder<crate::model::GetLogicalViewRequest>);
 
     impl GetLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1835,13 +2452,33 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_logical_views][super::super::client::BigtableInstanceAdmin::list_logical_views] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_logical_views][crate::client::BigtableInstanceAdmin::list_logical_views] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListLogicalViews;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLogicalViews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLogicalViews(RequestBuilder<crate::model::ListLogicalViewsRequest>);
 
     impl ListLogicalViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1869,8 +2506,8 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLogicalViewsResponse, gax::error::Error>
         {
@@ -1882,6 +2519,15 @@ pub mod bigtable_instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLogicalViewsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLogicalViewsRequest::parent].
@@ -1912,13 +2558,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_logical_view][crate::client::BigtableInstanceAdmin::update_logical_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::UpdateLogicalView;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateLogicalView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateLogicalView(RequestBuilder<crate::model::UpdateLogicalViewRequest>);
 
     impl UpdateLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1943,7 +2606,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_logical_view][super::super::client::BigtableInstanceAdmin::update_logical_view].
+        /// on [update_logical_view][crate::client::BigtableInstanceAdmin::update_logical_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_logical_view(self.0.request, self.0.options)
@@ -1956,8 +2619,10 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::LogicalView, crate::model::UpdateLogicalViewMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::LogicalView,
+                crate::model::UpdateLogicalViewMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1982,26 +2647,46 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_logical_view<T: Into<std::option::Option<crate::model::LogicalView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.logical_view = v.into();
+        pub fn set_logical_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [logical_view][crate::model::UpdateLogicalViewRequest::logical_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_logical_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogicalView>,
+        {
+            self.0.request.logical_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateLogicalViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2013,13 +2698,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_logical_view][super::super::client::BigtableInstanceAdmin::delete_logical_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_logical_view][crate::client::BigtableInstanceAdmin::delete_logical_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::DeleteLogicalView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLogicalView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLogicalView(RequestBuilder<crate::model::DeleteLogicalViewRequest>);
 
     impl DeleteLogicalView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2069,13 +2770,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::create_materialized_view][crate::client::BigtableInstanceAdmin::create_materialized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::CreateMaterializedView;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMaterializedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMaterializedView(RequestBuilder<crate::model::CreateMaterializedViewRequest>);
 
     impl CreateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2100,7 +2818,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_materialized_view][super::super::client::BigtableInstanceAdmin::create_materialized_view].
+        /// on [create_materialized_view][crate::client::BigtableInstanceAdmin::create_materialized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_materialized_view(self.0.request, self.0.options)
@@ -2113,7 +2831,7 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::CreateMaterializedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::CreateMaterializedViewMetadata,
             >;
@@ -2141,7 +2859,7 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMaterializedViewRequest::parent].
@@ -2163,13 +2881,22 @@ pub mod bigtable_instance_admin {
         /// Sets the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_materialized_view<
-            T: Into<std::option::Option<crate::model::MaterializedView>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.materialized_view = v.into();
+        pub fn set_materialized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [materialized_view][crate::model::CreateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = v.map(|x| x.into());
             self
         }
     }
@@ -2181,13 +2908,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_materialized_view][super::super::client::BigtableInstanceAdmin::get_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_materialized_view][crate::client::BigtableInstanceAdmin::get_materialized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetMaterializedView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMaterializedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMaterializedView(RequestBuilder<crate::model::GetMaterializedViewRequest>);
 
     impl GetMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2231,13 +2974,33 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_materialized_views][super::super::client::BigtableInstanceAdmin::list_materialized_views] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_materialized_views][crate::client::BigtableInstanceAdmin::list_materialized_views] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListMaterializedViews;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMaterializedViews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMaterializedViews(RequestBuilder<crate::model::ListMaterializedViewsRequest>);
 
     impl ListMaterializedViews {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2265,8 +3028,8 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMaterializedViewsResponse, gax::error::Error>
         {
@@ -2278,6 +3041,17 @@ pub mod bigtable_instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListMaterializedViewsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMaterializedViewsRequest::parent].
@@ -2308,13 +3082,30 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::update_materialized_view][crate::client::BigtableInstanceAdmin::update_materialized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::UpdateMaterializedView;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMaterializedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMaterializedView(RequestBuilder<crate::model::UpdateMaterializedViewRequest>);
 
     impl UpdateMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2339,7 +3130,7 @@ pub mod bigtable_instance_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_materialized_view][super::super::client::BigtableInstanceAdmin::update_materialized_view].
+        /// on [update_materialized_view][crate::client::BigtableInstanceAdmin::update_materialized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_materialized_view(self.0.request, self.0.options)
@@ -2352,7 +3143,7 @@ pub mod bigtable_instance_admin {
             self,
         ) -> impl lro::Poller<crate::model::MaterializedView, crate::model::UpdateMaterializedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MaterializedView,
                 crate::model::UpdateMaterializedViewMetadata,
             >;
@@ -2380,28 +3171,46 @@ pub mod bigtable_instance_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_materialized_view<
-            T: Into<std::option::Option<crate::model::MaterializedView>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.materialized_view = v.into();
+        pub fn set_materialized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [materialized_view][crate::model::UpdateMaterializedViewRequest::materialized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_materialized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MaterializedView>,
+        {
+            self.0.request.materialized_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMaterializedViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2413,13 +3222,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_materialized_view][super::super::client::BigtableInstanceAdmin::delete_materialized_view] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_materialized_view][crate::client::BigtableInstanceAdmin::delete_materialized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::DeleteMaterializedView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteMaterializedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteMaterializedView(RequestBuilder<crate::model::DeleteMaterializedViewRequest>);
 
     impl DeleteMaterializedView {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2469,13 +3294,33 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::list_operations][super::super::client::BigtableInstanceAdmin::list_operations] calls.
+    /// The request builder for [BigtableInstanceAdmin::list_operations][crate::client::BigtableInstanceAdmin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2503,8 +3348,8 @@ pub mod bigtable_instance_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2516,6 +3361,17 @@ pub mod bigtable_instance_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2550,13 +3406,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::get_operation][super::super::client::BigtableInstanceAdmin::get_operation] calls.
+    /// The request builder for [BigtableInstanceAdmin::get_operation][crate::client::BigtableInstanceAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2598,13 +3470,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::delete_operation][super::super::client::BigtableInstanceAdmin::delete_operation] calls.
+    /// The request builder for [BigtableInstanceAdmin::delete_operation][crate::client::BigtableInstanceAdmin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2646,13 +3534,29 @@ pub mod bigtable_instance_admin {
         }
     }
 
-    /// The request builder for [BigtableInstanceAdmin::cancel_operation][super::super::client::BigtableInstanceAdmin::cancel_operation] calls.
+    /// The request builder for [BigtableInstanceAdmin::cancel_operation][crate::client::BigtableInstanceAdmin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_instance_admin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableInstanceAdmin>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2697,9 +3601,8 @@ pub mod bigtable_instance_admin {
 
 pub mod bigtable_table_admin {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [BigtableTableAdmin][super::super::client::BigtableTableAdmin].
+    /// A builder for [BigtableTableAdmin][crate::client::BigtableTableAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2710,7 +3613,7 @@ pub mod bigtable_table_admin {
     /// let client = builder
     ///     .with_endpoint("https://bigtableadmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2721,16 +3624,19 @@ pub mod bigtable_table_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BigtableTableAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::BigtableTableAdmin] request builders.
+    /// Common implementation for [crate::client::BigtableTableAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2739,7 +3645,9 @@ pub mod bigtable_table_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2748,12 +3656,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_table][super::super::client::BigtableTableAdmin::create_table] calls.
+    /// The request builder for [BigtableTableAdmin::create_table][crate::client::BigtableTableAdmin::create_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CreateTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTable(RequestBuilder<crate::model::CreateTableRequest>);
 
     impl CreateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2796,11 +3722,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [table][crate::model::CreateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::CreateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
@@ -2823,14 +3760,33 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_table_from_snapshot][super::super::client::BigtableTableAdmin::create_table_from_snapshot] calls.
+    /// The request builder for [BigtableTableAdmin::create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CreateTableFromSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTableFromSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTableFromSnapshot(
         RequestBuilder<crate::model::CreateTableFromSnapshotRequest>,
     );
 
     impl CreateTableFromSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2854,7 +3810,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_table_from_snapshot][super::super::client::BigtableTableAdmin::create_table_from_snapshot].
+        /// on [create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_table_from_snapshot(self.0.request, self.0.options)
@@ -2867,8 +3823,10 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Table, crate::model::CreateTableFromSnapshotMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Table,
+                crate::model::CreateTableFromSnapshotMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2893,7 +3851,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateTableFromSnapshotRequest::parent].
@@ -2928,12 +3886,34 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_tables][super::super::client::BigtableTableAdmin::list_tables] calls.
+    /// The request builder for [BigtableTableAdmin::list_tables][crate::client::BigtableTableAdmin::list_tables] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListTables;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTables {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTables(RequestBuilder<crate::model::ListTablesRequest>);
 
     impl ListTables {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2957,8 +3937,8 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTablesResponse, gax::error::Error>
         {
@@ -2970,6 +3950,15 @@ pub mod bigtable_table_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTablesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTablesRequest::parent].
@@ -3006,12 +3995,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_table][super::super::client::BigtableTableAdmin::get_table] calls.
+    /// The request builder for [BigtableTableAdmin::get_table][crate::client::BigtableTableAdmin::get_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTable(RequestBuilder<crate::model::GetTableRequest>);
 
     impl GetTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3057,12 +4064,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::update_table][super::super::client::BigtableTableAdmin::update_table] calls.
+    /// The request builder for [BigtableTableAdmin::update_table][crate::client::BigtableTableAdmin::update_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::UpdateTable;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTable(RequestBuilder<crate::model::UpdateTableRequest>);
 
     impl UpdateTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3083,7 +4109,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_table][super::super::client::BigtableTableAdmin::update_table].
+        /// on [update_table][crate::client::BigtableTableAdmin::update_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_table(self.0.request, self.0.options)
@@ -3095,7 +4121,8 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UpdateTableMetadata> {
-            type Operation = lro::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Table, crate::model::UpdateTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3120,28 +4147,50 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [table][crate::model::UpdateTableRequest::table].
         ///
         /// This is a **required** field for requests.
-        pub fn set_table<T: Into<std::option::Option<crate::model::Table>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.table = v.into();
+        pub fn set_table<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [table][crate::model::UpdateTableRequest::table].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_table<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Table>,
+        {
+            self.0.request.table = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTableRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3159,12 +4208,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_table][super::super::client::BigtableTableAdmin::delete_table] calls.
+    /// The request builder for [BigtableTableAdmin::delete_table][crate::client::BigtableTableAdmin::delete_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteTable;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTable(RequestBuilder<crate::model::DeleteTableRequest>);
 
     impl DeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3204,12 +4271,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::undelete_table][super::super::client::BigtableTableAdmin::undelete_table] calls.
+    /// The request builder for [BigtableTableAdmin::undelete_table][crate::client::BigtableTableAdmin::undelete_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::UndeleteTable;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteTable(RequestBuilder<crate::model::UndeleteTableRequest>);
 
     impl UndeleteTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3230,7 +4316,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_table][super::super::client::BigtableTableAdmin::undelete_table].
+        /// on [undelete_table][crate::client::BigtableTableAdmin::undelete_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_table(self.0.request, self.0.options)
@@ -3243,7 +4329,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::UndeleteTableMetadata> {
             type Operation =
-                lro::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
+                lro::internal::Operation<crate::model::Table, crate::model::UndeleteTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3268,7 +4354,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UndeleteTableRequest::name].
@@ -3287,12 +4373,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_authorized_view][super::super::client::BigtableTableAdmin::create_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CreateAuthorizedView;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAuthorizedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAuthorizedView(RequestBuilder<crate::model::CreateAuthorizedViewRequest>);
 
     impl CreateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3316,7 +4421,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_authorized_view][super::super::client::BigtableTableAdmin::create_authorized_view].
+        /// on [create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_authorized_view(self.0.request, self.0.options)
@@ -3329,7 +4434,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::CreateAuthorizedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::CreateAuthorizedViewMetadata,
             >;
@@ -3357,7 +4462,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAuthorizedViewRequest::parent].
@@ -3379,11 +4484,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorized_view = v.into();
+        pub fn set_authorized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorized_view][crate::model::CreateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = v.map(|x| x.into());
             self
         }
     }
@@ -3395,12 +4511,34 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_authorized_views][super::super::client::BigtableTableAdmin::list_authorized_views] calls.
+    /// The request builder for [BigtableTableAdmin::list_authorized_views][crate::client::BigtableTableAdmin::list_authorized_views] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListAuthorizedViews;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAuthorizedViews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAuthorizedViews(RequestBuilder<crate::model::ListAuthorizedViewsRequest>);
 
     impl ListAuthorizedViews {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3427,8 +4565,8 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAuthorizedViewsResponse, gax::error::Error>
         {
@@ -3440,6 +4578,17 @@ pub mod bigtable_table_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAuthorizedViewsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAuthorizedViewsRequest::parent].
@@ -3479,12 +4628,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_authorized_view][super::super::client::BigtableTableAdmin::get_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::get_authorized_view][crate::client::BigtableTableAdmin::get_authorized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetAuthorizedView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAuthorizedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAuthorizedView(RequestBuilder<crate::model::GetAuthorizedViewRequest>);
 
     impl GetAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3536,12 +4703,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::update_authorized_view][super::super::client::BigtableTableAdmin::update_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::UpdateAuthorizedView;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAuthorizedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAuthorizedView(RequestBuilder<crate::model::UpdateAuthorizedViewRequest>);
 
     impl UpdateAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3565,7 +4751,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_authorized_view][super::super::client::BigtableTableAdmin::update_authorized_view].
+        /// on [update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_authorized_view(self.0.request, self.0.options)
@@ -3578,7 +4764,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::AuthorizedView, crate::model::UpdateAuthorizedViewMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AuthorizedView,
                 crate::model::UpdateAuthorizedViewMetadata,
             >;
@@ -3606,26 +4792,46 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_authorized_view<T: Into<std::option::Option<crate::model::AuthorizedView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorized_view = v.into();
+        pub fn set_authorized_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorized_view][crate::model::UpdateAuthorizedViewRequest::authorized_view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authorized_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizedView>,
+        {
+            self.0.request.authorized_view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthorizedViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3643,12 +4849,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_authorized_view][super::super::client::BigtableTableAdmin::delete_authorized_view] calls.
+    /// The request builder for [BigtableTableAdmin::delete_authorized_view][crate::client::BigtableTableAdmin::delete_authorized_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteAuthorizedView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAuthorizedView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAuthorizedView(RequestBuilder<crate::model::DeleteAuthorizedViewRequest>);
 
     impl DeleteAuthorizedView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3697,12 +4921,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::modify_column_families][super::super::client::BigtableTableAdmin::modify_column_families] calls.
+    /// The request builder for [BigtableTableAdmin::modify_column_families][crate::client::BigtableTableAdmin::modify_column_families] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ModifyColumnFamilies;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ModifyColumnFamilies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ModifyColumnFamilies(RequestBuilder<crate::model::ModifyColumnFamiliesRequest>);
 
     impl ModifyColumnFamilies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3737,12 +4979,6 @@ pub mod bigtable_table_admin {
             self
         }
 
-        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
-        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.ignore_warnings = v.into();
-            self
-        }
-
         /// Sets the value of [modifications][crate::model::ModifyColumnFamiliesRequest::modifications].
         ///
         /// This is a **required** field for requests.
@@ -3755,6 +4991,12 @@ pub mod bigtable_table_admin {
             self.0.request.modifications = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [ignore_warnings][crate::model::ModifyColumnFamiliesRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3764,12 +5006,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::drop_row_range][super::super::client::BigtableTableAdmin::drop_row_range] calls.
+    /// The request builder for [BigtableTableAdmin::drop_row_range][crate::client::BigtableTableAdmin::drop_row_range] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DropRowRange;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DropRowRange {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DropRowRange(RequestBuilder<crate::model::DropRowRangeRequest>);
 
     impl DropRowRange {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3841,14 +5101,32 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::generate_consistency_token][super::super::client::BigtableTableAdmin::generate_consistency_token] calls.
+    /// The request builder for [BigtableTableAdmin::generate_consistency_token][crate::client::BigtableTableAdmin::generate_consistency_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GenerateConsistencyToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateConsistencyToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateConsistencyToken(
         RequestBuilder<crate::model::GenerateConsistencyTokenRequest>,
     );
 
     impl GenerateConsistencyToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3891,12 +5169,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::check_consistency][super::super::client::BigtableTableAdmin::check_consistency] calls.
+    /// The request builder for [BigtableTableAdmin::check_consistency][crate::client::BigtableTableAdmin::check_consistency] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CheckConsistency;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CheckConsistency {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CheckConsistency(RequestBuilder<crate::model::CheckConsistencyRequest>);
 
     impl CheckConsistency {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3989,12 +5285,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::snapshot_table][super::super::client::BigtableTableAdmin::snapshot_table] calls.
+    /// The request builder for [BigtableTableAdmin::snapshot_table][crate::client::BigtableTableAdmin::snapshot_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::SnapshotTable;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SnapshotTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SnapshotTable(RequestBuilder<crate::model::SnapshotTableRequest>);
 
     impl SnapshotTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4015,7 +5330,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [snapshot_table][super::super::client::BigtableTableAdmin::snapshot_table].
+        /// on [snapshot_table][crate::client::BigtableTableAdmin::snapshot_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .snapshot_table(self.0.request, self.0.options)
@@ -4027,8 +5342,10 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::SnapshotTableMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::SnapshotTableMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Snapshot,
+                crate::model::SnapshotTableMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4053,7 +5370,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SnapshotTableRequest::name].
@@ -4081,8 +5398,20 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [ttl][crate::model::SnapshotTableRequest::ttl].
-        pub fn set_ttl<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.ttl = v.into();
+        pub fn set_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ttl][crate::model::SnapshotTableRequest::ttl].
+        pub fn set_or_clear_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.ttl = v.map(|x| x.into());
             self
         }
 
@@ -4100,12 +5429,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_snapshot][super::super::client::BigtableTableAdmin::get_snapshot] calls.
+    /// The request builder for [BigtableTableAdmin::get_snapshot][crate::client::BigtableTableAdmin::get_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4145,12 +5492,34 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_snapshots][super::super::client::BigtableTableAdmin::list_snapshots] calls.
+    /// The request builder for [BigtableTableAdmin::list_snapshots][crate::client::BigtableTableAdmin::list_snapshots] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListSnapshots;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSnapshots {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4174,8 +5543,8 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
         {
@@ -4187,6 +5556,15 @@ pub mod bigtable_table_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
@@ -4217,12 +5595,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_snapshot][super::super::client::BigtableTableAdmin::delete_snapshot] calls.
+    /// The request builder for [BigtableTableAdmin::delete_snapshot][crate::client::BigtableTableAdmin::delete_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4262,12 +5658,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::create_backup][super::super::client::BigtableTableAdmin::create_backup] calls.
+    /// The request builder for [BigtableTableAdmin::create_backup][crate::client::BigtableTableAdmin::create_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CreateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4288,7 +5703,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::BigtableTableAdmin::create_backup].
+        /// on [create_backup][crate::client::BigtableTableAdmin::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -4301,7 +5716,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CreateBackupMetadata> {
             type Operation =
-                lro::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
+                lro::internal::Operation<crate::model::Backup, crate::model::CreateBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4326,7 +5741,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -4348,11 +5763,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -4364,12 +5790,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_backup][super::super::client::BigtableTableAdmin::get_backup] calls.
+    /// The request builder for [BigtableTableAdmin::get_backup][crate::client::BigtableTableAdmin::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4409,12 +5853,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::update_backup][super::super::client::BigtableTableAdmin::update_backup] calls.
+    /// The request builder for [BigtableTableAdmin::update_backup][crate::client::BigtableTableAdmin::update_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::UpdateBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4441,22 +5903,44 @@ pub mod bigtable_table_admin {
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4468,12 +5952,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_backup][super::super::client::BigtableTableAdmin::delete_backup] calls.
+    /// The request builder for [BigtableTableAdmin::delete_backup][crate::client::BigtableTableAdmin::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4513,12 +6015,34 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_backups][super::super::client::BigtableTableAdmin::list_backups] calls.
+    /// The request builder for [BigtableTableAdmin::list_backups][crate::client::BigtableTableAdmin::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4542,8 +6066,8 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -4555,6 +6079,15 @@ pub mod bigtable_table_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -4597,12 +6130,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::restore_table][super::super::client::BigtableTableAdmin::restore_table] calls.
+    /// The request builder for [BigtableTableAdmin::restore_table][crate::client::BigtableTableAdmin::restore_table] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::RestoreTable;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreTable {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreTable(RequestBuilder<crate::model::RestoreTableRequest>);
 
     impl RestoreTable {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4623,7 +6175,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_table][super::super::client::BigtableTableAdmin::restore_table].
+        /// on [restore_table][crate::client::BigtableTableAdmin::restore_table].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_table(self.0.request, self.0.options)
@@ -4636,7 +6188,7 @@ pub mod bigtable_table_admin {
             self,
         ) -> impl lro::Poller<crate::model::Table, crate::model::RestoreTableMetadata> {
             type Operation =
-                lro::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
+                lro::internal::Operation<crate::model::Table, crate::model::RestoreTableMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4661,7 +6213,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreTableRequest::parent].
@@ -4710,12 +6262,31 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::copy_backup][super::super::client::BigtableTableAdmin::copy_backup] calls.
+    /// The request builder for [BigtableTableAdmin::copy_backup][crate::client::BigtableTableAdmin::copy_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CopyBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CopyBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CopyBackup(RequestBuilder<crate::model::CopyBackupRequest>);
 
     impl CopyBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4736,7 +6307,7 @@ pub mod bigtable_table_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_backup][super::super::client::BigtableTableAdmin::copy_backup].
+        /// on [copy_backup][crate::client::BigtableTableAdmin::copy_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_backup(self.0.request, self.0.options)
@@ -4748,7 +6319,8 @@ pub mod bigtable_table_admin {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::CopyBackupMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::CopyBackupMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4773,7 +6345,7 @@ pub mod bigtable_table_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CopyBackupRequest::parent].
@@ -4803,11 +6375,22 @@ pub mod bigtable_table_admin {
         /// Sets the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
         ///
         /// This is a **required** field for requests.
-        pub fn set_expire_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.expire_time = v.into();
+        pub fn set_expire_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [expire_time][crate::model::CopyBackupRequest::expire_time].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.expire_time = v.map(|x| x.into());
             self
         }
     }
@@ -4819,12 +6402,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_iam_policy][super::super::client::BigtableTableAdmin::get_iam_policy] calls.
+    /// The request builder for [BigtableTableAdmin::get_iam_policy][crate::client::BigtableTableAdmin::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4857,11 +6458,20 @@ pub mod bigtable_table_admin {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -4873,12 +6483,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::set_iam_policy][super::super::client::BigtableTableAdmin::set_iam_policy] calls.
+    /// The request builder for [BigtableTableAdmin::set_iam_policy][crate::client::BigtableTableAdmin::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4913,20 +6541,40 @@ pub mod bigtable_table_admin {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -4938,12 +6586,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::test_iam_permissions][super::super::client::BigtableTableAdmin::test_iam_permissions] calls.
+    /// The request builder for [BigtableTableAdmin::test_iam_permissions][crate::client::BigtableTableAdmin::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4999,12 +6665,559 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::list_operations][super::super::client::BigtableTableAdmin::list_operations] calls.
+    /// The request builder for [BigtableTableAdmin::create_schema_bundle][crate::client::BigtableTableAdmin::create_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CreateSchemaBundle;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateSchemaBundle(RequestBuilder<crate::model::CreateSchemaBundleRequest>);
+
+    impl CreateSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateSchemaBundleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_schema_bundle][crate::client::BigtableTableAdmin::create_schema_bundle].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_schema_bundle`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::SchemaBundle, crate::model::CreateSchemaBundleMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::SchemaBundle,
+                crate::model::CreateSchemaBundleMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateSchemaBundleRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [schema_bundle_id][crate::model::CreateSchemaBundleRequest::schema_bundle_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_schema_bundle_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.schema_bundle_id = v.into();
+            self
+        }
+
+        /// Sets the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_schema_bundle<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::update_schema_bundle][crate::client::BigtableTableAdmin::update_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::UpdateSchemaBundle;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateSchemaBundle(RequestBuilder<crate::model::UpdateSchemaBundleRequest>);
+
+    impl UpdateSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateSchemaBundleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_schema_bundle][crate::client::BigtableTableAdmin::update_schema_bundle].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_schema_bundle`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::SchemaBundle, crate::model::UpdateSchemaBundleMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::SchemaBundle,
+                crate::model::UpdateSchemaBundleMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_schema_bundle<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SchemaBundle>,
+        {
+            self.0.request.schema_bundle = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [ignore_warnings][crate::model::UpdateSchemaBundleRequest::ignore_warnings].
+        pub fn set_ignore_warnings<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.ignore_warnings = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::get_schema_bundle][crate::client::BigtableTableAdmin::get_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetSchemaBundle;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetSchemaBundle(RequestBuilder<crate::model::GetSchemaBundleRequest>);
+
+    impl GetSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetSchemaBundleRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SchemaBundle> {
+            (*self.0.stub)
+                .get_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetSchemaBundleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::list_schema_bundles][crate::client::BigtableTableAdmin::list_schema_bundles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListSchemaBundles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSchemaBundles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListSchemaBundles(RequestBuilder<crate::model::ListSchemaBundlesRequest>);
+
+    impl ListSchemaBundles {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListSchemaBundlesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListSchemaBundlesResponse> {
+            (*self.0.stub)
+                .list_schema_bundles(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListSchemaBundlesResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSchemaBundlesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListSchemaBundlesRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListSchemaBundlesRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListSchemaBundlesRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListSchemaBundles {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::delete_schema_bundle][crate::client::BigtableTableAdmin::delete_schema_bundle] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteSchemaBundle;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSchemaBundle {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteSchemaBundle(RequestBuilder<crate::model::DeleteSchemaBundleRequest>);
+
+    impl DeleteSchemaBundle {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteSchemaBundleRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<()> {
+            (*self.0.stub)
+                .delete_schema_bundle(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteSchemaBundleRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::DeleteSchemaBundleRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteSchemaBundle {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [BigtableTableAdmin::list_operations][crate::client::BigtableTableAdmin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5031,8 +7244,8 @@ pub mod bigtable_table_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -5044,6 +7257,17 @@ pub mod bigtable_table_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -5078,12 +7302,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::get_operation][super::super::client::BigtableTableAdmin::get_operation] calls.
+    /// The request builder for [BigtableTableAdmin::get_operation][crate::client::BigtableTableAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5124,12 +7366,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::delete_operation][super::super::client::BigtableTableAdmin::delete_operation] calls.
+    /// The request builder for [BigtableTableAdmin::delete_operation][crate::client::BigtableTableAdmin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5170,12 +7430,30 @@ pub mod bigtable_table_admin {
         }
     }
 
-    /// The request builder for [BigtableTableAdmin::cancel_operation][super::super::client::BigtableTableAdmin::cancel_operation] calls.
+    /// The request builder for [BigtableTableAdmin::cancel_operation][crate::client::BigtableTableAdmin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_bigtable_admin_v2::builder;
+    /// use builder::bigtable_table_admin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BigtableTableAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

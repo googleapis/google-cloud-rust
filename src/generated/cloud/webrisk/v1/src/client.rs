@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Web Risk API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_webrisk_v1::client::WebRiskService;
 /// let client = WebRiskService::builder().build().await?;
 /// // use `client` to make requests to the Web Risk API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `WebRiskService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `WebRiskService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct WebRiskService {
-    inner: Arc<dyn super::stub::dynamic::WebRiskService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::WebRiskService>,
 }
 
 impl WebRiskService {
@@ -73,7 +70,7 @@ impl WebRiskService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_webrisk_v1::client::WebRiskService;
     /// let client = WebRiskService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::web_risk_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -90,33 +87,35 @@ impl WebRiskService {
         T: super::stub::WebRiskService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::WebRiskService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::WebRiskService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::WebRiskService> {
+    ) -> gax::client_builder::Result<impl super::stub::WebRiskService> {
         super::transport::WebRiskService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::WebRiskService> {
+    ) -> gax::client_builder::Result<impl super::stub::WebRiskService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::WebRiskService::new)
@@ -159,12 +158,8 @@ impl WebRiskService {
     /// protect users that could get exposed to this threat in the future. Only
     /// allowlisted projects can use this method during Early Access. Please reach
     /// out to Sales or your customer engineer to obtain access.
-    pub fn create_submission(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::CreateSubmission {
+    pub fn create_submission(&self) -> super::builder::web_risk_service::CreateSubmission {
         super::builder::web_risk_service::CreateSubmission::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Submits a URI suspected of containing malicious content to be reviewed.
@@ -187,55 +182,35 @@ impl WebRiskService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn submit_uri(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::SubmitUri {
+    pub fn submit_uri(&self) -> super::builder::web_risk_service::SubmitUri {
         super::builder::web_risk_service::SubmitUri::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::web_risk_service::ListOperations {
         super::builder::web_risk_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::web_risk_service::GetOperation {
         super::builder::web_risk_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::web_risk_service::DeleteOperation {
         super::builder::web_risk_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::web_risk_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::web_risk_service::CancelOperation {
         super::builder::web_risk_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

@@ -16,9 +16,8 @@
 
 pub mod key_dashboard_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [KeyDashboardService][super::super::client::KeyDashboardService].
+    /// A builder for [KeyDashboardService][crate::client::KeyDashboardService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod key_dashboard_service {
     /// let client = builder
     ///     .with_endpoint("https://kmsinventory.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod key_dashboard_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = KeyDashboardService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::KeyDashboardService] request builders.
+    /// Common implementation for [crate::client::KeyDashboardService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod key_dashboard_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod key_dashboard_service {
         }
     }
 
-    /// The request builder for [KeyDashboardService::list_crypto_keys][super::super::client::KeyDashboardService::list_crypto_keys] calls.
+    /// The request builder for [KeyDashboardService::list_crypto_keys][crate::client::KeyDashboardService::list_crypto_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_inventory_v1::builder;
+    /// use builder::key_dashboard_service::ListCryptoKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCryptoKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCryptoKeys(RequestBuilder<crate::model::ListCryptoKeysRequest>);
 
     impl ListCryptoKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyDashboardService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyDashboardService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod key_dashboard_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod key_dashboard_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCryptoKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCryptoKeysRequest::parent].
@@ -142,9 +177,8 @@ pub mod key_dashboard_service {
 
 pub mod key_tracking_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [KeyTrackingService][super::super::client::KeyTrackingService].
+    /// A builder for [KeyTrackingService][crate::client::KeyTrackingService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -155,7 +189,7 @@ pub mod key_tracking_service {
     /// let client = builder
     ///     .with_endpoint("https://kmsinventory.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -166,16 +200,19 @@ pub mod key_tracking_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = KeyTrackingService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::KeyTrackingService] request builders.
+    /// Common implementation for [crate::client::KeyTrackingService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -184,7 +221,9 @@ pub mod key_tracking_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -193,14 +232,32 @@ pub mod key_tracking_service {
         }
     }
 
-    /// The request builder for [KeyTrackingService::get_protected_resources_summary][super::super::client::KeyTrackingService::get_protected_resources_summary] calls.
+    /// The request builder for [KeyTrackingService::get_protected_resources_summary][crate::client::KeyTrackingService::get_protected_resources_summary] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_inventory_v1::builder;
+    /// use builder::key_tracking_service::GetProtectedResourcesSummary;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProtectedResourcesSummary {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProtectedResourcesSummary(
         RequestBuilder<crate::model::GetProtectedResourcesSummaryRequest>,
     );
 
     impl GetProtectedResourcesSummary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -243,14 +300,36 @@ pub mod key_tracking_service {
         }
     }
 
-    /// The request builder for [KeyTrackingService::search_protected_resources][super::super::client::KeyTrackingService::search_protected_resources] calls.
+    /// The request builder for [KeyTrackingService::search_protected_resources][crate::client::KeyTrackingService::search_protected_resources] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_kms_inventory_v1::builder;
+    /// use builder::key_tracking_service::SearchProtectedResources;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchProtectedResources {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchProtectedResources(
         RequestBuilder<crate::model::SearchProtectedResourcesRequest>,
     );
 
     impl SearchProtectedResources {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::KeyTrackingService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::KeyTrackingService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -277,8 +356,8 @@ pub mod key_tracking_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchProtectedResourcesResponse,
@@ -292,6 +371,17 @@ pub mod key_tracking_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchProtectedResourcesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [scope][crate::model::SearchProtectedResourcesRequest::scope].

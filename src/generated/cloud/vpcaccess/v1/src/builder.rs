@@ -16,9 +16,8 @@
 
 pub mod vpc_access_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [VpcAccessService][super::super::client::VpcAccessService].
+    /// A builder for [VpcAccessService][crate::client::VpcAccessService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod vpc_access_service {
     /// let client = builder
     ///     .with_endpoint("https://vpcaccess.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod vpc_access_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = VpcAccessService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::VpcAccessService] request builders.
+    /// Common implementation for [crate::client::VpcAccessService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod vpc_access_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::create_connector][super::super::client::VpcAccessService::create_connector] calls.
+    /// The request builder for [VpcAccessService::create_connector][crate::client::VpcAccessService::create_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::CreateConnector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateConnector(RequestBuilder<crate::model::CreateConnectorRequest>);
 
     impl CreateConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -93,7 +116,7 @@ pub mod vpc_access_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_connector][super::super::client::VpcAccessService::create_connector].
+        /// on [create_connector][crate::client::VpcAccessService::create_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_connector(self.0.request, self.0.options)
@@ -106,7 +129,7 @@ pub mod vpc_access_service {
             self,
         ) -> impl lro::Poller<crate::model::Connector, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Connector, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Connector, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -131,7 +154,7 @@ pub mod vpc_access_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateConnectorRequest::parent].
@@ -153,11 +176,22 @@ pub mod vpc_access_service {
         /// Sets the value of [connector][crate::model::CreateConnectorRequest::connector].
         ///
         /// This is a **required** field for requests.
-        pub fn set_connector<T: Into<std::option::Option<crate::model::Connector>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.connector = v.into();
+        pub fn set_connector<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Connector>,
+        {
+            self.0.request.connector = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [connector][crate::model::CreateConnectorRequest::connector].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_connector<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Connector>,
+        {
+            self.0.request.connector = v.map(|x| x.into());
             self
         }
     }
@@ -169,12 +203,30 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::get_connector][super::super::client::VpcAccessService::get_connector] calls.
+    /// The request builder for [VpcAccessService::get_connector][crate::client::VpcAccessService::get_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::GetConnector;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetConnector(RequestBuilder<crate::model::GetConnectorRequest>);
 
     impl GetConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -214,12 +266,34 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::list_connectors][super::super::client::VpcAccessService::list_connectors] calls.
+    /// The request builder for [VpcAccessService::list_connectors][crate::client::VpcAccessService::list_connectors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::ListConnectors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListConnectors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListConnectors(RequestBuilder<crate::model::ListConnectorsRequest>);
 
     impl ListConnectors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -243,8 +317,8 @@ pub mod vpc_access_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListConnectorsResponse, gax::error::Error>
         {
@@ -256,6 +330,15 @@ pub mod vpc_access_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListConnectorsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListConnectorsRequest::parent].
@@ -286,12 +369,31 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::delete_connector][super::super::client::VpcAccessService::delete_connector] calls.
+    /// The request builder for [VpcAccessService::delete_connector][crate::client::VpcAccessService::delete_connector] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::DeleteConnector;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteConnector {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteConnector(RequestBuilder<crate::model::DeleteConnectorRequest>);
 
     impl DeleteConnector {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -312,7 +414,7 @@ pub mod vpc_access_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_connector][super::super::client::VpcAccessService::delete_connector].
+        /// on [delete_connector][crate::client::VpcAccessService::delete_connector].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_connector(self.0.request, self.0.options)
@@ -321,8 +423,8 @@ pub mod vpc_access_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_connector`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -347,7 +449,12 @@ pub mod vpc_access_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteConnectorRequest::name].
@@ -366,12 +473,34 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::list_locations][super::super::client::VpcAccessService::list_locations] calls.
+    /// The request builder for [VpcAccessService::list_locations][crate::client::VpcAccessService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -398,8 +527,8 @@ pub mod vpc_access_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -411,6 +540,15 @@ pub mod vpc_access_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -445,12 +583,34 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::list_operations][super::super::client::VpcAccessService::list_operations] calls.
+    /// The request builder for [VpcAccessService::list_operations][crate::client::VpcAccessService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -477,8 +637,8 @@ pub mod vpc_access_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -490,6 +650,17 @@ pub mod vpc_access_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -524,12 +695,30 @@ pub mod vpc_access_service {
         }
     }
 
-    /// The request builder for [VpcAccessService::get_operation][super::super::client::VpcAccessService::get_operation] calls.
+    /// The request builder for [VpcAccessService::get_operation][crate::client::VpcAccessService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_vpcaccess_v1::builder;
+    /// use builder::vpc_access_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::VpcAccessService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VpcAccessService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

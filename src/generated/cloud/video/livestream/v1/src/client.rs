@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Live Stream API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_video_livestream_v1::client::LivestreamService;
 /// let client = LivestreamService::builder().build().await?;
 /// // use `client` to make requests to the Live Stream API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -62,11 +59,11 @@ use std::sync::Arc;
 ///
 /// `LivestreamService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LivestreamService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LivestreamService {
-    inner: Arc<dyn super::stub::dynamic::LivestreamService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::LivestreamService>,
 }
 
 impl LivestreamService {
@@ -76,7 +73,7 @@ impl LivestreamService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_video_livestream_v1::client::LivestreamService;
     /// let client = LivestreamService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::livestream_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -93,33 +90,36 @@ impl LivestreamService {
         T: super::stub::LivestreamService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::LivestreamService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LivestreamService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LivestreamService> {
+    ) -> gax::client_builder::Result<impl super::stub::LivestreamService> {
         super::transport::LivestreamService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LivestreamService> {
+    ) -> gax::client_builder::Result<impl super::stub::LivestreamService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LivestreamService::new)
@@ -137,30 +137,18 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_channel(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::CreateChannel {
+    pub fn create_channel(&self) -> super::builder::livestream_service::CreateChannel {
         super::builder::livestream_service::CreateChannel::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns a list of all channels in the specified region.
-    pub fn list_channels(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListChannels {
+    pub fn list_channels(&self) -> super::builder::livestream_service::ListChannels {
         super::builder::livestream_service::ListChannels::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified channel.
-    pub fn get_channel(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetChannel {
+    pub fn get_channel(&self) -> super::builder::livestream_service::GetChannel {
         super::builder::livestream_service::GetChannel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the specified channel.
@@ -174,12 +162,8 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_channel(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::DeleteChannel {
+    pub fn delete_channel(&self) -> super::builder::livestream_service::DeleteChannel {
         super::builder::livestream_service::DeleteChannel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified channel.
@@ -193,12 +177,8 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_channel(
-        &self,
-        channel: impl Into<crate::model::Channel>,
-    ) -> super::builder::livestream_service::UpdateChannel {
+    pub fn update_channel(&self) -> super::builder::livestream_service::UpdateChannel {
         super::builder::livestream_service::UpdateChannel::new(self.inner.clone())
-            .set_channel(channel.into())
     }
 
     /// Starts the specified channel. Part of the video pipeline will be created
@@ -213,12 +193,8 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_channel(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::StartChannel {
+    pub fn start_channel(&self) -> super::builder::livestream_service::StartChannel {
         super::builder::livestream_service::StartChannel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Stops the specified channel. Part of the video pipeline will be released
@@ -233,12 +209,8 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_channel(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::StopChannel {
+    pub fn stop_channel(&self) -> super::builder::livestream_service::StopChannel {
         super::builder::livestream_service::StopChannel::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates an input with the provided unique ID in the specified region.
@@ -252,29 +224,18 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_input(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::CreateInput {
+    pub fn create_input(&self) -> super::builder::livestream_service::CreateInput {
         super::builder::livestream_service::CreateInput::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns a list of all inputs in the specified region.
-    pub fn list_inputs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListInputs {
+    pub fn list_inputs(&self) -> super::builder::livestream_service::ListInputs {
         super::builder::livestream_service::ListInputs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified input.
-    pub fn get_input(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetInput {
-        super::builder::livestream_service::GetInput::new(self.inner.clone()).set_name(name.into())
+    pub fn get_input(&self) -> super::builder::livestream_service::GetInput {
+        super::builder::livestream_service::GetInput::new(self.inner.clone())
     }
 
     /// Deletes the specified input.
@@ -288,12 +249,8 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_input(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::DeleteInput {
+    pub fn delete_input(&self) -> super::builder::livestream_service::DeleteInput {
         super::builder::livestream_service::DeleteInput::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates the specified input.
@@ -307,64 +264,38 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_input(
-        &self,
-        input: impl Into<crate::model::Input>,
-    ) -> super::builder::livestream_service::UpdateInput {
+    pub fn update_input(&self) -> super::builder::livestream_service::UpdateInput {
         super::builder::livestream_service::UpdateInput::new(self.inner.clone())
-            .set_input(input.into())
     }
 
     /// Creates an event with the provided unique ID in the specified channel.
-    pub fn create_event(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::CreateEvent {
+    pub fn create_event(&self) -> super::builder::livestream_service::CreateEvent {
         super::builder::livestream_service::CreateEvent::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns a list of all events in the specified channel.
-    pub fn list_events(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListEvents {
+    pub fn list_events(&self) -> super::builder::livestream_service::ListEvents {
         super::builder::livestream_service::ListEvents::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified event.
-    pub fn get_event(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetEvent {
-        super::builder::livestream_service::GetEvent::new(self.inner.clone()).set_name(name.into())
+    pub fn get_event(&self) -> super::builder::livestream_service::GetEvent {
+        super::builder::livestream_service::GetEvent::new(self.inner.clone())
     }
 
     /// Deletes the specified event.
-    pub fn delete_event(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::DeleteEvent {
+    pub fn delete_event(&self) -> super::builder::livestream_service::DeleteEvent {
         super::builder::livestream_service::DeleteEvent::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns a list of all clips in the specified channel.
-    pub fn list_clips(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListClips {
+    pub fn list_clips(&self) -> super::builder::livestream_service::ListClips {
         super::builder::livestream_service::ListClips::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified clip.
-    pub fn get_clip(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetClip {
-        super::builder::livestream_service::GetClip::new(self.inner.clone()).set_name(name.into())
+    pub fn get_clip(&self) -> super::builder::livestream_service::GetClip {
+        super::builder::livestream_service::GetClip::new(self.inner.clone())
     }
 
     /// Creates a clip with the provided clip ID in the specified channel.
@@ -378,16 +309,12 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_clip(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::CreateClip {
+    pub fn create_clip(&self) -> super::builder::livestream_service::CreateClip {
         super::builder::livestream_service::CreateClip::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified clip job resource. This method only deletes the clip
-    /// job and does not delete the VOD clip stored in the GCS.
+    /// job and does not delete the VOD clip stored in Cloud Storage.
     ///
     /// # Long running operations
     ///
@@ -398,12 +325,63 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_clip(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::DeleteClip {
+    pub fn delete_clip(&self) -> super::builder::livestream_service::DeleteClip {
         super::builder::livestream_service::DeleteClip::new(self.inner.clone())
-            .set_name(name.into())
+    }
+
+    /// Creates a DVR session with the provided unique ID in the specified channel.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_dvr_session(&self) -> super::builder::livestream_service::CreateDvrSession {
+        super::builder::livestream_service::CreateDvrSession::new(self.inner.clone())
+    }
+
+    /// Returns a list of all DVR sessions in the specified channel.
+    pub fn list_dvr_sessions(&self) -> super::builder::livestream_service::ListDvrSessions {
+        super::builder::livestream_service::ListDvrSessions::new(self.inner.clone())
+    }
+
+    /// Returns the specified DVR session.
+    pub fn get_dvr_session(&self) -> super::builder::livestream_service::GetDvrSession {
+        super::builder::livestream_service::GetDvrSession::new(self.inner.clone())
+    }
+
+    /// Deletes the specified DVR session.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_dvr_session(&self) -> super::builder::livestream_service::DeleteDvrSession {
+        super::builder::livestream_service::DeleteDvrSession::new(self.inner.clone())
+    }
+
+    /// Updates the specified DVR session.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_dvr_session(&self) -> super::builder::livestream_service::UpdateDvrSession {
+        super::builder::livestream_service::UpdateDvrSession::new(self.inner.clone())
     }
 
     /// Creates a Asset with the provided unique ID in the specified
@@ -418,12 +396,8 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_asset(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::CreateAsset {
+    pub fn create_asset(&self) -> super::builder::livestream_service::CreateAsset {
         super::builder::livestream_service::CreateAsset::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes the specified asset if it is not used.
@@ -437,37 +411,23 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_asset(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::DeleteAsset {
+    pub fn delete_asset(&self) -> super::builder::livestream_service::DeleteAsset {
         super::builder::livestream_service::DeleteAsset::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns the specified asset.
-    pub fn get_asset(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetAsset {
-        super::builder::livestream_service::GetAsset::new(self.inner.clone()).set_name(name.into())
+    pub fn get_asset(&self) -> super::builder::livestream_service::GetAsset {
+        super::builder::livestream_service::GetAsset::new(self.inner.clone())
     }
 
     /// Returns a list of all assets in the specified region.
-    pub fn list_assets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListAssets {
+    pub fn list_assets(&self) -> super::builder::livestream_service::ListAssets {
         super::builder::livestream_service::ListAssets::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the specified pool.
-    pub fn get_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetPool {
-        super::builder::livestream_service::GetPool::new(self.inner.clone()).set_name(name.into())
+    pub fn get_pool(&self) -> super::builder::livestream_service::GetPool {
+        super::builder::livestream_service::GetPool::new(self.inner.clone())
     }
 
     /// Updates the specified pool.
@@ -481,73 +441,45 @@ impl LivestreamService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_pool(
-        &self,
-        pool: impl Into<crate::model::Pool>,
-    ) -> super::builder::livestream_service::UpdatePool {
+    pub fn update_pool(&self) -> super::builder::livestream_service::UpdatePool {
         super::builder::livestream_service::UpdatePool::new(self.inner.clone())
-            .set_pool(pool.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::livestream_service::ListLocations {
         super::builder::livestream_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::livestream_service::GetLocation {
         super::builder::livestream_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::livestream_service::ListOperations {
         super::builder::livestream_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::livestream_service::GetOperation {
         super::builder::livestream_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::livestream_service::DeleteOperation {
         super::builder::livestream_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::livestream_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::livestream_service::CancelOperation {
         super::builder::livestream_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

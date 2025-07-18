@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Connectors API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_connectors_v1::client::Connectors;
 /// let client = Connectors::builder().build().await?;
 /// // use `client` to make requests to the Connectors API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Connectors` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Connectors` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Connectors {
-    inner: Arc<dyn super::stub::dynamic::Connectors>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Connectors>,
 }
 
 impl Connectors {
@@ -72,7 +69,7 @@ impl Connectors {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// let client = Connectors::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::connectors::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::connectors::client::Factory)
@@ -87,53 +84,48 @@ impl Connectors {
         T: super::stub::Connectors + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Connectors>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Connectors>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Connectors> {
+    ) -> gax::client_builder::Result<impl super::stub::Connectors> {
         super::transport::Connectors::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Connectors> {
+    ) -> gax::client_builder::Result<impl super::stub::Connectors> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Connectors::new)
     }
 
     /// Lists Connections in a given project and location.
-    pub fn list_connections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::connectors::ListConnections {
+    pub fn list_connections(&self) -> super::builder::connectors::ListConnections {
         super::builder::connectors::ListConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Connection.
-    pub fn get_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetConnection {
-        super::builder::connectors::GetConnection::new(self.inner.clone()).set_name(name.into())
+    pub fn get_connection(&self) -> super::builder::connectors::GetConnection {
+        super::builder::connectors::GetConnection::new(self.inner.clone())
     }
 
     /// Creates a new Connection in a given project and location.
@@ -147,12 +139,8 @@ impl Connectors {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connection(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::connectors::CreateConnection {
+    pub fn create_connection(&self) -> super::builder::connectors::CreateConnection {
         super::builder::connectors::CreateConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Connection.
@@ -166,12 +154,8 @@ impl Connectors {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_connection(
-        &self,
-        connection: impl Into<crate::model::Connection>,
-    ) -> super::builder::connectors::UpdateConnection {
+    pub fn update_connection(&self) -> super::builder::connectors::UpdateConnection {
         super::builder::connectors::UpdateConnection::new(self.inner.clone())
-            .set_connection(connection.into())
     }
 
     /// Deletes a single Connection.
@@ -185,72 +169,46 @@ impl Connectors {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::DeleteConnection {
-        super::builder::connectors::DeleteConnection::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_connection(&self) -> super::builder::connectors::DeleteConnection {
+        super::builder::connectors::DeleteConnection::new(self.inner.clone())
     }
 
     /// Lists Providers in a given project and location.
-    pub fn list_providers(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::connectors::ListProviders {
-        super::builder::connectors::ListProviders::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_providers(&self) -> super::builder::connectors::ListProviders {
+        super::builder::connectors::ListProviders::new(self.inner.clone())
     }
 
     /// Gets details of a provider.
-    pub fn get_provider(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetProvider {
-        super::builder::connectors::GetProvider::new(self.inner.clone()).set_name(name.into())
+    pub fn get_provider(&self) -> super::builder::connectors::GetProvider {
+        super::builder::connectors::GetProvider::new(self.inner.clone())
     }
 
     /// Lists Connectors in a given project and location.
-    pub fn list_connectors(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::connectors::ListConnectors {
+    pub fn list_connectors(&self) -> super::builder::connectors::ListConnectors {
         super::builder::connectors::ListConnectors::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Connector.
-    pub fn get_connector(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetConnector {
-        super::builder::connectors::GetConnector::new(self.inner.clone()).set_name(name.into())
+    pub fn get_connector(&self) -> super::builder::connectors::GetConnector {
+        super::builder::connectors::GetConnector::new(self.inner.clone())
     }
 
     /// Lists Connector Versions in a given project and location.
-    pub fn list_connector_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::connectors::ListConnectorVersions {
+    pub fn list_connector_versions(&self) -> super::builder::connectors::ListConnectorVersions {
         super::builder::connectors::ListConnectorVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single connector version.
-    pub fn get_connector_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetConnectorVersion {
+    pub fn get_connector_version(&self) -> super::builder::connectors::GetConnectorVersion {
         super::builder::connectors::GetConnectorVersion::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets schema metadata of a connection.
     /// SchemaMetadata is a singleton resource for each connection.
     pub fn get_connection_schema_metadata(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::connectors::GetConnectionSchemaMetadata {
         super::builder::connectors::GetConnectionSchemaMetadata::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Refresh runtime schema of a connection.
@@ -266,62 +224,44 @@ impl Connectors {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn refresh_connection_schema_metadata(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::connectors::RefreshConnectionSchemaMetadata {
         super::builder::connectors::RefreshConnectionSchemaMetadata::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List schema of a runtime entities filtered by entity name.
     pub fn list_runtime_entity_schemas(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::connectors::ListRuntimeEntitySchemas {
         super::builder::connectors::ListRuntimeEntitySchemas::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// List schema of a runtime actions filtered by action name.
     pub fn list_runtime_action_schemas(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::connectors::ListRuntimeActionSchemas {
         super::builder::connectors::ListRuntimeActionSchemas::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the runtimeConfig of a location.
     /// RuntimeConfig is a singleton resource for each location.
-    pub fn get_runtime_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetRuntimeConfig {
-        super::builder::connectors::GetRuntimeConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn get_runtime_config(&self) -> super::builder::connectors::GetRuntimeConfig {
+        super::builder::connectors::GetRuntimeConfig::new(self.inner.clone())
     }
 
     /// GetGlobalSettings gets settings of a project.
     /// GlobalSettings is a singleton resource.
-    pub fn get_global_settings(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetGlobalSettings {
-        super::builder::connectors::GetGlobalSettings::new(self.inner.clone()).set_name(name.into())
+    pub fn get_global_settings(&self) -> super::builder::connectors::GetGlobalSettings {
+        super::builder::connectors::GetGlobalSettings::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::ListLocations {
-        super::builder::connectors::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::connectors::ListLocations {
+        super::builder::connectors::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetLocation {
-        super::builder::connectors::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::connectors::GetLocation {
+        super::builder::connectors::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -329,22 +269,14 @@ impl Connectors {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::connectors::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::connectors::SetIamPolicy {
         super::builder::connectors::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::connectors::GetIamPolicy {
         super::builder::connectors::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -354,50 +286,34 @@ impl Connectors {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::connectors::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::connectors::TestIamPermissions {
         super::builder::connectors::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Lists operations that match the specified filter in the request. If
     /// the server doesn't support this method, it returns `UNIMPLEMENTED`.
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::ListOperations {
-        super::builder::connectors::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::connectors::ListOperations {
+        super::builder::connectors::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::GetOperation {
-        super::builder::connectors::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::connectors::GetOperation {
+        super::builder::connectors::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::DeleteOperation {
-        super::builder::connectors::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::connectors::DeleteOperation {
+        super::builder::connectors::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::connectors::CancelOperation {
-        super::builder::connectors::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::connectors::CancelOperation {
+        super::builder::connectors::CancelOperation::new(self.inner.clone())
     }
 }

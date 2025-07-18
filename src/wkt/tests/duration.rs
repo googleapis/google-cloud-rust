@@ -81,7 +81,7 @@ fn from_std_time_duration() -> Result {
 
     let std_d = std::time::Duration::new(i64::MAX as u64 + 2, 0);
     let got = Duration::try_from(std_d);
-    assert_eq!(got, Err(DurationError::OutOfRange()));
+    assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
 
     Ok(())
 }
@@ -95,11 +95,11 @@ fn std_from_duration() -> Result {
 
     let dur = Duration::new(-10, 0)?;
     let got = std::time::Duration::try_from(dur);
-    assert_eq!(got, Err(DurationError::OutOfRange()));
+    assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
 
     let dur = Duration::new(0, -10)?;
     let got = std::time::Duration::try_from(dur);
-    assert_eq!(got, Err(DurationError::OutOfRange()));
+    assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
 
     Ok(())
 }

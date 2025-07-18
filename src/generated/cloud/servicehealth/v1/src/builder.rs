@@ -16,9 +16,8 @@
 
 pub mod service_health {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ServiceHealth][super::super::client::ServiceHealth].
+    /// A builder for [ServiceHealth][crate::client::ServiceHealth].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod service_health {
     /// let client = builder
     ///     .with_endpoint("https://servicehealth.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod service_health {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceHealth;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceHealth] request builders.
+    /// Common implementation for [crate::client::ServiceHealth] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod service_health {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_events][super::super::client::ServiceHealth::list_events] calls.
+    /// The request builder for [ServiceHealth::list_events][crate::client::ServiceHealth::list_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListEvents;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListEvents(RequestBuilder<crate::model::ListEventsRequest>);
 
     impl ListEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod service_health {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListEventsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod service_health {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListEventsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListEventsRequest::parent].
@@ -151,12 +186,30 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_event][super::super::client::ServiceHealth::get_event] calls.
+    /// The request builder for [ServiceHealth::get_event][crate::client::ServiceHealth::get_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetEvent(RequestBuilder<crate::model::GetEventRequest>);
 
     impl GetEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,34 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_organization_events][super::super::client::ServiceHealth::list_organization_events] calls.
+    /// The request builder for [ServiceHealth::list_organization_events][crate::client::ServiceHealth::list_organization_events] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListOrganizationEvents;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrganizationEvents {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrganizationEvents(RequestBuilder<crate::model::ListOrganizationEventsRequest>);
 
     impl ListOrganizationEvents {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -228,8 +303,8 @@ pub mod service_health {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListOrganizationEventsResponse,
@@ -243,6 +318,17 @@ pub mod service_health {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrganizationEventsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOrganizationEventsRequest::parent].
@@ -285,12 +371,30 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_organization_event][super::super::client::ServiceHealth::get_organization_event] calls.
+    /// The request builder for [ServiceHealth::get_organization_event][crate::client::ServiceHealth::get_organization_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetOrganizationEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganizationEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganizationEvent(RequestBuilder<crate::model::GetOrganizationEventRequest>);
 
     impl GetOrganizationEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -333,14 +437,36 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_organization_impacts][super::super::client::ServiceHealth::list_organization_impacts] calls.
+    /// The request builder for [ServiceHealth::list_organization_impacts][crate::client::ServiceHealth::list_organization_impacts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListOrganizationImpacts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOrganizationImpacts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOrganizationImpacts(
         RequestBuilder<crate::model::ListOrganizationImpactsRequest>,
     );
 
     impl ListOrganizationImpacts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -367,8 +493,8 @@ pub mod service_health {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListOrganizationImpactsResponse,
@@ -382,6 +508,17 @@ pub mod service_health {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListOrganizationImpactsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOrganizationImpactsRequest::parent].
@@ -418,12 +555,30 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_organization_impact][super::super::client::ServiceHealth::get_organization_impact] calls.
+    /// The request builder for [ServiceHealth::get_organization_impact][crate::client::ServiceHealth::get_organization_impact] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetOrganizationImpact;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOrganizationImpact {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOrganizationImpact(RequestBuilder<crate::model::GetOrganizationImpactRequest>);
 
     impl GetOrganizationImpact {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -466,12 +621,34 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::list_locations][super::super::client::ServiceHealth::list_locations] calls.
+    /// The request builder for [ServiceHealth::list_locations][crate::client::ServiceHealth::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -498,8 +675,8 @@ pub mod service_health {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -511,6 +688,15 @@ pub mod service_health {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -545,12 +731,30 @@ pub mod service_health {
         }
     }
 
-    /// The request builder for [ServiceHealth::get_location][super::super::client::ServiceHealth::get_location] calls.
+    /// The request builder for [ServiceHealth::get_location][crate::client::ServiceHealth::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_servicehealth_v1::builder;
+    /// use builder::service_health::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceHealth>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceHealth>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

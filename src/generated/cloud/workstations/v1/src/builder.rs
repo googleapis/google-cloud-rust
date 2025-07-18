@@ -16,9 +16,8 @@
 
 pub mod workstations {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Workstations][super::super::client::Workstations].
+    /// A builder for [Workstations][crate::client::Workstations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod workstations {
     /// let client = builder
     ///     .with_endpoint("https://workstations.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod workstations {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Workstations;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Workstations] request builders.
+    /// Common implementation for [crate::client::Workstations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Workstations>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod workstations {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_workstation_cluster][super::super::client::Workstations::get_workstation_cluster] calls.
+    /// The request builder for [Workstations::get_workstation_cluster][crate::client::Workstations::get_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkstationCluster(RequestBuilder<crate::model::GetWorkstationClusterRequest>);
 
     impl GetWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,14 +137,36 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_workstation_clusters][super::super::client::Workstations::list_workstation_clusters] calls.
+    /// The request builder for [Workstations::list_workstation_clusters][crate::client::Workstations::list_workstation_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListWorkstationClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkstationClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstationClusters(
         RequestBuilder<crate::model::ListWorkstationClustersRequest>,
     );
 
     impl ListWorkstationClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -149,8 +193,8 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListWorkstationClustersResponse,
@@ -164,6 +208,17 @@ pub mod workstations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWorkstationClustersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationClustersRequest::parent].
@@ -194,14 +249,33 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::create_workstation_cluster][super::super::client::Workstations::create_workstation_cluster] calls.
+    /// The request builder for [Workstations::create_workstation_cluster][crate::client::Workstations::create_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CreateWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationCluster(
         RequestBuilder<crate::model::CreateWorkstationClusterRequest>,
     );
 
     impl CreateWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -225,7 +299,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workstation_cluster][super::super::client::Workstations::create_workstation_cluster].
+        /// on [create_workstation_cluster][crate::client::Workstations::create_workstation_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workstation_cluster(self.0.request, self.0.options)
@@ -238,8 +312,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -264,7 +340,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationClusterRequest::parent].
@@ -286,13 +362,22 @@ pub mod workstations {
         /// Sets the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_cluster<
-            T: Into<std::option::Option<crate::model::WorkstationCluster>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_cluster = v.into();
+        pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_cluster][crate::model::CreateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = v.map(|x| x.into());
             self
         }
 
@@ -310,14 +395,33 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::update_workstation_cluster][super::super::client::Workstations::update_workstation_cluster] calls.
+    /// The request builder for [Workstations::update_workstation_cluster][crate::client::Workstations::update_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::UpdateWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationCluster(
         RequestBuilder<crate::model::UpdateWorkstationClusterRequest>,
     );
 
     impl UpdateWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -341,7 +445,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workstation_cluster][super::super::client::Workstations::update_workstation_cluster].
+        /// on [update_workstation_cluster][crate::client::Workstations::update_workstation_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workstation_cluster(self.0.request, self.0.options)
@@ -354,8 +458,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -380,30 +486,50 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_cluster<
-            T: Into<std::option::Option<crate::model::WorkstationCluster>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_cluster = v.into();
+        pub fn set_workstation_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_cluster][crate::model::UpdateWorkstationClusterRequest::workstation_cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationCluster>,
+        {
+            self.0.request.workstation_cluster = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationClusterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -427,14 +553,33 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_workstation_cluster][super::super::client::Workstations::delete_workstation_cluster] calls.
+    /// The request builder for [Workstations::delete_workstation_cluster][crate::client::Workstations::delete_workstation_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteWorkstationCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkstationCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationCluster(
         RequestBuilder<crate::model::DeleteWorkstationClusterRequest>,
     );
 
     impl DeleteWorkstationCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -458,7 +603,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workstation_cluster][super::super::client::Workstations::delete_workstation_cluster].
+        /// on [delete_workstation_cluster][crate::client::Workstations::delete_workstation_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workstation_cluster(self.0.request, self.0.options)
@@ -471,8 +616,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationCluster, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationCluster, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationCluster,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -497,7 +644,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationClusterRequest::name].
@@ -534,12 +681,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_workstation_config][super::super::client::Workstations::get_workstation_config] calls.
+    /// The request builder for [Workstations::get_workstation_config][crate::client::Workstations::get_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkstationConfig(RequestBuilder<crate::model::GetWorkstationConfigRequest>);
 
     impl GetWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -582,12 +747,34 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_workstation_configs][super::super::client::Workstations::list_workstation_configs] calls.
+    /// The request builder for [Workstations::list_workstation_configs][crate::client::Workstations::list_workstation_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListWorkstationConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkstationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstationConfigs(RequestBuilder<crate::model::ListWorkstationConfigsRequest>);
 
     impl ListWorkstationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -614,8 +801,8 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListWorkstationConfigsResponse,
@@ -629,6 +816,17 @@ pub mod workstations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWorkstationConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationConfigsRequest::parent].
@@ -659,14 +857,36 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_usable_workstation_configs][super::super::client::Workstations::list_usable_workstation_configs] calls.
+    /// The request builder for [Workstations::list_usable_workstation_configs][crate::client::Workstations::list_usable_workstation_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListUsableWorkstationConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUsableWorkstationConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstationConfigs(
         RequestBuilder<crate::model::ListUsableWorkstationConfigsRequest>,
     );
 
     impl ListUsableWorkstationConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -693,8 +913,8 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListUsableWorkstationConfigsResponse,
@@ -708,6 +928,17 @@ pub mod workstations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUsableWorkstationConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListUsableWorkstationConfigsRequest::parent].
@@ -738,14 +969,33 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::create_workstation_config][super::super::client::Workstations::create_workstation_config] calls.
+    /// The request builder for [Workstations::create_workstation_config][crate::client::Workstations::create_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CreateWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstationConfig(
         RequestBuilder<crate::model::CreateWorkstationConfigRequest>,
     );
 
     impl CreateWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -769,7 +1019,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workstation_config][super::super::client::Workstations::create_workstation_config].
+        /// on [create_workstation_config][crate::client::Workstations::create_workstation_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workstation_config(self.0.request, self.0.options)
@@ -782,8 +1032,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -808,7 +1060,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationConfigRequest::parent].
@@ -830,13 +1082,22 @@ pub mod workstations {
         /// Sets the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_config<
-            T: Into<std::option::Option<crate::model::WorkstationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_config = v.into();
+        pub fn set_workstation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_config][crate::model::CreateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = v.map(|x| x.into());
             self
         }
 
@@ -854,14 +1115,33 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::update_workstation_config][super::super::client::Workstations::update_workstation_config] calls.
+    /// The request builder for [Workstations::update_workstation_config][crate::client::Workstations::update_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::UpdateWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstationConfig(
         RequestBuilder<crate::model::UpdateWorkstationConfigRequest>,
     );
 
     impl UpdateWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -885,7 +1165,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workstation_config][super::super::client::Workstations::update_workstation_config].
+        /// on [update_workstation_config][crate::client::Workstations::update_workstation_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workstation_config(self.0.request, self.0.options)
@@ -898,8 +1178,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -924,30 +1206,50 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation_config<
-            T: Into<std::option::Option<crate::model::WorkstationConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation_config = v.into();
+        pub fn set_workstation_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation_config][crate::model::UpdateWorkstationConfigRequest::workstation_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WorkstationConfig>,
+        {
+            self.0.request.workstation_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -971,14 +1273,33 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_workstation_config][super::super::client::Workstations::delete_workstation_config] calls.
+    /// The request builder for [Workstations::delete_workstation_config][crate::client::Workstations::delete_workstation_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteWorkstationConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkstationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstationConfig(
         RequestBuilder<crate::model::DeleteWorkstationConfigRequest>,
     );
 
     impl DeleteWorkstationConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1002,7 +1323,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workstation_config][super::super::client::Workstations::delete_workstation_config].
+        /// on [delete_workstation_config][crate::client::Workstations::delete_workstation_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workstation_config(self.0.request, self.0.options)
@@ -1015,8 +1336,10 @@ pub mod workstations {
             self,
         ) -> impl lro::Poller<crate::model::WorkstationConfig, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::WorkstationConfig, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::WorkstationConfig,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1041,7 +1364,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationConfigRequest::name].
@@ -1078,12 +1401,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_workstation][super::super::client::Workstations::get_workstation] calls.
+    /// The request builder for [Workstations::get_workstation][crate::client::Workstations::get_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetWorkstation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkstation(RequestBuilder<crate::model::GetWorkstationRequest>);
 
     impl GetWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1123,12 +1464,34 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_workstations][super::super::client::Workstations::list_workstations] calls.
+    /// The request builder for [Workstations::list_workstations][crate::client::Workstations::list_workstations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListWorkstations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkstations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkstations(RequestBuilder<crate::model::ListWorkstationsRequest>);
 
     impl ListWorkstations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1155,8 +1518,8 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkstationsResponse, gax::error::Error>
         {
@@ -1168,6 +1531,15 @@ pub mod workstations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkstationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkstationsRequest::parent].
@@ -1198,12 +1570,34 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_usable_workstations][super::super::client::Workstations::list_usable_workstations] calls.
+    /// The request builder for [Workstations::list_usable_workstations][crate::client::Workstations::list_usable_workstations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListUsableWorkstations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUsableWorkstations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUsableWorkstations(RequestBuilder<crate::model::ListUsableWorkstationsRequest>);
 
     impl ListUsableWorkstations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1230,8 +1624,8 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListUsableWorkstationsResponse,
@@ -1245,6 +1639,17 @@ pub mod workstations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListUsableWorkstationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListUsableWorkstationsRequest::parent].
@@ -1275,12 +1680,31 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::create_workstation][super::super::client::Workstations::create_workstation] calls.
+    /// The request builder for [Workstations::create_workstation][crate::client::Workstations::create_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CreateWorkstation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkstation(RequestBuilder<crate::model::CreateWorkstationRequest>);
 
     impl CreateWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1304,7 +1728,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workstation][super::super::client::Workstations::create_workstation].
+        /// on [create_workstation][crate::client::Workstations::create_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workstation(self.0.request, self.0.options)
@@ -1316,8 +1740,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1342,7 +1768,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkstationRequest::parent].
@@ -1364,11 +1790,22 @@ pub mod workstations {
         /// Sets the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation = v.into();
+        pub fn set_workstation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation][crate::model::CreateWorkstationRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = v.map(|x| x.into());
             self
         }
 
@@ -1386,12 +1823,31 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::update_workstation][super::super::client::Workstations::update_workstation] calls.
+    /// The request builder for [Workstations::update_workstation][crate::client::Workstations::update_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::UpdateWorkstation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkstation(RequestBuilder<crate::model::UpdateWorkstationRequest>);
 
     impl UpdateWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1415,7 +1871,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workstation][super::super::client::Workstations::update_workstation].
+        /// on [update_workstation][crate::client::Workstations::update_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workstation(self.0.request, self.0.options)
@@ -1427,8 +1883,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1453,28 +1911,50 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workstation<T: Into<std::option::Option<crate::model::Workstation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workstation = v.into();
+        pub fn set_workstation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workstation][crate::model::UpdateWorkstationRequest::workstation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workstation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workstation>,
+        {
+            self.0.request.workstation = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkstationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1498,12 +1978,31 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_workstation][super::super::client::Workstations::delete_workstation] calls.
+    /// The request builder for [Workstations::delete_workstation][crate::client::Workstations::delete_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteWorkstation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkstation(RequestBuilder<crate::model::DeleteWorkstationRequest>);
 
     impl DeleteWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1527,7 +2026,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workstation][super::super::client::Workstations::delete_workstation].
+        /// on [delete_workstation][crate::client::Workstations::delete_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workstation(self.0.request, self.0.options)
@@ -1539,8 +2038,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1565,7 +2066,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkstationRequest::name].
@@ -1596,12 +2097,31 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::start_workstation][super::super::client::Workstations::start_workstation] calls.
+    /// The request builder for [Workstations::start_workstation][crate::client::Workstations::start_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::StartWorkstation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartWorkstation(RequestBuilder<crate::model::StartWorkstationRequest>);
 
     impl StartWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1625,7 +2145,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_workstation][super::super::client::Workstations::start_workstation].
+        /// on [start_workstation][crate::client::Workstations::start_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_workstation(self.0.request, self.0.options)
@@ -1637,8 +2157,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1663,7 +2185,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartWorkstationRequest::name].
@@ -1694,12 +2216,31 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::stop_workstation][super::super::client::Workstations::stop_workstation] calls.
+    /// The request builder for [Workstations::stop_workstation][crate::client::Workstations::stop_workstation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::StopWorkstation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopWorkstation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopWorkstation(RequestBuilder<crate::model::StopWorkstationRequest>);
 
     impl StopWorkstation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1720,7 +2261,7 @@ pub mod workstations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_workstation][super::super::client::Workstations::stop_workstation].
+        /// on [stop_workstation][crate::client::Workstations::stop_workstation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_workstation(self.0.request, self.0.options)
@@ -1732,8 +2273,10 @@ pub mod workstations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Workstation, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Workstation, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Workstation,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1758,7 +2301,7 @@ pub mod workstations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopWorkstationRequest::name].
@@ -1789,12 +2332,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::generate_access_token][super::super::client::Workstations::generate_access_token] calls.
+    /// The request builder for [Workstations::generate_access_token][crate::client::Workstations::generate_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GenerateAccessToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1877,12 +2438,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::set_iam_policy][super::super::client::Workstations::set_iam_policy] calls.
+    /// The request builder for [Workstations::set_iam_policy][crate::client::Workstations::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1917,20 +2496,40 @@ pub mod workstations {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1942,12 +2541,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_iam_policy][super::super::client::Workstations::get_iam_policy] calls.
+    /// The request builder for [Workstations::get_iam_policy][crate::client::Workstations::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1980,11 +2597,20 @@ pub mod workstations {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1996,12 +2622,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::test_iam_permissions][super::super::client::Workstations::test_iam_permissions] calls.
+    /// The request builder for [Workstations::test_iam_permissions][crate::client::Workstations::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2057,12 +2701,34 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::list_operations][super::super::client::Workstations::list_operations] calls.
+    /// The request builder for [Workstations::list_operations][crate::client::Workstations::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2089,8 +2755,8 @@ pub mod workstations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2102,6 +2768,17 @@ pub mod workstations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2136,12 +2813,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::get_operation][super::super::client::Workstations::get_operation] calls.
+    /// The request builder for [Workstations::get_operation][crate::client::Workstations::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2182,12 +2877,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::delete_operation][super::super::client::Workstations::delete_operation] calls.
+    /// The request builder for [Workstations::delete_operation][crate::client::Workstations::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2228,12 +2941,30 @@ pub mod workstations {
         }
     }
 
-    /// The request builder for [Workstations::cancel_operation][super::super::client::Workstations::cancel_operation] calls.
+    /// The request builder for [Workstations::cancel_operation][crate::client::Workstations::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workstations_v1::builder;
+    /// use builder::workstations::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Workstations>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Workstations>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

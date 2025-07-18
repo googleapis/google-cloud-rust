@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Database Migration API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_clouddms_v1::client::DataMigrationService;
 /// let client = DataMigrationService::builder().build().await?;
 /// // use `client` to make requests to the Database Migration API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `DataMigrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataMigrationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataMigrationService {
-    inner: Arc<dyn super::stub::dynamic::DataMigrationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataMigrationService>,
 }
 
 impl DataMigrationService {
@@ -72,7 +69,7 @@ impl DataMigrationService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// let client = DataMigrationService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_migration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,54 +86,49 @@ impl DataMigrationService {
         T: super::stub::DataMigrationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataMigrationService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataMigrationService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataMigrationService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataMigrationService> {
         super::transport::DataMigrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataMigrationService> {
+    ) -> gax::client_builder::Result<impl super::stub::DataMigrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataMigrationService::new)
     }
 
     /// Lists migration jobs in a given project and location.
-    pub fn list_migration_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::ListMigrationJobs {
+    pub fn list_migration_jobs(&self) -> super::builder::data_migration_service::ListMigrationJobs {
         super::builder::data_migration_service::ListMigrationJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single migration job.
-    pub fn get_migration_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::GetMigrationJob {
+    pub fn get_migration_job(&self) -> super::builder::data_migration_service::GetMigrationJob {
         super::builder::data_migration_service::GetMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new migration job in a given project and location.
@@ -152,10 +144,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_migration_job(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::CreateMigrationJob {
         super::builder::data_migration_service::CreateMigrationJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single migration job.
@@ -171,10 +161,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_migration_job(
         &self,
-        migration_job: impl Into<crate::model::MigrationJob>,
     ) -> super::builder::data_migration_service::UpdateMigrationJob {
         super::builder::data_migration_service::UpdateMigrationJob::new(self.inner.clone())
-            .set_migration_job(migration_job.into())
     }
 
     /// Deletes a single migration job.
@@ -190,10 +178,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_migration_job(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::DeleteMigrationJob {
         super::builder::data_migration_service::DeleteMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Start an already created migration job.
@@ -207,12 +193,8 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_migration_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::StartMigrationJob {
+    pub fn start_migration_job(&self) -> super::builder::data_migration_service::StartMigrationJob {
         super::builder::data_migration_service::StartMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Stops a running migration job.
@@ -226,12 +208,8 @@ impl DataMigrationService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_migration_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::StopMigrationJob {
+    pub fn stop_migration_job(&self) -> super::builder::data_migration_service::StopMigrationJob {
         super::builder::data_migration_service::StopMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Resume a migration job that is currently stopped and is resumable (was
@@ -248,10 +226,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn resume_migration_job(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ResumeMigrationJob {
         super::builder::data_migration_service::ResumeMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Promote a migration job, stopping replication to the destination and
@@ -268,10 +244,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn promote_migration_job(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::PromoteMigrationJob {
         super::builder::data_migration_service::PromoteMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Verify a migration job, making sure the destination can reach the source
@@ -288,10 +262,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn verify_migration_job(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::VerifyMigrationJob {
         super::builder::data_migration_service::VerifyMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Restart a stopped or failed migration job, resetting the destination
@@ -309,49 +281,37 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn restart_migration_job(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::RestartMigrationJob {
         super::builder::data_migration_service::RestartMigrationJob::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Generate a SSH configuration script to configure the reverse SSH
     /// connectivity.
-    pub fn generate_ssh_script(
-        &self,
-        migration_job: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::GenerateSshScript {
+    pub fn generate_ssh_script(&self) -> super::builder::data_migration_service::GenerateSshScript {
         super::builder::data_migration_service::GenerateSshScript::new(self.inner.clone())
-            .set_migration_job(migration_job.into())
     }
 
     /// Generate a TCP Proxy configuration script to configure a cloud-hosted VM
     /// running a TCP Proxy.
     pub fn generate_tcp_proxy_script(
         &self,
-        migration_job: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::GenerateTcpProxyScript {
         super::builder::data_migration_service::GenerateTcpProxyScript::new(self.inner.clone())
-            .set_migration_job(migration_job.into())
     }
 
     /// Retrieves a list of all connection profiles in a given project and
     /// location.
     pub fn list_connection_profiles(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ListConnectionProfiles {
         super::builder::data_migration_service::ListConnectionProfiles::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single connection profile.
     pub fn get_connection_profile(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::GetConnectionProfile {
         super::builder::data_migration_service::GetConnectionProfile::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new connection profile in a given project and location.
@@ -367,10 +327,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_connection_profile(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::CreateConnectionProfile {
         super::builder::data_migration_service::CreateConnectionProfile::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Update the configuration of a single connection profile.
@@ -386,10 +344,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_connection_profile(
         &self,
-        connection_profile: impl Into<crate::model::ConnectionProfile>,
     ) -> super::builder::data_migration_service::UpdateConnectionProfile {
         super::builder::data_migration_service::UpdateConnectionProfile::new(self.inner.clone())
-            .set_connection_profile(connection_profile.into())
     }
 
     /// Deletes a single Database Migration Service connection profile.
@@ -407,10 +363,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_connection_profile(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::DeleteConnectionProfile {
         super::builder::data_migration_service::DeleteConnectionProfile::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new private connection in a given project and location.
@@ -426,28 +380,22 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_private_connection(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::CreatePrivateConnection {
         super::builder::data_migration_service::CreatePrivateConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single private connection.
     pub fn get_private_connection(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::GetPrivateConnection {
         super::builder::data_migration_service::GetPrivateConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Retrieves a list of private connections in a given project and location.
     pub fn list_private_connections(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ListPrivateConnections {
         super::builder::data_migration_service::ListPrivateConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single Database Migration Service private connection.
@@ -463,28 +411,22 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_private_connection(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::DeletePrivateConnection {
         super::builder::data_migration_service::DeletePrivateConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets details of a single conversion workspace.
     pub fn get_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::GetConversionWorkspace {
         super::builder::data_migration_service::GetConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists conversion workspaces in a given project and location.
     pub fn list_conversion_workspaces(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ListConversionWorkspaces {
         super::builder::data_migration_service::ListConversionWorkspaces::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new conversion workspace in a given project and location.
@@ -500,10 +442,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_conversion_workspace(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::CreateConversionWorkspace {
         super::builder::data_migration_service::CreateConversionWorkspace::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single conversion workspace.
@@ -519,10 +459,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_conversion_workspace(
         &self,
-        conversion_workspace: impl Into<crate::model::ConversionWorkspace>,
     ) -> super::builder::data_migration_service::UpdateConversionWorkspace {
         super::builder::data_migration_service::UpdateConversionWorkspace::new(self.inner.clone())
-            .set_conversion_workspace(conversion_workspace.into())
     }
 
     /// Deletes a single conversion workspace.
@@ -538,46 +476,28 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::DeleteConversionWorkspace {
         super::builder::data_migration_service::DeleteConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new mapping rule for a given conversion workspace.
-    pub fn create_mapping_rule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::CreateMappingRule {
+    pub fn create_mapping_rule(&self) -> super::builder::data_migration_service::CreateMappingRule {
         super::builder::data_migration_service::CreateMappingRule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single mapping rule.
-    pub fn delete_mapping_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::DeleteMappingRule {
+    pub fn delete_mapping_rule(&self) -> super::builder::data_migration_service::DeleteMappingRule {
         super::builder::data_migration_service::DeleteMappingRule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists the mapping rules for a specific conversion workspace.
-    pub fn list_mapping_rules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::ListMappingRules {
+    pub fn list_mapping_rules(&self) -> super::builder::data_migration_service::ListMappingRules {
         super::builder::data_migration_service::ListMappingRules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the details of a mapping rule.
-    pub fn get_mapping_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::GetMappingRule {
+    pub fn get_mapping_rule(&self) -> super::builder::data_migration_service::GetMappingRule {
         super::builder::data_migration_service::GetMappingRule::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Imports a snapshot of the source database into the
@@ -594,10 +514,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn seed_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::SeedConversionWorkspace {
         super::builder::data_migration_service::SeedConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Imports the mapping rules for a given conversion workspace.
@@ -614,10 +532,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn import_mapping_rules(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ImportMappingRules {
         super::builder::data_migration_service::ImportMappingRules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a draft tree schema for the destination database.
@@ -633,10 +549,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn convert_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ConvertConversionWorkspace {
         super::builder::data_migration_service::ConvertConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Marks all the data in the conversion workspace as committed.
@@ -652,10 +566,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn commit_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::CommitConversionWorkspace {
         super::builder::data_migration_service::CommitConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Rolls back a conversion workspace to the last committed snapshot.
@@ -671,10 +583,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn rollback_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::RollbackConversionWorkspace {
         super::builder::data_migration_service::RollbackConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Applies draft tree onto a specific destination database.
@@ -690,10 +600,8 @@ impl DataMigrationService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn apply_conversion_workspace(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::ApplyConversionWorkspace {
         super::builder::data_migration_service::ApplyConversionWorkspace::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Describes the database entities tree for a specific conversion workspace
@@ -704,10 +612,8 @@ impl DataMigrationService {
     /// simple data objects describing the structure of the client database.
     pub fn describe_database_entities(
         &self,
-        conversion_workspace: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::DescribeDatabaseEntities {
         super::builder::data_migration_service::DescribeDatabaseEntities::new(self.inner.clone())
-            .set_conversion_workspace(conversion_workspace.into())
     }
 
     /// Searches/lists the background jobs for a specific
@@ -718,50 +624,34 @@ impl DataMigrationService {
     /// Instead, they are a way to expose the data plane jobs log.
     pub fn search_background_jobs(
         &self,
-        conversion_workspace: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::SearchBackgroundJobs {
         super::builder::data_migration_service::SearchBackgroundJobs::new(self.inner.clone())
-            .set_conversion_workspace(conversion_workspace.into())
     }
 
     /// Retrieves a list of committed revisions of a specific conversion
     /// workspace.
     pub fn describe_conversion_workspace_revisions(
         &self,
-        conversion_workspace: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::DescribeConversionWorkspaceRevisions {
         super::builder::data_migration_service::DescribeConversionWorkspaceRevisions::new(
             self.inner.clone(),
         )
-        .set_conversion_workspace(conversion_workspace.into())
     }
 
     /// Fetches a set of static IP addresses that need to be allowlisted by the
     /// customer when using the static-IP connectivity method.
-    pub fn fetch_static_ips(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::FetchStaticIps {
+    pub fn fetch_static_ips(&self) -> super::builder::data_migration_service::FetchStaticIps {
         super::builder::data_migration_service::FetchStaticIps::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::data_migration_service::ListLocations {
         super::builder::data_migration_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::data_migration_service::GetLocation {
         super::builder::data_migration_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -769,22 +659,14 @@ impl DataMigrationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::data_migration_service::SetIamPolicy {
         super::builder::data_migration_service::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::data_migration_service::GetIamPolicy {
         super::builder::data_migration_service::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -796,53 +678,35 @@ impl DataMigrationService {
     /// checking. This operation may "fail open" without warning.
     pub fn test_iam_permissions(
         &self,
-        resource: impl Into<std::string::String>,
     ) -> super::builder::data_migration_service::TestIamPermissions {
         super::builder::data_migration_service::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::data_migration_service::ListOperations {
         super::builder::data_migration_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::data_migration_service::GetOperation {
         super::builder::data_migration_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::data_migration_service::DeleteOperation {
         super::builder::data_migration_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_migration_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::data_migration_service::CancelOperation {
         super::builder::data_migration_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

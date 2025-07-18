@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ClusterManager].
@@ -48,9 +46,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListClustersResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::get_cluster].
@@ -61,9 +57,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Cluster>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Cluster>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::create_cluster].
@@ -74,9 +68,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::update_cluster].
@@ -87,9 +79,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::update_node_pool].
@@ -100,9 +90,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_node_pool_autoscaling].
@@ -113,9 +101,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_logging_service].
@@ -126,9 +112,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_monitoring_service].
@@ -139,9 +123,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_addons_config].
@@ -152,9 +134,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_locations].
@@ -165,9 +145,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::update_master].
@@ -178,9 +156,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_master_auth].
@@ -191,9 +167,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::delete_cluster].
@@ -204,9 +178,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::list_operations].
@@ -217,9 +189,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListOperationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::get_operation].
@@ -230,9 +200,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::cancel_operation].
@@ -241,9 +209,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::CancelOperationRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::get_server_config].
@@ -254,9 +220,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ServerConfig>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ServerConfig>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::get_json_web_keys].
@@ -267,9 +231,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::GetJSONWebKeysResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::list_node_pools].
@@ -280,9 +242,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListNodePoolsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::get_node_pool].
@@ -293,9 +253,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::NodePool>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::NodePool>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::create_node_pool].
@@ -306,9 +264,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::delete_node_pool].
@@ -319,9 +275,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::complete_node_pool_upgrade].
@@ -330,9 +284,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         _req: crate::model::CompleteNodePoolUpgradeRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::rollback_node_pool_upgrade].
@@ -343,9 +295,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_node_pool_management].
@@ -356,9 +306,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_labels].
@@ -369,9 +317,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_legacy_abac].
@@ -382,9 +328,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::start_ip_rotation].
@@ -395,9 +339,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::complete_ip_rotation].
@@ -408,9 +350,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_node_pool_size].
@@ -421,9 +361,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_network_policy].
@@ -434,9 +372,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::set_maintenance_policy].
@@ -447,9 +383,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Operation>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::list_usable_subnetworks].
@@ -462,9 +396,7 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListUsableSubnetworksResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListUsableSubnetworksResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ClusterManager::check_autopilot_compatibility].
@@ -477,10 +409,28 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<
-                gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>,
-            >,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ClusterManager::fetch_cluster_upgrade_info].
+    fn fetch_cluster_upgrade_info(
+        &self,
+        _req: crate::model::FetchClusterUpgradeInfoRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ClusterUpgradeInfo>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ClusterManager::fetch_node_pool_upgrade_info].
+    fn fetch_node_pool_upgrade_info(
+        &self,
+        _req: crate::model::FetchNodePoolUpgradeInfoRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

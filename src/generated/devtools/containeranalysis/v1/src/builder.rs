@@ -16,9 +16,8 @@
 
 pub mod container_analysis {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ContainerAnalysis][super::super::client::ContainerAnalysis].
+    /// A builder for [ContainerAnalysis][crate::client::ContainerAnalysis].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod container_analysis {
     /// let client = builder
     ///     .with_endpoint("https://containeranalysis.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod container_analysis {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ContainerAnalysis;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ContainerAnalysis] request builders.
+    /// Common implementation for [crate::client::ContainerAnalysis] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod container_analysis {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::set_iam_policy][super::super::client::ContainerAnalysis::set_iam_policy] calls.
+    /// The request builder for [ContainerAnalysis::set_iam_policy][crate::client::ContainerAnalysis::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -107,20 +129,40 @@ pub mod container_analysis {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -132,12 +174,30 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::get_iam_policy][super::super::client::ContainerAnalysis::get_iam_policy] calls.
+    /// The request builder for [ContainerAnalysis::get_iam_policy][crate::client::ContainerAnalysis::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -170,11 +230,20 @@ pub mod container_analysis {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -186,12 +255,30 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::test_iam_permissions][super::super::client::ContainerAnalysis::test_iam_permissions] calls.
+    /// The request builder for [ContainerAnalysis::test_iam_permissions][crate::client::ContainerAnalysis::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -247,14 +334,32 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][super::super::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
+    /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][crate::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::GetVulnerabilityOccurrencesSummary;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVulnerabilityOccurrencesSummary {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVulnerabilityOccurrencesSummary(
         RequestBuilder<crate::model::GetVulnerabilityOccurrencesSummaryRequest>,
     );
 
     impl GetVulnerabilityOccurrencesSummary {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -303,12 +408,30 @@ pub mod container_analysis {
         }
     }
 
-    /// The request builder for [ContainerAnalysis::export_sbom][super::super::client::ContainerAnalysis::export_sbom] calls.
+    /// The request builder for [ContainerAnalysis::export_sbom][crate::client::ContainerAnalysis::export_sbom] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_containeranalysis_v1::builder;
+    /// use builder::container_analysis::ExportSBOM;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportSBOM {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportSBOM(RequestBuilder<crate::model::ExportSBOMRequest>);
 
     impl ExportSBOM {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ContainerAnalysis>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ContainerAnalysis>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

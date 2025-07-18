@@ -24,34 +24,37 @@
 //! This is intentional, as they are not intended for general use and will be
 //! changed without notice.
 
-#[cfg(feature = "_internal_common")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-common")]
 pub mod api_header;
 
-#[cfg(feature = "_internal_common")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-common")]
 pub mod path_parameter;
 
-#[cfg(feature = "_internal_http_client")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-http-client")]
 pub mod query_parameter;
 
-#[cfg(feature = "_internal_http_client")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-http-client")]
 pub mod http;
 
-#[cfg(feature = "_internal_grpc_client")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-grpc-client")]
 pub mod grpc;
 
-#[cfg(feature = "_internal_grpc_client")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-grpc-client")]
 pub mod prost;
 
-#[cfg(feature = "_internal_common")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-common")]
 pub mod options;
 
-#[cfg(feature = "_internal_common")]
-#[doc(hidden)]
+#[cfg(feature = "_internal-common")]
+pub mod unimplemented;
+
+#[cfg(feature = "_internal-common")]
 pub mod routing_parameter;
+
+#[cfg(feature = "_internal-grpc-client")]
+pub(crate) mod google {
+    pub mod rpc {
+        include!("generated/protos/rpc/google.rpc.rs");
+        include!("generated/convert/rpc/convert.rs");
+    }
+}

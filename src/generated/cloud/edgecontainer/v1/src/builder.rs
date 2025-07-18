@@ -16,9 +16,8 @@
 
 pub mod edge_container {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [EdgeContainer][super::super::client::EdgeContainer].
+    /// A builder for [EdgeContainer][crate::client::EdgeContainer].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod edge_container {
     /// let client = builder
     ///     .with_endpoint("https://edgecontainer.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod edge_container {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EdgeContainer;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::EdgeContainer] request builders.
+    /// Common implementation for [crate::client::EdgeContainer] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod edge_container {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_clusters][super::super::client::EdgeContainer::list_clusters] calls.
+    /// The request builder for [EdgeContainer::list_clusters][crate::client::EdgeContainer::list_clusters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListClusters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListClusters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListClusters(RequestBuilder<crate::model::ListClustersRequest>);
 
     impl ListClusters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListClustersResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod edge_container {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListClustersResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListClustersRequest::parent].
@@ -151,12 +186,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_cluster][super::super::client::EdgeContainer::get_cluster] calls.
+    /// The request builder for [EdgeContainer::get_cluster][crate::client::EdgeContainer::get_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetCluster;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCluster(RequestBuilder<crate::model::GetClusterRequest>);
 
     impl GetCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::create_cluster][super::super::client::EdgeContainer::create_cluster] calls.
+    /// The request builder for [EdgeContainer::create_cluster][crate::client::EdgeContainer::create_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CreateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCluster(RequestBuilder<crate::model::CreateClusterRequest>);
 
     impl CreateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +294,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_cluster][super::super::client::EdgeContainer::create_cluster].
+        /// on [create_cluster][crate::client::EdgeContainer::create_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_cluster(self.0.request, self.0.options)
@@ -234,7 +306,8 @@ pub mod edge_container {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -259,7 +332,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateClusterRequest::parent].
@@ -281,11 +354,22 @@ pub mod edge_container {
         /// Sets the value of [cluster][crate::model::CreateClusterRequest::cluster].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::CreateClusterRequest::cluster].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -303,12 +387,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::update_cluster][super::super::client::EdgeContainer::update_cluster] calls.
+    /// The request builder for [EdgeContainer::update_cluster][crate::client::EdgeContainer::update_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::UpdateCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCluster(RequestBuilder<crate::model::UpdateClusterRequest>);
 
     impl UpdateCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +432,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_cluster][super::super::client::EdgeContainer::update_cluster].
+        /// on [update_cluster][crate::client::EdgeContainer::update_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_cluster(self.0.request, self.0.options)
@@ -341,7 +444,8 @@ pub mod edge_container {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,24 +470,42 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateClusterRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [cluster][crate::model::UpdateClusterRequest::cluster].
-        pub fn set_cluster<T: Into<std::option::Option<crate::model::Cluster>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cluster = v.into();
+        pub fn set_cluster<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cluster][crate::model::UpdateClusterRequest::cluster].
+        pub fn set_or_clear_cluster<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Cluster>,
+        {
+            self.0.request.cluster = v.map(|x| x.into());
             self
         }
 
@@ -401,12 +523,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster] calls.
+    /// The request builder for [EdgeContainer::upgrade_cluster][crate::client::EdgeContainer::upgrade_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::UpgradeCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpgradeCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpgradeCluster(RequestBuilder<crate::model::UpgradeClusterRequest>);
 
     impl UpgradeCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -427,7 +568,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [upgrade_cluster][super::super::client::EdgeContainer::upgrade_cluster].
+        /// on [upgrade_cluster][crate::client::EdgeContainer::upgrade_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .upgrade_cluster(self.0.request, self.0.options)
@@ -439,7 +580,8 @@ pub mod edge_container {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Cluster, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Cluster, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -464,7 +606,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpgradeClusterRequest::name].
@@ -506,12 +648,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_cluster][super::super::client::EdgeContainer::delete_cluster] calls.
+    /// The request builder for [EdgeContainer::delete_cluster][crate::client::EdgeContainer::delete_cluster] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteCluster;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCluster {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCluster(RequestBuilder<crate::model::DeleteClusterRequest>);
 
     impl DeleteCluster {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -532,7 +693,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_cluster][super::super::client::EdgeContainer::delete_cluster].
+        /// on [delete_cluster][crate::client::EdgeContainer::delete_cluster].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_cluster(self.0.request, self.0.options)
@@ -541,8 +702,8 @@ pub mod edge_container {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_cluster`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -567,7 +728,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteClusterRequest::name].
@@ -592,12 +758,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::generate_access_token][super::super::client::EdgeContainer::generate_access_token] calls.
+    /// The request builder for [EdgeContainer::generate_access_token][crate::client::EdgeContainer::generate_access_token] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GenerateAccessToken;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateAccessToken {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateAccessToken(RequestBuilder<crate::model::GenerateAccessTokenRequest>);
 
     impl GenerateAccessToken {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -640,14 +824,32 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::generate_offline_credential][super::super::client::EdgeContainer::generate_offline_credential] calls.
+    /// The request builder for [EdgeContainer::generate_offline_credential][crate::client::EdgeContainer::generate_offline_credential] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GenerateOfflineCredential;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateOfflineCredential {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateOfflineCredential(
         RequestBuilder<crate::model::GenerateOfflineCredentialRequest>,
     );
 
     impl GenerateOfflineCredential {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,12 +892,34 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_node_pools][super::super::client::EdgeContainer::list_node_pools] calls.
+    /// The request builder for [EdgeContainer::list_node_pools][crate::client::EdgeContainer::list_node_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListNodePools;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNodePools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNodePools(RequestBuilder<crate::model::ListNodePoolsRequest>);
 
     impl ListNodePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -719,8 +943,8 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNodePoolsResponse, gax::error::Error>
         {
@@ -732,6 +956,15 @@ pub mod edge_container {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNodePoolsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNodePoolsRequest::parent].
@@ -774,12 +1007,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_node_pool][super::super::client::EdgeContainer::get_node_pool] calls.
+    /// The request builder for [EdgeContainer::get_node_pool][crate::client::EdgeContainer::get_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetNodePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNodePool(RequestBuilder<crate::model::GetNodePoolRequest>);
 
     impl GetNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -819,12 +1070,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::create_node_pool][super::super::client::EdgeContainer::create_node_pool] calls.
+    /// The request builder for [EdgeContainer::create_node_pool][crate::client::EdgeContainer::create_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CreateNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNodePool(RequestBuilder<crate::model::CreateNodePoolRequest>);
 
     impl CreateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,7 +1115,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_node_pool][super::super::client::EdgeContainer::create_node_pool].
+        /// on [create_node_pool][crate::client::EdgeContainer::create_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_node_pool(self.0.request, self.0.options)
@@ -858,7 +1128,7 @@ pub mod edge_container {
             self,
         ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -883,7 +1153,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNodePoolRequest::parent].
@@ -905,11 +1175,22 @@ pub mod edge_container {
         /// Sets the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_pool = v.into();
+        pub fn set_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_pool][crate::model::CreateNodePoolRequest::node_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = v.map(|x| x.into());
             self
         }
 
@@ -927,12 +1208,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::update_node_pool][super::super::client::EdgeContainer::update_node_pool] calls.
+    /// The request builder for [EdgeContainer::update_node_pool][crate::client::EdgeContainer::update_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::UpdateNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNodePool(RequestBuilder<crate::model::UpdateNodePoolRequest>);
 
     impl UpdateNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -953,7 +1253,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_node_pool][super::super::client::EdgeContainer::update_node_pool].
+        /// on [update_node_pool][crate::client::EdgeContainer::update_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_node_pool(self.0.request, self.0.options)
@@ -966,7 +1266,7 @@ pub mod edge_container {
             self,
         ) -> impl lro::Poller<crate::model::NodePool, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::NodePool, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -991,24 +1291,42 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNodePoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
-        pub fn set_node_pool<T: Into<std::option::Option<crate::model::NodePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.node_pool = v.into();
+        pub fn set_node_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_pool][crate::model::UpdateNodePoolRequest::node_pool].
+        pub fn set_or_clear_node_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NodePool>,
+        {
+            self.0.request.node_pool = v.map(|x| x.into());
             self
         }
 
@@ -1026,12 +1344,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_node_pool][super::super::client::EdgeContainer::delete_node_pool] calls.
+    /// The request builder for [EdgeContainer::delete_node_pool][crate::client::EdgeContainer::delete_node_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteNodePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNodePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNodePool(RequestBuilder<crate::model::DeleteNodePoolRequest>);
 
     impl DeleteNodePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1052,7 +1389,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_node_pool][super::super::client::EdgeContainer::delete_node_pool].
+        /// on [delete_node_pool][crate::client::EdgeContainer::delete_node_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_node_pool(self.0.request, self.0.options)
@@ -1061,8 +1398,8 @@ pub mod edge_container {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_node_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1087,7 +1424,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNodePoolRequest::name].
@@ -1112,12 +1454,34 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_machines][super::super::client::EdgeContainer::list_machines] calls.
+    /// The request builder for [EdgeContainer::list_machines][crate::client::EdgeContainer::list_machines] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListMachines;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMachines {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMachines(RequestBuilder<crate::model::ListMachinesRequest>);
 
     impl ListMachines {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1141,8 +1505,8 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMachinesResponse, gax::error::Error>
         {
@@ -1154,6 +1518,15 @@ pub mod edge_container {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListMachinesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMachinesRequest::parent].
@@ -1196,12 +1569,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_machine][super::super::client::EdgeContainer::get_machine] calls.
+    /// The request builder for [EdgeContainer::get_machine][crate::client::EdgeContainer::get_machine] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetMachine;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMachine {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMachine(RequestBuilder<crate::model::GetMachineRequest>);
 
     impl GetMachine {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1241,12 +1632,34 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_vpn_connections][super::super::client::EdgeContainer::list_vpn_connections] calls.
+    /// The request builder for [EdgeContainer::list_vpn_connections][crate::client::EdgeContainer::list_vpn_connections] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListVpnConnections;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVpnConnections {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVpnConnections(RequestBuilder<crate::model::ListVpnConnectionsRequest>);
 
     impl ListVpnConnections {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1273,8 +1686,8 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVpnConnectionsResponse, gax::error::Error>
         {
@@ -1286,6 +1699,17 @@ pub mod edge_container {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVpnConnectionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVpnConnectionsRequest::parent].
@@ -1328,12 +1752,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_vpn_connection][super::super::client::EdgeContainer::get_vpn_connection] calls.
+    /// The request builder for [EdgeContainer::get_vpn_connection][crate::client::EdgeContainer::get_vpn_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetVpnConnection;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVpnConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVpnConnection(RequestBuilder<crate::model::GetVpnConnectionRequest>);
 
     impl GetVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1376,12 +1818,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection] calls.
+    /// The request builder for [EdgeContainer::create_vpn_connection][crate::client::EdgeContainer::create_vpn_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CreateVpnConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVpnConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVpnConnection(RequestBuilder<crate::model::CreateVpnConnectionRequest>);
 
     impl CreateVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1405,7 +1866,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_vpn_connection][super::super::client::EdgeContainer::create_vpn_connection].
+        /// on [create_vpn_connection][crate::client::EdgeContainer::create_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_vpn_connection(self.0.request, self.0.options)
@@ -1418,8 +1879,10 @@ pub mod edge_container {
             self,
         ) -> impl lro::Poller<crate::model::VpnConnection, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VpnConnection, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VpnConnection,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1444,7 +1907,7 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVpnConnectionRequest::parent].
@@ -1466,11 +1929,22 @@ pub mod edge_container {
         /// Sets the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
         ///
         /// This is a **required** field for requests.
-        pub fn set_vpn_connection<T: Into<std::option::Option<crate::model::VpnConnection>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.vpn_connection = v.into();
+        pub fn set_vpn_connection<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VpnConnection>,
+        {
+            self.0.request.vpn_connection = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [vpn_connection][crate::model::CreateVpnConnectionRequest::vpn_connection].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_vpn_connection<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VpnConnection>,
+        {
+            self.0.request.vpn_connection = v.map(|x| x.into());
             self
         }
 
@@ -1488,12 +1962,31 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection] calls.
+    /// The request builder for [EdgeContainer::delete_vpn_connection][crate::client::EdgeContainer::delete_vpn_connection] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteVpnConnection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVpnConnection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVpnConnection(RequestBuilder<crate::model::DeleteVpnConnectionRequest>);
 
     impl DeleteVpnConnection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1517,7 +2010,7 @@ pub mod edge_container {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_vpn_connection][super::super::client::EdgeContainer::delete_vpn_connection].
+        /// on [delete_vpn_connection][crate::client::EdgeContainer::delete_vpn_connection].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_vpn_connection(self.0.request, self.0.options)
@@ -1526,8 +2019,8 @@ pub mod edge_container {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_vpn_connection`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1552,7 +2045,12 @@ pub mod edge_container {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVpnConnectionRequest::name].
@@ -1577,12 +2075,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_server_config][super::super::client::EdgeContainer::get_server_config] calls.
+    /// The request builder for [EdgeContainer::get_server_config][crate::client::EdgeContainer::get_server_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetServerConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServerConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServerConfig(RequestBuilder<crate::model::GetServerConfigRequest>);
 
     impl GetServerConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1622,12 +2138,34 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_locations][super::super::client::EdgeContainer::list_locations] calls.
+    /// The request builder for [EdgeContainer::list_locations][crate::client::EdgeContainer::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1654,8 +2192,8 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1667,6 +2205,15 @@ pub mod edge_container {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1701,12 +2248,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_location][super::super::client::EdgeContainer::get_location] calls.
+    /// The request builder for [EdgeContainer::get_location][crate::client::EdgeContainer::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1744,12 +2309,34 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::list_operations][super::super::client::EdgeContainer::list_operations] calls.
+    /// The request builder for [EdgeContainer::list_operations][crate::client::EdgeContainer::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1776,8 +2363,8 @@ pub mod edge_container {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1789,6 +2376,17 @@ pub mod edge_container {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1823,12 +2421,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::get_operation][super::super::client::EdgeContainer::get_operation] calls.
+    /// The request builder for [EdgeContainer::get_operation][crate::client::EdgeContainer::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1869,12 +2485,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::delete_operation][super::super::client::EdgeContainer::delete_operation] calls.
+    /// The request builder for [EdgeContainer::delete_operation][crate::client::EdgeContainer::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1915,12 +2549,30 @@ pub mod edge_container {
         }
     }
 
-    /// The request builder for [EdgeContainer::cancel_operation][super::super::client::EdgeContainer::cancel_operation] calls.
+    /// The request builder for [EdgeContainer::cancel_operation][crate::client::EdgeContainer::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_edgecontainer_v1::builder;
+    /// use builder::edge_container::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EdgeContainer>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EdgeContainer>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

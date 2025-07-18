@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Monitoring API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
 /// let client = DashboardsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `DashboardsService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DashboardsService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DashboardsService {
-    inner: Arc<dyn super::stub::dynamic::DashboardsService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DashboardsService>,
 }
 
 impl DashboardsService {
@@ -73,7 +70,7 @@ impl DashboardsService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// let client = DashboardsService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dashboards_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -90,33 +87,36 @@ impl DashboardsService {
         T: super::stub::DashboardsService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DashboardsService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DashboardsService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DashboardsService> {
+    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
         super::transport::DashboardsService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DashboardsService> {
+    ) -> gax::client_builder::Result<impl super::stub::DashboardsService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DashboardsService::new)
@@ -128,12 +128,8 @@ impl DashboardsService {
     /// method requires the `monitoring.dashboards.create` permission on the
     /// specified project. For more information about permissions, see [Cloud
     /// Identity and Access Management](https://cloud.google.com/iam).
-    pub fn create_dashboard(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::CreateDashboard {
+    pub fn create_dashboard(&self) -> super::builder::dashboards_service::CreateDashboard {
         super::builder::dashboards_service::CreateDashboard::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists the existing dashboards.
@@ -141,12 +137,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.list` permission
     /// on the specified project. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn list_dashboards(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::ListDashboards {
+    pub fn list_dashboards(&self) -> super::builder::dashboards_service::ListDashboards {
         super::builder::dashboards_service::ListDashboards::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Fetches a specific dashboard.
@@ -154,12 +146,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.get` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn get_dashboard(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::GetDashboard {
+    pub fn get_dashboard(&self) -> super::builder::dashboards_service::GetDashboard {
         super::builder::dashboards_service::GetDashboard::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes an existing custom dashboard.
@@ -167,12 +155,8 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.delete` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn delete_dashboard(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::dashboards_service::DeleteDashboard {
+    pub fn delete_dashboard(&self) -> super::builder::dashboards_service::DeleteDashboard {
         super::builder::dashboards_service::DeleteDashboard::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Replaces an existing custom dashboard with a new definition.
@@ -180,11 +164,7 @@ impl DashboardsService {
     /// This method requires the `monitoring.dashboards.update` permission
     /// on the specified dashboard. For more information, see
     /// [Cloud Identity and Access Management](https://cloud.google.com/iam).
-    pub fn update_dashboard(
-        &self,
-        dashboard: impl Into<crate::model::Dashboard>,
-    ) -> super::builder::dashboards_service::UpdateDashboard {
+    pub fn update_dashboard(&self) -> super::builder::dashboards_service::UpdateDashboard {
         super::builder::dashboards_service::UpdateDashboard::new(self.inner.clone())
-            .set_dashboard(dashboard.into())
     }
 }

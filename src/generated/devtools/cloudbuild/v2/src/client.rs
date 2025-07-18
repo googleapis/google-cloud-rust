@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Build API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_build_v2::client::RepositoryManager;
 /// let client = RepositoryManager::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `RepositoryManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RepositoryManager` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct RepositoryManager {
-    inner: Arc<dyn super::stub::dynamic::RepositoryManager>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::RepositoryManager>,
 }
 
 impl RepositoryManager {
@@ -72,7 +69,7 @@ impl RepositoryManager {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// let client = RepositoryManager::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::repository_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,33 +86,36 @@ impl RepositoryManager {
         T: super::stub::RepositoryManager + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::RepositoryManager>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RepositoryManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RepositoryManager> {
+    ) -> gax::client_builder::Result<impl super::stub::RepositoryManager> {
         super::transport::RepositoryManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RepositoryManager> {
+    ) -> gax::client_builder::Result<impl super::stub::RepositoryManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RepositoryManager::new)
@@ -132,30 +132,18 @@ impl RepositoryManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_connection(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::CreateConnection {
+    pub fn create_connection(&self) -> super::builder::repository_manager::CreateConnection {
         super::builder::repository_manager::CreateConnection::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single connection.
-    pub fn get_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::GetConnection {
+    pub fn get_connection(&self) -> super::builder::repository_manager::GetConnection {
         super::builder::repository_manager::GetConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Connections in a given project and location.
-    pub fn list_connections(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::ListConnections {
+    pub fn list_connections(&self) -> super::builder::repository_manager::ListConnections {
         super::builder::repository_manager::ListConnections::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a single connection.
@@ -169,12 +157,8 @@ impl RepositoryManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_connection(
-        &self,
-        connection: impl Into<crate::model::Connection>,
-    ) -> super::builder::repository_manager::UpdateConnection {
+    pub fn update_connection(&self) -> super::builder::repository_manager::UpdateConnection {
         super::builder::repository_manager::UpdateConnection::new(self.inner.clone())
-            .set_connection(connection.into())
     }
 
     /// Deletes a single connection.
@@ -188,12 +172,8 @@ impl RepositoryManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_connection(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::DeleteConnection {
+    pub fn delete_connection(&self) -> super::builder::repository_manager::DeleteConnection {
         super::builder::repository_manager::DeleteConnection::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a Repository.
@@ -207,12 +187,8 @@ impl RepositoryManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_repository(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::CreateRepository {
+    pub fn create_repository(&self) -> super::builder::repository_manager::CreateRepository {
         super::builder::repository_manager::CreateRepository::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates multiple repositories inside a connection.
@@ -228,28 +204,18 @@ impl RepositoryManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn batch_create_repositories(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::repository_manager::BatchCreateRepositories {
         super::builder::repository_manager::BatchCreateRepositories::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single repository.
-    pub fn get_repository(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::GetRepository {
+    pub fn get_repository(&self) -> super::builder::repository_manager::GetRepository {
         super::builder::repository_manager::GetRepository::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Repositories in a given connection.
-    pub fn list_repositories(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::ListRepositories {
+    pub fn list_repositories(&self) -> super::builder::repository_manager::ListRepositories {
         super::builder::repository_manager::ListRepositories::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single repository.
@@ -263,49 +229,33 @@ impl RepositoryManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_repository(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::DeleteRepository {
+    pub fn delete_repository(&self) -> super::builder::repository_manager::DeleteRepository {
         super::builder::repository_manager::DeleteRepository::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Fetches read/write token of a given repository.
     pub fn fetch_read_write_token(
         &self,
-        repository: impl Into<std::string::String>,
     ) -> super::builder::repository_manager::FetchReadWriteToken {
         super::builder::repository_manager::FetchReadWriteToken::new(self.inner.clone())
-            .set_repository(repository.into())
     }
 
     /// Fetches read token of a given repository.
-    pub fn fetch_read_token(
-        &self,
-        repository: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::FetchReadToken {
+    pub fn fetch_read_token(&self) -> super::builder::repository_manager::FetchReadToken {
         super::builder::repository_manager::FetchReadToken::new(self.inner.clone())
-            .set_repository(repository.into())
     }
 
     /// FetchLinkableRepositories get repositories from SCM that are
     /// accessible and could be added to the connection.
     pub fn fetch_linkable_repositories(
         &self,
-        connection: impl Into<std::string::String>,
     ) -> super::builder::repository_manager::FetchLinkableRepositories {
         super::builder::repository_manager::FetchLinkableRepositories::new(self.inner.clone())
-            .set_connection(connection.into())
     }
 
     /// Fetch the list of branches or tags for a given repository.
-    pub fn fetch_git_refs(
-        &self,
-        repository: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::FetchGitRefs {
+    pub fn fetch_git_refs(&self) -> super::builder::repository_manager::FetchGitRefs {
         super::builder::repository_manager::FetchGitRefs::new(self.inner.clone())
-            .set_repository(repository.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -313,22 +263,14 @@ impl RepositoryManager {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::repository_manager::SetIamPolicy {
         super::builder::repository_manager::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::repository_manager::GetIamPolicy {
         super::builder::repository_manager::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -338,33 +280,21 @@ impl RepositoryManager {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::repository_manager::TestIamPermissions {
         super::builder::repository_manager::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::GetOperation {
+    pub fn get_operation(&self) -> super::builder::repository_manager::GetOperation {
         super::builder::repository_manager::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::repository_manager::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::repository_manager::CancelOperation {
         super::builder::repository_manager::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

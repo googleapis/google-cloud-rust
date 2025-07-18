@@ -31,7 +31,7 @@ jobs:
           key: ${{ github.job }}-${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock', '.github/workflows/lint.yaml') }}
       - run: |
           rustup component list
-          cargo install typos-cli --version 1.30.0 --locked
+          cargo install typos-cli --version 1.32.0 --locked
       - run: typos
   misc-formatting:
     runs-on: ubuntu-24.04
@@ -61,7 +61,7 @@ jobs:
         run: |
           pip install -r ci/requirements.txt
           git ls-files -z -- '*.md' ':!:**/testdata/**' ':!:**/generated/**' | \
-            xargs -0 -r -P "$(nproc)" -n 50 mdformat
+            xargs -0 mdformat
       - name: Format YAML Files
         run: |
           go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0

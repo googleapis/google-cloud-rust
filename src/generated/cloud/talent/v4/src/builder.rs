@@ -16,9 +16,8 @@
 
 pub mod company_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CompanyService][super::super::client::CompanyService].
+    /// A builder for [CompanyService][crate::client::CompanyService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod company_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod company_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CompanyService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CompanyService] request builders.
+    /// Common implementation for [crate::client::CompanyService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CompanyService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod company_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::create_company][super::super::client::CompanyService::create_company] calls.
+    /// The request builder for [CompanyService::create_company][crate::client::CompanyService::create_company] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::company_service::CreateCompany;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCompany {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCompany(RequestBuilder<crate::model::CreateCompanyRequest>);
 
     impl CreateCompany {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -107,11 +129,22 @@ pub mod company_service {
         /// Sets the value of [company][crate::model::CreateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.company = v.into();
+        pub fn set_company<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [company][crate::model::CreateCompanyRequest::company].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = v.map(|x| x.into());
             self
         }
     }
@@ -123,12 +156,30 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::get_company][super::super::client::CompanyService::get_company] calls.
+    /// The request builder for [CompanyService::get_company][crate::client::CompanyService::get_company] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::company_service::GetCompany;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCompany {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCompany(RequestBuilder<crate::model::GetCompanyRequest>);
 
     impl GetCompany {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -168,12 +219,30 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::update_company][super::super::client::CompanyService::update_company] calls.
+    /// The request builder for [CompanyService::update_company][crate::client::CompanyService::update_company] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::company_service::UpdateCompany;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCompany {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCompany(RequestBuilder<crate::model::UpdateCompanyRequest>);
 
     impl UpdateCompany {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -200,20 +269,40 @@ pub mod company_service {
         /// Sets the value of [company][crate::model::UpdateCompanyRequest::company].
         ///
         /// This is a **required** field for requests.
-        pub fn set_company<T: Into<std::option::Option<crate::model::Company>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.company = v.into();
+        pub fn set_company<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [company][crate::model::UpdateCompanyRequest::company].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_company<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Company>,
+        {
+            self.0.request.company = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCompanyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -225,12 +314,30 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::delete_company][super::super::client::CompanyService::delete_company] calls.
+    /// The request builder for [CompanyService::delete_company][crate::client::CompanyService::delete_company] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::company_service::DeleteCompany;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteCompany {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteCompany(RequestBuilder<crate::model::DeleteCompanyRequest>);
 
     impl DeleteCompany {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -270,12 +377,34 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::list_companies][super::super::client::CompanyService::list_companies] calls.
+    /// The request builder for [CompanyService::list_companies][crate::client::CompanyService::list_companies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::company_service::ListCompanies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCompanies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCompanies(RequestBuilder<crate::model::ListCompaniesRequest>);
 
     impl ListCompanies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -299,8 +428,8 @@ pub mod company_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCompaniesResponse, gax::error::Error>
         {
@@ -312,6 +441,15 @@ pub mod company_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCompaniesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCompaniesRequest::parent].
@@ -348,12 +486,30 @@ pub mod company_service {
         }
     }
 
-    /// The request builder for [CompanyService::get_operation][super::super::client::CompanyService::get_operation] calls.
+    /// The request builder for [CompanyService::get_operation][crate::client::CompanyService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::company_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CompanyService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CompanyService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -397,9 +553,8 @@ pub mod company_service {
 
 pub mod completion {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Completion][super::super::client::Completion].
+    /// A builder for [Completion][crate::client::Completion].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -410,7 +565,7 @@ pub mod completion {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -421,16 +576,19 @@ pub mod completion {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Completion;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Completion] request builders.
+    /// Common implementation for [crate::client::Completion] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Completion>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Completion>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -439,7 +597,9 @@ pub mod completion {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Completion>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Completion>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -448,12 +608,30 @@ pub mod completion {
         }
     }
 
-    /// The request builder for [Completion::complete_query][super::super::client::Completion::complete_query] calls.
+    /// The request builder for [Completion::complete_query][crate::client::Completion::complete_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::completion::CompleteQuery;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CompleteQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CompleteQuery(RequestBuilder<crate::model::CompleteQueryRequest>);
 
     impl CompleteQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Completion>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Completion>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -493,6 +671,17 @@ pub mod completion {
             self
         }
 
+        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
+        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::CompleteQueryRequest::page_size].
         ///
         /// This is a **required** field for requests.
@@ -524,17 +713,6 @@ pub mod completion {
             self.0.request.r#type = v.into();
             self
         }
-
-        /// Sets the value of [language_codes][crate::model::CompleteQueryRequest::language_codes].
-        pub fn set_language_codes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.language_codes = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -544,12 +722,30 @@ pub mod completion {
         }
     }
 
-    /// The request builder for [Completion::get_operation][super::super::client::Completion::get_operation] calls.
+    /// The request builder for [Completion::get_operation][crate::client::Completion::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::completion::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Completion>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Completion>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -593,9 +789,8 @@ pub mod completion {
 
 pub mod event_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [EventService][super::super::client::EventService].
+    /// A builder for [EventService][crate::client::EventService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -606,7 +801,7 @@ pub mod event_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -617,16 +812,19 @@ pub mod event_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = EventService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::EventService] request builders.
+    /// Common implementation for [crate::client::EventService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::EventService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::EventService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -635,7 +833,9 @@ pub mod event_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EventService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EventService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -644,12 +844,30 @@ pub mod event_service {
         }
     }
 
-    /// The request builder for [EventService::create_client_event][super::super::client::EventService::create_client_event] calls.
+    /// The request builder for [EventService::create_client_event][crate::client::EventService::create_client_event] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::event_service::CreateClientEvent;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateClientEvent {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateClientEvent(RequestBuilder<crate::model::CreateClientEventRequest>);
 
     impl CreateClientEvent {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EventService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EventService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -687,11 +905,22 @@ pub mod event_service {
         /// Sets the value of [client_event][crate::model::CreateClientEventRequest::client_event].
         ///
         /// This is a **required** field for requests.
-        pub fn set_client_event<T: Into<std::option::Option<crate::model::ClientEvent>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.client_event = v.into();
+        pub fn set_client_event<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientEvent>,
+        {
+            self.0.request.client_event = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_event][crate::model::CreateClientEventRequest::client_event].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_client_event<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ClientEvent>,
+        {
+            self.0.request.client_event = v.map(|x| x.into());
             self
         }
     }
@@ -703,12 +932,30 @@ pub mod event_service {
         }
     }
 
-    /// The request builder for [EventService::get_operation][super::super::client::EventService::get_operation] calls.
+    /// The request builder for [EventService::get_operation][crate::client::EventService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::event_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::EventService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::EventService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -752,9 +999,8 @@ pub mod event_service {
 
 pub mod job_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [JobService][super::super::client::JobService].
+    /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -765,7 +1011,7 @@ pub mod job_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -776,16 +1022,19 @@ pub mod job_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = JobService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::JobService] request builders.
+    /// Common implementation for [crate::client::JobService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::JobService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -794,7 +1043,9 @@ pub mod job_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -803,12 +1054,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::create_job][super::super::client::JobService::create_job] calls.
+    /// The request builder for [JobService::create_job][crate::client::JobService::create_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::CreateJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -843,8 +1112,22 @@ pub mod job_service {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
     }
@@ -856,12 +1139,31 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::batch_create_jobs][super::super::client::JobService::batch_create_jobs] calls.
+    /// The request builder for [JobService::batch_create_jobs][crate::client::JobService::batch_create_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::BatchCreateJobs;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreateJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateJobs(RequestBuilder<crate::model::BatchCreateJobsRequest>);
 
     impl BatchCreateJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -882,7 +1184,7 @@ pub mod job_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_create_jobs][super::super::client::JobService::batch_create_jobs].
+        /// on [batch_create_jobs][crate::client::JobService::batch_create_jobs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_create_jobs(self.0.request, self.0.options)
@@ -895,7 +1197,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchCreateJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchCreateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -923,7 +1225,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchCreateJobsRequest::parent].
@@ -955,12 +1257,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::get_job][super::super::client::JobService::get_job] calls.
+    /// The request builder for [JobService::get_job][crate::client::JobService::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1000,12 +1320,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::update_job][super::super::client::JobService::update_job] calls.
+    /// The request builder for [JobService::update_job][crate::client::JobService::update_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::UpdateJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateJob(RequestBuilder<crate::model::UpdateJobRequest>);
 
     impl UpdateJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1032,17 +1370,40 @@ pub mod job_service {
         /// Sets the value of [job][crate::model::UpdateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::UpdateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateJobRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1054,12 +1415,31 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::batch_update_jobs][super::super::client::JobService::batch_update_jobs] calls.
+    /// The request builder for [JobService::batch_update_jobs][crate::client::JobService::batch_update_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::BatchUpdateJobs;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchUpdateJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchUpdateJobs(RequestBuilder<crate::model::BatchUpdateJobsRequest>);
 
     impl BatchUpdateJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1080,7 +1460,7 @@ pub mod job_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_update_jobs][super::super::client::JobService::batch_update_jobs].
+        /// on [batch_update_jobs][crate::client::JobService::batch_update_jobs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_update_jobs(self.0.request, self.0.options)
@@ -1093,7 +1473,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchUpdateJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchUpdateJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1121,7 +1501,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchUpdateJobsRequest::parent].
@@ -1129,15 +1509,6 @@ pub mod job_service {
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
             self
         }
 
@@ -1153,6 +1524,24 @@ pub mod job_service {
             self.0.request.jobs = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::BatchUpdateJobsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1162,12 +1551,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::delete_job][super::super::client::JobService::delete_job] calls.
+    /// The request builder for [JobService::delete_job][crate::client::JobService::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1207,12 +1614,31 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::batch_delete_jobs][super::super::client::JobService::batch_delete_jobs] calls.
+    /// The request builder for [JobService::batch_delete_jobs][crate::client::JobService::batch_delete_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::BatchDeleteJobs;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchDeleteJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchDeleteJobs(RequestBuilder<crate::model::BatchDeleteJobsRequest>);
 
     impl BatchDeleteJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1233,7 +1659,7 @@ pub mod job_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_delete_jobs][super::super::client::JobService::batch_delete_jobs].
+        /// on [batch_delete_jobs][crate::client::JobService::batch_delete_jobs].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_delete_jobs(self.0.request, self.0.options)
@@ -1246,7 +1672,7 @@ pub mod job_service {
             self,
         ) -> impl lro::Poller<crate::model::BatchDeleteJobsResponse, crate::model::BatchOperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchDeleteJobsResponse,
                 crate::model::BatchOperationMetadata,
             >;
@@ -1274,7 +1700,7 @@ pub mod job_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchDeleteJobsRequest::parent].
@@ -1304,12 +1730,34 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::list_jobs][super::super::client::JobService::list_jobs] calls.
+    /// The request builder for [JobService::list_jobs][crate::client::JobService::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1333,8 +1781,8 @@ pub mod job_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error>
         {
@@ -1346,6 +1794,15 @@ pub mod job_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
@@ -1390,12 +1847,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::search_jobs][super::super::client::JobService::search_jobs] calls.
+    /// The request builder for [JobService::search_jobs][crate::client::JobService::search_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::SearchJobs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchJobs(RequestBuilder<crate::model::SearchJobsRequest>);
 
     impl SearchJobs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1439,26 +1914,57 @@ pub mod job_service {
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_metadata = v.into();
+        pub fn set_request_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn set_job_query<T: Into<std::option::Option<crate::model::JobQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_query = v.into();
+        pub fn set_job_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [enable_broadening][crate::model::SearchJobsRequest::enable_broadening].
         pub fn set_enable_broadening<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_broadening = v.into();
+            self
+        }
+
+        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
+        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::HistogramQuery>,
+        {
+            use std::iter::Iterator;
+            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -1504,13 +2010,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn set_custom_ranking_info<
-            T: Into<std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_ranking_info = v.into();
+        pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = v.map(|x| x.into());
             self
         }
 
@@ -1542,17 +2055,6 @@ pub mod job_service {
             self.0.request.relevance_threshold = v.into();
             self
         }
-
-        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
-        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::HistogramQuery>,
-        {
-            use std::iter::Iterator;
-            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -1562,12 +2064,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::search_jobs_for_alert][super::super::client::JobService::search_jobs_for_alert] calls.
+    /// The request builder for [JobService::search_jobs_for_alert][crate::client::JobService::search_jobs_for_alert] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::SearchJobsForAlert;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchJobsForAlert {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchJobsForAlert(RequestBuilder<crate::model::SearchJobsRequest>);
 
     impl SearchJobsForAlert {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1611,26 +2131,57 @@ pub mod job_service {
         /// Sets the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
         ///
         /// This is a **required** field for requests.
-        pub fn set_request_metadata<T: Into<std::option::Option<crate::model::RequestMetadata>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_metadata = v.into();
+        pub fn set_request_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_metadata][crate::model::SearchJobsRequest::request_metadata].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_request_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RequestMetadata>,
+        {
+            self.0.request.request_metadata = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [job_query][crate::model::SearchJobsRequest::job_query].
-        pub fn set_job_query<T: Into<std::option::Option<crate::model::JobQuery>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.job_query = v.into();
+        pub fn set_job_query<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job_query][crate::model::SearchJobsRequest::job_query].
+        pub fn set_or_clear_job_query<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::JobQuery>,
+        {
+            self.0.request.job_query = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [enable_broadening][crate::model::SearchJobsRequest::enable_broadening].
         pub fn set_enable_broadening<T: Into<bool>>(mut self, v: T) -> Self {
             self.0.request.enable_broadening = v.into();
+            self
+        }
+
+        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
+        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::HistogramQuery>,
+        {
+            use std::iter::Iterator;
+            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -1676,13 +2227,20 @@ pub mod job_service {
         }
 
         /// Sets the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
-        pub fn set_custom_ranking_info<
-            T: Into<std::option::Option<crate::model::search_jobs_request::CustomRankingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.custom_ranking_info = v.into();
+        pub fn set_custom_ranking_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [custom_ranking_info][crate::model::SearchJobsRequest::custom_ranking_info].
+        pub fn set_or_clear_custom_ranking_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::search_jobs_request::CustomRankingInfo>,
+        {
+            self.0.request.custom_ranking_info = v.map(|x| x.into());
             self
         }
 
@@ -1714,17 +2272,6 @@ pub mod job_service {
             self.0.request.relevance_threshold = v.into();
             self
         }
-
-        /// Sets the value of [histogram_queries][crate::model::SearchJobsRequest::histogram_queries].
-        pub fn set_histogram_queries<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::HistogramQuery>,
-        {
-            use std::iter::Iterator;
-            self.0.request.histogram_queries = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -1734,12 +2281,30 @@ pub mod job_service {
         }
     }
 
-    /// The request builder for [JobService::get_operation][super::super::client::JobService::get_operation] calls.
+    /// The request builder for [JobService::get_operation][crate::client::JobService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::job_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::JobService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::JobService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1783,9 +2348,8 @@ pub mod job_service {
 
 pub mod tenant_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [TenantService][super::super::client::TenantService].
+    /// A builder for [TenantService][crate::client::TenantService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -1796,7 +2360,7 @@ pub mod tenant_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1807,16 +2371,19 @@ pub mod tenant_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = TenantService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::TenantService] request builders.
+    /// Common implementation for [crate::client::TenantService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::TenantService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -1825,7 +2392,9 @@ pub mod tenant_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -1834,12 +2403,30 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::create_tenant][super::super::client::TenantService::create_tenant] calls.
+    /// The request builder for [TenantService::create_tenant][crate::client::TenantService::create_tenant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::tenant_service::CreateTenant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTenant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTenant(RequestBuilder<crate::model::CreateTenantRequest>);
 
     impl CreateTenant {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1874,11 +2461,22 @@ pub mod tenant_service {
         /// Sets the value of [tenant][crate::model::CreateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tenant = v.into();
+        pub fn set_tenant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tenant][crate::model::CreateTenantRequest::tenant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = v.map(|x| x.into());
             self
         }
     }
@@ -1890,12 +2488,30 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::get_tenant][super::super::client::TenantService::get_tenant] calls.
+    /// The request builder for [TenantService::get_tenant][crate::client::TenantService::get_tenant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::tenant_service::GetTenant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTenant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTenant(RequestBuilder<crate::model::GetTenantRequest>);
 
     impl GetTenant {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1935,12 +2551,30 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::update_tenant][super::super::client::TenantService::update_tenant] calls.
+    /// The request builder for [TenantService::update_tenant][crate::client::TenantService::update_tenant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::tenant_service::UpdateTenant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTenant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTenant(RequestBuilder<crate::model::UpdateTenantRequest>);
 
     impl UpdateTenant {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1967,20 +2601,40 @@ pub mod tenant_service {
         /// Sets the value of [tenant][crate::model::UpdateTenantRequest::tenant].
         ///
         /// This is a **required** field for requests.
-        pub fn set_tenant<T: Into<std::option::Option<crate::model::Tenant>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.tenant = v.into();
+        pub fn set_tenant<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tenant][crate::model::UpdateTenantRequest::tenant].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_tenant<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Tenant>,
+        {
+            self.0.request.tenant = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTenantRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1992,12 +2646,30 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::delete_tenant][super::super::client::TenantService::delete_tenant] calls.
+    /// The request builder for [TenantService::delete_tenant][crate::client::TenantService::delete_tenant] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::tenant_service::DeleteTenant;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTenant {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTenant(RequestBuilder<crate::model::DeleteTenantRequest>);
 
     impl DeleteTenant {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2037,12 +2709,34 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::list_tenants][super::super::client::TenantService::list_tenants] calls.
+    /// The request builder for [TenantService::list_tenants][crate::client::TenantService::list_tenants] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::tenant_service::ListTenants;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTenants {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTenants(RequestBuilder<crate::model::ListTenantsRequest>);
 
     impl ListTenants {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2066,8 +2760,8 @@ pub mod tenant_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTenantsResponse, gax::error::Error>
         {
@@ -2079,6 +2773,15 @@ pub mod tenant_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTenantsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTenantsRequest::parent].
@@ -2109,12 +2812,30 @@ pub mod tenant_service {
         }
     }
 
-    /// The request builder for [TenantService::get_operation][super::super::client::TenantService::get_operation] calls.
+    /// The request builder for [TenantService::get_operation][crate::client::TenantService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_talent_v4::builder;
+    /// use builder::tenant_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::TenantService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::TenantService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

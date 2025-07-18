@@ -16,15 +16,28 @@
 
 //! Google Cloud Client Libraries for Rust - Discovery Engine API
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
+//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
+//! do not anticipate any breaking changes are needed. We are looking for
+//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
+//! are still possible, but not expected.
+//!
+//! We also believe the implementation is ready for production, bugs are
+//! still possible, but not expected.
+//!
+//!
+//! **WARNING:** some RPCs have no corresponding Rust function to call them.
+//! Typically these are streaming RPCs. We expect adding these RPCs in a
+//! way that does not break the existing APIs or changes their behavior in a
+//! significant way. We do anticipate a number of new crate dependencies
+//! will be required. If you need these RPCs please open an issue in our
+//! GitHub repository.
+//!
 //!
 //! This crate contains traits, types, and functions to interact with Discovery Engine API
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [CmekConfigService](client/struct.CmekConfigService.html)
 //! * [CompletionService](client/struct.CompletionService.html)
 //! * [ControlService](client/struct.ControlService.html)
 //! * [ConversationalSearchService](client/struct.ConversationalSearchService.html)
@@ -32,6 +45,7 @@
 //! * [DocumentService](client/struct.DocumentService.html)
 //! * [EngineService](client/struct.EngineService.html)
 //! * [GroundedGenerationService](client/struct.GroundedGenerationService.html)
+//! * [IdentityMappingStoreService](client/struct.IdentityMappingStoreService.html)
 //! * [ProjectService](client/struct.ProjectService.html)
 //! * [RankService](client/struct.RankService.html)
 //! * [RecommendationService](client/struct.RecommendationService.html)
@@ -41,7 +55,9 @@
 //! * [ServingConfigService](client/struct.ServingConfigService.html)
 //! * [SiteSearchEngineService](client/struct.SiteSearchEngineService.html)
 //! * [UserEventService](client/struct.UserEventService.html)
+//! * [UserLicenseService](client/struct.UserLicenseService.html)
 
+#![cfg_attr(docsrs, feature(doc_cfg))]
 #![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
@@ -68,8 +84,50 @@ pub(crate) mod tracing;
 pub(crate) mod transport;
 
 /// The default host used by the service.
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "completion-service",
+    feature = "control-service",
+    feature = "conversational-search-service",
+    feature = "data-store-service",
+    feature = "document-service",
+    feature = "engine-service",
+    feature = "grounded-generation-service",
+    feature = "identity-mapping-store-service",
+    feature = "project-service",
+    feature = "rank-service",
+    feature = "recommendation-service",
+    feature = "schema-service",
+    feature = "search-service",
+    feature = "search-tuning-service",
+    feature = "serving-config-service",
+    feature = "site-search-engine-service",
+    feature = "user-event-service",
+    feature = "user-license-service",
+))]
 const DEFAULT_HOST: &str = "https://discoveryengine.googleapis.com/";
 
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "completion-service",
+    feature = "control-service",
+    feature = "conversational-search-service",
+    feature = "data-store-service",
+    feature = "document-service",
+    feature = "engine-service",
+    feature = "grounded-generation-service",
+    feature = "identity-mapping-store-service",
+    feature = "project-service",
+    feature = "rank-service",
+    feature = "recommendation-service",
+    feature = "schema-service",
+    feature = "search-service",
+    feature = "search-tuning-service",
+    feature = "serving-config-service",
+    feature = "site-search-engine-service",
+    feature = "user-event-service",
+    feature = "user-license-service",
+))]
 pub(crate) mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -80,10 +138,7 @@ pub(crate) mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.rest_header_value()
         };
     }
 }
-
-pub use lro::Poller;
-pub use lro::PollingResult;

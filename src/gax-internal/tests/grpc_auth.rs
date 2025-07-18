@@ -12,16 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_grpc_client"))]
-mod test {
-    use auth::credentials::{Credentials, CredentialsProvider};
+#[cfg(all(test, feature = "_internal-grpc-client"))]
+mod tests {
+    use auth::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use auth::errors::CredentialsError;
-    use auth::token::Token;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
     use http::header::{HeaderName, HeaderValue};
+    use http::{Extensions, HeaderMap};
+    use std::error::Error as _;
 
     type AuthResult<T> = std::result::Result<T, CredentialsError>;
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
@@ -31,8 +32,7 @@ mod test {
         Credentials {}
 
         impl CredentialsProvider for Credentials {
-            async fn token(&self) -> AuthResult<Token>;
-            async fn headers(&self) -> AuthResult<Vec<(HeaderName, HeaderValue)>>;
+            async fn headers(&self, extensions: Extensions) -> AuthResult<CacheableResource<HeaderMap>>;
             async fn universe_domain(&self) -> Option<String>;
         }
     }
@@ -45,17 +45,21 @@ mod test {
         // 1. we can test that multiple headers are included in the request
         // 2. it gives us extra confidence that our interfaces are called
         let mut mock = MockCredentials::new();
-        mock.expect_headers().return_once(|| {
-            Ok(vec![
-                (
-                    HeaderName::from_static("auth-key-1"),
-                    HeaderValue::from_static("auth-value-1"),
-                ),
-                (
-                    HeaderName::from_static("auth-key-2"),
-                    HeaderValue::from_static("auth-value-2"),
-                ),
-            ])
+        let headers = HeaderMap::from_iter([
+            (
+                HeaderName::from_static("auth-key-1"),
+                HeaderValue::from_static("auth-value-1"),
+            ),
+            (
+                HeaderName::from_static("auth-key-2"),
+                HeaderValue::from_static("auth-value-2"),
+            ),
+        ]);
+        mock.expect_headers().return_once(|_extensions| {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: headers,
+            })
         });
 
         let client = builder(endpoint)
@@ -83,7 +87,7 @@ mod test {
         let mut mock = MockCredentials::new();
         mock.expect_headers()
             .times(retry_count..)
-            .returning(|| Err(CredentialsError::from_str(true, "mock retryable error")));
+            .returning(|_extensions| Err(CredentialsError::from_msg(true, "mock retryable error")));
 
         let retry_policy = Aip194Strict.with_attempt_limit(retry_count as u32);
         let client = builder(endpoint)
@@ -94,33 +98,29 @@ mod test {
             .await?;
 
         let result = send_request(client, "auth fail").await;
-        assert!(result.is_err());
-
-        if let Err(e) = result {
-            if let Some(cred_err) = e.as_inner::<CredentialsError>() {
-                assert!(
-                    cred_err.is_retryable(),
-                    "Expected a retryable CredentialsError, but got non-retryable"
-                );
-            } else {
-                panic!("Expected a CredentialsError, but got some other error: {e:?}");
-            }
-        }
-
+        let e = result
+            .as_ref()
+            .err()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(matches!(e, Some(e) if e.is_transient()), "{result:?}");
         Ok(())
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-    async fn auth_error_non_retryable() -> Result<()> {
+    #[test_case::test_case(Err(CredentialsError::from_msg(
+        false,
+        "mock non-retryable error",
+    )); "on_error_response")]
+    async fn auth_error_non_retryable(
+        headers_response: AuthResult<CacheableResource<HeaderMap>>,
+    ) -> Result<()> {
         let (endpoint, _server) = start_echo_server().await?;
 
         let mut mock = MockCredentials::new();
-        mock.expect_headers().times(1).returning(|| {
-            Err(CredentialsError::from_str(
-                false,
-                "mock non-retryable error",
-            ))
-        });
+        mock.expect_headers()
+            .times(1)
+            .returning(move |_extensions| headers_response.clone());
 
         let client = builder(endpoint)
             .with_credentials(Credentials::from(mock))
@@ -128,18 +128,12 @@ mod test {
             .await?;
 
         let result = send_request(client, "auth fail").await;
-        assert!(result.is_err());
-
-        if let Err(e) = result {
-            if let Some(cred_err) = e.as_inner::<CredentialsError>() {
-                assert!(
-                    !cred_err.is_retryable(),
-                    "Expected a non-retryable CredentialsError, but got retryable"
-                );
-            } else {
-                panic!("Expected a CredentialsError, but got another error type: {e:?}");
-            }
-        }
+        let e = result
+            .as_ref()
+            .err()
+            .and_then(|e| e.source())
+            .and_then(|e| e.downcast_ref::<CredentialsError>());
+        assert!(matches!(e, Some(e) if !e.is_transient()), "{result:?}");
 
         Ok(())
     }

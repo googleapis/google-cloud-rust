@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::GSuiteAddOns].
@@ -48,9 +46,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Authorization>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Authorization>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::create_deployment].
@@ -61,9 +57,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::replace_deployment].
@@ -74,9 +68,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::get_deployment].
@@ -87,9 +79,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Deployment>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Deployment>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::list_deployments].
@@ -100,9 +90,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListDeploymentsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::delete_deployment].
@@ -111,9 +99,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         _req: crate::model::DeleteDeploymentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::install_deployment].
@@ -122,9 +108,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         _req: crate::model::InstallDeploymentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::uninstall_deployment].
@@ -133,9 +117,7 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
         _req: crate::model::UninstallDeploymentRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<Output = crate::Result<gax::response::Response<()>>> + Send {
-        std::future::ready::<crate::Result<gax::response::Response<()>>>(Err(Error::other(
-            "unimplemented",
-        )))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::GSuiteAddOns::get_install_status].
@@ -146,8 +128,6 @@ pub trait GSuiteAddOns: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::InstallStatus>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::InstallStatus>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

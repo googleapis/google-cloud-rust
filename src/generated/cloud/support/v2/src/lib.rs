@@ -16,10 +16,14 @@
 
 //! Google Cloud Client Libraries for Rust - Google Cloud Support API
 //!
-//! **WARNING:** this crate is under active development. We expect multiple
-//! breaking changes in the upcoming releases. Testing is also incomplete, we do
-//! **not** recommend that you use this crate in production. We welcome feedback
-//! about the APIs, documentation, missing features, bugs, etc.
+//! **FEEDBACK WANTED:** We believe the APIs in this crate are stable, and
+//! do not anticipate any breaking changes are needed. We are looking for
+//! feedback before labeling the APIs "1.0". Changes (even breaking changes)
+//! are still possible, but not expected.
+//!
+//! We also believe the implementation is ready for production, bugs are
+//! still possible, but not expected.
+//!
 //!
 //! This crate contains traits, types, and functions to interact with Google Cloud Support API
 //! Most applications will use the structs defined in the [client] module.
@@ -28,6 +32,8 @@
 //! * [CaseAttachmentService](client/struct.CaseAttachmentService.html)
 //! * [CaseService](client/struct.CaseService.html)
 //! * [CommentService](client/struct.CommentService.html)
+
+#![allow(deprecated)]
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
@@ -65,7 +71,7 @@ pub(crate) mod info {
                 version:       VERSION,
                 library_type:  gaxi::api_header::GAPIC,
             };
-            ac.header_value()
+            ac.rest_header_value()
         };
     }
 }

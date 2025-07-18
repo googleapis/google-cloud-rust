@@ -16,9 +16,8 @@
 
 pub mod model_armor {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ModelArmor][super::super::client::ModelArmor].
+    /// A builder for [ModelArmor][crate::client::ModelArmor].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod model_armor {
     /// let client = builder
     ///     .with_endpoint("https://modelarmor.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod model_armor {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ModelArmor;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ModelArmor] request builders.
+    /// Common implementation for [crate::client::ModelArmor] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod model_armor {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::list_templates][super::super::client::ModelArmor::list_templates] calls.
+    /// The request builder for [ModelArmor::list_templates][crate::client::ModelArmor::list_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::ListTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTemplates(RequestBuilder<crate::model::ListTemplatesRequest>);
 
     impl ListTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod model_armor {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTemplatesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod model_armor {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTemplatesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListTemplatesRequest::parent].
@@ -151,12 +186,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::get_template][super::super::client::ModelArmor::get_template] calls.
+    /// The request builder for [ModelArmor::get_template][crate::client::ModelArmor::get_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::GetTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTemplate(RequestBuilder<crate::model::GetTemplateRequest>);
 
     impl GetTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::create_template][super::super::client::ModelArmor::create_template] calls.
+    /// The request builder for [ModelArmor::create_template][crate::client::ModelArmor::create_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::CreateTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTemplate(RequestBuilder<crate::model::CreateTemplateRequest>);
 
     impl CreateTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -244,11 +315,22 @@ pub mod model_armor {
         /// Sets the value of [template][crate::model::CreateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::CreateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -266,12 +348,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::update_template][super::super::client::ModelArmor::update_template] calls.
+    /// The request builder for [ModelArmor::update_template][crate::client::ModelArmor::update_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::UpdateTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTemplate(RequestBuilder<crate::model::UpdateTemplateRequest>);
 
     impl UpdateTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -298,22 +398,44 @@ pub mod model_armor {
         /// Sets the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateTemplateRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [template][crate::model::UpdateTemplateRequest::template].
         ///
         /// This is a **required** field for requests.
-        pub fn set_template<T: Into<std::option::Option<crate::model::Template>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.template = v.into();
+        pub fn set_template<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [template][crate::model::UpdateTemplateRequest::template].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_template<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Template>,
+        {
+            self.0.request.template = v.map(|x| x.into());
             self
         }
 
@@ -331,12 +453,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::delete_template][super::super::client::ModelArmor::delete_template] calls.
+    /// The request builder for [ModelArmor::delete_template][crate::client::ModelArmor::delete_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::DeleteTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTemplate(RequestBuilder<crate::model::DeleteTemplateRequest>);
 
     impl DeleteTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -382,12 +522,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::get_floor_setting][super::super::client::ModelArmor::get_floor_setting] calls.
+    /// The request builder for [ModelArmor::get_floor_setting][crate::client::ModelArmor::get_floor_setting] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::GetFloorSetting;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFloorSetting {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFloorSetting(RequestBuilder<crate::model::GetFloorSettingRequest>);
 
     impl GetFloorSetting {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -427,12 +585,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::update_floor_setting][super::super::client::ModelArmor::update_floor_setting] calls.
+    /// The request builder for [ModelArmor::update_floor_setting][crate::client::ModelArmor::update_floor_setting] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::UpdateFloorSetting;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFloorSetting {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFloorSetting(RequestBuilder<crate::model::UpdateFloorSettingRequest>);
 
     impl UpdateFloorSetting {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -462,20 +638,40 @@ pub mod model_armor {
         /// Sets the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
         ///
         /// This is a **required** field for requests.
-        pub fn set_floor_setting<T: Into<std::option::Option<crate::model::FloorSetting>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.floor_setting = v.into();
+        pub fn set_floor_setting<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::FloorSetting>,
+        {
+            self.0.request.floor_setting = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [floor_setting][crate::model::UpdateFloorSettingRequest::floor_setting].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_floor_setting<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::FloorSetting>,
+        {
+            self.0.request.floor_setting = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFloorSettingRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -487,12 +683,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::sanitize_user_prompt][super::super::client::ModelArmor::sanitize_user_prompt] calls.
+    /// The request builder for [ModelArmor::sanitize_user_prompt][crate::client::ModelArmor::sanitize_user_prompt] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::SanitizeUserPrompt;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SanitizeUserPrompt {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SanitizeUserPrompt(RequestBuilder<crate::model::SanitizeUserPromptRequest>);
 
     impl SanitizeUserPrompt {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -530,11 +744,43 @@ pub mod model_armor {
         /// Sets the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_prompt_data<T: Into<std::option::Option<crate::model::DataItem>>>(
+        pub fn set_user_prompt_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.user_prompt_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_prompt_data][crate::model::SanitizeUserPromptRequest::user_prompt_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_prompt_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.user_prompt_data = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+        pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeUserPromptRequest::multi_language_detection_metadata].
+        pub fn set_or_clear_multi_language_detection_metadata<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_prompt_data = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
             self
         }
     }
@@ -546,12 +792,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::sanitize_model_response][super::super::client::ModelArmor::sanitize_model_response] calls.
+    /// The request builder for [ModelArmor::sanitize_model_response][crate::client::ModelArmor::sanitize_model_response] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::SanitizeModelResponse;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SanitizeModelResponse {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SanitizeModelResponse(RequestBuilder<crate::model::SanitizeModelResponseRequest>);
 
     impl SanitizeModelResponse {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -589,17 +853,49 @@ pub mod model_armor {
         /// Sets the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
         ///
         /// This is a **required** field for requests.
-        pub fn set_model_response_data<T: Into<std::option::Option<crate::model::DataItem>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model_response_data = v.into();
+        pub fn set_model_response_data<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.model_response_data = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model_response_data][crate::model::SanitizeModelResponseRequest::model_response_data].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_model_response_data<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DataItem>,
+        {
+            self.0.request.model_response_data = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [user_prompt][crate::model::SanitizeModelResponseRequest::user_prompt].
         pub fn set_user_prompt<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.user_prompt = v.into();
+            self
+        }
+
+        /// Sets the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+        pub fn set_multi_language_detection_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [multi_language_detection_metadata][crate::model::SanitizeModelResponseRequest::multi_language_detection_metadata].
+        pub fn set_or_clear_multi_language_detection_metadata<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::MultiLanguageDetectionMetadata>,
+        {
+            self.0.request.multi_language_detection_metadata = v.map(|x| x.into());
             self
         }
     }
@@ -611,12 +907,34 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::list_locations][super::super::client::ModelArmor::list_locations] calls.
+    /// The request builder for [ModelArmor::list_locations][crate::client::ModelArmor::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -643,8 +961,8 @@ pub mod model_armor {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -656,6 +974,15 @@ pub mod model_armor {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -690,12 +1017,30 @@ pub mod model_armor {
         }
     }
 
-    /// The request builder for [ModelArmor::get_location][super::super::client::ModelArmor::get_location] calls.
+    /// The request builder for [ModelArmor::get_location][crate::client::ModelArmor::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_modelarmor_v1::builder;
+    /// use builder::model_armor::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ModelArmor>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelArmor>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the BigQuery Migration API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Migration API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `MigrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `MigrationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct MigrationService {
-    inner: Arc<dyn super::stub::dynamic::MigrationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::MigrationService>,
 }
 
 impl MigrationService {
@@ -72,7 +69,7 @@ impl MigrationService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// let client = MigrationService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::migration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,33 +86,36 @@ impl MigrationService {
         T: super::stub::MigrationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::MigrationService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::MigrationService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::MigrationService> {
+    ) -> gax::client_builder::Result<impl super::stub::MigrationService> {
         super::transport::MigrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::MigrationService> {
+    ) -> gax::client_builder::Result<impl super::stub::MigrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::MigrationService::new)
@@ -124,37 +124,29 @@ impl MigrationService {
     /// Creates a migration workflow.
     pub fn create_migration_workflow(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::migration_service::CreateMigrationWorkflow {
         super::builder::migration_service::CreateMigrationWorkflow::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a previously created migration workflow.
     pub fn get_migration_workflow(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::migration_service::GetMigrationWorkflow {
         super::builder::migration_service::GetMigrationWorkflow::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists previously created migration workflow.
     pub fn list_migration_workflows(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::migration_service::ListMigrationWorkflows {
         super::builder::migration_service::ListMigrationWorkflows::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a migration workflow by name.
     pub fn delete_migration_workflow(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::migration_service::DeleteMigrationWorkflow {
         super::builder::migration_service::DeleteMigrationWorkflow::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Starts a previously created migration workflow. I.e., the state transitions
@@ -163,27 +155,19 @@ impl MigrationService {
     /// RUNNING.
     pub fn start_migration_workflow(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::migration_service::StartMigrationWorkflow {
         super::builder::migration_service::StartMigrationWorkflow::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets a previously created migration subtask.
-    pub fn get_migration_subtask(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::migration_service::GetMigrationSubtask {
+    pub fn get_migration_subtask(&self) -> super::builder::migration_service::GetMigrationSubtask {
         super::builder::migration_service::GetMigrationSubtask::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists previously created migration subtasks.
     pub fn list_migration_subtasks(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::migration_service::ListMigrationSubtasks {
         super::builder::migration_service::ListMigrationSubtasks::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 }

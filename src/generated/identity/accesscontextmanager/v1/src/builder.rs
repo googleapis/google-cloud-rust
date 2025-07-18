@@ -16,9 +16,8 @@
 
 pub mod access_context_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AccessContextManager][super::super::client::AccessContextManager].
+    /// A builder for [AccessContextManager][crate::client::AccessContextManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod access_context_manager {
     /// let client = builder
     ///     .with_endpoint("https://accesscontextmanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod access_context_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AccessContextManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AccessContextManager] request builders.
+    /// Common implementation for [crate::client::AccessContextManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod access_context_manager {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_access_policies][super::super::client::AccessContextManager::list_access_policies] calls.
+    /// The request builder for [AccessContextManager::list_access_policies][crate::client::AccessContextManager::list_access_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListAccessPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAccessPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessPolicies(RequestBuilder<crate::model::ListAccessPoliciesRequest>);
 
     impl ListAccessPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -103,8 +125,8 @@ pub mod access_context_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAccessPoliciesResponse, gax::error::Error>
         {
@@ -116,6 +138,17 @@ pub mod access_context_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAccessPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAccessPoliciesRequest::parent].
@@ -146,13 +179,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_access_policy][super::super::client::AccessContextManager::get_access_policy] calls.
+    /// The request builder for [AccessContextManager::get_access_policy][crate::client::AccessContextManager::get_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetAccessPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessPolicy(RequestBuilder<crate::model::GetAccessPolicyRequest>);
 
     impl GetAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -193,13 +242,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_access_policy][super::super::client::AccessContextManager::create_access_policy] calls.
+    /// The request builder for [AccessContextManager::create_access_policy][crate::client::AccessContextManager::create_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAccessPolicy(RequestBuilder<crate::model::AccessPolicy>);
 
     impl CreateAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -221,7 +287,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_access_policy][super::super::client::AccessContextManager::create_access_policy].
+        /// on [create_access_policy][crate::client::AccessContextManager::create_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_policy(self.0.request, self.0.options)
@@ -236,7 +302,7 @@ pub mod access_context_manager {
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -264,7 +330,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::AccessPolicy::name].
@@ -285,30 +351,6 @@ pub mod access_context_manager {
             self
         }
 
-        /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
-        pub fn set_create_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.create_time = v.into();
-            self
-        }
-
-        /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
-        pub fn set_update_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_time = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::AccessPolicy::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [scopes][crate::model::AccessPolicy::scopes].
         pub fn set_scopes<T, V>(mut self, v: T) -> Self
         where
@@ -317,6 +359,48 @@ pub mod access_context_manager {
         {
             use std::iter::Iterator;
             self.0.request.scopes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [create_time][crate::model::AccessPolicy::create_time].
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [create_time][crate::model::AccessPolicy::create_time].
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.create_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_time][crate::model::AccessPolicy::update_time].
+        pub fn set_update_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.update_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_time][crate::model::AccessPolicy::update_time].
+        pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.update_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [etag][crate::model::AccessPolicy::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
             self
         }
     }
@@ -328,13 +412,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_access_policy][super::super::client::AccessContextManager::update_access_policy] calls.
+    /// The request builder for [AccessContextManager::update_access_policy][crate::client::AccessContextManager::update_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessPolicy(RequestBuilder<crate::model::UpdateAccessPolicyRequest>);
 
     impl UpdateAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -359,7 +460,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_access_policy][super::super::client::AccessContextManager::update_access_policy].
+        /// on [update_access_policy][crate::client::AccessContextManager::update_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_policy(self.0.request, self.0.options)
@@ -374,7 +475,7 @@ pub mod access_context_manager {
             crate::model::AccessPolicy,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessPolicy,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -402,28 +503,50 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<crate::model::AccessPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessPolicy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::UpdateAccessPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessPolicy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAccessPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -435,13 +558,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_access_policy][super::super::client::AccessContextManager::delete_access_policy] calls.
+    /// The request builder for [AccessContextManager::delete_access_policy][crate::client::AccessContextManager::delete_access_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteAccessPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAccessPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessPolicy(RequestBuilder<crate::model::DeleteAccessPolicyRequest>);
 
     impl DeleteAccessPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -466,7 +606,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_access_policy][super::super::client::AccessContextManager::delete_access_policy].
+        /// on [delete_access_policy][crate::client::AccessContextManager::delete_access_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_policy(self.0.request, self.0.options)
@@ -477,10 +617,11 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_access_policy`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
-        {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -505,7 +646,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessPolicyRequest::name].
@@ -524,13 +670,33 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_access_levels][super::super::client::AccessContextManager::list_access_levels] calls.
+    /// The request builder for [AccessContextManager::list_access_levels][crate::client::AccessContextManager::list_access_levels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListAccessLevels;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAccessLevels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAccessLevels(RequestBuilder<crate::model::ListAccessLevelsRequest>);
 
     impl ListAccessLevels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -558,8 +724,8 @@ pub mod access_context_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAccessLevelsResponse, gax::error::Error>
         {
@@ -571,6 +737,15 @@ pub mod access_context_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAccessLevelsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAccessLevelsRequest::parent].
@@ -607,13 +782,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_access_level][super::super::client::AccessContextManager::get_access_level] calls.
+    /// The request builder for [AccessContextManager::get_access_level][crate::client::AccessContextManager::get_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetAccessLevel;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAccessLevel(RequestBuilder<crate::model::GetAccessLevelRequest>);
 
     impl GetAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -660,13 +851,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_access_level][super::super::client::AccessContextManager::create_access_level] calls.
+    /// The request builder for [AccessContextManager::create_access_level][crate::client::AccessContextManager::create_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAccessLevel(RequestBuilder<crate::model::CreateAccessLevelRequest>);
 
     impl CreateAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -691,7 +899,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_access_level][super::super::client::AccessContextManager::create_access_level].
+        /// on [create_access_level][crate::client::AccessContextManager::create_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_access_level(self.0.request, self.0.options)
@@ -706,7 +914,7 @@ pub mod access_context_manager {
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -734,7 +942,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateAccessLevelRequest::parent].
@@ -748,11 +956,22 @@ pub mod access_context_manager {
         /// Sets the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
         ///
         /// This is a **required** field for requests.
-        pub fn set_access_level<T: Into<std::option::Option<crate::model::AccessLevel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.access_level = v.into();
+        pub fn set_access_level<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [access_level][crate::model::CreateAccessLevelRequest::access_level].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = v.map(|x| x.into());
             self
         }
     }
@@ -764,13 +983,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_access_level][super::super::client::AccessContextManager::update_access_level] calls.
+    /// The request builder for [AccessContextManager::update_access_level][crate::client::AccessContextManager::update_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAccessLevel(RequestBuilder<crate::model::UpdateAccessLevelRequest>);
 
     impl UpdateAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -795,7 +1031,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_access_level][super::super::client::AccessContextManager::update_access_level].
+        /// on [update_access_level][crate::client::AccessContextManager::update_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_access_level(self.0.request, self.0.options)
@@ -810,7 +1046,7 @@ pub mod access_context_manager {
             crate::model::AccessLevel,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AccessLevel,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -838,28 +1074,50 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
         ///
         /// This is a **required** field for requests.
-        pub fn set_access_level<T: Into<std::option::Option<crate::model::AccessLevel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.access_level = v.into();
+        pub fn set_access_level<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [access_level][crate::model::UpdateAccessLevelRequest::access_level].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_access_level<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AccessLevel>,
+        {
+            self.0.request.access_level = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAccessLevelRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -871,13 +1129,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_access_level][super::super::client::AccessContextManager::delete_access_level] calls.
+    /// The request builder for [AccessContextManager::delete_access_level][crate::client::AccessContextManager::delete_access_level] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteAccessLevel;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAccessLevel {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAccessLevel(RequestBuilder<crate::model::DeleteAccessLevelRequest>);
 
     impl DeleteAccessLevel {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -902,7 +1177,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_access_level][super::super::client::AccessContextManager::delete_access_level].
+        /// on [delete_access_level][crate::client::AccessContextManager::delete_access_level].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_access_level(self.0.request, self.0.options)
@@ -913,10 +1188,11 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_access_level`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
-        {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -941,7 +1217,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteAccessLevelRequest::name].
@@ -960,13 +1241,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::replace_access_levels][super::super::client::AccessContextManager::replace_access_levels] calls.
+    /// The request builder for [AccessContextManager::replace_access_levels][crate::client::AccessContextManager::replace_access_levels] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ReplaceAccessLevels;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceAccessLevels {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceAccessLevels(RequestBuilder<crate::model::ReplaceAccessLevelsRequest>);
 
     impl ReplaceAccessLevels {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -991,7 +1289,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [replace_access_levels][super::super::client::AccessContextManager::replace_access_levels].
+        /// on [replace_access_levels][crate::client::AccessContextManager::replace_access_levels].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_access_levels(self.0.request, self.0.options)
@@ -1006,7 +1304,7 @@ pub mod access_context_manager {
             crate::model::ReplaceAccessLevelsResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReplaceAccessLevelsResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1034,7 +1332,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ReplaceAccessLevelsRequest::parent].
@@ -1042,12 +1340,6 @@ pub mod access_context_manager {
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -1063,6 +1355,12 @@ pub mod access_context_manager {
             self.0.request.access_levels = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [etag][crate::model::ReplaceAccessLevelsRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1072,13 +1370,33 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_service_perimeters][super::super::client::AccessContextManager::list_service_perimeters] calls.
+    /// The request builder for [AccessContextManager::list_service_perimeters][crate::client::AccessContextManager::list_service_perimeters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListServicePerimeters;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServicePerimeters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServicePerimeters(RequestBuilder<crate::model::ListServicePerimetersRequest>);
 
     impl ListServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1106,8 +1424,8 @@ pub mod access_context_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicePerimetersResponse, gax::error::Error>
         {
@@ -1119,6 +1437,17 @@ pub mod access_context_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListServicePerimetersResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServicePerimetersRequest::parent].
@@ -1149,13 +1478,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_service_perimeter][super::super::client::AccessContextManager::get_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::get_service_perimeter][crate::client::AccessContextManager::get_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetServicePerimeter;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServicePerimeter(RequestBuilder<crate::model::GetServicePerimeterRequest>);
 
     impl GetServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1199,13 +1544,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServicePerimeter(RequestBuilder<crate::model::CreateServicePerimeterRequest>);
 
     impl CreateServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1230,7 +1592,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_perimeter][super::super::client::AccessContextManager::create_service_perimeter].
+        /// on [create_service_perimeter][crate::client::AccessContextManager::create_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_perimeter(self.0.request, self.0.options)
@@ -1245,7 +1607,7 @@ pub mod access_context_manager {
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1273,7 +1635,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServicePerimeterRequest::parent].
@@ -1287,13 +1649,22 @@ pub mod access_context_manager {
         /// Sets the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_perimeter<
-            T: Into<std::option::Option<crate::model::ServicePerimeter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_perimeter = v.into();
+        pub fn set_service_perimeter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_perimeter][crate::model::CreateServicePerimeterRequest::service_perimeter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = v.map(|x| x.into());
             self
         }
     }
@@ -1305,13 +1676,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateServicePerimeter(RequestBuilder<crate::model::UpdateServicePerimeterRequest>);
 
     impl UpdateServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1336,7 +1724,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service_perimeter][super::super::client::AccessContextManager::update_service_perimeter].
+        /// on [update_service_perimeter][crate::client::AccessContextManager::update_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service_perimeter(self.0.request, self.0.options)
@@ -1351,7 +1739,7 @@ pub mod access_context_manager {
             crate::model::ServicePerimeter,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServicePerimeter,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1379,30 +1767,50 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_perimeter<
-            T: Into<std::option::Option<crate::model::ServicePerimeter>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_perimeter = v.into();
+        pub fn set_service_perimeter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_perimeter][crate::model::UpdateServicePerimeterRequest::service_perimeter].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_perimeter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ServicePerimeter>,
+        {
+            self.0.request.service_perimeter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServicePerimeterRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1414,13 +1822,30 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter] calls.
+    /// The request builder for [AccessContextManager::delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteServicePerimeter;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServicePerimeter {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServicePerimeter(RequestBuilder<crate::model::DeleteServicePerimeterRequest>);
 
     impl DeleteServicePerimeter {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1445,7 +1870,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_perimeter][super::super::client::AccessContextManager::delete_service_perimeter].
+        /// on [delete_service_perimeter][crate::client::AccessContextManager::delete_service_perimeter].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_perimeter(self.0.request, self.0.options)
@@ -1456,10 +1881,11 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_service_perimeter`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>
-        {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::AccessContextManagerOperationMetadata>;
+        ) -> impl lro::Poller<(), crate::model::AccessContextManagerOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::AccessContextManagerOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1484,7 +1910,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteServicePerimeterRequest::name].
@@ -1503,7 +1934,24 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters] calls.
+    /// The request builder for [AccessContextManager::replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ReplaceServicePerimeters;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReplaceServicePerimeters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReplaceServicePerimeters(
         RequestBuilder<crate::model::ReplaceServicePerimetersRequest>,
@@ -1511,7 +1959,7 @@ pub mod access_context_manager {
 
     impl ReplaceServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1536,7 +1984,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [replace_service_perimeters][super::super::client::AccessContextManager::replace_service_perimeters].
+        /// on [replace_service_perimeters][crate::client::AccessContextManager::replace_service_perimeters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .replace_service_perimeters(self.0.request, self.0.options)
@@ -1551,7 +1999,7 @@ pub mod access_context_manager {
             crate::model::ReplaceServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ReplaceServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1579,7 +2027,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ReplaceServicePerimetersRequest::parent].
@@ -1587,12 +2035,6 @@ pub mod access_context_manager {
         /// This is a **required** field for requests.
         pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.parent = v.into();
-            self
-        }
-
-        /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
             self
         }
 
@@ -1608,6 +2050,12 @@ pub mod access_context_manager {
             self.0.request.service_perimeters = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [etag][crate::model::ReplaceServicePerimetersRequest::etag].
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1617,7 +2065,24 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters] calls.
+    /// The request builder for [AccessContextManager::commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CommitServicePerimeters;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CommitServicePerimeters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CommitServicePerimeters(
         RequestBuilder<crate::model::CommitServicePerimetersRequest>,
@@ -1625,7 +2090,7 @@ pub mod access_context_manager {
 
     impl CommitServicePerimeters {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1650,7 +2115,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [commit_service_perimeters][super::super::client::AccessContextManager::commit_service_perimeters].
+        /// on [commit_service_perimeters][crate::client::AccessContextManager::commit_service_perimeters].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .commit_service_perimeters(self.0.request, self.0.options)
@@ -1665,7 +2130,7 @@ pub mod access_context_manager {
             crate::model::CommitServicePerimetersResponse,
             crate::model::AccessContextManagerOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CommitServicePerimetersResponse,
                 crate::model::AccessContextManagerOperationMetadata,
             >;
@@ -1693,7 +2158,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CommitServicePerimetersRequest::parent].
@@ -1718,7 +2183,27 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::list_gcp_user_access_bindings][super::super::client::AccessContextManager::list_gcp_user_access_bindings] calls.
+    /// The request builder for [AccessContextManager::list_gcp_user_access_bindings][crate::client::AccessContextManager::list_gcp_user_access_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::ListGcpUserAccessBindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGcpUserAccessBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGcpUserAccessBindings(
         RequestBuilder<crate::model::ListGcpUserAccessBindingsRequest>,
@@ -1726,7 +2211,7 @@ pub mod access_context_manager {
 
     impl ListGcpUserAccessBindings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1754,8 +2239,8 @@ pub mod access_context_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListGcpUserAccessBindingsResponse,
@@ -1769,6 +2254,17 @@ pub mod access_context_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListGcpUserAccessBindingsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListGcpUserAccessBindingsRequest::parent].
@@ -1799,7 +2295,23 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_gcp_user_access_binding][super::super::client::AccessContextManager::get_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::get_gcp_user_access_binding][crate::client::AccessContextManager::get_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGcpUserAccessBinding(
         RequestBuilder<crate::model::GetGcpUserAccessBindingRequest>,
@@ -1807,7 +2319,7 @@ pub mod access_context_manager {
 
     impl GetGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1851,7 +2363,24 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::CreateGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGcpUserAccessBinding(
         RequestBuilder<crate::model::CreateGcpUserAccessBindingRequest>,
@@ -1859,7 +2388,7 @@ pub mod access_context_manager {
 
     impl CreateGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1884,7 +2413,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gcp_user_access_binding][super::super::client::AccessContextManager::create_gcp_user_access_binding].
+        /// on [create_gcp_user_access_binding][crate::client::AccessContextManager::create_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gcp_user_access_binding(self.0.request, self.0.options)
@@ -1899,7 +2428,7 @@ pub mod access_context_manager {
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -1927,7 +2456,7 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGcpUserAccessBindingRequest::parent].
@@ -1941,13 +2470,22 @@ pub mod access_context_manager {
         /// Sets the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gcp_user_access_binding<
-            T: Into<std::option::Option<crate::model::GcpUserAccessBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcp_user_access_binding = v.into();
+        pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gcp_user_access_binding][crate::model::CreateGcpUserAccessBindingRequest::gcp_user_access_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = v.map(|x| x.into());
             self
         }
     }
@@ -1959,7 +2497,24 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::UpdateGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGcpUserAccessBinding(
         RequestBuilder<crate::model::UpdateGcpUserAccessBindingRequest>,
@@ -1967,7 +2522,7 @@ pub mod access_context_manager {
 
     impl UpdateGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1992,7 +2547,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gcp_user_access_binding][super::super::client::AccessContextManager::update_gcp_user_access_binding].
+        /// on [update_gcp_user_access_binding][crate::client::AccessContextManager::update_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gcp_user_access_binding(self.0.request, self.0.options)
@@ -2007,7 +2562,7 @@ pub mod access_context_manager {
             crate::model::GcpUserAccessBinding,
             crate::model::GcpUserAccessBindingOperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::GcpUserAccessBinding,
                 crate::model::GcpUserAccessBindingOperationMetadata,
             >;
@@ -2035,30 +2590,50 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gcp_user_access_binding<
-            T: Into<std::option::Option<crate::model::GcpUserAccessBinding>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gcp_user_access_binding = v.into();
+        pub fn set_gcp_user_access_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gcp_user_access_binding][crate::model::UpdateGcpUserAccessBindingRequest::gcp_user_access_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gcp_user_access_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::GcpUserAccessBinding>,
+        {
+            self.0.request.gcp_user_access_binding = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGcpUserAccessBindingRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2070,7 +2645,24 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding] calls.
+    /// The request builder for [AccessContextManager::delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::DeleteGcpUserAccessBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGcpUserAccessBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGcpUserAccessBinding(
         RequestBuilder<crate::model::DeleteGcpUserAccessBindingRequest>,
@@ -2078,7 +2670,7 @@ pub mod access_context_manager {
 
     impl DeleteGcpUserAccessBinding {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2103,7 +2695,7 @@ pub mod access_context_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gcp_user_access_binding][super::super::client::AccessContextManager::delete_gcp_user_access_binding].
+        /// on [delete_gcp_user_access_binding][crate::client::AccessContextManager::delete_gcp_user_access_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gcp_user_access_binding(self.0.request, self.0.options)
@@ -2114,10 +2706,11 @@ pub mod access_context_manager {
         /// Creates a [Poller][lro::Poller] to work with `delete_gcp_user_access_binding`.
         pub fn poller(
             self,
-        ) -> impl lro::Poller<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>
-        {
-            type Operation =
-                lro::Operation<wkt::Empty, crate::model::GcpUserAccessBindingOperationMetadata>;
+        ) -> impl lro::Poller<(), crate::model::GcpUserAccessBindingOperationMetadata> {
+            type Operation = lro::internal::Operation<
+                wkt::Empty,
+                crate::model::GcpUserAccessBindingOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2142,7 +2735,12 @@ pub mod access_context_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGcpUserAccessBindingRequest::name].
@@ -2161,13 +2759,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::set_iam_policy][super::super::client::AccessContextManager::set_iam_policy] calls.
+    /// The request builder for [AccessContextManager::set_iam_policy][crate::client::AccessContextManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2203,20 +2817,40 @@ pub mod access_context_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2228,13 +2862,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_iam_policy][super::super::client::AccessContextManager::get_iam_policy] calls.
+    /// The request builder for [AccessContextManager::get_iam_policy][crate::client::AccessContextManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2268,11 +2918,20 @@ pub mod access_context_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2284,13 +2943,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::test_iam_permissions][super::super::client::AccessContextManager::test_iam_permissions] calls.
+    /// The request builder for [AccessContextManager::test_iam_permissions][crate::client::AccessContextManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2347,13 +3022,29 @@ pub mod access_context_manager {
         }
     }
 
-    /// The request builder for [AccessContextManager::get_operation][super::super::client::AccessContextManager::get_operation] calls.
+    /// The request builder for [AccessContextManager::get_operation][crate::client::AccessContextManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_identity_accesscontextmanager_v1::builder;
+    /// use builder::access_context_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AccessContextManager>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AccessContextManager>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

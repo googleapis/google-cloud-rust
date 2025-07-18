@@ -16,9 +16,8 @@
 
 pub mod firestore {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Firestore][super::super::client::Firestore].
+    /// A builder for [Firestore][crate::client::Firestore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod firestore {
     /// let client = builder
     ///     .with_endpoint("https://firestore.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod firestore {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Firestore;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Firestore] request builders.
+    /// Common implementation for [crate::client::Firestore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Firestore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod firestore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::get_document][super::super::client::Firestore::get_document] calls.
+    /// The request builder for [Firestore::get_document][crate::client::Firestore::get_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::GetDocument;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDocument(RequestBuilder<crate::model::GetDocumentRequest>);
 
     impl GetDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -105,11 +127,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [mask][crate::model::GetDocumentRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::GetDocumentRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
 
@@ -158,12 +189,34 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::list_documents][super::super::client::Firestore::list_documents] calls.
+    /// The request builder for [Firestore::list_documents][crate::client::Firestore::list_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::ListDocuments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDocuments(RequestBuilder<crate::model::ListDocumentsRequest>);
 
     impl ListDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -187,8 +240,8 @@ pub mod firestore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListDocumentsResponse, gax::error::Error>
         {
@@ -200,6 +253,15 @@ pub mod firestore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListDocumentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDocumentsRequest::parent].
@@ -235,11 +297,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [mask][crate::model::ListDocumentsRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::ListDocumentsRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
 
@@ -294,12 +365,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::update_document][super::super::client::Firestore::update_document] calls.
+    /// The request builder for [Firestore::update_document][crate::client::Firestore::update_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::UpdateDocument;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDocument(RequestBuilder<crate::model::UpdateDocumentRequest>);
 
     impl UpdateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -326,38 +415,76 @@ pub mod firestore {
         /// Sets the value of [document][crate::model::UpdateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::UpdateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDocumentRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [mask][crate::model::UpdateDocumentRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::UpdateDocumentRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
-        pub fn set_current_document<T: Into<std::option::Option<crate::model::Precondition>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.current_document = v.into();
+        pub fn set_current_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [current_document][crate::model::UpdateDocumentRequest::current_document].
+        pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = v.map(|x| x.into());
             self
         }
     }
@@ -369,12 +496,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::delete_document][super::super::client::Firestore::delete_document] calls.
+    /// The request builder for [Firestore::delete_document][crate::client::Firestore::delete_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::DeleteDocument;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDocument(RequestBuilder<crate::model::DeleteDocumentRequest>);
 
     impl DeleteDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -407,11 +552,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
-        pub fn set_current_document<T: Into<std::option::Option<crate::model::Precondition>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.current_document = v.into();
+        pub fn set_current_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [current_document][crate::model::DeleteDocumentRequest::current_document].
+        pub fn set_or_clear_current_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Precondition>,
+        {
+            self.0.request.current_document = v.map(|x| x.into());
             self
         }
     }
@@ -423,12 +577,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::begin_transaction][super::super::client::Firestore::begin_transaction] calls.
+    /// The request builder for [Firestore::begin_transaction][crate::client::Firestore::begin_transaction] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::BeginTransaction;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BeginTransaction {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BeginTransaction(RequestBuilder<crate::model::BeginTransactionRequest>);
 
     impl BeginTransaction {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -464,11 +636,20 @@ pub mod firestore {
         }
 
         /// Sets the value of [options][crate::model::BeginTransactionRequest::options].
-        pub fn set_options<T: Into<std::option::Option<crate::model::TransactionOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][crate::model::BeginTransactionRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransactionOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -480,12 +661,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::commit][super::super::client::Firestore::commit] calls.
+    /// The request builder for [Firestore::commit][crate::client::Firestore::commit] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::Commit;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Commit {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Commit(RequestBuilder<crate::model::CommitRequest>);
 
     impl Commit {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -517,12 +716,6 @@ pub mod firestore {
             self
         }
 
-        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
-        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
-            self.0.request.transaction = v.into();
-            self
-        }
-
         /// Sets the value of [writes][crate::model::CommitRequest::writes].
         pub fn set_writes<T, V>(mut self, v: T) -> Self
         where
@@ -531,6 +724,12 @@ pub mod firestore {
         {
             use std::iter::Iterator;
             self.0.request.writes = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [transaction][crate::model::CommitRequest::transaction].
+        pub fn set_transaction<T: Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.0.request.transaction = v.into();
             self
         }
     }
@@ -542,12 +741,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::rollback][super::super::client::Firestore::rollback] calls.
+    /// The request builder for [Firestore::rollback][crate::client::Firestore::rollback] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::Rollback;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Rollback {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Rollback(RequestBuilder<crate::model::RollbackRequest>);
 
     impl Rollback {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -595,12 +812,34 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::partition_query][super::super::client::Firestore::partition_query] calls.
+    /// The request builder for [Firestore::partition_query][crate::client::Firestore::partition_query] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::PartitionQuery;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PartitionQuery {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PartitionQuery(RequestBuilder<crate::model::PartitionQueryRequest>);
 
     impl PartitionQuery {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -624,8 +863,8 @@ pub mod firestore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::PartitionQueryResponse, gax::error::Error>
         {
@@ -637,6 +876,15 @@ pub mod firestore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::PartitionQueryResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::PartitionQueryRequest::parent].
@@ -727,12 +975,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::list_collection_ids][super::super::client::Firestore::list_collection_ids] calls.
+    /// The request builder for [Firestore::list_collection_ids][crate::client::Firestore::list_collection_ids] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::ListCollectionIds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCollectionIds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCollectionIds(RequestBuilder<crate::model::ListCollectionIdsRequest>);
 
     impl ListCollectionIds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -814,12 +1080,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::batch_write][super::super::client::Firestore::batch_write] calls.
+    /// The request builder for [Firestore::batch_write][crate::client::Firestore::batch_write] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::BatchWrite;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchWrite {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchWrite(RequestBuilder<crate::model::BatchWriteRequest>);
 
     impl BatchWrite {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -881,12 +1165,30 @@ pub mod firestore {
         }
     }
 
-    /// The request builder for [Firestore::create_document][super::super::client::Firestore::create_document] calls.
+    /// The request builder for [Firestore::create_document][crate::client::Firestore::create_document] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore::builder;
+    /// use builder::firestore::CreateDocument;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDocument {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDocument(RequestBuilder<crate::model::CreateDocumentRequest>);
 
     impl CreateDocument {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Firestore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Firestore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -935,20 +1237,40 @@ pub mod firestore {
         /// Sets the value of [document][crate::model::CreateDocumentRequest::document].
         ///
         /// This is a **required** field for requests.
-        pub fn set_document<T: Into<std::option::Option<crate::model::Document>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.document = v.into();
+        pub fn set_document<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [document][crate::model::CreateDocumentRequest::document].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_document<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Document>,
+        {
+            self.0.request.document = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [mask][crate::model::CreateDocumentRequest::mask].
-        pub fn set_mask<T: Into<std::option::Option<crate::model::DocumentMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.mask = v.into();
+        pub fn set_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [mask][crate::model::CreateDocumentRequest::mask].
+        pub fn set_or_clear_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DocumentMask>,
+        {
+            self.0.request.mask = v.map(|x| x.into());
             self
         }
     }

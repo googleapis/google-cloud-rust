@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Transcoder API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
 /// let client = TranscoderService::builder().build().await?;
 /// // use `client` to make requests to the Transcoder API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -63,11 +60,11 @@ use std::sync::Arc;
 ///
 /// `TranscoderService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TranscoderService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TranscoderService {
-    inner: Arc<dyn super::stub::dynamic::TranscoderService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TranscoderService>,
 }
 
 impl TranscoderService {
@@ -77,7 +74,7 @@ impl TranscoderService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// let client = TranscoderService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::transcoder_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -94,105 +91,78 @@ impl TranscoderService {
         T: super::stub::TranscoderService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TranscoderService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TranscoderService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TranscoderService> {
+    ) -> gax::client_builder::Result<impl super::stub::TranscoderService> {
         super::transport::TranscoderService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TranscoderService> {
+    ) -> gax::client_builder::Result<impl super::stub::TranscoderService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TranscoderService::new)
     }
 
     /// Creates a job in the specified region.
-    pub fn create_job(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::CreateJob {
+    pub fn create_job(&self) -> super::builder::transcoder_service::CreateJob {
         super::builder::transcoder_service::CreateJob::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists jobs in the specified region.
-    pub fn list_jobs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::ListJobs {
+    pub fn list_jobs(&self) -> super::builder::transcoder_service::ListJobs {
         super::builder::transcoder_service::ListJobs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the job data.
-    pub fn get_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::GetJob {
-        super::builder::transcoder_service::GetJob::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job(&self) -> super::builder::transcoder_service::GetJob {
+        super::builder::transcoder_service::GetJob::new(self.inner.clone())
     }
 
     /// Deletes a job.
-    pub fn delete_job(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::DeleteJob {
-        super::builder::transcoder_service::DeleteJob::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_job(&self) -> super::builder::transcoder_service::DeleteJob {
+        super::builder::transcoder_service::DeleteJob::new(self.inner.clone())
     }
 
     /// Creates a job template in the specified region.
-    pub fn create_job_template(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::CreateJobTemplate {
+    pub fn create_job_template(&self) -> super::builder::transcoder_service::CreateJobTemplate {
         super::builder::transcoder_service::CreateJobTemplate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists job templates in the specified region.
-    pub fn list_job_templates(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::ListJobTemplates {
+    pub fn list_job_templates(&self) -> super::builder::transcoder_service::ListJobTemplates {
         super::builder::transcoder_service::ListJobTemplates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns the job template data.
-    pub fn get_job_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::GetJobTemplate {
+    pub fn get_job_template(&self) -> super::builder::transcoder_service::GetJobTemplate {
         super::builder::transcoder_service::GetJobTemplate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a job template.
-    pub fn delete_job_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::transcoder_service::DeleteJobTemplate {
+    pub fn delete_job_template(&self) -> super::builder::transcoder_service::DeleteJobTemplate {
         super::builder::transcoder_service::DeleteJobTemplate::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

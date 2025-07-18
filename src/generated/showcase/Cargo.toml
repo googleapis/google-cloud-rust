@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-showcase-v1beta1"
-version                = "0.3.0"
+version                = "0.4.2"
 description            = "Google Cloud Client Libraries for Rust - Client Libraries Showcase API"
 edition.workspace      = true
 authors.workspace      = true
@@ -30,8 +30,8 @@ publish                = false
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true
-gax                  = { workspace = true, features = ["unstable-sdk-client"] }
-gaxi                 = { workspace = true, features = ["_internal_http_client"] }
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
 iam_v1.workspace     = true
 lazy_static.workspace = true
 location.workspace   = true
@@ -43,6 +43,7 @@ serde.workspace      = true
 serde_json.workspace = true
 serde_with.workspace = true
 tracing.workspace    = true
+uuid.workspace       = true
 wkt.workspace        = true
 
 [dev-dependencies]

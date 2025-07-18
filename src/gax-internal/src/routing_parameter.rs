@@ -85,16 +85,13 @@ pub fn value<'h>(
 ///     "bucket=projects%2F_%2Fbuckets%2Fd&source_bucket=projects%2F_%2Fbuckets%2Fs");
 /// ```
 pub fn format(matches: &[Option<(&str, &str)>]) -> String {
-    let matches: Vec<_> = matches.iter().flatten().collect();
-    if matches.is_empty() {
-        return String::new();
-    }
-    let mut i = matches.into_iter();
-    let s = i
-        .next()
+    matches
+        .iter()
+        .flatten()
         .map(|(k, v)| format!("{}={}", enc(k), enc(v)))
-        .unwrap();
-    i.fold(s, |s, (k, v)| s + &format!("&{}={}", enc(k), enc(v)))
+        .fold(String::new(), |acc, v| {
+            if acc.is_empty() { v } else { acc + "&" + &v }
+        })
 }
 
 /// Represents a segment in the routing parameter path templates.
@@ -170,12 +167,12 @@ const UNRESERVED: percent_encoding::AsciiSet = NON_ALPHANUMERIC
 ///
 /// A very short name as this is a private function, and only exists to simplify
 /// testing.
-fn enc(value: &str) -> percent_encoding::PercentEncode {
+fn enc(value: &str) -> percent_encoding::PercentEncode<'_> {
     percent_encoding::utf8_percent_encode(value, &UNRESERVED)
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use Segment::*;
     use test_case::test_case;

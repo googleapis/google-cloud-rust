@@ -16,9 +16,8 @@
 
 pub mod firestore_admin {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [FirestoreAdmin][super::super::client::FirestoreAdmin].
+    /// A builder for [FirestoreAdmin][crate::client::FirestoreAdmin].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod firestore_admin {
     /// let client = builder
     ///     .with_endpoint("https://firestore.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod firestore_admin {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = FirestoreAdmin;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::FirestoreAdmin] request builders.
+    /// Common implementation for [crate::client::FirestoreAdmin] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod firestore_admin {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_index][super::super::client::FirestoreAdmin::create_index] calls.
+    /// The request builder for [FirestoreAdmin::create_index][crate::client::FirestoreAdmin::create_index] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::CreateIndex;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateIndex {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateIndex(RequestBuilder<crate::model::CreateIndexRequest>);
 
     impl CreateIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -93,7 +116,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_index][super::super::client::FirestoreAdmin::create_index].
+        /// on [create_index][crate::client::FirestoreAdmin::create_index].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_index(self.0.request, self.0.options)
@@ -106,7 +129,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Index, crate::model::IndexOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
+                lro::internal::Operation<crate::model::Index, crate::model::IndexOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -131,7 +154,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateIndexRequest::parent].
@@ -145,11 +168,22 @@ pub mod firestore_admin {
         /// Sets the value of [index][crate::model::CreateIndexRequest::index].
         ///
         /// This is a **required** field for requests.
-        pub fn set_index<T: Into<std::option::Option<crate::model::Index>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.index = v.into();
+        pub fn set_index<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [index][crate::model::CreateIndexRequest::index].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_index<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Index>,
+        {
+            self.0.request.index = v.map(|x| x.into());
             self
         }
     }
@@ -161,12 +195,34 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_indexes][super::super::client::FirestoreAdmin::list_indexes] calls.
+    /// The request builder for [FirestoreAdmin::list_indexes][crate::client::FirestoreAdmin::list_indexes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListIndexes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListIndexes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListIndexes(RequestBuilder<crate::model::ListIndexesRequest>);
 
     impl ListIndexes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,8 +246,8 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListIndexesResponse, gax::error::Error>
         {
@@ -203,6 +259,15 @@ pub mod firestore_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListIndexesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListIndexesRequest::parent].
@@ -239,12 +304,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_index][super::super::client::FirestoreAdmin::get_index] calls.
+    /// The request builder for [FirestoreAdmin::get_index][crate::client::FirestoreAdmin::get_index] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetIndex;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIndex {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIndex(RequestBuilder<crate::model::GetIndexRequest>);
 
     impl GetIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -284,12 +367,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_index][super::super::client::FirestoreAdmin::delete_index] calls.
+    /// The request builder for [FirestoreAdmin::delete_index][crate::client::FirestoreAdmin::delete_index] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DeleteIndex;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteIndex {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteIndex(RequestBuilder<crate::model::DeleteIndexRequest>);
 
     impl DeleteIndex {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,12 +430,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_field][super::super::client::FirestoreAdmin::get_field] calls.
+    /// The request builder for [FirestoreAdmin::get_field][crate::client::FirestoreAdmin::get_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetField;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetField(RequestBuilder<crate::model::GetFieldRequest>);
 
     impl GetField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -374,12 +493,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::update_field][super::super::client::FirestoreAdmin::update_field] calls.
+    /// The request builder for [FirestoreAdmin::update_field][crate::client::FirestoreAdmin::update_field] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::UpdateField;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateField {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateField(RequestBuilder<crate::model::UpdateFieldRequest>);
 
     impl UpdateField {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -400,7 +538,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_field][super::super::client::FirestoreAdmin::update_field].
+        /// on [update_field][crate::client::FirestoreAdmin::update_field].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_field(self.0.request, self.0.options)
@@ -413,7 +551,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Field, crate::model::FieldOperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
+                lro::internal::Operation<crate::model::Field, crate::model::FieldOperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -438,26 +576,46 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [field][crate::model::UpdateFieldRequest::field].
         ///
         /// This is a **required** field for requests.
-        pub fn set_field<T: Into<std::option::Option<crate::model::Field>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.field = v.into();
+        pub fn set_field<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Field>,
+        {
+            self.0.request.field = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [field][crate::model::UpdateFieldRequest::field].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_field<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Field>,
+        {
+            self.0.request.field = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFieldRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -469,12 +627,34 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_fields][super::super::client::FirestoreAdmin::list_fields] calls.
+    /// The request builder for [FirestoreAdmin::list_fields][crate::client::FirestoreAdmin::list_fields] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListFields;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFields {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFields(RequestBuilder<crate::model::ListFieldsRequest>);
 
     impl ListFields {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -498,8 +678,8 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFieldsResponse, gax::error::Error>
         {
@@ -511,6 +691,15 @@ pub mod firestore_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFieldsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFieldsRequest::parent].
@@ -547,12 +736,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::export_documents][super::super::client::FirestoreAdmin::export_documents] calls.
+    /// The request builder for [FirestoreAdmin::export_documents][crate::client::FirestoreAdmin::export_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ExportDocuments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportDocuments(RequestBuilder<crate::model::ExportDocumentsRequest>);
 
     impl ExportDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -573,7 +781,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_documents][super::super::client::FirestoreAdmin::export_documents].
+        /// on [export_documents][crate::client::FirestoreAdmin::export_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_documents(self.0.request, self.0.options)
@@ -586,7 +794,7 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::ExportDocumentsResponse, crate::model::ExportDocumentsMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ExportDocumentsResponse,
                 crate::model::ExportDocumentsMetadata,
             >;
@@ -614,7 +822,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportDocumentsRequest::name].
@@ -622,21 +830,6 @@ pub mod firestore_admin {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
-        pub fn set_output_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.output_uri_prefix = v.into();
-            self
-        }
-
-        /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
-        pub fn set_snapshot_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot_time = v.into();
             self
         }
 
@@ -651,6 +844,12 @@ pub mod firestore_admin {
             self
         }
 
+        /// Sets the value of [output_uri_prefix][crate::model::ExportDocumentsRequest::output_uri_prefix].
+        pub fn set_output_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.output_uri_prefix = v.into();
+            self
+        }
+
         /// Sets the value of [namespace_ids][crate::model::ExportDocumentsRequest::namespace_ids].
         pub fn set_namespace_ids<T, V>(mut self, v: T) -> Self
         where
@@ -659,6 +858,24 @@ pub mod firestore_admin {
         {
             use std::iter::Iterator;
             self.0.request.namespace_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+        pub fn set_snapshot_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.snapshot_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot_time][crate::model::ExportDocumentsRequest::snapshot_time].
+        pub fn set_or_clear_snapshot_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.snapshot_time = v.map(|x| x.into());
             self
         }
     }
@@ -670,12 +887,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::import_documents][super::super::client::FirestoreAdmin::import_documents] calls.
+    /// The request builder for [FirestoreAdmin::import_documents][crate::client::FirestoreAdmin::import_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ImportDocuments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ImportDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ImportDocuments(RequestBuilder<crate::model::ImportDocumentsRequest>);
 
     impl ImportDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -696,7 +932,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [import_documents][super::super::client::FirestoreAdmin::import_documents].
+        /// on [import_documents][crate::client::FirestoreAdmin::import_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .import_documents(self.0.request, self.0.options)
@@ -705,8 +941,9 @@ pub mod firestore_admin {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `import_documents`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::ImportDocumentsMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::ImportDocumentsMetadata> {
+            type Operation =
+                lro::internal::Operation<wkt::Empty, crate::model::ImportDocumentsMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -731,7 +968,12 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ImportDocumentsRequest::name].
@@ -739,12 +981,6 @@ pub mod firestore_admin {
         /// This is a **required** field for requests.
         pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.name = v.into();
-            self
-        }
-
-        /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
-        pub fn set_input_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.input_uri_prefix = v.into();
             self
         }
 
@@ -756,6 +992,12 @@ pub mod firestore_admin {
         {
             use std::iter::Iterator;
             self.0.request.collection_ids = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [input_uri_prefix][crate::model::ImportDocumentsRequest::input_uri_prefix].
+        pub fn set_input_uri_prefix<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.input_uri_prefix = v.into();
             self
         }
 
@@ -778,12 +1020,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::bulk_delete_documents][super::super::client::FirestoreAdmin::bulk_delete_documents] calls.
+    /// The request builder for [FirestoreAdmin::bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::BulkDeleteDocuments;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BulkDeleteDocuments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BulkDeleteDocuments(RequestBuilder<crate::model::BulkDeleteDocumentsRequest>);
 
     impl BulkDeleteDocuments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -807,7 +1068,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [bulk_delete_documents][super::super::client::FirestoreAdmin::bulk_delete_documents].
+        /// on [bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .bulk_delete_documents(self.0.request, self.0.options)
@@ -822,7 +1083,7 @@ pub mod firestore_admin {
             crate::model::BulkDeleteDocumentsResponse,
             crate::model::BulkDeleteDocumentsMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BulkDeleteDocumentsResponse,
                 crate::model::BulkDeleteDocumentsMetadata,
             >;
@@ -850,7 +1111,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::BulkDeleteDocumentsRequest::name].
@@ -891,12 +1152,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_database][super::super::client::FirestoreAdmin::create_database] calls.
+    /// The request builder for [FirestoreAdmin::create_database][crate::client::FirestoreAdmin::create_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::CreateDatabase;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateDatabase(RequestBuilder<crate::model::CreateDatabaseRequest>);
 
     impl CreateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -917,7 +1197,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_database][super::super::client::FirestoreAdmin::create_database].
+        /// on [create_database][crate::client::FirestoreAdmin::create_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_database(self.0.request, self.0.options)
@@ -930,8 +1210,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::CreateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::CreateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::CreateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -956,7 +1238,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateDatabaseRequest::parent].
@@ -970,11 +1252,22 @@ pub mod firestore_admin {
         /// Sets the value of [database][crate::model::CreateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.database = v.into();
+        pub fn set_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [database][crate::model::CreateDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = v.map(|x| x.into());
             self
         }
 
@@ -994,12 +1287,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_database][super::super::client::FirestoreAdmin::get_database] calls.
+    /// The request builder for [FirestoreAdmin::get_database][crate::client::FirestoreAdmin::get_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetDatabase;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDatabase(RequestBuilder<crate::model::GetDatabaseRequest>);
 
     impl GetDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1039,12 +1350,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_databases][super::super::client::FirestoreAdmin::list_databases] calls.
+    /// The request builder for [FirestoreAdmin::list_databases][crate::client::FirestoreAdmin::list_databases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListDatabases;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDatabases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDatabases(RequestBuilder<crate::model::ListDatabasesRequest>);
 
     impl ListDatabases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1090,12 +1419,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::update_database][super::super::client::FirestoreAdmin::update_database] calls.
+    /// The request builder for [FirestoreAdmin::update_database][crate::client::FirestoreAdmin::update_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::UpdateDatabase;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateDatabase(RequestBuilder<crate::model::UpdateDatabaseRequest>);
 
     impl UpdateDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1116,7 +1464,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_database][super::super::client::FirestoreAdmin::update_database].
+        /// on [update_database][crate::client::FirestoreAdmin::update_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_database(self.0.request, self.0.options)
@@ -1129,8 +1477,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::UpdateDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::UpdateDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::UpdateDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1155,26 +1505,46 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [database][crate::model::UpdateDatabaseRequest::database].
         ///
         /// This is a **required** field for requests.
-        pub fn set_database<T: Into<std::option::Option<crate::model::Database>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.database = v.into();
+        pub fn set_database<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [database][crate::model::UpdateDatabaseRequest::database].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_database<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Database>,
+        {
+            self.0.request.database = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateDatabaseRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1186,12 +1556,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_database][super::super::client::FirestoreAdmin::delete_database] calls.
+    /// The request builder for [FirestoreAdmin::delete_database][crate::client::FirestoreAdmin::delete_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DeleteDatabase;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteDatabase(RequestBuilder<crate::model::DeleteDatabaseRequest>);
 
     impl DeleteDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1212,7 +1601,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_database][super::super::client::FirestoreAdmin::delete_database].
+        /// on [delete_database][crate::client::FirestoreAdmin::delete_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_database(self.0.request, self.0.options)
@@ -1225,8 +1614,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::DeleteDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::DeleteDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::DeleteDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1251,7 +1642,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DeleteDatabaseRequest::name].
@@ -1276,12 +1667,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_user_creds][super::super::client::FirestoreAdmin::create_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::create_user_creds][crate::client::FirestoreAdmin::create_user_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::CreateUserCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateUserCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateUserCreds(RequestBuilder<crate::model::CreateUserCredsRequest>);
 
     impl CreateUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1316,11 +1725,22 @@ pub mod firestore_admin {
         /// Sets the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
         ///
         /// This is a **required** field for requests.
-        pub fn set_user_creds<T: Into<std::option::Option<crate::model::UserCreds>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.user_creds = v.into();
+        pub fn set_user_creds<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::UserCreds>,
+        {
+            self.0.request.user_creds = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [user_creds][crate::model::CreateUserCredsRequest::user_creds].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_user_creds<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::UserCreds>,
+        {
+            self.0.request.user_creds = v.map(|x| x.into());
             self
         }
 
@@ -1340,12 +1760,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_user_creds][super::super::client::FirestoreAdmin::get_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::get_user_creds][crate::client::FirestoreAdmin::get_user_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetUserCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetUserCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetUserCreds(RequestBuilder<crate::model::GetUserCredsRequest>);
 
     impl GetUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1385,12 +1823,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_user_creds][super::super::client::FirestoreAdmin::list_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::list_user_creds][crate::client::FirestoreAdmin::list_user_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListUserCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListUserCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListUserCreds(RequestBuilder<crate::model::ListUserCredsRequest>);
 
     impl ListUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1430,12 +1886,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::enable_user_creds][super::super::client::FirestoreAdmin::enable_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::enable_user_creds][crate::client::FirestoreAdmin::enable_user_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::EnableUserCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableUserCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableUserCreds(RequestBuilder<crate::model::EnableUserCredsRequest>);
 
     impl EnableUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1475,12 +1949,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::disable_user_creds][super::super::client::FirestoreAdmin::disable_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::disable_user_creds][crate::client::FirestoreAdmin::disable_user_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DisableUserCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableUserCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableUserCreds(RequestBuilder<crate::model::DisableUserCredsRequest>);
 
     impl DisableUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1523,12 +2015,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::reset_user_password][super::super::client::FirestoreAdmin::reset_user_password] calls.
+    /// The request builder for [FirestoreAdmin::reset_user_password][crate::client::FirestoreAdmin::reset_user_password] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ResetUserPassword;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetUserPassword {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetUserPassword(RequestBuilder<crate::model::ResetUserPasswordRequest>);
 
     impl ResetUserPassword {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1571,12 +2081,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_user_creds][super::super::client::FirestoreAdmin::delete_user_creds] calls.
+    /// The request builder for [FirestoreAdmin::delete_user_creds][crate::client::FirestoreAdmin::delete_user_creds] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DeleteUserCreds;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteUserCreds {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteUserCreds(RequestBuilder<crate::model::DeleteUserCredsRequest>);
 
     impl DeleteUserCreds {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1616,12 +2144,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_backup][super::super::client::FirestoreAdmin::get_backup] calls.
+    /// The request builder for [FirestoreAdmin::get_backup][crate::client::FirestoreAdmin::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1661,12 +2207,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_backups][super::super::client::FirestoreAdmin::list_backups] calls.
+    /// The request builder for [FirestoreAdmin::list_backups][crate::client::FirestoreAdmin::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListBackups;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1712,12 +2276,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_backup][super::super::client::FirestoreAdmin::delete_backup] calls.
+    /// The request builder for [FirestoreAdmin::delete_backup][crate::client::FirestoreAdmin::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1757,12 +2339,31 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::restore_database][super::super::client::FirestoreAdmin::restore_database] calls.
+    /// The request builder for [FirestoreAdmin::restore_database][crate::client::FirestoreAdmin::restore_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::RestoreDatabase;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreDatabase(RequestBuilder<crate::model::RestoreDatabaseRequest>);
 
     impl RestoreDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1783,7 +2384,7 @@ pub mod firestore_admin {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_database][super::super::client::FirestoreAdmin::restore_database].
+        /// on [restore_database][crate::client::FirestoreAdmin::restore_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_database(self.0.request, self.0.options)
@@ -1796,8 +2397,10 @@ pub mod firestore_admin {
             self,
         ) -> impl lro::Poller<crate::model::Database, crate::model::RestoreDatabaseMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::Database, crate::model::RestoreDatabaseMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Database,
+                crate::model::RestoreDatabaseMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1822,7 +2425,7 @@ pub mod firestore_admin {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RestoreDatabaseRequest::parent].
@@ -1850,13 +2453,20 @@ pub mod firestore_admin {
         }
 
         /// Sets the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
-        pub fn set_encryption_config<
-            T: Into<std::option::Option<crate::model::database::EncryptionConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.encryption_config = v.into();
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::RestoreDatabaseRequest::encryption_config].
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::database::EncryptionConfig>,
+        {
+            self.0.request.encryption_config = v.map(|x| x.into());
             self
         }
     }
@@ -1868,12 +2478,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::create_backup_schedule][super::super::client::FirestoreAdmin::create_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::create_backup_schedule][crate::client::FirestoreAdmin::create_backup_schedule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::CreateBackupSchedule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupSchedule(RequestBuilder<crate::model::CreateBackupScheduleRequest>);
 
     impl CreateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1911,11 +2539,22 @@ pub mod firestore_admin {
         /// Sets the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_schedule = v.into();
+        pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_schedule][crate::model::CreateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = v.map(|x| x.into());
             self
         }
     }
@@ -1927,12 +2566,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_backup_schedule][super::super::client::FirestoreAdmin::get_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::get_backup_schedule][crate::client::FirestoreAdmin::get_backup_schedule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetBackupSchedule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupSchedule(RequestBuilder<crate::model::GetBackupScheduleRequest>);
 
     impl GetBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1975,12 +2632,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_backup_schedules][super::super::client::FirestoreAdmin::list_backup_schedules] calls.
+    /// The request builder for [FirestoreAdmin::list_backup_schedules][crate::client::FirestoreAdmin::list_backup_schedules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListBackupSchedules;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupSchedules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupSchedules(RequestBuilder<crate::model::ListBackupSchedulesRequest>);
 
     impl ListBackupSchedules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2023,12 +2698,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::update_backup_schedule][super::super::client::FirestoreAdmin::update_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::update_backup_schedule][crate::client::FirestoreAdmin::update_backup_schedule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::UpdateBackupSchedule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupSchedule(RequestBuilder<crate::model::UpdateBackupScheduleRequest>);
 
     impl UpdateBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2058,20 +2751,40 @@ pub mod firestore_admin {
         /// Sets the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_schedule<T: Into<std::option::Option<crate::model::BackupSchedule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_schedule = v.into();
+        pub fn set_backup_schedule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_schedule][crate::model::UpdateBackupScheduleRequest::backup_schedule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_schedule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupSchedule>,
+        {
+            self.0.request.backup_schedule = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupScheduleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2083,12 +2796,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_backup_schedule][super::super::client::FirestoreAdmin::delete_backup_schedule] calls.
+    /// The request builder for [FirestoreAdmin::delete_backup_schedule][crate::client::FirestoreAdmin::delete_backup_schedule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DeleteBackupSchedule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupSchedule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupSchedule(RequestBuilder<crate::model::DeleteBackupScheduleRequest>);
 
     impl DeleteBackupSchedule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2131,12 +2862,34 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::list_operations][super::super::client::FirestoreAdmin::list_operations] calls.
+    /// The request builder for [FirestoreAdmin::list_operations][crate::client::FirestoreAdmin::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2163,8 +2916,8 @@ pub mod firestore_admin {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2176,6 +2929,17 @@ pub mod firestore_admin {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2210,12 +2974,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::get_operation][super::super::client::FirestoreAdmin::get_operation] calls.
+    /// The request builder for [FirestoreAdmin::get_operation][crate::client::FirestoreAdmin::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2256,12 +3038,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::delete_operation][super::super::client::FirestoreAdmin::delete_operation] calls.
+    /// The request builder for [FirestoreAdmin::delete_operation][crate::client::FirestoreAdmin::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2302,12 +3102,30 @@ pub mod firestore_admin {
         }
     }
 
-    /// The request builder for [FirestoreAdmin::cancel_operation][super::super::client::FirestoreAdmin::cancel_operation] calls.
+    /// The request builder for [FirestoreAdmin::cancel_operation][crate::client::FirestoreAdmin::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_firestore_admin_v1::builder;
+    /// use builder::firestore_admin::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FirestoreAdmin>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FirestoreAdmin>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

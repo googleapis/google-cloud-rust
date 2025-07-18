@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_http_client"))]
-mod test {
+#[cfg(all(test, feature = "_internal-http-client"))]
+mod tests {
     use gax::options::*;
     use serde_json::json;
 

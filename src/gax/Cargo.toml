@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax"
-version     = "0.22.0"
+version     = "0.23.2"
 description = "Google Cloud Client Libraries for Rust"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
@@ -27,36 +27,40 @@ rust-version.workspace = true
 
 [package.metadata.docs.rs]
 # We want to generate documentation for streaming APIs, gated by this feature.
-# We do not want to generate documentation for `unstable-sdk-client`, which
-# gates internal tpes.
 features = ["unstable-stream"]
 
 [dependencies]
-base64      = "0.22"
-bytes       = "1"
-futures     = { version = "0.3" }
-http        = "1"
-pin-project = { version = "1" }
-rand        = "0.9"
-serde       = "1"
-serde_json  = "1"
-tokio       = { version = "1", features = ["macros", "rt-multi-thread", "time"] }
+base64.workspace      = true
+bytes.workspace       = true
+futures.workspace     = true
+http.workspace        = true
+pin-project.workspace = true
+rand                  = { workspace = true, features = ["thread_rng"] }
+serde.workspace       = true
+serde_json.workspace  = true
+thiserror.workspace   = true
+tokio                 = { workspace = true, features = ["macros", "rt-multi-thread", "time"] }
 # Local crates
 rpc.workspace = true
 wkt.workspace = true
 
 [dev-dependencies]
-# This is a workaround to integration test features of this crate. Open issue
-# https://github.com/rust-lang/cargo/issues/2911.
-gax                 = { path = ".", package = "google-cloud-gax", features = ["unstable-sdk-client"] }
-anyhow.workspace    = true
-mockall             = "0.13"
-serde.workspace     = true
-serial_test         = "3"
-test-case.workspace = true
-tokio               = { version = "1", features = ["test-util"] }
-tokio-test          = "0.4"
+anyhow.workspace      = true
+mockall.workspace     = true
+serde.workspace       = true
+serial_test.workspace = true
+test-case.workspace   = true
+tokio                 = { workspace = true, features = ["test-util"] }
+tokio-test.workspace  = true
 
 [features]
-unstable-sdk-client = []
-unstable-stream     = []
+# Enable functionality that depends on the [futures::stream::Stream] trait. This
+# functionality may change as the trait is stabilized.
+#
+# [futures::stream::Stream]: https://docs.rs/futures/latest/futures/stream/trait.Stream.html
+unstable-stream = []
+# DO NOT USE: this allows us to detect semver changes in types used in the
+# implementation of client libraries. None of the types or functions gated
+# by this feature are intended for general use. We do not plan to document these
+# features and offer no guarantees on their stability.
+_internal-semver = []

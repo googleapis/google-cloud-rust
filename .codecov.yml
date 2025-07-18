@@ -18,17 +18,14 @@ coverage:
   status:
     project: off
     patch: off
-# Ignore generated code that lives with handcrafted code.
 ignore:
-  - guide/samples
-  - src/generated
-  - src/gax-internal/echo-server
-  - src/gax-internal/grpc-server
-  - src/wkt/src/generated
-  - src/firestore/src/generated
-  - src/storage-control/src/generated
-  - src/storage/src/generated
-  - src/integration-tests
-  - src/auth/integration-tests
-  - generator/testdata
-  - tools/check-copyright
+  # Ignore generated code.
+  - "**/generated/**"
+  # Ignore tools and test helpers.
+  - "src/gax-internal/echo-server"
+  - "src/gax-internal/grpc-server"
+  - "tools/check-copyright"
+  # Ignore libraries which go unused in the coverage build.
+  - "guide/samples"
+  - "src/integration-tests"
+  - "src/auth/integration-tests"

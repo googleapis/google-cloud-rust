@@ -1,8 +1,8 @@
 # Terraform configuration Bootstrap
 
 We use terraform (https://terraform.io) to create and update the state of our
-testing infrastructure. We describe the desired state of the infrastructure
-to terraform using `.tf` scripts. By default, Terraform stores [state][tf-state]
+testing infrastructure. We describe the desired state of the infrastructure to
+terraform using `.tf` scripts. By default, Terraform stores [state][tf-state]
 locally, in a file called `terraform.tfstate`. This default configuration can
 make Terraform usage difficult for teams. If multiple team members run Terraform
 at the same time on different machine each state may have a different definition
@@ -30,8 +30,8 @@ Initialize terraform:
 terraform init
 ```
 
-Restore the current state. This may result in no action if you happen to have
-an up-to-date state in your local files.
+Restore the current state. This may result in no action if you happen to have an
+up-to-date state in your local files.
 
 ```shell
 terraform plan -out /tmp/bootstrap.tplan

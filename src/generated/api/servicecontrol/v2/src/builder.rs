@@ -16,9 +16,8 @@
 
 pub mod service_controller {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ServiceController][super::super::client::ServiceController].
+    /// A builder for [ServiceController][crate::client::ServiceController].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod service_controller {
     /// let client = builder
     ///     .with_endpoint("https://servicecontrol.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod service_controller {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceController;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceController] request builders.
+    /// Common implementation for [crate::client::ServiceController] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceController>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod service_controller {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for [ServiceController::check][super::super::client::ServiceController::check] calls.
+    /// The request builder for [ServiceController::check][crate::client::ServiceController::check] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v2::builder;
+    /// use builder::service_controller::Check;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Check {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Check(RequestBuilder<crate::model::CheckRequest>);
 
     impl Check {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -109,19 +131,20 @@ pub mod service_controller {
         }
 
         /// Sets the value of [attributes][crate::model::CheckRequest::attributes].
-        pub fn set_attributes<
-            T: Into<std::option::Option<rpc_context::model::AttributeContext>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.attributes = v.into();
+        pub fn set_attributes<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        {
+            self.0.request.attributes = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [flags][crate::model::CheckRequest::flags].
-        pub fn set_flags<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.flags = v.into();
+        /// Sets or clears the value of [attributes][crate::model::CheckRequest::attributes].
+        pub fn set_or_clear_attributes<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<rpc_context::model::AttributeContext>,
+        {
+            self.0.request.attributes = v.map(|x| x.into());
             self
         }
 
@@ -135,6 +158,12 @@ pub mod service_controller {
             self.0.request.resources = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [flags][crate::model::CheckRequest::flags].
+        pub fn set_flags<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.flags = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -144,12 +173,30 @@ pub mod service_controller {
         }
     }
 
-    /// The request builder for [ServiceController::report][super::super::client::ServiceController::report] calls.
+    /// The request builder for [ServiceController::report][crate::client::ServiceController::report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicecontrol_v2::builder;
+    /// use builder::service_controller::Report;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Report {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct Report(RequestBuilder<crate::model::ReportRequest>);
 
     impl Report {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceController>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceController>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

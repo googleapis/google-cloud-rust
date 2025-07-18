@@ -27,93 +27,72 @@ extern crate wkt;
 /// A common proto for logging HTTP requests. Only contains semantics
 /// defined by the HTTP specification. Product-specific logging
 /// information MUST be defined in a separate message.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct HttpRequest {
     /// The request method. Examples: `"GET"`, `"HEAD"`, `"PUT"`, `"POST"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_method: std::string::String,
 
     /// The scheme (http, https), the host name, the path and the query
     /// portion of the URL that was requested.
     /// Example: ``http://example.com/some/info?color=red``.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub request_url: std::string::String,
 
     /// The size of the HTTP request message in bytes, including the request
     /// headers and the request body.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     pub request_size: i64,
 
     /// The response code indicating the status of response.
     /// Examples: 200, 404.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub status: i32,
 
     /// The size of the HTTP response message sent back to the client, in bytes,
     /// including the response headers and the response body.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     pub response_size: i64,
 
     /// The user agent sent by the client. Example:
     /// `"Mozilla/4.0 (compatible; MSIE 6.0; Windows 98; Q312461; .NET
     /// CLR 1.0.3705)"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub user_agent: std::string::String,
 
     /// The IP address (IPv4 or IPv6) of the client that issued the HTTP
     /// request. This field can include port information. Examples:
     /// `"192.168.1.1"`, `"10.0.0.1:80"`, `"FE80::0202:B3FF:FE1E:8329"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub remote_ip: std::string::String,
 
     /// The IP address (IPv4 or IPv6) of the origin server that the request was
     /// sent to. This field can include port information. Examples:
     /// `"192.168.1.1"`, `"10.0.0.1:80"`, `"FE80::0202:B3FF:FE1E:8329"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub server_ip: std::string::String,
 
     /// The referer URL of the request, as defined in
     /// [HTTP/1.1 Header Field
     /// Definitions](https://datatracker.ietf.org/doc/html/rfc2616#section-14.36).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub referer: std::string::String,
 
     /// The request processing latency on the server, from the time the request was
     /// received until the response was sent.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub latency: std::option::Option<wkt::Duration>,
 
     /// Whether or not a cache lookup was attempted.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_lookup: bool,
 
     /// Whether or not an entity was served from cache
     /// (with or without validation).
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_hit: bool,
 
     /// Whether or not the response was validated with the origin server before
     /// being served from cache. This field is only meaningful if `cache_hit` is
     /// True.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub cache_validated_with_origin_server: bool,
 
     /// The number of HTTP response bytes inserted into cache. Set only when a
     /// cache fill was attempted.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
     pub cache_fill_bytes: i64,
 
     /// Protocol used for the request. Examples: "HTTP/1.1", "HTTP/2", "websocket"
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub protocol: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -177,11 +156,20 @@ impl HttpRequest {
     }
 
     /// Sets the value of [latency][crate::model::HttpRequest::latency].
-    pub fn set_latency<T: std::convert::Into<std::option::Option<wkt::Duration>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.latency = v.into();
+    pub fn set_latency<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.latency = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [latency][crate::model::HttpRequest::latency].
+    pub fn set_or_clear_latency<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.latency = v.map(|x| x.into());
         self
     }
 
@@ -222,6 +210,409 @@ impl HttpRequest {
 impl wkt::message::Message for HttpRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.logging.type.HttpRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for HttpRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __request_method,
+            __request_url,
+            __request_size,
+            __status,
+            __response_size,
+            __user_agent,
+            __remote_ip,
+            __server_ip,
+            __referer,
+            __latency,
+            __cache_lookup,
+            __cache_hit,
+            __cache_validated_with_origin_server,
+            __cache_fill_bytes,
+            __protocol,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for HttpRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requestMethod" => Ok(__FieldTag::__request_method),
+                            "request_method" => Ok(__FieldTag::__request_method),
+                            "requestUrl" => Ok(__FieldTag::__request_url),
+                            "request_url" => Ok(__FieldTag::__request_url),
+                            "requestSize" => Ok(__FieldTag::__request_size),
+                            "request_size" => Ok(__FieldTag::__request_size),
+                            "status" => Ok(__FieldTag::__status),
+                            "responseSize" => Ok(__FieldTag::__response_size),
+                            "response_size" => Ok(__FieldTag::__response_size),
+                            "userAgent" => Ok(__FieldTag::__user_agent),
+                            "user_agent" => Ok(__FieldTag::__user_agent),
+                            "remoteIp" => Ok(__FieldTag::__remote_ip),
+                            "remote_ip" => Ok(__FieldTag::__remote_ip),
+                            "serverIp" => Ok(__FieldTag::__server_ip),
+                            "server_ip" => Ok(__FieldTag::__server_ip),
+                            "referer" => Ok(__FieldTag::__referer),
+                            "latency" => Ok(__FieldTag::__latency),
+                            "cacheLookup" => Ok(__FieldTag::__cache_lookup),
+                            "cache_lookup" => Ok(__FieldTag::__cache_lookup),
+                            "cacheHit" => Ok(__FieldTag::__cache_hit),
+                            "cache_hit" => Ok(__FieldTag::__cache_hit),
+                            "cacheValidatedWithOriginServer" => {
+                                Ok(__FieldTag::__cache_validated_with_origin_server)
+                            }
+                            "cache_validated_with_origin_server" => {
+                                Ok(__FieldTag::__cache_validated_with_origin_server)
+                            }
+                            "cacheFillBytes" => Ok(__FieldTag::__cache_fill_bytes),
+                            "cache_fill_bytes" => Ok(__FieldTag::__cache_fill_bytes),
+                            "protocol" => Ok(__FieldTag::__protocol),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = HttpRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct HttpRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__request_method => {
+                            if !fields.insert(__FieldTag::__request_method) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_method",
+                                ));
+                            }
+                            result.request_method = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_url => {
+                            if !fields.insert(__FieldTag::__request_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_url",
+                                ));
+                            }
+                            result.request_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_size => {
+                            if !fields.insert(__FieldTag::__request_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.request_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__status => {
+                            if !fields.insert(__FieldTag::__status) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for status",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.status = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__response_size => {
+                            if !fields.insert(__FieldTag::__response_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for response_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.response_size =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__user_agent => {
+                            if !fields.insert(__FieldTag::__user_agent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_agent",
+                                ));
+                            }
+                            result.user_agent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__remote_ip => {
+                            if !fields.insert(__FieldTag::__remote_ip) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for remote_ip",
+                                ));
+                            }
+                            result.remote_ip = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__server_ip => {
+                            if !fields.insert(__FieldTag::__server_ip) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for server_ip",
+                                ));
+                            }
+                            result.server_ip = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__referer => {
+                            if !fields.insert(__FieldTag::__referer) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for referer",
+                                ));
+                            }
+                            result.referer = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__latency => {
+                            if !fields.insert(__FieldTag::__latency) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for latency",
+                                ));
+                            }
+                            result.latency =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__cache_lookup => {
+                            if !fields.insert(__FieldTag::__cache_lookup) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_lookup",
+                                ));
+                            }
+                            result.cache_lookup = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cache_hit => {
+                            if !fields.insert(__FieldTag::__cache_hit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_hit",
+                                ));
+                            }
+                            result.cache_hit = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cache_validated_with_origin_server => {
+                            if !fields.insert(__FieldTag::__cache_validated_with_origin_server) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_validated_with_origin_server",
+                                ));
+                            }
+                            result.cache_validated_with_origin_server = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cache_fill_bytes => {
+                            if !fields.insert(__FieldTag::__cache_fill_bytes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cache_fill_bytes",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cache_fill_bytes =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__protocol => {
+                            if !fields.insert(__FieldTag::__protocol) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for protocol",
+                                ));
+                            }
+                            result.protocol = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for HttpRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.request_method.is_empty() {
+            state.serialize_entry("requestMethod", &self.request_method)?;
+        }
+        if !self.request_url.is_empty() {
+            state.serialize_entry("requestUrl", &self.request_url)?;
+        }
+        if !wkt::internal::is_default(&self.request_size) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("requestSize", &__With(&self.request_size))?;
+        }
+        if !wkt::internal::is_default(&self.status) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("status", &__With(&self.status))?;
+        }
+        if !wkt::internal::is_default(&self.response_size) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("responseSize", &__With(&self.response_size))?;
+        }
+        if !self.user_agent.is_empty() {
+            state.serialize_entry("userAgent", &self.user_agent)?;
+        }
+        if !self.remote_ip.is_empty() {
+            state.serialize_entry("remoteIp", &self.remote_ip)?;
+        }
+        if !self.server_ip.is_empty() {
+            state.serialize_entry("serverIp", &self.server_ip)?;
+        }
+        if !self.referer.is_empty() {
+            state.serialize_entry("referer", &self.referer)?;
+        }
+        if self.latency.is_some() {
+            state.serialize_entry("latency", &self.latency)?;
+        }
+        if !wkt::internal::is_default(&self.cache_lookup) {
+            state.serialize_entry("cacheLookup", &self.cache_lookup)?;
+        }
+        if !wkt::internal::is_default(&self.cache_hit) {
+            state.serialize_entry("cacheHit", &self.cache_hit)?;
+        }
+        if !wkt::internal::is_default(&self.cache_validated_with_origin_server) {
+            state.serialize_entry(
+                "cacheValidatedWithOriginServer",
+                &self.cache_validated_with_origin_server,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.cache_fill_bytes) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("cacheFillBytes", &__With(&self.cache_fill_bytes))?;
+        }
+        if !self.protocol.is_empty() {
+            state.serialize_entry("protocol", &self.protocol)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

@@ -20,16 +20,24 @@ edition.workspace = true
 publish           = false
 
 [features]
-run-integration-tests = []
+run-integration-tests       = []
+run-byoid-integration-tests = []
 
 [dependencies]
-auth          = { path = "../../../src/auth", package = "google-cloud-auth" }
-gax           = { path = "../../../src/gax", package = "google-cloud-gax" }
-language      = { path = "../../../src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
-scoped-env    = "2"
-secretmanager = { path = "../../../src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
-tempfile      = "3"
+anyhow.workspace     = true
+scoped-env.workspace = true
+tempfile.workspace   = true
+serde_json.workspace = true
+httptest.workspace   = true
+test-case.workspace  = true
+# Local dependencies
+auth           = { path = "../../../src/auth", package = "google-cloud-auth" }
+gax            = { path = "../../../src/gax", package = "google-cloud-gax" }
+language       = { path = "../../../src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
+secretmanager  = { path = "../../../src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
+iamcredentials = { path = "../../../src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
+bigquery       = { path = "../../../src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
 
 [dev-dependencies]
-serial_test = "3"
-tokio       = { version = "1", features = ["full", "macros"] }
+serial_test = { workspace = true }
+tokio       = { workspace = true, features = ["full", "macros"] }

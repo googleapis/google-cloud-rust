@@ -16,9 +16,8 @@
 
 pub mod logging_service_v_2 {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [LoggingServiceV2][super::super::client::LoggingServiceV2].
+    /// A builder for [LoggingServiceV2][crate::client::LoggingServiceV2].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod logging_service_v_2 {
     /// let client = builder
     ///     .with_endpoint("https://logging.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod logging_service_v_2 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = LoggingServiceV2;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::LoggingServiceV2] request builders.
+    /// Common implementation for [crate::client::LoggingServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod logging_service_v_2 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::delete_log][super::super::client::LoggingServiceV2::delete_log] calls.
+    /// The request builder for [LoggingServiceV2::delete_log][crate::client::LoggingServiceV2::delete_log] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::DeleteLog;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLog {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLog(RequestBuilder<crate::model::DeleteLogRequest>);
 
     impl DeleteLog {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,12 +134,30 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::write_log_entries][super::super::client::LoggingServiceV2::write_log_entries] calls.
+    /// The request builder for [LoggingServiceV2::write_log_entries][crate::client::LoggingServiceV2::write_log_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::WriteLogEntries;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> WriteLogEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct WriteLogEntries(RequestBuilder<crate::model::WriteLogEntriesRequest>);
 
     impl WriteLogEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -148,23 +188,31 @@ pub mod logging_service_v_2 {
         }
 
         /// Sets the value of [resource][crate::model::WriteLogEntriesRequest::resource].
-        pub fn set_resource<T: Into<std::option::Option<api::model::MonitoredResource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.resource = v.into();
+        pub fn set_resource<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
+        {
+            self.0.request.resource = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
-        pub fn set_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.partial_success = v.into();
+        /// Sets or clears the value of [resource][crate::model::WriteLogEntriesRequest::resource].
+        pub fn set_or_clear_resource<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::MonitoredResource>,
+        {
+            self.0.request.resource = v.map(|x| x.into());
             self
         }
 
-        /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
-        pub fn set_dry_run<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.dry_run = v.into();
+        /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -181,14 +229,15 @@ pub mod logging_service_v_2 {
             self
         }
 
-        /// Sets the value of [labels][crate::model::WriteLogEntriesRequest::labels].
-        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = (K, V)>,
-            K: std::convert::Into<std::string::String>,
-            V: std::convert::Into<std::string::String>,
-        {
-            self.0.request.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        /// Sets the value of [partial_success][crate::model::WriteLogEntriesRequest::partial_success].
+        pub fn set_partial_success<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.partial_success = v.into();
+            self
+        }
+
+        /// Sets the value of [dry_run][crate::model::WriteLogEntriesRequest::dry_run].
+        pub fn set_dry_run<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.dry_run = v.into();
             self
         }
     }
@@ -200,12 +249,34 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_log_entries][super::super::client::LoggingServiceV2::list_log_entries] calls.
+    /// The request builder for [LoggingServiceV2::list_log_entries][crate::client::LoggingServiceV2::list_log_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::ListLogEntries;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLogEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLogEntries(RequestBuilder<crate::model::ListLogEntriesRequest>);
 
     impl ListLogEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -229,8 +300,8 @@ pub mod logging_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLogEntriesResponse, gax::error::Error>
         {
@@ -242,6 +313,28 @@ pub mod logging_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLogEntriesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [filter][crate::model::ListLogEntriesRequest::filter].
@@ -267,19 +360,6 @@ pub mod logging_service_v_2 {
             self.0.request.page_token = v.into();
             self
         }
-
-        /// Sets the value of [resource_names][crate::model::ListLogEntriesRequest::resource_names].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -289,14 +369,36 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_monitored_resource_descriptors][super::super::client::LoggingServiceV2::list_monitored_resource_descriptors] calls.
+    /// The request builder for [LoggingServiceV2::list_monitored_resource_descriptors][crate::client::LoggingServiceV2::list_monitored_resource_descriptors] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::ListMonitoredResourceDescriptors;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMonitoredResourceDescriptors {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMonitoredResourceDescriptors(
         RequestBuilder<crate::model::ListMonitoredResourceDescriptorsRequest>,
     );
 
     impl ListMonitoredResourceDescriptors {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,8 +425,8 @@ pub mod logging_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListMonitoredResourceDescriptorsResponse,
@@ -338,6 +440,17 @@ pub mod logging_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListMonitoredResourceDescriptorsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [page_size][crate::model::ListMonitoredResourceDescriptorsRequest::page_size].
@@ -360,12 +473,30 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_logs][super::super::client::LoggingServiceV2::list_logs] calls.
+    /// The request builder for [LoggingServiceV2::list_logs][crate::client::LoggingServiceV2::list_logs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::ListLogs;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLogs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLogs(RequestBuilder<crate::model::ListLogsRequest>);
 
     impl ListLogs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -397,6 +528,17 @@ pub mod logging_service_v_2 {
             self
         }
 
+        /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
+        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [page_size][crate::model::ListLogsRequest::page_size].
         pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
             self.0.request.page_size = v.into();
@@ -408,17 +550,6 @@ pub mod logging_service_v_2 {
             self.0.request.page_token = v.into();
             self
         }
-
-        /// Sets the value of [resource_names][crate::model::ListLogsRequest::resource_names].
-        pub fn set_resource_names<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.resource_names = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -428,12 +559,34 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::list_operations][super::super::client::LoggingServiceV2::list_operations] calls.
+    /// The request builder for [LoggingServiceV2::list_operations][crate::client::LoggingServiceV2::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -460,8 +613,8 @@ pub mod logging_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -473,6 +626,17 @@ pub mod logging_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -507,12 +671,30 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::get_operation][super::super::client::LoggingServiceV2::get_operation] calls.
+    /// The request builder for [LoggingServiceV2::get_operation][crate::client::LoggingServiceV2::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -553,12 +735,30 @@ pub mod logging_service_v_2 {
         }
     }
 
-    /// The request builder for [LoggingServiceV2::cancel_operation][super::super::client::LoggingServiceV2::cancel_operation] calls.
+    /// The request builder for [LoggingServiceV2::cancel_operation][crate::client::LoggingServiceV2::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::logging_service_v_2::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::LoggingServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::LoggingServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -602,9 +802,8 @@ pub mod logging_service_v_2 {
 
 pub mod config_service_v_2 {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ConfigServiceV2][super::super::client::ConfigServiceV2].
+    /// A builder for [ConfigServiceV2][crate::client::ConfigServiceV2].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -615,7 +814,7 @@ pub mod config_service_v_2 {
     /// let client = builder
     ///     .with_endpoint("https://logging.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -626,16 +825,19 @@ pub mod config_service_v_2 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ConfigServiceV2;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ConfigServiceV2] request builders.
+    /// Common implementation for [crate::client::ConfigServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -644,7 +846,9 @@ pub mod config_service_v_2 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -653,12 +857,34 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_buckets][super::super::client::ConfigServiceV2::list_buckets] calls.
+    /// The request builder for [ConfigServiceV2::list_buckets][crate::client::ConfigServiceV2::list_buckets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::ListBuckets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBuckets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBuckets(RequestBuilder<crate::model::ListBucketsRequest>);
 
     impl ListBuckets {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -682,8 +908,8 @@ pub mod config_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBucketsResponse, gax::error::Error>
         {
@@ -695,6 +921,15 @@ pub mod config_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBucketsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBucketsRequest::parent].
@@ -725,12 +960,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_bucket][super::super::client::ConfigServiceV2::get_bucket] calls.
+    /// The request builder for [ConfigServiceV2::get_bucket][crate::client::ConfigServiceV2::get_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBucket(RequestBuilder<crate::model::GetBucketRequest>);
 
     impl GetBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -770,12 +1023,31 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_bucket_async][super::super::client::ConfigServiceV2::create_bucket_async] calls.
+    /// The request builder for [ConfigServiceV2::create_bucket_async][crate::client::ConfigServiceV2::create_bucket_async] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CreateBucketAsync;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBucketAsync {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBucketAsync(RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucketAsync {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -796,7 +1068,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_bucket_async][super::super::client::ConfigServiceV2::create_bucket_async].
+        /// on [create_bucket_async][crate::client::ConfigServiceV2::create_bucket_async].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_bucket_async(self.0.request, self.0.options)
@@ -808,7 +1080,8 @@ pub mod config_service_v_2 {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::LogBucket, crate::model::BucketMetadata> {
-            type Operation = lro::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -833,7 +1106,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBucketRequest::parent].
@@ -855,11 +1128,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
     }
@@ -871,12 +1155,31 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_bucket_async][super::super::client::ConfigServiceV2::update_bucket_async] calls.
+    /// The request builder for [ConfigServiceV2::update_bucket_async][crate::client::ConfigServiceV2::update_bucket_async] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateBucketAsync;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBucketAsync {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBucketAsync(RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucketAsync {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -897,7 +1200,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_bucket_async][super::super::client::ConfigServiceV2::update_bucket_async].
+        /// on [update_bucket_async][crate::client::ConfigServiceV2::update_bucket_async].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_bucket_async(self.0.request, self.0.options)
@@ -909,7 +1212,8 @@ pub mod config_service_v_2 {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::LogBucket, crate::model::BucketMetadata> {
-            type Operation = lro::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::LogBucket, crate::model::BucketMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -934,7 +1238,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::UpdateBucketRequest::name].
@@ -948,22 +1252,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -975,12 +1301,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_bucket][super::super::client::ConfigServiceV2::create_bucket] calls.
+    /// The request builder for [ConfigServiceV2::create_bucket][crate::client::ConfigServiceV2::create_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CreateBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBucket(RequestBuilder<crate::model::CreateBucketRequest>);
 
     impl CreateBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1023,11 +1367,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::CreateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::CreateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
     }
@@ -1039,12 +1394,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_bucket][super::super::client::ConfigServiceV2::update_bucket] calls.
+    /// The request builder for [ConfigServiceV2::update_bucket][crate::client::ConfigServiceV2::update_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBucket(RequestBuilder<crate::model::UpdateBucketRequest>);
 
     impl UpdateBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1079,22 +1452,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [bucket][crate::model::UpdateBucketRequest::bucket].
         ///
         /// This is a **required** field for requests.
-        pub fn set_bucket<T: Into<std::option::Option<crate::model::LogBucket>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.bucket = v.into();
+        pub fn set_bucket<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [bucket][crate::model::UpdateBucketRequest::bucket].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_bucket<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogBucket>,
+        {
+            self.0.request.bucket = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBucketRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1106,12 +1501,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_bucket][super::super::client::ConfigServiceV2::delete_bucket] calls.
+    /// The request builder for [ConfigServiceV2::delete_bucket][crate::client::ConfigServiceV2::delete_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::DeleteBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBucket(RequestBuilder<crate::model::DeleteBucketRequest>);
 
     impl DeleteBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1151,12 +1564,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::undelete_bucket][super::super::client::ConfigServiceV2::undelete_bucket] calls.
+    /// The request builder for [ConfigServiceV2::undelete_bucket][crate::client::ConfigServiceV2::undelete_bucket] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UndeleteBucket;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteBucket {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteBucket(RequestBuilder<crate::model::UndeleteBucketRequest>);
 
     impl UndeleteBucket {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1196,12 +1627,34 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_views][super::super::client::ConfigServiceV2::list_views] calls.
+    /// The request builder for [ConfigServiceV2::list_views][crate::client::ConfigServiceV2::list_views] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::ListViews;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListViews {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListViews(RequestBuilder<crate::model::ListViewsRequest>);
 
     impl ListViews {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1225,8 +1678,8 @@ pub mod config_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListViewsResponse, gax::error::Error>
         {
@@ -1238,6 +1691,15 @@ pub mod config_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListViewsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListViewsRequest::parent].
@@ -1268,12 +1730,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_view][super::super::client::ConfigServiceV2::get_view] calls.
+    /// The request builder for [ConfigServiceV2::get_view][crate::client::ConfigServiceV2::get_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetView(RequestBuilder<crate::model::GetViewRequest>);
 
     impl GetView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1313,12 +1793,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_view][super::super::client::ConfigServiceV2::create_view] calls.
+    /// The request builder for [ConfigServiceV2::create_view][crate::client::ConfigServiceV2::create_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CreateView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateView(RequestBuilder<crate::model::CreateViewRequest>);
 
     impl CreateView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1361,11 +1859,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [view][crate::model::CreateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::CreateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
     }
@@ -1377,12 +1886,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_view][super::super::client::ConfigServiceV2::update_view] calls.
+    /// The request builder for [ConfigServiceV2::update_view][crate::client::ConfigServiceV2::update_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateView(RequestBuilder<crate::model::UpdateViewRequest>);
 
     impl UpdateView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1417,20 +1944,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [view][crate::model::UpdateViewRequest::view].
         ///
         /// This is a **required** field for requests.
-        pub fn set_view<T: Into<std::option::Option<crate::model::LogView>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.view = v.into();
+        pub fn set_view<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [view][crate::model::UpdateViewRequest::view].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_view<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogView>,
+        {
+            self.0.request.view = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateViewRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1442,12 +1989,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_view][super::super::client::ConfigServiceV2::delete_view] calls.
+    /// The request builder for [ConfigServiceV2::delete_view][crate::client::ConfigServiceV2::delete_view] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::DeleteView;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteView {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteView(RequestBuilder<crate::model::DeleteViewRequest>);
 
     impl DeleteView {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1487,12 +2052,34 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_sinks][super::super::client::ConfigServiceV2::list_sinks] calls.
+    /// The request builder for [ConfigServiceV2::list_sinks][crate::client::ConfigServiceV2::list_sinks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::ListSinks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSinks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSinks(RequestBuilder<crate::model::ListSinksRequest>);
 
     impl ListSinks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1516,8 +2103,8 @@ pub mod config_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSinksResponse, gax::error::Error>
         {
@@ -1529,6 +2116,15 @@ pub mod config_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSinksResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSinksRequest::parent].
@@ -1559,12 +2155,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_sink][super::super::client::ConfigServiceV2::get_sink] calls.
+    /// The request builder for [ConfigServiceV2::get_sink][crate::client::ConfigServiceV2::get_sink] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetSink;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSink(RequestBuilder<crate::model::GetSinkRequest>);
 
     impl GetSink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1604,12 +2218,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_sink][super::super::client::ConfigServiceV2::create_sink] calls.
+    /// The request builder for [ConfigServiceV2::create_sink][crate::client::ConfigServiceV2::create_sink] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CreateSink;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSink(RequestBuilder<crate::model::CreateSinkRequest>);
 
     impl CreateSink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1644,11 +2276,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [sink][crate::model::CreateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sink = v.into();
+        pub fn set_sink<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sink][crate::model::CreateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = v.map(|x| x.into());
             self
         }
 
@@ -1666,12 +2309,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_sink][super::super::client::ConfigServiceV2::update_sink] calls.
+    /// The request builder for [ConfigServiceV2::update_sink][crate::client::ConfigServiceV2::update_sink] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateSink;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSink(RequestBuilder<crate::model::UpdateSinkRequest>);
 
     impl UpdateSink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1706,11 +2367,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [sink][crate::model::UpdateSinkRequest::sink].
         ///
         /// This is a **required** field for requests.
-        pub fn set_sink<T: Into<std::option::Option<crate::model::LogSink>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.sink = v.into();
+        pub fn set_sink<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [sink][crate::model::UpdateSinkRequest::sink].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_sink<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogSink>,
+        {
+            self.0.request.sink = v.map(|x| x.into());
             self
         }
 
@@ -1721,11 +2393,20 @@ pub mod config_service_v_2 {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSinkRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1737,12 +2418,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_sink][super::super::client::ConfigServiceV2::delete_sink] calls.
+    /// The request builder for [ConfigServiceV2::delete_sink][crate::client::ConfigServiceV2::delete_sink] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::DeleteSink;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSink(RequestBuilder<crate::model::DeleteSinkRequest>);
 
     impl DeleteSink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1782,12 +2481,31 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_link][super::super::client::ConfigServiceV2::create_link] calls.
+    /// The request builder for [ConfigServiceV2::create_link][crate::client::ConfigServiceV2::create_link] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CreateLink;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLink(RequestBuilder<crate::model::CreateLinkRequest>);
 
     impl CreateLink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1808,7 +2526,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_link][super::super::client::ConfigServiceV2::create_link].
+        /// on [create_link][crate::client::ConfigServiceV2::create_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_link(self.0.request, self.0.options)
@@ -1818,7 +2536,8 @@ pub mod config_service_v_2 {
 
         /// Creates a [Poller][lro::Poller] to work with `create_link`.
         pub fn poller(self) -> impl lro::Poller<crate::model::Link, crate::model::LinkMetadata> {
-            type Operation = lro::Operation<crate::model::Link, crate::model::LinkMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Link, crate::model::LinkMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1843,7 +2562,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateLinkRequest::parent].
@@ -1857,8 +2576,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [link][crate::model::CreateLinkRequest::link].
         ///
         /// This is a **required** field for requests.
-        pub fn set_link<T: Into<std::option::Option<crate::model::Link>>>(mut self, v: T) -> Self {
-            self.0.request.link = v.into();
+        pub fn set_link<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Link>,
+        {
+            self.0.request.link = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [link][crate::model::CreateLinkRequest::link].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_link<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Link>,
+        {
+            self.0.request.link = v.map(|x| x.into());
             self
         }
 
@@ -1878,12 +2611,31 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_link][super::super::client::ConfigServiceV2::delete_link] calls.
+    /// The request builder for [ConfigServiceV2::delete_link][crate::client::ConfigServiceV2::delete_link] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::DeleteLink;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLink(RequestBuilder<crate::model::DeleteLinkRequest>);
 
     impl DeleteLink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1904,7 +2656,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_link][super::super::client::ConfigServiceV2::delete_link].
+        /// on [delete_link][crate::client::ConfigServiceV2::delete_link].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_link(self.0.request, self.0.options)
@@ -1913,8 +2665,8 @@ pub mod config_service_v_2 {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_link`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::LinkMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::LinkMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::LinkMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::LinkMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1939,7 +2691,12 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteLinkRequest::name].
@@ -1958,12 +2715,34 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_links][super::super::client::ConfigServiceV2::list_links] calls.
+    /// The request builder for [ConfigServiceV2::list_links][crate::client::ConfigServiceV2::list_links] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::ListLinks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLinks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLinks(RequestBuilder<crate::model::ListLinksRequest>);
 
     impl ListLinks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1987,8 +2766,8 @@ pub mod config_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLinksResponse, gax::error::Error>
         {
@@ -2000,6 +2779,15 @@ pub mod config_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLinksResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLinksRequest::parent].
@@ -2030,12 +2818,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_link][super::super::client::ConfigServiceV2::get_link] calls.
+    /// The request builder for [ConfigServiceV2::get_link][crate::client::ConfigServiceV2::get_link] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetLink;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLink {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLink(RequestBuilder<crate::model::GetLinkRequest>);
 
     impl GetLink {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2075,12 +2881,34 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_exclusions][super::super::client::ConfigServiceV2::list_exclusions] calls.
+    /// The request builder for [ConfigServiceV2::list_exclusions][crate::client::ConfigServiceV2::list_exclusions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::ListExclusions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListExclusions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListExclusions(RequestBuilder<crate::model::ListExclusionsRequest>);
 
     impl ListExclusions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2104,8 +2932,8 @@ pub mod config_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListExclusionsResponse, gax::error::Error>
         {
@@ -2117,6 +2945,15 @@ pub mod config_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListExclusionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListExclusionsRequest::parent].
@@ -2147,12 +2984,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_exclusion][super::super::client::ConfigServiceV2::get_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::get_exclusion][crate::client::ConfigServiceV2::get_exclusion] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetExclusion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetExclusion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetExclusion(RequestBuilder<crate::model::GetExclusionRequest>);
 
     impl GetExclusion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2192,12 +3047,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::create_exclusion][super::super::client::ConfigServiceV2::create_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::create_exclusion][crate::client::ConfigServiceV2::create_exclusion] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CreateExclusion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExclusion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExclusion(RequestBuilder<crate::model::CreateExclusionRequest>);
 
     impl CreateExclusion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2232,11 +3105,22 @@ pub mod config_service_v_2 {
         /// Sets the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.exclusion = v.into();
+        pub fn set_exclusion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion][crate::model::CreateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = v.map(|x| x.into());
             self
         }
     }
@@ -2248,12 +3132,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_exclusion][super::super::client::ConfigServiceV2::update_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::update_exclusion][crate::client::ConfigServiceV2::update_exclusion] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateExclusion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateExclusion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateExclusion(RequestBuilder<crate::model::UpdateExclusionRequest>);
 
     impl UpdateExclusion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2288,22 +3190,44 @@ pub mod config_service_v_2 {
         /// Sets the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
         ///
         /// This is a **required** field for requests.
-        pub fn set_exclusion<T: Into<std::option::Option<crate::model::LogExclusion>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.exclusion = v.into();
+        pub fn set_exclusion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [exclusion][crate::model::UpdateExclusionRequest::exclusion].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_exclusion<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogExclusion>,
+        {
+            self.0.request.exclusion = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateExclusionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2315,12 +3239,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::delete_exclusion][super::super::client::ConfigServiceV2::delete_exclusion] calls.
+    /// The request builder for [ConfigServiceV2::delete_exclusion][crate::client::ConfigServiceV2::delete_exclusion] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::DeleteExclusion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteExclusion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteExclusion(RequestBuilder<crate::model::DeleteExclusionRequest>);
 
     impl DeleteExclusion {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2360,12 +3302,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_cmek_settings][super::super::client::ConfigServiceV2::get_cmek_settings] calls.
+    /// The request builder for [ConfigServiceV2::get_cmek_settings][crate::client::ConfigServiceV2::get_cmek_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetCmekSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCmekSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCmekSettings(RequestBuilder<crate::model::GetCmekSettingsRequest>);
 
     impl GetCmekSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2405,12 +3365,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_cmek_settings][super::super::client::ConfigServiceV2::update_cmek_settings] calls.
+    /// The request builder for [ConfigServiceV2::update_cmek_settings][crate::client::ConfigServiceV2::update_cmek_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateCmekSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCmekSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCmekSettings(RequestBuilder<crate::model::UpdateCmekSettingsRequest>);
 
     impl UpdateCmekSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2448,20 +3426,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_cmek_settings<T: Into<std::option::Option<crate::model::CmekSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.cmek_settings = v.into();
+        pub fn set_cmek_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::CmekSettings>,
+        {
+            self.0.request.cmek_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cmek_settings][crate::model::UpdateCmekSettingsRequest::cmek_settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_cmek_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::CmekSettings>,
+        {
+            self.0.request.cmek_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCmekSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2473,12 +3471,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_settings][super::super::client::ConfigServiceV2::get_settings] calls.
+    /// The request builder for [ConfigServiceV2::get_settings][crate::client::ConfigServiceV2::get_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2518,12 +3534,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::update_settings][super::super::client::ConfigServiceV2::update_settings] calls.
+    /// The request builder for [ConfigServiceV2::update_settings][crate::client::ConfigServiceV2::update_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::UpdateSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2558,20 +3592,40 @@ pub mod config_service_v_2 {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSettingsRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2583,12 +3637,31 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::copy_log_entries][super::super::client::ConfigServiceV2::copy_log_entries] calls.
+    /// The request builder for [ConfigServiceV2::copy_log_entries][crate::client::ConfigServiceV2::copy_log_entries] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CopyLogEntries;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CopyLogEntries {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CopyLogEntries(RequestBuilder<crate::model::CopyLogEntriesRequest>);
 
     impl CopyLogEntries {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2609,7 +3682,7 @@ pub mod config_service_v_2 {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [copy_log_entries][super::super::client::ConfigServiceV2::copy_log_entries].
+        /// on [copy_log_entries][crate::client::ConfigServiceV2::copy_log_entries].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .copy_log_entries(self.0.request, self.0.options)
@@ -2622,7 +3695,7 @@ pub mod config_service_v_2 {
             self,
         ) -> impl lro::Poller<crate::model::CopyLogEntriesResponse, crate::model::CopyLogEntriesMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::CopyLogEntriesResponse,
                 crate::model::CopyLogEntriesMetadata,
             >;
@@ -2650,7 +3723,7 @@ pub mod config_service_v_2 {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::CopyLogEntriesRequest::name].
@@ -2683,12 +3756,34 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::list_operations][super::super::client::ConfigServiceV2::list_operations] calls.
+    /// The request builder for [ConfigServiceV2::list_operations][crate::client::ConfigServiceV2::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2715,8 +3810,8 @@ pub mod config_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2728,6 +3823,17 @@ pub mod config_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2762,12 +3868,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::get_operation][super::super::client::ConfigServiceV2::get_operation] calls.
+    /// The request builder for [ConfigServiceV2::get_operation][crate::client::ConfigServiceV2::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2808,12 +3932,30 @@ pub mod config_service_v_2 {
         }
     }
 
-    /// The request builder for [ConfigServiceV2::cancel_operation][super::super::client::ConfigServiceV2::cancel_operation] calls.
+    /// The request builder for [ConfigServiceV2::cancel_operation][crate::client::ConfigServiceV2::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::config_service_v_2::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ConfigServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ConfigServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2857,9 +3999,8 @@ pub mod config_service_v_2 {
 
 pub mod metrics_service_v_2 {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [MetricsServiceV2][super::super::client::MetricsServiceV2].
+    /// A builder for [MetricsServiceV2][crate::client::MetricsServiceV2].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2870,7 +4011,7 @@ pub mod metrics_service_v_2 {
     /// let client = builder
     ///     .with_endpoint("https://logging.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2881,16 +4022,19 @@ pub mod metrics_service_v_2 {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = MetricsServiceV2;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::MetricsServiceV2] request builders.
+    /// Common implementation for [crate::client::MetricsServiceV2] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2899,7 +4043,9 @@ pub mod metrics_service_v_2 {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -2908,12 +4054,34 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::list_log_metrics][super::super::client::MetricsServiceV2::list_log_metrics] calls.
+    /// The request builder for [MetricsServiceV2::list_log_metrics][crate::client::MetricsServiceV2::list_log_metrics] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::ListLogMetrics;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLogMetrics {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLogMetrics(RequestBuilder<crate::model::ListLogMetricsRequest>);
 
     impl ListLogMetrics {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2937,8 +4105,8 @@ pub mod metrics_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLogMetricsResponse, gax::error::Error>
         {
@@ -2950,6 +4118,15 @@ pub mod metrics_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLogMetricsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLogMetricsRequest::parent].
@@ -2980,12 +4157,30 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::get_log_metric][super::super::client::MetricsServiceV2::get_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::get_log_metric][crate::client::MetricsServiceV2::get_log_metric] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::GetLogMetric;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLogMetric {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLogMetric(RequestBuilder<crate::model::GetLogMetricRequest>);
 
     impl GetLogMetric {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3025,12 +4220,30 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::create_log_metric][super::super::client::MetricsServiceV2::create_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::create_log_metric][crate::client::MetricsServiceV2::create_log_metric] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::CreateLogMetric;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateLogMetric {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateLogMetric(RequestBuilder<crate::model::CreateLogMetricRequest>);
 
     impl CreateLogMetric {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3065,11 +4278,22 @@ pub mod metrics_service_v_2 {
         /// Sets the value of [metric][crate::model::CreateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric = v.into();
+        pub fn set_metric<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric][crate::model::CreateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = v.map(|x| x.into());
             self
         }
     }
@@ -3081,12 +4305,30 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::update_log_metric][super::super::client::MetricsServiceV2::update_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::update_log_metric][crate::client::MetricsServiceV2::update_log_metric] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::UpdateLogMetric;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateLogMetric {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateLogMetric(RequestBuilder<crate::model::UpdateLogMetricRequest>);
 
     impl UpdateLogMetric {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3121,11 +4363,22 @@ pub mod metrics_service_v_2 {
         /// Sets the value of [metric][crate::model::UpdateLogMetricRequest::metric].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metric<T: Into<std::option::Option<crate::model::LogMetric>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metric = v.into();
+        pub fn set_metric<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metric][crate::model::UpdateLogMetricRequest::metric].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metric<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::LogMetric>,
+        {
+            self.0.request.metric = v.map(|x| x.into());
             self
         }
     }
@@ -3137,12 +4390,30 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::delete_log_metric][super::super::client::MetricsServiceV2::delete_log_metric] calls.
+    /// The request builder for [MetricsServiceV2::delete_log_metric][crate::client::MetricsServiceV2::delete_log_metric] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::DeleteLogMetric;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteLogMetric {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteLogMetric(RequestBuilder<crate::model::DeleteLogMetricRequest>);
 
     impl DeleteLogMetric {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3182,12 +4453,34 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::list_operations][super::super::client::MetricsServiceV2::list_operations] calls.
+    /// The request builder for [MetricsServiceV2::list_operations][crate::client::MetricsServiceV2::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3214,8 +4507,8 @@ pub mod metrics_service_v_2 {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3227,6 +4520,17 @@ pub mod metrics_service_v_2 {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3261,12 +4565,30 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::get_operation][super::super::client::MetricsServiceV2::get_operation] calls.
+    /// The request builder for [MetricsServiceV2::get_operation][crate::client::MetricsServiceV2::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3307,12 +4629,30 @@ pub mod metrics_service_v_2 {
         }
     }
 
-    /// The request builder for [MetricsServiceV2::cancel_operation][super::super::client::MetricsServiceV2::cancel_operation] calls.
+    /// The request builder for [MetricsServiceV2::cancel_operation][crate::client::MetricsServiceV2::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_logging_v2::builder;
+    /// use builder::metrics_service_v_2::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::MetricsServiceV2>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::MetricsServiceV2>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

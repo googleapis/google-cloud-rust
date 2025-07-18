@@ -16,9 +16,8 @@
 
 pub mod recommender {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Recommender][super::super::client::Recommender].
+    /// A builder for [Recommender][crate::client::Recommender].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod recommender {
     /// let client = builder
     ///     .with_endpoint("https://recommender.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod recommender {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Recommender;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Recommender] request builders.
+    /// Common implementation for [crate::client::Recommender] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Recommender>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod recommender {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::list_insights][super::super::client::Recommender::list_insights] calls.
+    /// The request builder for [Recommender::list_insights][crate::client::Recommender::list_insights] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::ListInsights;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInsights {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInsights(RequestBuilder<crate::model::ListInsightsRequest>);
 
     impl ListInsights {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod recommender {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInsightsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod recommender {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInsightsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInsightsRequest::parent].
@@ -145,12 +180,30 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_insight][super::super::client::Recommender::get_insight] calls.
+    /// The request builder for [Recommender::get_insight][crate::client::Recommender::get_insight] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetInsight;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInsight {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInsight(RequestBuilder<crate::model::GetInsightRequest>);
 
     impl GetInsight {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,12 +243,30 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_insight_accepted][super::super::client::Recommender::mark_insight_accepted] calls.
+    /// The request builder for [Recommender::mark_insight_accepted][crate::client::Recommender::mark_insight_accepted] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkInsightAccepted;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkInsightAccepted {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkInsightAccepted(RequestBuilder<crate::model::MarkInsightAcceptedRequest>);
 
     impl MarkInsightAccepted {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -230,14 +301,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkInsightAcceptedRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -249,6 +312,14 @@ pub mod recommender {
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
+
+        /// Sets the value of [etag][crate::model::MarkInsightAcceptedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -258,12 +329,34 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::list_recommendations][super::super::client::Recommender::list_recommendations] calls.
+    /// The request builder for [Recommender::list_recommendations][crate::client::Recommender::list_recommendations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::ListRecommendations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRecommendations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRecommendations(RequestBuilder<crate::model::ListRecommendationsRequest>);
 
     impl ListRecommendations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -290,8 +383,8 @@ pub mod recommender {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRecommendationsResponse, gax::error::Error>
         {
@@ -303,6 +396,17 @@ pub mod recommender {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListRecommendationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRecommendationsRequest::parent].
@@ -339,12 +443,30 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_recommendation][super::super::client::Recommender::get_recommendation] calls.
+    /// The request builder for [Recommender::get_recommendation][crate::client::Recommender::get_recommendation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetRecommendation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRecommendation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRecommendation(RequestBuilder<crate::model::GetRecommendationRequest>);
 
     impl GetRecommendation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -387,14 +509,32 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_dismissed][super::super::client::Recommender::mark_recommendation_dismissed] calls.
+    /// The request builder for [Recommender::mark_recommendation_dismissed][crate::client::Recommender::mark_recommendation_dismissed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationDismissed;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationDismissed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationDismissed(
         RequestBuilder<crate::model::MarkRecommendationDismissedRequest>,
     );
 
     impl MarkRecommendationDismissed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -443,14 +583,32 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_claimed][super::super::client::Recommender::mark_recommendation_claimed] calls.
+    /// The request builder for [Recommender::mark_recommendation_claimed][crate::client::Recommender::mark_recommendation_claimed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationClaimed;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationClaimed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationClaimed(
         RequestBuilder<crate::model::MarkRecommendationClaimedRequest>,
     );
 
     impl MarkRecommendationClaimed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -485,14 +643,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkRecommendationClaimedRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -504,6 +654,14 @@ pub mod recommender {
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationClaimedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -513,14 +671,32 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_succeeded][super::super::client::Recommender::mark_recommendation_succeeded] calls.
+    /// The request builder for [Recommender::mark_recommendation_succeeded][crate::client::Recommender::mark_recommendation_succeeded] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationSucceeded;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationSucceeded {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationSucceeded(
         RequestBuilder<crate::model::MarkRecommendationSucceededRequest>,
     );
 
     impl MarkRecommendationSucceeded {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -555,14 +731,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkRecommendationSucceededRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -574,6 +742,14 @@ pub mod recommender {
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationSucceededRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -583,14 +759,32 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::mark_recommendation_failed][super::super::client::Recommender::mark_recommendation_failed] calls.
+    /// The request builder for [Recommender::mark_recommendation_failed][crate::client::Recommender::mark_recommendation_failed] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::MarkRecommendationFailed;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MarkRecommendationFailed {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MarkRecommendationFailed(
         RequestBuilder<crate::model::MarkRecommendationFailedRequest>,
     );
 
     impl MarkRecommendationFailed {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -625,14 +819,6 @@ pub mod recommender {
             self
         }
 
-        /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
-            self
-        }
-
         /// Sets the value of [state_metadata][crate::model::MarkRecommendationFailedRequest::state_metadata].
         pub fn set_state_metadata<T, K, V>(mut self, v: T) -> Self
         where
@@ -644,6 +830,14 @@ pub mod recommender {
                 v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
+
+        /// Sets the value of [etag][crate::model::MarkRecommendationFailedRequest::etag].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_etag<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.etag = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -653,12 +847,30 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_recommender_config][super::super::client::Recommender::get_recommender_config] calls.
+    /// The request builder for [Recommender::get_recommender_config][crate::client::Recommender::get_recommender_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetRecommenderConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRecommenderConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRecommenderConfig(RequestBuilder<crate::model::GetRecommenderConfigRequest>);
 
     impl GetRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -701,14 +913,32 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::update_recommender_config][super::super::client::Recommender::update_recommender_config] calls.
+    /// The request builder for [Recommender::update_recommender_config][crate::client::Recommender::update_recommender_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::UpdateRecommenderConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRecommenderConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRecommenderConfig(
         RequestBuilder<crate::model::UpdateRecommenderConfigRequest>,
     );
 
     impl UpdateRecommenderConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -738,22 +968,40 @@ pub mod recommender {
         /// Sets the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_recommender_config<
-            T: Into<std::option::Option<crate::model::RecommenderConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.recommender_config = v.into();
+        pub fn set_recommender_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RecommenderConfig>,
+        {
+            self.0.request.recommender_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [recommender_config][crate::model::UpdateRecommenderConfigRequest::recommender_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_recommender_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RecommenderConfig>,
+        {
+            self.0.request.recommender_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRecommenderConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -771,12 +1019,30 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::get_insight_type_config][super::super::client::Recommender::get_insight_type_config] calls.
+    /// The request builder for [Recommender::get_insight_type_config][crate::client::Recommender::get_insight_type_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::GetInsightTypeConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInsightTypeConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInsightTypeConfig(RequestBuilder<crate::model::GetInsightTypeConfigRequest>);
 
     impl GetInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -819,14 +1085,32 @@ pub mod recommender {
         }
     }
 
-    /// The request builder for [Recommender::update_insight_type_config][super::super::client::Recommender::update_insight_type_config] calls.
+    /// The request builder for [Recommender::update_insight_type_config][crate::client::Recommender::update_insight_type_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_recommender_v1::builder;
+    /// use builder::recommender::UpdateInsightTypeConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInsightTypeConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInsightTypeConfig(
         RequestBuilder<crate::model::UpdateInsightTypeConfigRequest>,
     );
 
     impl UpdateInsightTypeConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Recommender>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Recommender>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -856,22 +1140,40 @@ pub mod recommender {
         /// Sets the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_insight_type_config<
-            T: Into<std::option::Option<crate::model::InsightTypeConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.insight_type_config = v.into();
+        pub fn set_insight_type_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InsightTypeConfig>,
+        {
+            self.0.request.insight_type_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [insight_type_config][crate::model::UpdateInsightTypeConfigRequest::insight_type_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_insight_type_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InsightTypeConfig>,
+        {
+            self.0.request.insight_type_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInsightTypeConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 

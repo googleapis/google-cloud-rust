@@ -59,6 +59,48 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ReportDetail>>;
 
+    async fn list_dataset_configs(
+        &self,
+        req: crate::model::ListDatasetConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>>;
+
+    async fn get_dataset_config(
+        &self,
+        req: crate::model::GetDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DatasetConfig>>;
+
+    async fn create_dataset_config(
+        &self,
+        req: crate::model::CreateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_dataset_config(
+        &self,
+        req: crate::model::UpdateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_dataset_config(
+        &self,
+        req: crate::model::DeleteDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn link_dataset(
+        &self,
+        req: crate::model::LinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn unlink_dataset(
+        &self,
+        req: crate::model::UnlinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -94,6 +136,16 @@ pub trait StorageInsights: std::fmt::Debug + Send + Sync {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::StorageInsights] also implement [StorageInsights].
@@ -163,6 +215,69 @@ impl<T: super::StorageInsights> StorageInsights for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_dataset_configs(
+        &self,
+        req: crate::model::ListDatasetConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListDatasetConfigsResponse>> {
+        T::list_dataset_configs(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_dataset_config(
+        &self,
+        req: crate::model::GetDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::DatasetConfig>> {
+        T::get_dataset_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_dataset_config(
+        &self,
+        req: crate::model::CreateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_dataset_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_dataset_config(
+        &self,
+        req: crate::model::UpdateDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_dataset_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_dataset_config(
+        &self,
+        req: crate::model::DeleteDatasetConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_dataset_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn link_dataset(
+        &self,
+        req: crate::model::LinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::link_dataset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn unlink_dataset(
+        &self,
+        req: crate::model::UnlinkDatasetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::unlink_dataset(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -214,5 +329,19 @@ impl<T: super::StorageInsights> StorageInsights for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<()>> {
         T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }

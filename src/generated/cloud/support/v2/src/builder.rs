@@ -16,9 +16,8 @@
 
 pub mod case_attachment_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CaseAttachmentService][super::super::client::CaseAttachmentService].
+    /// A builder for [CaseAttachmentService][crate::client::CaseAttachmentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod case_attachment_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod case_attachment_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CaseAttachmentService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CaseAttachmentService] request builders.
+    /// Common implementation for [crate::client::CaseAttachmentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod case_attachment_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod case_attachment_service {
         }
     }
 
-    /// The request builder for [CaseAttachmentService::list_attachments][super::super::client::CaseAttachmentService::list_attachments] calls.
+    /// The request builder for [CaseAttachmentService::list_attachments][crate::client::CaseAttachmentService::list_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_attachment_service::ListAttachments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAttachments(RequestBuilder<crate::model::ListAttachmentsRequest>);
 
     impl ListAttachments {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseAttachmentService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -100,8 +122,8 @@ pub mod case_attachment_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAttachmentsResponse, gax::error::Error>
         {
@@ -113,6 +135,15 @@ pub mod case_attachment_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAttachmentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListAttachmentsRequest::parent].
@@ -146,9 +177,8 @@ pub mod case_attachment_service {
 
 pub mod case_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CaseService][super::super::client::CaseService].
+    /// A builder for [CaseService][crate::client::CaseService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -159,7 +189,7 @@ pub mod case_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -170,16 +200,19 @@ pub mod case_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CaseService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CaseService] request builders.
+    /// Common implementation for [crate::client::CaseService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CaseService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -188,7 +221,9 @@ pub mod case_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -197,12 +232,30 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::get_case][super::super::client::CaseService::get_case] calls.
+    /// The request builder for [CaseService::get_case][crate::client::CaseService::get_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::GetCase;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetCase(RequestBuilder<crate::model::GetCaseRequest>);
 
     impl GetCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -242,12 +295,34 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::list_cases][super::super::client::CaseService::list_cases] calls.
+    /// The request builder for [CaseService::list_cases][crate::client::CaseService::list_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::ListCases;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListCases(RequestBuilder<crate::model::ListCasesRequest>);
 
     impl ListCases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -271,8 +346,8 @@ pub mod case_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCasesResponse, gax::error::Error>
         {
@@ -284,6 +359,15 @@ pub mod case_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCasesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCasesRequest::parent].
@@ -320,12 +404,34 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::search_cases][super::super::client::CaseService::search_cases] calls.
+    /// The request builder for [CaseService::search_cases][crate::client::CaseService::search_cases] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::SearchCases;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchCases {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCases(RequestBuilder<crate::model::SearchCasesRequest>);
 
     impl SearchCases {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -349,8 +455,8 @@ pub mod case_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::SearchCasesResponse, gax::error::Error>
         {
@@ -362,6 +468,15 @@ pub mod case_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::SearchCasesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::SearchCasesRequest::parent].
@@ -396,12 +511,30 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::create_case][super::super::client::CaseService::create_case] calls.
+    /// The request builder for [CaseService::create_case][crate::client::CaseService::create_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::CreateCase;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateCase(RequestBuilder<crate::model::CreateCaseRequest>);
 
     impl CreateCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -436,8 +569,22 @@ pub mod case_service {
         /// Sets the value of [case][crate::model::CreateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
-        pub fn set_case<T: Into<std::option::Option<crate::model::Case>>>(mut self, v: T) -> Self {
-            self.0.request.case = v.into();
+        pub fn set_case<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [case][crate::model::CreateCaseRequest::case].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = v.map(|x| x.into());
             self
         }
     }
@@ -449,12 +596,30 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::update_case][super::super::client::CaseService::update_case] calls.
+    /// The request builder for [CaseService::update_case][crate::client::CaseService::update_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::UpdateCase;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateCase(RequestBuilder<crate::model::UpdateCaseRequest>);
 
     impl UpdateCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -481,17 +646,40 @@ pub mod case_service {
         /// Sets the value of [case][crate::model::UpdateCaseRequest::case].
         ///
         /// This is a **required** field for requests.
-        pub fn set_case<T: Into<std::option::Option<crate::model::Case>>>(mut self, v: T) -> Self {
-            self.0.request.case = v.into();
+        pub fn set_case<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [case][crate::model::UpdateCaseRequest::case].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_case<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Case>,
+        {
+            self.0.request.case = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateCaseRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -503,12 +691,30 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::escalate_case][super::super::client::CaseService::escalate_case] calls.
+    /// The request builder for [CaseService::escalate_case][crate::client::CaseService::escalate_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::EscalateCase;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EscalateCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EscalateCase(RequestBuilder<crate::model::EscalateCaseRequest>);
 
     impl EscalateCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -541,11 +747,20 @@ pub mod case_service {
         }
 
         /// Sets the value of [escalation][crate::model::EscalateCaseRequest::escalation].
-        pub fn set_escalation<T: Into<std::option::Option<crate::model::Escalation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.escalation = v.into();
+        pub fn set_escalation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Escalation>,
+        {
+            self.0.request.escalation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [escalation][crate::model::EscalateCaseRequest::escalation].
+        pub fn set_or_clear_escalation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Escalation>,
+        {
+            self.0.request.escalation = v.map(|x| x.into());
             self
         }
     }
@@ -557,12 +772,30 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::close_case][super::super::client::CaseService::close_case] calls.
+    /// The request builder for [CaseService::close_case][crate::client::CaseService::close_case] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::CloseCase;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CloseCase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CloseCase(RequestBuilder<crate::model::CloseCaseRequest>);
 
     impl CloseCase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -602,14 +835,36 @@ pub mod case_service {
         }
     }
 
-    /// The request builder for [CaseService::search_case_classifications][super::super::client::CaseService::search_case_classifications] calls.
+    /// The request builder for [CaseService::search_case_classifications][crate::client::CaseService::search_case_classifications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::case_service::SearchCaseClassifications;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchCaseClassifications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchCaseClassifications(
         RequestBuilder<crate::model::SearchCaseClassificationsRequest>,
     );
 
     impl SearchCaseClassifications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CaseService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CaseService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -636,8 +891,8 @@ pub mod case_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchCaseClassificationsResponse,
@@ -651,6 +906,17 @@ pub mod case_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchCaseClassificationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [query][crate::model::SearchCaseClassificationsRequest::query].
@@ -682,9 +948,8 @@ pub mod case_service {
 
 pub mod comment_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CommentService][super::super::client::CommentService].
+    /// A builder for [CommentService][crate::client::CommentService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -695,7 +960,7 @@ pub mod comment_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -706,16 +971,19 @@ pub mod comment_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CommentService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CommentService] request builders.
+    /// Common implementation for [crate::client::CommentService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CommentService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -724,7 +992,9 @@ pub mod comment_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -733,12 +1003,34 @@ pub mod comment_service {
         }
     }
 
-    /// The request builder for [CommentService::list_comments][super::super::client::CommentService::list_comments] calls.
+    /// The request builder for [CommentService::list_comments][crate::client::CommentService::list_comments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::comment_service::ListComments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListComments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListComments(RequestBuilder<crate::model::ListCommentsRequest>);
 
     impl ListComments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -762,8 +1054,8 @@ pub mod comment_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListCommentsResponse, gax::error::Error>
         {
@@ -775,6 +1067,15 @@ pub mod comment_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListCommentsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListCommentsRequest::parent].
@@ -805,12 +1106,30 @@ pub mod comment_service {
         }
     }
 
-    /// The request builder for [CommentService::create_comment][super::super::client::CommentService::create_comment] calls.
+    /// The request builder for [CommentService::create_comment][crate::client::CommentService::create_comment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_support_v2::builder;
+    /// use builder::comment_service::CreateComment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateComment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateComment(RequestBuilder<crate::model::CreateCommentRequest>);
 
     impl CreateComment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CommentService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CommentService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -845,11 +1164,22 @@ pub mod comment_service {
         /// Sets the value of [comment][crate::model::CreateCommentRequest::comment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_comment<T: Into<std::option::Option<crate::model::Comment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.comment = v.into();
+        pub fn set_comment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Comment>,
+        {
+            self.0.request.comment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [comment][crate::model::CreateCommentRequest::comment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_comment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Comment>,
+        {
+            self.0.request.comment = v.map(|x| x.into());
             self
         }
     }

@@ -16,9 +16,8 @@
 
 pub mod secret_manager_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SecretManagerService][super::super::client::SecretManagerService].
+    /// A builder for [SecretManagerService][crate::client::SecretManagerService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod secret_manager_service {
     /// let client = builder
     ///     .with_endpoint("https://secretmanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod secret_manager_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SecretManagerService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SecretManagerService] request builders.
+    /// Common implementation for [crate::client::SecretManagerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod secret_manager_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_locations][super::super::client::SecretManagerService::list_locations] calls.
+    /// The request builder for [SecretManagerService::list_locations][crate::client::SecretManagerService::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<crate::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -100,8 +122,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLocationsResponse, gax::error::Error>
         {
@@ -115,6 +137,15 @@ pub mod secret_manager_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [project][crate::model::ListLocationsRequest::project].
         ///
         /// This is a **required** field for requests.
@@ -124,26 +155,56 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [filter][crate::model::ListLocationsRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListLocationsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [page_size][crate::model::ListLocationsRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::ListLocationsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [page_token][crate::model::ListLocationsRequest::page_token].
-        pub fn set_page_token<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.page_token = v.into();
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::ListLocationsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
             self
         }
     }
@@ -155,13 +216,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_location][super::super::client::SecretManagerService::get_location] calls.
+    /// The request builder for [SecretManagerService::get_location][crate::client::SecretManagerService::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<crate::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -210,13 +287,33 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secrets][super::super::client::SecretManagerService::list_secrets] calls.
+    /// The request builder for [SecretManagerService::list_secrets][crate::client::SecretManagerService::list_secrets] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecrets;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecrets {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecrets(RequestBuilder<crate::model::ListSecretsRequest>);
 
     impl ListSecrets {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -241,8 +338,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
         {
@@ -256,6 +353,15 @@ pub mod secret_manager_service {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSecretsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [project][crate::model::ListSecretsRequest::project].
         ///
         /// This is a **required** field for requests.
@@ -265,26 +371,56 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_size][crate::model::ListSecretsRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::ListSecretsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [page_token][crate::model::ListSecretsRequest::page_token].
-        pub fn set_page_token<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.page_token = v.into();
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::ListSecretsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [filter][crate::model::ListSecretsRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListSecretsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
     }
@@ -296,13 +432,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::create_secret][super::super::client::SecretManagerService::create_secret] calls.
+    /// The request builder for [SecretManagerService::create_secret][crate::client::SecretManagerService::create_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::CreateSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecret(RequestBuilder<crate::model::CreateSecretRequest>);
 
     impl CreateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -328,11 +480,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [request_body][crate::model::CreateSecretRequest::request_body].
-        pub fn set_request_body<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_body = v.into();
+        pub fn set_request_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_body][crate::model::CreateSecretRequest::request_body].
+        pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = v.map(|x| x.into());
             self
         }
 
@@ -360,7 +521,27 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secrets_by_project_and_location][super::super::client::SecretManagerService::list_secrets_by_project_and_location] calls.
+    /// The request builder for [SecretManagerService::list_secrets_by_project_and_location][crate::client::SecretManagerService::list_secrets_by_project_and_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecretsByProjectAndLocation;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretsByProjectAndLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretsByProjectAndLocation(
         RequestBuilder<crate::model::ListSecretsByProjectAndLocationRequest>,
@@ -368,7 +549,7 @@ pub mod secret_manager_service {
 
     impl ListSecretsByProjectAndLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -396,8 +577,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSecretsResponse, gax::error::Error>
         {
@@ -409,6 +590,15 @@ pub mod secret_manager_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSecretsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project][crate::model::ListSecretsByProjectAndLocationRequest::project].
@@ -428,26 +618,56 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::ListSecretsByProjectAndLocationRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
-        pub fn set_page_token<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.page_token = v.into();
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::ListSecretsByProjectAndLocationRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListSecretsByProjectAndLocationRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
     }
@@ -459,7 +679,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::create_secret_by_project_and_location][super::super::client::SecretManagerService::create_secret_by_project_and_location] calls.
+    /// The request builder for [SecretManagerService::create_secret_by_project_and_location][crate::client::SecretManagerService::create_secret_by_project_and_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::CreateSecretByProjectAndLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSecretByProjectAndLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSecretByProjectAndLocation(
         RequestBuilder<crate::model::CreateSecretByProjectAndLocationRequest>,
@@ -467,7 +703,7 @@ pub mod secret_manager_service {
 
     impl CreateSecretByProjectAndLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -496,11 +732,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
-        pub fn set_request_body<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_body = v.into();
+        pub fn set_request_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_body][crate::model::CreateSecretByProjectAndLocationRequest::request_body].
+        pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = v.map(|x| x.into());
             self
         }
 
@@ -536,13 +781,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::add_secret_version][super::super::client::SecretManagerService::add_secret_version] calls.
+    /// The request builder for [SecretManagerService::add_secret_version][crate::client::SecretManagerService::add_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AddSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddSecretVersion(RequestBuilder<crate::model::AddSecretVersionRequest>);
 
     impl AddSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -571,11 +832,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
-        pub fn set_payload<T: Into<std::option::Option<crate::model::SecretPayload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.payload = v.into();
+        pub fn set_payload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+        pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = v.map(|x| x.into());
             self
         }
 
@@ -611,7 +881,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::add_secret_version_by_project_and_location_and_secret][super::super::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::add_secret_version_by_project_and_location_and_secret][crate::client::SecretManagerService::add_secret_version_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AddSecretVersionByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AddSecretVersionByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::AddSecretVersionRequest>,
@@ -619,7 +905,7 @@ pub mod secret_manager_service {
 
     impl AddSecretVersionByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -651,11 +937,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [payload][crate::model::AddSecretVersionRequest::payload].
-        pub fn set_payload<T: Into<std::option::Option<crate::model::SecretPayload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.payload = v.into();
+        pub fn set_payload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [payload][crate::model::AddSecretVersionRequest::payload].
+        pub fn set_or_clear_payload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SecretPayload>,
+        {
+            self.0.request.payload = v.map(|x| x.into());
             self
         }
 
@@ -691,13 +986,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret][super::super::client::SecretManagerService::get_secret] calls.
+    /// The request builder for [SecretManagerService::get_secret][crate::client::SecretManagerService::get_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecret(RequestBuilder<crate::model::GetSecretRequest>);
 
     impl GetSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -746,13 +1057,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::delete_secret][super::super::client::SecretManagerService::delete_secret] calls.
+    /// The request builder for [SecretManagerService::delete_secret][crate::client::SecretManagerService::delete_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DeleteSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecret(RequestBuilder<crate::model::DeleteSecretRequest>);
 
     impl DeleteSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -794,8 +1121,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::DeleteSecretRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DeleteSecretRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
     }
@@ -807,13 +1146,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::update_secret][super::super::client::SecretManagerService::update_secret] calls.
+    /// The request builder for [SecretManagerService::update_secret][crate::client::SecretManagerService::update_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::UpdateSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecret(RequestBuilder<crate::model::UpdateSecretRequest>);
 
     impl UpdateSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -839,11 +1194,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [request_body][crate::model::UpdateSecretRequest::request_body].
-        pub fn set_request_body<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_body = v.into();
+        pub fn set_request_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_body][crate::model::UpdateSecretRequest::request_body].
+        pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = v.map(|x| x.into());
             self
         }
 
@@ -879,7 +1243,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::get_secret_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::get_secret_by_project_and_location_and_secret][crate::client::SecretManagerService::get_secret_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::GetSecretByProjectAndLocationAndSecretRequest>,
@@ -887,7 +1267,7 @@ pub mod secret_manager_service {
 
     impl GetSecretByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -949,7 +1329,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::delete_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::delete_secret_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::delete_secret_by_project_and_location_and_secret][crate::client::SecretManagerService::delete_secret_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSecretByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSecretByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::DeleteSecretByProjectAndLocationAndSecretRequest>,
@@ -957,7 +1353,7 @@ pub mod secret_manager_service {
 
     impl DeleteSecretByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1012,8 +1408,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DeleteSecretByProjectAndLocationAndSecretRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
     }
@@ -1025,7 +1433,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::update_secret_by_project_and_location_and_secret][super::super::client::SecretManagerService::update_secret_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::update_secret_by_project_and_location_and_secret][crate::client::SecretManagerService::update_secret_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSecretByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSecretByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::UpdateSecretByProjectAndLocationAndSecretRequest>,
@@ -1033,7 +1457,7 @@ pub mod secret_manager_service {
 
     impl UpdateSecretByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1064,11 +1488,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
-        pub fn set_request_body<T: Into<std::option::Option<crate::model::Secret>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.request_body = v.into();
+        pub fn set_request_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_body][crate::model::UpdateSecretByProjectAndLocationAndSecretRequest::request_body].
+        pub fn set_or_clear_request_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Secret>,
+        {
+            self.0.request.request_body = v.map(|x| x.into());
             self
         }
 
@@ -1112,13 +1545,33 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secret_versions][super::super::client::SecretManagerService::list_secret_versions] calls.
+    /// The request builder for [SecretManagerService::list_secret_versions][crate::client::SecretManagerService::list_secret_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecretVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretVersions(RequestBuilder<crate::model::ListSecretVersionsRequest>);
 
     impl ListSecretVersions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1146,8 +1599,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
         {
@@ -1159,6 +1612,17 @@ pub mod secret_manager_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSecretVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsRequest::project].
@@ -1178,26 +1642,56 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::ListSecretVersionsRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
-        pub fn set_page_token<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.page_token = v.into();
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::ListSecretVersionsRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [filter][crate::model::ListSecretVersionsRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListSecretVersionsRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
     }
@@ -1209,7 +1703,27 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::list_secret_versions_by_project_and_location_and_secret][super::super::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::list_secret_versions_by_project_and_location_and_secret][crate::client::SecretManagerService::list_secret_versions_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::ListSecretVersionsByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSecretVersionsByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSecretVersionsByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest>,
@@ -1217,7 +1731,7 @@ pub mod secret_manager_service {
 
     impl ListSecretVersionsByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1250,8 +1764,8 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSecretVersionsResponse, gax::error::Error>
         {
@@ -1263,6 +1777,17 @@ pub mod secret_manager_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListSecretVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::project].
@@ -1290,26 +1815,56 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
-        pub fn set_page_size<T: Into<std::option::Option<i32>>>(mut self, v: T) -> Self {
-            self.0.request.page_size = v.into();
+        pub fn set_page_size<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_size][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_size].
+        pub fn set_or_clear_page_size<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.page_size = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
-        pub fn set_page_token<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.page_token = v.into();
+        pub fn set_page_token<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [page_token][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::page_token].
+        pub fn set_or_clear_page_token<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.page_token = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
-        pub fn set_filter<T: Into<std::option::Option<std::string::String>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.filter = v.into();
+        pub fn set_filter<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [filter][crate::model::ListSecretVersionsByProjectAndLocationAndSecretRequest::filter].
+        pub fn set_or_clear_filter<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.filter = v.map(|x| x.into());
             self
         }
     }
@@ -1321,13 +1876,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_version][super::super::client::SecretManagerService::get_secret_version] calls.
+    /// The request builder for [SecretManagerService::get_secret_version][crate::client::SecretManagerService::get_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretVersion(RequestBuilder<crate::model::GetSecretVersionRequest>);
 
     impl GetSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1387,7 +1958,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::get_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<
@@ -1397,7 +1984,7 @@ pub mod secret_manager_service {
 
     impl GetSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1472,13 +2059,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::access_secret_version][super::super::client::SecretManagerService::access_secret_version] calls.
+    /// The request builder for [SecretManagerService::access_secret_version][crate::client::SecretManagerService::access_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AccessSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AccessSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersion(RequestBuilder<crate::model::AccessSecretVersionRequest>);
 
     impl AccessSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1538,7 +2141,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::access_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AccessSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<
@@ -1548,7 +2167,7 @@ pub mod secret_manager_service {
 
     impl AccessSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1623,13 +2242,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::disable_secret_version][super::super::client::SecretManagerService::disable_secret_version] calls.
+    /// The request builder for [SecretManagerService::disable_secret_version][crate::client::SecretManagerService::disable_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DisableSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersion(RequestBuilder<crate::model::DisableSecretVersionRequest>);
 
     impl DisableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1658,8 +2293,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
 
@@ -1703,7 +2350,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::disable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<crate::model::DisableSecretVersionRequest>,
@@ -1711,7 +2374,7 @@ pub mod secret_manager_service {
 
     impl DisableSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1743,8 +2406,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::DisableSecretVersionRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DisableSecretVersionRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
 
@@ -1790,13 +2465,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::enable_secret_version][super::super::client::SecretManagerService::enable_secret_version] calls.
+    /// The request builder for [SecretManagerService::enable_secret_version][crate::client::SecretManagerService::enable_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::EnableSecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableSecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersion(RequestBuilder<crate::model::EnableSecretVersionRequest>);
 
     impl EnableSecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1825,8 +2516,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
 
@@ -1870,7 +2573,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::enable_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableSecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<crate::model::EnableSecretVersionRequest>,
@@ -1878,7 +2597,7 @@ pub mod secret_manager_service {
 
     impl EnableSecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1910,8 +2629,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::EnableSecretVersionRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::EnableSecretVersionRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
 
@@ -1957,13 +2688,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::destroy_secret_version][super::super::client::SecretManagerService::destroy_secret_version] calls.
+    /// The request builder for [SecretManagerService::destroy_secret_version][crate::client::SecretManagerService::destroy_secret_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DestroySecretVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DestroySecretVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersion(RequestBuilder<crate::model::DestroySecretVersionRequest>);
 
     impl DestroySecretVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1992,8 +2739,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
 
@@ -2037,7 +2796,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version][super::super::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version] calls.
+    /// The request builder for [SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version][crate::client::SecretManagerService::destroy_secret_version_by_project_and_location_and_secret_and_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DestroySecretVersionByProjectAndLocationAndSecretAndVersion(
         RequestBuilder<crate::model::DestroySecretVersionRequest>,
@@ -2045,7 +2820,7 @@ pub mod secret_manager_service {
 
     impl DestroySecretVersionByProjectAndLocationAndSecretAndVersion {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2077,8 +2852,20 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [etag][crate::model::DestroySecretVersionRequest::etag].
-        pub fn set_etag<T: Into<std::option::Option<std::string::String>>>(mut self, v: T) -> Self {
-            self.0.request.etag = v.into();
+        pub fn set_etag<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [etag][crate::model::DestroySecretVersionRequest::etag].
+        pub fn set_or_clear_etag<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.etag = v.map(|x| x.into());
             self
         }
 
@@ -2124,13 +2911,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::set_iam_policy][super::super::client::SecretManagerService::set_iam_policy] calls.
+    /// The request builder for [SecretManagerService::set_iam_policy][crate::client::SecretManagerService::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<crate::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2156,20 +2959,38 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2205,7 +3026,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::set_iam_policy_by_project_and_location_and_secret][super::super::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::set_iam_policy_by_project_and_location_and_secret][crate::client::SecretManagerService::set_iam_policy_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicyByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicyByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::SetIamPolicyRequest>,
@@ -2213,7 +3050,7 @@ pub mod secret_manager_service {
 
     impl SetIamPolicyByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2239,20 +3076,38 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [policy][crate::model::SetIamPolicyRequest::policy].
-        pub fn set_policy<T: Into<std::option::Option<crate::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][crate::model::SetIamPolicyRequest::policy].
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -2288,13 +3143,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_iam_policy][super::super::client::SecretManagerService::get_iam_policy] calls.
+    /// The request builder for [SecretManagerService::get_iam_policy][crate::client::SecretManagerService::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<crate::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2336,11 +3207,23 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
-        pub fn set_options_requested_policy_version<T: Into<std::option::Option<i32>>>(
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::GetIamPolicyRequest::options_requested_policy_version].
+        pub fn set_or_clear_options_requested_policy_version<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options_requested_policy_version = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.options_requested_policy_version = v.map(|x| x.into());
             self
         }
     }
@@ -2352,7 +3235,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::get_iam_policy_by_project_and_location_and_secret][super::super::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::get_iam_policy_by_project_and_location_and_secret][crate::client::SecretManagerService::get_iam_policy_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicyByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicyByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest>,
@@ -2360,7 +3259,7 @@ pub mod secret_manager_service {
 
     impl GetIamPolicyByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2415,11 +3314,23 @@ pub mod secret_manager_service {
         }
 
         /// Sets the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
-        pub fn set_options_requested_policy_version<T: Into<std::option::Option<i32>>>(
+        pub fn set_options_requested_policy_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.options_requested_policy_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options_requested_policy_version][crate::model::GetIamPolicyByProjectAndLocationAndSecretRequest::options_requested_policy_version].
+        pub fn set_or_clear_options_requested_policy_version<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options_requested_policy_version = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.options_requested_policy_version = v.map(|x| x.into());
             self
         }
     }
@@ -2431,13 +3342,29 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::test_iam_permissions][super::super::client::SecretManagerService::test_iam_permissions] calls.
+    /// The request builder for [SecretManagerService::test_iam_permissions][crate::client::SecretManagerService::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<crate::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2465,6 +3392,17 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
         ///
         /// This is a **required** field for requests.
@@ -2488,17 +3426,6 @@ pub mod secret_manager_service {
             self.0.request.location = v.into();
             self
         }
-
-        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
-        pub fn set_permissions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -2508,7 +3435,23 @@ pub mod secret_manager_service {
         }
     }
 
-    /// The request builder for [SecretManagerService::test_iam_permissions_by_project_and_location_and_secret][super::super::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret] calls.
+    /// The request builder for [SecretManagerService::test_iam_permissions_by_project_and_location_and_secret][crate::client::SecretManagerService::test_iam_permissions_by_project_and_location_and_secret] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use secretmanager_openapi_v1::builder;
+    /// use builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissionsByProjectAndLocationAndSecret {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissionsByProjectAndLocationAndSecret(
         RequestBuilder<crate::model::TestIamPermissionsRequest>,
@@ -2516,7 +3459,7 @@ pub mod secret_manager_service {
 
     impl TestIamPermissionsByProjectAndLocationAndSecret {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::SecretManagerService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecretManagerService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2547,6 +3490,17 @@ pub mod secret_manager_service {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
+        pub fn set_permissions<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [project][crate::model::TestIamPermissionsRequest::project].
         ///
         /// This is a **required** field for requests.
@@ -2568,17 +3522,6 @@ pub mod secret_manager_service {
         /// This is a **required** field for requests.
         pub fn set_location<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.location = v.into();
-            self
-        }
-
-        /// Sets the value of [permissions][crate::model::TestIamPermissionsRequest::permissions].
-        pub fn set_permissions<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.0.request.permissions = v.into_iter().map(|i| i.into()).collect();
             self
         }
     }

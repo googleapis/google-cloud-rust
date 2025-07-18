@@ -16,9 +16,8 @@
 
 pub mod domains {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Domains][super::super::client::Domains].
+    /// A builder for [Domains][crate::client::Domains].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod domains {
     /// let client = builder
     ///     .with_endpoint("https://domains.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod domains {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Domains;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Domains] request builders.
+    /// Common implementation for [crate::client::Domains] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Domains>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod domains {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,28 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::search_domains][super::super::client::Domains::search_domains] calls.
+    /// The request builder for [Domains::search_domains][crate::client::Domains::search_domains] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::SearchDomains;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchDomains {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchDomains(RequestBuilder<crate::model::SearchDomainsRequest>);
 
     impl SearchDomains {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -120,14 +138,30 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::retrieve_register_parameters][super::super::client::Domains::retrieve_register_parameters] calls.
+    /// The request builder for [Domains::retrieve_register_parameters][crate::client::Domains::retrieve_register_parameters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RetrieveRegisterParameters;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveRegisterParameters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveRegisterParameters(
         RequestBuilder<crate::model::RetrieveRegisterParametersRequest>,
     );
 
     impl RetrieveRegisterParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -178,12 +212,29 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::register_domain][super::super::client::Domains::register_domain] calls.
+    /// The request builder for [Domains::register_domain][crate::client::Domains::register_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RegisterDomain;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RegisterDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RegisterDomain(RequestBuilder<crate::model::RegisterDomainRequest>);
 
     impl RegisterDomain {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -204,7 +255,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [register_domain][super::super::client::Domains::register_domain].
+        /// on [register_domain][crate::client::Domains::register_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .register_domain(self.0.request, self.0.options)
@@ -216,8 +267,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -242,7 +295,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::RegisterDomainRequest::parent].
@@ -256,28 +309,22 @@ pub mod domains {
         /// Sets the value of [registration][crate::model::RegisterDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.registration = v.into();
+        pub fn set_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        /// Sets or clears the value of [registration][crate::model::RegisterDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = v.map(|x| x.into());
             self
         }
 
@@ -302,6 +349,34 @@ pub mod domains {
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_yearly_price<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [yearly_price][crate::model::RegisterDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::RegisterDomainRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -311,14 +386,30 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::retrieve_transfer_parameters][super::super::client::Domains::retrieve_transfer_parameters] calls.
+    /// The request builder for [Domains::retrieve_transfer_parameters][crate::client::Domains::retrieve_transfer_parameters] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RetrieveTransferParameters;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveTransferParameters {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveTransferParameters(
         RequestBuilder<crate::model::RetrieveTransferParametersRequest>,
     );
 
     impl RetrieveTransferParameters {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -369,12 +460,29 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::transfer_domain][super::super::client::Domains::transfer_domain] calls.
+    /// The request builder for [Domains::transfer_domain][crate::client::Domains::transfer_domain] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::TransferDomain;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TransferDomain {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TransferDomain(RequestBuilder<crate::model::TransferDomainRequest>);
 
     impl TransferDomain {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -395,7 +503,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [transfer_domain][super::super::client::Domains::transfer_domain].
+        /// on [transfer_domain][crate::client::Domains::transfer_domain].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .transfer_domain(self.0.request, self.0.options)
@@ -407,8 +515,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -433,7 +543,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::TransferDomainRequest::parent].
@@ -447,39 +557,22 @@ pub mod domains {
         /// Sets the value of [registration][crate::model::TransferDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.registration = v.into();
+        pub fn set_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
+        /// Sets or clears the value of [registration][crate::model::TransferDomainRequest::registration].
         ///
         /// This is a **required** field for requests.
-        pub fn set_yearly_price<T: Into<std::option::Option<gtype::model::Money>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.yearly_price = v.into();
-            self
-        }
-
-        /// Sets the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
-        pub fn set_authorization_code<
-            T: Into<std::option::Option<crate::model::AuthorizationCode>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.authorization_code = v.into();
-            self
-        }
-
-        /// Sets the value of [validate_only][crate::model::TransferDomainRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = v.map(|x| x.into());
             self
         }
 
@@ -493,6 +586,52 @@ pub mod domains {
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_yearly_price<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [yearly_price][crate::model::TransferDomainRequest::yearly_price].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_yearly_price<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Money>,
+        {
+            self.0.request.yearly_price = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
+        pub fn set_authorization_code<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationCode>,
+        {
+            self.0.request.authorization_code = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authorization_code][crate::model::TransferDomainRequest::authorization_code].
+        pub fn set_or_clear_authorization_code<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthorizationCode>,
+        {
+            self.0.request.authorization_code = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [validate_only][crate::model::TransferDomainRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -502,12 +641,32 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::list_registrations][super::super::client::Domains::list_registrations] calls.
+    /// The request builder for [Domains::list_registrations][crate::client::Domains::list_registrations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ListRegistrations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListRegistrations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListRegistrations(RequestBuilder<crate::model::ListRegistrationsRequest>);
 
     impl ListRegistrations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -534,8 +693,8 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListRegistrationsResponse, gax::error::Error>
         {
@@ -547,6 +706,15 @@ pub mod domains {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListRegistrationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListRegistrationsRequest::parent].
@@ -583,12 +751,28 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::get_registration][super::super::client::Domains::get_registration] calls.
+    /// The request builder for [Domains::get_registration][crate::client::Domains::get_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::GetRegistration;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetRegistration(RequestBuilder<crate::model::GetRegistrationRequest>);
 
     impl GetRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -628,12 +812,29 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::update_registration][super::super::client::Domains::update_registration] calls.
+    /// The request builder for [Domains::update_registration][crate::client::Domains::update_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::UpdateRegistration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateRegistration(RequestBuilder<crate::model::UpdateRegistrationRequest>);
 
     impl UpdateRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -657,7 +858,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_registration][super::super::client::Domains::update_registration].
+        /// on [update_registration][crate::client::Domains::update_registration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_registration(self.0.request, self.0.options)
@@ -669,8 +870,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -695,26 +898,46 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::UpdateRegistrationRequest::registration].
-        pub fn set_registration<T: Into<std::option::Option<crate::model::Registration>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.registration = v.into();
+        pub fn set_registration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [registration][crate::model::UpdateRegistrationRequest::registration].
+        pub fn set_or_clear_registration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Registration>,
+        {
+            self.0.request.registration = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateRegistrationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -726,14 +949,31 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::configure_management_settings][super::super::client::Domains::configure_management_settings] calls.
+    /// The request builder for [Domains::configure_management_settings][crate::client::Domains::configure_management_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ConfigureManagementSettings;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConfigureManagementSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureManagementSettings(
         RequestBuilder<crate::model::ConfigureManagementSettingsRequest>,
     );
 
     impl ConfigureManagementSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -757,7 +997,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [configure_management_settings][super::super::client::Domains::configure_management_settings].
+        /// on [configure_management_settings][crate::client::Domains::configure_management_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .configure_management_settings(self.0.request, self.0.options)
@@ -769,8 +1009,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -795,7 +1037,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::ConfigureManagementSettingsRequest::registration].
@@ -807,24 +1049,42 @@ pub mod domains {
         }
 
         /// Sets the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
-        pub fn set_management_settings<
-            T: Into<std::option::Option<crate::model::ManagementSettings>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.management_settings = v.into();
+        pub fn set_management_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementSettings>,
+        {
+            self.0.request.management_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [management_settings][crate::model::ConfigureManagementSettingsRequest::management_settings].
+        pub fn set_or_clear_management_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagementSettings>,
+        {
+            self.0.request.management_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ConfigureManagementSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -836,12 +1096,29 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::configure_dns_settings][super::super::client::Domains::configure_dns_settings] calls.
+    /// The request builder for [Domains::configure_dns_settings][crate::client::Domains::configure_dns_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ConfigureDnsSettings;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConfigureDnsSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureDnsSettings(RequestBuilder<crate::model::ConfigureDnsSettingsRequest>);
 
     impl ConfigureDnsSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -865,7 +1142,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [configure_dns_settings][super::super::client::Domains::configure_dns_settings].
+        /// on [configure_dns_settings][crate::client::Domains::configure_dns_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .configure_dns_settings(self.0.request, self.0.options)
@@ -877,8 +1154,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -903,7 +1182,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::ConfigureDnsSettingsRequest::registration].
@@ -915,22 +1194,42 @@ pub mod domains {
         }
 
         /// Sets the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
-        pub fn set_dns_settings<T: Into<std::option::Option<crate::model::DnsSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.dns_settings = v.into();
+        pub fn set_dns_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsSettings>,
+        {
+            self.0.request.dns_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [dns_settings][crate::model::ConfigureDnsSettingsRequest::dns_settings].
+        pub fn set_or_clear_dns_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::DnsSettings>,
+        {
+            self.0.request.dns_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::ConfigureDnsSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -948,14 +1247,31 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::configure_contact_settings][super::super::client::Domains::configure_contact_settings] calls.
+    /// The request builder for [Domains::configure_contact_settings][crate::client::Domains::configure_contact_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ConfigureContactSettings;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ConfigureContactSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ConfigureContactSettings(
         RequestBuilder<crate::model::ConfigureContactSettingsRequest>,
     );
 
     impl ConfigureContactSettings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -979,7 +1295,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [configure_contact_settings][super::super::client::Domains::configure_contact_settings].
+        /// on [configure_contact_settings][crate::client::Domains::configure_contact_settings].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .configure_contact_settings(self.0.request, self.0.options)
@@ -991,8 +1307,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1017,7 +1335,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [registration][crate::model::ConfigureContactSettingsRequest::registration].
@@ -1029,28 +1347,42 @@ pub mod domains {
         }
 
         /// Sets the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
-        pub fn set_contact_settings<T: Into<std::option::Option<crate::model::ContactSettings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.contact_settings = v.into();
+        pub fn set_contact_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ContactSettings>,
+        {
+            self.0.request.contact_settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [contact_settings][crate::model::ConfigureContactSettingsRequest::contact_settings].
+        pub fn set_or_clear_contact_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ContactSettings>,
+        {
+            self.0.request.contact_settings = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
             self
         }
 
-        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
-        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
-            self.0.request.validate_only = v.into();
+        /// Sets or clears the value of [update_mask][crate::model::ConfigureContactSettingsRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -1064,6 +1396,12 @@ pub mod domains {
             self.0.request.contact_notices = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [validate_only][crate::model::ConfigureContactSettingsRequest::validate_only].
+        pub fn set_validate_only<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.validate_only = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1073,12 +1411,29 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::export_registration][super::super::client::Domains::export_registration] calls.
+    /// The request builder for [Domains::export_registration][crate::client::Domains::export_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ExportRegistration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportRegistration(RequestBuilder<crate::model::ExportRegistrationRequest>);
 
     impl ExportRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1102,7 +1457,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_registration][super::super::client::Domains::export_registration].
+        /// on [export_registration][crate::client::Domains::export_registration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_registration(self.0.request, self.0.options)
@@ -1114,8 +1469,10 @@ pub mod domains {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Registration, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Registration, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Registration,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1140,7 +1497,7 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ExportRegistrationRequest::name].
@@ -1159,12 +1516,29 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::delete_registration][super::super::client::Domains::delete_registration] calls.
+    /// The request builder for [Domains::delete_registration][crate::client::Domains::delete_registration] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::DeleteRegistration;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteRegistration {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteRegistration(RequestBuilder<crate::model::DeleteRegistrationRequest>);
 
     impl DeleteRegistration {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1188,7 +1562,7 @@ pub mod domains {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_registration][super::super::client::Domains::delete_registration].
+        /// on [delete_registration][crate::client::Domains::delete_registration].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_registration(self.0.request, self.0.options)
@@ -1197,8 +1571,8 @@ pub mod domains {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_registration`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1223,7 +1597,12 @@ pub mod domains {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteRegistrationRequest::name].
@@ -1242,14 +1621,30 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::retrieve_authorization_code][super::super::client::Domains::retrieve_authorization_code] calls.
+    /// The request builder for [Domains::retrieve_authorization_code][crate::client::Domains::retrieve_authorization_code] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::RetrieveAuthorizationCode;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RetrieveAuthorizationCode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RetrieveAuthorizationCode(
         RequestBuilder<crate::model::RetrieveAuthorizationCodeRequest>,
     );
 
     impl RetrieveAuthorizationCode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1292,12 +1687,28 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::reset_authorization_code][super::super::client::Domains::reset_authorization_code] calls.
+    /// The request builder for [Domains::reset_authorization_code][crate::client::Domains::reset_authorization_code] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ResetAuthorizationCode;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetAuthorizationCode {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetAuthorizationCode(RequestBuilder<crate::model::ResetAuthorizationCodeRequest>);
 
     impl ResetAuthorizationCode {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1340,12 +1751,32 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::list_operations][super::super::client::Domains::list_operations] calls.
+    /// The request builder for [Domains::list_operations][crate::client::Domains::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1372,8 +1803,8 @@ pub mod domains {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1385,6 +1816,17 @@ pub mod domains {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1419,12 +1861,28 @@ pub mod domains {
         }
     }
 
-    /// The request builder for [Domains::get_operation][super::super::client::Domains::get_operation] calls.
+    /// The request builder for [Domains::get_operation][crate::client::Domains::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_domains_v1::builder;
+    /// use builder::domains::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Domains>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

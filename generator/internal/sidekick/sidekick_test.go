@@ -57,8 +57,8 @@ func TestRustFromOpenAPI(t *testing.T) {
 			"not-for-publication":       "true",
 			"copyright-year":            "2024",
 			"package-name-override":     "secretmanager-golden-openapi",
-			"package:wkt":               "package=google-cloud-wkt,path=../src/wkt,source=google.protobuf",
-			"package:gax":               "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
+			"package:wkt":               "package=google-cloud-wkt,source=google.protobuf",
+			"package:gax":               "package=gcp-sdk-gax,feature=unstable-sdk-client",
 			"disabled-rustdoc-warnings": "redundant_explicit_links",
 		},
 	}
@@ -69,8 +69,12 @@ func TestRustFromOpenAPI(t *testing.T) {
 	}
 	for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
 		filename := path.Join(outDir, expected)
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
+		stat, err := os.Stat(filename)
+		if os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
+		}
+		if stat.Mode().Perm()|0666 != 0666 {
+			t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 		}
 	}
 }
@@ -104,7 +108,7 @@ func TestRustFromProtobuf(t *testing.T) {
 			Source: "googleapis/google/iam/v1",
 			Name:   "iam/v1",
 			ExtraOptions: map[string]string{
-				"package:gtype":             fmt.Sprintf("package=type-golden-protobuf,path=%s/rust/protobuf/golden/type,source=google.type", testdataDir),
+				"package:gtype":             "package=type-golden-protobuf,source=google.type",
 				"disabled-rustdoc-warnings": "redundant_explicit_links,broken_intra_doc_links",
 			},
 		},
@@ -113,8 +117,8 @@ func TestRustFromProtobuf(t *testing.T) {
 			ServiceConfig: secretManagerServiceConfig,
 			Name:          "secretmanager",
 			ExtraOptions: map[string]string{
-				"package:iam":               fmt.Sprintf("package=iam-v1-golden-protobuf,path=%s/rust/protobuf/golden/iam/v1,source=google.iam.v1", testdataDir),
-				"package:location":          fmt.Sprintf("package=location-golden-protobuf,path=%s/rust/protobuf/golden/location,source=google.cloud.location", testdataDir),
+				"package:iam":               "package=iam-v1-golden-protobuf,source=google.iam.v1",
+				"package:location":          "package=location-golden-protobuf,source=google.cloud.location",
 				"disabled-rustdoc-warnings": "broken_intra_doc_links",
 			},
 		},
@@ -141,8 +145,8 @@ func TestRustFromProtobuf(t *testing.T) {
 				"not-for-publication":   "true",
 				"copyright-year":        "2024",
 				"package-name-override": strings.Replace(config.Name, "/", "-", -1) + "-golden-protobuf",
-				"package:wkt":           "package=google-cloud-wkt,path=../src/wkt,source=google.protobuf",
-				"package:gax":           "package=gcp-sdk-gax,path=../src/gax,feature=unstable-sdk-client",
+				"package:wkt":           "package=google-cloud-wkt,source=google.protobuf",
+				"package:gax":           "package=gcp-sdk-gax,feature=unstable-sdk-client",
 			},
 		}
 		for k, v := range config.ExtraOptions {
@@ -155,8 +159,12 @@ func TestRustFromProtobuf(t *testing.T) {
 
 		for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}
@@ -182,7 +190,7 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 			Name:          "rpc",
 			ExtraOptions: map[string]string{
 				"module-path": "crate::error::rpc::generated",
-				"package:wkt": "package=google-cloud-wkt,path=src/wkt,source=google.protobuf",
+				"package:wkt": "package=google-cloud-wkt,source=google.protobuf",
 			},
 		},
 		{
@@ -218,8 +226,12 @@ func TestRustModuleFromProtobuf(t *testing.T) {
 		}
 		for _, expected := range []string{".sidekick.toml", "mod.rs"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}
@@ -280,8 +292,12 @@ func TestRustBootstrapWkt(t *testing.T) {
 		}
 		for _, expected := range []string{".sidekick.toml", "mod.rs"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}
@@ -318,8 +334,12 @@ func TestRustOverrideTitleAndDescription(t *testing.T) {
 	}
 	for _, expected := range []string{".sidekick.toml", "README.md", "Cargo.toml", "src/lib.rs"} {
 		filename := path.Join(outDir, expected)
-		if _, err := os.Stat(filename); os.IsNotExist(err) {
+		stat, err := os.Stat(filename)
+		if os.IsNotExist(err) {
 			t.Errorf("missing %s: %s", filename, err)
+		}
+		if stat.Mode().Perm()|0666 != 0666 {
+			t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 		}
 	}
 	contents, err := os.ReadFile(path.Join(outDir, "README.md"))
@@ -398,8 +418,12 @@ func TestGoFromProtobuf(t *testing.T) {
 		execCommand(t, dir, "go", "mod", "tidy")
 		for _, expected := range []string{".sidekick.toml", "go.mod", "client.go"} {
 			filename := path.Join(outDir, config.Name, expected)
-			if _, err := os.Stat(filename); os.IsNotExist(err) {
+			stat, err := os.Stat(filename)
+			if os.IsNotExist(err) {
 				t.Errorf("missing %s: %s", filename, err)
+			}
+			if stat.Mode().Perm()|0666 != 0666 {
+				t.Errorf("generated files should not be executable %s: %o", filename, stat.Mode())
 			}
 		}
 	}

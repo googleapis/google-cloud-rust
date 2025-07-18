@@ -16,9 +16,8 @@
 
 pub mod advisory_notifications_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AdvisoryNotificationsService][super::super::client::AdvisoryNotificationsService].
+    /// A builder for [AdvisoryNotificationsService][crate::client::AdvisoryNotificationsService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod advisory_notifications_service {
     /// let client = builder
     ///     .with_endpoint("https://advisorynotifications.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod advisory_notifications_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AdvisoryNotificationsService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AdvisoryNotificationsService] request builders.
+    /// Common implementation for [crate::client::AdvisoryNotificationsService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod advisory_notifications_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::list_notifications][super::super::client::AdvisoryNotificationsService::list_notifications] calls.
+    /// The request builder for [AdvisoryNotificationsService::list_notifications][crate::client::AdvisoryNotificationsService::list_notifications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::ListNotifications;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNotifications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotifications(RequestBuilder<crate::model::ListNotificationsRequest>);
 
     impl ListNotifications {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -103,8 +125,8 @@ pub mod advisory_notifications_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNotificationsResponse, gax::error::Error>
         {
@@ -116,6 +138,15 @@ pub mod advisory_notifications_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNotificationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNotificationsRequest::parent].
@@ -158,13 +189,29 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::get_notification][super::super::client::AdvisoryNotificationsService::get_notification] calls.
+    /// The request builder for [AdvisoryNotificationsService::get_notification][crate::client::AdvisoryNotificationsService::get_notification] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::GetNotification;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNotification {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNotification(RequestBuilder<crate::model::GetNotificationRequest>);
 
     impl GetNotification {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -211,13 +258,29 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::get_settings][super::super::client::AdvisoryNotificationsService::get_settings] calls.
+    /// The request builder for [AdvisoryNotificationsService::get_settings][crate::client::AdvisoryNotificationsService::get_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::GetSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSettings(RequestBuilder<crate::model::GetSettingsRequest>);
 
     impl GetSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -258,13 +321,29 @@ pub mod advisory_notifications_service {
         }
     }
 
-    /// The request builder for [AdvisoryNotificationsService::update_settings][super::super::client::AdvisoryNotificationsService::update_settings] calls.
+    /// The request builder for [AdvisoryNotificationsService::update_settings][crate::client::AdvisoryNotificationsService::update_settings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_advisorynotifications_v1::builder;
+    /// use builder::advisory_notifications_service::UpdateSettings;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSettings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSettings(RequestBuilder<crate::model::UpdateSettingsRequest>);
 
     impl UpdateSettings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::AdvisoryNotificationsService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -292,11 +371,22 @@ pub mod advisory_notifications_service {
         /// Sets the value of [settings][crate::model::UpdateSettingsRequest::settings].
         ///
         /// This is a **required** field for requests.
-        pub fn set_settings<T: Into<std::option::Option<crate::model::Settings>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.settings = v.into();
+        pub fn set_settings<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [settings][crate::model::UpdateSettingsRequest::settings].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_settings<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Settings>,
+        {
+            self.0.request.settings = v.map(|x| x.into());
             self
         }
     }

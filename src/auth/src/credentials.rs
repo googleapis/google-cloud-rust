@@ -12,28 +12,63 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod api_key_credentials;
-// Export API Key factory function and options
-pub use api_key_credentials::{ApiKeyOptions, create_api_key_credentials};
-
-pub mod mds;
-pub mod service_account;
-pub mod user_account;
-
-use crate::Result;
+use crate::build_errors::Error as BuilderError;
+use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
-use http::header::{HeaderName, HeaderValue};
+use crate::{BuildResult, Result};
+use http::{Extensions, HeaderMap};
 use serde_json::Value;
 use std::future::Future;
 use std::sync::Arc;
+use std::sync::atomic::{AtomicU64, Ordering};
 
+pub mod api_key_credentials;
+pub mod external_account;
+pub(crate) mod external_account_sources;
+pub mod impersonated;
+pub(crate) mod internal;
+pub mod mds;
+pub mod service_account;
+pub mod subject_token;
+pub mod user_account;
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
+/// Represents an Entity Tag for a [CacheableResource].
+///
+/// An `EntityTag` is an opaque token that can be used to determine if a
+/// cached resource has changed. The specific format of this tag is an
+/// implementation detail.
+///
+/// As the name indicates, these are inspired by the ETags prevalent in HTTP
+/// caching protocols. Their implementation is very different, and are only
+/// intended for use within a single program.
+#[derive(Clone, Debug, PartialEq, Default)]
+pub struct EntityTag(u64);
+
+static ENTITY_TAG_GENERATOR: AtomicU64 = AtomicU64::new(0);
+impl EntityTag {
+    pub fn new() -> Self {
+        let value = ENTITY_TAG_GENERATOR.fetch_add(1, Ordering::SeqCst);
+        Self(value)
+    }
+}
+
+/// Represents a resource that can be cached, along with its [EntityTag].
+///
+/// This enum is used to provide cacheable data to the consumers of the credential provider.
+/// It allows a data provider to return either new data (with an [EntityTag]) or
+/// indicate that the caller's cached version (identified by a previously provided [EntityTag])
+/// is still valid.
+#[derive(Clone, PartialEq, Debug)]
+pub enum CacheableResource<T> {
+    NotModified,
+    New { entity_tag: EntityTag, data: T },
+}
+
 /// An implementation of [crate::credentials::CredentialsProvider].
 ///
-/// Represents a [Credentials] used to obtain auth [Token][crate::token::Token]s
-/// and the corresponding request headers.
+/// Represents a [Credentials] used to obtain the auth request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that provide
 /// proof of identity", the archetype may be a username and password
@@ -88,12 +123,8 @@ where
 }
 
 impl Credentials {
-    pub async fn token(&self) -> Result<crate::token::Token> {
-        self.inner.token().await
-    }
-
-    pub async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-        self.inner.headers().await
+    pub async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+        self.inner.headers(extensions).await
     }
 
     pub async fn universe_domain(&self) -> Option<String> {
@@ -101,8 +132,7 @@ impl Credentials {
     }
 }
 
-/// Represents a [Credentials] used to obtain auth
-/// [Token][crate::token::Token]s and the corresponding request headers.
+/// Represents a [Credentials] used to obtain auth request headers.
 ///
 /// In general, [Credentials][credentials-link] are "digital object that
 /// provide proof of identity", the archetype may be a username and password
@@ -142,20 +172,31 @@ impl Credentials {
 /// [Google Compute Engine]: https://cloud.google.com/products/compute
 /// [Google Kubernetes Engine]: https://cloud.google.com/kubernetes-engine
 pub trait CredentialsProvider: std::fmt::Debug {
-    /// Asynchronously retrieves a token.
-    ///
-    /// Returns a [Token][crate::token::Token] for the current credentials.
-    /// The underlying implementation refreshes the token as needed.
-    fn token(&self) -> impl Future<Output = Result<crate::token::Token>> + Send;
-
     /// Asynchronously constructs the auth headers.
     ///
     /// Different auth tokens are sent via different headers. The
     /// [Credentials] constructs the headers (and header values) that should be
     /// sent with a request.
     ///
-    /// The underlying implementation refreshes the token as needed.
-    fn headers(&self) -> impl Future<Output = Result<Vec<(HeaderName, HeaderValue)>>> + Send;
+    /// # Parameters
+    /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+    ///   context to the credential provider. For caching purposes, this can include
+    ///   an [EntityTag] from a previously returned [`CacheableResource<HeaderMap>`].    
+    ///   If a valid `EntityTag` is provided and the underlying authentication data
+    ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+    ///
+    /// # Returns
+    /// A `Future` that resolves to a `Result` containing:
+    /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+    ///   are available.
+    /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+    ///   the ETag provided via `extensions` was issued.
+    /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+    ///   generating the headers.
+    fn headers(
+        &self,
+        extensions: Extensions,
+    ) -> impl Future<Output = Result<CacheableResource<HeaderMap>>> + Send;
 
     /// Retrieves the universe domain associated with the credentials, if any.
     fn universe_domain(&self) -> impl Future<Output = Option<String>> + Send;
@@ -163,25 +204,33 @@ pub trait CredentialsProvider: std::fmt::Debug {
 
 pub(crate) mod dynamic {
     use super::Result;
-    use super::{HeaderName, HeaderValue};
+    use super::{CacheableResource, Extensions, HeaderMap};
 
     /// A dyn-compatible, crate-private version of `CredentialsProvider`.
     #[async_trait::async_trait]
     pub trait CredentialsProvider: Send + Sync + std::fmt::Debug {
-        /// Asynchronously retrieves a token.
-        ///
-        /// Returns a [Token][crate::token::Token] for the current credentials.
-        /// The underlying implementation refreshes the token as needed.
-        async fn token(&self) -> Result<crate::token::Token>;
-
         /// Asynchronously constructs the auth headers.
         ///
         /// Different auth tokens are sent via different headers. The
         /// [Credentials] constructs the headers (and header values) that should be
         /// sent with a request.
         ///
-        /// The underlying implementation refreshes the token as needed.
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>>;
+        /// # Parameters
+        /// * `extensions` - An `http::Extensions` map that can be used to pass additional
+        ///   context to the credential provider. For caching purposes, this can include
+        ///   an [EntityTag] from a previously returned [CacheableResource<HeaderMap>].    
+        ///   If a valid `EntityTag` is provided and the underlying authentication data
+        ///   has not changed, this method returns `Ok(CacheableResource::NotModified)`.
+        ///
+        /// # Returns
+        /// A `Future` that resolves to a `Result` containing:
+        /// * `Ok(CacheableResource::New { entity_tag, data })`: If new or updated headers
+        ///   are available.
+        /// * `Ok(CacheableResource::NotModified)`: If the headers have not changed since
+        ///   the ETag provided via `extensions` was issued.
+        /// * `Err(CredentialsError)`: If an error occurs while trying to fetch or
+        ///   generating the headers.
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>>;
 
         /// Retrieves the universe domain associated with the credentials, if any.
         async fn universe_domain(&self) -> Option<String> {
@@ -195,11 +244,8 @@ pub(crate) mod dynamic {
     where
         T: super::CredentialsProvider + Send + Sync,
     {
-        async fn token(&self) -> Result<crate::token::Token> {
-            T::token(self).await
-        }
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            T::headers(self).await
+        async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+            T::headers(self, extensions).await
         }
         async fn universe_domain(&self) -> Option<String> {
             T::universe_domain(self).await
@@ -207,19 +253,13 @@ pub(crate) mod dynamic {
     }
 }
 
-#[derive(Debug, Clone)]
-enum CredentialsSource {
-    CredentialsJson(Value),
-    DefaultCredentials,
-}
-
 /// A builder for constructing [`Credentials`] instances.
 ///
-/// By default (using [`Builder::default`]), the builder is configured to load
-/// credentials according to the standard [Application Default Credentials (ADC)][ADC-link]
-/// strategy. ADC is the recommended approach for most applications and conforms to
-/// [AIP-4110]. If you need to load credentials from a non-standard location or source,
-/// you can provide specific credential JSON directly using [`Builder::new`].
+/// This builder loads credentials according to the standard
+/// [Application Default Credentials (ADC)][ADC-link] strategy.
+/// ADC is the recommended approach for most applications and conforms to
+/// [AIP-4110]. If you need to load credentials from a non-standard location
+/// or source, you can use Builders on the specific credential types.
 ///
 /// Common use cases where using ADC would is useful include:
 /// - Your application is deployed to a Google Cloud environment such as
@@ -228,63 +268,36 @@ enum CredentialsSource {
 ///   deployment environments provides a default service account to the
 ///   application, and offers mechanisms to change this default service account
 ///   without any code changes to your application.
-/// - You are testing or developing the application on a workstation (physical or
-///   virtual). These credentials will use your preferences as set with
-///   [gcloud auth application-default]. These preferences can be your own Gooogle
-///   Cloud user credentials, or some service account.
+/// - You are testing or developing the application on a workstation (physical
+///   or virtual). These credentials will use your preferences as set with
+///   [gcloud auth application-default]. These preferences can be your own
+///   Google Cloud user credentials, or some service account.
 /// - Regardless of where your application is running, you can use the
 ///   `GOOGLE_APPLICATION_CREDENTIALS` environment variable to override the
 ///   defaults. This environment variable should point to a file containing a
 ///   service account key file, or a JSON object describing your user
 ///   credentials.
 ///
-/// The access tokens returned by these credentials should be used in the
+/// The headers returned by these credentials should be used in the
 /// Authorization HTTP header.
 ///
 /// The Google Cloud client libraries for Rust will typically find and use these
-/// credentials automatically if a credentials file exists in the
-/// standard ADC search paths. You might instantiate these credentials either
-/// via ADC or a specific JSON file, if you need to:
-/// * Override the OAuth 2.0 **scopes** being requested for the access token.
-/// * Override the **quota project ID** for billing and quota management.
+/// credentials automatically if a credentials file exists in the standard ADC
+/// search paths. You might instantiate these credentials if you need to:
+/// - Override the OAuth 2.0 **scopes** being requested for the access token.
+/// - Override the **quota project ID** for billing and quota management.
 ///
-/// Example usage:
-///
-/// Fetching token using ADC
+/// # Example: fetching headers using ADC
 /// ```
 /// # use google_cloud_auth::credentials::Builder;
-/// # use google_cloud_auth::errors::CredentialsError;
+/// # use http::Extensions;
 /// # tokio_test::block_on(async {
-/// let creds = Builder::default()
+/// let credentials = Builder::default()
 ///     .with_quota_project_id("my-project")
 ///     .build()?;
-/// let token = creds.token().await?;
-/// println!("Token: {}", token.token);
-/// # Ok::<(), CredentialsError>(())
-/// # });
-/// ```
-///
-/// Fetching token using custom JSON
-/// ```
-/// # use google_cloud_auth::credentials::Builder;
-/// # use google_cloud_auth::errors::CredentialsError;
-/// # tokio_test::block_on(async {
-/// # use google_cloud_auth::credentials::Builder;
-/// let authorized_user = serde_json::json!({
-///     "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com", // Replace with your actual Client ID
-///     "client_secret": "YOUR_CLIENT_SECRET", // Replace with your actual Client Secret - LOAD SECURELY!
-///     "refresh_token": "YOUR_REFRESH_TOKEN", // Replace with the user's refresh token - LOAD SECURELY!
-///     "type": "authorized_user",
-///     // "quota_project_id": "your-billing-project-id", // Optional: Set if needed
-///     // "token_uri" : "test-token-uri", // Optional: Set if needed
-/// });
-///
-/// let creds = Builder::new(authorized_user)
-///     .with_quota_project_id("my-project")
-///     .build()?;
-/// let token = creds.token().await?;
-/// println!("Token: {}", token.token);
-/// # Ok::<(), CredentialsError>(())
+/// let headers = credentials.headers(Extensions::new()).await?;
+/// println!("Headers: {headers:?}");
+/// # Ok::<(), anyhow::Error>(())
 /// # });
 /// ```
 ///
@@ -296,7 +309,6 @@ enum CredentialsSource {
 /// [gke-link]: https://cloud.google.com/kubernetes-engine
 #[derive(Debug)]
 pub struct Builder {
-    credentials_source: CredentialsSource,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
 }
@@ -315,7 +327,6 @@ impl Default for Builder {
     /// [application-default login]: https://cloud.google.com/sdk/gcloud/reference/auth/application-default/login
     fn default() -> Self {
         Self {
-            credentials_source: CredentialsSource::DefaultCredentials,
             quota_project_id: None,
             scopes: None,
         }
@@ -323,28 +334,15 @@ impl Default for Builder {
 }
 
 impl Builder {
-    /// Creates a new builder with given credentials json.
-    ///
-    /// # Example
-    /// ```
-    /// # use google_cloud_auth::credentials::Builder;
-    /// let authorized_user = serde_json::json!({ /* add details here */ });
-    /// let credentials = Builder::new(authorized_user).build();
-    ///```
-    ///
-    pub fn new(json: serde_json::Value) -> Self {
-        Self {
-            credentials_source: CredentialsSource::CredentialsJson(json),
-            quota_project_id: None,
-            scopes: None,
-        }
-    }
-
     /// Sets the [quota project] for these credentials.
     ///
     /// In some services, you can use an account in one project for authentication
     /// and authorization, and charge the usage to a different project. This requires
     /// that the user has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// ## Important: Precedence
+    /// If the `GOOGLE_CLOUD_QUOTA_PROJECT` environment variable is set,
+    /// its value will be used **instead of** the value provided to this method.
     ///
     /// # Example
     /// ```
@@ -395,23 +393,22 @@ impl Builder {
     /// # Errors
     ///
     /// Returns a [CredentialsError] if a unsupported credential type is provided
-    /// or if the `json` provided to [Builder::new] cannot be successfully deserialized
-    /// into the expected format. This typically happens if the JSON value is malformed
+    /// or if the JSON value is either malformed
     /// or missing required fields. For more information, on how to generate
     /// json, consult the relevant section in the [application-default credentials] guide.
     ///
     /// [application-default credentials]: https://cloud.google.com/docs/authentication/application-default-credentials
-    pub fn build(self) -> Result<Credentials> {
-        let json_data = match self.credentials_source {
-            CredentialsSource::CredentialsJson(json) => Some(json),
-            CredentialsSource::DefaultCredentials => match load_adc()? {
-                AdcContents::Contents(contents) => {
-                    Some(serde_json::from_str(&contents).map_err(errors::non_retryable)?)
-                }
-                AdcContents::FallbackToMds => None,
-            },
+    pub fn build(self) -> BuildResult<Credentials> {
+        let json_data = match load_adc()? {
+            AdcContents::Contents(contents) => {
+                Some(serde_json::from_str(&contents).map_err(BuilderError::parsing)?)
+            }
+            AdcContents::FallbackToMds => None,
         };
-        build_credentials(json_data, self.quota_project_id, self.scopes)
+        let quota_project_id = std::env::var(GOOGLE_CLOUD_QUOTA_PROJECT_VAR)
+            .ok()
+            .or(self.quota_project_id);
+        build_credentials(json_data, quota_project_id, self.scopes)
     }
 }
 
@@ -427,19 +424,11 @@ enum AdcContents {
     FallbackToMds,
 }
 
-fn extract_credential_type(json: &Value) -> Result<&str> {
+fn extract_credential_type(json: &Value) -> BuildResult<&str> {
     json.get("type")
-        .ok_or_else(|| {
-            errors::non_retryable_from_str(
-                "Failed to parse Credentials JSON. No `type` field found.",
-            )
-        })?
+        .ok_or_else(|| BuilderError::parsing("no `type` field found."))?
         .as_str()
-        .ok_or_else(|| {
-            errors::non_retryable_from_str(
-                "Failed to parse Credentials JSON. `type` field is not a string.",
-            )
-        })
+        .ok_or_else(|| BuilderError::parsing("`type` field is not a string."))
 }
 
 /// Applies common optional configurations (quota project ID, scopes) to a
@@ -450,13 +439,15 @@ fn extract_credential_type(json: &Value) -> Result<&str> {
 /// `mds::Builder`, `service_account::Builder`, etc.) before calling `.build()`.
 /// It helps avoid repetitive code in the `build_credentials` function.
 macro_rules! config_builder {
-    ($builder_instance:expr, $quota_project_id:expr, $scopes:expr) => {{
+    ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
         let builder = $builder_instance;
-        let builder = $quota_project_id
+        let builder = $quota_project_id_option
             .into_iter()
             .fold(builder, |b, qp| b.with_quota_project_id(qp));
 
-        let builder = $scopes.into_iter().fold(builder, |b, s| b.with_scopes(s));
+        let builder = $scopes_option
+            .into_iter()
+            .fold(builder, |b, s| $apply_scopes_closure(b, s));
 
         builder.build()
     }};
@@ -466,46 +457,75 @@ fn build_credentials(
     json: Option<Value>,
     quota_project_id: Option<String>,
     scopes: Option<Vec<String>>,
-) -> Result<Credentials> {
+) -> BuildResult<Credentials> {
     match json {
-        None => config_builder!(mds::Builder::default(), quota_project_id, scopes),
+        None => config_builder!(
+            mds::Builder::from_adc(),
+            quota_project_id,
+            scopes,
+            |b: mds::Builder, s: Vec<String>| b.with_scopes(s)
+        ),
         Some(json) => {
             let cred_type = extract_credential_type(&json)?;
             match cred_type {
                 "authorized_user" => {
-                    config_builder!(user_account::Builder::new(json), quota_project_id, scopes)
+                    config_builder!(
+                        user_account::Builder::new(json),
+                        quota_project_id,
+                        scopes,
+                        |b: user_account::Builder, s: Vec<String>| b.with_scopes(s)
+                    )
                 }
                 "service_account" => config_builder!(
                     service_account::Builder::new(json),
                     quota_project_id,
-                    scopes
+                    scopes,
+                    |b: service_account::Builder, s: Vec<String>| b
+                        .with_access_specifier(service_account::AccessSpecifier::from_scopes(s))
                 ),
-                _ => Err(errors::non_retryable_from_str(format!(
-                    "Invalid or unsupported credentials type found in JSON: {cred_type}"
-                ))),
+                "impersonated_service_account" => {
+                    config_builder!(
+                        impersonated::Builder::new(json),
+                        quota_project_id,
+                        scopes,
+                        |b: impersonated::Builder, s: Vec<String>| b.with_scopes(s)
+                    )
+                }
+                "external_account" => config_builder!(
+                    external_account::Builder::new(json),
+                    quota_project_id,
+                    scopes,
+                    |b: external_account::Builder, s: Vec<String>| b.with_scopes(s)
+                ),
+                _ => Err(BuilderError::unknown_type(cred_type)),
             }
         }
     }
 }
 
-fn path_not_found(path: String) -> CredentialsError {
-    errors::non_retryable_from_str(format!(
-        "Failed to load Application Default Credentials (ADC) from {path}. Check that the `GOOGLE_APPLICATION_CREDENTIALS` environment variable points to a valid file."
+fn path_not_found(path: String) -> BuilderError {
+    BuilderError::loading(format!(
+        "{path}. {}",
+        concat!(
+            "This file name was found in the `GOOGLE_APPLICATION_CREDENTIALS` ",
+            "environment variable. Verify this environment variable points to ",
+            "a valid file."
+        )
     ))
 }
 
-fn load_adc() -> Result<AdcContents> {
+fn load_adc() -> BuildResult<AdcContents> {
     match adc_path() {
         None => Ok(AdcContents::FallbackToMds),
         Some(AdcPath::FromEnv(path)) => match std::fs::read_to_string(&path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Err(path_not_found(path)),
-            Err(e) => Err(errors::non_retryable(e)),
+            Err(e) => Err(BuilderError::loading(e)),
         },
         Some(AdcPath::WellKnown(path)) => match std::fs::read_to_string(path) {
             Ok(contents) => Ok(AdcContents::Contents(contents)),
             Err(e) if e.kind() == std::io::ErrorKind::NotFound => Ok(AdcContents::FallbackToMds),
-            Err(e) => Err(errors::non_retryable(e)),
+            Err(e) => Err(BuilderError::loading(e)),
         },
     }
 }
@@ -551,12 +571,13 @@ fn adc_well_known_path() -> Option<String> {
 // Skipping mutation testing for this module. As it exclusively provides
 // hardcoded credential stubs for testing purposes.
 #[cfg_attr(test, mutants::skip)]
+#[doc(hidden)]
 pub mod testing {
+    use super::{CacheableResource, EntityTag};
     use crate::Result;
     use crate::credentials::Credentials;
     use crate::credentials::dynamic::CredentialsProvider;
-    use crate::token::Token;
-    use http::header::{HeaderName, HeaderValue};
+    use http::{Extensions, HeaderMap};
     use std::sync::Arc;
 
     /// A simple credentials implementation to use in tests where authentication does not matter.
@@ -573,17 +594,11 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for TestCredentials {
-        async fn token(&self) -> Result<Token> {
-            Ok(Token {
-                token: "test-only-token".to_string(),
-                token_type: "Bearer".to_string(),
-                expires_at: None,
-                metadata: None,
+        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::default(),
+                data: HeaderMap::new(),
             })
-        }
-
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            Ok(Vec::new())
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -593,7 +608,7 @@ pub mod testing {
 
     /// A simple credentials implementation to use in tests.
     ///
-    /// Always return an error in `token()` and `headers()`.
+    /// Always return an error in `headers()`.
     pub fn error_credentials(retryable: bool) -> Credentials {
         Credentials {
             inner: Arc::from(ErrorCredentials(retryable)),
@@ -605,12 +620,8 @@ pub mod testing {
 
     #[async_trait::async_trait]
     impl CredentialsProvider for ErrorCredentials {
-        async fn token(&self) -> Result<Token> {
-            Err(super::CredentialsError::from_str(self.0, "test-only"))
-        }
-
-        async fn headers(&self) -> Result<Vec<(HeaderName, HeaderValue)>> {
-            Err(super::CredentialsError::from_str(self.0, "test-only"))
+        async fn headers(&self, _extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
+            Err(super::CredentialsError::from_msg(self.0, "test-only"))
         }
 
         async fn universe_domain(&self) -> Option<String> {
@@ -620,54 +631,159 @@ pub mod testing {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use base64::Engine;
+    use gax::backoff_policy::BackoffPolicy;
+    use gax::retry_policy::RetryPolicy;
+    use gax::retry_result::RetryResult;
+    use gax::retry_throttler::RetryThrottler;
+    use mockall::mock;
+    use num_bigint_dig::BigUint;
+    use reqwest::header::AUTHORIZATION;
     use rsa::RsaPrivateKey;
     use rsa::pkcs8::{EncodePrivateKey, LineEnding};
     use scoped_env::ScopedEnv;
     use std::error::Error;
+    use std::sync::LazyLock;
     use test_case::test_case;
+    use tokio::time::Duration;
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
-
-    // Convenience struct for verifying (HeaderName, HeaderValue) pairs.
-    #[derive(Debug, Eq, Ord, PartialEq, PartialOrd)]
-    pub struct HV {
-        pub header: String,
-        pub value: String,
-        pub is_sensitive: bool,
-    }
-
-    impl HV {
-        pub fn from(headers: Vec<(HeaderName, HeaderValue)>) -> Vec<HV> {
-            let mut hvs: Vec<HV> = headers
-                .into_iter()
-                .map(|(h, v)| HV {
-                    header: h.to_string(),
-                    value: v.to_str().unwrap().to_string(),
-                    is_sensitive: v.is_sensitive(),
-                })
-                .collect();
-
-            // We want to verify the contents of the headers. We do not care
-            // what order they are in.
-            hvs.sort();
-            hvs
+    mock! {
+        #[derive(Debug)]
+        pub RetryPolicy {}
+        impl RetryPolicy for RetryPolicy {
+            fn on_error(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+                idempotent: bool,
+                error: gax::error::Error,
+            ) -> RetryResult;
         }
     }
 
-    fn generate_pkcs8_private_key() -> String {
-        let mut rng = rand::thread_rng();
-        let bits = 2048;
-        let priv_key = RsaPrivateKey::new(&mut rng, bits).expect("failed to generate a key");
-        priv_key
+    mock! {
+        #[derive(Debug)]
+        pub BackoffPolicy {}
+        impl BackoffPolicy for BackoffPolicy {
+            fn on_failure(
+                &self,
+                loop_start: std::time::Instant,
+                attempt_count: u32,
+            ) -> std::time::Duration;
+        }
+    }
+
+    mockall::mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+        impl RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, error: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    pub(crate) fn get_mock_auth_retry_policy(attempts: usize) -> MockRetryPolicy {
+        let mut retry_policy = MockRetryPolicy::new();
+        retry_policy
+            .expect_on_error()
+            .returning(move |_, attempt_count, _, error| {
+                if attempt_count >= attempts as u32 {
+                    return RetryResult::Exhausted(error);
+                }
+                let is_transient = error
+                    .source()
+                    .and_then(|e| e.downcast_ref::<CredentialsError>())
+                    .is_some_and(|ce| ce.is_transient());
+                if is_transient {
+                    RetryResult::Continue(error)
+                } else {
+                    RetryResult::Permanent(error)
+                }
+            });
+        retry_policy
+    }
+
+    pub(crate) fn get_mock_backoff_policy() -> MockBackoffPolicy {
+        let mut backoff_policy = MockBackoffPolicy::new();
+        backoff_policy
+            .expect_on_failure()
+            .return_const(Duration::from_secs(0));
+        backoff_policy
+    }
+
+    pub(crate) fn get_mock_retry_throttler() -> MockRetryThrottler {
+        let mut throttler = MockRetryThrottler::new();
+        throttler.expect_on_retry_failure().return_const(());
+        throttler
+            .expect_throttle_retry_attempt()
+            .return_const(false);
+        throttler.expect_on_success().return_const(());
+        throttler
+    }
+
+    pub(crate) fn get_headers_from_cache(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Result<HeaderMap> {
+        match headers {
+            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::NotModified => Err(CredentialsError::from_msg(
+                false,
+                "Expecting headers to be present",
+            )),
+        }
+    }
+
+    pub(crate) fn get_token_from_headers(headers: CacheableResource<HeaderMap>) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .and_then(|s| s.split_whitespace().nth(1))
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
+    }
+
+    pub(crate) fn get_token_type_from_headers(
+        headers: CacheableResource<HeaderMap>,
+    ) -> Option<String> {
+        match headers {
+            CacheableResource::New { data, .. } => data
+                .get(AUTHORIZATION)
+                .and_then(|token_value| token_value.to_str().ok())
+                .and_then(|s| s.split_whitespace().next())
+                .map(|s| s.to_string()),
+            CacheableResource::NotModified => None,
+        }
+    }
+
+    pub static RSA_PRIVATE_KEY: LazyLock<RsaPrivateKey> = LazyLock::new(|| {
+        let p_str: &str = "141367881524527794394893355677826002829869068195396267579403819572502936761383874443619453704612633353803671595972343528718438130450055151198231345212263093247511629886734453413988207866331439612464122904648042654465604881130663408340669956544709445155137282157402427763452856646879397237752891502149781819597";
+        let q_str: &str = "179395413952110013801471600075409598322058038890563483332288896635704255883613060744402506322679437982046475766067250097809676406576067239936945362857700460740092421061356861438909617220234758121022105150630083703531219941303688818533566528599328339894969707615478438750812672509434761181735933851075292740309";
+        let e_str: &str = "65537";
+
+        let p = BigUint::parse_bytes(p_str.as_bytes(), 10).expect("Failed to parse prime P");
+        let q = BigUint::parse_bytes(q_str.as_bytes(), 10).expect("Failed to parse prime Q");
+        let public_exponent =
+            BigUint::parse_bytes(e_str.as_bytes(), 10).expect("Failed to parse public exponent");
+
+        RsaPrivateKey::from_primes(vec![p, q], public_exponent)
+            .expect("Failed to create RsaPrivateKey from primes")
+    });
+
+    pub static PKCS8_PK: LazyLock<String> = LazyLock::new(|| {
+        RSA_PRIVATE_KEY
             .to_pkcs8_pem(LineEnding::LF)
             .expect("Failed to encode key to PKCS#8 PEM")
             .to_string()
-    }
+    });
 
-    fn b64_decode_to_json(s: String) -> serde_json::Value {
+    pub fn b64_decode_to_json(s: String) -> serde_json::Value {
         let decoded = String::from_utf8(
             base64::engine::general_purpose::URL_SAFE_NO_PAD
                 .decode(s)
@@ -773,11 +889,11 @@ mod test {
     #[serial_test::serial]
     fn load_adc_no_file_at_env_is_error() {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", "file-does-not-exist.json");
-        let err = load_adc().err().unwrap();
-        let msg = err.source().unwrap().to_string();
-        assert!(msg.contains("Failed to load Application Default Credentials"));
-        assert!(msg.contains("file-does-not-exist.json"));
-        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"));
+        let err = load_adc().unwrap_err();
+        assert!(err.is_loading(), "{err:?}");
+        let msg = format!("{err:?}");
+        assert!(msg.contains("file-does-not-exist.json"), "{err:?}");
+        assert!(msg.contains("GOOGLE_APPLICATION_CREDENTIALS"), "{err:?}");
     }
 
     #[test]
@@ -803,30 +919,55 @@ mod test {
             credentials.universe_domain().await.is_none(),
             "{credentials:?}"
         );
-        let err = credentials.token().await.err().unwrap();
-        assert_eq!(err.is_retryable(), retryable, "{err:?}");
-        let err = credentials.headers().await.err().unwrap();
-        assert_eq!(err.is_retryable(), retryable, "{err:?}");
+        let err = credentials.headers(Extensions::new()).await.err().unwrap();
+        assert_eq!(err.is_transient(), retryable, "{err:?}");
+        let err = credentials.headers(Extensions::new()).await.err().unwrap();
+        assert_eq!(err.is_transient(), retryable, "{err:?}");
     }
 
     #[tokio::test]
     #[serial_test::serial]
-    async fn create_access_token_credentials_fallback_to_mds_with_quota_project() {
+    async fn create_access_token_credentials_fallback_to_mds_with_quota_project_override() {
         let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
         let _e2 = ScopedEnv::remove("HOME"); // For posix
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4 = ScopedEnv::set(GOOGLE_CLOUD_QUOTA_PROJECT_VAR, "env-quota-project");
 
         let mds = Builder::default()
             .with_quota_project_id("test-quota-project")
             .build()
             .unwrap();
-        let fmt = format!("{:?}", mds);
+        let fmt = format!("{mds:?}");
         assert!(fmt.contains("MDSCredentials"));
-        assert!(fmt.contains("test-quota-project"));
+        assert!(
+            fmt.contains("env-quota-project"),
+            "Expected 'env-quota-project', got: {fmt}"
+        );
     }
 
     #[tokio::test]
+    #[serial_test::serial]
+    async fn create_access_token_credentials_with_quota_project_from_builder() {
+        let _e1 = ScopedEnv::remove("GOOGLE_APPLICATION_CREDENTIALS");
+        let _e2 = ScopedEnv::remove("HOME"); // For posix
+        let _e3 = ScopedEnv::remove("APPDATA"); // For windows
+        let _e4 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
+
+        let creds = Builder::default()
+            .with_quota_project_id("test-quota-project")
+            .build()
+            .unwrap();
+        let fmt = format!("{creds:?}");
+        assert!(
+            fmt.contains("test-quota-project"),
+            "Expected 'test-quota-project', got: {fmt}"
+        );
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
     async fn create_access_token_service_account_credentials_with_scopes() -> TestResult {
+        let _e1 = ScopedEnv::remove(GOOGLE_CLOUD_QUOTA_PROJECT_VAR);
         let mut service_account_key = serde_json::json!({
             "type": "service_account",
             "project_id": "test-project-id",
@@ -839,20 +980,27 @@ mod test {
         let scopes =
             ["https://www.googleapis.com/auth/pubsub, https://www.googleapis.com/auth/translate"];
 
-        service_account_key["private_key"] = Value::from(generate_pkcs8_private_key());
+        service_account_key["private_key"] = Value::from(PKCS8_PK.clone());
 
-        let sac = Builder::new(service_account_key)
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, service_account_key.to_string())
+            .expect("Unable to write to temporary file.");
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let sac = Builder::default()
             .with_quota_project_id("test-quota-project")
             .with_scopes(scopes)
             .build()
             .unwrap();
 
-        let token = sac.token().await?;
-        let parts: Vec<_> = token.token.split('.').collect();
+        let headers = sac.headers(Extensions::new()).await?;
+        let token = get_token_from_headers(headers).unwrap();
+        let parts: Vec<_> = token.split('.').collect();
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
 
-        let fmt = format!("{:?}", sac);
+        let fmt = format!("{sac:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains("test-quota-project"));
         assert_eq!(claims["scope"], scopes.join(" "));

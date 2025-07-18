@@ -20,9 +20,24 @@
 //! [BackoffPolicy]: crate::backoff_policy::BackoffPolicy
 //! [PollingBackoffPolicy]: crate::polling_backoff_policy::PollingBackoffPolicy
 
-use crate::Result;
-use crate::error::Error;
 use std::time::Duration;
+
+/// The error type for exponential backoff creation.
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum Error {
+    #[error("the scaling value ({0}) should be >= 1.0")]
+    InvalidScalingFactor(f64),
+    #[error("the initial delay ({0:?}) should be greater than zero")]
+    InvalidInitialDelay(Duration),
+    #[error(
+        "the maximum delay ({maximum:?}) should be greater than or equal to the initial delay ({initial:?})"
+    )]
+    EmptyRange {
+        maximum: Duration,
+        initial: Duration,
+    },
+}
 
 /// Implements truncated exponential backoff with jitter.
 #[derive(Clone, Debug)]
@@ -37,8 +52,8 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
-    /// # use google_cloud_gax::exponential_backoff::*;
+    /// # use google_cloud_gax::exponential_backoff::Error;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
     /// use std::time::Duration;
     ///
     /// let policy = ExponentialBackoffBuilder::new()
@@ -46,7 +61,7 @@ impl ExponentialBackoffBuilder {
     ///         .with_maximum_delay(Duration::from_secs(5))
     ///         .with_scaling(4.0)
     ///         .build()?;
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
     pub fn new() -> Self {
         Self {
@@ -78,9 +93,9 @@ impl ExponentialBackoffBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::*;
-    /// # use exponential_backoff::*;
-    /// # use backoff_policy::BackoffPolicy;
+    /// # use google_cloud_gax::exponential_backoff::Error;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// # use google_cloud_gax::backoff_policy::BackoffPolicy;
     /// use std::time::Duration;
     /// use std::time::Instant;
     /// let backoff = ExponentialBackoffBuilder::new()
@@ -92,11 +107,20 @@ impl ExponentialBackoffBuilder {
     /// assert!(p <= Duration::from_secs(5));
     /// let p = backoff.on_failure(Instant::now(), 2);
     /// assert!(p <= Duration::from_secs(10));
-    /// # Ok::<(), error::Error>(())
+    /// # Ok::<(), Error>(())
     /// ```
-    pub fn build(self) -> Result<ExponentialBackoff> {
-        if let Some(error) = self.validate() {
-            return Err(error);
+    pub fn build(self) -> Result<ExponentialBackoff, Error> {
+        if self.scaling < 1.0 {
+            return Err(Error::InvalidScalingFactor(self.scaling));
+        }
+        if self.initial_delay.is_zero() {
+            return Err(Error::InvalidInitialDelay(self.initial_delay));
+        }
+        if self.maximum_delay < self.initial_delay {
+            return Err(Error::EmptyRange {
+                maximum: self.maximum_delay,
+                initial: self.initial_delay,
+            });
         }
         Ok(ExponentialBackoff {
             maximum_delay: self.maximum_delay,
@@ -124,13 +148,12 @@ impl ExponentialBackoffBuilder {
     /// # Example
     /// ```
     /// # use google_cloud_gax::*;
-    /// # use exponential_backoff::*;
-    /// use backoff_policy::BackoffPolicy;
+    /// # use google_cloud_gax::exponential_backoff::ExponentialBackoffBuilder;
+    /// # use google_cloud_gax::backoff_policy::BackoffPolicy;
     /// use std::time::Duration;
     /// use std::time::Instant;
     /// let mut backoff = ExponentialBackoffBuilder::new().clamp();
     /// assert!(backoff.on_failure(Instant::now(), 1) > Duration::ZERO);
-    /// # Ok::<(), error::Error>(())
     /// ```
     pub fn clamp(self) -> ExponentialBackoff {
         let scaling = self.scaling.clamp(1.0, 32.0);
@@ -145,28 +168,6 @@ impl ExponentialBackoffBuilder {
             maximum_delay,
             scaling,
         }
-    }
-
-    fn validate(&self) -> Option<Error> {
-        if self.scaling < 1.0 {
-            return Some(Error::other(format!(
-                "scaling ({}) must be >= 1.0",
-                self.scaling
-            )));
-        }
-        if self.initial_delay.is_zero() {
-            return Some(Error::other(format!(
-                "initial delay must be greater than zero, got={:?}",
-                self.initial_delay
-            )));
-        }
-        if self.maximum_delay < self.initial_delay {
-            return Some(Error::other(format!(
-                "maximum delay ({:?} must be greater or equal to the initial delay ({:?})",
-                self.maximum_delay, self.initial_delay
-            )));
-        }
-        None
     }
 }
 
@@ -243,66 +244,74 @@ impl crate::backoff_policy::BackoffPolicy for ExponentialBackoff {
 #[cfg(test)]
 mod tests {
     use super::*;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
-    fn exponential_build_errors() -> TestResult {
+    fn exponential_build_errors() {
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::ZERO)
             .with_maximum_delay(Duration::from_secs(5))
             .build();
-        assert!(b.is_err(), "{b:?}");
+        assert!(matches!(b, Err(Error::InvalidInitialDelay(_))), "{b:?}");
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(10))
             .with_maximum_delay(Duration::from_secs(5))
             .build();
-        assert!(b.is_err(), "{b:?}");
+        assert!(matches!(b, Err(Error::EmptyRange { .. })), "{b:?}");
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(60))
             .with_scaling(-1.0)
             .build();
-        assert!(b.is_err(), "{b:?}");
+        assert!(
+            matches!(b, Err(Error::InvalidScalingFactor { .. })),
+            "{b:?}"
+        );
+
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(60))
             .with_scaling(0.0)
             .build();
-        assert!(b.is_err(), "{b:?}");
+        assert!(
+            matches!(b, Err(Error::InvalidScalingFactor { .. })),
+            "{b:?}"
+        );
 
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::ZERO)
             .build();
-        assert!(b.is_err(), "{b:?}");
-        Ok(())
+        assert!(matches!(b, Err(Error::InvalidInitialDelay { .. })), "{b:?}");
     }
 
     #[test]
-    fn exponential_build_limits() -> TestResult {
-        let _ = ExponentialBackoffBuilder::new()
+    fn exponential_build_limits() {
+        let r = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::MAX)
-            .build()?;
+            .build();
+        assert!(r.is_ok(), "{r:?}");
 
-        let _ = ExponentialBackoffBuilder::new()
+        let r = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_nanos(1))
             .with_maximum_delay(Duration::MAX)
-            .build()?;
+            .build();
+        assert!(r.is_ok(), "{r:?}");
 
-        let _ = ExponentialBackoffBuilder::new()
+        let r = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_nanos(1))
             .with_maximum_delay(Duration::MAX)
             .with_scaling(1.0)
-            .build()?;
-        Ok(())
+            .build();
+        assert!(r.is_ok(), "{r:?}");
     }
 
     #[test]
-    fn exponential_builder_defaults() -> TestResult {
-        let _ = ExponentialBackoffBuilder::new().build()?;
-        let _ = ExponentialBackoffBuilder::default().build()?;
-        Ok(())
+    fn exponential_builder_defaults() {
+        let r = ExponentialBackoffBuilder::new().build();
+        assert!(r.is_ok(), "{r:?}");
+        let r = ExponentialBackoffBuilder::default().build();
+        assert!(r.is_ok(), "{r:?}");
     }
 
     #[test_case::test_case(Duration::from_secs(1), Duration::MAX, 0.5; "scaling below range")]
@@ -312,7 +321,7 @@ mod tests {
     #[test_case::test_case(Duration::from_secs(1), Duration::ZERO, 8.0; "max below range")]
     #[test_case::test_case(Duration::from_secs(10), Duration::ZERO, 8.0; "init over range")]
     #[test_case::test_case(Duration::ZERO, Duration::ZERO, 8.0; "init below range")]
-    fn exponential_clamp(init: Duration, max: Duration, scaling: f64) -> TestResult {
+    fn exponential_clamp(init: Duration, max: Duration, scaling: f64) {
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(init)
             .with_maximum_delay(max)
@@ -329,15 +338,15 @@ mod tests {
                 .clamp(b.initial_delay, Duration::from_secs(24 * 60 * 60)),
             b.maximum_delay
         );
-        Ok(())
     }
 
     #[test]
-    fn exponential_full_jitter() -> TestResult {
+    fn exponential_full_jitter() {
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(10))
             .with_maximum_delay(Duration::from_secs(10))
-            .build()?;
+            .build()
+            .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
         let mut rng = rand::rngs::mock::StepRng::new(1, 0);
@@ -354,51 +363,49 @@ mod tests {
             b.delay_with_jitter(now, 3, &mut rng),
             Duration::from_secs(10)
         );
-        Ok(())
     }
 
     #[test]
-    fn exponential_scaling() -> TestResult {
+    fn exponential_scaling() {
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(4))
             .with_scaling(2.0)
-            .build()?;
+            .build()
+            .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
         assert_eq!(b.delay(now, 1), Duration::from_secs(1));
         assert_eq!(b.delay(now, 2), Duration::from_secs(2));
         assert_eq!(b.delay(now, 3), Duration::from_secs(4));
         assert_eq!(b.delay(now, 4), Duration::from_secs(4));
-
-        Ok(())
     }
 
     #[test]
-    fn wait_period() -> TestResult {
+    fn wait_period() {
         use crate::polling_backoff_policy::PollingBackoffPolicy;
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(4))
             .with_scaling(2.0)
-            .build()?;
+            .build()
+            .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
         assert_eq!(b.wait_period(now, 1), Duration::from_secs(1));
         assert_eq!(b.wait_period(now, 2), Duration::from_secs(2));
         assert_eq!(b.wait_period(now, 3), Duration::from_secs(4));
         assert_eq!(b.wait_period(now, 4), Duration::from_secs(4));
-
-        Ok(())
     }
 
     #[test]
-    fn exponential_scaling_jitter() -> TestResult {
+    fn exponential_scaling_jitter() {
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(4))
             .with_scaling(2.0)
-            .build()?;
+            .build()
+            .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
         let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
@@ -424,18 +431,17 @@ mod tests {
             b.delay_with_jitter(now, 4, &mut rng),
             Duration::from_secs(4)
         );
-
-        Ok(())
     }
 
     #[test]
-    fn on_failure() -> TestResult {
+    fn on_failure() {
         use crate::backoff_policy::BackoffPolicy;
         let b = ExponentialBackoffBuilder::new()
             .with_initial_delay(Duration::from_secs(1))
             .with_maximum_delay(Duration::from_secs(4))
             .with_scaling(2.0)
-            .build()?;
+            .build()
+            .expect("should succeed with the hard-coded test values");
 
         let now = std::time::Instant::now();
         let d = b.on_failure(now, 1);
@@ -448,12 +454,10 @@ mod tests {
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(4), "{d:?}");
         let d = b.on_failure(now, 5);
         assert!(Duration::ZERO <= d && d <= Duration::from_secs(4), "{d:?}");
-
-        Ok(())
     }
 
     #[test]
-    fn default() -> TestResult {
+    fn default() {
         let b = ExponentialBackoff::default();
 
         let now = std::time::Instant::now();
@@ -466,7 +470,5 @@ mod tests {
 
         let mut rng = rand::rngs::mock::StepRng::new(u64::MAX, 0);
         assert_eq!(b.delay_with_jitter(now, 3, &mut rng), next);
-
-        Ok(())
     }
 }

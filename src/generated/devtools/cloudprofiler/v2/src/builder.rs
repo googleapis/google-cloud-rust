@@ -16,9 +16,8 @@
 
 pub mod profiler_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ProfilerService][super::super::client::ProfilerService].
+    /// A builder for [ProfilerService][crate::client::ProfilerService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod profiler_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudprofiler.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod profiler_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ProfilerService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ProfilerService] request builders.
+    /// Common implementation for [crate::client::ProfilerService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod profiler_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for [ProfilerService::create_profile][super::super::client::ProfilerService::create_profile] calls.
+    /// The request builder for [ProfilerService::create_profile][crate::client::ProfilerService::create_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::profiler_service::CreateProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProfile(RequestBuilder<crate::model::CreateProfileRequest>);
 
     impl CreateProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -103,11 +125,20 @@ pub mod profiler_service {
         }
 
         /// Sets the value of [deployment][crate::model::CreateProfileRequest::deployment].
-        pub fn set_deployment<T: Into<std::option::Option<crate::model::Deployment>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.deployment = v.into();
+        pub fn set_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deployment][crate::model::CreateProfileRequest::deployment].
+        pub fn set_or_clear_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Deployment>,
+        {
+            self.0.request.deployment = v.map(|x| x.into());
             self
         }
 
@@ -130,12 +161,30 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for [ProfilerService::create_offline_profile][super::super::client::ProfilerService::create_offline_profile] calls.
+    /// The request builder for [ProfilerService::create_offline_profile][crate::client::ProfilerService::create_offline_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::profiler_service::CreateOfflineProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateOfflineProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOfflineProfile(RequestBuilder<crate::model::CreateOfflineProfileRequest>);
 
     impl CreateOfflineProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -169,11 +218,20 @@ pub mod profiler_service {
         }
 
         /// Sets the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
-        pub fn set_profile<T: Into<std::option::Option<crate::model::Profile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.profile = v.into();
+        pub fn set_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [profile][crate::model::CreateOfflineProfileRequest::profile].
+        pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = v.map(|x| x.into());
             self
         }
     }
@@ -185,12 +243,30 @@ pub mod profiler_service {
         }
     }
 
-    /// The request builder for [ProfilerService::update_profile][super::super::client::ProfilerService::update_profile] calls.
+    /// The request builder for [ProfilerService::update_profile][crate::client::ProfilerService::update_profile] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::profiler_service::UpdateProfile;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProfile {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProfile(RequestBuilder<crate::model::UpdateProfileRequest>);
 
     impl UpdateProfile {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ProfilerService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ProfilerService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -215,20 +291,38 @@ pub mod profiler_service {
         }
 
         /// Sets the value of [profile][crate::model::UpdateProfileRequest::profile].
-        pub fn set_profile<T: Into<std::option::Option<crate::model::Profile>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.profile = v.into();
+        pub fn set_profile<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [profile][crate::model::UpdateProfileRequest::profile].
+        pub fn set_or_clear_profile<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Profile>,
+        {
+            self.0.request.profile = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProfileRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -243,9 +337,8 @@ pub mod profiler_service {
 
 pub mod export_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ExportService][super::super::client::ExportService].
+    /// A builder for [ExportService][crate::client::ExportService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -256,7 +349,7 @@ pub mod export_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudprofiler.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -267,16 +360,19 @@ pub mod export_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ExportService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ExportService] request builders.
+    /// Common implementation for [crate::client::ExportService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ExportService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -285,7 +381,9 @@ pub mod export_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ExportService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -294,12 +392,34 @@ pub mod export_service {
         }
     }
 
-    /// The request builder for [ExportService::list_profiles][super::super::client::ExportService::list_profiles] calls.
+    /// The request builder for [ExportService::list_profiles][crate::client::ExportService::list_profiles] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_profiler_v2::builder;
+    /// use builder::export_service::ListProfiles;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProfiles {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProfiles(RequestBuilder<crate::model::ListProfilesRequest>);
 
     impl ListProfiles {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ExportService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ExportService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,8 +443,8 @@ pub mod export_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListProfilesResponse, gax::error::Error>
         {
@@ -336,6 +456,15 @@ pub mod export_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListProfilesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProfilesRequest::parent].

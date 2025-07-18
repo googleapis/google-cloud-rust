@@ -16,9 +16,8 @@
 
 pub mod policy_bindings {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [PolicyBindings][super::super::client::PolicyBindings].
+    /// A builder for [PolicyBindings][crate::client::PolicyBindings].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod policy_bindings {
     /// let client = builder
     ///     .with_endpoint("https://iam.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod policy_bindings {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PolicyBindings;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::PolicyBindings] request builders.
+    /// Common implementation for [crate::client::PolicyBindings] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod policy_bindings {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::create_policy_binding][super::super::client::PolicyBindings::create_policy_binding] calls.
+    /// The request builder for [PolicyBindings::create_policy_binding][crate::client::PolicyBindings::create_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::CreatePolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePolicyBinding(RequestBuilder<crate::model::CreatePolicyBindingRequest>);
 
     impl CreatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,7 +119,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_policy_binding][super::super::client::PolicyBindings::create_policy_binding].
+        /// on [create_policy_binding][crate::client::PolicyBindings::create_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_policy_binding(self.0.request, self.0.options)
@@ -109,8 +132,10 @@ pub mod policy_bindings {
             self,
         ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -135,7 +160,7 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePolicyBindingRequest::parent].
@@ -157,11 +182,22 @@ pub mod policy_bindings {
         /// Sets the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy_binding<T: Into<std::option::Option<crate::model::PolicyBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_binding = v.into();
+        pub fn set_policy_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_binding][crate::model::CreatePolicyBindingRequest::policy_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = v.map(|x| x.into());
             self
         }
 
@@ -179,12 +215,30 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::get_policy_binding][super::super::client::PolicyBindings::get_policy_binding] calls.
+    /// The request builder for [PolicyBindings::get_policy_binding][crate::client::PolicyBindings::get_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::GetPolicyBinding;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPolicyBinding(RequestBuilder<crate::model::GetPolicyBindingRequest>);
 
     impl GetPolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -227,12 +281,31 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::update_policy_binding][super::super::client::PolicyBindings::update_policy_binding] calls.
+    /// The request builder for [PolicyBindings::update_policy_binding][crate::client::PolicyBindings::update_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::UpdatePolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePolicyBinding(RequestBuilder<crate::model::UpdatePolicyBindingRequest>);
 
     impl UpdatePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -256,7 +329,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_policy_binding][super::super::client::PolicyBindings::update_policy_binding].
+        /// on [update_policy_binding][crate::client::PolicyBindings::update_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_policy_binding(self.0.request, self.0.options)
@@ -269,8 +342,10 @@ pub mod policy_bindings {
             self,
         ) -> impl lro::Poller<crate::model::PolicyBinding, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PolicyBinding, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PolicyBinding,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -295,17 +370,28 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy_binding<T: Into<std::option::Option<crate::model::PolicyBinding>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy_binding = v.into();
+        pub fn set_policy_binding<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy_binding][crate::model::UpdatePolicyBindingRequest::policy_binding].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy_binding<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PolicyBinding>,
+        {
+            self.0.request.policy_binding = v.map(|x| x.into());
             self
         }
 
@@ -316,11 +402,20 @@ pub mod policy_bindings {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePolicyBindingRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -332,12 +427,31 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding] calls.
+    /// The request builder for [PolicyBindings::delete_policy_binding][crate::client::PolicyBindings::delete_policy_binding] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::DeletePolicyBinding;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePolicyBinding {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePolicyBinding(RequestBuilder<crate::model::DeletePolicyBindingRequest>);
 
     impl DeletePolicyBinding {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -361,7 +475,7 @@ pub mod policy_bindings {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_policy_binding][super::super::client::PolicyBindings::delete_policy_binding].
+        /// on [delete_policy_binding][crate::client::PolicyBindings::delete_policy_binding].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_policy_binding(self.0.request, self.0.options)
@@ -370,8 +484,8 @@ pub mod policy_bindings {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_policy_binding`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -396,7 +510,12 @@ pub mod policy_bindings {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePolicyBindingRequest::name].
@@ -427,12 +546,34 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::list_policy_bindings][super::super::client::PolicyBindings::list_policy_bindings] calls.
+    /// The request builder for [PolicyBindings::list_policy_bindings][crate::client::PolicyBindings::list_policy_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::ListPolicyBindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPolicyBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPolicyBindings(RequestBuilder<crate::model::ListPolicyBindingsRequest>);
 
     impl ListPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -459,8 +600,8 @@ pub mod policy_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPolicyBindingsResponse, gax::error::Error>
         {
@@ -472,6 +613,17 @@ pub mod policy_bindings {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPolicyBindingsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPolicyBindingsRequest::parent].
@@ -508,14 +660,36 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::search_target_policy_bindings][super::super::client::PolicyBindings::search_target_policy_bindings] calls.
+    /// The request builder for [PolicyBindings::search_target_policy_bindings][crate::client::PolicyBindings::search_target_policy_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::SearchTargetPolicyBindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchTargetPolicyBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchTargetPolicyBindings(
         RequestBuilder<crate::model::SearchTargetPolicyBindingsRequest>,
     );
 
     impl SearchTargetPolicyBindings {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -542,8 +716,8 @@ pub mod policy_bindings {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchTargetPolicyBindingsResponse,
@@ -557,6 +731,17 @@ pub mod policy_bindings {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchTargetPolicyBindingsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [target][crate::model::SearchTargetPolicyBindingsRequest::target].
@@ -595,12 +780,30 @@ pub mod policy_bindings {
         }
     }
 
-    /// The request builder for [PolicyBindings::get_operation][super::super::client::PolicyBindings::get_operation] calls.
+    /// The request builder for [PolicyBindings::get_operation][crate::client::PolicyBindings::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::policy_bindings::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::PolicyBindings>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PolicyBindings>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -644,9 +847,8 @@ pub mod policy_bindings {
 
 pub mod principal_access_boundary_policies {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [PrincipalAccessBoundaryPolicies][super::super::client::PrincipalAccessBoundaryPolicies].
+    /// A builder for [PrincipalAccessBoundaryPolicies][crate::client::PrincipalAccessBoundaryPolicies].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -657,7 +859,7 @@ pub mod principal_access_boundary_policies {
     /// let client = builder
     ///     .with_endpoint("https://iam.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -668,16 +870,19 @@ pub mod principal_access_boundary_policies {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PrincipalAccessBoundaryPolicies;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::PrincipalAccessBoundaryPolicies] request builders.
+    /// Common implementation for [crate::client::PrincipalAccessBoundaryPolicies] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -687,7 +892,7 @@ pub mod principal_access_boundary_policies {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self {
                 stub,
@@ -697,7 +902,24 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::CreatePrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::CreatePrincipalAccessBoundaryPolicyRequest>,
@@ -705,7 +927,7 @@ pub mod principal_access_boundary_policies {
 
     impl CreatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -730,7 +952,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
+        /// on [create_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::create_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -743,7 +965,7 @@ pub mod principal_access_boundary_policies {
             self,
         ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -771,7 +993,7 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::parent].
@@ -796,13 +1018,25 @@ pub mod principal_access_boundary_policies {
         /// Sets the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal_access_boundary_policy<
-            T: Into<std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>>,
-        >(
+        pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [principal_access_boundary_policy][crate::model::CreatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_principal_access_boundary_policy<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.principal_access_boundary_policy = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = v.map(|x| x.into());
             self
         }
 
@@ -820,7 +1054,23 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::get_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::GetPrincipalAccessBoundaryPolicyRequest>,
@@ -828,7 +1078,7 @@ pub mod principal_access_boundary_policies {
 
     impl GetPrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -872,7 +1122,24 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::UpdatePrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::UpdatePrincipalAccessBoundaryPolicyRequest>,
@@ -880,7 +1147,7 @@ pub mod principal_access_boundary_policies {
 
     impl UpdatePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -905,7 +1172,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
+        /// on [update_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::update_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -918,7 +1185,7 @@ pub mod principal_access_boundary_policies {
             self,
         ) -> impl lro::Poller<crate::model::PrincipalAccessBoundaryPolicy, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::PrincipalAccessBoundaryPolicy,
                 crate::model::OperationMetadata,
             >;
@@ -946,19 +1213,31 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_principal_access_boundary_policy<
-            T: Into<std::option::Option<crate::model::PrincipalAccessBoundaryPolicy>>,
-        >(
+        pub fn set_principal_access_boundary_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [principal_access_boundary_policy][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::principal_access_boundary_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_principal_access_boundary_policy<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.principal_access_boundary_policy = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::PrincipalAccessBoundaryPolicy>,
+        {
+            self.0.request.principal_access_boundary_policy = v.map(|x| x.into());
             self
         }
 
@@ -969,11 +1248,20 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePrincipalAccessBoundaryPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -985,7 +1273,24 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::DeletePrincipalAccessBoundaryPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePrincipalAccessBoundaryPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePrincipalAccessBoundaryPolicy(
         RequestBuilder<crate::model::DeletePrincipalAccessBoundaryPolicyRequest>,
@@ -993,7 +1298,7 @@ pub mod principal_access_boundary_policies {
 
     impl DeletePrincipalAccessBoundaryPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1018,7 +1323,7 @@ pub mod principal_access_boundary_policies {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_principal_access_boundary_policy][super::super::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
+        /// on [delete_principal_access_boundary_policy][crate::client::PrincipalAccessBoundaryPolicies::delete_principal_access_boundary_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_principal_access_boundary_policy(self.0.request, self.0.options)
@@ -1027,8 +1332,8 @@ pub mod principal_access_boundary_policies {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_principal_access_boundary_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1053,7 +1358,12 @@ pub mod principal_access_boundary_policies {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePrincipalAccessBoundaryPolicyRequest::name].
@@ -1090,7 +1400,27 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies][super::super::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies][crate::client::PrincipalAccessBoundaryPolicies::list_principal_access_boundary_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::ListPrincipalAccessBoundaryPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPrincipalAccessBoundaryPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPrincipalAccessBoundaryPolicies(
         RequestBuilder<crate::model::ListPrincipalAccessBoundaryPoliciesRequest>,
@@ -1098,7 +1428,7 @@ pub mod principal_access_boundary_policies {
 
     impl ListPrincipalAccessBoundaryPolicies {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1128,8 +1458,8 @@ pub mod principal_access_boundary_policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
@@ -1143,6 +1473,17 @@ pub mod principal_access_boundary_policies {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPrincipalAccessBoundaryPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPrincipalAccessBoundaryPoliciesRequest::parent].
@@ -1173,7 +1514,27 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings][super::super::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings][crate::client::PrincipalAccessBoundaryPolicies::search_principal_access_boundary_policy_bindings] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::SearchPrincipalAccessBoundaryPolicyBindings;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SearchPrincipalAccessBoundaryPolicyBindings {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SearchPrincipalAccessBoundaryPolicyBindings(
         RequestBuilder<crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest>,
@@ -1181,7 +1542,7 @@ pub mod principal_access_boundary_policies {
 
     impl SearchPrincipalAccessBoundaryPolicyBindings {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1213,8 +1574,8 @@ pub mod principal_access_boundary_policies {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
@@ -1228,6 +1589,17 @@ pub mod principal_access_boundary_policies {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::SearchPrincipalAccessBoundaryPolicyBindingsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::SearchPrincipalAccessBoundaryPolicyBindingsRequest::name].
@@ -1258,13 +1630,29 @@ pub mod principal_access_boundary_policies {
         }
     }
 
-    /// The request builder for [PrincipalAccessBoundaryPolicies::get_operation][super::super::client::PrincipalAccessBoundaryPolicies::get_operation] calls.
+    /// The request builder for [PrincipalAccessBoundaryPolicies::get_operation][crate::client::PrincipalAccessBoundaryPolicies::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_iam_v3::builder;
+    /// use builder::principal_access_boundary_policies::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::PrincipalAccessBoundaryPolicies>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

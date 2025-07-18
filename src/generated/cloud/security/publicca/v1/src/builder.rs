@@ -16,9 +16,8 @@
 
 pub mod public_certificate_authority_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [PublicCertificateAuthorityService][super::super::client::PublicCertificateAuthorityService].
+    /// A builder for [PublicCertificateAuthorityService][crate::client::PublicCertificateAuthorityService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod public_certificate_authority_service {
     /// let client = builder
     ///     .with_endpoint("https://publicca.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod public_certificate_authority_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = PublicCertificateAuthorityService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::PublicCertificateAuthorityService] request builders.
+    /// Common implementation for [crate::client::PublicCertificateAuthorityService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,9 @@ pub mod public_certificate_authority_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::PublicCertificateAuthorityService,
+            >,
         ) -> Self {
             Self {
                 stub,
@@ -69,7 +73,23 @@ pub mod public_certificate_authority_service {
         }
     }
 
-    /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][super::super::client::PublicCertificateAuthorityService::create_external_account_key] calls.
+    /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][crate::client::PublicCertificateAuthorityService::create_external_account_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_security_publicca_v1::builder;
+    /// use builder::public_certificate_authority_service::CreateExternalAccountKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExternalAccountKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExternalAccountKey(
         RequestBuilder<crate::model::CreateExternalAccountKeyRequest>,
@@ -77,7 +97,9 @@ pub mod public_certificate_authority_service {
 
     impl CreateExternalAccountKey {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::PublicCertificateAuthorityService>,
+            stub: std::sync::Arc<
+                dyn super::super::stub::dynamic::PublicCertificateAuthorityService,
+            >,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -116,13 +138,22 @@ pub mod public_certificate_authority_service {
         /// Sets the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_external_account_key<
-            T: Into<std::option::Option<crate::model::ExternalAccountKey>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.external_account_key = v.into();
+        pub fn set_external_account_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        {
+            self.0.request.external_account_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [external_account_key][crate::model::CreateExternalAccountKeyRequest::external_account_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_external_account_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExternalAccountKey>,
+        {
+            self.0.request.external_account_key = v.map(|x| x.into());
             self
         }
     }

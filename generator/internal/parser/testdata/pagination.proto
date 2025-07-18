@@ -60,6 +60,19 @@ service TestService {
     option (google.api.method_signature) = "parent";
   }
 
+  rpc ListFooWithMaxResultsInt32(ListFooMaxResultsInt32Request) returns (ListFooResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=projects/*}/foos"
+    };
+    option (google.api.method_signature) = "parent";
+  }
+
+  rpc ListFooWithMaxResultsUInt32(ListFooMaxResultsUInt32Request) returns (ListFooResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=projects/*}/foos"
+    };
+    option (google.api.method_signature) = "parent";
+  }
 }
 
 message ListFooMissingPageSizeRequest {
@@ -93,6 +106,32 @@ message ListFooRequest {
     ];
     
     int32 page_size = 2 [(google.api.field_behavior) = OPTIONAL];
+
+    string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ListFooMaxResultsInt32Request {
+    string parent = 1 [
+        (google.api.field_behavior) = REQUIRED,
+        (google.api.resource_reference) = {
+            child_type: "test.googleapis.com/Foo"
+        }
+    ];
+    
+    int32 max_results = 2 [(google.api.field_behavior) = OPTIONAL];
+
+    string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
+}
+
+message ListFooMaxResultsUInt32Request {
+    string parent = 1 [
+        (google.api.field_behavior) = REQUIRED,
+        (google.api.resource_reference) = {
+            child_type: "test.googleapis.com/Foo"
+        }
+    ];
+    
+    uint32 max_results = 2 [(google.api.field_behavior) = OPTIONAL];
 
     string page_token = 3 [(google.api.field_behavior) = OPTIONAL];
 }

@@ -16,9 +16,8 @@
 
 pub mod simulator {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Simulator][super::super::client::Simulator].
+    /// A builder for [Simulator][crate::client::Simulator].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod simulator {
     /// let client = builder
     ///     .with_endpoint("https://policysimulator.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod simulator {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Simulator;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Simulator] request builders.
+    /// Common implementation for [crate::client::Simulator] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Simulator>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod simulator {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::get_replay][super::super::client::Simulator::get_replay] calls.
+    /// The request builder for [Simulator::get_replay][crate::client::Simulator::get_replay] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::GetReplay;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReplay {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReplay(RequestBuilder<crate::model::GetReplayRequest>);
 
     impl GetReplay {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,12 +134,31 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::create_replay][super::super::client::Simulator::create_replay] calls.
+    /// The request builder for [Simulator::create_replay][crate::client::Simulator::create_replay] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::CreateReplay;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReplay {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReplay(RequestBuilder<crate::model::CreateReplayRequest>);
 
     impl CreateReplay {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -138,7 +179,7 @@ pub mod simulator {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_replay][super::super::client::Simulator::create_replay].
+        /// on [create_replay][crate::client::Simulator::create_replay].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_replay(self.0.request, self.0.options)
@@ -150,8 +191,10 @@ pub mod simulator {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replay, crate::model::ReplayOperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replay, crate::model::ReplayOperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replay,
+                crate::model::ReplayOperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -176,7 +219,7 @@ pub mod simulator {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReplayRequest::parent].
@@ -190,11 +233,22 @@ pub mod simulator {
         /// Sets the value of [replay][crate::model::CreateReplayRequest::replay].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replay<T: Into<std::option::Option<crate::model::Replay>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replay = v.into();
+        pub fn set_replay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replay>,
+        {
+            self.0.request.replay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [replay][crate::model::CreateReplayRequest::replay].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_replay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replay>,
+        {
+            self.0.request.replay = v.map(|x| x.into());
             self
         }
     }
@@ -206,12 +260,34 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::list_replay_results][super::super::client::Simulator::list_replay_results] calls.
+    /// The request builder for [Simulator::list_replay_results][crate::client::Simulator::list_replay_results] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::ListReplayResults;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReplayResults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReplayResults(RequestBuilder<crate::model::ListReplayResultsRequest>);
 
     impl ListReplayResults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -238,8 +314,8 @@ pub mod simulator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReplayResultsResponse, gax::error::Error>
         {
@@ -251,6 +327,15 @@ pub mod simulator {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReplayResultsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReplayResultsRequest::parent].
@@ -281,12 +366,34 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::list_operations][super::super::client::Simulator::list_operations] calls.
+    /// The request builder for [Simulator::list_operations][crate::client::Simulator::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -313,8 +420,8 @@ pub mod simulator {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -326,6 +433,17 @@ pub mod simulator {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -360,12 +478,30 @@ pub mod simulator {
         }
     }
 
-    /// The request builder for [Simulator::get_operation][super::super::client::Simulator::get_operation] calls.
+    /// The request builder for [Simulator::get_operation][crate::client::Simulator::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_policysimulator_v1::builder;
+    /// use builder::simulator::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Simulator>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Simulator>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

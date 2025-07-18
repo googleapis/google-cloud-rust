@@ -16,9 +16,8 @@
 
 pub mod storage_transfer_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [StorageTransferService][super::super::client::StorageTransferService].
+    /// A builder for [StorageTransferService][crate::client::StorageTransferService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod storage_transfer_service {
     /// let client = builder
     ///     .with_endpoint("https://storagetransfer.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod storage_transfer_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = StorageTransferService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::StorageTransferService] request builders.
+    /// Common implementation for [crate::client::StorageTransferService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod storage_transfer_service {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self {
                 stub,
@@ -69,7 +71,23 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_google_service_account][super::super::client::StorageTransferService::get_google_service_account] calls.
+    /// The request builder for [StorageTransferService::get_google_service_account][crate::client::StorageTransferService::get_google_service_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::GetGoogleServiceAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGoogleServiceAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGoogleServiceAccount(
         RequestBuilder<crate::model::GetGoogleServiceAccountRequest>,
@@ -77,7 +95,7 @@ pub mod storage_transfer_service {
 
     impl GetGoogleServiceAccount {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -121,13 +139,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::create_transfer_job][super::super::client::StorageTransferService::create_transfer_job] calls.
+    /// The request builder for [StorageTransferService::create_transfer_job][crate::client::StorageTransferService::create_transfer_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::CreateTransferJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateTransferJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateTransferJob(RequestBuilder<crate::model::CreateTransferJobRequest>);
 
     impl CreateTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -158,11 +192,22 @@ pub mod storage_transfer_service {
         /// Sets the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_job = v.into();
+        pub fn set_transfer_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_job][crate::model::CreateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = v.map(|x| x.into());
             self
         }
     }
@@ -174,13 +219,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::update_transfer_job][super::super::client::StorageTransferService::update_transfer_job] calls.
+    /// The request builder for [StorageTransferService::update_transfer_job][crate::client::StorageTransferService::update_transfer_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::UpdateTransferJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateTransferJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateTransferJob(RequestBuilder<crate::model::UpdateTransferJobRequest>);
 
     impl UpdateTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -227,20 +288,43 @@ pub mod storage_transfer_service {
         /// Sets the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_transfer_job<T: Into<std::option::Option<crate::model::TransferJob>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.transfer_job = v.into();
+        pub fn set_transfer_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [transfer_job][crate::model::UpdateTransferJobRequest::transfer_job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_transfer_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::TransferJob>,
+        {
+            self.0.request.transfer_job = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
-        pub fn set_update_transfer_job_field_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
+        pub fn set_update_transfer_job_field_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_transfer_job_field_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_transfer_job_field_mask][crate::model::UpdateTransferJobRequest::update_transfer_job_field_mask].
+        pub fn set_or_clear_update_transfer_job_field_mask<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_transfer_job_field_mask = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_transfer_job_field_mask = v.map(|x| x.into());
             self
         }
     }
@@ -252,13 +336,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_transfer_job][super::super::client::StorageTransferService::get_transfer_job] calls.
+    /// The request builder for [StorageTransferService::get_transfer_job][crate::client::StorageTransferService::get_transfer_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::GetTransferJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetTransferJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetTransferJob(RequestBuilder<crate::model::GetTransferJobRequest>);
 
     impl GetTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -307,13 +407,33 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::list_transfer_jobs][super::super::client::StorageTransferService::list_transfer_jobs] calls.
+    /// The request builder for [StorageTransferService::list_transfer_jobs][crate::client::StorageTransferService::list_transfer_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::ListTransferJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListTransferJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListTransferJobs(RequestBuilder<crate::model::ListTransferJobsRequest>);
 
     impl ListTransferJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -341,8 +461,8 @@ pub mod storage_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListTransferJobsResponse, gax::error::Error>
         {
@@ -354,6 +474,15 @@ pub mod storage_transfer_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListTransferJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [filter][crate::model::ListTransferJobsRequest::filter].
@@ -384,13 +513,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::pause_transfer_operation][super::super::client::StorageTransferService::pause_transfer_operation] calls.
+    /// The request builder for [StorageTransferService::pause_transfer_operation][crate::client::StorageTransferService::pause_transfer_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::PauseTransferOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> PauseTransferOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct PauseTransferOperation(RequestBuilder<crate::model::PauseTransferOperationRequest>);
 
     impl PauseTransferOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -434,7 +579,23 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::resume_transfer_operation][super::super::client::StorageTransferService::resume_transfer_operation] calls.
+    /// The request builder for [StorageTransferService::resume_transfer_operation][crate::client::StorageTransferService::resume_transfer_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::ResumeTransferOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeTransferOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeTransferOperation(
         RequestBuilder<crate::model::ResumeTransferOperationRequest>,
@@ -442,7 +603,7 @@ pub mod storage_transfer_service {
 
     impl ResumeTransferOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -486,13 +647,30 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::run_transfer_job][super::super::client::StorageTransferService::run_transfer_job] calls.
+    /// The request builder for [StorageTransferService::run_transfer_job][crate::client::StorageTransferService::run_transfer_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::RunTransferJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RunTransferJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RunTransferJob(RequestBuilder<crate::model::RunTransferJobRequest>);
 
     impl RunTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -514,7 +692,7 @@ pub mod storage_transfer_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [run_transfer_job][super::super::client::StorageTransferService::run_transfer_job].
+        /// on [run_transfer_job][crate::client::StorageTransferService::run_transfer_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .run_transfer_job(self.0.request, self.0.options)
@@ -523,8 +701,8 @@ pub mod storage_transfer_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `run_transfer_job`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::TransferOperation> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::TransferOperation>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::TransferOperation> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::TransferOperation>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -549,7 +727,12 @@ pub mod storage_transfer_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [job_name][crate::model::RunTransferJobRequest::job_name].
@@ -576,13 +759,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::delete_transfer_job][super::super::client::StorageTransferService::delete_transfer_job] calls.
+    /// The request builder for [StorageTransferService::delete_transfer_job][crate::client::StorageTransferService::delete_transfer_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::DeleteTransferJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteTransferJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteTransferJob(RequestBuilder<crate::model::DeleteTransferJobRequest>);
 
     impl DeleteTransferJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -634,13 +833,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::create_agent_pool][super::super::client::StorageTransferService::create_agent_pool] calls.
+    /// The request builder for [StorageTransferService::create_agent_pool][crate::client::StorageTransferService::create_agent_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::CreateAgentPool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAgentPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateAgentPool(RequestBuilder<crate::model::CreateAgentPoolRequest>);
 
     impl CreateAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -676,11 +891,22 @@ pub mod storage_transfer_service {
         /// Sets the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent_pool = v.into();
+        pub fn set_agent_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent_pool][crate::model::CreateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = v.map(|x| x.into());
             self
         }
 
@@ -700,13 +926,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::update_agent_pool][super::super::client::StorageTransferService::update_agent_pool] calls.
+    /// The request builder for [StorageTransferService::update_agent_pool][crate::client::StorageTransferService::update_agent_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::UpdateAgentPool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAgentPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateAgentPool(RequestBuilder<crate::model::UpdateAgentPoolRequest>);
 
     impl UpdateAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -734,20 +976,40 @@ pub mod storage_transfer_service {
         /// Sets the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_agent_pool<T: Into<std::option::Option<crate::model::AgentPool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.agent_pool = v.into();
+        pub fn set_agent_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [agent_pool][crate::model::UpdateAgentPoolRequest::agent_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_agent_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AgentPool>,
+        {
+            self.0.request.agent_pool = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAgentPoolRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -759,13 +1021,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_agent_pool][super::super::client::StorageTransferService::get_agent_pool] calls.
+    /// The request builder for [StorageTransferService::get_agent_pool][crate::client::StorageTransferService::get_agent_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::GetAgentPool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAgentPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetAgentPool(RequestBuilder<crate::model::GetAgentPoolRequest>);
 
     impl GetAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -806,13 +1084,33 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::list_agent_pools][super::super::client::StorageTransferService::list_agent_pools] calls.
+    /// The request builder for [StorageTransferService::list_agent_pools][crate::client::StorageTransferService::list_agent_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::ListAgentPools;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAgentPools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListAgentPools(RequestBuilder<crate::model::ListAgentPoolsRequest>);
 
     impl ListAgentPools {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -837,8 +1135,8 @@ pub mod storage_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListAgentPoolsResponse, gax::error::Error>
         {
@@ -850,6 +1148,15 @@ pub mod storage_transfer_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListAgentPoolsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [project_id][crate::model::ListAgentPoolsRequest::project_id].
@@ -886,13 +1193,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::delete_agent_pool][super::super::client::StorageTransferService::delete_agent_pool] calls.
+    /// The request builder for [StorageTransferService::delete_agent_pool][crate::client::StorageTransferService::delete_agent_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::DeleteAgentPool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAgentPool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteAgentPool(RequestBuilder<crate::model::DeleteAgentPoolRequest>);
 
     impl DeleteAgentPool {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -933,13 +1256,33 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::list_operations][super::super::client::StorageTransferService::list_operations] calls.
+    /// The request builder for [StorageTransferService::list_operations][crate::client::StorageTransferService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -967,8 +1310,8 @@ pub mod storage_transfer_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -980,6 +1323,17 @@ pub mod storage_transfer_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1014,13 +1368,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::get_operation][super::super::client::StorageTransferService::get_operation] calls.
+    /// The request builder for [StorageTransferService::get_operation][crate::client::StorageTransferService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -1062,13 +1432,29 @@ pub mod storage_transfer_service {
         }
     }
 
-    /// The request builder for [StorageTransferService::cancel_operation][super::super::client::StorageTransferService::cancel_operation] calls.
+    /// The request builder for [StorageTransferService::cancel_operation][crate::client::StorageTransferService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagetransfer_v1::builder;
+    /// use builder::storage_transfer_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageTransferService>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageTransferService>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

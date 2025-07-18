@@ -16,9 +16,8 @@
 
 pub mod api_gateway_service {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ApiGatewayService][super::super::client::ApiGatewayService].
+    /// A builder for [ApiGatewayService][crate::client::ApiGatewayService].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod api_gateway_service {
     /// let client = builder
     ///     .with_endpoint("https://apigateway.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod api_gateway_service {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ApiGatewayService;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ApiGatewayService] request builders.
+    /// Common implementation for [crate::client::ApiGatewayService] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod api_gateway_service {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_gateways][super::super::client::ApiGatewayService::list_gateways] calls.
+    /// The request builder for [ApiGatewayService::list_gateways][crate::client::ApiGatewayService::list_gateways] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListGateways;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListGateways {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListGateways(RequestBuilder<crate::model::ListGatewaysRequest>);
 
     impl ListGateways {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod api_gateway_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListGatewaysResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod api_gateway_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListGatewaysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListGatewaysRequest::parent].
@@ -151,12 +186,30 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_gateway][super::super::client::ApiGatewayService::get_gateway] calls.
+    /// The request builder for [ApiGatewayService::get_gateway][crate::client::ApiGatewayService::get_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetGateway;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetGateway(RequestBuilder<crate::model::GetGatewayRequest>);
 
     impl GetGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::create_gateway][super::super::client::ApiGatewayService::create_gateway] calls.
+    /// The request builder for [ApiGatewayService::create_gateway][crate::client::ApiGatewayService::create_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CreateGateway;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateGateway(RequestBuilder<crate::model::CreateGatewayRequest>);
 
     impl CreateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +294,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_gateway][super::super::client::ApiGatewayService::create_gateway].
+        /// on [create_gateway][crate::client::ApiGatewayService::create_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_gateway(self.0.request, self.0.options)
@@ -234,7 +306,8 @@ pub mod api_gateway_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Gateway, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -259,7 +332,7 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateGatewayRequest::parent].
@@ -281,11 +354,22 @@ pub mod api_gateway_service {
         /// Sets the value of [gateway][crate::model::CreateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway][crate::model::CreateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -297,12 +381,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::update_gateway][super::super::client::ApiGatewayService::update_gateway] calls.
+    /// The request builder for [ApiGatewayService::update_gateway][crate::client::ApiGatewayService::update_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::UpdateGateway;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateGateway(RequestBuilder<crate::model::UpdateGatewayRequest>);
 
     impl UpdateGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -323,7 +426,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_gateway][super::super::client::ApiGatewayService::update_gateway].
+        /// on [update_gateway][crate::client::ApiGatewayService::update_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_gateway(self.0.request, self.0.options)
@@ -335,7 +438,8 @@ pub mod api_gateway_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Gateway, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Gateway, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -360,26 +464,46 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateGatewayRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
         ///
         /// This is a **required** field for requests.
-        pub fn set_gateway<T: Into<std::option::Option<crate::model::Gateway>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.gateway = v.into();
+        pub fn set_gateway<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [gateway][crate::model::UpdateGatewayRequest::gateway].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_gateway<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Gateway>,
+        {
+            self.0.request.gateway = v.map(|x| x.into());
             self
         }
     }
@@ -391,12 +515,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_gateway][super::super::client::ApiGatewayService::delete_gateway] calls.
+    /// The request builder for [ApiGatewayService::delete_gateway][crate::client::ApiGatewayService::delete_gateway] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteGateway;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteGateway {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteGateway(RequestBuilder<crate::model::DeleteGatewayRequest>);
 
     impl DeleteGateway {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -417,7 +560,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_gateway][super::super::client::ApiGatewayService::delete_gateway].
+        /// on [delete_gateway][crate::client::ApiGatewayService::delete_gateway].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_gateway(self.0.request, self.0.options)
@@ -426,8 +569,8 @@ pub mod api_gateway_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_gateway`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -452,7 +595,12 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteGatewayRequest::name].
@@ -471,12 +619,34 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_apis][super::super::client::ApiGatewayService::list_apis] calls.
+    /// The request builder for [ApiGatewayService::list_apis][crate::client::ApiGatewayService::list_apis] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListApis;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApis {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApis(RequestBuilder<crate::model::ListApisRequest>);
 
     impl ListApis {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -500,8 +670,8 @@ pub mod api_gateway_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListApisResponse, gax::error::Error>
         {
@@ -513,6 +683,15 @@ pub mod api_gateway_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListApisResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListApisRequest::parent].
@@ -555,12 +734,30 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_api][super::super::client::ApiGatewayService::get_api] calls.
+    /// The request builder for [ApiGatewayService::get_api][crate::client::ApiGatewayService::get_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetApi;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApi(RequestBuilder<crate::model::GetApiRequest>);
 
     impl GetApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -600,12 +797,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::create_api][super::super::client::ApiGatewayService::create_api] calls.
+    /// The request builder for [ApiGatewayService::create_api][crate::client::ApiGatewayService::create_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CreateApi;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApi(RequestBuilder<crate::model::CreateApiRequest>);
 
     impl CreateApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -626,7 +842,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api][super::super::client::ApiGatewayService::create_api].
+        /// on [create_api][crate::client::ApiGatewayService::create_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api(self.0.request, self.0.options)
@@ -638,7 +854,8 @@ pub mod api_gateway_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Api, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Api, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Api, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -663,7 +880,7 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateApiRequest::parent].
@@ -685,8 +902,22 @@ pub mod api_gateway_service {
         /// Sets the value of [api][crate::model::CreateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::CreateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -698,12 +929,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::update_api][super::super::client::ApiGatewayService::update_api] calls.
+    /// The request builder for [ApiGatewayService::update_api][crate::client::ApiGatewayService::update_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::UpdateApi;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApi(RequestBuilder<crate::model::UpdateApiRequest>);
 
     impl UpdateApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -724,7 +974,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_api][super::super::client::ApiGatewayService::update_api].
+        /// on [update_api][crate::client::ApiGatewayService::update_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_api(self.0.request, self.0.options)
@@ -736,7 +986,8 @@ pub mod api_gateway_service {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Api, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Api, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Api, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -761,23 +1012,46 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [api][crate::model::UpdateApiRequest::api].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api<T: Into<std::option::Option<crate::model::Api>>>(mut self, v: T) -> Self {
-            self.0.request.api = v.into();
+        pub fn set_api<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api][crate::model::UpdateApiRequest::api].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Api>,
+        {
+            self.0.request.api = v.map(|x| x.into());
             self
         }
     }
@@ -789,12 +1063,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_api][super::super::client::ApiGatewayService::delete_api] calls.
+    /// The request builder for [ApiGatewayService::delete_api][crate::client::ApiGatewayService::delete_api] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteApi;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApi {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApi(RequestBuilder<crate::model::DeleteApiRequest>);
 
     impl DeleteApi {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -815,7 +1108,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_api][super::super::client::ApiGatewayService::delete_api].
+        /// on [delete_api][crate::client::ApiGatewayService::delete_api].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_api(self.0.request, self.0.options)
@@ -824,8 +1117,8 @@ pub mod api_gateway_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_api`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -850,7 +1143,12 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteApiRequest::name].
@@ -869,12 +1167,34 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_api_configs][super::super::client::ApiGatewayService::list_api_configs] calls.
+    /// The request builder for [ApiGatewayService::list_api_configs][crate::client::ApiGatewayService::list_api_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListApiConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApiConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApiConfigs(RequestBuilder<crate::model::ListApiConfigsRequest>);
 
     impl ListApiConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -898,8 +1218,8 @@ pub mod api_gateway_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListApiConfigsResponse, gax::error::Error>
         {
@@ -911,6 +1231,15 @@ pub mod api_gateway_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListApiConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListApiConfigsRequest::parent].
@@ -953,12 +1282,30 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_api_config][super::super::client::ApiGatewayService::get_api_config] calls.
+    /// The request builder for [ApiGatewayService::get_api_config][crate::client::ApiGatewayService::get_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetApiConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApiConfig(RequestBuilder<crate::model::GetApiConfigRequest>);
 
     impl GetApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1007,12 +1354,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::create_api_config][super::super::client::ApiGatewayService::create_api_config] calls.
+    /// The request builder for [ApiGatewayService::create_api_config][crate::client::ApiGatewayService::create_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CreateApiConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApiConfig(RequestBuilder<crate::model::CreateApiConfigRequest>);
 
     impl CreateApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1033,7 +1399,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_api_config][super::super::client::ApiGatewayService::create_api_config].
+        /// on [create_api_config][crate::client::ApiGatewayService::create_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_api_config(self.0.request, self.0.options)
@@ -1046,7 +1412,7 @@ pub mod api_gateway_service {
             self,
         ) -> impl lro::Poller<crate::model::ApiConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::ApiConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::ApiConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1071,7 +1437,7 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateApiConfigRequest::parent].
@@ -1093,11 +1459,22 @@ pub mod api_gateway_service {
         /// Sets the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_config = v.into();
+        pub fn set_api_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api_config][crate::model::CreateApiConfigRequest::api_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = v.map(|x| x.into());
             self
         }
     }
@@ -1109,12 +1486,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::update_api_config][super::super::client::ApiGatewayService::update_api_config] calls.
+    /// The request builder for [ApiGatewayService::update_api_config][crate::client::ApiGatewayService::update_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::UpdateApiConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApiConfig(RequestBuilder<crate::model::UpdateApiConfigRequest>);
 
     impl UpdateApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1135,7 +1531,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_api_config][super::super::client::ApiGatewayService::update_api_config].
+        /// on [update_api_config][crate::client::ApiGatewayService::update_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_api_config(self.0.request, self.0.options)
@@ -1148,7 +1544,7 @@ pub mod api_gateway_service {
             self,
         ) -> impl lro::Poller<crate::model::ApiConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::ApiConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::ApiConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1173,26 +1569,46 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApiConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_api_config<T: Into<std::option::Option<crate::model::ApiConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.api_config = v.into();
+        pub fn set_api_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [api_config][crate::model::UpdateApiConfigRequest::api_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_api_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ApiConfig>,
+        {
+            self.0.request.api_config = v.map(|x| x.into());
             self
         }
     }
@@ -1204,12 +1620,31 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_api_config][super::super::client::ApiGatewayService::delete_api_config] calls.
+    /// The request builder for [ApiGatewayService::delete_api_config][crate::client::ApiGatewayService::delete_api_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteApiConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApiConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApiConfig(RequestBuilder<crate::model::DeleteApiConfigRequest>);
 
     impl DeleteApiConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1230,7 +1665,7 @@ pub mod api_gateway_service {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_api_config][super::super::client::ApiGatewayService::delete_api_config].
+        /// on [delete_api_config][crate::client::ApiGatewayService::delete_api_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_api_config(self.0.request, self.0.options)
@@ -1239,8 +1674,8 @@ pub mod api_gateway_service {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_api_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1265,7 +1700,12 @@ pub mod api_gateway_service {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteApiConfigRequest::name].
@@ -1284,12 +1724,34 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::list_operations][super::super::client::ApiGatewayService::list_operations] calls.
+    /// The request builder for [ApiGatewayService::list_operations][crate::client::ApiGatewayService::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1316,8 +1778,8 @@ pub mod api_gateway_service {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1329,6 +1791,17 @@ pub mod api_gateway_service {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1363,12 +1836,30 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::get_operation][super::super::client::ApiGatewayService::get_operation] calls.
+    /// The request builder for [ApiGatewayService::get_operation][crate::client::ApiGatewayService::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1409,12 +1900,30 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::delete_operation][super::super::client::ApiGatewayService::delete_operation] calls.
+    /// The request builder for [ApiGatewayService::delete_operation][crate::client::ApiGatewayService::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1455,12 +1964,30 @@ pub mod api_gateway_service {
         }
     }
 
-    /// The request builder for [ApiGatewayService::cancel_operation][super::super::client::ApiGatewayService::cancel_operation] calls.
+    /// The request builder for [ApiGatewayService::cancel_operation][crate::client::ApiGatewayService::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apigateway_v1::builder;
+    /// use builder::api_gateway_service::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ApiGatewayService>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ApiGatewayService>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

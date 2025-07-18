@@ -16,9 +16,8 @@
 
 pub mod bare_metal_solution {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [BareMetalSolution][super::super::client::BareMetalSolution].
+    /// A builder for [BareMetalSolution][crate::client::BareMetalSolution].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod bare_metal_solution {
     /// let client = builder
     ///     .with_endpoint("https://baremetalsolution.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod bare_metal_solution {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = BareMetalSolution;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::BareMetalSolution] request builders.
+    /// Common implementation for [crate::client::BareMetalSolution] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod bare_metal_solution {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_instances][super::super::client::BareMetalSolution::list_instances] calls.
+    /// The request builder for [BareMetalSolution::list_instances][crate::client::BareMetalSolution::list_instances] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListInstances;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListInstances {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListInstances(RequestBuilder<crate::model::ListInstancesRequest>);
 
     impl ListInstances {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListInstancesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListInstancesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
@@ -145,12 +180,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_instance][super::super::client::BareMetalSolution::get_instance] calls.
+    /// The request builder for [BareMetalSolution::get_instance][crate::client::BareMetalSolution::get_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetInstance(RequestBuilder<crate::model::GetInstanceRequest>);
 
     impl GetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -190,12 +243,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_instance][super::super::client::BareMetalSolution::update_instance] calls.
+    /// The request builder for [BareMetalSolution::update_instance][crate::client::BareMetalSolution::update_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateInstance(RequestBuilder<crate::model::UpdateInstanceRequest>);
 
     impl UpdateInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -216,7 +288,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_instance][super::super::client::BareMetalSolution::update_instance].
+        /// on [update_instance][crate::client::BareMetalSolution::update_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_instance(self.0.request, self.0.options)
@@ -229,7 +301,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -254,26 +326,46 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::UpdateInstanceRequest::instance].
         ///
         /// This is a **required** field for requests.
-        pub fn set_instance<T: Into<std::option::Option<crate::model::Instance>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.instance = v.into();
+        pub fn set_instance<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [instance][crate::model::UpdateInstanceRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Instance>,
+        {
+            self.0.request.instance = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateInstanceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -285,12 +377,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_instance][super::super::client::BareMetalSolution::rename_instance] calls.
+    /// The request builder for [BareMetalSolution::rename_instance][crate::client::BareMetalSolution::rename_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameInstance;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameInstance(RequestBuilder<crate::model::RenameInstanceRequest>);
 
     impl RenameInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -338,12 +448,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::reset_instance][super::super::client::BareMetalSolution::reset_instance] calls.
+    /// The request builder for [BareMetalSolution::reset_instance][crate::client::BareMetalSolution::reset_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ResetInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResetInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResetInstance(RequestBuilder<crate::model::ResetInstanceRequest>);
 
     impl ResetInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -364,7 +493,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reset_instance][super::super::client::BareMetalSolution::reset_instance].
+        /// on [reset_instance][crate::client::BareMetalSolution::reset_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reset_instance(self.0.request, self.0.options)
@@ -377,7 +506,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::ResetInstanceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ResetInstanceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -405,7 +534,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResetInstanceRequest::name].
@@ -424,12 +553,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::start_instance][super::super::client::BareMetalSolution::start_instance] calls.
+    /// The request builder for [BareMetalSolution::start_instance][crate::client::BareMetalSolution::start_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::StartInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StartInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StartInstance(RequestBuilder<crate::model::StartInstanceRequest>);
 
     impl StartInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -450,7 +598,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [start_instance][super::super::client::BareMetalSolution::start_instance].
+        /// on [start_instance][crate::client::BareMetalSolution::start_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .start_instance(self.0.request, self.0.options)
@@ -463,7 +611,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::StartInstanceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::StartInstanceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -491,7 +639,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StartInstanceRequest::name].
@@ -510,12 +658,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::stop_instance][super::super::client::BareMetalSolution::stop_instance] calls.
+    /// The request builder for [BareMetalSolution::stop_instance][crate::client::BareMetalSolution::stop_instance] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::StopInstance;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopInstance {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopInstance(RequestBuilder<crate::model::StopInstanceRequest>);
 
     impl StopInstance {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -536,7 +703,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_instance][super::super::client::BareMetalSolution::stop_instance].
+        /// on [stop_instance][crate::client::BareMetalSolution::stop_instance].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_instance(self.0.request, self.0.options)
@@ -549,8 +716,10 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::StopInstanceResponse, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::StopInstanceResponse, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StopInstanceResponse,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -575,7 +744,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopInstanceRequest::name].
@@ -594,14 +763,33 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console] calls.
+    /// The request builder for [BareMetalSolution::enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::EnableInteractiveSerialConsole;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableInteractiveSerialConsole {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableInteractiveSerialConsole(
         RequestBuilder<crate::model::EnableInteractiveSerialConsoleRequest>,
     );
 
     impl EnableInteractiveSerialConsole {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -625,7 +813,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_interactive_serial_console][super::super::client::BareMetalSolution::enable_interactive_serial_console].
+        /// on [enable_interactive_serial_console][crate::client::BareMetalSolution::enable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_interactive_serial_console(self.0.request, self.0.options)
@@ -640,7 +828,7 @@ pub mod bare_metal_solution {
             crate::model::EnableInteractiveSerialConsoleResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableInteractiveSerialConsoleResponse,
                 crate::model::OperationMetadata,
             >;
@@ -668,7 +856,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableInteractiveSerialConsoleRequest::name].
@@ -687,14 +875,33 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console] calls.
+    /// The request builder for [BareMetalSolution::disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DisableInteractiveSerialConsole;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableInteractiveSerialConsole {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableInteractiveSerialConsole(
         RequestBuilder<crate::model::DisableInteractiveSerialConsoleRequest>,
     );
 
     impl DisableInteractiveSerialConsole {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -718,7 +925,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_interactive_serial_console][super::super::client::BareMetalSolution::disable_interactive_serial_console].
+        /// on [disable_interactive_serial_console][crate::client::BareMetalSolution::disable_interactive_serial_console].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_interactive_serial_console(self.0.request, self.0.options)
@@ -733,7 +940,7 @@ pub mod bare_metal_solution {
             crate::model::DisableInteractiveSerialConsoleResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableInteractiveSerialConsoleResponse,
                 crate::model::OperationMetadata,
             >;
@@ -761,7 +968,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableInteractiveSerialConsoleRequest::name].
@@ -780,12 +987,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::detach_lun][super::super::client::BareMetalSolution::detach_lun] calls.
+    /// The request builder for [BareMetalSolution::detach_lun][crate::client::BareMetalSolution::detach_lun] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DetachLun;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetachLun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetachLun(RequestBuilder<crate::model::DetachLunRequest>);
 
     impl DetachLun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -806,7 +1032,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [detach_lun][super::super::client::BareMetalSolution::detach_lun].
+        /// on [detach_lun][crate::client::BareMetalSolution::detach_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .detach_lun(self.0.request, self.0.options)
@@ -819,7 +1045,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::Instance, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Instance, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Instance, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -844,7 +1070,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [instance][crate::model::DetachLunRequest::instance].
@@ -877,12 +1103,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_ssh_keys][super::super::client::BareMetalSolution::list_ssh_keys] calls.
+    /// The request builder for [BareMetalSolution::list_ssh_keys][crate::client::BareMetalSolution::list_ssh_keys] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListSSHKeys;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSSHKeys {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSSHKeys(RequestBuilder<crate::model::ListSSHKeysRequest>);
 
     impl ListSSHKeys {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -906,8 +1154,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSSHKeysResponse, gax::error::Error>
         {
@@ -919,6 +1167,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSSHKeysResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSSHKeysRequest::parent].
@@ -949,12 +1206,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_ssh_key][super::super::client::BareMetalSolution::create_ssh_key] calls.
+    /// The request builder for [BareMetalSolution::create_ssh_key][crate::client::BareMetalSolution::create_ssh_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateSSHKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSSHKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSSHKey(RequestBuilder<crate::model::CreateSSHKeyRequest>);
 
     impl CreateSSHKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -989,11 +1264,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
         ///
         /// This is a **required** field for requests.
-        pub fn set_ssh_key<T: Into<std::option::Option<crate::model::SSHKey>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.ssh_key = v.into();
+        pub fn set_ssh_key<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SSHKey>,
+        {
+            self.0.request.ssh_key = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [ssh_key][crate::model::CreateSSHKeyRequest::ssh_key].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_ssh_key<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SSHKey>,
+        {
+            self.0.request.ssh_key = v.map(|x| x.into());
             self
         }
 
@@ -1013,12 +1299,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::delete_ssh_key][super::super::client::BareMetalSolution::delete_ssh_key] calls.
+    /// The request builder for [BareMetalSolution::delete_ssh_key][crate::client::BareMetalSolution::delete_ssh_key] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DeleteSSHKey;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSSHKey {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSSHKey(RequestBuilder<crate::model::DeleteSSHKeyRequest>);
 
     impl DeleteSSHKey {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1058,12 +1362,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_volumes][super::super::client::BareMetalSolution::list_volumes] calls.
+    /// The request builder for [BareMetalSolution::list_volumes][crate::client::BareMetalSolution::list_volumes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListVolumes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1087,8 +1413,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
         {
@@ -1100,6 +1426,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVolumesRequest::parent].
@@ -1136,12 +1471,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_volume][super::super::client::BareMetalSolution::get_volume] calls.
+    /// The request builder for [BareMetalSolution::get_volume][crate::client::BareMetalSolution::get_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetVolume;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1181,12 +1534,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_volume][super::super::client::BareMetalSolution::update_volume] calls.
+    /// The request builder for [BareMetalSolution::update_volume][crate::client::BareMetalSolution::update_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1207,7 +1579,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_volume][super::super::client::BareMetalSolution::update_volume].
+        /// on [update_volume][crate::client::BareMetalSolution::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
@@ -1219,7 +1591,8 @@ pub mod bare_metal_solution {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1244,26 +1617,46 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume = v.into();
+        pub fn set_volume<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1275,12 +1668,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_volume][super::super::client::BareMetalSolution::rename_volume] calls.
+    /// The request builder for [BareMetalSolution::rename_volume][crate::client::BareMetalSolution::rename_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameVolume;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameVolume(RequestBuilder<crate::model::RenameVolumeRequest>);
 
     impl RenameVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1328,12 +1739,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::evict_volume][super::super::client::BareMetalSolution::evict_volume] calls.
+    /// The request builder for [BareMetalSolution::evict_volume][crate::client::BareMetalSolution::evict_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::EvictVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvictVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvictVolume(RequestBuilder<crate::model::EvictVolumeRequest>);
 
     impl EvictVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1354,7 +1784,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evict_volume][super::super::client::BareMetalSolution::evict_volume].
+        /// on [evict_volume][crate::client::BareMetalSolution::evict_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_volume(self.0.request, self.0.options)
@@ -1363,8 +1793,8 @@ pub mod bare_metal_solution {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evict_volume`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1389,7 +1819,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::EvictVolumeRequest::name].
@@ -1408,12 +1843,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::resize_volume][super::super::client::BareMetalSolution::resize_volume] calls.
+    /// The request builder for [BareMetalSolution::resize_volume][crate::client::BareMetalSolution::resize_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ResizeVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResizeVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResizeVolume(RequestBuilder<crate::model::ResizeVolumeRequest>);
 
     impl ResizeVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1434,7 +1888,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resize_volume][super::super::client::BareMetalSolution::resize_volume].
+        /// on [resize_volume][crate::client::BareMetalSolution::resize_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resize_volume(self.0.request, self.0.options)
@@ -1446,7 +1900,8 @@ pub mod bare_metal_solution {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1471,7 +1926,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [volume][crate::model::ResizeVolumeRequest::volume].
@@ -1496,12 +1951,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_networks][super::super::client::BareMetalSolution::list_networks] calls.
+    /// The request builder for [BareMetalSolution::list_networks][crate::client::BareMetalSolution::list_networks] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListNetworks;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNetworks {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworks(RequestBuilder<crate::model::ListNetworksRequest>);
 
     impl ListNetworks {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1525,8 +2002,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNetworksResponse, gax::error::Error>
         {
@@ -1538,6 +2015,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNetworksResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNetworksRequest::parent].
@@ -1574,12 +2060,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_network_usage][super::super::client::BareMetalSolution::list_network_usage] calls.
+    /// The request builder for [BareMetalSolution::list_network_usage][crate::client::BareMetalSolution::list_network_usage] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListNetworkUsage;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNetworkUsage {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNetworkUsage(RequestBuilder<crate::model::ListNetworkUsageRequest>);
 
     impl ListNetworkUsage {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1622,12 +2126,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_network][super::super::client::BareMetalSolution::get_network] calls.
+    /// The request builder for [BareMetalSolution::get_network][crate::client::BareMetalSolution::get_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetNetwork;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNetwork(RequestBuilder<crate::model::GetNetworkRequest>);
 
     impl GetNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1667,12 +2189,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_network][super::super::client::BareMetalSolution::update_network] calls.
+    /// The request builder for [BareMetalSolution::update_network][crate::client::BareMetalSolution::update_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateNetwork;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNetwork(RequestBuilder<crate::model::UpdateNetworkRequest>);
 
     impl UpdateNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1693,7 +2234,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_network][super::super::client::BareMetalSolution::update_network].
+        /// on [update_network][crate::client::BareMetalSolution::update_network].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_network(self.0.request, self.0.options)
@@ -1705,7 +2246,8 @@ pub mod bare_metal_solution {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Network, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Network, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Network, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1730,26 +2272,46 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [network][crate::model::UpdateNetworkRequest::network].
         ///
         /// This is a **required** field for requests.
-        pub fn set_network<T: Into<std::option::Option<crate::model::Network>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.network = v.into();
+        pub fn set_network<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [network][crate::model::UpdateNetworkRequest::network].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_network<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Network>,
+        {
+            self.0.request.network = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNetworkRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1761,12 +2323,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_volume_snapshot][super::super::client::BareMetalSolution::create_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::create_volume_snapshot][crate::client::BareMetalSolution::create_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVolumeSnapshot(RequestBuilder<crate::model::CreateVolumeSnapshotRequest>);
 
     impl CreateVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1804,11 +2384,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume_snapshot<T: Into<std::option::Option<crate::model::VolumeSnapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume_snapshot = v.into();
+        pub fn set_volume_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::VolumeSnapshot>,
+        {
+            self.0.request.volume_snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume_snapshot][crate::model::CreateVolumeSnapshotRequest::volume_snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::VolumeSnapshot>,
+        {
+            self.0.request.volume_snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -1820,12 +2411,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RestoreVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreVolumeSnapshot(RequestBuilder<crate::model::RestoreVolumeSnapshotRequest>);
 
     impl RestoreVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1849,7 +2459,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_volume_snapshot][super::super::client::BareMetalSolution::restore_volume_snapshot].
+        /// on [restore_volume_snapshot][crate::client::BareMetalSolution::restore_volume_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_volume_snapshot(self.0.request, self.0.options)
@@ -1862,8 +2472,10 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::VolumeSnapshot, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::VolumeSnapshot, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::VolumeSnapshot,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1888,7 +2500,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [volume_snapshot][crate::model::RestoreVolumeSnapshotRequest::volume_snapshot].
@@ -1907,12 +2519,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::delete_volume_snapshot][super::super::client::BareMetalSolution::delete_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::delete_volume_snapshot][crate::client::BareMetalSolution::delete_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DeleteVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVolumeSnapshot(RequestBuilder<crate::model::DeleteVolumeSnapshotRequest>);
 
     impl DeleteVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1955,12 +2585,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_volume_snapshot][super::super::client::BareMetalSolution::get_volume_snapshot] calls.
+    /// The request builder for [BareMetalSolution::get_volume_snapshot][crate::client::BareMetalSolution::get_volume_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetVolumeSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolumeSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolumeSnapshot(RequestBuilder<crate::model::GetVolumeSnapshotRequest>);
 
     impl GetVolumeSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2003,12 +2651,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_volume_snapshots][super::super::client::BareMetalSolution::list_volume_snapshots] calls.
+    /// The request builder for [BareMetalSolution::list_volume_snapshots][crate::client::BareMetalSolution::list_volume_snapshots] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListVolumeSnapshots;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumeSnapshots {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumeSnapshots(RequestBuilder<crate::model::ListVolumeSnapshotsRequest>);
 
     impl ListVolumeSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2035,8 +2705,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVolumeSnapshotsResponse, gax::error::Error>
         {
@@ -2048,6 +2718,17 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListVolumeSnapshotsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVolumeSnapshotsRequest::parent].
@@ -2078,12 +2759,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_lun][super::super::client::BareMetalSolution::get_lun] calls.
+    /// The request builder for [BareMetalSolution::get_lun][crate::client::BareMetalSolution::get_lun] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetLun;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLun(RequestBuilder<crate::model::GetLunRequest>);
 
     impl GetLun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2123,12 +2822,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_luns][super::super::client::BareMetalSolution::list_luns] calls.
+    /// The request builder for [BareMetalSolution::list_luns][crate::client::BareMetalSolution::list_luns] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListLuns;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLuns {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLuns(RequestBuilder<crate::model::ListLunsRequest>);
 
     impl ListLuns {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2152,8 +2873,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListLunsResponse, gax::error::Error>
         {
@@ -2165,6 +2886,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListLunsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListLunsRequest::parent].
@@ -2195,12 +2925,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::evict_lun][super::super::client::BareMetalSolution::evict_lun] calls.
+    /// The request builder for [BareMetalSolution::evict_lun][crate::client::BareMetalSolution::evict_lun] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::EvictLun;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EvictLun {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EvictLun(RequestBuilder<crate::model::EvictLunRequest>);
 
     impl EvictLun {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2221,7 +2970,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [evict_lun][super::super::client::BareMetalSolution::evict_lun].
+        /// on [evict_lun][crate::client::BareMetalSolution::evict_lun].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .evict_lun(self.0.request, self.0.options)
@@ -2230,8 +2979,8 @@ pub mod bare_metal_solution {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `evict_lun`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2256,7 +3005,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::EvictLunRequest::name].
@@ -2275,12 +3029,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_nfs_share][super::super::client::BareMetalSolution::get_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::get_nfs_share][crate::client::BareMetalSolution::get_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetNfsShare;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNfsShare(RequestBuilder<crate::model::GetNfsShareRequest>);
 
     impl GetNfsShare {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2320,12 +3092,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_nfs_shares][super::super::client::BareMetalSolution::list_nfs_shares] calls.
+    /// The request builder for [BareMetalSolution::list_nfs_shares][crate::client::BareMetalSolution::list_nfs_shares] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListNfsShares;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNfsShares {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNfsShares(RequestBuilder<crate::model::ListNfsSharesRequest>);
 
     impl ListNfsShares {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2349,8 +3143,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNfsSharesResponse, gax::error::Error>
         {
@@ -2362,6 +3156,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNfsSharesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNfsSharesRequest::parent].
@@ -2398,12 +3201,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::update_nfs_share][crate::client::BareMetalSolution::update_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateNfsShare;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNfsShare(RequestBuilder<crate::model::UpdateNfsShareRequest>);
 
     impl UpdateNfsShare {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2424,7 +3246,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_nfs_share][super::super::client::BareMetalSolution::update_nfs_share].
+        /// on [update_nfs_share][crate::client::BareMetalSolution::update_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_nfs_share(self.0.request, self.0.options)
@@ -2437,7 +3259,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2462,26 +3284,46 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
         ///
         /// This is a **required** field for requests.
-        pub fn set_nfs_share<T: Into<std::option::Option<crate::model::NfsShare>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.nfs_share = v.into();
+        pub fn set_nfs_share<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [nfs_share][crate::model::UpdateNfsShareRequest::nfs_share].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNfsShareRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2493,12 +3335,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::create_nfs_share][crate::client::BareMetalSolution::create_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateNfsShare;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNfsShare(RequestBuilder<crate::model::CreateNfsShareRequest>);
 
     impl CreateNfsShare {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2519,7 +3380,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_nfs_share][super::super::client::BareMetalSolution::create_nfs_share].
+        /// on [create_nfs_share][crate::client::BareMetalSolution::create_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_nfs_share(self.0.request, self.0.options)
@@ -2532,7 +3393,7 @@ pub mod bare_metal_solution {
             self,
         ) -> impl lro::Poller<crate::model::NfsShare, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::NfsShare, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2557,7 +3418,7 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateNfsShareRequest::parent].
@@ -2571,11 +3432,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
         ///
         /// This is a **required** field for requests.
-        pub fn set_nfs_share<T: Into<std::option::Option<crate::model::NfsShare>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.nfs_share = v.into();
+        pub fn set_nfs_share<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [nfs_share][crate::model::CreateNfsShareRequest::nfs_share].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_nfs_share<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::NfsShare>,
+        {
+            self.0.request.nfs_share = v.map(|x| x.into());
             self
         }
     }
@@ -2587,12 +3459,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_nfs_share][super::super::client::BareMetalSolution::rename_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::rename_nfs_share][crate::client::BareMetalSolution::rename_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameNfsShare;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameNfsShare(RequestBuilder<crate::model::RenameNfsShareRequest>);
 
     impl RenameNfsShare {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2640,12 +3530,31 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share] calls.
+    /// The request builder for [BareMetalSolution::delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::DeleteNfsShare;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNfsShare {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNfsShare(RequestBuilder<crate::model::DeleteNfsShareRequest>);
 
     impl DeleteNfsShare {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2666,7 +3575,7 @@ pub mod bare_metal_solution {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_nfs_share][super::super::client::BareMetalSolution::delete_nfs_share].
+        /// on [delete_nfs_share][crate::client::BareMetalSolution::delete_nfs_share].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_nfs_share(self.0.request, self.0.options)
@@ -2675,8 +3584,8 @@ pub mod bare_metal_solution {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_nfs_share`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2701,7 +3610,12 @@ pub mod bare_metal_solution {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteNfsShareRequest::name].
@@ -2720,12 +3634,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_provisioning_quotas][super::super::client::BareMetalSolution::list_provisioning_quotas] calls.
+    /// The request builder for [BareMetalSolution::list_provisioning_quotas][crate::client::BareMetalSolution::list_provisioning_quotas] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListProvisioningQuotas;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProvisioningQuotas {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProvisioningQuotas(RequestBuilder<crate::model::ListProvisioningQuotasRequest>);
 
     impl ListProvisioningQuotas {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2752,8 +3688,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListProvisioningQuotasResponse,
@@ -2767,6 +3703,17 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProvisioningQuotasResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListProvisioningQuotasRequest::parent].
@@ -2797,14 +3744,32 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::submit_provisioning_config][super::super::client::BareMetalSolution::submit_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::submit_provisioning_config][crate::client::BareMetalSolution::submit_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::SubmitProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitProvisioningConfig(
         RequestBuilder<crate::model::SubmitProvisioningConfigRequest>,
     );
 
     impl SubmitProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2842,13 +3807,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_provisioning_config<
-            T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.provisioning_config = v.into();
+        pub fn set_provisioning_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_config][crate::model::SubmitProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = v.map(|x| x.into());
             self
         }
 
@@ -2866,12 +3840,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_provisioning_config][super::super::client::BareMetalSolution::get_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::get_provisioning_config][crate::client::BareMetalSolution::get_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProvisioningConfig(RequestBuilder<crate::model::GetProvisioningConfigRequest>);
 
     impl GetProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2914,14 +3906,32 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::create_provisioning_config][super::super::client::BareMetalSolution::create_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::create_provisioning_config][crate::client::BareMetalSolution::create_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::CreateProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateProvisioningConfig(
         RequestBuilder<crate::model::CreateProvisioningConfigRequest>,
     );
 
     impl CreateProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2959,13 +3969,22 @@ pub mod bare_metal_solution {
         /// Sets the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_provisioning_config<
-            T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.provisioning_config = v.into();
+        pub fn set_provisioning_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_config][crate::model::CreateProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = v.map(|x| x.into());
             self
         }
 
@@ -2983,14 +4002,32 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::update_provisioning_config][super::super::client::BareMetalSolution::update_provisioning_config] calls.
+    /// The request builder for [BareMetalSolution::update_provisioning_config][crate::client::BareMetalSolution::update_provisioning_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::UpdateProvisioningConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProvisioningConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProvisioningConfig(
         RequestBuilder<crate::model::UpdateProvisioningConfigRequest>,
     );
 
     impl UpdateProvisioningConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3020,24 +4057,44 @@ pub mod bare_metal_solution {
         /// Sets the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_provisioning_config<
-            T: Into<std::option::Option<crate::model::ProvisioningConfig>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.provisioning_config = v.into();
+        pub fn set_provisioning_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [provisioning_config][crate::model::UpdateProvisioningConfigRequest::provisioning_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_provisioning_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProvisioningConfig>,
+        {
+            self.0.request.provisioning_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateProvisioningConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
@@ -3055,12 +4112,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::rename_network][super::super::client::BareMetalSolution::rename_network] calls.
+    /// The request builder for [BareMetalSolution::rename_network][crate::client::BareMetalSolution::rename_network] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::RenameNetwork;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RenameNetwork {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RenameNetwork(RequestBuilder<crate::model::RenameNetworkRequest>);
 
     impl RenameNetwork {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3108,12 +4183,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_os_images][super::super::client::BareMetalSolution::list_os_images] calls.
+    /// The request builder for [BareMetalSolution::list_os_images][crate::client::BareMetalSolution::list_os_images] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListOSImages;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOSImages {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOSImages(RequestBuilder<crate::model::ListOSImagesRequest>);
 
     impl ListOSImages {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3137,8 +4234,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListOSImagesResponse, gax::error::Error>
         {
@@ -3150,6 +4247,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOSImagesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOSImagesRequest::parent].
@@ -3180,12 +4286,34 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::list_locations][super::super::client::BareMetalSolution::list_locations] calls.
+    /// The request builder for [BareMetalSolution::list_locations][crate::client::BareMetalSolution::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3212,8 +4340,8 @@ pub mod bare_metal_solution {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -3225,6 +4353,15 @@ pub mod bare_metal_solution {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -3259,12 +4396,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_location][super::super::client::BareMetalSolution::get_location] calls.
+    /// The request builder for [BareMetalSolution::get_location][crate::client::BareMetalSolution::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3302,12 +4457,30 @@ pub mod bare_metal_solution {
         }
     }
 
-    /// The request builder for [BareMetalSolution::get_operation][super::super::client::BareMetalSolution::get_operation] calls.
+    /// The request builder for [BareMetalSolution::get_operation][crate::client::BareMetalSolution::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_baremetalsolution_v2::builder;
+    /// use builder::bare_metal_solution::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::BareMetalSolution>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::BareMetalSolution>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Shell API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_shell_v1::client::CloudShellService;
 /// let client = CloudShellService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Shell API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -64,11 +61,11 @@ use std::sync::Arc;
 ///
 /// `CloudShellService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudShellService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudShellService {
-    inner: Arc<dyn super::stub::dynamic::CloudShellService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudShellService>,
 }
 
 impl CloudShellService {
@@ -78,7 +75,7 @@ impl CloudShellService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_shell_v1::client::CloudShellService;
     /// let client = CloudShellService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_shell_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -95,45 +92,44 @@ impl CloudShellService {
         T: super::stub::CloudShellService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudShellService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudShellService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudShellService> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudShellService> {
         super::transport::CloudShellService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudShellService> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudShellService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudShellService::new)
     }
 
     /// Gets an environment. Returns NOT_FOUND if the environment does not exist.
-    pub fn get_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::GetEnvironment {
+    pub fn get_environment(&self) -> super::builder::cloud_shell_service::GetEnvironment {
         super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Starts an existing environment, allowing clients to connect to it. The
@@ -152,12 +148,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_environment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::StartEnvironment {
+    pub fn start_environment(&self) -> super::builder::cloud_shell_service::StartEnvironment {
         super::builder::cloud_shell_service::StartEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sends OAuth credentials to a running environment on behalf of a user. When
@@ -176,10 +168,8 @@ impl CloudShellService {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn authorize_environment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_shell_service::AuthorizeEnvironment {
         super::builder::cloud_shell_service::AuthorizeEnvironment::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Adds a public SSH key to an environment, allowing clients with the
@@ -195,12 +185,8 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn add_public_key(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::AddPublicKey {
+    pub fn add_public_key(&self) -> super::builder::cloud_shell_service::AddPublicKey {
         super::builder::cloud_shell_service::AddPublicKey::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Removes a public SSH key from an environment. Clients will no longer be
@@ -217,22 +203,14 @@ impl CloudShellService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn remove_public_key(
-        &self,
-        environment: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::RemovePublicKey {
+    pub fn remove_public_key(&self) -> super::builder::cloud_shell_service::RemovePublicKey {
         super::builder::cloud_shell_service::RemovePublicKey::new(self.inner.clone())
-            .set_environment(environment.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_shell_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::cloud_shell_service::GetOperation {
         super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

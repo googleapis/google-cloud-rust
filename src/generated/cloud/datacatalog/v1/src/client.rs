@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Google Cloud Data Catalog API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
 /// let client = DataCatalog::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -61,12 +58,12 @@ use std::sync::Arc;
 ///
 /// `DataCatalog` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataCatalog` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 #[deprecated]
 pub struct DataCatalog {
-    inner: Arc<dyn super::stub::dynamic::DataCatalog>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataCatalog>,
 }
 
 impl DataCatalog {
@@ -76,7 +73,7 @@ impl DataCatalog {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// let client = DataCatalog::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_catalog::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::data_catalog::client::Factory)
@@ -91,33 +88,35 @@ impl DataCatalog {
         T: super::stub::DataCatalog + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataCatalog>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataCatalog>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
         super::transport::DataCatalog::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataCatalog> {
+    ) -> gax::client_builder::Result<impl super::stub::DataCatalog> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataCatalog::new)
@@ -171,21 +170,14 @@ impl DataCatalog {
     /// the `parent` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     #[deprecated]
-    pub fn create_entry_group(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::CreateEntryGroup {
+    pub fn create_entry_group(&self) -> super::builder::data_catalog::CreateEntryGroup {
         super::builder::data_catalog::CreateEntryGroup::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets an entry group.
     #[deprecated]
-    pub fn get_entry_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::GetEntryGroup {
-        super::builder::data_catalog::GetEntryGroup::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entry_group(&self) -> super::builder::data_catalog::GetEntryGroup {
+        super::builder::data_catalog::GetEntryGroup::new(self.inner.clone())
     }
 
     /// Updates an entry group.
@@ -195,12 +187,8 @@ impl DataCatalog {
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     #[deprecated]
-    pub fn update_entry_group(
-        &self,
-        entry_group: impl Into<crate::model::EntryGroup>,
-    ) -> super::builder::data_catalog::UpdateEntryGroup {
+    pub fn update_entry_group(&self) -> super::builder::data_catalog::UpdateEntryGroup {
         super::builder::data_catalog::UpdateEntryGroup::new(self.inner.clone())
-            .set_entry_group(entry_group.into())
     }
 
     /// Deletes an entry group.
@@ -210,22 +198,14 @@ impl DataCatalog {
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     #[deprecated]
-    pub fn delete_entry_group(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::DeleteEntryGroup {
+    pub fn delete_entry_group(&self) -> super::builder::data_catalog::DeleteEntryGroup {
         super::builder::data_catalog::DeleteEntryGroup::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists entry groups.
     #[deprecated]
-    pub fn list_entry_groups(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ListEntryGroups {
+    pub fn list_entry_groups(&self) -> super::builder::data_catalog::ListEntryGroups {
         super::builder::data_catalog::ListEntryGroups::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates an entry.
@@ -240,11 +220,8 @@ impl DataCatalog {
     ///
     /// An entry group can have a maximum of 100,000 entries.
     #[deprecated]
-    pub fn create_entry(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::CreateEntry {
-        super::builder::data_catalog::CreateEntry::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_entry(&self) -> super::builder::data_catalog::CreateEntry {
+        super::builder::data_catalog::CreateEntry::new(self.inner.clone())
     }
 
     /// Updates an existing entry.
@@ -254,11 +231,8 @@ impl DataCatalog {
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     #[deprecated]
-    pub fn update_entry(
-        &self,
-        entry: impl Into<crate::model::Entry>,
-    ) -> super::builder::data_catalog::UpdateEntry {
-        super::builder::data_catalog::UpdateEntry::new(self.inner.clone()).set_entry(entry.into())
+    pub fn update_entry(&self) -> super::builder::data_catalog::UpdateEntry {
+        super::builder::data_catalog::UpdateEntry::new(self.inner.clone())
     }
 
     /// Deletes an existing entry.
@@ -274,20 +248,14 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.CreateEntry]: crate::client::DataCatalog::create_entry
     #[deprecated]
-    pub fn delete_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::DeleteEntry {
-        super::builder::data_catalog::DeleteEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_entry(&self) -> super::builder::data_catalog::DeleteEntry {
+        super::builder::data_catalog::DeleteEntry::new(self.inner.clone())
     }
 
     /// Gets an entry.
     #[deprecated]
-    pub fn get_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::GetEntry {
-        super::builder::data_catalog::GetEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn get_entry(&self) -> super::builder::data_catalog::GetEntry {
+        super::builder::data_catalog::GetEntry::new(self.inner.clone())
     }
 
     /// Gets an entry by its target resource name.
@@ -306,11 +274,8 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.SearchCatalog]: crate::client::DataCatalog::search_catalog
     #[deprecated]
-    pub fn list_entries(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ListEntries {
-        super::builder::data_catalog::ListEntries::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_entries(&self) -> super::builder::data_catalog::ListEntries {
+        super::builder::data_catalog::ListEntries::new(self.inner.clone())
     }
 
     /// Modifies entry overview, part of the business context of an
@@ -321,12 +286,8 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     #[deprecated]
-    pub fn modify_entry_overview(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ModifyEntryOverview {
+    pub fn modify_entry_overview(&self) -> super::builder::data_catalog::ModifyEntryOverview {
         super::builder::data_catalog::ModifyEntryOverview::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Modifies contacts, part of the business context of an
@@ -337,12 +298,8 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     #[deprecated]
-    pub fn modify_entry_contacts(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ModifyEntryContacts {
+    pub fn modify_entry_contacts(&self) -> super::builder::data_catalog::ModifyEntryContacts {
         super::builder::data_catalog::ModifyEntryContacts::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a tag template.
@@ -352,21 +309,14 @@ impl DataCatalog {
     /// For more information, see [Data Catalog resource project]
     /// (<https://cloud.google.com/data-catalog/docs/concepts/resource-project>).
     #[deprecated]
-    pub fn create_tag_template(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::CreateTagTemplate {
+    pub fn create_tag_template(&self) -> super::builder::data_catalog::CreateTagTemplate {
         super::builder::data_catalog::CreateTagTemplate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a tag template.
     #[deprecated]
-    pub fn get_tag_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::GetTagTemplate {
-        super::builder::data_catalog::GetTagTemplate::new(self.inner.clone()).set_name(name.into())
+    pub fn get_tag_template(&self) -> super::builder::data_catalog::GetTagTemplate {
+        super::builder::data_catalog::GetTagTemplate::new(self.inner.clone())
     }
 
     /// Updates a tag template.
@@ -379,12 +329,8 @@ impl DataCatalog {
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     #[deprecated]
-    pub fn update_tag_template(
-        &self,
-        tag_template: impl Into<crate::model::TagTemplate>,
-    ) -> super::builder::data_catalog::UpdateTagTemplate {
+    pub fn update_tag_template(&self) -> super::builder::data_catalog::UpdateTagTemplate {
         super::builder::data_catalog::UpdateTagTemplate::new(self.inner.clone())
-            .set_tag_template(tag_template.into())
     }
 
     /// Deletes a tag template and all tags that use it.
@@ -393,12 +339,8 @@ impl DataCatalog {
     /// the `name` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     #[deprecated]
-    pub fn delete_tag_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::DeleteTagTemplate {
+    pub fn delete_tag_template(&self) -> super::builder::data_catalog::DeleteTagTemplate {
         super::builder::data_catalog::DeleteTagTemplate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a field in a tag template.
@@ -409,10 +351,8 @@ impl DataCatalog {
     #[deprecated]
     pub fn create_tag_template_field(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::CreateTagTemplateField {
         super::builder::data_catalog::CreateTagTemplateField::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a field in a tag template.
@@ -426,10 +366,8 @@ impl DataCatalog {
     #[deprecated]
     pub fn update_tag_template_field(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::UpdateTagTemplateField {
         super::builder::data_catalog::UpdateTagTemplateField::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Renames a field in a tag template.
@@ -440,10 +378,8 @@ impl DataCatalog {
     #[deprecated]
     pub fn rename_tag_template_field(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::RenameTagTemplateField {
         super::builder::data_catalog::RenameTagTemplateField::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Renames an enum value in a tag template.
@@ -452,10 +388,8 @@ impl DataCatalog {
     #[deprecated]
     pub fn rename_tag_template_field_enum_value(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::RenameTagTemplateFieldEnumValue {
         super::builder::data_catalog::RenameTagTemplateFieldEnumValue::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a field in a tag template and all uses of this field from the tags
@@ -467,10 +401,8 @@ impl DataCatalog {
     #[deprecated]
     pub fn delete_tag_template_field(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::DeleteTagTemplateField {
         super::builder::data_catalog::DeleteTagTemplateField::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a tag and assigns it to:
@@ -489,29 +421,20 @@ impl DataCatalog {
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     /// [google.cloud.datacatalog.v1.EntryGroup]: crate::model::EntryGroup
     #[deprecated]
-    pub fn create_tag(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::CreateTag {
-        super::builder::data_catalog::CreateTag::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_tag(&self) -> super::builder::data_catalog::CreateTag {
+        super::builder::data_catalog::CreateTag::new(self.inner.clone())
     }
 
     /// Updates an existing tag.
     #[deprecated]
-    pub fn update_tag(
-        &self,
-        tag: impl Into<crate::model::Tag>,
-    ) -> super::builder::data_catalog::UpdateTag {
-        super::builder::data_catalog::UpdateTag::new(self.inner.clone()).set_tag(tag.into())
+    pub fn update_tag(&self) -> super::builder::data_catalog::UpdateTag {
+        super::builder::data_catalog::UpdateTag::new(self.inner.clone())
     }
 
     /// Deletes a tag.
     #[deprecated]
-    pub fn delete_tag(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::DeleteTag {
-        super::builder::data_catalog::DeleteTag::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_tag(&self) -> super::builder::data_catalog::DeleteTag {
+        super::builder::data_catalog::DeleteTag::new(self.inner.clone())
     }
 
     /// Lists tags assigned to an [Entry][google.cloud.datacatalog.v1.Entry].
@@ -521,11 +444,8 @@ impl DataCatalog {
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     /// [google.cloud.datacatalog.v1.Tag.column]: crate::model::Tag::scope
     #[deprecated]
-    pub fn list_tags(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ListTags {
-        super::builder::data_catalog::ListTags::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_tags(&self) -> super::builder::data_catalog::ListTags {
+        super::builder::data_catalog::ListTags::new(self.inner.clone())
     }
 
     /// `ReconcileTags` creates or updates a list of tags on the entry.
@@ -554,12 +474,8 @@ impl DataCatalog {
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     #[deprecated]
-    pub fn reconcile_tags(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ReconcileTags {
+    pub fn reconcile_tags(&self) -> super::builder::data_catalog::ReconcileTags {
         super::builder::data_catalog::ReconcileTags::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Marks an [Entry][google.cloud.datacatalog.v1.Entry] as starred by
@@ -567,11 +483,8 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     #[deprecated]
-    pub fn star_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::StarEntry {
-        super::builder::data_catalog::StarEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn star_entry(&self) -> super::builder::data_catalog::StarEntry {
+        super::builder::data_catalog::StarEntry::new(self.inner.clone())
     }
 
     /// Marks an [Entry][google.cloud.datacatalog.v1.Entry] as NOT starred by
@@ -579,11 +492,8 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     #[deprecated]
-    pub fn unstar_entry(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::UnstarEntry {
-        super::builder::data_catalog::UnstarEntry::new(self.inner.clone()).set_name(name.into())
+    pub fn unstar_entry(&self) -> super::builder::data_catalog::UnstarEntry {
+        super::builder::data_catalog::UnstarEntry::new(self.inner.clone())
     }
 
     /// Sets an access control policy for a resource. Replaces any existing
@@ -604,12 +514,8 @@ impl DataCatalog {
     ///   templates.
     /// - `datacatalog.entryGroups.setIamPolicy` to set policies on entry groups.
     #[deprecated]
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::data_catalog::SetIamPolicy {
         super::builder::data_catalog::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource.
@@ -634,12 +540,8 @@ impl DataCatalog {
     ///   templates.
     /// - `datacatalog.entryGroups.getIamPolicy` to get policies on entry groups.
     #[deprecated]
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::data_catalog::GetIamPolicy {
         super::builder::data_catalog::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets your permissions on a resource.
@@ -657,12 +559,8 @@ impl DataCatalog {
     ///
     /// No Google IAM permissions are required to call this method.
     #[deprecated]
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::data_catalog::TestIamPermissions {
         super::builder::data_catalog::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Imports entries from a source, such as data previously dumped into a
@@ -698,33 +596,23 @@ impl DataCatalog {
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     #[deprecated]
-    pub fn import_entries(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ImportEntries {
+    pub fn import_entries(&self) -> super::builder::data_catalog::ImportEntries {
         super::builder::data_catalog::ImportEntries::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Sets the configuration related to the migration to Dataplex for an
     /// organization or project.
     #[deprecated]
-    pub fn set_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::SetConfig {
-        super::builder::data_catalog::SetConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn set_config(&self) -> super::builder::data_catalog::SetConfig {
+        super::builder::data_catalog::SetConfig::new(self.inner.clone())
     }
 
     /// Retrieves the configuration related to the migration from Data Catalog to
     /// Dataplex for a specific organization, including all the projects under it
     /// which have a separate configuration set.
     #[deprecated]
-    pub fn retrieve_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::RetrieveConfig {
-        super::builder::data_catalog::RetrieveConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn retrieve_config(&self) -> super::builder::data_catalog::RetrieveConfig {
+        super::builder::data_catalog::RetrieveConfig::new(self.inner.clone())
     }
 
     /// Retrieves the effective configuration related to the migration from Data
@@ -735,50 +623,36 @@ impl DataCatalog {
     #[deprecated]
     pub fn retrieve_effective_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::data_catalog::RetrieveEffectiveConfig {
         super::builder::data_catalog::RetrieveEffectiveConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::ListOperations {
-        super::builder::data_catalog::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::data_catalog::ListOperations {
+        super::builder::data_catalog::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::GetOperation {
-        super::builder::data_catalog::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::data_catalog::GetOperation {
+        super::builder::data_catalog::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::DeleteOperation {
-        super::builder::data_catalog::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::data_catalog::DeleteOperation {
+        super::builder::data_catalog::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_catalog::CancelOperation {
-        super::builder::data_catalog::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::data_catalog::CancelOperation {
+        super::builder::data_catalog::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -790,7 +664,7 @@ impl DataCatalog {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
 /// let client = PolicyTagManager::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -826,11 +700,11 @@ impl DataCatalog {
 ///
 /// `PolicyTagManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManager` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManager {
-    inner: Arc<dyn super::stub::dynamic::PolicyTagManager>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>,
 }
 
 impl PolicyTagManager {
@@ -840,7 +714,7 @@ impl PolicyTagManager {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// let client = PolicyTagManager::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -857,33 +731,36 @@ impl PolicyTagManager {
         T: super::stub::PolicyTagManager + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTagManager>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::PolicyTagManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManager> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
         super::transport::PolicyTagManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManager> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyTagManager::new)
@@ -892,61 +769,37 @@ impl PolicyTagManager {
     /// Creates a taxonomy in a specified project.
     ///
     /// The taxonomy is initially empty, that is, it doesn't contain policy tags.
-    pub fn create_taxonomy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::CreateTaxonomy {
+    pub fn create_taxonomy(&self) -> super::builder::policy_tag_manager::CreateTaxonomy {
         super::builder::policy_tag_manager::CreateTaxonomy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a taxonomy, including all policy tags in this
     /// taxonomy, their associated policies, and the policy tags references from
     /// BigQuery columns.
-    pub fn delete_taxonomy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::DeleteTaxonomy {
+    pub fn delete_taxonomy(&self) -> super::builder::policy_tag_manager::DeleteTaxonomy {
         super::builder::policy_tag_manager::DeleteTaxonomy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a taxonomy, including its display name,
     /// description, and activated policy types.
-    pub fn update_taxonomy(
-        &self,
-        taxonomy: impl Into<crate::model::Taxonomy>,
-    ) -> super::builder::policy_tag_manager::UpdateTaxonomy {
+    pub fn update_taxonomy(&self) -> super::builder::policy_tag_manager::UpdateTaxonomy {
         super::builder::policy_tag_manager::UpdateTaxonomy::new(self.inner.clone())
-            .set_taxonomy(taxonomy.into())
     }
 
     /// Lists all taxonomies in a project in a particular location that you
     /// have a permission to view.
-    pub fn list_taxonomies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::ListTaxonomies {
+    pub fn list_taxonomies(&self) -> super::builder::policy_tag_manager::ListTaxonomies {
         super::builder::policy_tag_manager::ListTaxonomies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a taxonomy.
-    pub fn get_taxonomy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::GetTaxonomy {
+    pub fn get_taxonomy(&self) -> super::builder::policy_tag_manager::GetTaxonomy {
         super::builder::policy_tag_manager::GetTaxonomy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a policy tag in a taxonomy.
-    pub fn create_policy_tag(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::CreatePolicyTag {
+    pub fn create_policy_tag(&self) -> super::builder::policy_tag_manager::CreatePolicyTag {
         super::builder::policy_tag_manager::CreatePolicyTag::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a policy tag together with the following:
@@ -955,112 +808,68 @@ impl PolicyTagManager {
     /// * Policies associated with the policy tag and its descendants
     /// * References from BigQuery table schema of the policy tag and its
     ///   descendants
-    pub fn delete_policy_tag(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::DeletePolicyTag {
+    pub fn delete_policy_tag(&self) -> super::builder::policy_tag_manager::DeletePolicyTag {
         super::builder::policy_tag_manager::DeletePolicyTag::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Updates a policy tag, including its display
     /// name, description, and parent policy tag.
-    pub fn update_policy_tag(
-        &self,
-        policy_tag: impl Into<crate::model::PolicyTag>,
-    ) -> super::builder::policy_tag_manager::UpdatePolicyTag {
+    pub fn update_policy_tag(&self) -> super::builder::policy_tag_manager::UpdatePolicyTag {
         super::builder::policy_tag_manager::UpdatePolicyTag::new(self.inner.clone())
-            .set_policy_tag(policy_tag.into())
     }
 
     /// Lists all policy tags in a taxonomy.
-    pub fn list_policy_tags(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::ListPolicyTags {
+    pub fn list_policy_tags(&self) -> super::builder::policy_tag_manager::ListPolicyTags {
         super::builder::policy_tag_manager::ListPolicyTags::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets a policy tag.
-    pub fn get_policy_tag(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::GetPolicyTag {
+    pub fn get_policy_tag(&self) -> super::builder::policy_tag_manager::GetPolicyTag {
         super::builder::policy_tag_manager::GetPolicyTag::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets the IAM policy for a policy tag or a taxonomy.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::policy_tag_manager::GetIamPolicy {
         super::builder::policy_tag_manager::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Sets the IAM policy for a policy tag or a taxonomy.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::policy_tag_manager::SetIamPolicy {
         super::builder::policy_tag_manager::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns your permissions on a specified policy tag or
     /// taxonomy.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::policy_tag_manager::TestIamPermissions {
         super::builder::policy_tag_manager::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::policy_tag_manager::ListOperations {
         super::builder::policy_tag_manager::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::GetOperation {
+    pub fn get_operation(&self) -> super::builder::policy_tag_manager::GetOperation {
         super::builder::policy_tag_manager::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::policy_tag_manager::DeleteOperation {
         super::builder::policy_tag_manager::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::policy_tag_manager::CancelOperation {
         super::builder::policy_tag_manager::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1072,7 +881,7 @@ impl PolicyTagManager {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
 /// let client = PolicyTagManagerSerialization::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1106,11 +915,11 @@ impl PolicyTagManager {
 ///
 /// `PolicyTagManagerSerialization` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `PolicyTagManagerSerialization` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct PolicyTagManagerSerialization {
-    inner: Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
 }
 
 impl PolicyTagManagerSerialization {
@@ -1120,7 +929,7 @@ impl PolicyTagManagerSerialization {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
     /// let client = PolicyTagManagerSerialization::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager_serialization::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1137,33 +946,37 @@ impl PolicyTagManagerSerialization {
         T: super::stub::PolicyTagManagerSerialization + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::PolicyTagManagerSerialization>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManagerSerialization> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
         super::transport::PolicyTagManagerSerialization::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::PolicyTagManagerSerialization> {
+    ) -> gax::client_builder::Result<impl super::stub::PolicyTagManagerSerialization> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::PolicyTagManagerSerialization::new)
@@ -1184,10 +997,8 @@ impl PolicyTagManagerSerialization {
     /// - Updates policy tags with valid resources names accordingly.
     pub fn replace_taxonomy(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::policy_tag_manager_serialization::ReplaceTaxonomy {
         super::builder::policy_tag_manager_serialization::ReplaceTaxonomy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates new taxonomies (including their policy tags) in a given project
@@ -1200,10 +1011,8 @@ impl PolicyTagManagerSerialization {
     /// nested protocol buffer structures.
     pub fn import_taxonomies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::policy_tag_manager_serialization::ImportTaxonomies {
         super::builder::policy_tag_manager_serialization::ImportTaxonomies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Exports taxonomies in the requested type and returns them,
@@ -1214,10 +1023,8 @@ impl PolicyTagManagerSerialization {
     /// policy tags that can be used as input for `ImportTaxonomies` calls.
     pub fn export_taxonomies(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::policy_tag_manager_serialization::ExportTaxonomies {
         super::builder::policy_tag_manager_serialization::ExportTaxonomies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1225,21 +1032,15 @@ impl PolicyTagManagerSerialization {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::policy_tag_manager_serialization::ListOperations {
         super::builder::policy_tag_manager_serialization::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::policy_tag_manager_serialization::GetOperation {
+    pub fn get_operation(&self) -> super::builder::policy_tag_manager_serialization::GetOperation {
         super::builder::policy_tag_manager_serialization::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1247,10 +1048,8 @@ impl PolicyTagManagerSerialization {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::policy_tag_manager_serialization::DeleteOperation {
         super::builder::policy_tag_manager_serialization::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1258,9 +1057,7 @@ impl PolicyTagManagerSerialization {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::policy_tag_manager_serialization::CancelOperation {
         super::builder::policy_tag_manager_serialization::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

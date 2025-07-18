@@ -245,6 +245,42 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_resource_changes(
+        &self,
+        req: crate::model::ListResourceChangesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListResourceChangesResponse>> {
+        self.inner.list_resource_changes(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_resource_change(
+        &self,
+        req: crate::model::GetResourceChangeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ResourceChange>> {
+        self.inner.get_resource_change(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_resource_drifts(
+        &self,
+        req: crate::model::ListResourceDriftsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListResourceDriftsResponse>> {
+        self.inner.list_resource_drifts(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_resource_drift(
+        &self,
+        req: crate::model::GetResourceDriftRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ResourceDrift>> {
+        self.inner.get_resource_drift(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

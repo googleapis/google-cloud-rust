@@ -70,15 +70,18 @@ func MethodCreate() *api.Method {
 		InputTypeID:   CreateRequest().ID,
 		OutputTypeID:  Secret().ID,
 		PathInfo: &api.PathInfo{
-			Verb: http.MethodPost,
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("parent"),
-				api.NewLiteralPathSegment("secrets"),
-				api.NewFieldPathPathSegment("secret_id"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: http.MethodPost,
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("projects").
+						WithVariableNamed("project").
+						WithLiteral("secrets"),
+					QueryParameters: map[string]bool{"secretId": true},
+				},
 			},
-			QueryParameters: map[string]bool{"secretId": true},
-			BodyFieldPath:   "requestBody",
+			BodyFieldPath: "requestBody",
 		},
 	}
 }
@@ -91,13 +94,16 @@ func MethodUpdate() *api.Method {
 		InputTypeID:   UpdateRequest().ID,
 		OutputTypeID:  ".google.protobuf.Empty",
 		PathInfo: &api.PathInfo{
-			Verb: http.MethodPatch,
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("secret.name"),
-			},
-			QueryParameters: map[string]bool{
-				"field_mask": true,
+			Bindings: []*api.PathBinding{
+				{
+					Verb: http.MethodPatch,
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithVariableNamed("secret", "name"),
+					QueryParameters: map[string]bool{
+						"field_mask": true,
+					},
+				},
 			},
 		},
 	}
@@ -111,17 +117,20 @@ func MethodAddSecretVersion() *api.Method {
 		InputTypeID:   "..AddSecretVersionRequest",
 		OutputTypeID:  "..SecretVersion",
 		PathInfo: &api.PathInfo{
-			Verb:          http.MethodPost,
-			BodyFieldPath: "*",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("secrets"),
-				api.NewFieldPathPathSegment("secret"),
-				api.NewVerbPathSegment("addVersion"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: http.MethodPost,
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("projects").
+						WithVariableNamed("project").
+						WithLiteral("secrets").
+						WithVariableNamed("secret").
+						WithVerb("addVersion"),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
+			BodyFieldPath: "*",
 		},
 	}
 }
@@ -136,17 +145,20 @@ func MethodListSecretVersions() *api.Method {
 		OutputTypeID:  ListSecretVersionsResponse().ID,
 		OutputType:    ListSecretVersionsResponse(),
 		PathInfo: &api.PathInfo{
-			Verb:          http.MethodPost,
-			BodyFieldPath: "*",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("parent"),
-				api.NewLiteralPathSegment("secrets"),
-				api.NewFieldPathPathSegment("secret"),
-				api.NewVerbPathSegment("listSecretVersions"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: http.MethodPost,
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("projects").
+						WithVariableNamed("parent").
+						WithLiteral("secrets").
+						WithVariableNamed("secret").
+						WithVerb("listSecretVersions"),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
+			BodyFieldPath: "*",
 		},
 	}
 }
@@ -159,13 +171,13 @@ func CreateRequest() *api.Message {
 		Package:       Package,
 		Fields: []*api.Field{
 			{
-				Name:     "parent",
-				JSONName: "parent",
+				Name:     "project",
+				JSONName: "project",
 				Typez:    api.STRING_TYPE,
 			},
 			{
 				Name:     "secret_id",
-				JSONName: "secret_id",
+				JSONName: "secretId",
 				Typez:    api.STRING_TYPE,
 			},
 		},

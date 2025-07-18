@@ -24,8 +24,6 @@
 
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use gax::error::Error;
-
 pub(crate) mod dynamic;
 
 /// Defines the trait used to implement [super::client::ServiceHealth].
@@ -48,9 +46,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::ListEventsResponse>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::ListEventsResponse>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::get_event].
@@ -61,9 +57,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Event>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::Event>>>(Err(
-            Error::other("unimplemented"),
-        ))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::list_organization_events].
@@ -76,9 +70,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListOrganizationEventsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListOrganizationEventsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::get_organization_event].
@@ -89,9 +81,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::OrganizationEvent>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::OrganizationEvent>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::list_organization_impacts].
@@ -104,9 +94,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
             gax::response::Response<crate::model::ListOrganizationImpactsResponse>,
         >,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<crate::model::ListOrganizationImpactsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::get_organization_impact].
@@ -117,9 +105,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::OrganizationImpact>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<crate::model::OrganizationImpact>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::list_locations].
@@ -130,9 +116,7 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
     > + Send {
-        std::future::ready::<
-            crate::Result<gax::response::Response<location::model::ListLocationsResponse>>,
-        >(Err(Error::other("unimplemented")))
+        gaxi::unimplemented::unimplemented_stub()
     }
 
     /// Implements [super::client::ServiceHealth::get_location].
@@ -143,8 +127,6 @@ pub trait ServiceHealth: std::fmt::Debug + Send + Sync {
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<location::model::Location>>,
     > + Send {
-        std::future::ready::<crate::Result<gax::response::Response<location::model::Location>>>(
-            Err(Error::other("unimplemented")),
-        )
+        gaxi::unimplemented::unimplemented_stub()
     }
 }

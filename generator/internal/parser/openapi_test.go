@@ -721,17 +721,20 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 		InputTypeID:   "..ListLocationsRequest",
 		OutputTypeID:  "..ListLocationsResponse",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("locations"),
-			},
-			QueryParameters: map[string]bool{
-				"filter":    true,
-				"pageSize":  true,
-				"pageToken": true,
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("projects").
+						WithVariableNamed("project").
+						WithLiteral("locations"),
+					QueryParameters: map[string]bool{
+						"filter":    true,
+						"pageSize":  true,
+						"pageToken": true,
+					},
+				},
 			},
 		},
 		Pagination: &api.Field{
@@ -746,12 +749,6 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 	})
 
 	cs := sample.MethodCreate()
-	cs.PathInfo.PathTemplate = []api.PathSegment{
-		api.NewLiteralPathSegment("v1"),
-		api.NewLiteralPathSegment("projects"),
-		api.NewFieldPathPathSegment("project"),
-		api.NewLiteralPathSegment("secrets"),
-	}
 	checkMethod(t, service, cs.Name, cs)
 
 	asv := sample.MethodAddSecretVersion()
@@ -903,14 +900,17 @@ func TestOpenAPI_Pagination(t *testing.T) {
 				InputTypeID:  "..ListFoosRequest",
 				OutputTypeID: "..ListFoosResponse",
 				PathInfo: &api.PathInfo{
-					Verb: "GET",
-					PathTemplate: []api.PathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("project"),
-						api.NewLiteralPathSegment("foos"),
+					Bindings: []*api.PathBinding{
+						{
+							Verb: "GET",
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("projects").
+								WithVariableNamed("project").
+								WithLiteral("foos"),
+							QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
+						},
 					},
-					QueryParameters: map[string]bool{"pageSize": true, "pageToken": true},
 				},
 				Pagination: &api.Field{
 					Name:          "pageToken",
@@ -983,7 +983,7 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 		Publishing: &annotations.Publishing{
 			MethodSettings: []*annotations.MethodSettings{
 				{
-					Selector: ".test.TestService.CreateFoo",
+					Selector: "test.TestService.CreateFoo",
 					AutoPopulatedFields: []string{
 						"requestId",
 						"requestIdExplicitlyNotRequired",
@@ -1012,6 +1012,26 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.CreateFooRequest")
 	}
+	request_id := &api.Field{
+		Name:          "requestId",
+		JSONName:      "requestId",
+		Documentation: "Test-only Description",
+		Typez:         api.STRING_TYPE,
+		TypezID:       "string",
+		Synthetic:     true,
+		Optional:      true,
+		AutoPopulated: true,
+	}
+	request_id_explicit := &api.Field{
+		Name:          "requestIdExplicitlyNotRequired",
+		JSONName:      "requestIdExplicitlyNotRequired",
+		Documentation: "Test-only Description",
+		Typez:         api.STRING_TYPE,
+		TypezID:       "string",
+		Synthetic:     true,
+		Optional:      true,
+		AutoPopulated: true,
+	}
 	checkMessage(t, message, &api.Message{
 		Name:          "CreateFooRequest",
 		ID:            ".test.CreateFooRequest",
@@ -1036,26 +1056,8 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				Synthetic:     true,
 				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
-			{
-				Name:          "requestId",
-				JSONName:      "requestId",
-				Documentation: "Test-only Description",
-				Typez:         api.STRING_TYPE,
-				TypezID:       "string",
-				Synthetic:     true,
-				Optional:      true,
-				AutoPopulated: true,
-			},
-			{
-				Name:          "requestIdExplicitlyNotRequired",
-				JSONName:      "requestIdExplicitlyNotRequired",
-				Documentation: "Test-only Description",
-				Typez:         api.STRING_TYPE,
-				TypezID:       "string",
-				Synthetic:     true,
-				Optional:      true,
-				AutoPopulated: true,
-			},
+			request_id,
+			request_id_explicit,
 			{
 				Name:          "notRequestIdRequired",
 				Documentation: "Test-only Description",
@@ -1082,9 +1084,21 @@ func TestOpenAPI_AutoPopulated(t *testing.T) {
 				JSONName:      "notRequestIdMissingServiceConfig",
 				Synthetic:     true,
 				Optional:      true,
+				// This just denotes that the field is eligible
+				// to be auto-populated
+				AutoPopulated: true,
 			},
 		},
 	})
+
+	method, ok := test.State.MethodByID[".test.TestService.CreateFoo"]
+	if !ok {
+		t.Fatalf("Cannot find method %s in API State", ".test.TestService.CreateFoo")
+	}
+	want := []*api.Field{request_id, request_id_explicit}
+	if diff := cmp.Diff(want, method.AutoPopulated); diff != "" {
+		t.Errorf("incorrect auto-populated fields on method (-want, +got)\n:%s", diff)
+	}
 }
 
 func TestOpenAPI_Deprecated(t *testing.T) {
@@ -1112,15 +1126,18 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 		InputTypeID:  "..RpcARequest",
 		OutputTypeID: "..Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("rpc"),
-				api.NewLiteralPathSegment("a"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("projects").
+						WithVariableNamed("project").
+						WithLiteral("rpc").
+						WithLiteral("a"),
+					QueryParameters: map[string]bool{"filter": true},
+				},
 			},
-			QueryParameters: map[string]bool{"filter": true},
 		},
 	})
 
@@ -1131,15 +1148,18 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 		InputTypeID:  "..RpcBRequest",
 		OutputTypeID: "..Response",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewLiteralPathSegment("projects"),
-				api.NewFieldPathPathSegment("project"),
-				api.NewLiteralPathSegment("rpc"),
-				api.NewLiteralPathSegment("b"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("projects").
+						WithVariableNamed("project").
+						WithLiteral("rpc").
+						WithLiteral("b"),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
 		},
 	})
 

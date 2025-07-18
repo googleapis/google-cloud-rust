@@ -16,8 +16,9 @@
 specification-source = 'google/protobuf'
 
 [source]
-name-override = 'protobuf'
-title-override = 'Core Protobuf Types'
+roots                = 'protobuf'
+name-override        = 'protobuf'
+title-override       = 'Core Protobuf Types'
 description-override = 'Core Protobuf types used by most services.'
 # Don't generate 'any.proto'; use the hand-written version in protobuf.p.dart.
 include-list = """\
@@ -33,6 +34,6 @@ include-list = """\
 """
 
 [codec]
-copyright-year = '2025'
-part-file = "src/protobuf.p.dart"
+copyright-year   = '2025'
+part-file        = "src/protobuf.p.dart"
 dev-dependencies = "test"

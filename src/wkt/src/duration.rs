@@ -12,8 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-///
 /// Well-known duration representation for Google APIs.
+///
+/// # Examples
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = Duration::try_from("12.34s")?;
+/// assert_eq!(d.seconds(), 12);
+/// assert_eq!(d.nanos(), 340_000_000);
+/// assert_eq!(d, Duration::new(12, 340_000_000)?);
+/// assert_eq!(d, Duration::clamp(12, 340_000_000));
+///
+/// # Ok::<(), DurationError>(())
+/// ```
 ///
 /// A Duration represents a signed, fixed-length span of time represented
 /// as a count of seconds and fractions of seconds at nanosecond
@@ -31,7 +42,7 @@
 /// encoded in JSON format as "3s", while 3 seconds and 1 nanosecond should
 /// be expressed in JSON format as "3.000000001s", and 3 seconds and 1
 /// microsecond should be expressed in JSON format as "3.000001s".
-#[derive(Clone, Debug, Default, PartialEq, PartialOrd)]
+#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd)]
 #[non_exhaustive]
 pub struct Duration {
     /// Signed seconds of the span of time.
@@ -53,21 +64,39 @@ pub struct Duration {
 }
 
 /// Represent failures in converting or creating [Duration] instances.
-#[derive(thiserror::Error, Debug, PartialEq)]
+///
+/// # Examples
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let duration = Duration::new(Duration::MAX_SECONDS + 2, 0);
+/// assert!(matches!(duration, Err(DurationError::OutOfRange)));
+///
+/// let duration = Duration::new(0, 1_500_000_000);
+/// assert!(matches!(duration, Err(DurationError::OutOfRange)));
+///
+/// let duration = Duration::new(120, -500_000_000);
+/// assert!(matches!(duration, Err(DurationError::MismatchedSigns)));
+///
+/// let ts = Duration::try_from("invalid");
+/// assert!(matches!(ts, Err(DurationError::Deserialize(_))));
+/// ```
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
 pub enum DurationError {
     /// One of the components (seconds and/or nanoseconds) was out of range.
     #[error("seconds and/or nanoseconds out of range")]
-    OutOfRange(),
+    OutOfRange,
 
     /// The sign of the seconds component does not match the sign of the nanoseconds component.
     #[error("if seconds and nanoseconds are not zero, they must have the same sign")]
-    MismatchedSigns(),
+    MismatchedSigns,
 
     /// Cannot deserialize the duration.
-    #[error("cannot deserialize the duration: {0:?}")]
-    Deserialize(String),
+    #[error("cannot deserialize the duration: {0}")]
+    Deserialize(#[source] BoxedError),
 }
 
+type BoxedError = Box<dyn std::error::Error + Send + Sync>;
 type Error = DurationError;
 
 impl Duration {
@@ -87,6 +116,28 @@ impl Duration {
 
     /// Creates a [Duration] from the seconds and nanoseconds component.
     ///
+    /// # Examples
+    /// ```
+    /// # use google_cloud_wkt::{Duration, DurationError};
+    /// let d = Duration::new(12, 340_000_000)?;
+    /// assert_eq!(String::from(d), "12.34s");
+    ///
+    /// let d = Duration::new(-12, -340_000_000)?;
+    /// assert_eq!(String::from(d), "-12.34s");
+    /// # Ok::<(), DurationError>(())
+    /// ```
+    ///
+    /// # Examples: invalid inputs
+    /// ```
+    /// # use google_cloud_wkt::{Duration, DurationError};
+    /// let d = Duration::new(12, 2_000_000_000);
+    /// assert!(matches!(d, Err(DurationError::OutOfRange)));
+    ///
+    /// let d = Duration::new(-12, 340_000_000);
+    /// assert!(matches!(d, Err(DurationError::MismatchedSigns)));
+    /// # Ok::<(), DurationError>(())
+    /// ```
+    ///
     /// This function validates the `seconds` and `nanos` components and returns
     /// an error if either are out of range or their signs do not match.
     /// Consider using [clamp()][Duration::clamp] to add nanoseconds to seconds
@@ -98,18 +149,28 @@ impl Duration {
     /// * `nanos` - the nanoseconds *added* to the interval.
     pub fn new(seconds: i64, nanos: i32) -> Result<Self, Error> {
         if !(Self::MIN_SECONDS..=Self::MAX_SECONDS).contains(&seconds) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if !(Self::MIN_NANOS..=Self::MAX_NANOS).contains(&nanos) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if (seconds != 0 && nanos != 0) && ((seconds < 0) != (nanos < 0)) {
-            return Err(Error::MismatchedSigns());
+            return Err(Error::MismatchedSigns);
         }
         Ok(Self { seconds, nanos })
     }
 
     /// Create a normalized, clamped [Duration].
+    ///
+    /// # Examples
+    /// ```
+    /// # use google_cloud_wkt::{Duration, DurationError};
+    /// let d = Duration::clamp(12, 340_000_000);
+    /// assert_eq!(String::from(d), "12.34s");
+    /// let d = Duration::clamp(10, 2_000_000_000);
+    /// assert_eq!(String::from(d), "12s");
+    /// # Ok::<(), DurationError>(())
+    /// ```
     ///
     /// Durations must be in the [-10_000, +10_000] year range, the nanoseconds
     /// field must be in the [-999_999_999, +999_999_999] range, and the seconds
@@ -150,11 +211,25 @@ impl Duration {
     }
 
     /// Returns the seconds part of the duration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::Duration;
+    /// let d = Duration::clamp(12, 34);
+    /// assert_eq!(d.seconds(), 12);
+    /// ```
     pub fn seconds(&self) -> i64 {
         self.seconds
     }
 
     /// Returns the sub-second part of the duration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_wkt::Duration;
+    /// let d = Duration::clamp(12, 34);
+    /// assert_eq!(d.nanos(), 34);
+    /// ```
     pub fn nanos(&self) -> i32 {
         self.nanos
     }
@@ -172,8 +247,15 @@ impl crate::message::Message for Duration {
 }
 
 /// Converts a [Duration] to its [String] representation.
-impl From<&Duration> for String {
-    fn from(duration: &Duration) -> String {
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::Duration;
+/// let d = Duration::clamp(12, 340_000_000);
+/// assert_eq!(String::from(d), "12.34s");
+/// ```
+impl From<Duration> for String {
+    fn from(duration: Duration) -> String {
         let sign = if duration.seconds < 0 || duration.nanos < 0 {
             "-"
         } else {
@@ -191,7 +273,16 @@ impl From<&Duration> for String {
     }
 }
 
-/// Converts the [String] representation of a duration to [Duration].
+/// Converts the string representation of a duration to [Duration].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = Duration::try_from("12.34s")?;
+/// assert_eq!(d.seconds(), 12);
+/// assert_eq!(d.nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
 impl TryFrom<&str> for Duration {
     type Error = DurationError;
     fn try_from(value: &str) -> Result<Self, Self::Error> {
@@ -209,7 +300,7 @@ impl TryFrom<&str> for Duration {
         let seconds = seconds
             .map(str::parse::<i64>)
             .transpose()
-            .map_err(|e| DurationError::Deserialize(format!("{e}")))?
+            .map_err(|e| DurationError::Deserialize(e.into()))?
             .unwrap_or(0);
         let nanos = nanos
             .map(|s| {
@@ -218,20 +309,47 @@ impl TryFrom<&str> for Duration {
             })
             .map(|s| s.parse::<i32>())
             .transpose()
-            .map_err(|e| DurationError::Deserialize(format!("{e}")))?
+            .map_err(|e| DurationError::Deserialize(e.into()))?
             .unwrap_or(0);
 
         Duration::new(sign * seconds, sign as i32 * nanos)
     }
 }
 
+/// Converts the string representation of a duration to [Duration].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let s = "12.34s".to_string();
+/// let d = Duration::try_from(&s)?;
+/// assert_eq!(d.seconds(), 12);
+/// assert_eq!(d.nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
+impl TryFrom<&String> for Duration {
+    type Error = DurationError;
+    fn try_from(value: &String) -> Result<Self, Self::Error> {
+        Duration::try_from(value.as_str())
+    }
+}
+
 /// Convert from [std::time::Duration] to [Duration].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = Duration::try_from(std::time::Duration::from_secs(123))?;
+/// assert_eq!(d.seconds(), 123);
+/// assert_eq!(d.nanos(), 0);
+/// # Ok::<(), DurationError>(())
+/// ```
 impl TryFrom<std::time::Duration> for Duration {
     type Error = DurationError;
 
     fn try_from(value: std::time::Duration) -> Result<Self, Self::Error> {
         if value.as_secs() > (i64::MAX as u64) {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         assert!(value.as_secs() <= (i64::MAX as u64));
         assert!(value.subsec_nanos() <= (i32::MAX as u32));
@@ -240,15 +358,28 @@ impl TryFrom<std::time::Duration> for Duration {
 }
 
 /// Convert from [Duration] to [std::time::Duration].
+///
+/// Returns an error if `value` is negative, as `std::time::Duration` cannot
+/// represent negative durations.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = Duration::new(12, 340_000_000)?;
+/// let duration = std::time::Duration::try_from(d)?;
+/// assert_eq!(duration.as_secs(), 12);
+/// assert_eq!(duration.subsec_nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
 impl TryFrom<Duration> for std::time::Duration {
     type Error = DurationError;
 
     fn try_from(value: Duration) -> Result<Self, Self::Error> {
         if value.seconds < 0 {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         if value.nanos < 0 {
-            return Err(Error::OutOfRange());
+            return Err(Error::OutOfRange);
         }
         Ok(Self::new(value.seconds as u64, value.nanos as u32))
     }
@@ -257,7 +388,17 @@ impl TryFrom<Duration> for std::time::Duration {
 /// Convert from [time::Duration] to [Duration].
 ///
 /// This conversion may fail if the [time::Duration] value is out of range.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = Duration::try_from(time::Duration::new(12, 340_000_000))?;
+/// assert_eq!(d.seconds(), 12);
+/// assert_eq!(d.nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
 #[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl TryFrom<time::Duration> for Duration {
     type Error = DurationError;
 
@@ -270,7 +411,17 @@ impl TryFrom<time::Duration> for Duration {
 ///
 /// This conversion is always safe because the range for [Duration] is
 /// guaranteed to fit into the destination type.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = time::Duration::from(Duration::clamp(12, 340_000_000));
+/// assert_eq!(d.whole_seconds(), 12);
+/// assert_eq!(d.subsec_nanoseconds(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
 #[cfg(feature = "time")]
+#[cfg_attr(docsrs, doc(cfg(feature = "time")))]
 impl From<Duration> for time::Duration {
     fn from(value: Duration) -> Self {
         Self::new(value.seconds(), value.nanos())
@@ -278,7 +429,19 @@ impl From<Duration> for time::Duration {
 }
 
 /// Converts from [chrono::Duration] to [Duration].
+///
+/// The conversion may fail if the input value is out of range.
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = Duration::try_from(chrono::Duration::new(12, 340_000_000).unwrap())?;
+/// assert_eq!(d.seconds(), 12);
+/// assert_eq!(d.nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
 #[cfg(feature = "chrono")]
+#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl TryFrom<chrono::Duration> for Duration {
     type Error = DurationError;
 
@@ -288,7 +451,17 @@ impl TryFrom<chrono::Duration> for Duration {
 }
 
 /// Converts from [Duration] to [chrono::Duration].
+///
+/// # Example
+/// ```
+/// # use google_cloud_wkt::{Duration, DurationError};
+/// let d = chrono::Duration::from(Duration::clamp(12, 340_000_000));
+/// assert_eq!(d.num_seconds(), 12);
+/// assert_eq!(d.subsec_nanos(), 340_000_000);
+/// # Ok::<(), DurationError>(())
+/// ```
 #[cfg(feature = "chrono")]
+#[cfg_attr(docsrs, doc(cfg(feature = "chrono")))]
 impl From<Duration> for chrono::Duration {
     fn from(value: Duration) -> Self {
         Self::seconds(value.seconds) + Self::nanoseconds(value.nanos as i64)
@@ -296,12 +469,13 @@ impl From<Duration> for chrono::Duration {
 }
 
 /// Implement [`serde`](::serde) serialization for [Duration].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for Duration {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
-        let formatted = String::from(self);
+        let formatted = String::from(*self);
         formatted.serialize(serializer)
     }
 }
@@ -325,6 +499,7 @@ impl serde::de::Visitor<'_> for DurationVisitor {
 }
 
 /// Implement [`serde`](::serde) deserialization for [`Duration`].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for Duration {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
@@ -335,7 +510,7 @@ impl<'de> serde::de::Deserialize<'de> for Duration {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
     use test_case::test_case;
@@ -348,7 +523,7 @@ mod test {
             seconds: 0,
             nanos: 0,
         };
-        let json = serde_json::to_value(&proto)?;
+        let json = serde_json::to_value(proto)?;
         let expected = json!(r#"0s"#);
         assert_eq!(json, expected);
         let roundtrip = serde_json::from_value::<Duration>(json)?;
@@ -384,7 +559,7 @@ mod test {
     #[test_case(0, -1_000_000_000 ; "too many negative nanoseconds")]
     fn out_of_range(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert_eq!(d, Err(Error::OutOfRange()));
+        assert!(matches!(d, Err(Error::OutOfRange)), "{d:?}");
         Ok(())
     }
 
@@ -392,7 +567,7 @@ mod test {
     #[test_case(-1 , 1 ; "mismatched sign case 2")]
     fn mismatched_sign(seconds: i64, nanos: i32) -> Result {
         let d = Duration::new(seconds, nanos);
-        assert_eq!(d, Err(Error::MismatchedSigns()));
+        assert!(matches!(d, Err(Error::MismatchedSigns)), "{d:?}");
         Ok(())
     }
 
@@ -444,7 +619,7 @@ mod test {
     #[test_case(10_000 * SECONDS_IN_YEAR, 999_999_999, "315576000000.999999999s"; "range edge end")]
     fn roundtrip(seconds: i64, nanos: i32, want: &str) -> Result {
         let input = Duration::new(seconds, nanos)?;
-        let got = serde_json::to_value(&input)?
+        let got = serde_json::to_value(input)?
             .as_str()
             .map(str::to_string)
             .ok_or("cannot convert value to string")?;
@@ -480,7 +655,7 @@ mod test {
     #[test_case(time::Duration::new(-10_001 * SECONDS_IN_YEAR, 0) ; "below the range")]
     fn from_time_out_of_range(value: time::Duration) {
         let got = Duration::try_from(value);
-        assert_eq!(got, Err(DurationError::OutOfRange()));
+        assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
     }
 
     #[test_case(Duration::default(), time::Duration::default() ; "default")]
@@ -519,7 +694,7 @@ mod test {
         let got = serde_json::from_value::<Duration>(serde_json::json!({}));
         assert!(got.is_err());
         let msg = format!("{got:?}");
-        assert!(msg.contains("duration in Google format"), "message={}", msg);
+        assert!(msg.contains("duration in Google format"), "message={msg}");
         Ok(())
     }
 
@@ -536,6 +711,15 @@ mod test {
     fn from_std_time_in_range(input: std::time::Duration, want: Duration) {
         let got = Duration::try_from(input).unwrap();
         assert_eq!(got, want);
+    }
+
+    #[test]
+    fn convert_from_string() -> Result {
+        let input = "12.750s".to_string();
+        let a = Duration::try_from(input.as_str())?;
+        let b = Duration::try_from(&input)?;
+        assert_eq!(a, b);
+        Ok(())
     }
 
     #[test_case(std::time::Duration::new(i64::MAX as u64, 0))]
@@ -577,6 +761,6 @@ mod test {
     #[test_case(chrono::Duration::new(-10_001 * SECONDS_IN_YEAR, 0).unwrap() ; "below the range")]
     fn from_chrono_time_out_of_range(value: chrono::Duration) {
         let got = Duration::try_from(value);
-        assert_eq!(got, Err(DurationError::OutOfRange()));
+        assert!(matches!(got, Err(DurationError::OutOfRange)), "{got:?}");
     }
 }

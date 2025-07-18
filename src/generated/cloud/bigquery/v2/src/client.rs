@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the BigQuery API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_bigquery_v2::client::DatasetService;
 /// let client = DatasetService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `DatasetService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DatasetService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DatasetService {
-    inner: Arc<dyn super::stub::dynamic::DatasetService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DatasetService>,
 }
 
 impl DatasetService {
@@ -72,7 +69,7 @@ impl DatasetService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_v2::client::DatasetService;
     /// let client = DatasetService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::dataset_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::dataset_service::client::Factory)
@@ -87,120 +84,241 @@ impl DatasetService {
         T: super::stub::DatasetService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DatasetService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DatasetService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DatasetService> {
+    ) -> gax::client_builder::Result<impl super::stub::DatasetService> {
         super::transport::DatasetService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DatasetService> {
+    ) -> gax::client_builder::Result<impl super::stub::DatasetService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DatasetService::new)
     }
 
     /// Returns the dataset specified by datasetID.
-    pub fn get_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::GetDataset {
+    pub fn get_dataset(&self) -> super::builder::dataset_service::GetDataset {
         super::builder::dataset_service::GetDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Creates a new empty dataset.
-    pub fn insert_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::InsertDataset {
+    pub fn insert_dataset(&self) -> super::builder::dataset_service::InsertDataset {
         super::builder::dataset_service::InsertDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Updates information in an existing dataset. The update method replaces the
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
     /// This method supports RFC5789 patch semantics.
-    pub fn patch_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::PatchDataset {
+    pub fn patch_dataset(&self) -> super::builder::dataset_service::PatchDataset {
         super::builder::dataset_service::PatchDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Updates information in an existing dataset. The update method replaces the
     /// entire dataset resource, whereas the patch method only replaces fields that
     /// are provided in the submitted dataset resource.
-    pub fn update_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::UpdateDataset {
+    pub fn update_dataset(&self) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Deletes the dataset specified by the datasetId value. Before you can delete
     /// a dataset, you must delete all its tables, either manually or by specifying
     /// deleteContents. Immediately after deletion, you can create another dataset
     /// with the same name.
-    pub fn delete_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::DeleteDataset {
+    pub fn delete_dataset(&self) -> super::builder::dataset_service::DeleteDataset {
         super::builder::dataset_service::DeleteDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Lists all datasets in the specified project to which the user has been
     /// granted the READER dataset role.
-    pub fn list_datasets(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::ListDatasets {
+    pub fn list_datasets(&self) -> super::builder::dataset_service::ListDatasets {
         super::builder::dataset_service::ListDatasets::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Undeletes a dataset which is within time travel window based on datasetId.
     /// If a time is specified, the dataset version deleted at that time is
     /// undeleted, else the last live version is undeleted.
-    pub fn undelete_dataset(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::dataset_service::UndeleteDataset {
+    pub fn undelete_dataset(&self) -> super::builder::dataset_service::UndeleteDataset {
         super::builder::dataset_service::UndeleteDataset::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
+    }
+}
+
+/// Implements a client for the BigQuery API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_bigquery_v2::client::JobService;
+/// let client = JobService::builder().build().await?;
+/// // use `client` to make requests to the BigQuery API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+///
+/// # Configuration
+///
+/// To configure `JobService` use the `with_*` methods in the type returned
+/// by [builder()][JobService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://bigquery.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::job_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::job_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `JobService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `JobService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct JobService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::JobService>,
+}
+
+impl JobService {
+    /// Returns a builder for [JobService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_bigquery_v2::client::JobService;
+    /// let client = JobService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::job_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::job_service::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::JobService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::JobService>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+        super::transport::JobService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::JobService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::JobService::new)
+    }
+
+    /// Requests that a job be cancelled. This call will return immediately, and
+    /// the client will need to poll for the job status to see if the cancel
+    /// completed successfully. Cancelled jobs may still incur costs.
+    pub fn cancel_job(&self) -> super::builder::job_service::CancelJob {
+        super::builder::job_service::CancelJob::new(self.inner.clone())
+    }
+
+    /// Returns information about a specific job. Job information is available for
+    /// a six month period after creation. Requires that you're the person who ran
+    /// the job, or have the Is Owner project role.
+    pub fn get_job(&self) -> super::builder::job_service::GetJob {
+        super::builder::job_service::GetJob::new(self.inner.clone())
+    }
+
+    /// Starts a new asynchronous job.
+    ///
+    /// This API has two different kinds of endpoint URIs, as this method supports
+    /// a variety of use cases.
+    ///
+    /// * The *Metadata* URI is used for most interactions, as it accepts the job
+    ///   configuration directly.
+    /// * The *Upload* URI is ONLY for the case when you're sending both a load job
+    ///   configuration and a data stream together.  In this case, the Upload URI
+    ///   accepts the job configuration and the data as two distinct multipart MIME
+    ///   parts.
+    pub fn insert_job(&self) -> super::builder::job_service::InsertJob {
+        super::builder::job_service::InsertJob::new(self.inner.clone())
+    }
+
+    /// Requests the deletion of the metadata of a job. This call returns when the
+    /// job's metadata is deleted.
+    pub fn delete_job(&self) -> super::builder::job_service::DeleteJob {
+        super::builder::job_service::DeleteJob::new(self.inner.clone())
+    }
+
+    /// Lists all jobs that you started in the specified project. Job information
+    /// is available for a six month period after creation. The job list is sorted
+    /// in reverse chronological order, by job creation time. Requires the Can View
+    /// project role, or the Is Owner project role if you set the allUsers
+    /// property.
+    pub fn list_jobs(&self) -> super::builder::job_service::ListJobs {
+        super::builder::job_service::ListJobs::new(self.inner.clone())
+    }
+
+    /// RPC to get the results of a query job.
+    pub fn get_query_results(&self) -> super::builder::job_service::GetQueryResults {
+        super::builder::job_service::GetQueryResults::new(self.inner.clone())
+    }
+
+    /// Runs a BigQuery SQL query synchronously and returns query results if the
+    /// query completes within a specified timeout.
+    pub fn query(&self) -> super::builder::job_service::Query {
+        super::builder::job_service::Query::new(self.inner.clone())
     }
 }
 
@@ -403,7 +521,7 @@ impl JobService {
 /// # use google_cloud_bigquery_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -434,11 +552,11 @@ impl JobService {
 ///
 /// `ModelService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ModelService {
-    inner: Arc<dyn super::stub::dynamic::ModelService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ModelService>,
 }
 
 impl ModelService {
@@ -448,7 +566,7 @@ impl ModelService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_v2::client::ModelService;
     /// let client = ModelService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::model_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::model_service::client::Factory)
@@ -463,88 +581,60 @@ impl ModelService {
         T: super::stub::ModelService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ModelService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ModelService> {
+    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
         super::transport::ModelService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ModelService> {
+    ) -> gax::client_builder::Result<impl super::stub::ModelService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelService::new)
     }
 
     /// Gets the specified model resource by model ID.
-    pub fn get_model(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        model_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::GetModel {
+    pub fn get_model(&self) -> super::builder::model_service::GetModel {
         super::builder::model_service::GetModel::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_model_id(model_id.into())
     }
 
     /// Lists all models in the specified dataset. Requires the READER dataset
     /// role. After retrieving the list of models, you can get information about a
     /// particular model by calling the models.get method.
-    pub fn list_models(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::ListModels {
+    pub fn list_models(&self) -> super::builder::model_service::ListModels {
         super::builder::model_service::ListModels::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Patch specific fields in the specified model.
-    pub fn patch_model(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        model_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::PatchModel {
+    pub fn patch_model(&self) -> super::builder::model_service::PatchModel {
         super::builder::model_service::PatchModel::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_model_id(model_id.into())
     }
 
     /// Deletes the model specified by modelId from the dataset.
-    pub fn delete_model(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        model_id: impl Into<std::string::String>,
-    ) -> super::builder::model_service::DeleteModel {
+    pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
         super::builder::model_service::DeleteModel::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_model_id(model_id.into())
     }
 }
 
@@ -556,7 +646,7 @@ impl ModelService {
 /// # use google_cloud_bigquery_v2::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -587,11 +677,11 @@ impl ModelService {
 ///
 /// `ProjectService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ProjectService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ProjectService {
-    inner: Arc<dyn super::stub::dynamic::ProjectService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ProjectService>,
 }
 
 impl ProjectService {
@@ -601,7 +691,7 @@ impl ProjectService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_v2::client::ProjectService;
     /// let client = ProjectService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::project_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::project_service::client::Factory)
@@ -616,33 +706,35 @@ impl ProjectService {
         T: super::stub::ProjectService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ProjectService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ProjectService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProjectService> {
+    ) -> gax::client_builder::Result<impl super::stub::ProjectService> {
         super::transport::ProjectService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ProjectService> {
+    ) -> gax::client_builder::Result<impl super::stub::ProjectService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ProjectService::new)
@@ -650,12 +742,8 @@ impl ProjectService {
 
     /// RPC to get the service account for a project used for interactions with
     /// Google Cloud KMS
-    pub fn get_service_account(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::project_service::GetServiceAccount {
+    pub fn get_service_account(&self) -> super::builder::project_service::GetServiceAccount {
         super::builder::project_service::GetServiceAccount::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 }
 
@@ -667,7 +755,7 @@ impl ProjectService {
 /// # use google_cloud_bigquery_v2::client::RoutineService;
 /// let client = RoutineService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -698,11 +786,11 @@ impl ProjectService {
 ///
 /// `RoutineService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RoutineService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct RoutineService {
-    inner: Arc<dyn super::stub::dynamic::RoutineService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::RoutineService>,
 }
 
 impl RoutineService {
@@ -712,7 +800,7 @@ impl RoutineService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_v2::client::RoutineService;
     /// let client = RoutineService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::routine_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::routine_service::client::Factory)
@@ -727,99 +815,65 @@ impl RoutineService {
         T: super::stub::RoutineService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::RoutineService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RoutineService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RoutineService> {
+    ) -> gax::client_builder::Result<impl super::stub::RoutineService> {
         super::transport::RoutineService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RoutineService> {
+    ) -> gax::client_builder::Result<impl super::stub::RoutineService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RoutineService::new)
     }
 
     /// Gets the specified routine resource by routine ID.
-    pub fn get_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        routine_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::GetRoutine {
+    pub fn get_routine(&self) -> super::builder::routine_service::GetRoutine {
         super::builder::routine_service::GetRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_routine_id(routine_id.into())
     }
 
     /// Creates a new routine in the dataset.
-    pub fn insert_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::InsertRoutine {
+    pub fn insert_routine(&self) -> super::builder::routine_service::InsertRoutine {
         super::builder::routine_service::InsertRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Updates information in an existing routine. The update method replaces the
     /// entire Routine resource.
-    pub fn update_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        routine_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::UpdateRoutine {
+    pub fn update_routine(&self) -> super::builder::routine_service::UpdateRoutine {
         super::builder::routine_service::UpdateRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_routine_id(routine_id.into())
     }
 
     /// Deletes the routine specified by routineId from the dataset.
-    pub fn delete_routine(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        routine_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::DeleteRoutine {
+    pub fn delete_routine(&self) -> super::builder::routine_service::DeleteRoutine {
         super::builder::routine_service::DeleteRoutine::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_routine_id(routine_id.into())
     }
 
     /// Lists all routines in the specified dataset. Requires the READER dataset
     /// role.
-    pub fn list_routines(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::routine_service::ListRoutines {
+    pub fn list_routines(&self) -> super::builder::routine_service::ListRoutines {
         super::builder::routine_service::ListRoutines::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 }
 
@@ -831,7 +885,7 @@ impl RoutineService {
 /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
 /// let client = RowAccessPolicyService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -862,11 +916,11 @@ impl RoutineService {
 ///
 /// `RowAccessPolicyService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RowAccessPolicyService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct RowAccessPolicyService {
-    inner: Arc<dyn super::stub::dynamic::RowAccessPolicyService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::RowAccessPolicyService>,
 }
 
 impl RowAccessPolicyService {
@@ -876,7 +930,7 @@ impl RowAccessPolicyService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_v2::client::RowAccessPolicyService;
     /// let client = RowAccessPolicyService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::row_access_policy_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -893,33 +947,36 @@ impl RowAccessPolicyService {
         T: super::stub::RowAccessPolicyService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::RowAccessPolicyService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::RowAccessPolicyService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RowAccessPolicyService> {
+    ) -> gax::client_builder::Result<impl super::stub::RowAccessPolicyService> {
         super::transport::RowAccessPolicyService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RowAccessPolicyService> {
+    ) -> gax::client_builder::Result<impl super::stub::RowAccessPolicyService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RowAccessPolicyService::new)
@@ -928,87 +985,45 @@ impl RowAccessPolicyService {
     /// Lists all row access policies on the specified table.
     pub fn list_row_access_policies(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::ListRowAccessPolicies {
         super::builder::row_access_policy_service::ListRowAccessPolicies::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Gets the specified row access policy by policy ID.
     pub fn get_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-        policy_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::GetRowAccessPolicy {
         super::builder::row_access_policy_service::GetRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
-            .set_policy_id(policy_id.into())
     }
 
     /// Creates a row access policy.
     pub fn create_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::CreateRowAccessPolicy {
         super::builder::row_access_policy_service::CreateRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Updates a row access policy.
     pub fn update_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-        policy_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::UpdateRowAccessPolicy {
         super::builder::row_access_policy_service::UpdateRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
-            .set_policy_id(policy_id.into())
     }
 
     /// Deletes a row access policy.
     pub fn delete_row_access_policy(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-        policy_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::DeleteRowAccessPolicy {
         super::builder::row_access_policy_service::DeleteRowAccessPolicy::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
-            .set_policy_id(policy_id.into())
     }
 
     /// Deletes provided row access policies.
     pub fn batch_delete_row_access_policies(
         &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
     ) -> super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies {
         super::builder::row_access_policy_service::BatchDeleteRowAccessPolicies::new(
             self.inner.clone(),
         )
-        .set_project_id(project_id.into())
-        .set_dataset_id(dataset_id.into())
-        .set_table_id(table_id.into())
     }
 }
 
@@ -1020,7 +1035,7 @@ impl RowAccessPolicyService {
 /// # use google_cloud_bigquery_v2::client::TableService;
 /// let client = TableService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1052,11 +1067,11 @@ impl RowAccessPolicyService {
 ///
 /// `TableService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `TableService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct TableService {
-    inner: Arc<dyn super::stub::dynamic::TableService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::TableService>,
 }
 
 impl TableService {
@@ -1066,7 +1081,7 @@ impl TableService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_bigquery_v2::client::TableService;
     /// let client = TableService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::table_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::table_service::client::Factory)
@@ -1081,33 +1096,35 @@ impl TableService {
         T: super::stub::TableService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::TableService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::TableService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TableService> {
+    ) -> gax::client_builder::Result<impl super::stub::TableService> {
         super::transport::TableService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::TableService> {
+    ) -> gax::client_builder::Result<impl super::stub::TableService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::TableService::new)
@@ -1116,83 +1133,39 @@ impl TableService {
     /// Gets the specified table resource by table ID.
     /// This method does not return the data in the table, it only returns the
     /// table resource, which describes the structure of this table.
-    pub fn get_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::GetTable {
+    pub fn get_table(&self) -> super::builder::table_service::GetTable {
         super::builder::table_service::GetTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Creates a new, empty table in the dataset.
-    pub fn insert_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::InsertTable {
+    pub fn insert_table(&self) -> super::builder::table_service::InsertTable {
         super::builder::table_service::InsertTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 
     /// Updates information in an existing table. The update method replaces the
     /// entire table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted table resource.
     /// This method supports RFC5789 patch semantics.
-    pub fn patch_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::PatchTable {
+    pub fn patch_table(&self) -> super::builder::table_service::PatchTable {
         super::builder::table_service::PatchTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Updates information in an existing table. The update method replaces the
     /// entire Table resource, whereas the patch method only replaces fields that
     /// are provided in the submitted Table resource.
-    pub fn update_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::UpdateTable {
+    pub fn update_table(&self) -> super::builder::table_service::UpdateTable {
         super::builder::table_service::UpdateTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Deletes the table specified by tableId from the dataset.
     /// If the table contains data, all the data will be deleted.
-    pub fn delete_table(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-        table_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::DeleteTable {
+    pub fn delete_table(&self) -> super::builder::table_service::DeleteTable {
         super::builder::table_service::DeleteTable::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
-            .set_table_id(table_id.into())
     }
 
     /// Lists all tables in the specified dataset. Requires the READER dataset
     /// role.
-    pub fn list_tables(
-        &self,
-        project_id: impl Into<std::string::String>,
-        dataset_id: impl Into<std::string::String>,
-    ) -> super::builder::table_service::ListTables {
+    pub fn list_tables(&self) -> super::builder::table_service::ListTables {
         super::builder::table_service::ListTables::new(self.inner.clone())
-            .set_project_id(project_id.into())
-            .set_dataset_id(dataset_id.into())
     }
 }

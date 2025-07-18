@@ -26,20 +26,16 @@ extern crate wkt;
 
 /// Defines a Cloud Organization `Policy` which is used to specify `Constraints`
 /// for configurations of Cloud Platform resources.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Policy {
     /// Version of the `Policy`. Default version is 0;
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
     pub version: i32,
 
     /// The name of the `Constraint` the `Policy` is configuring, for example,
     /// `constraints/serviceuser.services`.
     ///
     /// Immutable after creation.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
     pub constraint: std::string::String,
 
     /// An opaque tag indicating the current version of the `Policy`, used for
@@ -57,15 +53,12 @@ pub struct Policy {
     /// read-modify-write loop for concurrency control. Not setting the `etag`in a
     /// `SetOrgPolicy` request will result in an unconditional write of the
     /// `Policy`.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
     pub etag: ::bytes::Bytes,
 
     /// The time stamp the `Policy` was previously updated. This is set by the
     /// server, not specified by the caller, and represents the last time a call to
     /// `SetOrgPolicy` was made for that `Policy`. Any value set by the client will
     /// be ignored.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// The field to populate is based on the `constraint_type` value in the
@@ -80,10 +73,8 @@ pub struct Policy {
     ///
     /// Attempting to set a `Policy` with a `policy_type` not set will result in an
     /// `invalid_argument` error.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub policy_type: std::option::Option<crate::model::policy::PolicyType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -111,11 +102,20 @@ impl Policy {
     }
 
     /// Sets the value of [update_time][crate::model::Policy::update_time].
-    pub fn set_update_time<T: std::convert::Into<std::option::Option<wkt::Timestamp>>>(
-        mut self,
-        v: T,
-    ) -> Self {
-        self.update_time = v.into();
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Policy::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
         self
     }
 
@@ -146,32 +146,6 @@ impl Policy {
         })
     }
 
-    /// The value of [policy_type][crate::model::Policy::policy_type]
-    /// if it holds a `BooleanPolicy`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn boolean_policy(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
-        #[allow(unreachable_patterns)]
-        self.policy_type.as_ref().and_then(|v| match v {
-            crate::model::policy::PolicyType::BooleanPolicy(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
-    /// The value of [policy_type][crate::model::Policy::policy_type]
-    /// if it holds a `RestoreDefault`, `None` if the field is not set or
-    /// holds a different branch.
-    pub fn restore_default(
-        &self,
-    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
-        #[allow(unreachable_patterns)]
-        self.policy_type.as_ref().and_then(|v| match v {
-            crate::model::policy::PolicyType::RestoreDefault(v) => std::option::Option::Some(v),
-            _ => std::option::Option::None,
-        })
-    }
-
     /// Sets the value of [policy_type][crate::model::Policy::policy_type]
     /// to hold a `ListPolicy`.
     ///
@@ -188,6 +162,19 @@ impl Policy {
         self
     }
 
+    /// The value of [policy_type][crate::model::Policy::policy_type]
+    /// if it holds a `BooleanPolicy`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn boolean_policy(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::BooleanPolicy>> {
+        #[allow(unreachable_patterns)]
+        self.policy_type.as_ref().and_then(|v| match v {
+            crate::model::policy::PolicyType::BooleanPolicy(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
     /// Sets the value of [policy_type][crate::model::Policy::policy_type]
     /// to hold a `BooleanPolicy`.
     ///
@@ -202,6 +189,19 @@ impl Policy {
         self.policy_type =
             std::option::Option::Some(crate::model::policy::PolicyType::BooleanPolicy(v.into()));
         self
+    }
+
+    /// The value of [policy_type][crate::model::Policy::policy_type]
+    /// if it holds a `RestoreDefault`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn restore_default(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::policy::RestoreDefault>> {
+        #[allow(unreachable_patterns)]
+        self.policy_type.as_ref().and_then(|v| match v {
+            crate::model::policy::PolicyType::RestoreDefault(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
     }
 
     /// Sets the value of [policy_type][crate::model::Policy::policy_type]
@@ -227,6 +227,267 @@ impl wkt::message::Message for Policy {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Policy {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __version,
+            __constraint,
+            __etag,
+            __update_time,
+            __list_policy,
+            __boolean_policy,
+            __restore_default,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Policy")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "version" => Ok(__FieldTag::__version),
+                            "constraint" => Ok(__FieldTag::__constraint),
+                            "etag" => Ok(__FieldTag::__etag),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "listPolicy" => Ok(__FieldTag::__list_policy),
+                            "list_policy" => Ok(__FieldTag::__list_policy),
+                            "booleanPolicy" => Ok(__FieldTag::__boolean_policy),
+                            "boolean_policy" => Ok(__FieldTag::__boolean_policy),
+                            "restoreDefault" => Ok(__FieldTag::__restore_default),
+                            "restore_default" => Ok(__FieldTag::__restore_default),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Policy;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Policy")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.version = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__constraint => {
+                            if !fields.insert(__FieldTag::__constraint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for constraint",
+                                ));
+                            }
+                            result.constraint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.etag = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__list_policy => {
+                            if !fields.insert(__FieldTag::__list_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for list_policy",
+                                ));
+                            }
+                            if result.policy_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `policy_type`, a oneof with full ID .google.cloud.orgpolicy.v1.Policy.list_policy, latest field was listPolicy",
+                                ));
+                            }
+                            result.policy_type = std::option::Option::Some(
+                                crate::model::policy::PolicyType::ListPolicy(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::policy::ListPolicy>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__boolean_policy => {
+                            if !fields.insert(__FieldTag::__boolean_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for boolean_policy",
+                                ));
+                            }
+                            if result.policy_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `policy_type`, a oneof with full ID .google.cloud.orgpolicy.v1.Policy.boolean_policy, latest field was booleanPolicy",
+                                ));
+                            }
+                            result.policy_type = std::option::Option::Some(
+                                crate::model::policy::PolicyType::BooleanPolicy(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::policy::BooleanPolicy>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__restore_default => {
+                            if !fields.insert(__FieldTag::__restore_default) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for restore_default",
+                                ));
+                            }
+                            if result.policy_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `policy_type`, a oneof with full ID .google.cloud.orgpolicy.v1.Policy.restore_default, latest field was restoreDefault",
+                                ));
+                            }
+                            result.policy_type = std::option::Option::Some(
+                                crate::model::policy::PolicyType::RestoreDefault(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::policy::RestoreDefault>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Policy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.version) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("version", &__With(&self.version))?;
+        }
+        if !self.constraint.is_empty() {
+            state.serialize_entry("constraint", &self.constraint)?;
+        }
+        if !self.etag.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("etag", &__With(&self.etag))?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if let Some(value) = self.list_policy() {
+            state.serialize_entry("listPolicy", value)?;
+        }
+        if let Some(value) = self.boolean_policy() {
+            state.serialize_entry("booleanPolicy", value)?;
+        }
+        if let Some(value) = self.restore_default() {
+            state.serialize_entry("restoreDefault", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [Policy].
 pub mod policy {
     #[allow(unused_imports)]
@@ -243,29 +504,27 @@ pub mod policy {
     /// The `is:` prefix is used to denote specific values, and is required only
     /// if the value contains a ":". Values prefixed with "is:" are treated the
     /// same as values with no prefix.
+    ///
     /// Ancestry subtrees must be in one of the following formats:
     /// - "projects/\<project-id\>", e.g. "projects/tokyo-rain-123"
     /// - "folders/\<folder-id\>", e.g. "folders/1234"
     /// - "organizations/\<organization-id\>", e.g. "organizations/1234"
+    ///
     /// The `supports_under` field of the associated `Constraint`  defines whether
     /// ancestry prefixes can be used. You can set `allowed_values` and
     /// `denied_values` in the same `Policy` if `all_values` is
     /// `ALL_VALUES_UNSPECIFIED`. `ALLOW` or `DENY` are used to allow or deny all
     /// values. If `all_values` is set to either `ALLOW` or `DENY`,
     /// `allowed_values` and `denied_values` must be unset.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ListPolicy {
         /// List of values allowed  at this resource. Can only be set if `all_values`
         /// is set to `ALL_VALUES_UNSPECIFIED`.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub allowed_values: std::vec::Vec<std::string::String>,
 
         /// List of values denied at this resource. Can only be set if `all_values`
         /// is set to `ALL_VALUES_UNSPECIFIED`.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         pub denied_values: std::vec::Vec<std::string::String>,
 
         /// The policy all_values state.
@@ -275,7 +534,6 @@ pub mod policy {
         /// that matches the value specified in this `Policy`. If `suggested_value`
         /// is not set, it will inherit the value specified higher in the hierarchy,
         /// unless `inherit_from_parent` is `false`.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
         pub suggested_value: std::string::String,
 
         /// Determines the inheritance behavior for this `Policy`.
@@ -375,16 +633,36 @@ pub mod policy {
         /// `projects/P3`.
         /// The accepted values at `projects/bar` are `organizations/O1`,
         /// `folders/F1`, `projects/P1`.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub inherit_from_parent: bool,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
     impl ListPolicy {
         pub fn new() -> Self {
             std::default::Default::default()
+        }
+
+        /// Sets the value of [allowed_values][crate::model::policy::ListPolicy::allowed_values].
+        pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.allowed_values = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [denied_values][crate::model::policy::ListPolicy::denied_values].
+        pub fn set_denied_values<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.denied_values = v.into_iter().map(|i| i.into()).collect();
+            self
         }
 
         /// Sets the value of [all_values][crate::model::policy::ListPolicy::all_values].
@@ -412,33 +690,179 @@ pub mod policy {
             self.inherit_from_parent = v.into();
             self
         }
-
-        /// Sets the value of [allowed_values][crate::model::policy::ListPolicy::allowed_values].
-        pub fn set_allowed_values<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.allowed_values = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [denied_values][crate::model::policy::ListPolicy::denied_values].
-        pub fn set_denied_values<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<std::string::String>,
-        {
-            use std::iter::Iterator;
-            self.denied_values = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     impl wkt::message::Message for ListPolicy {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.orgpolicy.v1.Policy.ListPolicy"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ListPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __allowed_values,
+                __denied_values,
+                __all_values,
+                __suggested_value,
+                __inherit_from_parent,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ListPolicy")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "allowedValues" => Ok(__FieldTag::__allowed_values),
+                                "allowed_values" => Ok(__FieldTag::__allowed_values),
+                                "deniedValues" => Ok(__FieldTag::__denied_values),
+                                "denied_values" => Ok(__FieldTag::__denied_values),
+                                "allValues" => Ok(__FieldTag::__all_values),
+                                "all_values" => Ok(__FieldTag::__all_values),
+                                "suggestedValue" => Ok(__FieldTag::__suggested_value),
+                                "suggested_value" => Ok(__FieldTag::__suggested_value),
+                                "inheritFromParent" => Ok(__FieldTag::__inherit_from_parent),
+                                "inherit_from_parent" => Ok(__FieldTag::__inherit_from_parent),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ListPolicy;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ListPolicy")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__allowed_values => {
+                                if !fields.insert(__FieldTag::__allowed_values) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for allowed_values",
+                                    ));
+                                }
+                                result.allowed_values = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__denied_values => {
+                                if !fields.insert(__FieldTag::__denied_values) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for denied_values",
+                                    ));
+                                }
+                                result.denied_values = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__all_values => {
+                                if !fields.insert(__FieldTag::__all_values) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for all_values",
+                                    ));
+                                }
+                                result.all_values = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::policy::list_policy::AllValues,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__suggested_value => {
+                                if !fields.insert(__FieldTag::__suggested_value) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for suggested_value",
+                                    ));
+                                }
+                                result.suggested_value = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__inherit_from_parent => {
+                                if !fields.insert(__FieldTag::__inherit_from_parent) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for inherit_from_parent",
+                                    ));
+                                }
+                                result.inherit_from_parent = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ListPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.allowed_values.is_empty() {
+                state.serialize_entry("allowedValues", &self.allowed_values)?;
+            }
+            if !self.denied_values.is_empty() {
+                state.serialize_entry("deniedValues", &self.denied_values)?;
+            }
+            if !wkt::internal::is_default(&self.all_values) {
+                state.serialize_entry("allValues", &self.all_values)?;
+            }
+            if !self.suggested_value.is_empty() {
+                state.serialize_entry("suggestedValue", &self.suggested_value)?;
+            }
+            if !wkt::internal::is_default(&self.inherit_from_parent) {
+                state.serialize_entry("inheritFromParent", &self.inherit_from_parent)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -593,9 +1017,7 @@ pub mod policy {
 
     /// Used in `policy_type` to specify how `boolean_policy` will behave at this
     /// resource.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BooleanPolicy {
         /// If `true`, then the `Policy` is enforced. If `false`, then any
@@ -643,10 +1065,8 @@ pub mod policy {
         /// The constraint at `organizations/foo` is enforced.
         /// The constraint at `projects/bar` is not enforced, because
         /// `constraint_default` for the `Constraint` is `ALLOW`.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
         pub enforced: bool,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -668,6 +1088,111 @@ pub mod policy {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for BooleanPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __enforced,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for BooleanPolicy")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "enforced" => Ok(__FieldTag::__enforced),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = BooleanPolicy;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct BooleanPolicy")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__enforced => {
+                                if !fields.insert(__FieldTag::__enforced) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enforced",
+                                    ));
+                                }
+                                result.enforced = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for BooleanPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.enforced) {
+                state.serialize_entry("enforced", &self.enforced)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Ignores policies set above this resource and restores the
     /// `constraint_default` enforcement behavior of the specific `Constraint` at
     /// this resource.
@@ -680,12 +1205,9 @@ pub mod policy {
     /// several experimental projects, restoring the `constraint_default`
     /// enforcement of the `Constraint` for only those projects, allowing those
     /// projects to have all services activated.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct RestoreDefault {
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -701,6 +1223,93 @@ pub mod policy {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for RestoreDefault {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for RestoreDefault")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            Ok(__FieldTag::Unknown(value.to_string()))
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = RestoreDefault;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct RestoreDefault")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for RestoreDefault {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// The field to populate is based on the `constraint_type` value in the
     /// `Constraint`.
     /// `list_constraint` => `list_policy`
@@ -713,8 +1322,7 @@ pub mod policy {
     ///
     /// Attempting to set a `Policy` with a `policy_type` not set will result in an
     /// `invalid_argument` error.
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PolicyType {
         /// List of values either allowed or disallowed.

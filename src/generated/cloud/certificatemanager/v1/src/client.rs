@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Certificate Manager API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
 /// let client = CertificateManager::builder().build().await?;
 /// // use `client` to make requests to the Certificate Manager API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -84,11 +81,11 @@ use std::sync::Arc;
 ///
 /// `CertificateManager` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CertificateManager` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CertificateManager {
-    inner: Arc<dyn super::stub::dynamic::CertificateManager>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CertificateManager>,
 }
 
 impl CertificateManager {
@@ -98,7 +95,7 @@ impl CertificateManager {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// let client = CertificateManager::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::certificate_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -115,54 +112,49 @@ impl CertificateManager {
         T: super::stub::CertificateManager + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CertificateManager>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CertificateManager>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CertificateManager> {
+    ) -> gax::client_builder::Result<impl super::stub::CertificateManager> {
         super::transport::CertificateManager::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CertificateManager> {
+    ) -> gax::client_builder::Result<impl super::stub::CertificateManager> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CertificateManager::new)
     }
 
     /// Lists Certificates in a given project and location.
-    pub fn list_certificates(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::ListCertificates {
+    pub fn list_certificates(&self) -> super::builder::certificate_manager::ListCertificates {
         super::builder::certificate_manager::ListCertificates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Certificate.
-    pub fn get_certificate(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::GetCertificate {
+    pub fn get_certificate(&self) -> super::builder::certificate_manager::GetCertificate {
         super::builder::certificate_manager::GetCertificate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new Certificate in a given project and location.
@@ -176,12 +168,8 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_certificate(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::CreateCertificate {
+    pub fn create_certificate(&self) -> super::builder::certificate_manager::CreateCertificate {
         super::builder::certificate_manager::CreateCertificate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a Certificate.
@@ -195,12 +183,8 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_certificate(
-        &self,
-        certificate: impl Into<crate::model::Certificate>,
-    ) -> super::builder::certificate_manager::UpdateCertificate {
+    pub fn update_certificate(&self) -> super::builder::certificate_manager::UpdateCertificate {
         super::builder::certificate_manager::UpdateCertificate::new(self.inner.clone())
-            .set_certificate(certificate.into())
     }
 
     /// Deletes a single Certificate.
@@ -214,30 +198,20 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_certificate(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::DeleteCertificate {
+    pub fn delete_certificate(&self) -> super::builder::certificate_manager::DeleteCertificate {
         super::builder::certificate_manager::DeleteCertificate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists CertificateMaps in a given project and location.
     pub fn list_certificate_maps(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::ListCertificateMaps {
         super::builder::certificate_manager::ListCertificateMaps::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single CertificateMap.
-    pub fn get_certificate_map(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::GetCertificateMap {
+    pub fn get_certificate_map(&self) -> super::builder::certificate_manager::GetCertificateMap {
         super::builder::certificate_manager::GetCertificateMap::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new CertificateMap in a given project and location.
@@ -253,10 +227,8 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_certificate_map(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::CreateCertificateMap {
         super::builder::certificate_manager::CreateCertificateMap::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a CertificateMap.
@@ -272,10 +244,8 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_certificate_map(
         &self,
-        certificate_map: impl Into<crate::model::CertificateMap>,
     ) -> super::builder::certificate_manager::UpdateCertificateMap {
         super::builder::certificate_manager::UpdateCertificateMap::new(self.inner.clone())
-            .set_certificate_map(certificate_map.into())
     }
 
     /// Deletes a single CertificateMap. A Certificate Map can't be deleted
@@ -293,28 +263,22 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_certificate_map(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::DeleteCertificateMap {
         super::builder::certificate_manager::DeleteCertificateMap::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists CertificateMapEntries in a given project and location.
     pub fn list_certificate_map_entries(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::ListCertificateMapEntries {
         super::builder::certificate_manager::ListCertificateMapEntries::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single CertificateMapEntry.
     pub fn get_certificate_map_entry(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::GetCertificateMapEntry {
         super::builder::certificate_manager::GetCertificateMapEntry::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new CertificateMapEntry in a given project and location.
@@ -330,10 +294,8 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_certificate_map_entry(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::CreateCertificateMapEntry {
         super::builder::certificate_manager::CreateCertificateMapEntry::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a CertificateMapEntry.
@@ -349,10 +311,8 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_certificate_map_entry(
         &self,
-        certificate_map_entry: impl Into<crate::model::CertificateMapEntry>,
     ) -> super::builder::certificate_manager::UpdateCertificateMapEntry {
         super::builder::certificate_manager::UpdateCertificateMapEntry::new(self.inner.clone())
-            .set_certificate_map_entry(certificate_map_entry.into())
     }
 
     /// Deletes a single CertificateMapEntry.
@@ -368,28 +328,22 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_certificate_map_entry(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::DeleteCertificateMapEntry {
         super::builder::certificate_manager::DeleteCertificateMapEntry::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists DnsAuthorizations in a given project and location.
     pub fn list_dns_authorizations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::ListDnsAuthorizations {
         super::builder::certificate_manager::ListDnsAuthorizations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single DnsAuthorization.
     pub fn get_dns_authorization(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::GetDnsAuthorization {
         super::builder::certificate_manager::GetDnsAuthorization::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new DnsAuthorization in a given project and location.
@@ -405,10 +359,8 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_dns_authorization(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::CreateDnsAuthorization {
         super::builder::certificate_manager::CreateDnsAuthorization::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a DnsAuthorization.
@@ -424,10 +376,8 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_dns_authorization(
         &self,
-        dns_authorization: impl Into<crate::model::DnsAuthorization>,
     ) -> super::builder::certificate_manager::UpdateDnsAuthorization {
         super::builder::certificate_manager::UpdateDnsAuthorization::new(self.inner.clone())
-            .set_dns_authorization(dns_authorization.into())
     }
 
     /// Deletes a single DnsAuthorization.
@@ -443,28 +393,22 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_dns_authorization(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::DeleteDnsAuthorization {
         super::builder::certificate_manager::DeleteDnsAuthorization::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists CertificateIssuanceConfigs in a given project and location.
     pub fn list_certificate_issuance_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::ListCertificateIssuanceConfigs {
         super::builder::certificate_manager::ListCertificateIssuanceConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single CertificateIssuanceConfig.
     pub fn get_certificate_issuance_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::GetCertificateIssuanceConfig {
         super::builder::certificate_manager::GetCertificateIssuanceConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new CertificateIssuanceConfig in a given project and location.
@@ -480,12 +424,10 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_certificate_issuance_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::CreateCertificateIssuanceConfig {
         super::builder::certificate_manager::CreateCertificateIssuanceConfig::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Deletes a single CertificateIssuanceConfig.
@@ -501,30 +443,20 @@ impl CertificateManager {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_certificate_issuance_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::certificate_manager::DeleteCertificateIssuanceConfig {
         super::builder::certificate_manager::DeleteCertificateIssuanceConfig::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Lists TrustConfigs in a given project and location.
-    pub fn list_trust_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::ListTrustConfigs {
+    pub fn list_trust_configs(&self) -> super::builder::certificate_manager::ListTrustConfigs {
         super::builder::certificate_manager::ListTrustConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single TrustConfig.
-    pub fn get_trust_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::GetTrustConfig {
+    pub fn get_trust_config(&self) -> super::builder::certificate_manager::GetTrustConfig {
         super::builder::certificate_manager::GetTrustConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new TrustConfig in a given project and location.
@@ -538,12 +470,8 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_trust_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::CreateTrustConfig {
+    pub fn create_trust_config(&self) -> super::builder::certificate_manager::CreateTrustConfig {
         super::builder::certificate_manager::CreateTrustConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a TrustConfig.
@@ -557,12 +485,8 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_trust_config(
-        &self,
-        trust_config: impl Into<crate::model::TrustConfig>,
-    ) -> super::builder::certificate_manager::UpdateTrustConfig {
+    pub fn update_trust_config(&self) -> super::builder::certificate_manager::UpdateTrustConfig {
         super::builder::certificate_manager::UpdateTrustConfig::new(self.inner.clone())
-            .set_trust_config(trust_config.into())
     }
 
     /// Deletes a single TrustConfig.
@@ -576,73 +500,45 @@ impl CertificateManager {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_trust_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::DeleteTrustConfig {
+    pub fn delete_trust_config(&self) -> super::builder::certificate_manager::DeleteTrustConfig {
         super::builder::certificate_manager::DeleteTrustConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::ListLocations {
+    pub fn list_locations(&self) -> super::builder::certificate_manager::ListLocations {
         super::builder::certificate_manager::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::GetLocation {
+    pub fn get_location(&self) -> super::builder::certificate_manager::GetLocation {
         super::builder::certificate_manager::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::ListOperations {
+    pub fn list_operations(&self) -> super::builder::certificate_manager::ListOperations {
         super::builder::certificate_manager::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::GetOperation {
+    pub fn get_operation(&self) -> super::builder::certificate_manager::GetOperation {
         super::builder::certificate_manager::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::certificate_manager::DeleteOperation {
         super::builder::certificate_manager::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::certificate_manager::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::certificate_manager::CancelOperation {
         super::builder::certificate_manager::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

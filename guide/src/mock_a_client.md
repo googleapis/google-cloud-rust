@@ -33,14 +33,16 @@ which seems to be the most popular.
 {{#include ../samples/Cargo.toml:mockall}}
 ```
 
-This guide will use a [`Speech`][speech-client] client. Note that the same
-ideas in this guide apply to all of the clients, not just the `Speech` client.
+This guide will use a [`Speech`][speech-client] client. Note that the same ideas
+in this guide apply to all of the clients, not just the `Speech` client.
 
 We declare the dependency in our `Cargo.toml`. Yours will be similar, but
 without the custom `path`.
 
 ```toml
 {{#include ../samples/Cargo.toml:speech}}
+
+{{#include ../samples/Cargo.toml:lro}}
 ```
 
 ## Mocking a client
@@ -60,7 +62,8 @@ make an RPC, and process the response from the server.
 
 We want to test how our code handles different responses from the service.
 
-First we will define the mock class. This class implements the [`speech::stub::Speech`][speech-stub] trait.
+First we will define the mock class. This class implements the
+[`speech::stub::Speech`][speech-stub] trait.
 
 ```rust,ignore
 {{#include ../samples/tests/mocking.rs:mockall_macro}}

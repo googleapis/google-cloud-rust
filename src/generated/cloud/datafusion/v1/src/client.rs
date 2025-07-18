@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Data Fusion API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_datafusion_v1::client::DataFusion;
 /// let client = DataFusion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Data Fusion API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `DataFusion` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DataFusion` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DataFusion {
-    inner: Arc<dyn super::stub::dynamic::DataFusion>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DataFusion>,
 }
 
 impl DataFusion {
@@ -74,7 +71,7 @@ impl DataFusion {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_datafusion_v1::client::DataFusion;
     /// let client = DataFusion::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::data_fusion::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::data_fusion::client::Factory)
@@ -89,33 +86,35 @@ impl DataFusion {
         T: super::stub::DataFusion + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DataFusion>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DataFusion>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataFusion> {
+    ) -> gax::client_builder::Result<impl super::stub::DataFusion> {
         super::transport::DataFusion::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DataFusion> {
+    ) -> gax::client_builder::Result<impl super::stub::DataFusion> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DataFusion::new)
@@ -123,29 +122,18 @@ impl DataFusion {
 
     /// Lists possible versions for Data Fusion instances in the specified project
     /// and location.
-    pub fn list_available_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::ListAvailableVersions {
+    pub fn list_available_versions(&self) -> super::builder::data_fusion::ListAvailableVersions {
         super::builder::data_fusion::ListAvailableVersions::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists Data Fusion instances in the specified project and location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::ListInstances {
+    pub fn list_instances(&self) -> super::builder::data_fusion::ListInstances {
         super::builder::data_fusion::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Data Fusion instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::GetInstance {
-        super::builder::data_fusion::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::data_fusion::GetInstance {
+        super::builder::data_fusion::GetInstance::new(self.inner.clone())
     }
 
     /// Creates a new Data Fusion instance in the specified project and location.
@@ -159,12 +147,8 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::data_fusion::CreateInstance {
         super::builder::data_fusion::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Deletes a single Date Fusion instance.
@@ -178,11 +162,8 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::DeleteInstance {
-        super::builder::data_fusion::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::data_fusion::DeleteInstance {
+        super::builder::data_fusion::DeleteInstance::new(self.inner.clone())
     }
 
     /// Updates a single Data Fusion instance.
@@ -196,12 +177,8 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::data_fusion::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::data_fusion::UpdateInstance {
         super::builder::data_fusion::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Restart a single Data Fusion instance.
@@ -216,50 +193,35 @@ impl DataFusion {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn restart_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::RestartInstance {
-        super::builder::data_fusion::RestartInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn restart_instance(&self) -> super::builder::data_fusion::RestartInstance {
+        super::builder::data_fusion::RestartInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::ListOperations {
-        super::builder::data_fusion::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::data_fusion::ListOperations {
+        super::builder::data_fusion::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::GetOperation {
-        super::builder::data_fusion::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::data_fusion::GetOperation {
+        super::builder::data_fusion::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::DeleteOperation {
-        super::builder::data_fusion::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::data_fusion::DeleteOperation {
+        super::builder::data_fusion::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::data_fusion::CancelOperation {
-        super::builder::data_fusion::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::data_fusion::CancelOperation {
+        super::builder::data_fusion::CancelOperation::new(self.inner.clone())
     }
 }

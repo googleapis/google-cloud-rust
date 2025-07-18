@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the App Engine Admin API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_appengine_v1::client::Applications;
 /// let client = Applications::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Applications` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Applications` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Applications {
-    inner: Arc<dyn super::stub::dynamic::Applications>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Applications>,
 }
 
 impl Applications {
@@ -72,7 +69,7 @@ impl Applications {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::Applications;
     /// let client = Applications::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::applications::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::applications::client::Factory)
@@ -87,44 +84,43 @@ impl Applications {
         T: super::stub::Applications + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Applications>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Applications>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Applications> {
+    ) -> gax::client_builder::Result<impl super::stub::Applications> {
         super::transport::Applications::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Applications> {
+    ) -> gax::client_builder::Result<impl super::stub::Applications> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Applications::new)
     }
 
     /// Gets information about an application.
-    pub fn get_application(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::applications::GetApplication {
-        super::builder::applications::GetApplication::new(self.inner.clone()).set_name(name.into())
+    pub fn get_application(&self) -> super::builder::applications::GetApplication {
+        super::builder::applications::GetApplication::new(self.inner.clone())
     }
 
     /// Creates an App Engine application for a Google Cloud Platform project.
@@ -164,12 +160,8 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_application(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::applications::UpdateApplication {
+    pub fn update_application(&self) -> super::builder::applications::UpdateApplication {
         super::builder::applications::UpdateApplication::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Recreates the required App Engine features for the specified App Engine
@@ -192,32 +184,22 @@ impl Applications {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn repair_application(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::applications::RepairApplication {
+    pub fn repair_application(&self) -> super::builder::applications::RepairApplication {
         super::builder::applications::RepairApplication::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::applications::ListOperations {
-        super::builder::applications::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::applications::ListOperations {
+        super::builder::applications::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::applications::GetOperation {
-        super::builder::applications::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::applications::GetOperation {
+        super::builder::applications::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -229,7 +211,7 @@ impl Applications {
 /// # use google_cloud_appengine_v1::client::Services;
 /// let client = Services::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -260,11 +242,11 @@ impl Applications {
 ///
 /// `Services` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Services` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Services {
-    inner: Arc<dyn super::stub::dynamic::Services>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Services>,
 }
 
 impl Services {
@@ -274,7 +256,7 @@ impl Services {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::Services;
     /// let client = Services::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::services::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::services::client::Factory)
@@ -289,52 +271,48 @@ impl Services {
         T: super::stub::Services + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Services>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Services>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Services> {
+    ) -> gax::client_builder::Result<impl super::stub::Services> {
         super::transport::Services::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Services> {
+    ) -> gax::client_builder::Result<impl super::stub::Services> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Services::new)
     }
 
     /// Lists all the services in the application.
-    pub fn list_services(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::services::ListServices {
-        super::builder::services::ListServices::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_services(&self) -> super::builder::services::ListServices {
+        super::builder::services::ListServices::new(self.inner.clone())
     }
 
     /// Gets the current configuration of the specified service.
-    pub fn get_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::GetService {
-        super::builder::services::GetService::new(self.inner.clone()).set_name(name.into())
+    pub fn get_service(&self) -> super::builder::services::GetService {
+        super::builder::services::GetService::new(self.inner.clone())
     }
 
     /// Updates the configuration of the specified service.
@@ -348,11 +326,8 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::UpdateService {
-        super::builder::services::UpdateService::new(self.inner.clone()).set_name(name.into())
+    pub fn update_service(&self) -> super::builder::services::UpdateService {
+        super::builder::services::UpdateService::new(self.inner.clone())
     }
 
     /// Deletes the specified service and all enclosed versions.
@@ -366,31 +341,22 @@ impl Services {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_service(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::DeleteService {
-        super::builder::services::DeleteService::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_service(&self) -> super::builder::services::DeleteService {
+        super::builder::services::DeleteService::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::ListOperations {
-        super::builder::services::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::services::ListOperations {
+        super::builder::services::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::services::GetOperation {
-        super::builder::services::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::services::GetOperation {
+        super::builder::services::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -402,7 +368,7 @@ impl Services {
 /// # use google_cloud_appengine_v1::client::Versions;
 /// let client = Versions::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -433,11 +399,11 @@ impl Services {
 ///
 /// `Versions` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Versions` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Versions {
-    inner: Arc<dyn super::stub::dynamic::Versions>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Versions>,
 }
 
 impl Versions {
@@ -447,7 +413,7 @@ impl Versions {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::Versions;
     /// let client = Versions::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::versions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::versions::client::Factory)
@@ -462,54 +428,50 @@ impl Versions {
         T: super::stub::Versions + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Versions>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Versions>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Versions> {
+    ) -> gax::client_builder::Result<impl super::stub::Versions> {
         super::transport::Versions::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Versions> {
+    ) -> gax::client_builder::Result<impl super::stub::Versions> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Versions::new)
     }
 
     /// Lists the versions of a service.
-    pub fn list_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListVersions {
-        super::builder::versions::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_versions(&self) -> super::builder::versions::ListVersions {
+        super::builder::versions::ListVersions::new(self.inner.clone())
     }
 
     /// Gets the specified Version resource.
     /// By default, only a `BASIC_VIEW` will be returned.
     /// Specify the `FULL_VIEW` parameter to get the full resource.
-    pub fn get_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetVersion {
-        super::builder::versions::GetVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_version(&self) -> super::builder::versions::GetVersion {
+        super::builder::versions::GetVersion::new(self.inner.clone())
     }
 
     /// Deploys code and resource files to a new version.
@@ -523,11 +485,8 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_version(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::versions::CreateVersion {
-        super::builder::versions::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_version(&self) -> super::builder::versions::CreateVersion {
+        super::builder::versions::CreateVersion::new(self.inner.clone())
     }
 
     /// Updates the specified Version resource.
@@ -576,11 +535,8 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::UpdateVersion {
-        super::builder::versions::UpdateVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn update_version(&self) -> super::builder::versions::UpdateVersion {
+        super::builder::versions::UpdateVersion::new(self.inner.clone())
     }
 
     /// Deletes an existing Version resource.
@@ -594,31 +550,22 @@ impl Versions {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::DeleteVersion {
-        super::builder::versions::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_version(&self) -> super::builder::versions::DeleteVersion {
+        super::builder::versions::DeleteVersion::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::ListOperations {
-        super::builder::versions::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::versions::ListOperations {
+        super::builder::versions::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::versions::GetOperation {
-        super::builder::versions::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::versions::GetOperation {
+        super::builder::versions::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -630,7 +577,7 @@ impl Versions {
 /// # use google_cloud_appengine_v1::client::Instances;
 /// let client = Instances::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -661,11 +608,11 @@ impl Versions {
 ///
 /// `Instances` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Instances` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Instances {
-    inner: Arc<dyn super::stub::dynamic::Instances>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Instances>,
 }
 
 impl Instances {
@@ -675,7 +622,7 @@ impl Instances {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::Instances;
     /// let client = Instances::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::instances::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::instances::client::Factory)
@@ -690,33 +637,35 @@ impl Instances {
         T: super::stub::Instances + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Instances>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Instances> {
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
         super::transport::Instances::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Instances> {
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Instances::new)
@@ -726,19 +675,13 @@ impl Instances {
     ///
     /// Tip: To aggregate details about instances over time, see the
     /// [Stackdriver Monitoring API](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::instances::ListInstances {
-        super::builder::instances::ListInstances::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_instances(&self) -> super::builder::instances::ListInstances {
+        super::builder::instances::ListInstances::new(self.inner.clone())
     }
 
     /// Gets instance information.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instances::GetInstance {
-        super::builder::instances::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::instances::GetInstance {
+        super::builder::instances::GetInstance::new(self.inner.clone())
     }
 
     /// Stops a running instance.
@@ -763,11 +706,8 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instances::DeleteInstance {
-        super::builder::instances::DeleteInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_instance(&self) -> super::builder::instances::DeleteInstance {
+        super::builder::instances::DeleteInstance::new(self.inner.clone())
     }
 
     /// Enables debugging on a VM instance. This allows you to use the SSH
@@ -788,31 +728,22 @@ impl Instances {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn debug_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instances::DebugInstance {
-        super::builder::instances::DebugInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn debug_instance(&self) -> super::builder::instances::DebugInstance {
+        super::builder::instances::DebugInstance::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instances::ListOperations {
-        super::builder::instances::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::instances::ListOperations {
+        super::builder::instances::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::instances::GetOperation {
-        super::builder::instances::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::instances::GetOperation {
+        super::builder::instances::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -824,7 +755,7 @@ impl Instances {
 /// # use google_cloud_appengine_v1::client::Firewall;
 /// let client = Firewall::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -864,11 +795,11 @@ impl Instances {
 ///
 /// `Firewall` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Firewall` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Firewall {
-    inner: Arc<dyn super::stub::dynamic::Firewall>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Firewall>,
 }
 
 impl Firewall {
@@ -878,7 +809,7 @@ impl Firewall {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::Firewall;
     /// let client = Firewall::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::firewall::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::firewall::client::Factory)
@@ -893,45 +824,43 @@ impl Firewall {
         T: super::stub::Firewall + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Firewall>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Firewall>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Firewall> {
+    ) -> gax::client_builder::Result<impl super::stub::Firewall> {
         super::transport::Firewall::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Firewall> {
+    ) -> gax::client_builder::Result<impl super::stub::Firewall> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Firewall::new)
     }
 
     /// Lists the firewall rules of an application.
-    pub fn list_ingress_rules(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firewall::ListIngressRules {
+    pub fn list_ingress_rules(&self) -> super::builder::firewall::ListIngressRules {
         super::builder::firewall::ListIngressRules::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Replaces the entire firewall ruleset in one bulk operation. This overrides
@@ -939,65 +868,42 @@ impl Firewall {
     ///
     /// If the final rule does not match traffic with the '*' wildcard IP range,
     /// then an "allow all" rule is explicitly added to the end of the list.
-    pub fn batch_update_ingress_rules(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firewall::BatchUpdateIngressRules {
+    pub fn batch_update_ingress_rules(&self) -> super::builder::firewall::BatchUpdateIngressRules {
         super::builder::firewall::BatchUpdateIngressRules::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a firewall rule for the application.
-    pub fn create_ingress_rule(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::firewall::CreateIngressRule {
+    pub fn create_ingress_rule(&self) -> super::builder::firewall::CreateIngressRule {
         super::builder::firewall::CreateIngressRule::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the specified firewall rule.
-    pub fn get_ingress_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firewall::GetIngressRule {
-        super::builder::firewall::GetIngressRule::new(self.inner.clone()).set_name(name.into())
+    pub fn get_ingress_rule(&self) -> super::builder::firewall::GetIngressRule {
+        super::builder::firewall::GetIngressRule::new(self.inner.clone())
     }
 
     /// Updates the specified firewall rule.
-    pub fn update_ingress_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firewall::UpdateIngressRule {
-        super::builder::firewall::UpdateIngressRule::new(self.inner.clone()).set_name(name.into())
+    pub fn update_ingress_rule(&self) -> super::builder::firewall::UpdateIngressRule {
+        super::builder::firewall::UpdateIngressRule::new(self.inner.clone())
     }
 
     /// Deletes the specified firewall rule.
-    pub fn delete_ingress_rule(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firewall::DeleteIngressRule {
-        super::builder::firewall::DeleteIngressRule::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_ingress_rule(&self) -> super::builder::firewall::DeleteIngressRule {
+        super::builder::firewall::DeleteIngressRule::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firewall::ListOperations {
-        super::builder::firewall::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::firewall::ListOperations {
+        super::builder::firewall::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::firewall::GetOperation {
-        super::builder::firewall::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::firewall::GetOperation {
+        super::builder::firewall::GetOperation::new(self.inner.clone())
     }
 }
 
@@ -1009,7 +915,7 @@ impl Firewall {
 /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
 /// let client = AuthorizedDomains::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1042,11 +948,11 @@ impl Firewall {
 ///
 /// `AuthorizedDomains` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AuthorizedDomains` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AuthorizedDomains {
-    inner: Arc<dyn super::stub::dynamic::AuthorizedDomains>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AuthorizedDomains>,
 }
 
 impl AuthorizedDomains {
@@ -1056,7 +962,7 @@ impl AuthorizedDomains {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
     /// let client = AuthorizedDomains::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::authorized_domains::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1073,33 +979,36 @@ impl AuthorizedDomains {
         T: super::stub::AuthorizedDomains + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AuthorizedDomains>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuthorizedDomains>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AuthorizedDomains> {
+    ) -> gax::client_builder::Result<impl super::stub::AuthorizedDomains> {
         super::transport::AuthorizedDomains::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AuthorizedDomains> {
+    ) -> gax::client_builder::Result<impl super::stub::AuthorizedDomains> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AuthorizedDomains::new)
@@ -1108,32 +1017,22 @@ impl AuthorizedDomains {
     /// Lists all domains the user is authorized to administer.
     pub fn list_authorized_domains(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::authorized_domains::ListAuthorizedDomains {
         super::builder::authorized_domains::ListAuthorizedDomains::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::authorized_domains::ListOperations {
+    pub fn list_operations(&self) -> super::builder::authorized_domains::ListOperations {
         super::builder::authorized_domains::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::authorized_domains::GetOperation {
+    pub fn get_operation(&self) -> super::builder::authorized_domains::GetOperation {
         super::builder::authorized_domains::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1145,7 +1044,7 @@ impl AuthorizedDomains {
 /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
 /// let client = AuthorizedCertificates::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1177,11 +1076,11 @@ impl AuthorizedDomains {
 ///
 /// `AuthorizedCertificates` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `AuthorizedCertificates` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct AuthorizedCertificates {
-    inner: Arc<dyn super::stub::dynamic::AuthorizedCertificates>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::AuthorizedCertificates>,
 }
 
 impl AuthorizedCertificates {
@@ -1191,7 +1090,7 @@ impl AuthorizedCertificates {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
     /// let client = AuthorizedCertificates::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::authorized_certificates::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1208,33 +1107,36 @@ impl AuthorizedCertificates {
         T: super::stub::AuthorizedCertificates + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::AuthorizedCertificates>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::AuthorizedCertificates>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AuthorizedCertificates> {
+    ) -> gax::client_builder::Result<impl super::stub::AuthorizedCertificates> {
         super::transport::AuthorizedCertificates::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::AuthorizedCertificates> {
+    ) -> gax::client_builder::Result<impl super::stub::AuthorizedCertificates> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::AuthorizedCertificates::new)
@@ -1243,30 +1145,24 @@ impl AuthorizedCertificates {
     /// Lists all SSL certificates the user is authorized to administer.
     pub fn list_authorized_certificates(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::authorized_certificates::ListAuthorizedCertificates {
         super::builder::authorized_certificates::ListAuthorizedCertificates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the specified SSL certificate.
     pub fn get_authorized_certificate(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::authorized_certificates::GetAuthorizedCertificate {
         super::builder::authorized_certificates::GetAuthorizedCertificate::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Uploads the specified SSL certificate.
     pub fn create_authorized_certificate(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::authorized_certificates::CreateAuthorizedCertificate {
         super::builder::authorized_certificates::CreateAuthorizedCertificate::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Updates the specified SSL certificate. To renew a certificate and maintain
@@ -1276,45 +1172,33 @@ impl AuthorizedCertificates {
     /// updated.
     pub fn update_authorized_certificate(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::authorized_certificates::UpdateAuthorizedCertificate {
         super::builder::authorized_certificates::UpdateAuthorizedCertificate::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Deletes the specified SSL certificate.
     pub fn delete_authorized_certificate(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::authorized_certificates::DeleteAuthorizedCertificate {
         super::builder::authorized_certificates::DeleteAuthorizedCertificate::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::authorized_certificates::ListOperations {
+    pub fn list_operations(&self) -> super::builder::authorized_certificates::ListOperations {
         super::builder::authorized_certificates::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::authorized_certificates::GetOperation {
+    pub fn get_operation(&self) -> super::builder::authorized_certificates::GetOperation {
         super::builder::authorized_certificates::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1326,7 +1210,7 @@ impl AuthorizedCertificates {
 /// # use google_cloud_appengine_v1::client::DomainMappings;
 /// let client = DomainMappings::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1357,11 +1241,11 @@ impl AuthorizedCertificates {
 ///
 /// `DomainMappings` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `DomainMappings` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct DomainMappings {
-    inner: Arc<dyn super::stub::dynamic::DomainMappings>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::DomainMappings>,
 }
 
 impl DomainMappings {
@@ -1371,7 +1255,7 @@ impl DomainMappings {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_appengine_v1::client::DomainMappings;
     /// let client = DomainMappings::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::domain_mappings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::domain_mappings::client::Factory)
@@ -1386,54 +1270,48 @@ impl DomainMappings {
         T: super::stub::DomainMappings + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::DomainMappings>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::DomainMappings>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DomainMappings> {
+    ) -> gax::client_builder::Result<impl super::stub::DomainMappings> {
         super::transport::DomainMappings::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::DomainMappings> {
+    ) -> gax::client_builder::Result<impl super::stub::DomainMappings> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::DomainMappings::new)
     }
 
     /// Lists the domain mappings on an application.
-    pub fn list_domain_mappings(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::ListDomainMappings {
+    pub fn list_domain_mappings(&self) -> super::builder::domain_mappings::ListDomainMappings {
         super::builder::domain_mappings::ListDomainMappings::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets the specified domain mapping.
-    pub fn get_domain_mapping(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::GetDomainMapping {
+    pub fn get_domain_mapping(&self) -> super::builder::domain_mappings::GetDomainMapping {
         super::builder::domain_mappings::GetDomainMapping::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Maps a domain to an application. A user must be authorized to administer a
@@ -1449,12 +1327,8 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_domain_mapping(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::CreateDomainMapping {
+    pub fn create_domain_mapping(&self) -> super::builder::domain_mappings::CreateDomainMapping {
         super::builder::domain_mappings::CreateDomainMapping::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the specified domain mapping. To map an SSL certificate to a
@@ -1471,12 +1345,8 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_domain_mapping(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::UpdateDomainMapping {
+    pub fn update_domain_mapping(&self) -> super::builder::domain_mappings::UpdateDomainMapping {
         super::builder::domain_mappings::UpdateDomainMapping::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes the specified domain mapping. A user must be authorized to
@@ -1492,32 +1362,21 @@ impl DomainMappings {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_domain_mapping(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::DeleteDomainMapping {
+    pub fn delete_domain_mapping(&self) -> super::builder::domain_mappings::DeleteDomainMapping {
         super::builder::domain_mappings::DeleteDomainMapping::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::ListOperations {
+    pub fn list_operations(&self) -> super::builder::domain_mappings::ListOperations {
         super::builder::domain_mappings::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::domain_mappings::GetOperation {
-        super::builder::domain_mappings::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::domain_mappings::GetOperation {
+        super::builder::domain_mappings::GetOperation::new(self.inner.clone())
     }
 }

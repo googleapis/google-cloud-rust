@@ -16,9 +16,8 @@
 
 pub mod storage_batch_operations {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [StorageBatchOperations][super::super::client::StorageBatchOperations].
+    /// A builder for [StorageBatchOperations][crate::client::StorageBatchOperations].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod storage_batch_operations {
     /// let client = builder
     ///     .with_endpoint("https://storagebatchoperations.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod storage_batch_operations {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = StorageBatchOperations;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::StorageBatchOperations] request builders.
+    /// Common implementation for [crate::client::StorageBatchOperations] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -59,7 +61,7 @@ pub mod storage_batch_operations {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self {
                 stub,
@@ -69,13 +71,33 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::list_jobs][super::super::client::StorageBatchOperations::list_jobs] calls.
+    /// The request builder for [StorageBatchOperations::list_jobs][crate::client::StorageBatchOperations::list_jobs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::ListJobs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListJobs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListJobs(RequestBuilder<crate::model::ListJobsRequest>);
 
     impl ListJobs {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -100,8 +122,8 @@ pub mod storage_batch_operations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListJobsResponse, gax::error::Error>
         {
@@ -113,6 +135,15 @@ pub mod storage_batch_operations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListJobsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListJobsRequest::parent].
@@ -155,13 +186,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::get_job][super::super::client::StorageBatchOperations::get_job] calls.
+    /// The request builder for [StorageBatchOperations::get_job][crate::client::StorageBatchOperations::get_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::GetJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetJob(RequestBuilder<crate::model::GetJobRequest>);
 
     impl GetJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -202,13 +249,30 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::create_job][super::super::client::StorageBatchOperations::create_job] calls.
+    /// The request builder for [StorageBatchOperations::create_job][crate::client::StorageBatchOperations::create_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::CreateJob;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateJob(RequestBuilder<crate::model::CreateJobRequest>);
 
     impl CreateJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -230,7 +294,7 @@ pub mod storage_batch_operations {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_job][super::super::client::StorageBatchOperations::create_job].
+        /// on [create_job][crate::client::StorageBatchOperations::create_job].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_job(self.0.request, self.0.options)
@@ -242,7 +306,8 @@ pub mod storage_batch_operations {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Job, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Job, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Job, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -267,7 +332,7 @@ pub mod storage_batch_operations {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateJobRequest::parent].
@@ -289,8 +354,22 @@ pub mod storage_batch_operations {
         /// Sets the value of [job][crate::model::CreateJobRequest::job].
         ///
         /// This is a **required** field for requests.
-        pub fn set_job<T: Into<std::option::Option<crate::model::Job>>>(mut self, v: T) -> Self {
-            self.0.request.job = v.into();
+        pub fn set_job<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [job][crate::model::CreateJobRequest::job].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_job<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Job>,
+        {
+            self.0.request.job = v.map(|x| x.into());
             self
         }
 
@@ -308,13 +387,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::delete_job][super::super::client::StorageBatchOperations::delete_job] calls.
+    /// The request builder for [StorageBatchOperations::delete_job][crate::client::StorageBatchOperations::delete_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::DeleteJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteJob(RequestBuilder<crate::model::DeleteJobRequest>);
 
     impl DeleteJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -361,13 +456,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::cancel_job][super::super::client::StorageBatchOperations::cancel_job] calls.
+    /// The request builder for [StorageBatchOperations::cancel_job][crate::client::StorageBatchOperations::cancel_job] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::CancelJob;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelJob {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelJob(RequestBuilder<crate::model::CancelJobRequest>);
 
     impl CancelJob {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -414,13 +525,33 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::list_locations][super::super::client::StorageBatchOperations::list_locations] calls.
+    /// The request builder for [StorageBatchOperations::list_locations][crate::client::StorageBatchOperations::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -448,8 +579,8 @@ pub mod storage_batch_operations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -461,6 +592,15 @@ pub mod storage_batch_operations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -495,13 +635,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::get_location][super::super::client::StorageBatchOperations::get_location] calls.
+    /// The request builder for [StorageBatchOperations::get_location][crate::client::StorageBatchOperations::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -540,13 +696,33 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::list_operations][super::super::client::StorageBatchOperations::list_operations] calls.
+    /// The request builder for [StorageBatchOperations::list_operations][crate::client::StorageBatchOperations::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -574,8 +750,8 @@ pub mod storage_batch_operations {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -587,6 +763,17 @@ pub mod storage_batch_operations {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -621,13 +808,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::get_operation][super::super::client::StorageBatchOperations::get_operation] calls.
+    /// The request builder for [StorageBatchOperations::get_operation][crate::client::StorageBatchOperations::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -669,13 +872,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::delete_operation][super::super::client::StorageBatchOperations::delete_operation] calls.
+    /// The request builder for [StorageBatchOperations::delete_operation][crate::client::StorageBatchOperations::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -717,13 +936,29 @@ pub mod storage_batch_operations {
         }
     }
 
-    /// The request builder for [StorageBatchOperations::cancel_operation][super::super::client::StorageBatchOperations::cancel_operation] calls.
+    /// The request builder for [StorageBatchOperations::cancel_operation][crate::client::StorageBatchOperations::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_storagebatchoperations_v1::builder;
+    /// use builder::storage_batch_operations::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::StorageBatchOperations>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

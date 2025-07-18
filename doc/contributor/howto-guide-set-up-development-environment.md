@@ -9,6 +9,19 @@ compile the code, run the unit tests, and formatting miscellaneous files.
 We recommend that you follow the [Getting Started][getting-started-rust] guide.
 Once you have `cargo` and `rustup` installed the rest is relatively easy.
 
+You will need rust >= 1.87 (released around 2025-05-15). Check the version you
+have installed with:
+
+```shell
+rustc --version
+```
+
+If you need to upgrade, consider:
+
+```shell
+rustup update
+```
+
 ## Installing Go
 
 The code generator is implemented in [Go](https://go.dev). Follow the
@@ -61,6 +74,9 @@ cargo fmt && cargo clippy --profile=test -- --deny warnings && cargo test
 git status # Shows any diffs created by `cargo fmt`
 ```
 
+If you are seeing errors when running locally that are not present in the CI,
+you may need to update your local rust version.
+
 ## Generating the user guide
 
 We use [mdBook] to generate a user guide: a series of short "how-to" documents.
@@ -89,7 +105,8 @@ Some of the samples are integration tests, you can verify they build using:
 cargo build --package user-guide-samples
 ```
 
-and verify they run using the instructions in the [Integration Tests](#integration-tests) section.
+and verify they run using the instructions in the
+[Integration Tests](#integration-tests) section.
 
 ### Using `mdbook serve`
 
@@ -125,15 +142,8 @@ cargo install cargo-tarpaulin --features vendored-openssl
 cargo tarpaulin --out xml
 ```
 
-If you prefer to exclude generated code:
-
-```bash
-cargo tarpaulin --out xml \
-  --exclude-files 'generator/**' \
-  --exclude-files 'src/generated/**' \
-  --exclude-files 'src/integration-tests/**' \
-  --exclude-files 'src/wkt/src/generated/**'
-```
+Generated code and test helpers are excluded by default. The configuration is in
+the top level `.tarpaulin.toml`.
 
 ## Integration tests
 
@@ -145,8 +155,8 @@ project.
 
 We use [Secret Manager], [Workflows], [Firestore], and [Speech-to-Text] to run
 integration tests. Follow the [Enable the Secret Manager API] guide to, as it
-says, enable the API and make sure that billing is enabled in your projects.
-To enable the Workflows, Firestore, and Speech-to-Text APIs you can run this
+says, enable the API and make sure that billing is enabled in your projects. To
+enable the Workflows, Firestore, and Speech-to-Text APIs you can run this
 command:
 
 ```bash
@@ -189,8 +199,8 @@ gcloud iam service-accounts disable rust-sdk-test@${GOOGLE_CLOUD_PROJECT}.iam.gs
 
 ### Create a database
 
-The integration tests need the default Firestore database in your project.
-You can create this database using:
+The integration tests need the default Firestore database in your project. You
+can create this database using:
 
 ```bash
 gcloud firestore databases create --location=us-central1
@@ -219,6 +229,9 @@ env \
   cargo test --features run-integration-tests --package integration-tests --package user-guide-samples
 ```
 
+Optionally, add the feature `log-integration-tests` to the test command to log
+tracing information.
+
 There are (at the moment) six integration tests. All using secret manager. We
 test the OpenAPI-generated client, the OpenAPI-generated client with locational
 endpoints, and the Protobuf generated client. For each version we run the tests
@@ -227,8 +240,8 @@ with logging enabled and with logging disabled.
 ## Miscellaneous Tools
 
 We use a number of tools to format non-Rust code. The CI builds enforce
-formatting, you can fix any formatting problems manually (using the CI logs),
-or may prefer to install these tools locally to fix formatting problems.
+formatting, you can fix any formatting problems manually (using the CI logs), or
+may prefer to install these tools locally to fix formatting problems.
 
 Typically we do not format these files for generated code, so local runs
 requires skipping the generated files.
@@ -244,7 +257,9 @@ cargo install taplo-cli
 use with:
 
 ```bash
-git ls-files -z -- '*.toml' ':!:**/testdata/**' ':!:src/generated/**' | xargs -0 taplo fmt
+git ls-files -z -- \
+    '*.toml' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 taplo fmt
 ```
 
 ### Detect typos in comments and code
@@ -268,7 +283,9 @@ pip install -r ci/requirements.txt
 use with:
 
 ```bash
-git ls-files -z -- '*.md' ':!:**/testdata/**' | xargs -0 -r -P "$(nproc)" -n 50 mdformat
+git ls-files -z -- \
+    '*.md' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 mdformat
 ```
 
 ### Format YAML files
@@ -283,7 +300,9 @@ go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
 use with:
 
 ```bash
-git ls-files -z -- '*.yaml' '*.yml' ':!:**/testdata/**' | xargs -0 yamlfmt
+git ls-files -z -- \
+    '*.yaml' '*.yml' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 yamlfmt
 ```
 
 ### Format Terraform files
@@ -294,7 +313,9 @@ these files. If you do, you probably know how to [install terraform].
 Format the files using:
 
 ```bash
-git ls-files -z -- '*.tf' ':!:**/testdata/**' | xargs -0 terraform fmt
+git ls-files -z --
+    '*.tf' ':!:**/testdata/**' ':!:**/generated/**' | \
+    xargs -0 terraform fmt
 ```
 
 [enable the secret manager api]: https://cloud.google.com/secret-manager/docs/configuring-secret-manager

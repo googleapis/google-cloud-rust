@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Model Armor API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_modelarmor_v1::client::ModelArmor;
 /// let client = ModelArmor::builder().build().await?;
 /// // use `client` to make requests to the Model Armor API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `ModelArmor` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ModelArmor` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ModelArmor {
-    inner: Arc<dyn super::stub::dynamic::ModelArmor>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ModelArmor>,
 }
 
 impl ModelArmor {
@@ -72,7 +69,7 @@ impl ModelArmor {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_modelarmor_v1::client::ModelArmor;
     /// let client = ModelArmor::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::model_armor::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::model_armor::client::Factory)
@@ -87,129 +84,92 @@ impl ModelArmor {
         T: super::stub::ModelArmor + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ModelArmor>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ModelArmor>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ModelArmor> {
+    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
         super::transport::ModelArmor::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ModelArmor> {
+    ) -> gax::client_builder::Result<impl super::stub::ModelArmor> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ModelArmor::new)
     }
 
     /// Lists Templates in a given project and location.
-    pub fn list_templates(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::ListTemplates {
+    pub fn list_templates(&self) -> super::builder::model_armor::ListTemplates {
         super::builder::model_armor::ListTemplates::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Template.
-    pub fn get_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::GetTemplate {
-        super::builder::model_armor::GetTemplate::new(self.inner.clone()).set_name(name.into())
+    pub fn get_template(&self) -> super::builder::model_armor::GetTemplate {
+        super::builder::model_armor::GetTemplate::new(self.inner.clone())
     }
 
     /// Creates a new Template in a given project and location.
-    pub fn create_template(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::CreateTemplate {
+    pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate {
         super::builder::model_armor::CreateTemplate::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Template.
-    pub fn update_template(
-        &self,
-        template: impl Into<crate::model::Template>,
-    ) -> super::builder::model_armor::UpdateTemplate {
+    pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate {
         super::builder::model_armor::UpdateTemplate::new(self.inner.clone())
-            .set_template(template.into())
     }
 
     /// Deletes a single Template.
-    pub fn delete_template(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::DeleteTemplate {
-        super::builder::model_armor::DeleteTemplate::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate {
+        super::builder::model_armor::DeleteTemplate::new(self.inner.clone())
     }
 
     /// Gets details of a single floor setting of a project
-    pub fn get_floor_setting(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::GetFloorSetting {
-        super::builder::model_armor::GetFloorSetting::new(self.inner.clone()).set_name(name.into())
+    pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting {
+        super::builder::model_armor::GetFloorSetting::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single floor setting of a project
-    pub fn update_floor_setting(
-        &self,
-        floor_setting: impl Into<crate::model::FloorSetting>,
-    ) -> super::builder::model_armor::UpdateFloorSetting {
+    pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting {
         super::builder::model_armor::UpdateFloorSetting::new(self.inner.clone())
-            .set_floor_setting(floor_setting.into())
     }
 
     /// Sanitizes User Prompt.
-    pub fn sanitize_user_prompt(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::SanitizeUserPrompt {
+    pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt {
         super::builder::model_armor::SanitizeUserPrompt::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Sanitizes Model Response.
-    pub fn sanitize_model_response(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::SanitizeModelResponse {
+    pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::ListLocations {
-        super::builder::model_armor::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::model_armor::ListLocations {
+        super::builder::model_armor::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::model_armor::GetLocation {
-        super::builder::model_armor::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::model_armor::GetLocation {
+        super::builder::model_armor::GetLocation::new(self.inner.clone())
     }
 }

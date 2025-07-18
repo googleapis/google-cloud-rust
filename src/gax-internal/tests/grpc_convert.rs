@@ -15,12 +15,12 @@
 use google_cloud_gax_internal::grpc;
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use tonic::metadata::MetadataMap;
 
     #[test]
-    fn test_to_gax_response() {
+    fn test_to_gax_response() -> anyhow::Result<()> {
         let tonic_body = prost_types::Duration {
             seconds: 123,
             nanos: 456,
@@ -33,7 +33,7 @@ mod test {
             tonic::Extensions::new(),
         );
 
-        let gax_response = grpc::to_gax_response(tonic_response);
+        let gax_response = grpc::to_gax_response(tonic_response)?;
         assert_eq!(
             gax_response.body().to_owned(),
             wkt::Duration::clamp(123, 456)
@@ -42,5 +42,7 @@ mod test {
             gax_response.headers().to_owned(),
             tonic_headers.into_headers()
         );
+
+        Ok(())
     }
 }

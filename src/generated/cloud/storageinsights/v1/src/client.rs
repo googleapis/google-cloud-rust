@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Storage Insights API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_storageinsights_v1::client::StorageInsights;
 /// let client = StorageInsights::builder().build().await?;
 /// // use `client` to make requests to the Storage Insights API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `StorageInsights` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `StorageInsights` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct StorageInsights {
-    inner: Arc<dyn super::stub::dynamic::StorageInsights>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::StorageInsights>,
 }
 
 impl StorageInsights {
@@ -72,7 +69,7 @@ impl StorageInsights {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storageinsights_v1::client::StorageInsights;
     /// let client = StorageInsights::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::storage_insights::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -89,159 +86,197 @@ impl StorageInsights {
         T: super::stub::StorageInsights + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::StorageInsights>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageInsights>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageInsights> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
         super::transport::StorageInsights::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageInsights> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageInsights> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageInsights::new)
     }
 
     /// Lists ReportConfigs in a given project and location.
-    pub fn list_report_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListReportConfigs {
+    pub fn list_report_configs(&self) -> super::builder::storage_insights::ListReportConfigs {
         super::builder::storage_insights::ListReportConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ReportConfig.
-    pub fn get_report_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetReportConfig {
+    pub fn get_report_config(&self) -> super::builder::storage_insights::GetReportConfig {
         super::builder::storage_insights::GetReportConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new ReportConfig in a given project and location.
-    pub fn create_report_config(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::CreateReportConfig {
+    pub fn create_report_config(&self) -> super::builder::storage_insights::CreateReportConfig {
         super::builder::storage_insights::CreateReportConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single ReportConfig.
-    pub fn update_report_config(
-        &self,
-        report_config: impl Into<crate::model::ReportConfig>,
-    ) -> super::builder::storage_insights::UpdateReportConfig {
+    pub fn update_report_config(&self) -> super::builder::storage_insights::UpdateReportConfig {
         super::builder::storage_insights::UpdateReportConfig::new(self.inner.clone())
-            .set_report_config(report_config.into())
     }
 
     /// Deletes a single ReportConfig.
-    pub fn delete_report_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::DeleteReportConfig {
+    pub fn delete_report_config(&self) -> super::builder::storage_insights::DeleteReportConfig {
         super::builder::storage_insights::DeleteReportConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists ReportDetails in a given project and location.
-    pub fn list_report_details(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListReportDetails {
+    pub fn list_report_details(&self) -> super::builder::storage_insights::ListReportDetails {
         super::builder::storage_insights::ListReportDetails::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single ReportDetail.
-    pub fn get_report_detail(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetReportDetail {
+    pub fn get_report_detail(&self) -> super::builder::storage_insights::GetReportDetail {
         super::builder::storage_insights::GetReportDetail::new(self.inner.clone())
-            .set_name(name.into())
+    }
+
+    /// Lists the dataset configurations in a given project for a given location.
+    pub fn list_dataset_configs(&self) -> super::builder::storage_insights::ListDatasetConfigs {
+        super::builder::storage_insights::ListDatasetConfigs::new(self.inner.clone())
+    }
+
+    /// Gets the dataset configuration in a given project for a given location.
+    pub fn get_dataset_config(&self) -> super::builder::storage_insights::GetDatasetConfig {
+        super::builder::storage_insights::GetDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Creates a dataset configuration in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_dataset_config(&self) -> super::builder::storage_insights::CreateDatasetConfig {
+        super::builder::storage_insights::CreateDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Updates a dataset configuration in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_dataset_config(&self) -> super::builder::storage_insights::UpdateDatasetConfig {
+        super::builder::storage_insights::UpdateDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Deletes a dataset configuration in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_dataset_config(&self) -> super::builder::storage_insights::DeleteDatasetConfig {
+        super::builder::storage_insights::DeleteDatasetConfig::new(self.inner.clone())
+    }
+
+    /// Links a dataset to BigQuery in a given project for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn link_dataset(&self) -> super::builder::storage_insights::LinkDataset {
+        super::builder::storage_insights::LinkDataset::new(self.inner.clone())
+    }
+
+    /// Unlinks a dataset from BigQuery in a given project
+    /// for a given location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn unlink_dataset(&self) -> super::builder::storage_insights::UnlinkDataset {
+        super::builder::storage_insights::UnlinkDataset::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListLocations {
+    pub fn list_locations(&self) -> super::builder::storage_insights::ListLocations {
         super::builder::storage_insights::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetLocation {
-        super::builder::storage_insights::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::storage_insights::GetLocation {
+        super::builder::storage_insights::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::ListOperations {
+    pub fn list_operations(&self) -> super::builder::storage_insights::ListOperations {
         super::builder::storage_insights::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::GetOperation {
+    pub fn get_operation(&self) -> super::builder::storage_insights::GetOperation {
         super::builder::storage_insights::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::storage_insights::DeleteOperation {
         super::builder::storage_insights::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_insights::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::storage_insights::CancelOperation {
         super::builder::storage_insights::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

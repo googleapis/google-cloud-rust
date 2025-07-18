@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Long Running Operations API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_longrunning::client::Operations;
 /// let client = Operations::builder().build().await?;
 /// // use `client` to make requests to the Long Running Operations API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -68,11 +65,11 @@ use std::sync::Arc;
 ///
 /// `Operations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Operations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Operations {
-    inner: Arc<dyn super::stub::dynamic::Operations>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Operations>,
 }
 
 impl Operations {
@@ -82,7 +79,7 @@ impl Operations {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_longrunning::client::Operations;
     /// let client = Operations::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::operations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::operations::client::Factory)
@@ -97,33 +94,35 @@ impl Operations {
         T: super::stub::Operations + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Operations>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Operations>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Operations> {
+    ) -> gax::client_builder::Result<impl super::stub::Operations> {
         super::transport::Operations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Operations> {
+    ) -> gax::client_builder::Result<impl super::stub::Operations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Operations::new)
@@ -131,32 +130,23 @@ impl Operations {
 
     /// Lists operations that match the specified filter in the request. If the
     /// server doesn't support this method, it returns `UNIMPLEMENTED`.
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::ListOperations {
-        super::builder::operations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::operations::ListOperations {
+        super::builder::operations::ListOperations::new(self.inner.clone())
     }
 
     /// Gets the latest state of a long-running operation.  Clients can use this
     /// method to poll the operation result at intervals as recommended by the API
     /// service.
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::GetOperation {
-        super::builder::operations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::operations::GetOperation {
+        super::builder::operations::GetOperation::new(self.inner.clone())
     }
 
     /// Deletes a long-running operation. This method indicates that the client is
     /// no longer interested in the operation result. It does not cancel the
     /// operation. If the server doesn't support this method, it returns
     /// `google.rpc.Code.UNIMPLEMENTED`.
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::DeleteOperation {
-        super::builder::operations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::operations::DeleteOperation {
+        super::builder::operations::DeleteOperation::new(self.inner.clone())
     }
 
     /// Starts asynchronous cancellation on a long-running operation.  The server
@@ -174,10 +164,7 @@ impl Operations {
     /// [google.longrunning.Operation.error]: crate::model::Operation::result
     /// [google.longrunning.Operations.GetOperation]: crate::client::Operations::get_operation
     /// [google.rpc.Status.code]: rpc::model::Status::code
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::operations::CancelOperation {
-        super::builder::operations::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::operations::CancelOperation {
+        super::builder::operations::CancelOperation::new(self.inner.clone())
     }
 }

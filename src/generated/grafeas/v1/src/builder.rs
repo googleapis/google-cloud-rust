@@ -16,9 +16,8 @@
 
 pub mod grafeas {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Grafeas][super::super::client::Grafeas].
+    /// A builder for [Grafeas][crate::client::Grafeas].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod grafeas {
     /// let client = builder
     ///     .with_endpoint("https://containeranalysis.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod grafeas {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Grafeas;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Grafeas] request builders.
+    /// Common implementation for [crate::client::Grafeas] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Grafeas>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod grafeas {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::get_occurrence][super::super::client::Grafeas::get_occurrence] calls.
+    /// The request builder for [Grafeas::get_occurrence][crate::client::Grafeas::get_occurrence] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::GetOccurrence;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOccurrence {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOccurrence(RequestBuilder<crate::model::GetOccurrenceRequest>);
 
     impl GetOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -112,12 +130,32 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::list_occurrences][super::super::client::Grafeas::list_occurrences] calls.
+    /// The request builder for [Grafeas::list_occurrences][crate::client::Grafeas::list_occurrences] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::ListOccurrences;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOccurrences {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOccurrences(RequestBuilder<crate::model::ListOccurrencesRequest>);
 
     impl ListOccurrences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -141,8 +179,8 @@ pub mod grafeas {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListOccurrencesResponse, gax::error::Error>
         {
@@ -154,6 +192,15 @@ pub mod grafeas {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListOccurrencesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListOccurrencesRequest::parent].
@@ -190,12 +237,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::delete_occurrence][super::super::client::Grafeas::delete_occurrence] calls.
+    /// The request builder for [Grafeas::delete_occurrence][crate::client::Grafeas::delete_occurrence] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::DeleteOccurrence;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOccurrence {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOccurrence(RequestBuilder<crate::model::DeleteOccurrenceRequest>);
 
     impl DeleteOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -238,12 +301,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::create_occurrence][super::super::client::Grafeas::create_occurrence] calls.
+    /// The request builder for [Grafeas::create_occurrence][crate::client::Grafeas::create_occurrence] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::CreateOccurrence;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateOccurrence {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateOccurrence(RequestBuilder<crate::model::CreateOccurrenceRequest>);
 
     impl CreateOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -281,11 +360,22 @@ pub mod grafeas {
         /// Sets the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
         ///
         /// This is a **required** field for requests.
-        pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.occurrence = v.into();
+        pub fn set_occurrence<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [occurrence][crate::model::CreateOccurrenceRequest::occurrence].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = v.map(|x| x.into());
             self
         }
     }
@@ -297,12 +387,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::batch_create_occurrences][super::super::client::Grafeas::batch_create_occurrences] calls.
+    /// The request builder for [Grafeas::batch_create_occurrences][crate::client::Grafeas::batch_create_occurrences] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::BatchCreateOccurrences;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreateOccurrences {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateOccurrences(RequestBuilder<crate::model::BatchCreateOccurrencesRequest>);
 
     impl BatchCreateOccurrences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -358,12 +464,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::update_occurrence][super::super::client::Grafeas::update_occurrence] calls.
+    /// The request builder for [Grafeas::update_occurrence][crate::client::Grafeas::update_occurrence] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::UpdateOccurrence;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateOccurrence {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateOccurrence(RequestBuilder<crate::model::UpdateOccurrenceRequest>);
 
     impl UpdateOccurrence {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -401,20 +523,40 @@ pub mod grafeas {
         /// Sets the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
         ///
         /// This is a **required** field for requests.
-        pub fn set_occurrence<T: Into<std::option::Option<crate::model::Occurrence>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.occurrence = v.into();
+        pub fn set_occurrence<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [occurrence][crate::model::UpdateOccurrenceRequest::occurrence].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_occurrence<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Occurrence>,
+        {
+            self.0.request.occurrence = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateOccurrenceRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -426,12 +568,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::get_occurrence_note][super::super::client::Grafeas::get_occurrence_note] calls.
+    /// The request builder for [Grafeas::get_occurrence_note][crate::client::Grafeas::get_occurrence_note] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::GetOccurrenceNote;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOccurrenceNote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOccurrenceNote(RequestBuilder<crate::model::GetOccurrenceNoteRequest>);
 
     impl GetOccurrenceNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -474,12 +632,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::get_note][super::super::client::Grafeas::get_note] calls.
+    /// The request builder for [Grafeas::get_note][crate::client::Grafeas::get_note] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::GetNote;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetNote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetNote(RequestBuilder<crate::model::GetNoteRequest>);
 
     impl GetNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -519,12 +693,32 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::list_notes][super::super::client::Grafeas::list_notes] calls.
+    /// The request builder for [Grafeas::list_notes][crate::client::Grafeas::list_notes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::ListNotes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNotes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNotes(RequestBuilder<crate::model::ListNotesRequest>);
 
     impl ListNotes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -548,8 +742,8 @@ pub mod grafeas {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNotesResponse, gax::error::Error>
         {
@@ -561,6 +755,15 @@ pub mod grafeas {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListNotesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListNotesRequest::parent].
@@ -597,12 +800,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::delete_note][super::super::client::Grafeas::delete_note] calls.
+    /// The request builder for [Grafeas::delete_note][crate::client::Grafeas::delete_note] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::DeleteNote;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteNote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteNote(RequestBuilder<crate::model::DeleteNoteRequest>);
 
     impl DeleteNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -642,12 +861,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::create_note][super::super::client::Grafeas::create_note] calls.
+    /// The request builder for [Grafeas::create_note][crate::client::Grafeas::create_note] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::CreateNote;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateNote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateNote(RequestBuilder<crate::model::CreateNoteRequest>);
 
     impl CreateNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -690,8 +925,22 @@ pub mod grafeas {
         /// Sets the value of [note][crate::model::CreateNoteRequest::note].
         ///
         /// This is a **required** field for requests.
-        pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
-            self.0.request.note = v.into();
+        pub fn set_note<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [note][crate::model::CreateNoteRequest::note].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = v.map(|x| x.into());
             self
         }
     }
@@ -703,12 +952,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::batch_create_notes][super::super::client::Grafeas::batch_create_notes] calls.
+    /// The request builder for [Grafeas::batch_create_notes][crate::client::Grafeas::batch_create_notes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::BatchCreateNotes;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchCreateNotes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchCreateNotes(RequestBuilder<crate::model::BatchCreateNotesRequest>);
 
     impl BatchCreateNotes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -764,12 +1029,28 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::update_note][super::super::client::Grafeas::update_note] calls.
+    /// The request builder for [Grafeas::update_note][crate::client::Grafeas::update_note] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::UpdateNote;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateNote {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateNote(RequestBuilder<crate::model::UpdateNoteRequest>);
 
     impl UpdateNote {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -804,17 +1085,40 @@ pub mod grafeas {
         /// Sets the value of [note][crate::model::UpdateNoteRequest::note].
         ///
         /// This is a **required** field for requests.
-        pub fn set_note<T: Into<std::option::Option<crate::model::Note>>>(mut self, v: T) -> Self {
-            self.0.request.note = v.into();
+        pub fn set_note<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [note][crate::model::UpdateNoteRequest::note].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_note<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Note>,
+        {
+            self.0.request.note = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateNoteRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -826,12 +1130,32 @@ pub mod grafeas {
         }
     }
 
-    /// The request builder for [Grafeas::list_note_occurrences][super::super::client::Grafeas::list_note_occurrences] calls.
+    /// The request builder for [Grafeas::list_note_occurrences][crate::client::Grafeas::list_note_occurrences] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_grafeas_v1::builder;
+    /// use builder::grafeas::ListNoteOccurrences;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListNoteOccurrences {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListNoteOccurrences(RequestBuilder<crate::model::ListNoteOccurrencesRequest>);
 
     impl ListNoteOccurrences {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Grafeas>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -858,8 +1182,8 @@ pub mod grafeas {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListNoteOccurrencesResponse, gax::error::Error>
         {
@@ -871,6 +1195,17 @@ pub mod grafeas {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListNoteOccurrencesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListNoteOccurrencesRequest::name].

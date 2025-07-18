@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the IAM Meta API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_iam_v1::client::IAMPolicy;
 /// let client = IAMPolicy::builder().build().await?;
 /// // use `client` to make requests to the IAM Meta API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -82,11 +79,11 @@ use std::sync::Arc;
 ///
 /// `IAMPolicy` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `IAMPolicy` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct IAMPolicy {
-    inner: Arc<dyn super::stub::dynamic::IAMPolicy>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::IAMPolicy>,
 }
 
 impl IAMPolicy {
@@ -96,7 +93,7 @@ impl IAMPolicy {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_iam_v1::client::IAMPolicy;
     /// let client = IAMPolicy::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::iam_policy::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::iam_policy::client::Factory)
@@ -111,33 +108,35 @@ impl IAMPolicy {
         T: super::stub::IAMPolicy + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::IAMPolicy>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::IAMPolicy>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::IAMPolicy> {
+    ) -> gax::client_builder::Result<impl super::stub::IAMPolicy> {
         super::transport::IAMPolicy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::IAMPolicy> {
+    ) -> gax::client_builder::Result<impl super::stub::IAMPolicy> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::IAMPolicy::new)
@@ -147,23 +146,15 @@ impl IAMPolicy {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::iam_policy::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::iam_policy::SetIamPolicy {
         super::builder::iam_policy::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::iam_policy::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::iam_policy::GetIamPolicy {
         super::builder::iam_policy::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource.
@@ -173,11 +164,7 @@ impl IAMPolicy {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::iam_policy::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::iam_policy::TestIamPermissions {
         super::builder::iam_policy::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 }

@@ -16,7 +16,6 @@ package language
 
 import (
 	"log/slog"
-	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
@@ -43,10 +42,10 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 		return nil
 	}
 	pathNames := []string{}
-	for _, arg := range m.PathInfo.PathTemplate {
-		if arg.FieldPath != nil {
-			components := strings.Split(*arg.FieldPath, ".")
-			pathNames = append(pathNames, components[0])
+	t := m.PathInfo.Bindings[0].PathTemplate
+	for _, s := range t.Segments {
+		if s.Variable != nil {
+			pathNames = append(pathNames, s.Variable.FieldPath[0])
 		}
 	}
 
@@ -64,16 +63,10 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	return params
 }
 
-func QueryParams(m *api.Method, state *api.APIState) []*api.Field {
-	msg, ok := state.MessageByID[m.InputTypeID]
-	if !ok {
-		slog.Error("unable to lookup request type", "id", m.InputTypeID)
-		return nil
-	}
-
+func QueryParams(m *api.Method, b *api.PathBinding) []*api.Field {
 	var queryParams []*api.Field
-	for _, field := range msg.Fields {
-		if !m.PathInfo.QueryParameters[field.Name] {
+	for _, field := range m.InputType.Fields {
+		if !b.QueryParameters[field.Name] {
 			continue
 		}
 		queryParams = append(queryParams, field)

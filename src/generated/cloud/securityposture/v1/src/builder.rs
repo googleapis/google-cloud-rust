@@ -16,9 +16,8 @@
 
 pub mod security_posture {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [SecurityPosture][super::super::client::SecurityPosture].
+    /// A builder for [SecurityPosture][crate::client::SecurityPosture].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod security_posture {
     /// let client = builder
     ///     .with_endpoint("https://securityposture.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod security_posture {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = SecurityPosture;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::SecurityPosture] request builders.
+    /// Common implementation for [crate::client::SecurityPosture] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod security_posture {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_postures][super::super::client::SecurityPosture::list_postures] calls.
+    /// The request builder for [SecurityPosture::list_postures][crate::client::SecurityPosture::list_postures] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ListPostures;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPostures {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPostures(RequestBuilder<crate::model::ListPosturesRequest>);
 
     impl ListPostures {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPosturesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod security_posture {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListPosturesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPosturesRequest::parent].
@@ -139,12 +174,34 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_posture_revisions][super::super::client::SecurityPosture::list_posture_revisions] calls.
+    /// The request builder for [SecurityPosture::list_posture_revisions][crate::client::SecurityPosture::list_posture_revisions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ListPostureRevisions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPostureRevisions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPostureRevisions(RequestBuilder<crate::model::ListPostureRevisionsRequest>);
 
     impl ListPostureRevisions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -171,8 +228,8 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPostureRevisionsResponse, gax::error::Error>
         {
@@ -184,6 +241,17 @@ pub mod security_posture {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPostureRevisionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListPostureRevisionsRequest::name].
@@ -214,12 +282,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_posture][super::super::client::SecurityPosture::get_posture] calls.
+    /// The request builder for [SecurityPosture::get_posture][crate::client::SecurityPosture::get_posture] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::GetPosture;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPosture {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPosture(RequestBuilder<crate::model::GetPostureRequest>);
 
     impl GetPosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -265,12 +351,31 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::create_posture][super::super::client::SecurityPosture::create_posture] calls.
+    /// The request builder for [SecurityPosture::create_posture][crate::client::SecurityPosture::create_posture] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::CreatePosture;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePosture {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePosture(RequestBuilder<crate::model::CreatePostureRequest>);
 
     impl CreatePosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -291,7 +396,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_posture][super::super::client::SecurityPosture::create_posture].
+        /// on [create_posture][crate::client::SecurityPosture::create_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_posture(self.0.request, self.0.options)
@@ -303,7 +408,8 @@ pub mod security_posture {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Posture, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Posture, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Posture, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -328,7 +434,7 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureRequest::parent].
@@ -350,11 +456,22 @@ pub mod security_posture {
         /// Sets the value of [posture][crate::model::CreatePostureRequest::posture].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture = v.into();
+        pub fn set_posture<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture][crate::model::CreatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = v.map(|x| x.into());
             self
         }
     }
@@ -366,12 +483,31 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::update_posture][super::super::client::SecurityPosture::update_posture] calls.
+    /// The request builder for [SecurityPosture::update_posture][crate::client::SecurityPosture::update_posture] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::UpdatePosture;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePosture {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePosture(RequestBuilder<crate::model::UpdatePostureRequest>);
 
     impl UpdatePosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -392,7 +528,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_posture][super::super::client::SecurityPosture::update_posture].
+        /// on [update_posture][crate::client::SecurityPosture::update_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_posture(self.0.request, self.0.options)
@@ -404,7 +540,8 @@ pub mod security_posture {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Posture, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Posture, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Posture, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -429,28 +566,50 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePostureRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [posture][crate::model::UpdatePostureRequest::posture].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture<T: Into<std::option::Option<crate::model::Posture>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture = v.into();
+        pub fn set_posture<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture][crate::model::UpdatePostureRequest::posture].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Posture>,
+        {
+            self.0.request.posture = v.map(|x| x.into());
             self
         }
 
@@ -470,12 +629,31 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::delete_posture][super::super::client::SecurityPosture::delete_posture] calls.
+    /// The request builder for [SecurityPosture::delete_posture][crate::client::SecurityPosture::delete_posture] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::DeletePosture;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePosture {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePosture(RequestBuilder<crate::model::DeletePostureRequest>);
 
     impl DeletePosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -496,7 +674,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_posture][super::super::client::SecurityPosture::delete_posture].
+        /// on [delete_posture][crate::client::SecurityPosture::delete_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_posture(self.0.request, self.0.options)
@@ -505,8 +683,8 @@ pub mod security_posture {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_posture`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -531,7 +709,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePostureRequest::name].
@@ -556,12 +739,31 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::extract_posture][super::super::client::SecurityPosture::extract_posture] calls.
+    /// The request builder for [SecurityPosture::extract_posture][crate::client::SecurityPosture::extract_posture] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ExtractPosture;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExtractPosture {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExtractPosture(RequestBuilder<crate::model::ExtractPostureRequest>);
 
     impl ExtractPosture {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -582,7 +784,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [extract_posture][super::super::client::SecurityPosture::extract_posture].
+        /// on [extract_posture][crate::client::SecurityPosture::extract_posture].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .extract_posture(self.0.request, self.0.options)
@@ -594,7 +796,8 @@ pub mod security_posture {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Posture, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Posture, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Posture, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -619,7 +822,7 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::ExtractPostureRequest::parent].
@@ -654,12 +857,34 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_posture_deployments][super::super::client::SecurityPosture::list_posture_deployments] calls.
+    /// The request builder for [SecurityPosture::list_posture_deployments][crate::client::SecurityPosture::list_posture_deployments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ListPostureDeployments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPostureDeployments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPostureDeployments(RequestBuilder<crate::model::ListPostureDeploymentsRequest>);
 
     impl ListPostureDeployments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -686,8 +911,8 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListPostureDeploymentsResponse,
@@ -701,6 +926,17 @@ pub mod security_posture {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPostureDeploymentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPostureDeploymentsRequest::parent].
@@ -737,12 +973,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_posture_deployment][super::super::client::SecurityPosture::get_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::get_posture_deployment][crate::client::SecurityPosture::get_posture_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::GetPostureDeployment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPostureDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPostureDeployment(RequestBuilder<crate::model::GetPostureDeploymentRequest>);
 
     impl GetPostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -785,14 +1039,33 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::create_posture_deployment][super::super::client::SecurityPosture::create_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::create_posture_deployment][crate::client::SecurityPosture::create_posture_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::CreatePostureDeployment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreatePostureDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreatePostureDeployment(
         RequestBuilder<crate::model::CreatePostureDeploymentRequest>,
     );
 
     impl CreatePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -816,7 +1089,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_posture_deployment][super::super::client::SecurityPosture::create_posture_deployment].
+        /// on [create_posture_deployment][crate::client::SecurityPosture::create_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_posture_deployment(self.0.request, self.0.options)
@@ -829,8 +1102,10 @@ pub mod security_posture {
             self,
         ) -> impl lro::Poller<crate::model::PostureDeployment, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PostureDeployment, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PostureDeployment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -855,7 +1130,7 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreatePostureDeploymentRequest::parent].
@@ -877,13 +1152,22 @@ pub mod security_posture {
         /// Sets the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture_deployment<
-            T: Into<std::option::Option<crate::model::PostureDeployment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture_deployment = v.into();
+        pub fn set_posture_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture_deployment][crate::model::CreatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = v.map(|x| x.into());
             self
         }
     }
@@ -895,14 +1179,33 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::update_posture_deployment][super::super::client::SecurityPosture::update_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::update_posture_deployment][crate::client::SecurityPosture::update_posture_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::UpdatePostureDeployment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdatePostureDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdatePostureDeployment(
         RequestBuilder<crate::model::UpdatePostureDeploymentRequest>,
     );
 
     impl UpdatePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -926,7 +1229,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_posture_deployment][super::super::client::SecurityPosture::update_posture_deployment].
+        /// on [update_posture_deployment][crate::client::SecurityPosture::update_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_posture_deployment(self.0.request, self.0.options)
@@ -939,8 +1242,10 @@ pub mod security_posture {
             self,
         ) -> impl lro::Poller<crate::model::PostureDeployment, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::PostureDeployment, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::PostureDeployment,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -965,30 +1270,50 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdatePostureDeploymentRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_posture_deployment<
-            T: Into<std::option::Option<crate::model::PostureDeployment>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.posture_deployment = v.into();
+        pub fn set_posture_deployment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [posture_deployment][crate::model::UpdatePostureDeploymentRequest::posture_deployment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_posture_deployment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PostureDeployment>,
+        {
+            self.0.request.posture_deployment = v.map(|x| x.into());
             self
         }
     }
@@ -1000,14 +1325,33 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::delete_posture_deployment][super::super::client::SecurityPosture::delete_posture_deployment] calls.
+    /// The request builder for [SecurityPosture::delete_posture_deployment][crate::client::SecurityPosture::delete_posture_deployment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::DeletePostureDeployment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeletePostureDeployment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeletePostureDeployment(
         RequestBuilder<crate::model::DeletePostureDeploymentRequest>,
     );
 
     impl DeletePostureDeployment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1031,7 +1375,7 @@ pub mod security_posture {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_posture_deployment][super::super::client::SecurityPosture::delete_posture_deployment].
+        /// on [delete_posture_deployment][crate::client::SecurityPosture::delete_posture_deployment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_posture_deployment(self.0.request, self.0.options)
@@ -1040,8 +1384,8 @@ pub mod security_posture {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_posture_deployment`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1066,7 +1410,12 @@ pub mod security_posture {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeletePostureDeploymentRequest::name].
@@ -1091,12 +1440,34 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_posture_templates][super::super::client::SecurityPosture::list_posture_templates] calls.
+    /// The request builder for [SecurityPosture::list_posture_templates][crate::client::SecurityPosture::list_posture_templates] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ListPostureTemplates;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListPostureTemplates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListPostureTemplates(RequestBuilder<crate::model::ListPostureTemplatesRequest>);
 
     impl ListPostureTemplates {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1123,8 +1494,8 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListPostureTemplatesResponse, gax::error::Error>
         {
@@ -1136,6 +1507,17 @@ pub mod security_posture {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListPostureTemplatesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListPostureTemplatesRequest::parent].
@@ -1172,12 +1554,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_posture_template][super::super::client::SecurityPosture::get_posture_template] calls.
+    /// The request builder for [SecurityPosture::get_posture_template][crate::client::SecurityPosture::get_posture_template] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::GetPostureTemplate;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetPostureTemplate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetPostureTemplate(RequestBuilder<crate::model::GetPostureTemplateRequest>);
 
     impl GetPostureTemplate {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1226,12 +1626,34 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_locations][super::super::client::SecurityPosture::list_locations] calls.
+    /// The request builder for [SecurityPosture::list_locations][crate::client::SecurityPosture::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1258,8 +1680,8 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1271,6 +1693,15 @@ pub mod security_posture {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1305,12 +1736,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_location][super::super::client::SecurityPosture::get_location] calls.
+    /// The request builder for [SecurityPosture::get_location][crate::client::SecurityPosture::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1348,12 +1797,34 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::list_operations][super::super::client::SecurityPosture::list_operations] calls.
+    /// The request builder for [SecurityPosture::list_operations][crate::client::SecurityPosture::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1380,8 +1851,8 @@ pub mod security_posture {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1393,6 +1864,17 @@ pub mod security_posture {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1427,12 +1909,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::get_operation][super::super::client::SecurityPosture::get_operation] calls.
+    /// The request builder for [SecurityPosture::get_operation][crate::client::SecurityPosture::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1473,12 +1973,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::delete_operation][super::super::client::SecurityPosture::delete_operation] calls.
+    /// The request builder for [SecurityPosture::delete_operation][crate::client::SecurityPosture::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1519,12 +2037,30 @@ pub mod security_posture {
         }
     }
 
-    /// The request builder for [SecurityPosture::cancel_operation][super::super::client::SecurityPosture::cancel_operation] calls.
+    /// The request builder for [SecurityPosture::cancel_operation][crate::client::SecurityPosture::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_securityposture_v1::builder;
+    /// use builder::security_posture::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::SecurityPosture>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SecurityPosture>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

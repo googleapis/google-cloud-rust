@@ -19,13 +19,25 @@ use google_cloud_speech_v2 as speech;
 
 // ANCHOR: start
 pub async fn start(project_id: &str) -> crate::Result<()> {
+    use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
+    use std::time::Duration;
+
     // ANCHOR: client
-    let client = speech::client::Speech::builder().build().await?;
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            Aip194Strict
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(30)),
+        )
+        .build()
+        .await?;
     // ANCHOR_END: client
 
     // ANCHOR: request-builder
     let operation = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         // ANCHOR_END: request-builder
@@ -67,14 +79,27 @@ pub async fn start(project_id: &str) -> crate::Result<()> {
 
 // ANCHOR: automatic
 pub async fn automatic(project_id: &str) -> crate::Result<()> {
-    // ANCHOR: automatic-use
-    use speech::Poller;
-    // ANCHOR_END: automatic-use
-    // ANCHOR: automatic-prepare
-    let client = speech::client::Speech::builder().build().await?;
+    use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
+    use std::time::Duration;
 
+    // ANCHOR: automatic-use
+    use google_cloud_lro::Poller;
+    // ANCHOR_END: automatic-use
+
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            Aip194Strict
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(30)),
+        )
+        .build()
+        .await?;
+
+    // ANCHOR: automatic-prepare
     let response = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         .set_files([speech::model::BatchRecognizeFileMetadata::new()
@@ -109,14 +134,26 @@ pub async fn automatic(project_id: &str) -> crate::Result<()> {
 
 // ANCHOR: polling
 pub async fn polling(project_id: &str) -> crate::Result<()> {
+    use google_cloud_gax::retry_policy::Aip194Strict;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
+    use std::time::Duration;
+
     // ANCHOR: polling-use
-    use speech::Poller;
+    use google_cloud_lro::{Poller, PollingResult};
     // ANCHOR_END: polling-use
-    // ANCHOR: polling-prepare
-    let client = speech::client::Speech::builder().build().await?;
+
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            Aip194Strict
+                .with_attempt_limit(5)
+                .with_time_limit(Duration::from_secs(30)),
+        )
+        .build()
+        .await?;
 
     let mut poller = client
-        .batch_recognize(format!(
+        .batch_recognize()
+        .set_recognizer(format!(
             "projects/{project_id}/locations/global/recognizers/_"
         ))
         .set_files([speech::model::BatchRecognizeFileMetadata::new()
@@ -134,7 +171,6 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
                 .set_model("short")
                 .set_auto_decoding_config(speech::model::AutoDetectDecodingConfig::new()),
         )
-        // ANCHOR_END: polling-prepare
         // ANCHOR: polling-poller
         .poller();
     // ANCHOR_END: polling-poller
@@ -142,13 +178,13 @@ pub async fn polling(project_id: &str) -> crate::Result<()> {
     // ANCHOR: polling-loop
     while let Some(p) = poller.poll().await {
         match p {
-            speech::PollingResult::Completed(r) => {
+            PollingResult::Completed(r) => {
                 println!("LRO completed, response={r:?}");
             }
-            speech::PollingResult::InProgress(m) => {
+            PollingResult::InProgress(m) => {
                 println!("LRO in progress, metadata={m:?}");
             }
-            speech::PollingResult::PollingError(e) => {
+            PollingResult::PollingError(e) => {
                 println!("Transient error polling the LRO: {e}");
             }
         }
@@ -185,8 +221,7 @@ pub async fn manually_poll_lro(
                         // ANCHOR_END: manual-match-error
                         // ANCHOR: manual-match-success
                         longrunning::model::operation::Result::Response(any) => {
-                            let response =
-                                any.try_into_message::<speech::model::BatchRecognizeResponse>()?;
+                            let response = any.to_msg::<speech::model::BatchRecognizeResponse>()?;
                             Ok(response)
                         }
                         // ANCHOR_END: manual-match-success
@@ -199,7 +234,7 @@ pub async fn manually_poll_lro(
         }
         // ANCHOR: manual-metadata
         if let Some(any) = &operation.metadata {
-            let metadata = any.try_into_message::<speech::model::OperationMetadata>()?;
+            let metadata = any.to_msg::<speech::model::OperationMetadata>()?;
             println!("LRO in progress, metadata={metadata:?}");
         }
         // ANCHOR_END: manual-metadata
@@ -207,7 +242,12 @@ pub async fn manually_poll_lro(
         tokio::time::sleep(std::time::Duration::from_millis(500)).await;
         // ANCHOR_END: manual-backoff
         // ANCHOR: manual-poll-again
-        if let Ok(attempt) = client.get_operation(operation.name.clone()).send().await {
+        if let Ok(attempt) = client
+            .get_operation()
+            .set_name(&operation.name)
+            .send()
+            .await
+        {
             operation = attempt;
         }
         // ANCHOR_END: manual-poll-again

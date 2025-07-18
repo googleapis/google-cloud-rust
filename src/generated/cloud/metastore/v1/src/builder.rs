@@ -16,9 +16,8 @@
 
 pub mod dataproc_metastore {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DataprocMetastore][super::super::client::DataprocMetastore].
+    /// A builder for [DataprocMetastore][crate::client::DataprocMetastore].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod dataproc_metastore {
     /// let client = builder
     ///     .with_endpoint("https://metastore.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod dataproc_metastore {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataprocMetastore;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DataprocMetastore] request builders.
+    /// Common implementation for [crate::client::DataprocMetastore] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod dataproc_metastore {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_services][super::super::client::DataprocMetastore::list_services] calls.
+    /// The request builder for [DataprocMetastore::list_services][crate::client::DataprocMetastore::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::ListServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod dataproc_metastore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod dataproc_metastore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
@@ -151,12 +186,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_service][super::super::client::DataprocMetastore::get_service] calls.
+    /// The request builder for [DataprocMetastore::get_service][crate::client::DataprocMetastore::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::GetService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -196,12 +249,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::create_service][super::super::client::DataprocMetastore::create_service] calls.
+    /// The request builder for [DataprocMetastore::create_service][crate::client::DataprocMetastore::create_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::CreateService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -222,7 +294,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::DataprocMetastore::create_service].
+        /// on [create_service][crate::client::DataprocMetastore::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -234,7 +306,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -259,7 +332,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -281,11 +354,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -303,12 +387,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::update_service][super::super::client::DataprocMetastore::update_service] calls.
+    /// The request builder for [DataprocMetastore::update_service][crate::client::DataprocMetastore::update_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::UpdateService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -329,7 +432,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][super::super::client::DataprocMetastore::update_service].
+        /// on [update_service][crate::client::DataprocMetastore::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -341,7 +444,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -366,28 +470,50 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -405,12 +531,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::delete_service][super::super::client::DataprocMetastore::delete_service] calls.
+    /// The request builder for [DataprocMetastore::delete_service][crate::client::DataprocMetastore::delete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::DeleteService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -431,7 +576,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::DataprocMetastore::delete_service].
+        /// on [delete_service][crate::client::DataprocMetastore::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -440,8 +585,8 @@ pub mod dataproc_metastore {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -466,7 +611,12 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -491,12 +641,34 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_metadata_imports][super::super::client::DataprocMetastore::list_metadata_imports] calls.
+    /// The request builder for [DataprocMetastore::list_metadata_imports][crate::client::DataprocMetastore::list_metadata_imports] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::ListMetadataImports;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListMetadataImports {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListMetadataImports(RequestBuilder<crate::model::ListMetadataImportsRequest>);
 
     impl ListMetadataImports {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -523,8 +695,8 @@ pub mod dataproc_metastore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListMetadataImportsResponse, gax::error::Error>
         {
@@ -536,6 +708,17 @@ pub mod dataproc_metastore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListMetadataImportsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListMetadataImportsRequest::parent].
@@ -578,12 +761,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_metadata_import][super::super::client::DataprocMetastore::get_metadata_import] calls.
+    /// The request builder for [DataprocMetastore::get_metadata_import][crate::client::DataprocMetastore::get_metadata_import] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::GetMetadataImport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetMetadataImport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetMetadataImport(RequestBuilder<crate::model::GetMetadataImportRequest>);
 
     impl GetMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -626,12 +827,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::create_metadata_import][super::super::client::DataprocMetastore::create_metadata_import] calls.
+    /// The request builder for [DataprocMetastore::create_metadata_import][crate::client::DataprocMetastore::create_metadata_import] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::CreateMetadataImport;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateMetadataImport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateMetadataImport(RequestBuilder<crate::model::CreateMetadataImportRequest>);
 
     impl CreateMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -655,7 +875,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_metadata_import][super::super::client::DataprocMetastore::create_metadata_import].
+        /// on [create_metadata_import][crate::client::DataprocMetastore::create_metadata_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_metadata_import(self.0.request, self.0.options)
@@ -668,8 +888,10 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MetadataImport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MetadataImport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataImport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -694,7 +916,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateMetadataImportRequest::parent].
@@ -716,11 +938,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_import = v.into();
+        pub fn set_metadata_import<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_import][crate::model::CreateMetadataImportRequest::metadata_import].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = v.map(|x| x.into());
             self
         }
 
@@ -738,12 +971,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::update_metadata_import][super::super::client::DataprocMetastore::update_metadata_import] calls.
+    /// The request builder for [DataprocMetastore::update_metadata_import][crate::client::DataprocMetastore::update_metadata_import] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::UpdateMetadataImport;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateMetadataImport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateMetadataImport(RequestBuilder<crate::model::UpdateMetadataImportRequest>);
 
     impl UpdateMetadataImport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -767,7 +1019,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_metadata_import][super::super::client::DataprocMetastore::update_metadata_import].
+        /// on [update_metadata_import][crate::client::DataprocMetastore::update_metadata_import].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_metadata_import(self.0.request, self.0.options)
@@ -780,8 +1032,10 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MetadataImport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MetadataImport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataImport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -806,28 +1060,50 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateMetadataImportRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
         ///
         /// This is a **required** field for requests.
-        pub fn set_metadata_import<T: Into<std::option::Option<crate::model::MetadataImport>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.metadata_import = v.into();
+        pub fn set_metadata_import<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata_import][crate::model::UpdateMetadataImportRequest::metadata_import].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_metadata_import<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::MetadataImport>,
+        {
+            self.0.request.metadata_import = v.map(|x| x.into());
             self
         }
 
@@ -845,12 +1121,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::export_metadata][super::super::client::DataprocMetastore::export_metadata] calls.
+    /// The request builder for [DataprocMetastore::export_metadata][crate::client::DataprocMetastore::export_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::ExportMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ExportMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ExportMetadata(RequestBuilder<crate::model::ExportMetadataRequest>);
 
     impl ExportMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -871,7 +1166,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [export_metadata][super::super::client::DataprocMetastore::export_metadata].
+        /// on [export_metadata][crate::client::DataprocMetastore::export_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .export_metadata(self.0.request, self.0.options)
@@ -884,8 +1179,10 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MetadataExport, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::MetadataExport, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::MetadataExport,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -910,7 +1207,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::ExportMetadataRequest::service].
@@ -971,12 +1268,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::restore_service][super::super::client::DataprocMetastore::restore_service] calls.
+    /// The request builder for [DataprocMetastore::restore_service][crate::client::DataprocMetastore::restore_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::RestoreService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RestoreService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RestoreService(RequestBuilder<crate::model::RestoreServiceRequest>);
 
     impl RestoreService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -997,7 +1313,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [restore_service][super::super::client::DataprocMetastore::restore_service].
+        /// on [restore_service][crate::client::DataprocMetastore::restore_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .restore_service(self.0.request, self.0.options)
@@ -1009,7 +1325,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Restore, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Restore, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Restore, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1034,7 +1351,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::RestoreServiceRequest::service].
@@ -1076,12 +1393,34 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_backups][super::super::client::DataprocMetastore::list_backups] calls.
+    /// The request builder for [DataprocMetastore::list_backups][crate::client::DataprocMetastore::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1105,8 +1444,8 @@ pub mod dataproc_metastore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -1118,6 +1457,15 @@ pub mod dataproc_metastore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -1160,12 +1508,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_backup][super::super::client::DataprocMetastore::get_backup] calls.
+    /// The request builder for [DataprocMetastore::get_backup][crate::client::DataprocMetastore::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::GetBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1205,12 +1571,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::create_backup][super::super::client::DataprocMetastore::create_backup] calls.
+    /// The request builder for [DataprocMetastore::create_backup][crate::client::DataprocMetastore::create_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::CreateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1231,7 +1616,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::DataprocMetastore::create_backup].
+        /// on [create_backup][crate::client::DataprocMetastore::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -1243,7 +1628,8 @@ pub mod dataproc_metastore {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1268,7 +1654,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -1290,11 +1676,22 @@ pub mod dataproc_metastore {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
 
@@ -1312,12 +1709,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::delete_backup][super::super::client::DataprocMetastore::delete_backup] calls.
+    /// The request builder for [DataprocMetastore::delete_backup][crate::client::DataprocMetastore::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1338,7 +1754,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::DataprocMetastore::delete_backup].
+        /// on [delete_backup][crate::client::DataprocMetastore::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -1347,8 +1763,8 @@ pub mod dataproc_metastore {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1373,7 +1789,12 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -1398,12 +1819,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::query_metadata][super::super::client::DataprocMetastore::query_metadata] calls.
+    /// The request builder for [DataprocMetastore::query_metadata][crate::client::DataprocMetastore::query_metadata] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::QueryMetadata;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> QueryMetadata {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct QueryMetadata(RequestBuilder<crate::model::QueryMetadataRequest>);
 
     impl QueryMetadata {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1424,7 +1864,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [query_metadata][super::super::client::DataprocMetastore::query_metadata].
+        /// on [query_metadata][crate::client::DataprocMetastore::query_metadata].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .query_metadata(self.0.request, self.0.options)
@@ -1437,7 +1877,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::QueryMetadataResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::QueryMetadataResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1465,7 +1905,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::QueryMetadataRequest::service].
@@ -1492,12 +1932,31 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::move_table_to_database][super::super::client::DataprocMetastore::move_table_to_database] calls.
+    /// The request builder for [DataprocMetastore::move_table_to_database][crate::client::DataprocMetastore::move_table_to_database] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::MoveTableToDatabase;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveTableToDatabase {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveTableToDatabase(RequestBuilder<crate::model::MoveTableToDatabaseRequest>);
 
     impl MoveTableToDatabase {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1521,7 +1980,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [move_table_to_database][super::super::client::DataprocMetastore::move_table_to_database].
+        /// on [move_table_to_database][crate::client::DataprocMetastore::move_table_to_database].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .move_table_to_database(self.0.request, self.0.options)
@@ -1534,7 +1993,7 @@ pub mod dataproc_metastore {
             self,
         ) -> impl lro::Poller<crate::model::MoveTableToDatabaseResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::MoveTableToDatabaseResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1562,7 +2021,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::MoveTableToDatabaseRequest::service].
@@ -1605,14 +2064,33 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::alter_metadata_resource_location][super::super::client::DataprocMetastore::alter_metadata_resource_location] calls.
+    /// The request builder for [DataprocMetastore::alter_metadata_resource_location][crate::client::DataprocMetastore::alter_metadata_resource_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::AlterMetadataResourceLocation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> AlterMetadataResourceLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct AlterMetadataResourceLocation(
         RequestBuilder<crate::model::AlterMetadataResourceLocationRequest>,
     );
 
     impl AlterMetadataResourceLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1636,7 +2114,7 @@ pub mod dataproc_metastore {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [alter_metadata_resource_location][super::super::client::DataprocMetastore::alter_metadata_resource_location].
+        /// on [alter_metadata_resource_location][crate::client::DataprocMetastore::alter_metadata_resource_location].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .alter_metadata_resource_location(self.0.request, self.0.options)
@@ -1651,7 +2129,7 @@ pub mod dataproc_metastore {
             crate::model::AlterMetadataResourceLocationResponse,
             crate::model::OperationMetadata,
         > {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::AlterMetadataResourceLocationResponse,
                 crate::model::OperationMetadata,
             >;
@@ -1679,7 +2157,7 @@ pub mod dataproc_metastore {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::AlterMetadataResourceLocationRequest::service].
@@ -1714,12 +2192,34 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_locations][super::super::client::DataprocMetastore::list_locations] calls.
+    /// The request builder for [DataprocMetastore::list_locations][crate::client::DataprocMetastore::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1746,8 +2246,8 @@ pub mod dataproc_metastore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -1759,6 +2259,15 @@ pub mod dataproc_metastore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -1793,12 +2302,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_location][super::super::client::DataprocMetastore::get_location] calls.
+    /// The request builder for [DataprocMetastore::get_location][crate::client::DataprocMetastore::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1836,12 +2363,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::set_iam_policy][super::super::client::DataprocMetastore::set_iam_policy] calls.
+    /// The request builder for [DataprocMetastore::set_iam_policy][crate::client::DataprocMetastore::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1876,20 +2421,40 @@ pub mod dataproc_metastore {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1901,12 +2466,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_iam_policy][super::super::client::DataprocMetastore::get_iam_policy] calls.
+    /// The request builder for [DataprocMetastore::get_iam_policy][crate::client::DataprocMetastore::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1939,11 +2522,20 @@ pub mod dataproc_metastore {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1955,12 +2547,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::test_iam_permissions][super::super::client::DataprocMetastore::test_iam_permissions] calls.
+    /// The request builder for [DataprocMetastore::test_iam_permissions][crate::client::DataprocMetastore::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2016,12 +2626,34 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::list_operations][super::super::client::DataprocMetastore::list_operations] calls.
+    /// The request builder for [DataprocMetastore::list_operations][crate::client::DataprocMetastore::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2048,8 +2680,8 @@ pub mod dataproc_metastore {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2061,6 +2693,17 @@ pub mod dataproc_metastore {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2095,12 +2738,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::get_operation][super::super::client::DataprocMetastore::get_operation] calls.
+    /// The request builder for [DataprocMetastore::get_operation][crate::client::DataprocMetastore::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2141,12 +2802,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::delete_operation][super::super::client::DataprocMetastore::delete_operation] calls.
+    /// The request builder for [DataprocMetastore::delete_operation][crate::client::DataprocMetastore::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2187,12 +2866,30 @@ pub mod dataproc_metastore {
         }
     }
 
-    /// The request builder for [DataprocMetastore::cancel_operation][super::super::client::DataprocMetastore::cancel_operation] calls.
+    /// The request builder for [DataprocMetastore::cancel_operation][crate::client::DataprocMetastore::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::DataprocMetastore>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastore>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2236,9 +2933,8 @@ pub mod dataproc_metastore {
 
 pub mod dataproc_metastore_federation {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [DataprocMetastoreFederation][super::super::client::DataprocMetastoreFederation].
+    /// A builder for [DataprocMetastoreFederation][crate::client::DataprocMetastoreFederation].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -2249,7 +2945,7 @@ pub mod dataproc_metastore_federation {
     /// let client = builder
     ///     .with_endpoint("https://metastore.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2260,16 +2956,19 @@ pub mod dataproc_metastore_federation {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = DataprocMetastoreFederation;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::DataprocMetastoreFederation] request builders.
+    /// Common implementation for [crate::client::DataprocMetastoreFederation] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -2279,7 +2978,7 @@ pub mod dataproc_metastore_federation {
         R: std::default::Default,
     {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self {
                 stub,
@@ -2289,13 +2988,33 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::list_federations][super::super::client::DataprocMetastoreFederation::list_federations] calls.
+    /// The request builder for [DataprocMetastoreFederation::list_federations][crate::client::DataprocMetastoreFederation::list_federations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::ListFederations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListFederations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListFederations(RequestBuilder<crate::model::ListFederationsRequest>);
 
     impl ListFederations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2320,8 +3039,8 @@ pub mod dataproc_metastore_federation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListFederationsResponse, gax::error::Error>
         {
@@ -2333,6 +3052,15 @@ pub mod dataproc_metastore_federation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListFederationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListFederationsRequest::parent].
@@ -2375,13 +3103,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_federation][super::super::client::DataprocMetastoreFederation::get_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_federation][crate::client::DataprocMetastoreFederation::get_federation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::GetFederation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetFederation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetFederation(RequestBuilder<crate::model::GetFederationRequest>);
 
     impl GetFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2422,13 +3166,30 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::create_federation][super::super::client::DataprocMetastoreFederation::create_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::create_federation][crate::client::DataprocMetastoreFederation::create_federation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::CreateFederation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateFederation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateFederation(RequestBuilder<crate::model::CreateFederationRequest>);
 
     impl CreateFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2453,7 +3214,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_federation][super::super::client::DataprocMetastoreFederation::create_federation].
+        /// on [create_federation][crate::client::DataprocMetastoreFederation::create_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_federation(self.0.request, self.0.options)
@@ -2466,7 +3227,7 @@ pub mod dataproc_metastore_federation {
             self,
         ) -> impl lro::Poller<crate::model::Federation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Federation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Federation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2491,7 +3252,7 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateFederationRequest::parent].
@@ -2513,11 +3274,22 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [federation][crate::model::CreateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.federation = v.into();
+        pub fn set_federation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [federation][crate::model::CreateFederationRequest::federation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = v.map(|x| x.into());
             self
         }
 
@@ -2535,13 +3307,30 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::update_federation][super::super::client::DataprocMetastoreFederation::update_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::update_federation][crate::client::DataprocMetastoreFederation::update_federation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::UpdateFederation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateFederation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateFederation(RequestBuilder<crate::model::UpdateFederationRequest>);
 
     impl UpdateFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2566,7 +3355,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_federation][super::super::client::DataprocMetastoreFederation::update_federation].
+        /// on [update_federation][crate::client::DataprocMetastoreFederation::update_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_federation(self.0.request, self.0.options)
@@ -2579,7 +3368,7 @@ pub mod dataproc_metastore_federation {
             self,
         ) -> impl lro::Poller<crate::model::Federation, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Federation, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Federation, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2604,28 +3393,50 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateFederationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [federation][crate::model::UpdateFederationRequest::federation].
         ///
         /// This is a **required** field for requests.
-        pub fn set_federation<T: Into<std::option::Option<crate::model::Federation>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.federation = v.into();
+        pub fn set_federation<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [federation][crate::model::UpdateFederationRequest::federation].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_federation<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Federation>,
+        {
+            self.0.request.federation = v.map(|x| x.into());
             self
         }
 
@@ -2643,13 +3454,30 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::delete_federation][super::super::client::DataprocMetastoreFederation::delete_federation] calls.
+    /// The request builder for [DataprocMetastoreFederation::delete_federation][crate::client::DataprocMetastoreFederation::delete_federation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::DeleteFederation;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteFederation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteFederation(RequestBuilder<crate::model::DeleteFederationRequest>);
 
     impl DeleteFederation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2674,7 +3502,7 @@ pub mod dataproc_metastore_federation {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_federation][super::super::client::DataprocMetastoreFederation::delete_federation].
+        /// on [delete_federation][crate::client::DataprocMetastoreFederation::delete_federation].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_federation(self.0.request, self.0.options)
@@ -2683,8 +3511,8 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_federation`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2709,7 +3537,12 @@ pub mod dataproc_metastore_federation {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteFederationRequest::name].
@@ -2734,13 +3567,33 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::list_locations][super::super::client::DataprocMetastoreFederation::list_locations] calls.
+    /// The request builder for [DataprocMetastoreFederation::list_locations][crate::client::DataprocMetastoreFederation::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2768,8 +3621,8 @@ pub mod dataproc_metastore_federation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2781,6 +3634,15 @@ pub mod dataproc_metastore_federation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2815,13 +3677,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_location][super::super::client::DataprocMetastoreFederation::get_location] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_location][crate::client::DataprocMetastoreFederation::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2860,13 +3738,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::set_iam_policy][super::super::client::DataprocMetastoreFederation::set_iam_policy] calls.
+    /// The request builder for [DataprocMetastoreFederation::set_iam_policy][crate::client::DataprocMetastoreFederation::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2902,20 +3796,40 @@ pub mod dataproc_metastore_federation {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2927,13 +3841,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_iam_policy][super::super::client::DataprocMetastoreFederation::get_iam_policy] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_iam_policy][crate::client::DataprocMetastoreFederation::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -2967,11 +3897,20 @@ pub mod dataproc_metastore_federation {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2983,13 +3922,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::test_iam_permissions][super::super::client::DataprocMetastoreFederation::test_iam_permissions] calls.
+    /// The request builder for [DataprocMetastoreFederation::test_iam_permissions][crate::client::DataprocMetastoreFederation::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3046,13 +4001,33 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::list_operations][super::super::client::DataprocMetastoreFederation::list_operations] calls.
+    /// The request builder for [DataprocMetastoreFederation::list_operations][crate::client::DataprocMetastoreFederation::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3080,8 +4055,8 @@ pub mod dataproc_metastore_federation {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -3093,6 +4068,17 @@ pub mod dataproc_metastore_federation {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -3127,13 +4113,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::get_operation][super::super::client::DataprocMetastoreFederation::get_operation] calls.
+    /// The request builder for [DataprocMetastoreFederation::get_operation][crate::client::DataprocMetastoreFederation::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3175,13 +4177,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::delete_operation][super::super::client::DataprocMetastoreFederation::delete_operation] calls.
+    /// The request builder for [DataprocMetastoreFederation::delete_operation][crate::client::DataprocMetastoreFederation::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }
@@ -3223,13 +4241,29 @@ pub mod dataproc_metastore_federation {
         }
     }
 
-    /// The request builder for [DataprocMetastoreFederation::cancel_operation][super::super::client::DataprocMetastoreFederation::cancel_operation] calls.
+    /// The request builder for [DataprocMetastoreFederation::cancel_operation][crate::client::DataprocMetastoreFederation::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_metastore_v1::builder;
+    /// use builder::dataproc_metastore_federation::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
         pub(crate) fn new(
-            stub: Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DataprocMetastoreFederation>,
         ) -> Self {
             Self(RequestBuilder::new(stub))
         }

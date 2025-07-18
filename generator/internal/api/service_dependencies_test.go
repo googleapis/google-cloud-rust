@@ -106,7 +106,7 @@ func TestFindServiceDependencies(t *testing.T) {
 			Methods: []*Method{
 				{
 					Name:         "Method0",
-					ID:           ".test.Service1.Method0",
+					ID:           ".test.Service2.Method0",
 					InputTypeID:  ".test.Empty",
 					OutputTypeID: ".test.Empty",
 					OperationInfo: &OperationInfo{
@@ -119,6 +119,7 @@ func TestFindServiceDependencies(t *testing.T) {
 	}
 	less := func(a, b string) bool { return a < b }
 	model := NewTestAPI(messages, enums, services)
+	CrossReference(model)
 	got := FindServiceDependencies(model, ".test.NotFound")
 	want := &ServiceDependencies{}
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {

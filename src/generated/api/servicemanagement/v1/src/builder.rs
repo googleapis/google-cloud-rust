@@ -16,9 +16,8 @@
 
 pub mod service_manager {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ServiceManager][super::super::client::ServiceManager].
+    /// A builder for [ServiceManager][crate::client::ServiceManager].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod service_manager {
     /// let client = builder
     ///     .with_endpoint("https://servicemanagement.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod service_manager {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceManager;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceManager] request builders.
+    /// Common implementation for [crate::client::ServiceManager] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod service_manager {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_services][super::super::client::ServiceManager::list_services] calls.
+    /// The request builder for [ServiceManager::list_services][crate::client::ServiceManager::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::ListServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod service_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [producer_project_id][crate::model::ListServicesRequest::producer_project_id].
@@ -144,12 +179,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_service][super::super::client::ServiceManager::get_service] calls.
+    /// The request builder for [ServiceManager::get_service][crate::client::ServiceManager::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::GetService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -189,12 +242,31 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::create_service][super::super::client::ServiceManager::create_service] calls.
+    /// The request builder for [ServiceManager::create_service][crate::client::ServiceManager::create_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::CreateService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -215,7 +287,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::ServiceManager::create_service].
+        /// on [create_service][crate::client::ServiceManager::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -228,8 +300,10 @@ pub mod service_manager {
             self,
         ) -> impl lro::Poller<crate::model::ManagedService, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ManagedService, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ManagedService,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -254,17 +328,28 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::ManagedService>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagedService>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ManagedService>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
     }
@@ -276,12 +361,31 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::delete_service][super::super::client::ServiceManager::delete_service] calls.
+    /// The request builder for [ServiceManager::delete_service][crate::client::ServiceManager::delete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::DeleteService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -302,7 +406,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::ServiceManager::delete_service].
+        /// on [delete_service][crate::client::ServiceManager::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -311,8 +415,8 @@ pub mod service_manager {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -337,7 +441,12 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [service_name][crate::model::DeleteServiceRequest::service_name].
@@ -356,12 +465,31 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::undelete_service][super::super::client::ServiceManager::undelete_service] calls.
+    /// The request builder for [ServiceManager::undelete_service][crate::client::ServiceManager::undelete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::UndeleteService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UndeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UndeleteService(RequestBuilder<crate::model::UndeleteServiceRequest>);
 
     impl UndeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -382,7 +510,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [undelete_service][super::super::client::ServiceManager::undelete_service].
+        /// on [undelete_service][crate::client::ServiceManager::undelete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .undelete_service(self.0.request, self.0.options)
@@ -395,7 +523,7 @@ pub mod service_manager {
             self,
         ) -> impl lro::Poller<crate::model::UndeleteServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::UndeleteServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -423,7 +551,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::UndeleteServiceRequest::service_name].
@@ -442,12 +570,34 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_service_configs][super::super::client::ServiceManager::list_service_configs] calls.
+    /// The request builder for [ServiceManager::list_service_configs][crate::client::ServiceManager::list_service_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::ListServiceConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceConfigs(RequestBuilder<crate::model::ListServiceConfigsRequest>);
 
     impl ListServiceConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -474,8 +624,8 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServiceConfigsResponse, gax::error::Error>
         {
@@ -487,6 +637,17 @@ pub mod service_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListServiceConfigsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [service_name][crate::model::ListServiceConfigsRequest::service_name].
@@ -517,12 +678,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_service_config][super::super::client::ServiceManager::get_service_config] calls.
+    /// The request builder for [ServiceManager::get_service_config][crate::client::ServiceManager::get_service_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::GetServiceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceConfig(RequestBuilder<crate::model::GetServiceConfigRequest>);
 
     impl GetServiceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -582,12 +761,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::create_service_config][super::super::client::ServiceManager::create_service_config] calls.
+    /// The request builder for [ServiceManager::create_service_config][crate::client::ServiceManager::create_service_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::CreateServiceConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceConfig(RequestBuilder<crate::model::CreateServiceConfigRequest>);
 
     impl CreateServiceConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -625,11 +822,22 @@ pub mod service_manager {
         /// Sets the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_config<T: Into<std::option::Option<api::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_config = v.into();
+        pub fn set_service_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<api::model::Service>,
+        {
+            self.0.request.service_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_config][crate::model::CreateServiceConfigRequest::service_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<api::model::Service>,
+        {
+            self.0.request.service_config = v.map(|x| x.into());
             self
         }
     }
@@ -641,12 +849,31 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::submit_config_source][super::super::client::ServiceManager::submit_config_source] calls.
+    /// The request builder for [ServiceManager::submit_config_source][crate::client::ServiceManager::submit_config_source] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::SubmitConfigSource;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SubmitConfigSource {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SubmitConfigSource(RequestBuilder<crate::model::SubmitConfigSourceRequest>);
 
     impl SubmitConfigSource {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -670,7 +897,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [submit_config_source][super::super::client::ServiceManager::submit_config_source].
+        /// on [submit_config_source][crate::client::ServiceManager::submit_config_source].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .submit_config_source(self.0.request, self.0.options)
@@ -683,7 +910,7 @@ pub mod service_manager {
             self,
         ) -> impl lro::Poller<crate::model::SubmitConfigSourceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::SubmitConfigSourceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -711,7 +938,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::SubmitConfigSourceRequest::service_name].
@@ -725,11 +952,22 @@ pub mod service_manager {
         /// Sets the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
         ///
         /// This is a **required** field for requests.
-        pub fn set_config_source<T: Into<std::option::Option<crate::model::ConfigSource>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.config_source = v.into();
+        pub fn set_config_source<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfigSource>,
+        {
+            self.0.request.config_source = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [config_source][crate::model::SubmitConfigSourceRequest::config_source].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_config_source<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ConfigSource>,
+        {
+            self.0.request.config_source = v.map(|x| x.into());
             self
         }
 
@@ -747,12 +985,34 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_service_rollouts][super::super::client::ServiceManager::list_service_rollouts] calls.
+    /// The request builder for [ServiceManager::list_service_rollouts][crate::client::ServiceManager::list_service_rollouts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::ListServiceRollouts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceRollouts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceRollouts(RequestBuilder<crate::model::ListServiceRolloutsRequest>);
 
     impl ListServiceRollouts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -779,8 +1039,8 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServiceRolloutsResponse, gax::error::Error>
         {
@@ -792,6 +1052,17 @@ pub mod service_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListServiceRolloutsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [service_name][crate::model::ListServiceRolloutsRequest::service_name].
@@ -830,12 +1101,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_service_rollout][super::super::client::ServiceManager::get_service_rollout] calls.
+    /// The request builder for [ServiceManager::get_service_rollout][crate::client::ServiceManager::get_service_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::GetServiceRollout;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceRollout(RequestBuilder<crate::model::GetServiceRolloutRequest>);
 
     impl GetServiceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -886,12 +1175,31 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::create_service_rollout][super::super::client::ServiceManager::create_service_rollout] calls.
+    /// The request builder for [ServiceManager::create_service_rollout][crate::client::ServiceManager::create_service_rollout] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::CreateServiceRollout;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceRollout {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceRollout(RequestBuilder<crate::model::CreateServiceRolloutRequest>);
 
     impl CreateServiceRollout {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -915,7 +1223,7 @@ pub mod service_manager {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_rollout][super::super::client::ServiceManager::create_service_rollout].
+        /// on [create_service_rollout][crate::client::ServiceManager::create_service_rollout].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_rollout(self.0.request, self.0.options)
@@ -927,7 +1235,8 @@ pub mod service_manager {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Rollout, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Rollout, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Rollout, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -952,7 +1261,7 @@ pub mod service_manager {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [service_name][crate::model::CreateServiceRolloutRequest::service_name].
@@ -966,11 +1275,22 @@ pub mod service_manager {
         /// Sets the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
         ///
         /// This is a **required** field for requests.
-        pub fn set_rollout<T: Into<std::option::Option<crate::model::Rollout>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.rollout = v.into();
+        pub fn set_rollout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rollout][crate::model::CreateServiceRolloutRequest::rollout].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rollout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Rollout>,
+        {
+            self.0.request.rollout = v.map(|x| x.into());
             self
         }
     }
@@ -982,12 +1302,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::generate_config_report][super::super::client::ServiceManager::generate_config_report] calls.
+    /// The request builder for [ServiceManager::generate_config_report][crate::client::ServiceManager::generate_config_report] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::GenerateConfigReport;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GenerateConfigReport {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GenerateConfigReport(RequestBuilder<crate::model::GenerateConfigReportRequest>);
 
     impl GenerateConfigReport {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1017,14 +1355,40 @@ pub mod service_manager {
         /// Sets the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_new_config<T: Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
-            self.0.request.new_config = v.into();
+        pub fn set_new_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.new_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [new_config][crate::model::GenerateConfigReportRequest::new_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_new_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.new_config = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
-        pub fn set_old_config<T: Into<std::option::Option<wkt::Any>>>(mut self, v: T) -> Self {
-            self.0.request.old_config = v.into();
+        pub fn set_old_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.old_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [old_config][crate::model::GenerateConfigReportRequest::old_config].
+        pub fn set_or_clear_old_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Any>,
+        {
+            self.0.request.old_config = v.map(|x| x.into());
             self
         }
     }
@@ -1036,12 +1400,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::set_iam_policy][super::super::client::ServiceManager::set_iam_policy] calls.
+    /// The request builder for [ServiceManager::set_iam_policy][crate::client::ServiceManager::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1076,20 +1458,40 @@ pub mod service_manager {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -1101,12 +1503,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_iam_policy][super::super::client::ServiceManager::get_iam_policy] calls.
+    /// The request builder for [ServiceManager::get_iam_policy][crate::client::ServiceManager::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1139,11 +1559,20 @@ pub mod service_manager {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -1155,12 +1584,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::test_iam_permissions][super::super::client::ServiceManager::test_iam_permissions] calls.
+    /// The request builder for [ServiceManager::test_iam_permissions][crate::client::ServiceManager::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1216,12 +1663,34 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::list_operations][super::super::client::ServiceManager::list_operations] calls.
+    /// The request builder for [ServiceManager::list_operations][crate::client::ServiceManager::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1248,8 +1717,8 @@ pub mod service_manager {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -1261,6 +1730,17 @@ pub mod service_manager {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -1295,12 +1775,30 @@ pub mod service_manager {
         }
     }
 
-    /// The request builder for [ServiceManager::get_operation][super::super::client::ServiceManager::get_operation] calls.
+    /// The request builder for [ServiceManager::get_operation][crate::client::ServiceManager::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_servicemanagement_v1::builder;
+    /// use builder::service_manager::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceManager>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceManager>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Storage Transfer API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
 /// let client = StorageTransferService::builder().build().await?;
 /// // use `client` to make requests to the Storage Transfer API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -60,11 +57,11 @@ use std::sync::Arc;
 ///
 /// `StorageTransferService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `StorageTransferService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct StorageTransferService {
-    inner: Arc<dyn super::stub::dynamic::StorageTransferService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::StorageTransferService>,
 }
 
 impl StorageTransferService {
@@ -74,7 +71,7 @@ impl StorageTransferService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
     /// let client = StorageTransferService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::storage_transfer_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -91,33 +88,36 @@ impl StorageTransferService {
         T: super::stub::StorageTransferService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::StorageTransferService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::StorageTransferService>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageTransferService> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageTransferService> {
         super::transport::StorageTransferService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::StorageTransferService> {
+    ) -> gax::client_builder::Result<impl super::stub::StorageTransferService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::StorageTransferService::new)
@@ -133,10 +133,8 @@ impl StorageTransferService {
     /// only be used by Storage Transfer Service.
     pub fn get_google_service_account(
         &self,
-        project_id: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::GetGoogleServiceAccount {
         super::builder::storage_transfer_service::GetGoogleServiceAccount::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Creates a transfer job that runs periodically.
@@ -161,19 +159,13 @@ impl StorageTransferService {
     /// [google.storagetransfer.v1.TransferJob.status]: crate::model::TransferJob::status
     pub fn update_transfer_job(
         &self,
-        job_name: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::UpdateTransferJob {
         super::builder::storage_transfer_service::UpdateTransferJob::new(self.inner.clone())
-            .set_job_name(job_name.into())
     }
 
     /// Gets a transfer job.
-    pub fn get_transfer_job(
-        &self,
-        job_name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::GetTransferJob {
+    pub fn get_transfer_job(&self) -> super::builder::storage_transfer_service::GetTransferJob {
         super::builder::storage_transfer_service::GetTransferJob::new(self.inner.clone())
-            .set_job_name(job_name.into())
     }
 
     /// Lists transfer jobs.
@@ -184,19 +176,15 @@ impl StorageTransferService {
     /// Pauses a transfer operation.
     pub fn pause_transfer_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::PauseTransferOperation {
         super::builder::storage_transfer_service::PauseTransferOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Resumes a transfer operation that is paused.
     pub fn resume_transfer_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::ResumeTransferOperation {
         super::builder::storage_transfer_service::ResumeTransferOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Starts a new operation for the specified transfer job.
@@ -213,12 +201,8 @@ impl StorageTransferService {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn run_transfer_job(
-        &self,
-        job_name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::RunTransferJob {
+    pub fn run_transfer_job(&self) -> super::builder::storage_transfer_service::RunTransferJob {
         super::builder::storage_transfer_service::RunTransferJob::new(self.inner.clone())
-            .set_job_name(job_name.into())
     }
 
     /// Deletes a transfer job. Deleting a transfer job sets its status to
@@ -227,76 +211,46 @@ impl StorageTransferService {
     /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::Status::Deleted
     pub fn delete_transfer_job(
         &self,
-        job_name: impl Into<std::string::String>,
     ) -> super::builder::storage_transfer_service::DeleteTransferJob {
         super::builder::storage_transfer_service::DeleteTransferJob::new(self.inner.clone())
-            .set_job_name(job_name.into())
     }
 
     /// Creates an agent pool resource.
-    pub fn create_agent_pool(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::CreateAgentPool {
+    pub fn create_agent_pool(&self) -> super::builder::storage_transfer_service::CreateAgentPool {
         super::builder::storage_transfer_service::CreateAgentPool::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Updates an existing agent pool resource.
-    pub fn update_agent_pool(
-        &self,
-        agent_pool: impl Into<crate::model::AgentPool>,
-    ) -> super::builder::storage_transfer_service::UpdateAgentPool {
+    pub fn update_agent_pool(&self) -> super::builder::storage_transfer_service::UpdateAgentPool {
         super::builder::storage_transfer_service::UpdateAgentPool::new(self.inner.clone())
-            .set_agent_pool(agent_pool.into())
     }
 
     /// Gets an agent pool.
-    pub fn get_agent_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::GetAgentPool {
+    pub fn get_agent_pool(&self) -> super::builder::storage_transfer_service::GetAgentPool {
         super::builder::storage_transfer_service::GetAgentPool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists agent pools.
-    pub fn list_agent_pools(
-        &self,
-        project_id: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::ListAgentPools {
+    pub fn list_agent_pools(&self) -> super::builder::storage_transfer_service::ListAgentPools {
         super::builder::storage_transfer_service::ListAgentPools::new(self.inner.clone())
-            .set_project_id(project_id.into())
     }
 
     /// Deletes an agent pool.
-    pub fn delete_agent_pool(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::DeleteAgentPool {
+    pub fn delete_agent_pool(&self) -> super::builder::storage_transfer_service::DeleteAgentPool {
         super::builder::storage_transfer_service::DeleteAgentPool::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists transfer operations. Operations are ordered by their creation
     /// time in reverse chronological order.
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::storage_transfer_service::ListOperations {
         super::builder::storage_transfer_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::storage_transfer_service::GetOperation {
         super::builder::storage_transfer_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Cancels a transfer. Use
@@ -320,11 +274,7 @@ impl StorageTransferService {
     /// before you canceled the job, tomorrow's transfer operation will
     /// compute a new delta with the five files that were not copied today
     /// plus any new files discovered tomorrow.
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::storage_transfer_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::storage_transfer_service::CancelOperation {
         super::builder::storage_transfer_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

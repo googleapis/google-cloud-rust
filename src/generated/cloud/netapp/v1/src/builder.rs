@@ -16,9 +16,8 @@
 
 pub mod net_app {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [NetApp][super::super::client::NetApp].
+    /// A builder for [NetApp][crate::client::NetApp].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod net_app {
     /// let client = builder
     ///     .with_endpoint("https://netapp.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod net_app {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = NetApp;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::NetApp] request builders.
+    /// Common implementation for [crate::client::NetApp] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::NetApp>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod net_app {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +69,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_storage_pools][super::super::client::NetApp::list_storage_pools] calls.
+    /// The request builder for [NetApp::list_storage_pools][crate::client::NetApp::list_storage_pools] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListStoragePools;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListStoragePools {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListStoragePools(RequestBuilder<crate::model::ListStoragePoolsRequest>);
 
     impl ListStoragePools {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -99,8 +121,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListStoragePoolsResponse, gax::error::Error>
         {
@@ -112,6 +134,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListStoragePoolsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListStoragePoolsRequest::parent].
@@ -154,12 +185,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_storage_pool][super::super::client::NetApp::create_storage_pool] calls.
+    /// The request builder for [NetApp::create_storage_pool][crate::client::NetApp::create_storage_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateStoragePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateStoragePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateStoragePool(RequestBuilder<crate::model::CreateStoragePoolRequest>);
 
     impl CreateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -183,7 +231,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_storage_pool][super::super::client::NetApp::create_storage_pool].
+        /// on [create_storage_pool][crate::client::NetApp::create_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_storage_pool(self.0.request, self.0.options)
@@ -195,8 +243,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::StoragePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::StoragePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StoragePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -221,7 +271,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateStoragePoolRequest::parent].
@@ -243,11 +293,22 @@ pub mod net_app {
         /// Sets the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_storage_pool<T: Into<std::option::Option<crate::model::StoragePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.storage_pool = v.into();
+        pub fn set_storage_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [storage_pool][crate::model::CreateStoragePoolRequest::storage_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = v.map(|x| x.into());
             self
         }
     }
@@ -259,12 +320,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_storage_pool][super::super::client::NetApp::get_storage_pool] calls.
+    /// The request builder for [NetApp::get_storage_pool][crate::client::NetApp::get_storage_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetStoragePool;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetStoragePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetStoragePool(RequestBuilder<crate::model::GetStoragePoolRequest>);
 
     impl GetStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -304,12 +381,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_storage_pool][super::super::client::NetApp::update_storage_pool] calls.
+    /// The request builder for [NetApp::update_storage_pool][crate::client::NetApp::update_storage_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateStoragePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateStoragePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateStoragePool(RequestBuilder<crate::model::UpdateStoragePoolRequest>);
 
     impl UpdateStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -333,7 +427,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_storage_pool][super::super::client::NetApp::update_storage_pool].
+        /// on [update_storage_pool][crate::client::NetApp::update_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_storage_pool(self.0.request, self.0.options)
@@ -345,8 +439,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::StoragePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::StoragePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StoragePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -371,28 +467,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateStoragePoolRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
         ///
         /// This is a **required** field for requests.
-        pub fn set_storage_pool<T: Into<std::option::Option<crate::model::StoragePool>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.storage_pool = v.into();
+        pub fn set_storage_pool<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [storage_pool][crate::model::UpdateStoragePoolRequest::storage_pool].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_storage_pool<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::StoragePool>,
+        {
+            self.0.request.storage_pool = v.map(|x| x.into());
             self
         }
     }
@@ -404,12 +522,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_storage_pool][super::super::client::NetApp::delete_storage_pool] calls.
+    /// The request builder for [NetApp::delete_storage_pool][crate::client::NetApp::delete_storage_pool] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteStoragePool;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteStoragePool {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteStoragePool(RequestBuilder<crate::model::DeleteStoragePoolRequest>);
 
     impl DeleteStoragePool {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -433,7 +568,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_storage_pool][super::super::client::NetApp::delete_storage_pool].
+        /// on [delete_storage_pool][crate::client::NetApp::delete_storage_pool].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_storage_pool(self.0.request, self.0.options)
@@ -442,8 +577,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_storage_pool`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -468,7 +603,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteStoragePoolRequest::name].
@@ -487,14 +627,31 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::validate_directory_service][super::super::client::NetApp::validate_directory_service] calls.
+    /// The request builder for [NetApp::validate_directory_service][crate::client::NetApp::validate_directory_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ValidateDirectoryService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ValidateDirectoryService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ValidateDirectoryService(
         RequestBuilder<crate::model::ValidateDirectoryServiceRequest>,
     );
 
     impl ValidateDirectoryService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -518,7 +675,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [validate_directory_service][super::super::client::NetApp::validate_directory_service].
+        /// on [validate_directory_service][crate::client::NetApp::validate_directory_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .validate_directory_service(self.0.request, self.0.options)
@@ -527,8 +684,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `validate_directory_service`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -553,7 +710,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::ValidateDirectoryServiceRequest::name].
@@ -581,14 +743,31 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::switch_active_replica_zone][super::super::client::NetApp::switch_active_replica_zone] calls.
+    /// The request builder for [NetApp::switch_active_replica_zone][crate::client::NetApp::switch_active_replica_zone] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::SwitchActiveReplicaZone;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SwitchActiveReplicaZone {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SwitchActiveReplicaZone(
         RequestBuilder<crate::model::SwitchActiveReplicaZoneRequest>,
     );
 
     impl SwitchActiveReplicaZone {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -612,7 +791,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [switch_active_replica_zone][super::super::client::NetApp::switch_active_replica_zone].
+        /// on [switch_active_replica_zone][crate::client::NetApp::switch_active_replica_zone].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .switch_active_replica_zone(self.0.request, self.0.options)
@@ -624,8 +803,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::StoragePool, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::StoragePool, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::StoragePool,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -650,7 +831,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SwitchActiveReplicaZoneRequest::name].
@@ -669,12 +850,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_volumes][super::super::client::NetApp::list_volumes] calls.
+    /// The request builder for [NetApp::list_volumes][crate::client::NetApp::list_volumes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListVolumes;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListVolumes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListVolumes(RequestBuilder<crate::model::ListVolumesRequest>);
 
     impl ListVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -698,8 +899,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListVolumesResponse, gax::error::Error>
         {
@@ -711,6 +912,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListVolumesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListVolumesRequest::parent].
@@ -753,12 +963,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_volume][super::super::client::NetApp::get_volume] calls.
+    /// The request builder for [NetApp::get_volume][crate::client::NetApp::get_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetVolume;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetVolume(RequestBuilder<crate::model::GetVolumeRequest>);
 
     impl GetVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -798,12 +1024,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_volume][super::super::client::NetApp::create_volume] calls.
+    /// The request builder for [NetApp::create_volume][crate::client::NetApp::create_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateVolume(RequestBuilder<crate::model::CreateVolumeRequest>);
 
     impl CreateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,7 +1067,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_volume][super::super::client::NetApp::create_volume].
+        /// on [create_volume][crate::client::NetApp::create_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_volume(self.0.request, self.0.options)
@@ -836,7 +1079,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -861,7 +1105,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateVolumeRequest::parent].
@@ -883,11 +1127,22 @@ pub mod net_app {
         /// Sets the value of [volume][crate::model::CreateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume = v.into();
+        pub fn set_volume<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume][crate::model::CreateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = v.map(|x| x.into());
             self
         }
     }
@@ -899,12 +1154,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_volume][super::super::client::NetApp::update_volume] calls.
+    /// The request builder for [NetApp::update_volume][crate::client::NetApp::update_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateVolume(RequestBuilder<crate::model::UpdateVolumeRequest>);
 
     impl UpdateVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -925,7 +1197,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_volume][super::super::client::NetApp::update_volume].
+        /// on [update_volume][crate::client::NetApp::update_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_volume(self.0.request, self.0.options)
@@ -937,7 +1209,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -962,28 +1235,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateVolumeRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [volume][crate::model::UpdateVolumeRequest::volume].
         ///
         /// This is a **required** field for requests.
-        pub fn set_volume<T: Into<std::option::Option<crate::model::Volume>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.volume = v.into();
+        pub fn set_volume<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [volume][crate::model::UpdateVolumeRequest::volume].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_volume<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Volume>,
+        {
+            self.0.request.volume = v.map(|x| x.into());
             self
         }
     }
@@ -995,12 +1290,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_volume][super::super::client::NetApp::delete_volume] calls.
+    /// The request builder for [NetApp::delete_volume][crate::client::NetApp::delete_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteVolume(RequestBuilder<crate::model::DeleteVolumeRequest>);
 
     impl DeleteVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1021,7 +1333,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_volume][super::super::client::NetApp::delete_volume].
+        /// on [delete_volume][crate::client::NetApp::delete_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_volume(self.0.request, self.0.options)
@@ -1030,8 +1342,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_volume`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1056,7 +1368,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteVolumeRequest::name].
@@ -1081,12 +1398,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::revert_volume][super::super::client::NetApp::revert_volume] calls.
+    /// The request builder for [NetApp::revert_volume][crate::client::NetApp::revert_volume] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::RevertVolume;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> RevertVolume {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct RevertVolume(RequestBuilder<crate::model::RevertVolumeRequest>);
 
     impl RevertVolume {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1107,7 +1441,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [revert_volume][super::super::client::NetApp::revert_volume].
+        /// on [revert_volume][crate::client::NetApp::revert_volume].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .revert_volume(self.0.request, self.0.options)
@@ -1119,7 +1453,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Volume, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Volume, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Volume, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1144,7 +1479,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::RevertVolumeRequest::name].
@@ -1171,12 +1506,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_snapshots][super::super::client::NetApp::list_snapshots] calls.
+    /// The request builder for [NetApp::list_snapshots][crate::client::NetApp::list_snapshots] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListSnapshots;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSnapshots {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSnapshots(RequestBuilder<crate::model::ListSnapshotsRequest>);
 
     impl ListSnapshots {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1200,8 +1555,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSnapshotsResponse, gax::error::Error>
         {
@@ -1213,6 +1568,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSnapshotsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListSnapshotsRequest::parent].
@@ -1255,12 +1619,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_snapshot][super::super::client::NetApp::get_snapshot] calls.
+    /// The request builder for [NetApp::get_snapshot][crate::client::NetApp::get_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetSnapshot;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetSnapshot(RequestBuilder<crate::model::GetSnapshotRequest>);
 
     impl GetSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1300,12 +1680,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_snapshot][super::super::client::NetApp::create_snapshot] calls.
+    /// The request builder for [NetApp::create_snapshot][crate::client::NetApp::create_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateSnapshot(RequestBuilder<crate::model::CreateSnapshotRequest>);
 
     impl CreateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1326,7 +1723,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_snapshot][super::super::client::NetApp::create_snapshot].
+        /// on [create_snapshot][crate::client::NetApp::create_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_snapshot(self.0.request, self.0.options)
@@ -1339,7 +1736,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1364,7 +1761,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateSnapshotRequest::parent].
@@ -1378,11 +1775,22 @@ pub mod net_app {
         /// Sets the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::CreateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
 
@@ -1402,12 +1810,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_snapshot][super::super::client::NetApp::delete_snapshot] calls.
+    /// The request builder for [NetApp::delete_snapshot][crate::client::NetApp::delete_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteSnapshot(RequestBuilder<crate::model::DeleteSnapshotRequest>);
 
     impl DeleteSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1428,7 +1853,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_snapshot][super::super::client::NetApp::delete_snapshot].
+        /// on [delete_snapshot][crate::client::NetApp::delete_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_snapshot(self.0.request, self.0.options)
@@ -1437,8 +1862,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_snapshot`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1463,7 +1888,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteSnapshotRequest::name].
@@ -1482,12 +1912,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_snapshot][super::super::client::NetApp::update_snapshot] calls.
+    /// The request builder for [NetApp::update_snapshot][crate::client::NetApp::update_snapshot] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateSnapshot;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateSnapshot {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateSnapshot(RequestBuilder<crate::model::UpdateSnapshotRequest>);
 
     impl UpdateSnapshot {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1508,7 +1955,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_snapshot][super::super::client::NetApp::update_snapshot].
+        /// on [update_snapshot][crate::client::NetApp::update_snapshot].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_snapshot(self.0.request, self.0.options)
@@ -1521,7 +1968,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::Snapshot, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Snapshot, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1546,28 +1993,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateSnapshotRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
         ///
         /// This is a **required** field for requests.
-        pub fn set_snapshot<T: Into<std::option::Option<crate::model::Snapshot>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.snapshot = v.into();
+        pub fn set_snapshot<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [snapshot][crate::model::UpdateSnapshotRequest::snapshot].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_snapshot<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Snapshot>,
+        {
+            self.0.request.snapshot = v.map(|x| x.into());
             self
         }
     }
@@ -1579,12 +2048,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_active_directories][super::super::client::NetApp::list_active_directories] calls.
+    /// The request builder for [NetApp::list_active_directories][crate::client::NetApp::list_active_directories] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListActiveDirectories;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListActiveDirectories {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListActiveDirectories(RequestBuilder<crate::model::ListActiveDirectoriesRequest>);
 
     impl ListActiveDirectories {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1611,8 +2100,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListActiveDirectoriesResponse, gax::error::Error>
         {
@@ -1624,6 +2113,17 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListActiveDirectoriesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListActiveDirectoriesRequest::parent].
@@ -1666,12 +2166,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_active_directory][super::super::client::NetApp::get_active_directory] calls.
+    /// The request builder for [NetApp::get_active_directory][crate::client::NetApp::get_active_directory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetActiveDirectory;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetActiveDirectory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetActiveDirectory(RequestBuilder<crate::model::GetActiveDirectoryRequest>);
 
     impl GetActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1714,12 +2230,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_active_directory][super::super::client::NetApp::create_active_directory] calls.
+    /// The request builder for [NetApp::create_active_directory][crate::client::NetApp::create_active_directory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateActiveDirectory;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateActiveDirectory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateActiveDirectory(RequestBuilder<crate::model::CreateActiveDirectoryRequest>);
 
     impl CreateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1743,7 +2276,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_active_directory][super::super::client::NetApp::create_active_directory].
+        /// on [create_active_directory][crate::client::NetApp::create_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_active_directory(self.0.request, self.0.options)
@@ -1756,8 +2289,10 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::ActiveDirectory, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ActiveDirectory, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ActiveDirectory,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1782,7 +2317,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateActiveDirectoryRequest::parent].
@@ -1796,11 +2331,22 @@ pub mod net_app {
         /// Sets the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
         ///
         /// This is a **required** field for requests.
-        pub fn set_active_directory<T: Into<std::option::Option<crate::model::ActiveDirectory>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.active_directory = v.into();
+        pub fn set_active_directory<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [active_directory][crate::model::CreateActiveDirectoryRequest::active_directory].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_active_directory<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = v.map(|x| x.into());
             self
         }
 
@@ -1820,12 +2366,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_active_directory][super::super::client::NetApp::update_active_directory] calls.
+    /// The request builder for [NetApp::update_active_directory][crate::client::NetApp::update_active_directory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateActiveDirectory;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateActiveDirectory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateActiveDirectory(RequestBuilder<crate::model::UpdateActiveDirectoryRequest>);
 
     impl UpdateActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1849,7 +2412,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_active_directory][super::super::client::NetApp::update_active_directory].
+        /// on [update_active_directory][crate::client::NetApp::update_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_active_directory(self.0.request, self.0.options)
@@ -1862,8 +2425,10 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::ActiveDirectory, crate::model::OperationMetadata>
         {
-            type Operation =
-                lro::Operation<crate::model::ActiveDirectory, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::ActiveDirectory,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1888,28 +2453,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateActiveDirectoryRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
         ///
         /// This is a **required** field for requests.
-        pub fn set_active_directory<T: Into<std::option::Option<crate::model::ActiveDirectory>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.active_directory = v.into();
+        pub fn set_active_directory<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [active_directory][crate::model::UpdateActiveDirectoryRequest::active_directory].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_active_directory<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ActiveDirectory>,
+        {
+            self.0.request.active_directory = v.map(|x| x.into());
             self
         }
     }
@@ -1921,12 +2508,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_active_directory][super::super::client::NetApp::delete_active_directory] calls.
+    /// The request builder for [NetApp::delete_active_directory][crate::client::NetApp::delete_active_directory] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteActiveDirectory;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteActiveDirectory {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteActiveDirectory(RequestBuilder<crate::model::DeleteActiveDirectoryRequest>);
 
     impl DeleteActiveDirectory {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1950,7 +2554,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_active_directory][super::super::client::NetApp::delete_active_directory].
+        /// on [delete_active_directory][crate::client::NetApp::delete_active_directory].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_active_directory(self.0.request, self.0.options)
@@ -1959,8 +2563,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_active_directory`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1985,7 +2589,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteActiveDirectoryRequest::name].
@@ -2004,12 +2613,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_kms_configs][super::super::client::NetApp::list_kms_configs] calls.
+    /// The request builder for [NetApp::list_kms_configs][crate::client::NetApp::list_kms_configs] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListKmsConfigs;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListKmsConfigs {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListKmsConfigs(RequestBuilder<crate::model::ListKmsConfigsRequest>);
 
     impl ListKmsConfigs {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2033,8 +2662,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListKmsConfigsResponse, gax::error::Error>
         {
@@ -2046,6 +2675,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListKmsConfigsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListKmsConfigsRequest::parent].
@@ -2088,12 +2726,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_kms_config][super::super::client::NetApp::create_kms_config] calls.
+    /// The request builder for [NetApp::create_kms_config][crate::client::NetApp::create_kms_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateKmsConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateKmsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateKmsConfig(RequestBuilder<crate::model::CreateKmsConfigRequest>);
 
     impl CreateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2114,7 +2769,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_kms_config][super::super::client::NetApp::create_kms_config].
+        /// on [create_kms_config][crate::client::NetApp::create_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_kms_config(self.0.request, self.0.options)
@@ -2127,7 +2782,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::KmsConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2152,7 +2807,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateKmsConfigRequest::parent].
@@ -2174,11 +2829,22 @@ pub mod net_app {
         /// Sets the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_kms_config<T: Into<std::option::Option<crate::model::KmsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.kms_config = v.into();
+        pub fn set_kms_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kms_config][crate::model::CreateKmsConfigRequest::kms_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_kms_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = v.map(|x| x.into());
             self
         }
     }
@@ -2190,12 +2856,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_kms_config][super::super::client::NetApp::get_kms_config] calls.
+    /// The request builder for [NetApp::get_kms_config][crate::client::NetApp::get_kms_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetKmsConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetKmsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetKmsConfig(RequestBuilder<crate::model::GetKmsConfigRequest>);
 
     impl GetKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2235,12 +2917,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_kms_config][super::super::client::NetApp::update_kms_config] calls.
+    /// The request builder for [NetApp::update_kms_config][crate::client::NetApp::update_kms_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateKmsConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateKmsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateKmsConfig(RequestBuilder<crate::model::UpdateKmsConfigRequest>);
 
     impl UpdateKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2261,7 +2960,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_kms_config][super::super::client::NetApp::update_kms_config].
+        /// on [update_kms_config][crate::client::NetApp::update_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_kms_config(self.0.request, self.0.options)
@@ -2274,7 +2973,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::KmsConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2299,28 +2998,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateKmsConfigRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
         ///
         /// This is a **required** field for requests.
-        pub fn set_kms_config<T: Into<std::option::Option<crate::model::KmsConfig>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.kms_config = v.into();
+        pub fn set_kms_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [kms_config][crate::model::UpdateKmsConfigRequest::kms_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_kms_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::KmsConfig>,
+        {
+            self.0.request.kms_config = v.map(|x| x.into());
             self
         }
     }
@@ -2332,12 +3053,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::encrypt_volumes][super::super::client::NetApp::encrypt_volumes] calls.
+    /// The request builder for [NetApp::encrypt_volumes][crate::client::NetApp::encrypt_volumes] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::EncryptVolumes;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EncryptVolumes {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EncryptVolumes(RequestBuilder<crate::model::EncryptVolumesRequest>);
 
     impl EncryptVolumes {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2358,7 +3096,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [encrypt_volumes][super::super::client::NetApp::encrypt_volumes].
+        /// on [encrypt_volumes][crate::client::NetApp::encrypt_volumes].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .encrypt_volumes(self.0.request, self.0.options)
@@ -2371,7 +3109,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::KmsConfig, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::KmsConfig, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2396,7 +3134,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EncryptVolumesRequest::name].
@@ -2415,12 +3153,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::verify_kms_config][super::super::client::NetApp::verify_kms_config] calls.
+    /// The request builder for [NetApp::verify_kms_config][crate::client::NetApp::verify_kms_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::VerifyKmsConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> VerifyKmsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct VerifyKmsConfig(RequestBuilder<crate::model::VerifyKmsConfigRequest>);
 
     impl VerifyKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2460,12 +3214,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_kms_config][super::super::client::NetApp::delete_kms_config] calls.
+    /// The request builder for [NetApp::delete_kms_config][crate::client::NetApp::delete_kms_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteKmsConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteKmsConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteKmsConfig(RequestBuilder<crate::model::DeleteKmsConfigRequest>);
 
     impl DeleteKmsConfig {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2486,7 +3257,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_kms_config][super::super::client::NetApp::delete_kms_config].
+        /// on [delete_kms_config][crate::client::NetApp::delete_kms_config].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_kms_config(self.0.request, self.0.options)
@@ -2495,8 +3266,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_kms_config`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2521,7 +3292,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteKmsConfigRequest::name].
@@ -2540,12 +3316,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_replications][super::super::client::NetApp::list_replications] calls.
+    /// The request builder for [NetApp::list_replications][crate::client::NetApp::list_replications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListReplications;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListReplications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListReplications(RequestBuilder<crate::model::ListReplicationsRequest>);
 
     impl ListReplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2572,8 +3368,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListReplicationsResponse, gax::error::Error>
         {
@@ -2585,6 +3381,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListReplicationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListReplicationsRequest::parent].
@@ -2627,12 +3432,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_replication][super::super::client::NetApp::get_replication] calls.
+    /// The request builder for [NetApp::get_replication][crate::client::NetApp::get_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetReplication;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetReplication(RequestBuilder<crate::model::GetReplicationRequest>);
 
     impl GetReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2672,12 +3493,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_replication][super::super::client::NetApp::create_replication] calls.
+    /// The request builder for [NetApp::create_replication][crate::client::NetApp::create_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateReplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateReplication(RequestBuilder<crate::model::CreateReplicationRequest>);
 
     impl CreateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2701,7 +3539,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_replication][super::super::client::NetApp::create_replication].
+        /// on [create_replication][crate::client::NetApp::create_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_replication(self.0.request, self.0.options)
@@ -2713,8 +3551,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2739,7 +3579,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateReplicationRequest::parent].
@@ -2753,11 +3593,22 @@ pub mod net_app {
         /// Sets the value of [replication][crate::model::CreateReplicationRequest::replication].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replication<T: Into<std::option::Option<crate::model::Replication>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replication = v.into();
+        pub fn set_replication<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [replication][crate::model::CreateReplicationRequest::replication].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = v.map(|x| x.into());
             self
         }
 
@@ -2777,12 +3628,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_replication][super::super::client::NetApp::delete_replication] calls.
+    /// The request builder for [NetApp::delete_replication][crate::client::NetApp::delete_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteReplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteReplication(RequestBuilder<crate::model::DeleteReplicationRequest>);
 
     impl DeleteReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2806,7 +3674,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_replication][super::super::client::NetApp::delete_replication].
+        /// on [delete_replication][crate::client::NetApp::delete_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_replication(self.0.request, self.0.options)
@@ -2815,8 +3683,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_replication`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2841,7 +3709,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteReplicationRequest::name].
@@ -2860,12 +3733,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_replication][super::super::client::NetApp::update_replication] calls.
+    /// The request builder for [NetApp::update_replication][crate::client::NetApp::update_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateReplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateReplication(RequestBuilder<crate::model::UpdateReplicationRequest>);
 
     impl UpdateReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2889,7 +3779,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_replication][super::super::client::NetApp::update_replication].
+        /// on [update_replication][crate::client::NetApp::update_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_replication(self.0.request, self.0.options)
@@ -2901,8 +3791,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2927,28 +3819,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateReplicationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [replication][crate::model::UpdateReplicationRequest::replication].
         ///
         /// This is a **required** field for requests.
-        pub fn set_replication<T: Into<std::option::Option<crate::model::Replication>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.replication = v.into();
+        pub fn set_replication<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [replication][crate::model::UpdateReplicationRequest::replication].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_replication<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Replication>,
+        {
+            self.0.request.replication = v.map(|x| x.into());
             self
         }
     }
@@ -2960,12 +3874,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::stop_replication][super::super::client::NetApp::stop_replication] calls.
+    /// The request builder for [NetApp::stop_replication][crate::client::NetApp::stop_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::StopReplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> StopReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct StopReplication(RequestBuilder<crate::model::StopReplicationRequest>);
 
     impl StopReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2986,7 +3917,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [stop_replication][super::super::client::NetApp::stop_replication].
+        /// on [stop_replication][crate::client::NetApp::stop_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .stop_replication(self.0.request, self.0.options)
@@ -2998,8 +3929,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3024,7 +3957,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::StopReplicationRequest::name].
@@ -3049,12 +3982,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::resume_replication][super::super::client::NetApp::resume_replication] calls.
+    /// The request builder for [NetApp::resume_replication][crate::client::NetApp::resume_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ResumeReplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ResumeReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ResumeReplication(RequestBuilder<crate::model::ResumeReplicationRequest>);
 
     impl ResumeReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3078,7 +4028,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [resume_replication][super::super::client::NetApp::resume_replication].
+        /// on [resume_replication][crate::client::NetApp::resume_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .resume_replication(self.0.request, self.0.options)
@@ -3090,8 +4040,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3116,7 +4068,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ResumeReplicationRequest::name].
@@ -3135,14 +4087,31 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::reverse_replication_direction][super::super::client::NetApp::reverse_replication_direction] calls.
+    /// The request builder for [NetApp::reverse_replication_direction][crate::client::NetApp::reverse_replication_direction] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ReverseReplicationDirection;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ReverseReplicationDirection {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ReverseReplicationDirection(
         RequestBuilder<crate::model::ReverseReplicationDirectionRequest>,
     );
 
     impl ReverseReplicationDirection {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3166,7 +4135,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [reverse_replication_direction][super::super::client::NetApp::reverse_replication_direction].
+        /// on [reverse_replication_direction][crate::client::NetApp::reverse_replication_direction].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .reverse_replication_direction(self.0.request, self.0.options)
@@ -3178,8 +4147,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3204,7 +4175,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::ReverseReplicationDirectionRequest::name].
@@ -3223,12 +4194,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::establish_peering][super::super::client::NetApp::establish_peering] calls.
+    /// The request builder for [NetApp::establish_peering][crate::client::NetApp::establish_peering] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::EstablishPeering;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EstablishPeering {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EstablishPeering(RequestBuilder<crate::model::EstablishPeeringRequest>);
 
     impl EstablishPeering {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3252,7 +4240,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [establish_peering][super::super::client::NetApp::establish_peering].
+        /// on [establish_peering][crate::client::NetApp::establish_peering].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .establish_peering(self.0.request, self.0.options)
@@ -3264,8 +4252,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3290,7 +4280,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EstablishPeeringRequest::name].
@@ -3317,14 +4307,6 @@ pub mod net_app {
             self
         }
 
-        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
-        ///
-        /// This is a **required** field for requests.
-        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
-            self.0.request.peer_volume_name = v.into();
-            self
-        }
-
         /// Sets the value of [peer_ip_addresses][crate::model::EstablishPeeringRequest::peer_ip_addresses].
         pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
         where
@@ -3333,6 +4315,14 @@ pub mod net_app {
         {
             use std::iter::Iterator;
             self.0.request.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [peer_volume_name][crate::model::EstablishPeeringRequest::peer_volume_name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_peer_volume_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.peer_volume_name = v.into();
             self
         }
     }
@@ -3344,12 +4334,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::sync_replication][super::super::client::NetApp::sync_replication] calls.
+    /// The request builder for [NetApp::sync_replication][crate::client::NetApp::sync_replication] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::SyncReplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SyncReplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SyncReplication(RequestBuilder<crate::model::SyncReplicationRequest>);
 
     impl SyncReplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3370,7 +4377,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [sync_replication][super::super::client::NetApp::sync_replication].
+        /// on [sync_replication][crate::client::NetApp::sync_replication].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .sync_replication(self.0.request, self.0.options)
@@ -3382,8 +4389,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Replication, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Replication, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Replication,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3408,7 +4417,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::SyncReplicationRequest::name].
@@ -3427,12 +4436,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_backup_vault][super::super::client::NetApp::create_backup_vault] calls.
+    /// The request builder for [NetApp::create_backup_vault][crate::client::NetApp::create_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateBackupVault;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupVault(RequestBuilder<crate::model::CreateBackupVaultRequest>);
 
     impl CreateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3456,7 +4482,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_vault][super::super::client::NetApp::create_backup_vault].
+        /// on [create_backup_vault][crate::client::NetApp::create_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_vault(self.0.request, self.0.options)
@@ -3468,8 +4494,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3494,7 +4522,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupVaultRequest::parent].
@@ -3516,11 +4544,22 @@ pub mod net_app {
         /// Sets the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::CreateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
     }
@@ -3532,12 +4571,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_backup_vault][super::super::client::NetApp::get_backup_vault] calls.
+    /// The request builder for [NetApp::get_backup_vault][crate::client::NetApp::get_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetBackupVault;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupVault(RequestBuilder<crate::model::GetBackupVaultRequest>);
 
     impl GetBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3577,12 +4632,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_backup_vaults][super::super::client::NetApp::list_backup_vaults] calls.
+    /// The request builder for [NetApp::list_backup_vaults][crate::client::NetApp::list_backup_vaults] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListBackupVaults;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupVaults {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupVaults(RequestBuilder<crate::model::ListBackupVaultsRequest>);
 
     impl ListBackupVaults {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3609,8 +4684,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
         {
@@ -3622,6 +4697,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupVaultsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupVaultsRequest::parent].
@@ -3664,12 +4748,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_backup_vault][super::super::client::NetApp::update_backup_vault] calls.
+    /// The request builder for [NetApp::update_backup_vault][crate::client::NetApp::update_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateBackupVault;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupVault(RequestBuilder<crate::model::UpdateBackupVaultRequest>);
 
     impl UpdateBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3693,7 +4794,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_vault][super::super::client::NetApp::update_backup_vault].
+        /// on [update_backup_vault][crate::client::NetApp::update_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_vault(self.0.request, self.0.options)
@@ -3705,8 +4806,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupVault, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupVault, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupVault,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3731,28 +4834,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupVaultRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_vault<T: Into<std::option::Option<crate::model::BackupVault>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_vault = v.into();
+        pub fn set_backup_vault<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_vault][crate::model::UpdateBackupVaultRequest::backup_vault].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_vault<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupVault>,
+        {
+            self.0.request.backup_vault = v.map(|x| x.into());
             self
         }
     }
@@ -3764,12 +4889,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_backup_vault][super::super::client::NetApp::delete_backup_vault] calls.
+    /// The request builder for [NetApp::delete_backup_vault][crate::client::NetApp::delete_backup_vault] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteBackupVault;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupVault {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupVault(RequestBuilder<crate::model::DeleteBackupVaultRequest>);
 
     impl DeleteBackupVault {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3793,7 +4935,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_vault][super::super::client::NetApp::delete_backup_vault].
+        /// on [delete_backup_vault][crate::client::NetApp::delete_backup_vault].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_vault(self.0.request, self.0.options)
@@ -3802,8 +4944,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_vault`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3828,7 +4970,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupVaultRequest::name].
@@ -3847,12 +4994,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_backup][super::super::client::NetApp::create_backup] calls.
+    /// The request builder for [NetApp::create_backup][crate::client::NetApp::create_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
 
     impl CreateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3873,7 +5037,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup][super::super::client::NetApp::create_backup].
+        /// on [create_backup][crate::client::NetApp::create_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup(self.0.request, self.0.options)
@@ -3885,7 +5049,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -3910,7 +5075,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
@@ -3932,11 +5097,22 @@ pub mod net_app {
         /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -3948,12 +5124,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_backup][super::super::client::NetApp::get_backup] calls.
+    /// The request builder for [NetApp::get_backup][crate::client::NetApp::get_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetBackup;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
 
     impl GetBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -3993,12 +5185,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_backups][super::super::client::NetApp::list_backups] calls.
+    /// The request builder for [NetApp::list_backups][crate::client::NetApp::list_backups] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListBackups;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
 
     impl ListBackups {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4022,8 +5234,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
         {
@@ -4035,6 +5247,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
@@ -4077,12 +5298,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_backup][super::super::client::NetApp::delete_backup] calls.
+    /// The request builder for [NetApp::delete_backup][crate::client::NetApp::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
 
     impl DeleteBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4103,7 +5341,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup][super::super::client::NetApp::delete_backup].
+        /// on [delete_backup][crate::client::NetApp::delete_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup(self.0.request, self.0.options)
@@ -4112,8 +5350,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4138,7 +5376,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
@@ -4157,12 +5400,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_backup][super::super::client::NetApp::update_backup] calls.
+    /// The request builder for [NetApp::update_backup][crate::client::NetApp::update_backup] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateBackup;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
 
     impl UpdateBackup {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4183,7 +5443,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup][super::super::client::NetApp::update_backup].
+        /// on [update_backup][crate::client::NetApp::update_backup].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup(self.0.request, self.0.options)
@@ -4195,7 +5455,8 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Backup, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Backup, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Backup, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4220,28 +5481,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup<T: Into<std::option::Option<crate::model::Backup>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup = v.into();
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
             self
         }
     }
@@ -4253,12 +5536,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_backup_policy][super::super::client::NetApp::create_backup_policy] calls.
+    /// The request builder for [NetApp::create_backup_policy][crate::client::NetApp::create_backup_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateBackupPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBackupPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBackupPolicy(RequestBuilder<crate::model::CreateBackupPolicyRequest>);
 
     impl CreateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4282,7 +5582,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_backup_policy][super::super::client::NetApp::create_backup_policy].
+        /// on [create_backup_policy][crate::client::NetApp::create_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_backup_policy(self.0.request, self.0.options)
@@ -4294,8 +5594,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupPolicy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4320,7 +5622,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateBackupPolicyRequest::parent].
@@ -4334,11 +5636,22 @@ pub mod net_app {
         /// Sets the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_policy<T: Into<std::option::Option<crate::model::BackupPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_policy = v.into();
+        pub fn set_backup_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_policy][crate::model::CreateBackupPolicyRequest::backup_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = v.map(|x| x.into());
             self
         }
 
@@ -4358,12 +5671,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_backup_policy][super::super::client::NetApp::get_backup_policy] calls.
+    /// The request builder for [NetApp::get_backup_policy][crate::client::NetApp::get_backup_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetBackupPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBackupPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBackupPolicy(RequestBuilder<crate::model::GetBackupPolicyRequest>);
 
     impl GetBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4403,12 +5732,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_backup_policies][super::super::client::NetApp::list_backup_policies] calls.
+    /// The request builder for [NetApp::list_backup_policies][crate::client::NetApp::list_backup_policies] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListBackupPolicies;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBackupPolicies {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBackupPolicies(RequestBuilder<crate::model::ListBackupPoliciesRequest>);
 
     impl ListBackupPolicies {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4435,8 +5784,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBackupPoliciesResponse, gax::error::Error>
         {
@@ -4448,6 +5797,17 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBackupPoliciesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListBackupPoliciesRequest::parent].
@@ -4490,12 +5850,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_backup_policy][super::super::client::NetApp::update_backup_policy] calls.
+    /// The request builder for [NetApp::update_backup_policy][crate::client::NetApp::update_backup_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateBackupPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBackupPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBackupPolicy(RequestBuilder<crate::model::UpdateBackupPolicyRequest>);
 
     impl UpdateBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4519,7 +5896,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_backup_policy][super::super::client::NetApp::update_backup_policy].
+        /// on [update_backup_policy][crate::client::NetApp::update_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_backup_policy(self.0.request, self.0.options)
@@ -4531,8 +5908,10 @@ pub mod net_app {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::BackupPolicy, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::BackupPolicy, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::BackupPolicy,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4557,28 +5936,50 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupPolicyRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_backup_policy<T: Into<std::option::Option<crate::model::BackupPolicy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.backup_policy = v.into();
+        pub fn set_backup_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup_policy][crate::model::UpdateBackupPolicyRequest::backup_policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BackupPolicy>,
+        {
+            self.0.request.backup_policy = v.map(|x| x.into());
             self
         }
     }
@@ -4590,12 +5991,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_backup_policy][super::super::client::NetApp::delete_backup_policy] calls.
+    /// The request builder for [NetApp::delete_backup_policy][crate::client::NetApp::delete_backup_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteBackupPolicy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteBackupPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteBackupPolicy(RequestBuilder<crate::model::DeleteBackupPolicyRequest>);
 
     impl DeleteBackupPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4619,7 +6037,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_backup_policy][super::super::client::NetApp::delete_backup_policy].
+        /// on [delete_backup_policy][crate::client::NetApp::delete_backup_policy].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_backup_policy(self.0.request, self.0.options)
@@ -4628,8 +6046,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_backup_policy`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4654,7 +6072,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteBackupPolicyRequest::name].
@@ -4673,12 +6096,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_quota_rules][super::super::client::NetApp::list_quota_rules] calls.
+    /// The request builder for [NetApp::list_quota_rules][crate::client::NetApp::list_quota_rules] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListQuotaRules;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListQuotaRules {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListQuotaRules(RequestBuilder<crate::model::ListQuotaRulesRequest>);
 
     impl ListQuotaRules {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4702,8 +6145,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListQuotaRulesResponse, gax::error::Error>
         {
@@ -4715,6 +6158,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListQuotaRulesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListQuotaRulesRequest::parent].
@@ -4757,12 +6209,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_quota_rule][super::super::client::NetApp::get_quota_rule] calls.
+    /// The request builder for [NetApp::get_quota_rule][crate::client::NetApp::get_quota_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetQuotaRule;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetQuotaRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetQuotaRule(RequestBuilder<crate::model::GetQuotaRuleRequest>);
 
     impl GetQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4802,12 +6270,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::create_quota_rule][super::super::client::NetApp::create_quota_rule] calls.
+    /// The request builder for [NetApp::create_quota_rule][crate::client::NetApp::create_quota_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CreateQuotaRule;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateQuotaRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateQuotaRule(RequestBuilder<crate::model::CreateQuotaRuleRequest>);
 
     impl CreateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4828,7 +6313,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_quota_rule][super::super::client::NetApp::create_quota_rule].
+        /// on [create_quota_rule][crate::client::NetApp::create_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_quota_rule(self.0.request, self.0.options)
@@ -4841,7 +6326,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::QuotaRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4866,7 +6351,7 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateQuotaRuleRequest::parent].
@@ -4880,11 +6365,22 @@ pub mod net_app {
         /// Sets the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_quota_rule<T: Into<std::option::Option<crate::model::QuotaRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.quota_rule = v.into();
+        pub fn set_quota_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [quota_rule][crate::model::CreateQuotaRuleRequest::quota_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_quota_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = v.map(|x| x.into());
             self
         }
 
@@ -4904,12 +6400,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::update_quota_rule][super::super::client::NetApp::update_quota_rule] calls.
+    /// The request builder for [NetApp::update_quota_rule][crate::client::NetApp::update_quota_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::UpdateQuotaRule;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateQuotaRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateQuotaRule(RequestBuilder<crate::model::UpdateQuotaRuleRequest>);
 
     impl UpdateQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -4930,7 +6443,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_quota_rule][super::super::client::NetApp::update_quota_rule].
+        /// on [update_quota_rule][crate::client::NetApp::update_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_quota_rule(self.0.request, self.0.options)
@@ -4943,7 +6456,7 @@ pub mod net_app {
             self,
         ) -> impl lro::Poller<crate::model::QuotaRule, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::QuotaRule, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -4968,26 +6481,46 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateQuotaRuleRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
         ///
         /// This is a **required** field for requests.
-        pub fn set_quota_rule<T: Into<std::option::Option<crate::model::QuotaRule>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.quota_rule = v.into();
+        pub fn set_quota_rule<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [quota_rule][crate::model::UpdateQuotaRuleRequest::quota_rule].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_quota_rule<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::QuotaRule>,
+        {
+            self.0.request.quota_rule = v.map(|x| x.into());
             self
         }
     }
@@ -4999,12 +6532,29 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_quota_rule][super::super::client::NetApp::delete_quota_rule] calls.
+    /// The request builder for [NetApp::delete_quota_rule][crate::client::NetApp::delete_quota_rule] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteQuotaRule;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteQuotaRule {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteQuotaRule(RequestBuilder<crate::model::DeleteQuotaRuleRequest>);
 
     impl DeleteQuotaRule {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5025,7 +6575,7 @@ pub mod net_app {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_quota_rule][super::super::client::NetApp::delete_quota_rule].
+        /// on [delete_quota_rule][crate::client::NetApp::delete_quota_rule].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_quota_rule(self.0.request, self.0.options)
@@ -5034,8 +6584,8 @@ pub mod net_app {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_quota_rule`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -5060,7 +6610,12 @@ pub mod net_app {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteQuotaRuleRequest::name].
@@ -5079,12 +6634,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_locations][super::super::client::NetApp::list_locations] calls.
+    /// The request builder for [NetApp::list_locations][crate::client::NetApp::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5111,8 +6686,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -5124,6 +6699,15 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -5158,12 +6742,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_location][super::super::client::NetApp::get_location] calls.
+    /// The request builder for [NetApp::get_location][crate::client::NetApp::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5201,12 +6801,32 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::list_operations][super::super::client::NetApp::list_operations] calls.
+    /// The request builder for [NetApp::list_operations][crate::client::NetApp::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5233,8 +6853,8 @@ pub mod net_app {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -5246,6 +6866,17 @@ pub mod net_app {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -5280,12 +6911,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::get_operation][super::super::client::NetApp::get_operation] calls.
+    /// The request builder for [NetApp::get_operation][crate::client::NetApp::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5326,12 +6973,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::delete_operation][super::super::client::NetApp::delete_operation] calls.
+    /// The request builder for [NetApp::delete_operation][crate::client::NetApp::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -5372,12 +7035,28 @@ pub mod net_app {
         }
     }
 
-    /// The request builder for [NetApp::cancel_operation][super::super::client::NetApp::cancel_operation] calls.
+    /// The request builder for [NetApp::cancel_operation][crate::client::NetApp::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_netapp_v1::builder;
+    /// use builder::net_app::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::NetApp>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

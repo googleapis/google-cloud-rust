@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Deploy API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_deploy_v1::client::CloudDeploy;
 /// let client = CloudDeploy::builder().build().await?;
 /// // use `client` to make requests to the Cloud Deploy API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -59,11 +56,11 @@ use std::sync::Arc;
 ///
 /// `CloudDeploy` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudDeploy` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudDeploy {
-    inner: Arc<dyn super::stub::dynamic::CloudDeploy>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudDeploy>,
 }
 
 impl CloudDeploy {
@@ -73,7 +70,7 @@ impl CloudDeploy {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_deploy_v1::client::CloudDeploy;
     /// let client = CloudDeploy::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_deploy::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_deploy::client::Factory)
@@ -88,54 +85,48 @@ impl CloudDeploy {
         T: super::stub::CloudDeploy + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudDeploy>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudDeploy>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudDeploy> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudDeploy> {
         super::transport::CloudDeploy::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudDeploy> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudDeploy> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudDeploy::new)
     }
 
     /// Lists DeliveryPipelines in a given project and location.
-    pub fn list_delivery_pipelines(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListDeliveryPipelines {
+    pub fn list_delivery_pipelines(&self) -> super::builder::cloud_deploy::ListDeliveryPipelines {
         super::builder::cloud_deploy::ListDeliveryPipelines::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single DeliveryPipeline.
-    pub fn get_delivery_pipeline(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetDeliveryPipeline {
+    pub fn get_delivery_pipeline(&self) -> super::builder::cloud_deploy::GetDeliveryPipeline {
         super::builder::cloud_deploy::GetDeliveryPipeline::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new DeliveryPipeline in a given project and location.
@@ -149,12 +140,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_delivery_pipeline(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CreateDeliveryPipeline {
+    pub fn create_delivery_pipeline(&self) -> super::builder::cloud_deploy::CreateDeliveryPipeline {
         super::builder::cloud_deploy::CreateDeliveryPipeline::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single DeliveryPipeline.
@@ -168,12 +155,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_delivery_pipeline(
-        &self,
-        delivery_pipeline: impl Into<crate::model::DeliveryPipeline>,
-    ) -> super::builder::cloud_deploy::UpdateDeliveryPipeline {
+    pub fn update_delivery_pipeline(&self) -> super::builder::cloud_deploy::UpdateDeliveryPipeline {
         super::builder::cloud_deploy::UpdateDeliveryPipeline::new(self.inner.clone())
-            .set_delivery_pipeline(delivery_pipeline.into())
     }
 
     /// Deletes a single DeliveryPipeline.
@@ -187,36 +170,23 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_delivery_pipeline(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::DeleteDeliveryPipeline {
+    pub fn delete_delivery_pipeline(&self) -> super::builder::cloud_deploy::DeleteDeliveryPipeline {
         super::builder::cloud_deploy::DeleteDeliveryPipeline::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Targets in a given project and location.
-    pub fn list_targets(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListTargets {
-        super::builder::cloud_deploy::ListTargets::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_targets(&self) -> super::builder::cloud_deploy::ListTargets {
+        super::builder::cloud_deploy::ListTargets::new(self.inner.clone())
     }
 
     /// Creates a `Rollout` to roll back the specified target.
-    pub fn rollback_target(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::RollbackTarget {
-        super::builder::cloud_deploy::RollbackTarget::new(self.inner.clone()).set_name(name.into())
+    pub fn rollback_target(&self) -> super::builder::cloud_deploy::RollbackTarget {
+        super::builder::cloud_deploy::RollbackTarget::new(self.inner.clone())
     }
 
     /// Gets details of a single Target.
-    pub fn get_target(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetTarget {
-        super::builder::cloud_deploy::GetTarget::new(self.inner.clone()).set_name(name.into())
+    pub fn get_target(&self) -> super::builder::cloud_deploy::GetTarget {
+        super::builder::cloud_deploy::GetTarget::new(self.inner.clone())
     }
 
     /// Creates a new Target in a given project and location.
@@ -230,12 +200,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_target(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CreateTarget {
+    pub fn create_target(&self) -> super::builder::cloud_deploy::CreateTarget {
         super::builder::cloud_deploy::CreateTarget::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Target.
@@ -249,12 +215,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_target(
-        &self,
-        target: impl Into<crate::model::Target>,
-    ) -> super::builder::cloud_deploy::UpdateTarget {
+    pub fn update_target(&self) -> super::builder::cloud_deploy::UpdateTarget {
         super::builder::cloud_deploy::UpdateTarget::new(self.inner.clone())
-            .set_target(target.into())
     }
 
     /// Deletes a single Target.
@@ -268,29 +230,18 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_target(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::DeleteTarget {
-        super::builder::cloud_deploy::DeleteTarget::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_target(&self) -> super::builder::cloud_deploy::DeleteTarget {
+        super::builder::cloud_deploy::DeleteTarget::new(self.inner.clone())
     }
 
     /// Lists CustomTargetTypes in a given project and location.
-    pub fn list_custom_target_types(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListCustomTargetTypes {
+    pub fn list_custom_target_types(&self) -> super::builder::cloud_deploy::ListCustomTargetTypes {
         super::builder::cloud_deploy::ListCustomTargetTypes::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single CustomTargetType.
-    pub fn get_custom_target_type(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetCustomTargetType {
+    pub fn get_custom_target_type(&self) -> super::builder::cloud_deploy::GetCustomTargetType {
         super::builder::cloud_deploy::GetCustomTargetType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Creates a new CustomTargetType in a given project and location.
@@ -306,10 +257,8 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_custom_target_type(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::cloud_deploy::CreateCustomTargetType {
         super::builder::cloud_deploy::CreateCustomTargetType::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates a single CustomTargetType.
@@ -325,10 +274,8 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_custom_target_type(
         &self,
-        custom_target_type: impl Into<crate::model::CustomTargetType>,
     ) -> super::builder::cloud_deploy::UpdateCustomTargetType {
         super::builder::cloud_deploy::UpdateCustomTargetType::new(self.inner.clone())
-            .set_custom_target_type(custom_target_type.into())
     }
 
     /// Deletes a single CustomTargetType.
@@ -344,27 +291,18 @@ impl CloudDeploy {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_custom_target_type(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::cloud_deploy::DeleteCustomTargetType {
         super::builder::cloud_deploy::DeleteCustomTargetType::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists Releases in a given project and location.
-    pub fn list_releases(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListReleases {
+    pub fn list_releases(&self) -> super::builder::cloud_deploy::ListReleases {
         super::builder::cloud_deploy::ListReleases::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Release.
-    pub fn get_release(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetRelease {
-        super::builder::cloud_deploy::GetRelease::new(self.inner.clone()).set_name(name.into())
+    pub fn get_release(&self) -> super::builder::cloud_deploy::GetRelease {
+        super::builder::cloud_deploy::GetRelease::new(self.inner.clone())
     }
 
     /// Creates a new Release in a given project and location.
@@ -378,20 +316,13 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_release(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CreateRelease {
+    pub fn create_release(&self) -> super::builder::cloud_deploy::CreateRelease {
         super::builder::cloud_deploy::CreateRelease::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Abandons a Release in the Delivery Pipeline.
-    pub fn abandon_release(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::AbandonRelease {
-        super::builder::cloud_deploy::AbandonRelease::new(self.inner.clone()).set_name(name.into())
+    pub fn abandon_release(&self) -> super::builder::cloud_deploy::AbandonRelease {
+        super::builder::cloud_deploy::AbandonRelease::new(self.inner.clone())
     }
 
     /// Creates a new DeployPolicy in a given project and location.
@@ -405,12 +336,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_deploy_policy(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CreateDeployPolicy {
+    pub fn create_deploy_policy(&self) -> super::builder::cloud_deploy::CreateDeployPolicy {
         super::builder::cloud_deploy::CreateDeployPolicy::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single DeployPolicy.
@@ -424,12 +351,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_deploy_policy(
-        &self,
-        deploy_policy: impl Into<crate::model::DeployPolicy>,
-    ) -> super::builder::cloud_deploy::UpdateDeployPolicy {
+    pub fn update_deploy_policy(&self) -> super::builder::cloud_deploy::UpdateDeployPolicy {
         super::builder::cloud_deploy::UpdateDeployPolicy::new(self.inner.clone())
-            .set_deploy_policy(deploy_policy.into())
     }
 
     /// Deletes a single DeployPolicy.
@@ -443,70 +366,43 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_deploy_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::DeleteDeployPolicy {
+    pub fn delete_deploy_policy(&self) -> super::builder::cloud_deploy::DeleteDeployPolicy {
         super::builder::cloud_deploy::DeleteDeployPolicy::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists DeployPolicies in a given project and location.
-    pub fn list_deploy_policies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListDeployPolicies {
+    pub fn list_deploy_policies(&self) -> super::builder::cloud_deploy::ListDeployPolicies {
         super::builder::cloud_deploy::ListDeployPolicies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single DeployPolicy.
-    pub fn get_deploy_policy(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetDeployPolicy {
-        super::builder::cloud_deploy::GetDeployPolicy::new(self.inner.clone()).set_name(name.into())
+    pub fn get_deploy_policy(&self) -> super::builder::cloud_deploy::GetDeployPolicy {
+        super::builder::cloud_deploy::GetDeployPolicy::new(self.inner.clone())
     }
 
     /// Approves a Rollout.
-    pub fn approve_rollout(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ApproveRollout {
-        super::builder::cloud_deploy::ApproveRollout::new(self.inner.clone()).set_name(name.into())
+    pub fn approve_rollout(&self) -> super::builder::cloud_deploy::ApproveRollout {
+        super::builder::cloud_deploy::ApproveRollout::new(self.inner.clone())
     }
 
     /// Advances a Rollout in a given project and location.
-    pub fn advance_rollout(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::AdvanceRollout {
-        super::builder::cloud_deploy::AdvanceRollout::new(self.inner.clone()).set_name(name.into())
+    pub fn advance_rollout(&self) -> super::builder::cloud_deploy::AdvanceRollout {
+        super::builder::cloud_deploy::AdvanceRollout::new(self.inner.clone())
     }
 
     /// Cancels a Rollout in a given project and location.
-    pub fn cancel_rollout(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CancelRollout {
-        super::builder::cloud_deploy::CancelRollout::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_rollout(&self) -> super::builder::cloud_deploy::CancelRollout {
+        super::builder::cloud_deploy::CancelRollout::new(self.inner.clone())
     }
 
     /// Lists Rollouts in a given project and location.
-    pub fn list_rollouts(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListRollouts {
+    pub fn list_rollouts(&self) -> super::builder::cloud_deploy::ListRollouts {
         super::builder::cloud_deploy::ListRollouts::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Rollout.
-    pub fn get_rollout(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetRollout {
-        super::builder::cloud_deploy::GetRollout::new(self.inner.clone()).set_name(name.into())
+    pub fn get_rollout(&self) -> super::builder::cloud_deploy::GetRollout {
+        super::builder::cloud_deploy::GetRollout::new(self.inner.clone())
     }
 
     /// Creates a new Rollout in a given project and location.
@@ -520,60 +416,38 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_rollout(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CreateRollout {
+    pub fn create_rollout(&self) -> super::builder::cloud_deploy::CreateRollout {
         super::builder::cloud_deploy::CreateRollout::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Ignores the specified Job in a Rollout.
-    pub fn ignore_job(
-        &self,
-        rollout: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::IgnoreJob {
-        super::builder::cloud_deploy::IgnoreJob::new(self.inner.clone()).set_rollout(rollout.into())
+    pub fn ignore_job(&self) -> super::builder::cloud_deploy::IgnoreJob {
+        super::builder::cloud_deploy::IgnoreJob::new(self.inner.clone())
     }
 
     /// Retries the specified Job in a Rollout.
-    pub fn retry_job(
-        &self,
-        rollout: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::RetryJob {
-        super::builder::cloud_deploy::RetryJob::new(self.inner.clone()).set_rollout(rollout.into())
+    pub fn retry_job(&self) -> super::builder::cloud_deploy::RetryJob {
+        super::builder::cloud_deploy::RetryJob::new(self.inner.clone())
     }
 
     /// Lists JobRuns in a given project and location.
-    pub fn list_job_runs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListJobRuns {
-        super::builder::cloud_deploy::ListJobRuns::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_job_runs(&self) -> super::builder::cloud_deploy::ListJobRuns {
+        super::builder::cloud_deploy::ListJobRuns::new(self.inner.clone())
     }
 
     /// Gets details of a single JobRun.
-    pub fn get_job_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetJobRun {
-        super::builder::cloud_deploy::GetJobRun::new(self.inner.clone()).set_name(name.into())
+    pub fn get_job_run(&self) -> super::builder::cloud_deploy::GetJobRun {
+        super::builder::cloud_deploy::GetJobRun::new(self.inner.clone())
     }
 
     /// Terminates a Job Run in a given project and location.
-    pub fn terminate_job_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::TerminateJobRun {
-        super::builder::cloud_deploy::TerminateJobRun::new(self.inner.clone()).set_name(name.into())
+    pub fn terminate_job_run(&self) -> super::builder::cloud_deploy::TerminateJobRun {
+        super::builder::cloud_deploy::TerminateJobRun::new(self.inner.clone())
     }
 
     /// Gets the configuration for a location.
-    pub fn get_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetConfig {
-        super::builder::cloud_deploy::GetConfig::new(self.inner.clone()).set_name(name.into())
+    pub fn get_config(&self) -> super::builder::cloud_deploy::GetConfig {
+        super::builder::cloud_deploy::GetConfig::new(self.inner.clone())
     }
 
     /// Creates a new Automation in a given project and location.
@@ -587,12 +461,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_automation(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CreateAutomation {
+    pub fn create_automation(&self) -> super::builder::cloud_deploy::CreateAutomation {
         super::builder::cloud_deploy::CreateAutomation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates the parameters of a single Automation resource.
@@ -606,12 +476,8 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_automation(
-        &self,
-        automation: impl Into<crate::model::Automation>,
-    ) -> super::builder::cloud_deploy::UpdateAutomation {
+    pub fn update_automation(&self) -> super::builder::cloud_deploy::UpdateAutomation {
         super::builder::cloud_deploy::UpdateAutomation::new(self.inner.clone())
-            .set_automation(automation.into())
     }
 
     /// Deletes a single Automation resource.
@@ -625,75 +491,46 @@ impl CloudDeploy {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_automation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::DeleteAutomation {
+    pub fn delete_automation(&self) -> super::builder::cloud_deploy::DeleteAutomation {
         super::builder::cloud_deploy::DeleteAutomation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets details of a single Automation.
-    pub fn get_automation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetAutomation {
-        super::builder::cloud_deploy::GetAutomation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_automation(&self) -> super::builder::cloud_deploy::GetAutomation {
+        super::builder::cloud_deploy::GetAutomation::new(self.inner.clone())
     }
 
     /// Lists Automations in a given project and location.
-    pub fn list_automations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListAutomations {
+    pub fn list_automations(&self) -> super::builder::cloud_deploy::ListAutomations {
         super::builder::cloud_deploy::ListAutomations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single AutomationRun.
-    pub fn get_automation_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetAutomationRun {
+    pub fn get_automation_run(&self) -> super::builder::cloud_deploy::GetAutomationRun {
         super::builder::cloud_deploy::GetAutomationRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists AutomationRuns in a given project and location.
-    pub fn list_automation_runs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListAutomationRuns {
+    pub fn list_automation_runs(&self) -> super::builder::cloud_deploy::ListAutomationRuns {
         super::builder::cloud_deploy::ListAutomationRuns::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Cancels an AutomationRun. The `state` of the `AutomationRun` after
     /// cancelling is `CANCELLED`. `CancelAutomationRun` can be called on
     /// AutomationRun in the state `IN_PROGRESS` and `PENDING`; AutomationRun
     /// in a different state returns an `FAILED_PRECONDITION` error.
-    pub fn cancel_automation_run(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CancelAutomationRun {
+    pub fn cancel_automation_run(&self) -> super::builder::cloud_deploy::CancelAutomationRun {
         super::builder::cloud_deploy::CancelAutomationRun::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListLocations {
-        super::builder::cloud_deploy::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::cloud_deploy::ListLocations {
+        super::builder::cloud_deploy::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetLocation {
-        super::builder::cloud_deploy::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::cloud_deploy::GetLocation {
+        super::builder::cloud_deploy::GetLocation::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -701,22 +538,14 @@ impl CloudDeploy {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::cloud_deploy::SetIamPolicy {
         super::builder::cloud_deploy::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::cloud_deploy::GetIamPolicy {
         super::builder::cloud_deploy::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -726,51 +555,35 @@ impl CloudDeploy {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::cloud_deploy::TestIamPermissions {
         super::builder::cloud_deploy::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::ListOperations {
-        super::builder::cloud_deploy::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::cloud_deploy::ListOperations {
+        super::builder::cloud_deploy::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::GetOperation {
-        super::builder::cloud_deploy::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::cloud_deploy::GetOperation {
+        super::builder::cloud_deploy::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::DeleteOperation {
-        super::builder::cloud_deploy::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::cloud_deploy::DeleteOperation {
+        super::builder::cloud_deploy::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_deploy::CancelOperation {
-        super::builder::cloud_deploy::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::cloud_deploy::CancelOperation {
+        super::builder::cloud_deploy::CancelOperation::new(self.inner.clone())
     }
 }

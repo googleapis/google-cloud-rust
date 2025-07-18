@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(all(test, feature = "_internal_grpc_client"))]
-mod test {
+#[cfg(all(test, feature = "_internal-grpc-client"))]
+mod tests {
     use auth::credentials::testing::test_credentials;
     use gax::options::*;
     use google_cloud_gax_internal::grpc;
@@ -73,8 +73,8 @@ mod test {
             .build()
             .await?;
         let response = send_request(client, "credentials error", "").await;
-        let err = response.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Authentication, "{err:?}");
+        let err = response.unwrap_err();
+        assert!(err.is_authentication(), "{err:?}");
         Ok(())
     }
 
@@ -84,8 +84,8 @@ mod test {
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Io, "{err:?}");
+        let err = client.unwrap_err();
+        assert!(err.is_transport(), "{err:?}");
         Ok(())
     }
 
@@ -95,8 +95,19 @@ mod test {
             .with_credentials(test_credentials())
             .build()
             .await;
-        let err = client.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Other, "{err:?}");
+        let err = client.unwrap_err();
+        assert!(err.is_transport(), "{err:?}");
+        Ok(())
+    }
+
+    #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
+    async fn uds_and_tls() -> anyhow::Result<()> {
+        let client = builder("uds://invalid")
+            .with_credentials(test_credentials())
+            .build()
+            .await;
+        let err = client.unwrap_err();
+        assert!(err.is_transport(), "{err:?}");
         Ok(())
     }
 
@@ -110,12 +121,11 @@ mod test {
             .await?;
 
         let response = send_request(client, "", "").await;
-        let err = response.err().unwrap();
-        assert_eq!(err.kind(), gax::error::ErrorKind::Rpc, "{err:?}");
-        let svc = err.as_inner::<gax::error::ServiceError>().unwrap();
-        let status = svc.status().clone();
-        assert_eq!(status.code, gax::error::rpc::Code::InvalidArgument as i32);
-        assert_eq!(status.status.as_deref(), Some("INVALID_ARGUMENT"));
+        let err = response.unwrap_err();
+        assert_eq!(
+            err.status().map(|s| s.code),
+            Some(gax::error::rpc::Code::InvalidArgument)
+        );
         Ok(())
     }
 

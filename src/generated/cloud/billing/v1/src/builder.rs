@@ -16,9 +16,8 @@
 
 pub mod cloud_billing {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudBilling][super::super::client::CloudBilling].
+    /// A builder for [CloudBilling][crate::client::CloudBilling].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod cloud_billing {
     /// let client = builder
     ///     .with_endpoint("https://cloudbilling.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod cloud_billing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudBilling;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudBilling] request builders.
+    /// Common implementation for [crate::client::CloudBilling] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod cloud_billing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::get_billing_account][super::super::client::CloudBilling::get_billing_account] calls.
+    /// The request builder for [CloudBilling::get_billing_account][crate::client::CloudBilling::get_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::GetBillingAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetBillingAccount(RequestBuilder<crate::model::GetBillingAccountRequest>);
 
     impl GetBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -115,12 +137,34 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::list_billing_accounts][super::super::client::CloudBilling::list_billing_accounts] calls.
+    /// The request builder for [CloudBilling::list_billing_accounts][crate::client::CloudBilling::list_billing_accounts] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::ListBillingAccounts;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListBillingAccounts {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListBillingAccounts(RequestBuilder<crate::model::ListBillingAccountsRequest>);
 
     impl ListBillingAccounts {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -147,8 +191,8 @@ pub mod cloud_billing {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListBillingAccountsResponse, gax::error::Error>
         {
@@ -160,6 +204,17 @@ pub mod cloud_billing {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListBillingAccountsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [page_size][crate::model::ListBillingAccountsRequest::page_size].
@@ -194,12 +249,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::update_billing_account][super::super::client::CloudBilling::update_billing_account] calls.
+    /// The request builder for [CloudBilling::update_billing_account][crate::client::CloudBilling::update_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::UpdateBillingAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateBillingAccount(RequestBuilder<crate::model::UpdateBillingAccountRequest>);
 
     impl UpdateBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -237,20 +310,40 @@ pub mod cloud_billing {
         /// Sets the value of [account][crate::model::UpdateBillingAccountRequest::account].
         ///
         /// This is a **required** field for requests.
-        pub fn set_account<T: Into<std::option::Option<crate::model::BillingAccount>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.account = v.into();
+        pub fn set_account<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.account = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [account][crate::model::UpdateBillingAccountRequest::account].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_account<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.account = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBillingAccountRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -262,12 +355,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::create_billing_account][super::super::client::CloudBilling::create_billing_account] calls.
+    /// The request builder for [CloudBilling::create_billing_account][crate::client::CloudBilling::create_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::CreateBillingAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateBillingAccount(RequestBuilder<crate::model::CreateBillingAccountRequest>);
 
     impl CreateBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -297,11 +408,22 @@ pub mod cloud_billing {
         /// Sets the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
         ///
         /// This is a **required** field for requests.
-        pub fn set_billing_account<T: Into<std::option::Option<crate::model::BillingAccount>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.billing_account = v.into();
+        pub fn set_billing_account<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.billing_account = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [billing_account][crate::model::CreateBillingAccountRequest::billing_account].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_billing_account<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::BillingAccount>,
+        {
+            self.0.request.billing_account = v.map(|x| x.into());
             self
         }
 
@@ -319,12 +441,34 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::list_project_billing_info][super::super::client::CloudBilling::list_project_billing_info] calls.
+    /// The request builder for [CloudBilling::list_project_billing_info][crate::client::CloudBilling::list_project_billing_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::ListProjectBillingInfo;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListProjectBillingInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListProjectBillingInfo(RequestBuilder<crate::model::ListProjectBillingInfoRequest>);
 
     impl ListProjectBillingInfo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -351,8 +495,8 @@ pub mod cloud_billing {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListProjectBillingInfoResponse,
@@ -366,6 +510,17 @@ pub mod cloud_billing {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListProjectBillingInfoResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][crate::model::ListProjectBillingInfoRequest::name].
@@ -396,12 +551,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::get_project_billing_info][super::super::client::CloudBilling::get_project_billing_info] calls.
+    /// The request builder for [CloudBilling::get_project_billing_info][crate::client::CloudBilling::get_project_billing_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::GetProjectBillingInfo;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetProjectBillingInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetProjectBillingInfo(RequestBuilder<crate::model::GetProjectBillingInfoRequest>);
 
     impl GetProjectBillingInfo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -444,14 +617,32 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::update_project_billing_info][super::super::client::CloudBilling::update_project_billing_info] calls.
+    /// The request builder for [CloudBilling::update_project_billing_info][crate::client::CloudBilling::update_project_billing_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::UpdateProjectBillingInfo;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateProjectBillingInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateProjectBillingInfo(
         RequestBuilder<crate::model::UpdateProjectBillingInfoRequest>,
     );
 
     impl UpdateProjectBillingInfo {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -487,13 +678,20 @@ pub mod cloud_billing {
         }
 
         /// Sets the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
-        pub fn set_project_billing_info<
-            T: Into<std::option::Option<crate::model::ProjectBillingInfo>>,
-        >(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.project_billing_info = v.into();
+        pub fn set_project_billing_info<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectBillingInfo>,
+        {
+            self.0.request.project_billing_info = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [project_billing_info][crate::model::UpdateProjectBillingInfoRequest::project_billing_info].
+        pub fn set_or_clear_project_billing_info<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ProjectBillingInfo>,
+        {
+            self.0.request.project_billing_info = v.map(|x| x.into());
             self
         }
     }
@@ -505,12 +703,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::get_iam_policy][super::super::client::CloudBilling::get_iam_policy] calls.
+    /// The request builder for [CloudBilling::get_iam_policy][crate::client::CloudBilling::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -543,11 +759,20 @@ pub mod cloud_billing {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -559,12 +784,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::set_iam_policy][super::super::client::CloudBilling::set_iam_policy] calls.
+    /// The request builder for [CloudBilling::set_iam_policy][crate::client::CloudBilling::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -599,20 +842,40 @@ pub mod cloud_billing {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -624,12 +887,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::test_iam_permissions][super::super::client::CloudBilling::test_iam_permissions] calls.
+    /// The request builder for [CloudBilling::test_iam_permissions][crate::client::CloudBilling::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -685,12 +966,30 @@ pub mod cloud_billing {
         }
     }
 
-    /// The request builder for [CloudBilling::move_billing_account][super::super::client::CloudBilling::move_billing_account] calls.
+    /// The request builder for [CloudBilling::move_billing_account][crate::client::CloudBilling::move_billing_account] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_billing::MoveBillingAccount;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> MoveBillingAccount {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct MoveBillingAccount(RequestBuilder<crate::model::MoveBillingAccountRequest>);
 
     impl MoveBillingAccount {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudBilling>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudBilling>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -744,9 +1043,8 @@ pub mod cloud_billing {
 
 pub mod cloud_catalog {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [CloudCatalog][super::super::client::CloudCatalog].
+    /// A builder for [CloudCatalog][crate::client::CloudCatalog].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -757,7 +1055,7 @@ pub mod cloud_catalog {
     /// let client = builder
     ///     .with_endpoint("https://cloudbilling.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -768,16 +1066,19 @@ pub mod cloud_catalog {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = CloudCatalog;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::CloudCatalog] request builders.
+    /// Common implementation for [crate::client::CloudCatalog] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -786,7 +1087,9 @@ pub mod cloud_catalog {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -795,12 +1098,34 @@ pub mod cloud_catalog {
         }
     }
 
-    /// The request builder for [CloudCatalog::list_services][super::super::client::CloudCatalog::list_services] calls.
+    /// The request builder for [CloudCatalog::list_services][crate::client::CloudCatalog::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_catalog::ListServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -824,8 +1149,8 @@ pub mod cloud_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -837,6 +1162,15 @@ pub mod cloud_catalog {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [page_size][crate::model::ListServicesRequest::page_size].
@@ -859,12 +1193,34 @@ pub mod cloud_catalog {
         }
     }
 
-    /// The request builder for [CloudCatalog::list_skus][super::super::client::CloudCatalog::list_skus] calls.
+    /// The request builder for [CloudCatalog::list_skus][crate::client::CloudCatalog::list_skus] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_billing_v1::builder;
+    /// use builder::cloud_catalog::ListSkus;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListSkus {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListSkus(RequestBuilder<crate::model::ListSkusRequest>);
 
     impl ListSkus {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::CloudCatalog>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::CloudCatalog>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -888,8 +1244,8 @@ pub mod cloud_catalog {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListSkusResponse, gax::error::Error>
         {
@@ -903,6 +1259,15 @@ pub mod cloud_catalog {
             gax::paginator::internal::new_paginator(token, execute)
         }
 
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListSkusResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
         /// Sets the value of [parent][crate::model::ListSkusRequest::parent].
         ///
         /// This is a **required** field for requests.
@@ -912,17 +1277,38 @@ pub mod cloud_catalog {
         }
 
         /// Sets the value of [start_time][crate::model::ListSkusRequest::start_time].
-        pub fn set_start_time<T: Into<std::option::Option<wkt::Timestamp>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.start_time = v.into();
+        pub fn set_start_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_time][crate::model::ListSkusRequest::start_time].
+        pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.start_time = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [end_time][crate::model::ListSkusRequest::end_time].
-        pub fn set_end_time<T: Into<std::option::Option<wkt::Timestamp>>>(mut self, v: T) -> Self {
-            self.0.request.end_time = v.into();
+        pub fn set_end_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_time][crate::model::ListSkusRequest::end_time].
+        pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.end_time = v.map(|x| x.into());
             self
         }
 

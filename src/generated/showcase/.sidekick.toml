@@ -14,8 +14,11 @@
 
 [general]
 specification-source = 'schema/google/showcase/v1beta1'
-service-config = 'schema/google/showcase/v1beta1/showcase_v1beta1.yaml'
+service-config       = 'schema/google/showcase/v1beta1/showcase_v1beta1.yaml'
+
+[source]
+roots = 'showcase,googleapis'
 
 [codec]
-copyright-year = '2025'
-not-for-publication = 'true'
+copyright-year       = '2025'
+not-for-publication  = 'true'

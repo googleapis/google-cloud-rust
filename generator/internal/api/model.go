@@ -224,6 +224,13 @@ type Method struct {
 	OperationInfo *OperationInfo
 	// The routing annotations, if any
 	Routing []*RoutingInfo
+	// The auto-populated (request_id) field, if any, as defined in
+	// [AIP-4235](https://google.aip.dev/client-libraries/4235)
+	//
+	// The field must be eligible for auto-population, and be listed in the
+	// `google.api.MethodSettings.auto_populated_fields` entry in
+	// `google.api.Publishing.method_settings` in the service config file.
+	AutoPopulated []*Field
 	// The model this method belongs to, mustache templates use this field to
 	// navigate the data structure.
 	Model *API
@@ -238,8 +245,27 @@ func (m *Method) HasRouting() bool {
 	return len(m.Routing) != 0
 }
 
+func (m *Method) HasAutoPopulatedFields() bool {
+	return len(m.AutoPopulated) != 0
+}
+
 // Normalized request path information.
 type PathInfo struct {
+	// The list of bindings, including the top-level binding.
+	Bindings []*PathBinding
+	// Body is the name of the field that should be used as the body of the
+	// request.
+	//
+	// This is a string that may be "*" which indicates that the entire request
+	// should be used as the body.
+	//
+	// If this is empty then the body is not used.
+	BodyFieldPath string
+	// Language specific annotations
+	Codec any
+}
+
+type PathBinding struct {
 	// HTTP Verb.
 	//
 	// This is one of:
@@ -250,17 +276,9 @@ type PathInfo struct {
 	// - PATCH
 	Verb string
 	// The path broken by components.
-	PathTemplate []PathSegment
+	PathTemplate *PathTemplate
 	// Query parameter fields.
 	QueryParameters map[string]bool
-	// Body is the name of the field that should be used as the body of the
-	// request.
-	//
-	// This is a string that may be "*" which indicates that the entire request
-	// should be used as the body.
-	//
-	// If this is empty then the body is not used.
-	BodyFieldPath string
 	// Language specific annotations
 	Codec any
 }
@@ -336,49 +354,74 @@ type RoutingPathSpec struct {
 
 const (
 	// A special routing path segment which indicates "match anything that does not include a `/`"
-	RoutingSingleSegmentWildcard = "*"
+	SingleSegmentWildcard = "*"
 	// A special routing path segment which indicates "match anything including `/`"
-	RoutingMultiSegmentWildcard = "**"
+	MultiSegmentWildcard = "**"
 )
 
-// A path segment is either a string literal (such as "projects") or a field
-// path (such as "options.version").
-//
-// For OpenAPI these are formed by breaking the path string. Something like
-//
-//	`/v1/projects/{project}/secrets/{secret}:getIamPolicy`
-//
-// should produce:
-// ```
-//
-//	[]PathSegment{
-//	  {Literal:   &"v1"},
-//	  {Literal:   &"projects"},
-//	  {FieldPath: &"project"},
-//	  {Literal:   &"secrets"},
-//	  {FieldPath: &"secret"},
-//	  {Verb:      &"getIamPolicy"},
-//	}
-//
-// ```
-//
-// The Codec interpret these elements as needed.
+type PathTemplate struct {
+	Segments []PathSegment
+	Verb     *string
+}
+
 type PathSegment struct {
-	Literal   *string
-	FieldPath *string
-	Verb      *string
+	Literal  *string
+	Variable *PathVariable
 }
 
-func NewLiteralPathSegment(s string) PathSegment {
-	return PathSegment{Literal: &s}
+type PathVariable struct {
+	FieldPath []string
+	Segments  []string
 }
 
-func NewFieldPathPathSegment(s string) PathSegment {
-	return PathSegment{FieldPath: &s}
+// PathMatch represents a single '*' match.
+type PathMatch struct{}
+
+// MatchRecursive represents a '**' match.
+type PathMatchRecursive struct{}
+
+func NewPathTemplate() *PathTemplate {
+	return &PathTemplate{}
 }
 
-func NewVerbPathSegment(s string) PathSegment {
-	return PathSegment{Verb: &s}
+func NewPathVariable(fields ...string) *PathVariable {
+	return &PathVariable{FieldPath: fields}
+}
+
+func (p *PathTemplate) WithLiteral(l string) *PathTemplate {
+	p.Segments = append(p.Segments, PathSegment{Literal: &l})
+	return p
+}
+
+func (p *PathTemplate) WithVariable(v *PathVariable) *PathTemplate {
+	p.Segments = append(p.Segments, PathSegment{Variable: v})
+	return p
+}
+
+func (p *PathTemplate) WithVariableNamed(fields ...string) *PathTemplate {
+	v := PathVariable{FieldPath: fields}
+	p.Segments = append(p.Segments, PathSegment{Variable: v.WithMatch()})
+	return p
+}
+
+func (p *PathTemplate) WithVerb(v string) *PathTemplate {
+	p.Verb = &v
+	return p
+}
+
+func (v *PathVariable) WithLiteral(l string) *PathVariable {
+	v.Segments = append(v.Segments, l)
+	return v
+}
+
+func (v *PathVariable) WithMatchRecursive() *PathVariable {
+	v.Segments = append(v.Segments, MultiSegmentWildcard)
+	return v
+}
+
+func (v *PathVariable) WithMatch() *PathVariable {
+	v.Segments = append(v.Segments, SingleSegmentWildcard)
+	return v
 }
 
 // Message defines a message used in request/response handling.
@@ -413,6 +456,10 @@ type Message struct {
 	Pagination *PaginationInfo
 	// Language specific annotations.
 	Codec any
+}
+
+func (m *Message) HasFields() bool {
+	return len(m.Fields) != 0
 }
 
 // Information related to pagination aka [AIP-4233](https://google.aip.dev/client-libraries/4233).
@@ -505,16 +552,15 @@ type Field struct {
 	// containing message. That triggers slightly different code generation for
 	// some languages.
 	Recursive bool
-	// AutoPopulated is true if the field meets the requirements in AIP-4235.
+	// AutoPopulated is true if the field is eligible to be auto-populated,
+	// per the requirements in AIP-4235.
+	//
 	// That is:
 	// - It has Typez == STRING_TYPE
-	// - For Protobuf, has the `google.api.field_behavior = REQUIRED` annotation
+	// - For Protobuf, does not have the `google.api.field_behavior = REQUIRED` annotation
 	// - For Protobuf, has the `google.api.field_info.format = UUID4` annotation
-	// - For OpenAPI, it is a required field
+	// - For OpenAPI, it is an optional field
 	// - For OpenAPI, it has format == "uuid"
-	// - In the service config file, it is listed in the
-	//   `google.api.MethodSettings.auto_populated_fields` entry in
-	//   `google.api.Publishing.method_settings`
 	AutoPopulated bool
 	// FieldBehavior indicates how the field behaves in requests and responses.
 	//
@@ -534,6 +580,10 @@ func (field *Field) DocumentAsRequired() bool {
 
 func (f *Field) Singular() bool {
 	return !f.Map && !f.Repeated
+}
+
+func (f *Field) NameEqualJSONName() bool {
+	return f.JSONName == f.Name
 }
 
 // Pair is a key-value pair.

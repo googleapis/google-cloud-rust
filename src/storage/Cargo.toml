@@ -1,0 +1,77 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+name        = "google-cloud-storage"
+version     = "0.25.0-preview4"
+description = "Google Cloud Client Libraries for Rust - Storage"
+# Inherit other attributes from the workspace.
+edition.workspace      = true
+authors.workspace      = true
+license.workspace      = true
+repository.workspace   = true
+keywords.workspace     = true
+categories.workspace   = true
+rust-version.workspace = true
+
+[dependencies]
+async-trait.workspace      = true
+base64.workspace           = true
+bytes.workspace            = true
+crc32c.workspace           = true
+http.workspace             = true
+futures.workspace          = true
+lazy_static.workspace      = true
+percent-encoding.workspace = true
+pin-project.workspace      = true
+prost.workspace            = true
+prost-types.workspace      = true
+reqwest                    = { workspace = true, features = ["multipart", "stream"] }
+serde.workspace            = true
+serde_json.workspace       = true
+serde_with.workspace       = true
+sha2.workspace             = true
+thiserror.workspace        = true
+tokio                      = { workspace = true, features = ["io-util"] }
+tonic.workspace            = true
+tracing.workspace          = true
+uuid.workspace             = true
+# Local crates
+auth.workspace        = true
+gax.workspace         = true
+gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+gtype.workspace       = true
+iam_v1.workspace      = true
+longrunning.workspace = true
+lro.workspace         = true
+rpc.workspace         = true
+wkt.workspace         = true
+
+[features]
+unstable-stream = ["reqwest/stream"]
+
+[dev-dependencies]
+anyhow.workspace         = true
+flate2                   = { workspace = true, features = ["zlib-rs"] }
+http-body-util.workspace = true
+httptest.workspace       = true
+md5.workspace            = true
+mockall.workspace        = true
+multer.workspace         = true
+paste.workspace          = true
+test-case.workspace      = true
+tempfile.workspace       = true
+tokio-test.workspace     = true
+tokio.workspace          = true
+google-cloud-storage     = { path = ".", features = ["unstable-stream"] }

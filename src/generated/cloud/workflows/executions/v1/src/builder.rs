@@ -16,9 +16,8 @@
 
 pub mod executions {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [Executions][super::super::client::Executions].
+    /// A builder for [Executions][crate::client::Executions].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod executions {
     /// let client = builder
     ///     .with_endpoint("https://workflowexecutions.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod executions {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = Executions;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::Executions] request builders.
+    /// Common implementation for [crate::client::Executions] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::Executions>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod executions {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,34 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::list_executions][super::super::client::Executions::list_executions] calls.
+    /// The request builder for [Executions::list_executions][crate::client::Executions::list_executions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::ListExecutions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListExecutions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListExecutions(RequestBuilder<crate::model::ListExecutionsRequest>);
 
     impl ListExecutions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -96,8 +122,8 @@ pub mod executions {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListExecutionsResponse, gax::error::Error>
         {
@@ -109,6 +135,15 @@ pub mod executions {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListExecutionsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListExecutionsRequest::parent].
@@ -157,12 +192,30 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::create_execution][super::super::client::Executions::create_execution] calls.
+    /// The request builder for [Executions::create_execution][crate::client::Executions::create_execution] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::CreateExecution;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateExecution {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateExecution(RequestBuilder<crate::model::CreateExecutionRequest>);
 
     impl CreateExecution {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -197,11 +250,22 @@ pub mod executions {
         /// Sets the value of [execution][crate::model::CreateExecutionRequest::execution].
         ///
         /// This is a **required** field for requests.
-        pub fn set_execution<T: Into<std::option::Option<crate::model::Execution>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.execution = v.into();
+        pub fn set_execution<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [execution][crate::model::CreateExecutionRequest::execution].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_execution<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Execution>,
+        {
+            self.0.request.execution = v.map(|x| x.into());
             self
         }
     }
@@ -213,12 +277,30 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::get_execution][super::super::client::Executions::get_execution] calls.
+    /// The request builder for [Executions::get_execution][crate::client::Executions::get_execution] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::GetExecution;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetExecution {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetExecution(RequestBuilder<crate::model::GetExecutionRequest>);
 
     impl GetExecution {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -264,12 +346,30 @@ pub mod executions {
         }
     }
 
-    /// The request builder for [Executions::cancel_execution][super::super::client::Executions::cancel_execution] calls.
+    /// The request builder for [Executions::cancel_execution][crate::client::Executions::cancel_execution] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_workflows_executions_v1::builder;
+    /// use builder::executions::CancelExecution;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelExecution {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelExecution(RequestBuilder<crate::model::CancelExecutionRequest>);
 
     impl CancelExecution {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::Executions>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::Executions>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

@@ -16,9 +16,8 @@
 
 pub mod service_usage {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [ServiceUsage][super::super::client::ServiceUsage].
+    /// A builder for [ServiceUsage][crate::client::ServiceUsage].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod service_usage {
     /// let client = builder
     ///     .with_endpoint("https://serviceusage.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod service_usage {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = ServiceUsage;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::ServiceUsage] request builders.
+    /// Common implementation for [crate::client::ServiceUsage] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod service_usage {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,31 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::enable_service][super::super::client::ServiceUsage::enable_service] calls.
+    /// The request builder for [ServiceUsage::enable_service][crate::client::ServiceUsage::enable_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::EnableService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> EnableService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct EnableService(RequestBuilder<crate::model::EnableServiceRequest>);
 
     impl EnableService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -93,7 +116,7 @@ pub mod service_usage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [enable_service][super::super::client::ServiceUsage::enable_service].
+        /// on [enable_service][crate::client::ServiceUsage::enable_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .enable_service(self.0.request, self.0.options)
@@ -106,7 +129,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::EnableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::EnableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -134,7 +157,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::EnableServiceRequest::name].
@@ -151,12 +174,31 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::disable_service][super::super::client::ServiceUsage::disable_service] calls.
+    /// The request builder for [ServiceUsage::disable_service][crate::client::ServiceUsage::disable_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::DisableService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DisableService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DisableService(RequestBuilder<crate::model::DisableServiceRequest>);
 
     impl DisableService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -177,7 +219,7 @@ pub mod service_usage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [disable_service][super::super::client::ServiceUsage::disable_service].
+        /// on [disable_service][crate::client::ServiceUsage::disable_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .disable_service(self.0.request, self.0.options)
@@ -190,7 +232,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::DisableServiceResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::DisableServiceResponse,
                 crate::model::OperationMetadata,
             >;
@@ -218,7 +260,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [name][crate::model::DisableServiceRequest::name].
@@ -252,12 +294,30 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::get_service][super::super::client::ServiceUsage::get_service] calls.
+    /// The request builder for [ServiceUsage::get_service][crate::client::ServiceUsage::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::GetService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -295,12 +355,34 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::list_services][super::super::client::ServiceUsage::list_services] calls.
+    /// The request builder for [ServiceUsage::list_services][crate::client::ServiceUsage::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::ListServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -324,8 +406,8 @@ pub mod service_usage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -337,6 +419,15 @@ pub mod service_usage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
@@ -371,12 +462,31 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::batch_enable_services][super::super::client::ServiceUsage::batch_enable_services] calls.
+    /// The request builder for [ServiceUsage::batch_enable_services][crate::client::ServiceUsage::batch_enable_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::BatchEnableServices;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchEnableServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchEnableServices(RequestBuilder<crate::model::BatchEnableServicesRequest>);
 
     impl BatchEnableServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -400,7 +510,7 @@ pub mod service_usage {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_enable_services][super::super::client::ServiceUsage::batch_enable_services].
+        /// on [batch_enable_services][crate::client::ServiceUsage::batch_enable_services].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_enable_services(self.0.request, self.0.options)
@@ -413,7 +523,7 @@ pub mod service_usage {
             self,
         ) -> impl lro::Poller<crate::model::BatchEnableServicesResponse, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchEnableServicesResponse,
                 crate::model::OperationMetadata,
             >;
@@ -441,7 +551,7 @@ pub mod service_usage {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchEnableServicesRequest::parent].
@@ -469,12 +579,30 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::batch_get_services][super::super::client::ServiceUsage::batch_get_services] calls.
+    /// The request builder for [ServiceUsage::batch_get_services][crate::client::ServiceUsage::batch_get_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::BatchGetServices;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchGetServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchGetServices(RequestBuilder<crate::model::BatchGetServicesRequest>);
 
     impl BatchGetServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -526,12 +654,34 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::list_operations][super::super::client::ServiceUsage::list_operations] calls.
+    /// The request builder for [ServiceUsage::list_operations][crate::client::ServiceUsage::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -558,8 +708,8 @@ pub mod service_usage {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -571,6 +721,17 @@ pub mod service_usage {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -605,12 +766,30 @@ pub mod service_usage {
         }
     }
 
-    /// The request builder for [ServiceUsage::get_operation][super::super::client::ServiceUsage::get_operation] calls.
+    /// The request builder for [ServiceUsage::get_operation][crate::client::ServiceUsage::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_api_serviceusage_v1::builder;
+    /// use builder::service_usage::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::ServiceUsage>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ServiceUsage>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

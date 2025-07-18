@@ -16,14 +16,14 @@ use std::error::Error;
 use std::fmt::{Debug, Display, Formatter, Result};
 use std::sync::Arc;
 
-/// Represents an error creating or using a [Credentials].
+type ArcError = Arc<dyn Error + Send + Sync>;
+
+/// Represents an error using [Credentials].
 ///
-/// The Google Cloud client libraries may experience problems creating
-/// credentials and/or using them. An example of problems creating credentials
-/// may be a badly formatted or missing key file. An example of problems using
-/// credentials may be a temporary failure to retrieve or create
-/// [access tokens]. Note that the latter kind of errors may happen even after
-/// the credentials files are successfully loaded and parsed.
+/// The Google Cloud client libraries may experience problems using credentials
+/// to create the necessary authentication headers. For example, a temporary
+/// failure to retrieve or create [access tokens]. Note that these failures may
+/// happen even after the credentials files are successfully loaded and parsed.
 ///
 /// Applications rarely need to create instances of this error type. The
 /// exception might be when testing application code, where the application is
@@ -32,33 +32,26 @@ use std::sync::Arc;
 ///
 /// # Example
 /// ```
-/// # use google_cloud_gax::error::CredentialsError;
-/// let err = CredentialsError::from_str(
-///     true, "simulated retryable error while trying to create credentials");
-/// assert!(err.is_retryable());
-/// assert!(format!("{err}").contains("simulated retryable error"));
+/// use google_cloud_gax::error::CredentialsError;
+/// let mut headers = fetch_headers();
+/// while let Err(e) = &headers {
+///     if e.is_transient() {
+///         headers = fetch_headers();
+///     }
+/// }
+///
+/// fn fetch_headers() -> Result<http::HeaderMap, CredentialsError> {
+///   # Ok(http::HeaderMap::new())
+/// }
 /// ```
 ///
 /// [access tokens]: https://cloud.google.com/docs/authentication/token-types
 /// [Credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credential.html
 #[derive(Clone, Debug)]
 pub struct CredentialsError {
-    /// A boolean value indicating whether the error is retryable.
-    ///
-    /// If `true`, the operation that resulted in this error might succeed upon
-    /// retry.
-    is_retryable: bool,
-
-    /// The underlying source of the error.
-    ///
-    /// This provides more specific information about the cause of the failure.
-    source: CredentialsErrorImpl,
-}
-
-#[derive(Clone, Debug)]
-enum CredentialsErrorImpl {
-    SimpleMessage(String),
-    Source(Arc<dyn Error + Send + Sync>),
+    is_transient: bool,
+    message: Option<String>,
+    source: Option<ArcError>,
 }
 
 impl CredentialsError {
@@ -71,20 +64,28 @@ impl CredentialsError {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_gax::error::CredentialsError;
-    /// # use google_cloud_gax::error::Error;
-    /// let err = CredentialsError::new(
-    ///     false, Error::other("simulated non-retryable error while trying to create credentials"));
-    /// assert!(!err.is_retryable());
-    /// assert!(format!("{err}").contains("simulated non-retryable error"));
+    /// use google_cloud_gax::error::CredentialsError;
+    /// let mut headers = fetch_headers();
+    /// while let Err(e) = &headers {
+    ///     if e.is_transient() {
+    ///         headers = fetch_headers();
+    ///     }
+    /// }
+    ///
+    /// fn fetch_headers() -> Result<http::HeaderMap, CredentialsError> {
+    ///   # Ok(http::HeaderMap::new())
+    /// }
     /// ```
+    ///
     /// # Parameters
-    /// * `is_retryable` - A boolean indicating whether the error is retryable.
+    /// * `is_transient` - if true, the operation may succeed in future attempts.
     /// * `source` - The underlying error that caused the auth failure.
-    pub fn new<T: Error + Send + Sync + 'static>(is_retryable: bool, source: T) -> Self {
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn from_source<T: Error + Send + Sync + 'static>(is_transient: bool, source: T) -> Self {
         CredentialsError {
-            is_retryable,
-            source: CredentialsErrorImpl::Source(Arc::new(source)),
+            is_transient,
+            source: Some(Arc::new(source)),
+            message: None,
         }
     }
 
@@ -98,118 +99,166 @@ impl CredentialsError {
     /// # Example
     /// ```
     /// # use google_cloud_gax::error::CredentialsError;
-    /// let err = CredentialsError::from_str(
+    /// let err = CredentialsError::from_msg(
     ///     true, "simulated retryable error while trying to create credentials");
-    /// assert!(err.is_retryable());
+    /// assert!(err.is_transient());
     /// assert!(format!("{err}").contains("simulated retryable error"));
     /// ```
     ///
     /// # Parameters
-    /// * `is_retryable` - A boolean indicating whether the error is retryable.
+    /// * `is_transient` - if true, the operation may succeed in future attempts.
     /// * `message` - The underlying error that caused the auth failure.
-    pub fn from_str<T: Into<String>>(is_retryable: bool, message: T) -> Self {
-        CredentialsError::new(
-            is_retryable,
-            CredentialsErrorImpl::SimpleMessage(message.into()),
-        )
-    }
-
-    /// Returns `true` if the error is retryable; otherwise returns `false`.
-    pub fn is_retryable(&self) -> bool {
-        self.is_retryable
-    }
-}
-
-impl std::error::Error for CredentialsErrorImpl {
-    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        match &self {
-            CredentialsErrorImpl::SimpleMessage(_) => None,
-            CredentialsErrorImpl::Source(source) => Some(source),
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn from_msg<T: Into<String>>(is_transient: bool, message: T) -> Self {
+        CredentialsError {
+            is_transient,
+            message: Some(message.into()),
+            source: None,
         }
     }
-}
 
-impl Display for CredentialsErrorImpl {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        match &self {
-            CredentialsErrorImpl::SimpleMessage(message) => write!(f, "{}", message),
-            CredentialsErrorImpl::Source(source) => write!(f, "{}", source),
+    /// Creates a new `CredentialsError`.
+    ///
+    /// This function is only intended for use in the client libraries
+    /// implementation. Application may use this in mocks, though we do not
+    /// recommend that you write tests for specific error cases. Most tests
+    /// should use the generic [Error][crate::error::Error] type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax::error::CredentialsError;
+    /// let source = std::io::Error::new(std::io::ErrorKind::ConnectionRefused, "cannot connect");
+    /// let err = CredentialsError::new(
+    ///     true,
+    ///     "simulated retryable error while trying to create credentials",
+    ///     source);
+    /// assert!(err.is_transient());
+    /// assert!(format!("{err}").contains("simulated retryable error"));
+    /// ```
+    ///
+    /// # Parameters
+    /// * `is_transient` - if true, the operation may succeed in future attempts.
+    /// * `message` - The underlying error that caused the auth failure.
+    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
+    pub fn new<M, S>(is_transient: bool, message: M, source: S) -> Self
+    where
+        M: Into<String>,
+        S: std::error::Error + Send + Sync + 'static,
+    {
+        CredentialsError {
+            is_transient,
+            message: Some(message.into()),
+            source: Some(Arc::new(source)),
         }
+    }
+
+    /// Returns true if the error is transient and may succeed in future attempts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gax::error::CredentialsError;
+    /// let mut headers = fetch_headers();
+    /// while let Err(e) = &headers {
+    ///     if e.is_transient() {
+    ///         headers = fetch_headers();
+    ///     }
+    /// }
+    ///
+    /// fn fetch_headers() -> Result<http::HeaderMap, CredentialsError> {
+    ///   # Ok(http::HeaderMap::new())
+    /// }
+    /// ```
+    pub fn is_transient(&self) -> bool {
+        self.is_transient
     }
 }
 
 impl std::error::Error for CredentialsError {
     fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
-        self.source.source()
+        self.source
+            .as_ref()
+            .map(|arc| arc.as_ref() as &(dyn std::error::Error + 'static))
     }
 }
 
-const RETRYABLE_MSG: &str = "but future attempts may succeed";
-const NON_RETRYABLE_MSG: &str = "and future attempts will not succeed";
+const TRANSIENT_MSG: &str = "but future attempts may succeed";
+const PERMANENT_MSG: &str = "and future attempts will not succeed";
 
 impl Display for CredentialsError {
     /// Formats the error message to include retryability and source.
     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        let msg = if self.is_retryable {
-            RETRYABLE_MSG
+        let msg = if self.is_transient {
+            TRANSIENT_MSG
         } else {
-            NON_RETRYABLE_MSG
+            PERMANENT_MSG
         };
-        write!(
-            f,
-            "cannot create access token, {}, source:{}",
-            msg, self.source
-        )
+        match &self.message {
+            None => write!(f, "cannot create auth headers {msg}"),
+            Some(m) => write!(f, "{m} {msg}"),
+        }
     }
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
-    use std::collections::HashMap;
     use test_case::test_case;
 
     #[test_case(true)]
     #[test_case(false)]
-    fn new(retryable: bool) {
-        let source = crate::error::HttpError::new(
-            404,
-            HashMap::new(),
-            Some(bytes::Bytes::from_static("test-only".as_bytes())),
+    fn from_source(transient: bool) {
+        let source = wkt::TimestampError::OutOfRange;
+        let got = CredentialsError::from_source(transient, source);
+        assert_eq!(got.is_transient(), transient, "{got:?}");
+        assert!(
+            got.source()
+                .and_then(|e| e.downcast_ref::<wkt::TimestampError>())
+                .is_some(),
+            "{got:?}"
         );
-        let got = CredentialsError::new(retryable, source);
-        assert_eq!(got.is_retryable(), retryable, "{got}");
-        assert!(got.source().is_some(), "{got}");
-        assert!(format!("{got}").contains("test-only"), "{got}");
+        assert!(
+            got.to_string().contains("cannot create auth headers"),
+            "{got:?}"
+        );
     }
 
     #[test_case(true)]
     #[test_case(false)]
-    fn from_str(retryable: bool) {
-        let got = CredentialsError::from_str(retryable, "test-only");
-        assert_eq!(got.is_retryable(), retryable, "{got}");
-        assert!(got.source().is_some(), "{got}");
-        assert!(format!("{got}").contains("test-only"), "{got}");
+    fn from_str(transient: bool) {
+        let got = CredentialsError::from_msg(transient, "test-only");
+        assert_eq!(got.is_transient(), transient, "{got:?}");
+        assert!(got.source().is_none(), "{got:?}");
+        assert!(got.to_string().contains("test-only"), "{got}");
+    }
+
+    #[test_case(true)]
+    #[test_case(false)]
+    fn new(transient: bool) {
+        let source = wkt::TimestampError::OutOfRange;
+        let got = CredentialsError::new(transient, "additional information", source);
+        assert_eq!(got.is_transient(), transient, "{got:?}");
+        assert!(
+            got.source()
+                .and_then(|e| e.downcast_ref::<wkt::TimestampError>())
+                .is_some(),
+            "{got:?}"
+        );
+        assert!(
+            got.to_string().contains("additional information"),
+            "{got:?}"
+        );
     }
 
     #[test]
     fn fmt() {
-        let e = CredentialsError::from_str(true, "test-only-err-123");
+        let e = CredentialsError::from_msg(true, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
-        assert!(got.contains(RETRYABLE_MSG), "{got}");
+        assert!(got.contains(TRANSIENT_MSG), "{got}");
 
-        let e = CredentialsError::from_str(false, "test-only-err-123");
+        let e = CredentialsError::from_msg(false, "test-only-err-123");
         let got = format!("{e}");
         assert!(got.contains("test-only-err-123"), "{got}");
-        assert!(got.contains(NON_RETRYABLE_MSG), "{got}");
-    }
-
-    #[test]
-    fn source() {
-        let got = CredentialsErrorImpl::SimpleMessage("test-only".into());
-        assert!(got.source().is_none(), "{got}");
-        let got = CredentialsErrorImpl::Source(Arc::new(crate::error::Error::other("test-only")));
-        assert!(got.source().is_some(), "{got}");
+        assert!(got.contains(PERMANENT_MSG), "{got}");
     }
 }

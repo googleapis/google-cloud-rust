@@ -16,9 +16,8 @@
 
 pub mod app_hub {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [AppHub][super::super::client::AppHub].
+    /// A builder for [AppHub][crate::client::AppHub].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod app_hub {
     /// let client = builder
     ///     .with_endpoint("https://apphub.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod app_hub {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = AppHub;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::AppHub] request builders.
+    /// Common implementation for [crate::client::AppHub] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::AppHub>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,7 @@ pub mod app_hub {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,14 +69,30 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::lookup_service_project_attachment][super::super::client::AppHub::lookup_service_project_attachment] calls.
+    /// The request builder for [AppHub::lookup_service_project_attachment][crate::client::AppHub::lookup_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::LookupServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupServiceProjectAttachment(
         RequestBuilder<crate::model::LookupServiceProjectAttachmentRequest>,
     );
 
     impl LookupServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -117,14 +135,34 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_service_project_attachments][super::super::client::AppHub::list_service_project_attachments] calls.
+    /// The request builder for [AppHub::list_service_project_attachments][crate::client::AppHub::list_service_project_attachments] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListServiceProjectAttachments;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServiceProjectAttachments {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServiceProjectAttachments(
         RequestBuilder<crate::model::ListServiceProjectAttachmentsRequest>,
     );
 
     impl ListServiceProjectAttachments {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -151,8 +189,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListServiceProjectAttachmentsResponse,
@@ -166,6 +204,17 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListServiceProjectAttachmentsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServiceProjectAttachmentsRequest::parent].
@@ -208,14 +257,31 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment] calls.
+    /// The request builder for [AppHub::create_service_project_attachment][crate::client::AppHub::create_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateServiceProjectAttachment(
         RequestBuilder<crate::model::CreateServiceProjectAttachmentRequest>,
     );
 
     impl CreateServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -239,7 +305,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service_project_attachment][super::super::client::AppHub::create_service_project_attachment].
+        /// on [create_service_project_attachment][crate::client::AppHub::create_service_project_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service_project_attachment(self.0.request, self.0.options)
@@ -252,7 +318,7 @@ pub mod app_hub {
             self,
         ) -> impl lro::Poller<crate::model::ServiceProjectAttachment, crate::model::OperationMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::ServiceProjectAttachment,
                 crate::model::OperationMetadata,
             >;
@@ -280,7 +346,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceProjectAttachmentRequest::parent].
@@ -305,13 +371,25 @@ pub mod app_hub {
         /// Sets the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service_project_attachment<
-            T: Into<std::option::Option<crate::model::ServiceProjectAttachment>>,
-        >(
+        pub fn set_service_project_attachment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceProjectAttachment>,
+        {
+            self.0.request.service_project_attachment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_project_attachment][crate::model::CreateServiceProjectAttachmentRequest::service_project_attachment].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service_project_attachment<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service_project_attachment = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::ServiceProjectAttachment>,
+        {
+            self.0.request.service_project_attachment = v.map(|x| x.into());
             self
         }
 
@@ -329,14 +407,30 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_service_project_attachment][super::super::client::AppHub::get_service_project_attachment] calls.
+    /// The request builder for [AppHub::get_service_project_attachment][crate::client::AppHub::get_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetServiceProjectAttachment(
         RequestBuilder<crate::model::GetServiceProjectAttachmentRequest>,
     );
 
     impl GetServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -379,14 +473,31 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment] calls.
+    /// The request builder for [AppHub::delete_service_project_attachment][crate::client::AppHub::delete_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteServiceProjectAttachment(
         RequestBuilder<crate::model::DeleteServiceProjectAttachmentRequest>,
     );
 
     impl DeleteServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -410,7 +521,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service_project_attachment][super::super::client::AppHub::delete_service_project_attachment].
+        /// on [delete_service_project_attachment][crate::client::AppHub::delete_service_project_attachment].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service_project_attachment(self.0.request, self.0.options)
@@ -419,8 +530,8 @@ pub mod app_hub {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service_project_attachment`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -445,7 +556,12 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceProjectAttachmentRequest::name].
@@ -470,14 +586,30 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::detach_service_project_attachment][super::super::client::AppHub::detach_service_project_attachment] calls.
+    /// The request builder for [AppHub::detach_service_project_attachment][crate::client::AppHub::detach_service_project_attachment] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DetachServiceProjectAttachment;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DetachServiceProjectAttachment {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DetachServiceProjectAttachment(
         RequestBuilder<crate::model::DetachServiceProjectAttachmentRequest>,
     );
 
     impl DetachServiceProjectAttachment {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -520,12 +652,32 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_discovered_services][super::super::client::AppHub::list_discovered_services] calls.
+    /// The request builder for [AppHub::list_discovered_services][crate::client::AppHub::list_discovered_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListDiscoveredServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDiscoveredServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredServices(RequestBuilder<crate::model::ListDiscoveredServicesRequest>);
 
     impl ListDiscoveredServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -552,8 +704,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListDiscoveredServicesResponse,
@@ -567,6 +719,17 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDiscoveredServicesResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveredServicesRequest::parent].
@@ -609,12 +772,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_discovered_service][super::super::client::AppHub::get_discovered_service] calls.
+    /// The request builder for [AppHub::get_discovered_service][crate::client::AppHub::get_discovered_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetDiscoveredService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiscoveredService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiscoveredService(RequestBuilder<crate::model::GetDiscoveredServiceRequest>);
 
     impl GetDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -657,14 +836,30 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::lookup_discovered_service][super::super::client::AppHub::lookup_discovered_service] calls.
+    /// The request builder for [AppHub::lookup_discovered_service][crate::client::AppHub::lookup_discovered_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::LookupDiscoveredService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupDiscoveredService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredService(
         RequestBuilder<crate::model::LookupDiscoveredServiceRequest>,
     );
 
     impl LookupDiscoveredService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -715,12 +910,32 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_services][super::super::client::AppHub::list_services] calls.
+    /// The request builder for [AppHub::list_services][crate::client::AppHub::list_services] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListServices;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListServices {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListServices(RequestBuilder<crate::model::ListServicesRequest>);
 
     impl ListServices {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -744,8 +959,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListServicesResponse, gax::error::Error>
         {
@@ -757,6 +972,15 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListServicesResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListServicesRequest::parent].
@@ -799,12 +1023,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_service][super::super::client::AppHub::create_service] calls.
+    /// The request builder for [AppHub::create_service][crate::client::AppHub::create_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateService(RequestBuilder<crate::model::CreateServiceRequest>);
 
     impl CreateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -825,7 +1066,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_service][super::super::client::AppHub::create_service].
+        /// on [create_service][crate::client::AppHub::create_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_service(self.0.request, self.0.options)
@@ -837,7 +1078,8 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -862,7 +1104,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateServiceRequest::parent].
@@ -884,11 +1126,22 @@ pub mod app_hub {
         /// Sets the value of [service][crate::model::CreateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::CreateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -906,12 +1159,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_service][super::super::client::AppHub::get_service] calls.
+    /// The request builder for [AppHub::get_service][crate::client::AppHub::get_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetService;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetService(RequestBuilder<crate::model::GetServiceRequest>);
 
     impl GetService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -951,12 +1220,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::update_service][super::super::client::AppHub::update_service] calls.
+    /// The request builder for [AppHub::update_service][crate::client::AppHub::update_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::UpdateService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateService(RequestBuilder<crate::model::UpdateServiceRequest>);
 
     impl UpdateService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -977,7 +1263,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_service][super::super::client::AppHub::update_service].
+        /// on [update_service][crate::client::AppHub::update_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_service(self.0.request, self.0.options)
@@ -989,7 +1275,8 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Service, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<crate::model::Service, crate::model::OperationMetadata>;
+            type Operation =
+                lro::internal::Operation<crate::model::Service, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1014,28 +1301,50 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateServiceRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [service][crate::model::UpdateServiceRequest::service].
         ///
         /// This is a **required** field for requests.
-        pub fn set_service<T: Into<std::option::Option<crate::model::Service>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.service = v.into();
+        pub fn set_service<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service][crate::model::UpdateServiceRequest::service].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_service<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Service>,
+        {
+            self.0.request.service = v.map(|x| x.into());
             self
         }
 
@@ -1053,12 +1362,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_service][super::super::client::AppHub::delete_service] calls.
+    /// The request builder for [AppHub::delete_service][crate::client::AppHub::delete_service] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteService;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteService {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteService(RequestBuilder<crate::model::DeleteServiceRequest>);
 
     impl DeleteService {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1079,7 +1405,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_service][super::super::client::AppHub::delete_service].
+        /// on [delete_service][crate::client::AppHub::delete_service].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_service(self.0.request, self.0.options)
@@ -1088,8 +1414,8 @@ pub mod app_hub {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_service`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1114,7 +1440,12 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteServiceRequest::name].
@@ -1139,14 +1470,34 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_discovered_workloads][super::super::client::AppHub::list_discovered_workloads] calls.
+    /// The request builder for [AppHub::list_discovered_workloads][crate::client::AppHub::list_discovered_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListDiscoveredWorkloads;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListDiscoveredWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListDiscoveredWorkloads(
         RequestBuilder<crate::model::ListDiscoveredWorkloadsRequest>,
     );
 
     impl ListDiscoveredWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1173,8 +1524,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<
             crate::model::ListDiscoveredWorkloadsResponse,
@@ -1188,6 +1539,17 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListDiscoveredWorkloadsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListDiscoveredWorkloadsRequest::parent].
@@ -1230,12 +1592,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_discovered_workload][super::super::client::AppHub::get_discovered_workload] calls.
+    /// The request builder for [AppHub::get_discovered_workload][crate::client::AppHub::get_discovered_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetDiscoveredWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetDiscoveredWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetDiscoveredWorkload(RequestBuilder<crate::model::GetDiscoveredWorkloadRequest>);
 
     impl GetDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1278,14 +1656,30 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::lookup_discovered_workload][super::super::client::AppHub::lookup_discovered_workload] calls.
+    /// The request builder for [AppHub::lookup_discovered_workload][crate::client::AppHub::lookup_discovered_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::LookupDiscoveredWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> LookupDiscoveredWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct LookupDiscoveredWorkload(
         RequestBuilder<crate::model::LookupDiscoveredWorkloadRequest>,
     );
 
     impl LookupDiscoveredWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1336,12 +1730,32 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_workloads][super::super::client::AppHub::list_workloads] calls.
+    /// The request builder for [AppHub::list_workloads][crate::client::AppHub::list_workloads] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListWorkloads;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWorkloads {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListWorkloads(RequestBuilder<crate::model::ListWorkloadsRequest>);
 
     impl ListWorkloads {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1365,8 +1779,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListWorkloadsResponse, gax::error::Error>
         {
@@ -1378,6 +1792,15 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWorkloadsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListWorkloadsRequest::parent].
@@ -1420,12 +1843,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_workload][super::super::client::AppHub::create_workload] calls.
+    /// The request builder for [AppHub::create_workload][crate::client::AppHub::create_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateWorkload;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateWorkload(RequestBuilder<crate::model::CreateWorkloadRequest>);
 
     impl CreateWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1446,7 +1886,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_workload][super::super::client::AppHub::create_workload].
+        /// on [create_workload][crate::client::AppHub::create_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_workload(self.0.request, self.0.options)
@@ -1459,7 +1899,7 @@ pub mod app_hub {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Workload, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Workload, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1484,7 +1924,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateWorkloadRequest::parent].
@@ -1506,11 +1946,22 @@ pub mod app_hub {
         /// Sets the value of [workload][crate::model::CreateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workload = v.into();
+        pub fn set_workload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workload][crate::model::CreateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = v.map(|x| x.into());
             self
         }
 
@@ -1528,12 +1979,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_workload][super::super::client::AppHub::get_workload] calls.
+    /// The request builder for [AppHub::get_workload][crate::client::AppHub::get_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetWorkload;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetWorkload(RequestBuilder<crate::model::GetWorkloadRequest>);
 
     impl GetWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1573,12 +2040,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::update_workload][super::super::client::AppHub::update_workload] calls.
+    /// The request builder for [AppHub::update_workload][crate::client::AppHub::update_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::UpdateWorkload;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateWorkload(RequestBuilder<crate::model::UpdateWorkloadRequest>);
 
     impl UpdateWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1599,7 +2083,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_workload][super::super::client::AppHub::update_workload].
+        /// on [update_workload][crate::client::AppHub::update_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_workload(self.0.request, self.0.options)
@@ -1612,7 +2096,7 @@ pub mod app_hub {
             self,
         ) -> impl lro::Poller<crate::model::Workload, crate::model::OperationMetadata> {
             type Operation =
-                lro::Operation<crate::model::Workload, crate::model::OperationMetadata>;
+                lro::internal::Operation<crate::model::Workload, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1637,28 +2121,50 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWorkloadRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [workload][crate::model::UpdateWorkloadRequest::workload].
         ///
         /// This is a **required** field for requests.
-        pub fn set_workload<T: Into<std::option::Option<crate::model::Workload>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.workload = v.into();
+        pub fn set_workload<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [workload][crate::model::UpdateWorkloadRequest::workload].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_workload<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Workload>,
+        {
+            self.0.request.workload = v.map(|x| x.into());
             self
         }
 
@@ -1676,12 +2182,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_workload][super::super::client::AppHub::delete_workload] calls.
+    /// The request builder for [AppHub::delete_workload][crate::client::AppHub::delete_workload] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteWorkload;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWorkload {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteWorkload(RequestBuilder<crate::model::DeleteWorkloadRequest>);
 
     impl DeleteWorkload {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1702,7 +2225,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_workload][super::super::client::AppHub::delete_workload].
+        /// on [delete_workload][crate::client::AppHub::delete_workload].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_workload(self.0.request, self.0.options)
@@ -1711,8 +2234,8 @@ pub mod app_hub {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_workload`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1737,7 +2260,12 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteWorkloadRequest::name].
@@ -1762,12 +2290,32 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_applications][super::super::client::AppHub::list_applications] calls.
+    /// The request builder for [AppHub::list_applications][crate::client::AppHub::list_applications] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListApplications;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListApplications {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListApplications(RequestBuilder<crate::model::ListApplicationsRequest>);
 
     impl ListApplications {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1794,8 +2342,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<crate::model::ListApplicationsResponse, gax::error::Error>
         {
@@ -1807,6 +2355,15 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListApplicationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [parent][crate::model::ListApplicationsRequest::parent].
@@ -1849,12 +2406,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::create_application][super::super::client::AppHub::create_application] calls.
+    /// The request builder for [AppHub::create_application][crate::client::AppHub::create_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CreateApplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CreateApplication(RequestBuilder<crate::model::CreateApplicationRequest>);
 
     impl CreateApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -1878,7 +2452,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [create_application][super::super::client::AppHub::create_application].
+        /// on [create_application][crate::client::AppHub::create_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .create_application(self.0.request, self.0.options)
@@ -1890,8 +2464,10 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Application, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Application, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Application,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -1916,7 +2492,7 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::CreateApplicationRequest::parent].
@@ -1938,11 +2514,22 @@ pub mod app_hub {
         /// Sets the value of [application][crate::model::CreateApplicationRequest::application].
         ///
         /// This is a **required** field for requests.
-        pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.application = v.into();
+        pub fn set_application<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [application][crate::model::CreateApplicationRequest::application].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = v.map(|x| x.into());
             self
         }
 
@@ -1960,12 +2547,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_application][super::super::client::AppHub::get_application] calls.
+    /// The request builder for [AppHub::get_application][crate::client::AppHub::get_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetApplication;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetApplication(RequestBuilder<crate::model::GetApplicationRequest>);
 
     impl GetApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2005,12 +2608,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::update_application][super::super::client::AppHub::update_application] calls.
+    /// The request builder for [AppHub::update_application][crate::client::AppHub::update_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::UpdateApplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct UpdateApplication(RequestBuilder<crate::model::UpdateApplicationRequest>);
 
     impl UpdateApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2034,7 +2654,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [update_application][super::super::client::AppHub::update_application].
+        /// on [update_application][crate::client::AppHub::update_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .update_application(self.0.request, self.0.options)
@@ -2046,8 +2666,10 @@ pub mod app_hub {
         pub fn poller(
             self,
         ) -> impl lro::Poller<crate::model::Application, crate::model::OperationMetadata> {
-            type Operation =
-                lro::Operation<crate::model::Application, crate::model::OperationMetadata>;
+            type Operation = lro::internal::Operation<
+                crate::model::Application,
+                crate::model::OperationMetadata,
+            >;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2072,28 +2694,50 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
         ///
         /// This is a **required** field for requests.
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateApplicationRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [application][crate::model::UpdateApplicationRequest::application].
         ///
         /// This is a **required** field for requests.
-        pub fn set_application<T: Into<std::option::Option<crate::model::Application>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.application = v.into();
+        pub fn set_application<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [application][crate::model::UpdateApplicationRequest::application].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_application<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Application>,
+        {
+            self.0.request.application = v.map(|x| x.into());
             self
         }
 
@@ -2111,12 +2755,29 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_application][super::super::client::AppHub::delete_application] calls.
+    /// The request builder for [AppHub::delete_application][crate::client::AppHub::delete_application] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteApplication;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteApplication {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteApplication(RequestBuilder<crate::model::DeleteApplicationRequest>);
 
     impl DeleteApplication {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2140,7 +2801,7 @@ pub mod app_hub {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [delete_application][super::super::client::AppHub::delete_application].
+        /// on [delete_application][crate::client::AppHub::delete_application].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .delete_application(self.0.request, self.0.options)
@@ -2149,8 +2810,8 @@ pub mod app_hub {
         }
 
         /// Creates a [Poller][lro::Poller] to work with `delete_application`.
-        pub fn poller(self) -> impl lro::Poller<wkt::Empty, crate::model::OperationMetadata> {
-            type Operation = lro::Operation<wkt::Empty, crate::model::OperationMetadata>;
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
             let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
             let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
 
@@ -2175,7 +2836,12 @@ pub mod app_hub {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
         }
 
         /// Sets the value of [name][crate::model::DeleteApplicationRequest::name].
@@ -2200,12 +2866,32 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_locations][super::super::client::AppHub::list_locations] calls.
+    /// The request builder for [AppHub::list_locations][crate::client::AppHub::list_locations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListLocations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListLocations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListLocations(RequestBuilder<location::model::ListLocationsRequest>);
 
     impl ListLocations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2232,8 +2918,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<location::model::ListLocationsResponse, gax::error::Error>
         {
@@ -2245,6 +2931,15 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<location::model::ListLocationsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][location::model::ListLocationsRequest::name].
@@ -2279,12 +2974,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_location][super::super::client::AppHub::get_location] calls.
+    /// The request builder for [AppHub::get_location][crate::client::AppHub::get_location] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetLocation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetLocation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetLocation(RequestBuilder<location::model::GetLocationRequest>);
 
     impl GetLocation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2322,12 +3033,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::set_iam_policy][super::super::client::AppHub::set_iam_policy] calls.
+    /// The request builder for [AppHub::set_iam_policy][crate::client::AppHub::set_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::SetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> SetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct SetIamPolicy(RequestBuilder<iam_v1::model::SetIamPolicyRequest>);
 
     impl SetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2362,20 +3089,40 @@ pub mod app_hub {
         /// Sets the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
         ///
         /// This is a **required** field for requests.
-        pub fn set_policy<T: Into<std::option::Option<iam_v1::model::Policy>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.policy = v.into();
+        pub fn set_policy<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [policy][iam_v1::model::SetIamPolicyRequest::policy].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_policy<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::Policy>,
+        {
+            self.0.request.policy = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
-        pub fn set_update_mask<T: Into<std::option::Option<wkt::FieldMask>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.update_mask = v.into();
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][iam_v1::model::SetIamPolicyRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
             self
         }
     }
@@ -2387,12 +3134,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_iam_policy][super::super::client::AppHub::get_iam_policy] calls.
+    /// The request builder for [AppHub::get_iam_policy][crate::client::AppHub::get_iam_policy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetIamPolicy;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetIamPolicy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetIamPolicy(RequestBuilder<iam_v1::model::GetIamPolicyRequest>);
 
     impl GetIamPolicy {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2425,11 +3188,20 @@ pub mod app_hub {
         }
 
         /// Sets the value of [options][iam_v1::model::GetIamPolicyRequest::options].
-        pub fn set_options<T: Into<std::option::Option<iam_v1::model::GetPolicyOptions>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.options = v.into();
+        pub fn set_options<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [options][iam_v1::model::GetIamPolicyRequest::options].
+        pub fn set_or_clear_options<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<iam_v1::model::GetPolicyOptions>,
+        {
+            self.0.request.options = v.map(|x| x.into());
             self
         }
     }
@@ -2441,12 +3213,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::test_iam_permissions][super::super::client::AppHub::test_iam_permissions] calls.
+    /// The request builder for [AppHub::test_iam_permissions][crate::client::AppHub::test_iam_permissions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::TestIamPermissions;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> TestIamPermissions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct TestIamPermissions(RequestBuilder<iam_v1::model::TestIamPermissionsRequest>);
 
     impl TestIamPermissions {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2502,12 +3290,32 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::list_operations][super::super::client::AppHub::list_operations] calls.
+    /// The request builder for [AppHub::list_operations][crate::client::AppHub::list_operations] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::ListOperations;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListOperations {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct ListOperations(RequestBuilder<longrunning::model::ListOperationsRequest>);
 
     impl ListOperations {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2534,8 +3342,8 @@ pub mod app_hub {
                 .map(gax::response::Response::into_body)
         }
 
-        /// Streams the responses back.
-        pub async fn paginator(
+        /// Streams each page in the collection.
+        pub fn by_page(
             self,
         ) -> impl gax::paginator::Paginator<longrunning::model::ListOperationsResponse, gax::error::Error>
         {
@@ -2547,6 +3355,17 @@ pub mod app_hub {
                 builder.send()
             };
             gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            longrunning::model::ListOperationsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
         }
 
         /// Sets the value of [name][longrunning::model::ListOperationsRequest::name].
@@ -2581,12 +3400,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::get_operation][super::super::client::AppHub::get_operation] calls.
+    /// The request builder for [AppHub::get_operation][crate::client::AppHub::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2627,12 +3462,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::delete_operation][super::super::client::AppHub::delete_operation] calls.
+    /// The request builder for [AppHub::delete_operation][crate::client::AppHub::delete_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::DeleteOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct DeleteOperation(RequestBuilder<longrunning::model::DeleteOperationRequest>);
 
     impl DeleteOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -2673,12 +3524,28 @@ pub mod app_hub {
         }
     }
 
-    /// The request builder for [AppHub::cancel_operation][super::super::client::AppHub::cancel_operation] calls.
+    /// The request builder for [AppHub::cancel_operation][crate::client::AppHub::cancel_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_apphub_v1::builder;
+    /// use builder::app_hub::CancelOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CancelOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct CancelOperation(RequestBuilder<longrunning::model::CancelOperationRequest>);
 
     impl CancelOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::AppHub>) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

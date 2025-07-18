@@ -22,6 +22,7 @@ import (
 	"github.com/googleapis/google-cloud-rust/generator/internal/codec_sample"
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
 	"github.com/googleapis/google-cloud-rust/generator/internal/dart"
+	"github.com/googleapis/google-cloud-rust/generator/internal/gcloud"
 	"github.com/googleapis/google-cloud-rust/generator/internal/golang"
 	"github.com/googleapis/google-cloud-rust/generator/internal/parser"
 	"github.com/googleapis/google-cloud-rust/generator/internal/rust"
@@ -78,7 +79,12 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 	if err := api.CrossReference(model); err != nil {
 		return err
 	}
-	api.SkipModelElements(model, config.Source)
+	if err := api.SkipModelElements(model, config.Source); err != nil {
+		return err
+	}
+	if err := api.PatchDocumentation(model, config); err != nil {
+		return err
+	}
 	// Verify all the services, messages and enums are in the same package.
 	if err := api.Validate(model); err != nil {
 		return err
@@ -107,6 +113,8 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 		return dart.Generate(model, output, config)
 	case "sample":
 		return codec_sample.Generate(model, output, config)
+	case "gcloud":
+		return gcloud.Generate(model, output, config)
 	default:
 		return fmt.Errorf("unknown language: %s", config.General.Language)
 	}

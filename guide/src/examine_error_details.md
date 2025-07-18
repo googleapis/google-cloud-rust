@@ -37,8 +37,8 @@ and that your account has the necessary permissions.
 
 ### Dependencies
 
-As it is usual with Rust, you must declare the dependency in your
-`Cargo.toml` file:
+As it is usual with Rust, you must declare the dependency in your `Cargo.toml`
+file:
 
 ```toml
 [dependencies]
@@ -71,14 +71,29 @@ This should produce output similar to:
 
 ```text
 request failed with error Error {
-    kind: Rpc,
-    source: ServiceError {
+    kind: Service {
+        status_code: Some(
+            400,
+        ),
+        headers: Some(
+            {
+                "vary": "X-Origin",
+                "vary": "Referer",
+                "vary": "Origin,Accept-Encoding",
+                "content-type": "application/json; charset=UTF-8",
+                "date": "Sat, 24 May 2025 17:19:49 GMT",
+                "server": "scaffolding on HTTPServer2",
+                "x-xss-protection": "0",
+                "x-frame-options": "SAMEORIGIN",
+                "x-content-type-options": "nosniff",
+                "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+                "accept-ranges": "none",
+                "transfer-encoding": "chunked",
+            },
+        ),
         status: Status {
-            code: 400,
+            code: InvalidArgument,
             message: "One of content, or gcs_content_uri must be set.",
-            status: Some(
-                "INVALID_ARGUMENT",
-            ),
             details: [
                 BadRequest(
                     BadRequest {
@@ -88,29 +103,14 @@ request failed with error Error {
                                 description: "Must have some text content to annotate.",
                                 reason: "",
                                 localized_message: None,
+                                _unknown_fields: {},
                             },
                         ],
+                        _unknown_fields: {},
                     },
                 ),
             ],
         },
-        http_status_code: Some(
-            400,
-        ),
-        headers: Some(
-            {
-                "accept-ranges": "none",
-                "x-xss-protection": "0",
-                "x-frame-options": "SAMEORIGIN",
-                "date": "Tue, 01 Apr 2025 22:27:53 GMT",
-                "transfer-encoding": "chunked",
-                "content-type": "application/json; charset=UTF-8",
-                "x-content-type-options": "nosniff",
-                "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
-                "vary": "Origin,Accept-Encoding",
-                "server": "scaffolding on HTTPServer2",
-            },
-        ),
     },
 }
 ```
@@ -122,8 +122,8 @@ rest of the example we will traverse the data structure and print the most
 relevant fields.
 
 Only errors returned by the service contain detailed information, so we first
-query the error to see if it contains the correct error type. If it does, we
-can break down some top-level information about the error:
+query the error to see if it contains the correct error type. If it does, we can
+break down some top-level information about the error:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
@@ -132,11 +132,11 @@ can break down some top-level information about the error:
 And then iterate over all the details:
 
 ```rust,ignore
-{{#include ../samples/src/examine_error_details.rs:examine-error-details-service-error}}
+{{#include ../samples/src/examine_error_details.rs:examine-error-details-iterate}}
 ```
 
-The client libraries return a [`StatusDetails`] enum with the different
-types of error details. In this example we will only examine `BadRequest` errors:
+The client libraries return a [`StatusDetails`] enum with the different types of
+error details. In this example we will only examine `BadRequest` errors:
 
 ```rust,ignore
 {{#include ../samples/src/examine_error_details.rs:examine-error-details-bad-request}}

@@ -22,19 +22,11 @@ limitations under the License.
 {{#Codec.DisabledRustdocWarnings}}
 #![allow(rustdoc::{{.}})]
 {{/Codec.DisabledRustdocWarnings}}
-
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
-use crate::Result;
-{{#Codec.PerServiceFeatures}}
-#[cfg(any({{#Codec.Services}}feature = "{{Codec.ModuleName}}",{{/Codec.Services}}))]
-{{/Codec.PerServiceFeatures}}
-use std::sync::Arc;
 {{/Codec.HasServices}}
 {{#Codec.Services}}
 
 /// Implements a client for the {{Codec.APITitle}}.
+{{^Codec.HasVeneer}}
 ///
 /// # Example
 /// ```
@@ -42,7 +34,7 @@ use std::sync::Arc;
 /// # use {{Model.Codec.PackageNamespace}}::client::{{Codec.Name}};
 /// let client = {{Codec.Name}}::builder().build().await?;
 /// // use `client` to make requests to the {{Codec.APITitle}}.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -75,35 +67,38 @@ use std::sync::Arc;
 ///
 /// `{{Codec.Name}}` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `{{Codec.Name}}` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+{{/Codec.HasVeneer}}
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
-#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.ModuleName}}")))]
+#[cfg(feature = "{{Codec.FeatureName}}")]
+#[cfg_attr(docsrs, doc(cfg(feature = "{{Codec.FeatureName}}")))]
 {{/Codec.PerServiceFeatures}}
 #[derive(Clone, Debug)]
 {{#Deprecated}}
 #[deprecated]
 {{/Deprecated}}
 pub struct {{Codec.Name}} {
-    inner: Arc<dyn super::stub::dynamic::{{Codec.Name}}>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::{{Codec.Name}}>,
 }
 
 {{#Codec.PerServiceFeatures}}
-#[cfg(feature = "{{Codec.ModuleName}}")]
+#[cfg(feature = "{{Codec.FeatureName}}")]
 {{/Codec.PerServiceFeatures}}
 impl {{Codec.Name}} {
+    {{^Codec.HasVeneer}}
     /// Returns a builder for [{{Codec.Name}}].
     ///
     /// ```
     /// # tokio_test::block_on(async {
     /// # use {{Model.Codec.PackageNamespace}}::client::{{Codec.Name}};
     /// let client = {{Codec.Name}}::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::{{Codec.ModuleName}}::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::{{Codec.ModuleName}}::client::Factory)
     }
+    {{/Codec.HasVeneer}}
 
     /// Creates a new client from the provided stub.
     ///
@@ -111,26 +106,26 @@ impl {{Codec.Name}} {
     /// client's behavior.
     pub fn from_stub<T>(stub: T) -> Self
     where T: super::stub::{{Codec.Name}} + 'static {
-        Self { inner: Arc::new(stub) }
+        Self { inner: std::sync::Arc::new(stub) }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
-    async fn build_inner(conf: gaxi::options::ClientConfig) -> Result<Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
+    async fn build_inner(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::{{Codec.Name}}>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
-    async fn build_transport(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
+    async fn build_transport(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::{{Codec.Name}}> {
         super::transport::{{Codec.Name}}::new(conf).await
     }
 
-    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> Result<impl super::stub::{{Codec.Name}}> {
+    async fn build_with_tracing(conf: gaxi::options::ClientConfig) -> gax::client_builder::Result<impl super::stub::{{Codec.Name}}> {
         Self::build_transport(conf).await.map(super::tracing::{{Codec.Name}}::new)
     }
     {{#Codec.Methods}}
@@ -153,17 +148,12 @@ impl {{Codec.Name}} {
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
-    pub fn {{Codec.Name}}(
-        &self,
-        {{#Codec.PathParams}}
-        {{{Codec.FieldName}}}: impl Into<{{{Codec.PrimitiveFieldType}}}>,
-        {{/Codec.PathParams}}
-    ) -> super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
+    {{#Codec.Attributes}}
+    {{{.}}}
+    {{/Codec.Attributes}}
+    pub fn {{Codec.Name}}(&self) -> super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}
     {
         super::builder::{{Codec.ServiceNameToSnake}}::{{Codec.BuilderName}}::new(self.inner.clone())
-        {{#Codec.PathParams}}
-            .set_{{Codec.SetterName}} ( {{Codec.FieldName}}.into() )
-        {{/Codec.PathParams}}
     }
     {{/Codec.Methods}}
 }

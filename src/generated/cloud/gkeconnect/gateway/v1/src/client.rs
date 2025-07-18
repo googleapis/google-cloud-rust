@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Connect Gateway API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
 /// let client = GatewayControl::builder().build().await?;
 /// // use `client` to make requests to the Connect Gateway API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `GatewayControl` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `GatewayControl` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct GatewayControl {
-    inner: Arc<dyn super::stub::dynamic::GatewayControl>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::GatewayControl>,
 }
 
 impl GatewayControl {
@@ -72,7 +69,7 @@ impl GatewayControl {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
     /// let client = GatewayControl::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::gateway_control::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::gateway_control::client::Factory)
@@ -87,33 +84,35 @@ impl GatewayControl {
         T: super::stub::GatewayControl + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::GatewayControl>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::GatewayControl>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::GatewayControl> {
+    ) -> gax::client_builder::Result<impl super::stub::GatewayControl> {
         super::transport::GatewayControl::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::GatewayControl> {
+    ) -> gax::client_builder::Result<impl super::stub::GatewayControl> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::GatewayControl::new)
@@ -121,11 +120,7 @@ impl GatewayControl {
 
     /// GenerateCredentials provides connection information that allows a user to
     /// access the specified membership using Connect Gateway.
-    pub fn generate_credentials(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::gateway_control::GenerateCredentials {
+    pub fn generate_credentials(&self) -> super::builder::gateway_control::GenerateCredentials {
         super::builder::gateway_control::GenerateCredentials::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

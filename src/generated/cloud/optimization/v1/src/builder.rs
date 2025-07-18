@@ -16,9 +16,8 @@
 
 pub mod fleet_routing {
     use crate::Result;
-    use std::sync::Arc;
 
-    /// A builder for [FleetRouting][super::super::client::FleetRouting].
+    /// A builder for [FleetRouting][crate::client::FleetRouting].
     ///
     /// ```
     /// # tokio_test::block_on(async {
@@ -29,7 +28,7 @@ pub mod fleet_routing {
     /// let client = builder
     ///     .with_endpoint("https://cloudoptimization.googleapis.com")
     ///     .build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -40,16 +39,19 @@ pub mod fleet_routing {
         impl gax::client_builder::internal::ClientFactory for Factory {
             type Client = FleetRouting;
             type Credentials = gaxi::options::Credentials;
-            async fn build(self, config: gaxi::options::ClientConfig) -> gax::Result<Self::Client> {
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
                 Self::Client::new(config).await
             }
         }
     }
 
-    /// Common implementation for [super::super::client::FleetRouting] request builders.
+    /// Common implementation for [crate::client::FleetRouting] request builders.
     #[derive(Clone, Debug)]
     pub(crate) struct RequestBuilder<R: std::default::Default> {
-        stub: Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
         request: R,
         options: gax::options::RequestOptions,
     }
@@ -58,7 +60,9 @@ pub mod fleet_routing {
     where
         R: std::default::Default,
     {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self {
                 stub,
                 request: R::default(),
@@ -67,12 +71,30 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for [FleetRouting::optimize_tours][super::super::client::FleetRouting::optimize_tours] calls.
+    /// The request builder for [FleetRouting::optimize_tours][crate::client::FleetRouting::optimize_tours] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_optimization_v1::builder;
+    /// use builder::fleet_routing::OptimizeTours;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> OptimizeTours {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct OptimizeTours(RequestBuilder<crate::model::OptimizeToursRequest>);
 
     impl OptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -105,17 +127,38 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [timeout][crate::model::OptimizeToursRequest::timeout].
-        pub fn set_timeout<T: Into<std::option::Option<wkt::Duration>>>(mut self, v: T) -> Self {
-            self.0.request.timeout = v.into();
+        pub fn set_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [timeout][crate::model::OptimizeToursRequest::timeout].
+        pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.timeout = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [model][crate::model::OptimizeToursRequest::model].
-        pub fn set_model<T: Into<std::option::Option<crate::model::ShipmentModel>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.model = v.into();
+        pub fn set_model<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ShipmentModel>,
+        {
+            self.0.request.model = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model][crate::model::OptimizeToursRequest::model].
+        pub fn set_or_clear_model<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ShipmentModel>,
+        {
+            self.0.request.model = v.map(|x| x.into());
             self
         }
 
@@ -137,14 +180,47 @@ pub mod fleet_routing {
             self
         }
 
+        /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
+        pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ShipmentRoute>,
+        {
+            use std::iter::Iterator;
+            self.0.request.injected_first_solution_routes =
+                v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
-        pub fn set_injected_solution_constraint<
-            T: Into<std::option::Option<crate::model::InjectedSolutionConstraint>>,
-        >(
+        pub fn set_injected_solution_constraint<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
+        {
+            self.0.request.injected_solution_constraint = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [injected_solution_constraint][crate::model::OptimizeToursRequest::injected_solution_constraint].
+        pub fn set_or_clear_injected_solution_constraint<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.injected_solution_constraint = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::InjectedSolutionConstraint>,
+        {
+            self.0.request.injected_solution_constraint = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
+        pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ShipmentRoute>,
+        {
+            use std::iter::Iterator;
+            self.0.request.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
             self
         }
 
@@ -193,20 +269,41 @@ pub mod fleet_routing {
         }
 
         /// Sets the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
-        pub fn set_geodesic_meters_per_second<T: Into<std::option::Option<f64>>>(
+        pub fn set_geodesic_meters_per_second<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.geodesic_meters_per_second = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [geodesic_meters_per_second][crate::model::OptimizeToursRequest::geodesic_meters_per_second].
+        pub fn set_or_clear_geodesic_meters_per_second<T>(
             mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.geodesic_meters_per_second = v.into();
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.0.request.geodesic_meters_per_second = v.map(|x| x.into());
             self
         }
 
         /// Sets the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
-        pub fn set_max_validation_errors<T: Into<std::option::Option<i32>>>(
-            mut self,
-            v: T,
-        ) -> Self {
-            self.0.request.max_validation_errors = v.into();
+        pub fn set_max_validation_errors<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.max_validation_errors = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_validation_errors][crate::model::OptimizeToursRequest::max_validation_errors].
+        pub fn set_or_clear_max_validation_errors<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<i32>,
+        {
+            self.0.request.max_validation_errors = v.map(|x| x.into());
             self
         }
 
@@ -222,29 +319,6 @@ pub mod fleet_routing {
             self.0.request.populate_travel_step_polylines = v.into();
             self
         }
-
-        /// Sets the value of [injected_first_solution_routes][crate::model::OptimizeToursRequest::injected_first_solution_routes].
-        pub fn set_injected_first_solution_routes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ShipmentRoute>,
-        {
-            use std::iter::Iterator;
-            self.0.request.injected_first_solution_routes =
-                v.into_iter().map(|i| i.into()).collect();
-            self
-        }
-
-        /// Sets the value of [refresh_details_routes][crate::model::OptimizeToursRequest::refresh_details_routes].
-        pub fn set_refresh_details_routes<T, V>(mut self, v: T) -> Self
-        where
-            T: std::iter::IntoIterator<Item = V>,
-            V: std::convert::Into<crate::model::ShipmentRoute>,
-        {
-            use std::iter::Iterator;
-            self.0.request.refresh_details_routes = v.into_iter().map(|i| i.into()).collect();
-            self
-        }
     }
 
     #[doc(hidden)]
@@ -254,12 +328,31 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for [FleetRouting::batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours] calls.
+    /// The request builder for [FleetRouting::batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_optimization_v1::builder;
+    /// use builder::fleet_routing::BatchOptimizeTours;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> BatchOptimizeTours {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct BatchOptimizeTours(RequestBuilder<crate::model::BatchOptimizeToursRequest>);
 
     impl BatchOptimizeTours {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 
@@ -283,7 +376,7 @@ pub mod fleet_routing {
         /// # Long running operations
         ///
         /// This starts, but does not poll, a longrunning operation. More information
-        /// on [batch_optimize_tours][super::super::client::FleetRouting::batch_optimize_tours].
+        /// on [batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours].
         pub async fn send(self) -> Result<longrunning::model::Operation> {
             (*self.0.stub)
                 .batch_optimize_tours(self.0.request, self.0.options)
@@ -296,7 +389,7 @@ pub mod fleet_routing {
             self,
         ) -> impl lro::Poller<crate::model::BatchOptimizeToursResponse, crate::model::AsyncModelMetadata>
         {
-            type Operation = lro::Operation<
+            type Operation = lro::internal::Operation<
                 crate::model::BatchOptimizeToursResponse,
                 crate::model::AsyncModelMetadata,
             >;
@@ -324,7 +417,7 @@ pub mod fleet_routing {
                 Ok(Operation::new(op))
             };
 
-            lro::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
         }
 
         /// Sets the value of [parent][crate::model::BatchOptimizeToursRequest::parent].
@@ -356,12 +449,30 @@ pub mod fleet_routing {
         }
     }
 
-    /// The request builder for [FleetRouting::get_operation][super::super::client::FleetRouting::get_operation] calls.
+    /// The request builder for [FleetRouting::get_operation][crate::client::FleetRouting::get_operation] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_optimization_v1::builder;
+    /// use builder::fleet_routing::GetOperation;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
     #[derive(Clone, Debug)]
     pub struct GetOperation(RequestBuilder<longrunning::model::GetOperationRequest>);
 
     impl GetOperation {
-        pub(crate) fn new(stub: Arc<dyn super::super::stub::dynamic::FleetRouting>) -> Self {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::FleetRouting>,
+        ) -> Self {
             Self(RequestBuilder::new(stub))
         }
 

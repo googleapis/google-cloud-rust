@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Memorystore for Memcached API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_memcache_v1::client::CloudMemcache;
 /// let client = CloudMemcache::builder().build().await?;
 /// // use `client` to make requests to the Cloud Memorystore for Memcached API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -73,11 +70,11 @@ use std::sync::Arc;
 ///
 /// `CloudMemcache` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `CloudMemcache` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct CloudMemcache {
-    inner: Arc<dyn super::stub::dynamic::CloudMemcache>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::CloudMemcache>,
 }
 
 impl CloudMemcache {
@@ -87,7 +84,7 @@ impl CloudMemcache {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_memcache_v1::client::CloudMemcache;
     /// let client = CloudMemcache::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::cloud_memcache::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_memcache::client::Factory)
@@ -102,53 +99,48 @@ impl CloudMemcache {
         T: super::stub::CloudMemcache + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::CloudMemcache>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CloudMemcache>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudMemcache> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudMemcache> {
         super::transport::CloudMemcache::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::CloudMemcache> {
+    ) -> gax::client_builder::Result<impl super::stub::CloudMemcache> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::CloudMemcache::new)
     }
 
     /// Lists Instances in a given location.
-    pub fn list_instances(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::ListInstances {
+    pub fn list_instances(&self) -> super::builder::cloud_memcache::ListInstances {
         super::builder::cloud_memcache::ListInstances::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single Instance.
-    pub fn get_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::GetInstance {
-        super::builder::cloud_memcache::GetInstance::new(self.inner.clone()).set_name(name.into())
+    pub fn get_instance(&self) -> super::builder::cloud_memcache::GetInstance {
+        super::builder::cloud_memcache::GetInstance::new(self.inner.clone())
     }
 
     /// Creates a new Instance in a given location.
@@ -162,12 +154,8 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::CreateInstance {
+    pub fn create_instance(&self) -> super::builder::cloud_memcache::CreateInstance {
         super::builder::cloud_memcache::CreateInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing Instance in a given project and location.
@@ -181,12 +169,8 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_instance(
-        &self,
-        instance: impl Into<crate::model::Instance>,
-    ) -> super::builder::cloud_memcache::UpdateInstance {
+    pub fn update_instance(&self) -> super::builder::cloud_memcache::UpdateInstance {
         super::builder::cloud_memcache::UpdateInstance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Updates the defined Memcached parameters for an existing instance.
@@ -203,12 +187,8 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_parameters(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::UpdateParameters {
+    pub fn update_parameters(&self) -> super::builder::cloud_memcache::UpdateParameters {
         super::builder::cloud_memcache::UpdateParameters::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Deletes a single Instance.
@@ -222,12 +202,8 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::DeleteInstance {
+    pub fn delete_instance(&self) -> super::builder::cloud_memcache::DeleteInstance {
         super::builder::cloud_memcache::DeleteInstance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// `ApplyParameters` restarts the set of specified nodes in order to update
@@ -242,12 +218,8 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn apply_parameters(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::ApplyParameters {
+    pub fn apply_parameters(&self) -> super::builder::cloud_memcache::ApplyParameters {
         super::builder::cloud_memcache::ApplyParameters::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Reschedules upcoming maintenance event.
@@ -261,70 +233,45 @@ impl CloudMemcache {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn reschedule_maintenance(
-        &self,
-        instance: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::RescheduleMaintenance {
+    pub fn reschedule_maintenance(&self) -> super::builder::cloud_memcache::RescheduleMaintenance {
         super::builder::cloud_memcache::RescheduleMaintenance::new(self.inner.clone())
-            .set_instance(instance.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::ListLocations {
-        super::builder::cloud_memcache::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::cloud_memcache::ListLocations {
+        super::builder::cloud_memcache::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::GetLocation {
-        super::builder::cloud_memcache::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::cloud_memcache::GetLocation {
+        super::builder::cloud_memcache::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::ListOperations {
+    pub fn list_operations(&self) -> super::builder::cloud_memcache::ListOperations {
         super::builder::cloud_memcache::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::GetOperation {
-        super::builder::cloud_memcache::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::cloud_memcache::GetOperation {
+        super::builder::cloud_memcache::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::cloud_memcache::DeleteOperation {
         super::builder::cloud_memcache::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::cloud_memcache::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::cloud_memcache::CancelOperation {
         super::builder::cloud_memcache::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }

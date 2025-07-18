@@ -71,12 +71,19 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 		InputTypeID:   ".google.cloud.location.GetLocationRequest",
 		OutputTypeID:  ".google.cloud.location.Location",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("name"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithVariable(api.NewPathVariable("name").
+							WithLiteral("projects").
+							WithMatch().
+							WithLiteral("locations").
+							WithMatch()),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
 		},
 	})
 }
@@ -130,14 +137,19 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 		InputTypeID:   ".google.iam.v1.GetIamPolicyRequest",
 		OutputTypeID:  ".google.iam.v1.Policy",
 		PathInfo: &api.PathInfo{
-			Verb: "POST",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("resource"),
-				api.NewVerbPathSegment("getIamPolicy"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "POST",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithVariable(api.NewPathVariable("resource").
+							WithLiteral("services").
+							WithMatch()).
+						WithVerb("getIamPolicy"),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
+			BodyFieldPath: "*",
 		},
 	})
 }
@@ -197,13 +209,18 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 		InputTypeID:   ".google.longrunning.GetOperationRequest",
 		OutputTypeID:  ".google.longrunning.Operation",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v2"),
-				api.NewFieldPathPathSegment("name"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v2").
+						WithVariable(api.NewPathVariable("name").
+							WithLiteral("operations").
+							WithMatch()),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
+			BodyFieldPath: "*",
 		},
 	})
 }
@@ -275,13 +292,18 @@ func TestProtobuf_OperationMixinNoEmpty(t *testing.T) {
 		OutputTypeID:  ".google.protobuf.Empty",
 		ReturnsEmpty:  true,
 		PathInfo: &api.PathInfo{
-			Verb: "DELETE",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v2"),
-				api.NewFieldPathPathSegment("name"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "DELETE",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v2").
+						WithVariable(api.NewPathVariable("name").
+							WithLiteral("operations").
+							WithMatch()),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
+			BodyFieldPath: "*",
 		},
 	})
 	got, ok := test.State.MessageByID[".google.protobuf.Empty"]
@@ -350,12 +372,17 @@ func TestProtobuf_DuplicateMixin(t *testing.T) {
 		InputTypeID:   ".google.longrunning.GetOperationRequest",
 		OutputTypeID:  ".google.longrunning.Operation",
 		PathInfo: &api.PathInfo{
-			Verb: "GET",
-			PathTemplate: []api.PathSegment{
-				api.NewLiteralPathSegment("v1"),
-				api.NewFieldPathPathSegment("name"),
+			Bindings: []*api.PathBinding{
+				{
+					Verb: "GET",
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithVariable(api.NewPathVariable("name").
+							WithLiteral("operations").
+							WithMatch()),
+					QueryParameters: map[string]bool{},
+				},
 			},
-			QueryParameters: map[string]bool{},
 		},
 	})
 }

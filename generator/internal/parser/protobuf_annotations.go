@@ -61,6 +61,36 @@ func parsePathInfo(m *descriptorpb.MethodDescriptorProto, state *api.APIState) (
 }
 
 func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string) (*api.PathInfo, error) {
+	binding, body, err := processRuleShallow(httpRule, state, mID)
+	if err != nil {
+		return nil, err
+	}
+	if binding == nil {
+		return &api.PathInfo{}, nil
+	}
+	pathInfo := &api.PathInfo{
+		BodyFieldPath: body,
+		Bindings:      []*api.PathBinding{binding},
+	}
+
+	for _, binding := range httpRule.GetAdditionalBindings() {
+		binding, body, err := processRuleShallow(binding, state, mID)
+		if err != nil {
+			return nil, err
+		}
+		if pathInfo.BodyFieldPath != "" && body != "" && body != pathInfo.BodyFieldPath {
+			slog.Warn("mismatched body in additional binding (see AIP-127)", "message", mID, "topLevelBody", pathInfo.BodyFieldPath, "additionalBindingBody", body)
+		}
+		if binding != nil {
+			pathInfo.Bindings = append(pathInfo.Bindings, binding)
+		} else {
+			slog.Warn("additional binding without a pattern", "message", mID)
+		}
+	}
+	return pathInfo, nil
+}
+
+func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID string) (*api.PathBinding, string, error) {
 	var verb string
 	var rawPath string
 	switch httpRule.GetPattern().(type) {
@@ -80,33 +110,28 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 		verb = "PATCH"
 		rawPath = httpRule.GetPatch()
 	default:
-		// Most often this happens with streaming RPCs. We will handle any
-		/// errors later in the code generation, maybe by ignoring the RPC.
-		return &api.PathInfo{
-			Verb:            "POST",
-			PathTemplate:    []api.PathSegment{},
-			QueryParameters: map[string]bool{},
-			BodyFieldPath:   "*",
-		}, nil
+		// Most often this happens with streaming RPCs. Also some
+		// services (e.g. `storagecontrol`) have RPCs without any HTTP
+		// annotations.
+		return nil, "", nil
 	}
 	pathTemplate, err := httprule.ParseSegments(rawPath)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)
 	if err != nil {
-		return nil, err
+		return nil, "", err
 	}
 
-	return &api.PathInfo{
+	return &api.PathBinding{
 		Verb:            verb,
 		PathTemplate:    pathTemplate,
 		QueryParameters: queryParameters,
-		BodyFieldPath:   httpRule.GetBody(),
-	}, nil
+	}, httpRule.GetBody(), nil
 }
 
-func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, state *api.APIState) (map[string]bool, error) {
+func queryParameters(msgID string, pathTemplate *api.PathTemplate, body string, state *api.APIState) (map[string]bool, error) {
 	msg, ok := state.MessageByID[msgID]
 	if !ok {
 		return nil, fmt.Errorf("unable to lookup type %s", msgID)
@@ -120,9 +145,10 @@ func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, 
 	for _, field := range msg.Fields {
 		params[field.Name] = true
 	}
-	for _, s := range pathTemplate {
-		if s.FieldPath != nil {
-			delete(params, *s.FieldPath)
+	for _, s := range pathTemplate.Segments {
+		if s.Variable != nil {
+			// TODO(#2508) - Note that nested fields are not excluded
+			delete(params, strings.Join(s.Variable.FieldPath, "."))
 		}
 	}
 	if body != "" {

@@ -23,12 +23,14 @@
 //! implementation of the Google Cloud Client Libraries for Rust.
 //!
 //! <div class="warning">
-//! All the types, traits, and functions defined in the <code>unstable-sdk-client</code>
-//! feature are <b>not</b> intended for general use. The APIs enabled by this
-//! feature will remain unstable for the foreseeable future, even if used in
-//! stable SDKs. We (the Google Cloud Client Libraries for Rust team) control both and will
+//! All the types, traits, and functions defined in any module with `internal`
+//! in its name are <b>not</b> intended for general use. Such symbols will
+//! remain unstable for the foreseeable future, even if used in stable SDKs.
+//! We (the Google Cloud Client Libraries for Rust team) control both and will
 //! change both if needed.
 //! </div>
+
+#![cfg_attr(docsrs, feature(doc_cfg))]
 
 /// An alias of [std::result::Result] where the error is always [Error][crate::error::Error].
 ///
@@ -38,7 +40,6 @@ pub type Result<T> = std::result::Result<T, crate::error::Error>;
 /// The core error types used by generated clients.
 pub mod error;
 
-/// Defines some types and traits to convert and use List RPCs as a Stream.
 pub mod paginator;
 
 pub mod response;
@@ -46,13 +47,13 @@ pub mod response;
 pub mod backoff_policy;
 pub mod client_builder;
 pub mod exponential_backoff;
-pub mod loop_state;
 pub mod options;
 pub mod polling_backoff_policy;
 pub mod polling_error_policy;
 pub mod retry_policy;
+pub mod retry_result;
 pub mod retry_throttler;
+pub mod throttle_result;
 
-#[cfg(feature = "unstable-sdk-client")]
-#[doc(hidden)]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod retry_loop_internal;

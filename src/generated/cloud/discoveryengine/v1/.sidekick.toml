@@ -14,7 +14,8 @@
 
 [general]
 specification-source = 'google/cloud/discoveryengine/v1'
-service-config = 'google/cloud/discoveryengine/v1/discoveryengine_v1.yaml'
+service-config       = 'google/cloud/discoveryengine/v1/discoveryengine_v1.yaml'
 
 [codec]
-copyright-year = '2025'
+copyright-year       = '2025'
+per-service-features = 'true'

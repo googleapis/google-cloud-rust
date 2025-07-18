@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the Cloud Workstations API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_workstations_v1::client::Workstations;
 /// let client = Workstations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Workstations API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `Workstations` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Workstations` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Workstations {
-    inner: Arc<dyn super::stub::dynamic::Workstations>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Workstations>,
 }
 
 impl Workstations {
@@ -72,7 +69,7 @@ impl Workstations {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_workstations_v1::client::Workstations;
     /// let client = Workstations::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::workstations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::workstations::client::Factory)
@@ -87,54 +84,50 @@ impl Workstations {
         T: super::stub::Workstations + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Workstations>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Workstations>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Workstations> {
+    ) -> gax::client_builder::Result<impl super::stub::Workstations> {
         super::transport::Workstations::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Workstations> {
+    ) -> gax::client_builder::Result<impl super::stub::Workstations> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Workstations::new)
     }
 
     /// Returns the requested workstation cluster.
-    pub fn get_workstation_cluster(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::GetWorkstationCluster {
+    pub fn get_workstation_cluster(&self) -> super::builder::workstations::GetWorkstationCluster {
         super::builder::workstations::GetWorkstationCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns all workstation clusters in the specified location.
     pub fn list_workstation_clusters(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::workstations::ListWorkstationClusters {
         super::builder::workstations::ListWorkstationClusters::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new workstation cluster.
@@ -150,10 +143,8 @@ impl Workstations {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_workstation_cluster(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::workstations::CreateWorkstationCluster {
         super::builder::workstations::CreateWorkstationCluster::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing workstation cluster.
@@ -169,10 +160,8 @@ impl Workstations {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_workstation_cluster(
         &self,
-        workstation_cluster: impl Into<crate::model::WorkstationCluster>,
     ) -> super::builder::workstations::UpdateWorkstationCluster {
         super::builder::workstations::UpdateWorkstationCluster::new(self.inner.clone())
-            .set_workstation_cluster(workstation_cluster.into())
     }
 
     /// Deletes the specified workstation cluster.
@@ -188,38 +177,26 @@ impl Workstations {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_workstation_cluster(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::workstations::DeleteWorkstationCluster {
         super::builder::workstations::DeleteWorkstationCluster::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns the requested workstation configuration.
-    pub fn get_workstation_config(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::GetWorkstationConfig {
+    pub fn get_workstation_config(&self) -> super::builder::workstations::GetWorkstationConfig {
         super::builder::workstations::GetWorkstationConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns all workstation configurations in the specified cluster.
-    pub fn list_workstation_configs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::workstations::ListWorkstationConfigs {
+    pub fn list_workstation_configs(&self) -> super::builder::workstations::ListWorkstationConfigs {
         super::builder::workstations::ListWorkstationConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns all workstation configurations in the specified cluster on which
     /// the caller has the "workstations.workstation.create" permission.
     pub fn list_usable_workstation_configs(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::workstations::ListUsableWorkstationConfigs {
         super::builder::workstations::ListUsableWorkstationConfigs::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new workstation configuration.
@@ -235,10 +212,8 @@ impl Workstations {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn create_workstation_config(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::workstations::CreateWorkstationConfig {
         super::builder::workstations::CreateWorkstationConfig::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing workstation configuration.
@@ -254,10 +229,8 @@ impl Workstations {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn update_workstation_config(
         &self,
-        workstation_config: impl Into<crate::model::WorkstationConfig>,
     ) -> super::builder::workstations::UpdateWorkstationConfig {
         super::builder::workstations::UpdateWorkstationConfig::new(self.inner.clone())
-            .set_workstation_config(workstation_config.into())
     }
 
     /// Deletes the specified workstation configuration.
@@ -273,37 +246,24 @@ impl Workstations {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_workstation_config(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::workstations::DeleteWorkstationConfig {
         super::builder::workstations::DeleteWorkstationConfig::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Returns the requested workstation.
-    pub fn get_workstation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::GetWorkstation {
-        super::builder::workstations::GetWorkstation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_workstation(&self) -> super::builder::workstations::GetWorkstation {
+        super::builder::workstations::GetWorkstation::new(self.inner.clone())
     }
 
     /// Returns all Workstations using the specified workstation configuration.
-    pub fn list_workstations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::workstations::ListWorkstations {
+    pub fn list_workstations(&self) -> super::builder::workstations::ListWorkstations {
         super::builder::workstations::ListWorkstations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Returns all workstations using the specified workstation configuration
     /// on which the caller has the "workstations.workstations.use" permission.
-    pub fn list_usable_workstations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::workstations::ListUsableWorkstations {
+    pub fn list_usable_workstations(&self) -> super::builder::workstations::ListUsableWorkstations {
         super::builder::workstations::ListUsableWorkstations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Creates a new workstation.
@@ -317,12 +277,8 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_workstation(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::workstations::CreateWorkstation {
+    pub fn create_workstation(&self) -> super::builder::workstations::CreateWorkstation {
         super::builder::workstations::CreateWorkstation::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Updates an existing workstation.
@@ -336,12 +292,8 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn update_workstation(
-        &self,
-        workstation: impl Into<crate::model::Workstation>,
-    ) -> super::builder::workstations::UpdateWorkstation {
+    pub fn update_workstation(&self) -> super::builder::workstations::UpdateWorkstation {
         super::builder::workstations::UpdateWorkstation::new(self.inner.clone())
-            .set_workstation(workstation.into())
     }
 
     /// Deletes the specified workstation.
@@ -355,12 +307,8 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn delete_workstation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::DeleteWorkstation {
+    pub fn delete_workstation(&self) -> super::builder::workstations::DeleteWorkstation {
         super::builder::workstations::DeleteWorkstation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Starts running a workstation so that users can connect to it.
@@ -374,12 +322,8 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn start_workstation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::StartWorkstation {
+    pub fn start_workstation(&self) -> super::builder::workstations::StartWorkstation {
         super::builder::workstations::StartWorkstation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Stops running a workstation, reducing costs.
@@ -393,21 +337,14 @@ impl Workstations {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn stop_workstation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::StopWorkstation {
-        super::builder::workstations::StopWorkstation::new(self.inner.clone()).set_name(name.into())
+    pub fn stop_workstation(&self) -> super::builder::workstations::StopWorkstation {
+        super::builder::workstations::StopWorkstation::new(self.inner.clone())
     }
 
     /// Returns a short-lived credential that can be used to send authenticated and
     /// authorized traffic to a workstation.
-    pub fn generate_access_token(
-        &self,
-        workstation: impl Into<std::string::String>,
-    ) -> super::builder::workstations::GenerateAccessToken {
+    pub fn generate_access_token(&self) -> super::builder::workstations::GenerateAccessToken {
         super::builder::workstations::GenerateAccessToken::new(self.inner.clone())
-            .set_workstation(workstation.into())
     }
 
     /// Sets the access control policy on the specified resource. Replaces
@@ -415,22 +352,14 @@ impl Workstations {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
-    pub fn set_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::workstations::SetIamPolicy {
+    pub fn set_iam_policy(&self) -> super::builder::workstations::SetIamPolicy {
         super::builder::workstations::SetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
-    pub fn get_iam_policy(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::workstations::GetIamPolicy {
+    pub fn get_iam_policy(&self) -> super::builder::workstations::GetIamPolicy {
         super::builder::workstations::GetIamPolicy::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Returns permissions that a caller has on the specified resource. If the
@@ -440,51 +369,35 @@ impl Workstations {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
-    pub fn test_iam_permissions(
-        &self,
-        resource: impl Into<std::string::String>,
-    ) -> super::builder::workstations::TestIamPermissions {
+    pub fn test_iam_permissions(&self) -> super::builder::workstations::TestIamPermissions {
         super::builder::workstations::TestIamPermissions::new(self.inner.clone())
-            .set_resource(resource.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::ListOperations {
-        super::builder::workstations::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::workstations::ListOperations {
+        super::builder::workstations::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::GetOperation {
-        super::builder::workstations::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::workstations::GetOperation {
+        super::builder::workstations::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::DeleteOperation {
-        super::builder::workstations::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::workstations::DeleteOperation {
+        super::builder::workstations::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::workstations::CancelOperation {
-        super::builder::workstations::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::workstations::CancelOperation {
+        super::builder::workstations::CancelOperation::new(self.inner.clone())
     }
 }

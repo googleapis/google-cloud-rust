@@ -16,9 +16,6 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-use crate::Result;
-use std::sync::Arc;
-
 /// Implements a client for the API hub API.
 ///
 /// # Example
@@ -27,7 +24,7 @@ use std::sync::Arc;
 /// # use google_cloud_apihub_v1::client::ApiHub;
 /// let client = ApiHub::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -58,11 +55,11 @@ use std::sync::Arc;
 ///
 /// `ApiHub` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiHub` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiHub {
-    inner: Arc<dyn super::stub::dynamic::ApiHub>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiHub>,
 }
 
 impl ApiHub {
@@ -72,7 +69,7 @@ impl ApiHub {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// let client = ApiHub::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::api_hub::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_hub::client::Factory)
@@ -87,33 +84,35 @@ impl ApiHub {
         T: super::stub::ApiHub + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ApiHub>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiHub>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiHub> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiHub> {
         super::transport::ApiHub::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiHub> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiHub> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiHub::new)
@@ -121,24 +120,18 @@ impl ApiHub {
 
     /// Create an API resource in the API hub.
     /// Once an API resource is created, versions can be added to it.
-    pub fn create_api(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CreateApi {
-        super::builder::api_hub::CreateApi::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_api(&self) -> super::builder::api_hub::CreateApi {
+        super::builder::api_hub::CreateApi::new(self.inner.clone())
     }
 
     /// Get API resource details including the API versions contained in it.
-    pub fn get_api(&self, name: impl Into<std::string::String>) -> super::builder::api_hub::GetApi {
-        super::builder::api_hub::GetApi::new(self.inner.clone()).set_name(name.into())
+    pub fn get_api(&self) -> super::builder::api_hub::GetApi {
+        super::builder::api_hub::GetApi::new(self.inner.clone())
     }
 
     /// List API resources in the API hub.
-    pub fn list_apis(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListApis {
-        super::builder::api_hub::ListApis::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_apis(&self) -> super::builder::api_hub::ListApis {
+        super::builder::api_hub::ListApis::new(self.inner.clone())
     }
 
     /// Update an API resource in the API hub. The following fields in the
@@ -171,46 +164,31 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Api.target_user]: crate::model::Api::target_user
     /// [google.cloud.apihub.v1.Api.team]: crate::model::Api::team
     /// [google.cloud.apihub.v1.UpdateApiRequest.update_mask]: crate::model::UpdateApiRequest::update_mask
-    pub fn update_api(
-        &self,
-        api: impl Into<crate::model::Api>,
-    ) -> super::builder::api_hub::UpdateApi {
-        super::builder::api_hub::UpdateApi::new(self.inner.clone()).set_api(api.into())
+    pub fn update_api(&self) -> super::builder::api_hub::UpdateApi {
+        super::builder::api_hub::UpdateApi::new(self.inner.clone())
     }
 
     /// Delete an API resource in the API hub. API can only be deleted if all
     /// underlying versions are deleted.
-    pub fn delete_api(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteApi {
-        super::builder::api_hub::DeleteApi::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_api(&self) -> super::builder::api_hub::DeleteApi {
+        super::builder::api_hub::DeleteApi::new(self.inner.clone())
     }
 
     /// Create an API version for an API resource in the API hub.
-    pub fn create_version(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CreateVersion {
-        super::builder::api_hub::CreateVersion::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_version(&self) -> super::builder::api_hub::CreateVersion {
+        super::builder::api_hub::CreateVersion::new(self.inner.clone())
     }
 
     /// Get details about the API version of an API resource. This will include
     /// information about the specs and operations present in the API
     /// version as well as the deployments linked to it.
-    pub fn get_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetVersion {
-        super::builder::api_hub::GetVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn get_version(&self) -> super::builder::api_hub::GetVersion {
+        super::builder::api_hub::GetVersion::new(self.inner.clone())
     }
 
     /// List API versions of an API resource in the API hub.
-    pub fn list_versions(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListVersions {
-        super::builder::api_hub::ListVersions::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_versions(&self) -> super::builder::api_hub::ListVersions {
+        super::builder::api_hub::ListVersions::new(self.inner.clone())
     }
 
     /// Update API version. The following fields in the
@@ -239,20 +217,14 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Version.display_name]: crate::model::Version::display_name
     /// [google.cloud.apihub.v1.Version.documentation]: crate::model::Version::documentation
     /// [google.cloud.apihub.v1.Version.lifecycle]: crate::model::Version::lifecycle
-    pub fn update_version(
-        &self,
-        version: impl Into<crate::model::Version>,
-    ) -> super::builder::api_hub::UpdateVersion {
-        super::builder::api_hub::UpdateVersion::new(self.inner.clone()).set_version(version.into())
+    pub fn update_version(&self) -> super::builder::api_hub::UpdateVersion {
+        super::builder::api_hub::UpdateVersion::new(self.inner.clone())
     }
 
     /// Delete an API version. Version can only be deleted if all underlying specs,
     /// operations, definitions and linked deployments are deleted.
-    pub fn delete_version(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteVersion {
-        super::builder::api_hub::DeleteVersion::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_version(&self) -> super::builder::api_hub::DeleteVersion {
+        super::builder::api_hub::DeleteVersion::new(self.inner.clone())
     }
 
     /// Add a spec to an API version in the API hub.
@@ -280,11 +252,8 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.ApiHub.GetSpec]: crate::client::ApiHub::get_spec
     /// [google.cloud.apihub.v1.ApiHub.GetSpecContents]: crate::client::ApiHub::get_spec_contents
     /// [google.cloud.apihub.v1.ApiHub.ListApiOperations]: crate::client::ApiHub::list_api_operations
-    pub fn create_spec(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CreateSpec {
-        super::builder::api_hub::CreateSpec::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_spec(&self) -> super::builder::api_hub::CreateSpec {
+        super::builder::api_hub::CreateSpec::new(self.inner.clone())
     }
 
     /// Get details about the information parsed from a spec.
@@ -293,27 +262,18 @@ impl ApiHub {
     /// to retrieve the same.
     ///
     /// [google.cloud.apihub.v1.ApiHub.GetSpecContents]: crate::client::ApiHub::get_spec_contents
-    pub fn get_spec(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetSpec {
-        super::builder::api_hub::GetSpec::new(self.inner.clone()).set_name(name.into())
+    pub fn get_spec(&self) -> super::builder::api_hub::GetSpec {
+        super::builder::api_hub::GetSpec::new(self.inner.clone())
     }
 
     /// Get spec contents.
-    pub fn get_spec_contents(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetSpecContents {
-        super::builder::api_hub::GetSpecContents::new(self.inner.clone()).set_name(name.into())
+    pub fn get_spec_contents(&self) -> super::builder::api_hub::GetSpecContents {
+        super::builder::api_hub::GetSpecContents::new(self.inner.clone())
     }
 
     /// List specs corresponding to a particular API resource.
-    pub fn list_specs(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListSpecs {
-        super::builder::api_hub::ListSpecs::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_specs(&self) -> super::builder::api_hub::ListSpecs {
+        super::builder::api_hub::ListSpecs::new(self.inner.clone())
     }
 
     /// Update spec. The following fields in the
@@ -328,9 +288,9 @@ impl ApiHub {
     ///
     /// In case of an OAS spec, updating spec contents can lead to:
     ///
-    /// . Creation, deletion and update of operations.
-    /// . Creation, deletion and update of definitions.
-    /// . Update of other info parsed out from the new spec.
+    /// 1. Creation, deletion and update of operations.
+    /// 1. Creation, deletion and update of definitions.
+    /// 1. Update of other info parsed out from the new spec.
     ///
     /// In case of contents or source_uri being present in update mask, spec_type
     /// must also be present. Also, spec_type can not be present in update mask if
@@ -348,72 +308,47 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Spec.source_uri]: crate::model::Spec::source_uri
     /// [google.cloud.apihub.v1.Spec.spec_type]: crate::model::Spec::spec_type
     /// [google.cloud.apihub.v1.UpdateSpecRequest.update_mask]: crate::model::UpdateSpecRequest::update_mask
-    pub fn update_spec(
-        &self,
-        spec: impl Into<crate::model::Spec>,
-    ) -> super::builder::api_hub::UpdateSpec {
-        super::builder::api_hub::UpdateSpec::new(self.inner.clone()).set_spec(spec.into())
+    pub fn update_spec(&self) -> super::builder::api_hub::UpdateSpec {
+        super::builder::api_hub::UpdateSpec::new(self.inner.clone())
     }
 
     /// Delete a spec.
     /// Deleting a spec will also delete the associated operations from the
     /// version.
-    pub fn delete_spec(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteSpec {
-        super::builder::api_hub::DeleteSpec::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_spec(&self) -> super::builder::api_hub::DeleteSpec {
+        super::builder::api_hub::DeleteSpec::new(self.inner.clone())
     }
 
     /// Get details about a particular operation in API version.
-    pub fn get_api_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetApiOperation {
-        super::builder::api_hub::GetApiOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_api_operation(&self) -> super::builder::api_hub::GetApiOperation {
+        super::builder::api_hub::GetApiOperation::new(self.inner.clone())
     }
 
     /// List operations in an API version.
-    pub fn list_api_operations(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListApiOperations {
+    pub fn list_api_operations(&self) -> super::builder::api_hub::ListApiOperations {
         super::builder::api_hub::ListApiOperations::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get details about a definition in an API version.
-    pub fn get_definition(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetDefinition {
-        super::builder::api_hub::GetDefinition::new(self.inner.clone()).set_name(name.into())
+    pub fn get_definition(&self) -> super::builder::api_hub::GetDefinition {
+        super::builder::api_hub::GetDefinition::new(self.inner.clone())
     }
 
     /// Create a deployment resource in the API hub.
     /// Once a deployment resource is created, it can be associated with API
     /// versions.
-    pub fn create_deployment(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CreateDeployment {
-        super::builder::api_hub::CreateDeployment::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_deployment(&self) -> super::builder::api_hub::CreateDeployment {
+        super::builder::api_hub::CreateDeployment::new(self.inner.clone())
     }
 
     /// Get details about a deployment and the API versions linked to it.
-    pub fn get_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetDeployment {
-        super::builder::api_hub::GetDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn get_deployment(&self) -> super::builder::api_hub::GetDeployment {
+        super::builder::api_hub::GetDeployment::new(self.inner.clone())
     }
 
     /// List deployment resources in the API hub.
-    pub fn list_deployments(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListDeployments {
-        super::builder::api_hub::ListDeployments::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_deployments(&self) -> super::builder::api_hub::ListDeployments {
+        super::builder::api_hub::ListDeployments::new(self.inner.clone())
     }
 
     /// Update a deployment resource in the API hub. The following fields in the
@@ -445,20 +380,13 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Deployment.resource_uri]: crate::model::Deployment::resource_uri
     /// [google.cloud.apihub.v1.Deployment.slo]: crate::model::Deployment::slo
     /// [google.cloud.apihub.v1.UpdateDeploymentRequest.update_mask]: crate::model::UpdateDeploymentRequest::update_mask
-    pub fn update_deployment(
-        &self,
-        deployment: impl Into<crate::model::Deployment>,
-    ) -> super::builder::api_hub::UpdateDeployment {
+    pub fn update_deployment(&self) -> super::builder::api_hub::UpdateDeployment {
         super::builder::api_hub::UpdateDeployment::new(self.inner.clone())
-            .set_deployment(deployment.into())
     }
 
     /// Delete a deployment resource in the API hub.
-    pub fn delete_deployment(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteDeployment {
-        super::builder::api_hub::DeleteDeployment::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_deployment(&self) -> super::builder::api_hub::DeleteDeployment {
+        super::builder::api_hub::DeleteDeployment::new(self.inner.clone())
     }
 
     /// Create a user defined attribute.
@@ -471,19 +399,13 @@ impl ApiHub {
     ///
     /// [google.cloud.apihub.v1.ApiHub.ListAttributes]: crate::client::ApiHub::list_attributes
     /// [google.cloud.apihub.v1.ApiHub.UpdateAttribute]: crate::client::ApiHub::update_attribute
-    pub fn create_attribute(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CreateAttribute {
-        super::builder::api_hub::CreateAttribute::new(self.inner.clone()).set_parent(parent.into())
+    pub fn create_attribute(&self) -> super::builder::api_hub::CreateAttribute {
+        super::builder::api_hub::CreateAttribute::new(self.inner.clone())
     }
 
     /// Get details about the attribute.
-    pub fn get_attribute(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetAttribute {
-        super::builder::api_hub::GetAttribute::new(self.inner.clone()).set_name(name.into())
+    pub fn get_attribute(&self) -> super::builder::api_hub::GetAttribute {
+        super::builder::api_hub::GetAttribute::new(self.inner.clone())
     }
 
     /// Update the attribute.  The following fields in the
@@ -516,12 +438,8 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.Attribute.description]: crate::model::Attribute::description
     /// [google.cloud.apihub.v1.Attribute.display_name]: crate::model::Attribute::display_name
     /// [google.cloud.apihub.v1.UpdateAttributeRequest.update_mask]: crate::model::UpdateAttributeRequest::update_mask
-    pub fn update_attribute(
-        &self,
-        attribute: impl Into<crate::model::Attribute>,
-    ) -> super::builder::api_hub::UpdateAttribute {
+    pub fn update_attribute(&self) -> super::builder::api_hub::UpdateAttribute {
         super::builder::api_hub::UpdateAttribute::new(self.inner.clone())
-            .set_attribute(attribute.into())
     }
 
     /// Delete an attribute.
@@ -529,45 +447,28 @@ impl ApiHub {
     /// Note: System defined attributes cannot be deleted. All
     /// associations of the attribute being deleted with any API hub resource will
     /// also get deleted.
-    pub fn delete_attribute(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteAttribute {
-        super::builder::api_hub::DeleteAttribute::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_attribute(&self) -> super::builder::api_hub::DeleteAttribute {
+        super::builder::api_hub::DeleteAttribute::new(self.inner.clone())
     }
 
     /// List all attributes.
-    pub fn list_attributes(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListAttributes {
-        super::builder::api_hub::ListAttributes::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_attributes(&self) -> super::builder::api_hub::ListAttributes {
+        super::builder::api_hub::ListAttributes::new(self.inner.clone())
     }
 
     /// Search across API-Hub resources.
-    pub fn search_resources(
-        &self,
-        location: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::SearchResources {
+    pub fn search_resources(&self) -> super::builder::api_hub::SearchResources {
         super::builder::api_hub::SearchResources::new(self.inner.clone())
-            .set_location(location.into())
     }
 
     /// Create an External API resource in the API hub.
-    pub fn create_external_api(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CreateExternalApi {
+    pub fn create_external_api(&self) -> super::builder::api_hub::CreateExternalApi {
         super::builder::api_hub::CreateExternalApi::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get details about an External API resource in the API hub.
-    pub fn get_external_api(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetExternalApi {
-        super::builder::api_hub::GetExternalApi::new(self.inner.clone()).set_name(name.into())
+    pub fn get_external_api(&self) -> super::builder::api_hub::GetExternalApi {
+        super::builder::api_hub::GetExternalApi::new(self.inner.clone())
     }
 
     /// Update an External API resource in the API hub. The following fields can be
@@ -589,84 +490,56 @@ impl ApiHub {
     /// [google.cloud.apihub.v1.ExternalApi.endpoints]: crate::model::ExternalApi::endpoints
     /// [google.cloud.apihub.v1.ExternalApi.paths]: crate::model::ExternalApi::paths
     /// [google.cloud.apihub.v1.UpdateExternalApiRequest.update_mask]: crate::model::UpdateExternalApiRequest::update_mask
-    pub fn update_external_api(
-        &self,
-        external_api: impl Into<crate::model::ExternalApi>,
-    ) -> super::builder::api_hub::UpdateExternalApi {
+    pub fn update_external_api(&self) -> super::builder::api_hub::UpdateExternalApi {
         super::builder::api_hub::UpdateExternalApi::new(self.inner.clone())
-            .set_external_api(external_api.into())
     }
 
     /// Delete an External API resource in the API hub.
-    pub fn delete_external_api(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteExternalApi {
-        super::builder::api_hub::DeleteExternalApi::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_external_api(&self) -> super::builder::api_hub::DeleteExternalApi {
+        super::builder::api_hub::DeleteExternalApi::new(self.inner.clone())
     }
 
     /// List External API resources in the API hub.
-    pub fn list_external_apis(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListExternalApis {
-        super::builder::api_hub::ListExternalApis::new(self.inner.clone()).set_parent(parent.into())
+    pub fn list_external_apis(&self) -> super::builder::api_hub::ListExternalApis {
+        super::builder::api_hub::ListExternalApis::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListLocations {
-        super::builder::api_hub::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::api_hub::ListLocations {
+        super::builder::api_hub::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetLocation {
-        super::builder::api_hub::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::api_hub::GetLocation {
+        super::builder::api_hub::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::ListOperations {
-        super::builder::api_hub::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::api_hub::ListOperations {
+        super::builder::api_hub::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::GetOperation {
-        super::builder::api_hub::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::api_hub::GetOperation {
+        super::builder::api_hub::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::DeleteOperation {
-        super::builder::api_hub::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::api_hub::DeleteOperation {
+        super::builder::api_hub::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub::CancelOperation {
-        super::builder::api_hub::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::api_hub::CancelOperation {
+        super::builder::api_hub::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -678,7 +551,7 @@ impl ApiHub {
 /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
 /// let client = ApiHubDependencies::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -712,11 +585,11 @@ impl ApiHub {
 ///
 /// `ApiHubDependencies` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiHubDependencies` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubDependencies {
-    inner: Arc<dyn super::stub::dynamic::ApiHubDependencies>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubDependencies>,
 }
 
 impl ApiHubDependencies {
@@ -726,7 +599,7 @@ impl ApiHubDependencies {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
     /// let client = ApiHubDependencies::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::api_hub_dependencies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -743,54 +616,49 @@ impl ApiHubDependencies {
         T: super::stub::ApiHubDependencies + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ApiHubDependencies>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiHubDependencies>>
+    {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiHubDependencies> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubDependencies> {
         super::transport::ApiHubDependencies::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiHubDependencies> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubDependencies> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiHubDependencies::new)
     }
 
     /// Create a dependency between two entities in the API hub.
-    pub fn create_dependency(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::CreateDependency {
+    pub fn create_dependency(&self) -> super::builder::api_hub_dependencies::CreateDependency {
         super::builder::api_hub_dependencies::CreateDependency::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Get details about a dependency resource in the API hub.
-    pub fn get_dependency(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::GetDependency {
+    pub fn get_dependency(&self) -> super::builder::api_hub_dependencies::GetDependency {
         super::builder::api_hub_dependencies::GetDependency::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update a dependency based on the
@@ -805,92 +673,56 @@ impl ApiHubDependencies {
     /// [google.cloud.apihub.v1.Dependency]: crate::model::Dependency
     /// [google.cloud.apihub.v1.Dependency.description]: crate::model::Dependency::description
     /// [google.cloud.apihub.v1.UpdateDependencyRequest.update_mask]: crate::model::UpdateDependencyRequest::update_mask
-    pub fn update_dependency(
-        &self,
-        dependency: impl Into<crate::model::Dependency>,
-    ) -> super::builder::api_hub_dependencies::UpdateDependency {
+    pub fn update_dependency(&self) -> super::builder::api_hub_dependencies::UpdateDependency {
         super::builder::api_hub_dependencies::UpdateDependency::new(self.inner.clone())
-            .set_dependency(dependency.into())
     }
 
     /// Delete the dependency resource.
-    pub fn delete_dependency(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::DeleteDependency {
+    pub fn delete_dependency(&self) -> super::builder::api_hub_dependencies::DeleteDependency {
         super::builder::api_hub_dependencies::DeleteDependency::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// List dependencies based on the provided filter and pagination parameters.
-    pub fn list_dependencies(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::ListDependencies {
+    pub fn list_dependencies(&self) -> super::builder::api_hub_dependencies::ListDependencies {
         super::builder::api_hub_dependencies::ListDependencies::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::ListLocations {
+    pub fn list_locations(&self) -> super::builder::api_hub_dependencies::ListLocations {
         super::builder::api_hub_dependencies::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::GetLocation {
+    pub fn get_location(&self) -> super::builder::api_hub_dependencies::GetLocation {
         super::builder::api_hub_dependencies::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::ListOperations {
+    pub fn list_operations(&self) -> super::builder::api_hub_dependencies::ListOperations {
         super::builder::api_hub_dependencies::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::GetOperation {
+    pub fn get_operation(&self) -> super::builder::api_hub_dependencies::GetOperation {
         super::builder::api_hub_dependencies::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::api_hub_dependencies::DeleteOperation {
         super::builder::api_hub_dependencies::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_dependencies::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::api_hub_dependencies::CancelOperation {
         super::builder::api_hub_dependencies::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -902,7 +734,7 @@ impl ApiHubDependencies {
 /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
 /// let client = HostProjectRegistrationService::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -933,11 +765,11 @@ impl ApiHubDependencies {
 ///
 /// `HostProjectRegistrationService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `HostProjectRegistrationService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct HostProjectRegistrationService {
-    inner: Arc<dyn super::stub::dynamic::HostProjectRegistrationService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::HostProjectRegistrationService>,
 }
 
 impl HostProjectRegistrationService {
@@ -947,7 +779,7 @@ impl HostProjectRegistrationService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
     /// let client = HostProjectRegistrationService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::host_project_registration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -964,33 +796,37 @@ impl HostProjectRegistrationService {
         T: super::stub::HostProjectRegistrationService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::HostProjectRegistrationService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::HostProjectRegistrationService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::HostProjectRegistrationService> {
+    ) -> gax::client_builder::Result<impl super::stub::HostProjectRegistrationService> {
         super::transport::HostProjectRegistrationService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::HostProjectRegistrationService> {
+    ) -> gax::client_builder::Result<impl super::stub::HostProjectRegistrationService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::HostProjectRegistrationService::new)
@@ -1003,52 +839,40 @@ impl HostProjectRegistrationService {
     /// register calls for the same project will fail.
     pub fn create_host_project_registration(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::CreateHostProjectRegistration {
         super::builder::host_project_registration_service::CreateHostProjectRegistration::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Get a host project registration.
     pub fn get_host_project_registration(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::GetHostProjectRegistration {
         super::builder::host_project_registration_service::GetHostProjectRegistration::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Lists host project registrations.
     pub fn list_host_project_registrations(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::ListHostProjectRegistrations {
         super::builder::host_project_registration_service::ListHostProjectRegistrations::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::ListLocations {
         super::builder::host_project_registration_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::host_project_registration_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::host_project_registration_service::GetLocation {
         super::builder::host_project_registration_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1056,21 +880,15 @@ impl HostProjectRegistrationService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::ListOperations {
         super::builder::host_project_registration_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::host_project_registration_service::GetOperation {
+    pub fn get_operation(&self) -> super::builder::host_project_registration_service::GetOperation {
         super::builder::host_project_registration_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1078,10 +896,8 @@ impl HostProjectRegistrationService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::DeleteOperation {
         super::builder::host_project_registration_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1089,10 +905,8 @@ impl HostProjectRegistrationService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::host_project_registration_service::CancelOperation {
         super::builder::host_project_registration_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1104,7 +918,7 @@ impl HostProjectRegistrationService {
 /// # use google_cloud_apihub_v1::client::LintingService;
 /// let client = LintingService::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1135,11 +949,11 @@ impl HostProjectRegistrationService {
 ///
 /// `LintingService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `LintingService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct LintingService {
-    inner: Arc<dyn super::stub::dynamic::LintingService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::LintingService>,
 }
 
 impl LintingService {
@@ -1149,7 +963,7 @@ impl LintingService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::LintingService;
     /// let client = LintingService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::linting_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::linting_service::client::Factory)
@@ -1164,133 +978,100 @@ impl LintingService {
         T: super::stub::LintingService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::LintingService>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::LintingService>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LintingService> {
+    ) -> gax::client_builder::Result<impl super::stub::LintingService> {
         super::transport::LintingService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::LintingService> {
+    ) -> gax::client_builder::Result<impl super::stub::LintingService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::LintingService::new)
     }
 
     /// Get the style guide being used for linting.
-    pub fn get_style_guide(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::GetStyleGuide {
+    pub fn get_style_guide(&self) -> super::builder::linting_service::GetStyleGuide {
         super::builder::linting_service::GetStyleGuide::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Update the styleGuide to be used for liniting in by API hub.
-    pub fn update_style_guide(
-        &self,
-        style_guide: impl Into<crate::model::StyleGuide>,
-    ) -> super::builder::linting_service::UpdateStyleGuide {
+    pub fn update_style_guide(&self) -> super::builder::linting_service::UpdateStyleGuide {
         super::builder::linting_service::UpdateStyleGuide::new(self.inner.clone())
-            .set_style_guide(style_guide.into())
     }
 
     /// Get the contents of the style guide.
     pub fn get_style_guide_contents(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::linting_service::GetStyleGuideContents {
         super::builder::linting_service::GetStyleGuideContents::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Lints the requested spec and updates the corresponding API Spec with the
     /// lint response. This lint response will be available in all subsequent
     /// Get and List Spec calls to Core service.
-    pub fn lint_spec(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::LintSpec {
-        super::builder::linting_service::LintSpec::new(self.inner.clone()).set_name(name.into())
+    pub fn lint_spec(&self) -> super::builder::linting_service::LintSpec {
+        super::builder::linting_service::LintSpec::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::ListLocations {
+    pub fn list_locations(&self) -> super::builder::linting_service::ListLocations {
         super::builder::linting_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::GetLocation {
-        super::builder::linting_service::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::linting_service::GetLocation {
+        super::builder::linting_service::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::ListOperations {
+    pub fn list_operations(&self) -> super::builder::linting_service::ListOperations {
         super::builder::linting_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::GetOperation {
-        super::builder::linting_service::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::linting_service::GetOperation {
+        super::builder::linting_service::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::linting_service::DeleteOperation {
         super::builder::linting_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::linting_service::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::linting_service::CancelOperation {
         super::builder::linting_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1302,7 +1083,7 @@ impl LintingService {
 /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
 /// let client = ApiHubPlugin::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1333,11 +1114,11 @@ impl LintingService {
 ///
 /// `ApiHubPlugin` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `ApiHubPlugin` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct ApiHubPlugin {
-    inner: Arc<dyn super::stub::dynamic::ApiHubPlugin>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::ApiHubPlugin>,
 }
 
 impl ApiHubPlugin {
@@ -1347,7 +1128,7 @@ impl ApiHubPlugin {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
     /// let client = ApiHubPlugin::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::api_hub_plugin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_hub_plugin::client::Factory)
@@ -1362,121 +1143,93 @@ impl ApiHubPlugin {
         T: super::stub::ApiHubPlugin + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::ApiHubPlugin>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ApiHubPlugin>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiHubPlugin> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubPlugin> {
         super::transport::ApiHubPlugin::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::ApiHubPlugin> {
+    ) -> gax::client_builder::Result<impl super::stub::ApiHubPlugin> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::ApiHubPlugin::new)
     }
 
     /// Get details about an API Hub plugin.
-    pub fn get_plugin(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::GetPlugin {
-        super::builder::api_hub_plugin::GetPlugin::new(self.inner.clone()).set_name(name.into())
+    pub fn get_plugin(&self) -> super::builder::api_hub_plugin::GetPlugin {
+        super::builder::api_hub_plugin::GetPlugin::new(self.inner.clone())
     }
 
     /// Enables a plugin.
     /// The `state` of the plugin after enabling is `ENABLED`
-    pub fn enable_plugin(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::EnablePlugin {
-        super::builder::api_hub_plugin::EnablePlugin::new(self.inner.clone()).set_name(name.into())
+    pub fn enable_plugin(&self) -> super::builder::api_hub_plugin::EnablePlugin {
+        super::builder::api_hub_plugin::EnablePlugin::new(self.inner.clone())
     }
 
     /// Disables a plugin.
     /// The `state` of the plugin after disabling is `DISABLED`
-    pub fn disable_plugin(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::DisablePlugin {
-        super::builder::api_hub_plugin::DisablePlugin::new(self.inner.clone()).set_name(name.into())
+    pub fn disable_plugin(&self) -> super::builder::api_hub_plugin::DisablePlugin {
+        super::builder::api_hub_plugin::DisablePlugin::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::ListLocations {
-        super::builder::api_hub_plugin::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::api_hub_plugin::ListLocations {
+        super::builder::api_hub_plugin::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::GetLocation {
-        super::builder::api_hub_plugin::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::api_hub_plugin::GetLocation {
+        super::builder::api_hub_plugin::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::ListOperations {
+    pub fn list_operations(&self) -> super::builder::api_hub_plugin::ListOperations {
         super::builder::api_hub_plugin::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::GetOperation {
-        super::builder::api_hub_plugin::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::api_hub_plugin::GetOperation {
+        super::builder::api_hub_plugin::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::DeleteOperation {
+    pub fn delete_operation(&self) -> super::builder::api_hub_plugin::DeleteOperation {
         super::builder::api_hub_plugin::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::api_hub_plugin::CancelOperation {
+    pub fn cancel_operation(&self) -> super::builder::api_hub_plugin::CancelOperation {
         super::builder::api_hub_plugin::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
 
@@ -1488,7 +1241,7 @@ impl ApiHubPlugin {
 /// # use google_cloud_apihub_v1::client::Provisioning;
 /// let client = Provisioning::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1519,11 +1272,11 @@ impl ApiHubPlugin {
 ///
 /// `Provisioning` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `Provisioning` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct Provisioning {
-    inner: Arc<dyn super::stub::dynamic::Provisioning>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::Provisioning>,
 }
 
 impl Provisioning {
@@ -1533,7 +1286,7 @@ impl Provisioning {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::Provisioning;
     /// let client = Provisioning::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::provisioning::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::provisioning::client::Factory)
@@ -1548,33 +1301,35 @@ impl Provisioning {
         T: super::stub::Provisioning + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::Provisioning>> {
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Provisioning>> {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Provisioning> {
+    ) -> gax::client_builder::Result<impl super::stub::Provisioning> {
         super::transport::Provisioning::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::Provisioning> {
+    ) -> gax::client_builder::Result<impl super::stub::Provisioning> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::Provisioning::new)
@@ -1591,87 +1346,57 @@ impl Provisioning {
     /// [long-running operation]: https://google.aip.dev/151
     /// [user guide]: https://googleapis.github.io/google-cloud-rust/
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
-    pub fn create_api_hub_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::CreateApiHubInstance {
+    pub fn create_api_hub_instance(&self) -> super::builder::provisioning::CreateApiHubInstance {
         super::builder::provisioning::CreateApiHubInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Gets details of a single API Hub instance.
-    pub fn get_api_hub_instance(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::GetApiHubInstance {
+    pub fn get_api_hub_instance(&self) -> super::builder::provisioning::GetApiHubInstance {
         super::builder::provisioning::GetApiHubInstance::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Looks up an Api Hub instance in a given GCP project. There will always be
     /// only one Api Hub instance for a GCP project across all locations.
-    pub fn lookup_api_hub_instance(
-        &self,
-        parent: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::LookupApiHubInstance {
+    pub fn lookup_api_hub_instance(&self) -> super::builder::provisioning::LookupApiHubInstance {
         super::builder::provisioning::LookupApiHubInstance::new(self.inner.clone())
-            .set_parent(parent.into())
     }
 
     /// Lists information about the supported locations for this service.
-    pub fn list_locations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::ListLocations {
-        super::builder::provisioning::ListLocations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_locations(&self) -> super::builder::provisioning::ListLocations {
+        super::builder::provisioning::ListLocations::new(self.inner.clone())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::GetLocation {
-        super::builder::provisioning::GetLocation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_location(&self) -> super::builder::provisioning::GetLocation {
+        super::builder::provisioning::GetLocation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn list_operations(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::ListOperations {
-        super::builder::provisioning::ListOperations::new(self.inner.clone()).set_name(name.into())
+    pub fn list_operations(&self) -> super::builder::provisioning::ListOperations {
+        super::builder::provisioning::ListOperations::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn get_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::GetOperation {
-        super::builder::provisioning::GetOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn get_operation(&self) -> super::builder::provisioning::GetOperation {
+        super::builder::provisioning::GetOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn delete_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::DeleteOperation {
-        super::builder::provisioning::DeleteOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn delete_operation(&self) -> super::builder::provisioning::DeleteOperation {
+        super::builder::provisioning::DeleteOperation::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
-    pub fn cancel_operation(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::provisioning::CancelOperation {
-        super::builder::provisioning::CancelOperation::new(self.inner.clone()).set_name(name.into())
+    pub fn cancel_operation(&self) -> super::builder::provisioning::CancelOperation {
+        super::builder::provisioning::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -1683,7 +1408,7 @@ impl Provisioning {
 /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
 /// let client = RuntimeProjectAttachmentService::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::Result::<()>::Ok(()) });
+/// # gax::client_builder::Result::<()>::Ok(()) });
 /// ```
 ///
 /// # Service Description
@@ -1714,11 +1439,11 @@ impl Provisioning {
 ///
 /// `RuntimeProjectAttachmentService` holds a connection pool internally, it is advised to
 /// create one and the reuse it.  You do not need to wrap `RuntimeProjectAttachmentService` in
-/// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
-/// internally.
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
 #[derive(Clone, Debug)]
 pub struct RuntimeProjectAttachmentService {
-    inner: Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>,
+    inner: std::sync::Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>,
 }
 
 impl RuntimeProjectAttachmentService {
@@ -1728,7 +1453,7 @@ impl RuntimeProjectAttachmentService {
     /// # tokio_test::block_on(async {
     /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
     /// let client = RuntimeProjectAttachmentService::builder().build().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
     pub fn builder() -> super::builder::runtime_project_attachment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1745,33 +1470,37 @@ impl RuntimeProjectAttachmentService {
         T: super::stub::RuntimeProjectAttachmentService + 'static,
     {
         Self {
-            inner: Arc::new(stub),
+            inner: std::sync::Arc::new(stub),
         }
     }
 
-    pub(crate) async fn new(config: gaxi::options::ClientConfig) -> Result<Self> {
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
         let inner = Self::build_inner(config).await?;
         Ok(Self { inner })
     }
 
     async fn build_inner(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>> {
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::RuntimeProjectAttachmentService>,
+    > {
         if gaxi::options::tracing_enabled(&conf) {
-            return Ok(Arc::new(Self::build_with_tracing(conf).await?));
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
         }
-        Ok(Arc::new(Self::build_transport(conf).await?))
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
     }
 
     async fn build_transport(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RuntimeProjectAttachmentService> {
+    ) -> gax::client_builder::Result<impl super::stub::RuntimeProjectAttachmentService> {
         super::transport::RuntimeProjectAttachmentService::new(conf).await
     }
 
     async fn build_with_tracing(
         conf: gaxi::options::ClientConfig,
-    ) -> Result<impl super::stub::RuntimeProjectAttachmentService> {
+    ) -> gax::client_builder::Result<impl super::stub::RuntimeProjectAttachmentService> {
         Self::build_transport(conf)
             .await
             .map(super::tracing::RuntimeProjectAttachmentService::new)
@@ -1780,76 +1509,60 @@ impl RuntimeProjectAttachmentService {
     /// Attaches a runtime project to the host project.
     pub fn create_runtime_project_attachment(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment {
         super::builder::runtime_project_attachment_service::CreateRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Gets a runtime project attachment.
     pub fn get_runtime_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::GetRuntimeProjectAttachment {
         super::builder::runtime_project_attachment_service::GetRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// List runtime projects attached to the host project.
     pub fn list_runtime_project_attachments(
         &self,
-        parent: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::ListRuntimeProjectAttachments {
         super::builder::runtime_project_attachment_service::ListRuntimeProjectAttachments::new(
             self.inner.clone(),
         )
-        .set_parent(parent.into())
     }
 
     /// Delete a runtime project attachment in the API Hub. This call will detach
     /// the runtime project from the host project.
     pub fn delete_runtime_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment {
         super::builder::runtime_project_attachment_service::DeleteRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Look up a runtime project attachment. This API can be called in the context
     /// of any project.
     pub fn lookup_runtime_project_attachment(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment {
         super::builder::runtime_project_attachment_service::LookupRuntimeProjectAttachment::new(
             self.inner.clone(),
         )
-        .set_name(name.into())
     }
 
     /// Lists information about the supported locations for this service.
     pub fn list_locations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::ListLocations {
         super::builder::runtime_project_attachment_service::ListLocations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Gets information about a location.
-    pub fn get_location(
-        &self,
-        name: impl Into<std::string::String>,
-    ) -> super::builder::runtime_project_attachment_service::GetLocation {
+    pub fn get_location(&self) -> super::builder::runtime_project_attachment_service::GetLocation {
         super::builder::runtime_project_attachment_service::GetLocation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1857,10 +1570,8 @@ impl RuntimeProjectAttachmentService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn list_operations(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::ListOperations {
         super::builder::runtime_project_attachment_service::ListOperations::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1868,10 +1579,8 @@ impl RuntimeProjectAttachmentService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn get_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::GetOperation {
         super::builder::runtime_project_attachment_service::GetOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1879,10 +1588,8 @@ impl RuntimeProjectAttachmentService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn delete_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::DeleteOperation {
         super::builder::runtime_project_attachment_service::DeleteOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
@@ -1890,9 +1597,7 @@ impl RuntimeProjectAttachmentService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(
         &self,
-        name: impl Into<std::string::String>,
     ) -> super::builder::runtime_project_attachment_service::CancelOperation {
         super::builder::runtime_project_attachment_service::CancelOperation::new(self.inner.clone())
-            .set_name(name.into())
     }
 }
